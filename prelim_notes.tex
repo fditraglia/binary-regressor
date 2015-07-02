@@ -1,0 +1,387 @@
+%!TEX root = notes.tex
+
+\section{The Case of a Binary Regressor}
+
+Suppose now that $T$, and $T^*$, are binary variables where, as before,
+\begin{eqnarray}
+  y &=&  c + \beta T^* + u \\
+  T &=& T^* + w
+\end{eqnarray}
+and $z$ is a variable that we will use as an instrument for $T^*$.
+The variable $z$ may be binary, discrete or continuous.
+As before, we will allow for regressor endogeneity and instrument invalidity: both $T^*$ and $z$ are potentially correlated with $u$
+Let $p = P(T = 1)$ and $p^* = P(T^*=1)$ and note that, since $T^*$ is discrete,
+\begin{equation}
+  Cov(T^*,u) = p^* E\left( u|T^*=1 \right)
+  \label{eq:CovTstarU}
+\end{equation}
+Since the model includes a constant, we have $E[u]=0$ and hence,
+\begin{eqnarray*}
+  0 &=& E[u] =   E\left[ E\left( u|T^*\right) \right]\\
+  &=&  p^* E\left( u|T^*=1 \right) + \left( 1-p^* \right)E\left( u|T^*=0 \right)
+\end{eqnarray*}
+Rearranging,
+\begin{equation}
+  E\left( u|T^*=0 \right) = \frac{-Cov(T^*,u)}{1-p^*}
+  \label{eq:uTstar0}
+\end{equation}
+
+\subsection*{Recall: Properties of Covariance}
+In the derivations that follow, we will repeatedly use several simple properties of covariances.
+Let $X, Y, Z$ be arbitrary random variables and $\alpha$ be a constant.
+Then,
+\begin{eqnarray*}
+  Cov(X, Y) &=&  Cov(Y, X)\\
+  Cov(X, X) &=&  Var(X)\\
+  Cov(X, \alpha Y) &=& \alpha Cov(X,Y)\\
+  Cov(X, Y + \alpha) &=&  Cov(X, Y)\\
+  Cov(X, Y + Z) &=& Cov(X, Y) + Cov(X, Z)
+\end{eqnarray*}
+from the shorcut formula for covariance $Cov(X,Y) = E[XY] - E[X]E[Y]$.
+
+\subsection{The Measurement Error Assumption}
+Since $T$ and $T^*$ are both binary, measurement error in this example is governed by two conditional probabilities: 
+\begin{eqnarray}
+  \alpha_0 &=& P(T = 1 | T^* = 0)\\
+  \alpha_1 &=& P(T = 0 | T^* = 1)
+\end{eqnarray}
+These mis-classification probabilities replace $\kappa$ in the case of a binary regressor.
+Using the definitions of $\alpha_0,\alpha_1$ we find that
+\begin{equation}
+  p = \left( 1 - \alpha_{1} \right) p^* + \alpha_0 \left( 1 - p^* \right) 
+\end{equation}
+and
+\begin{eqnarray*}
+  Cov(T, T^*) &=& E(T^*T) - pp^* = P(T=1, T^*=1) - pp^* \\
+  &=& \left( 1 - \alpha_1 \right) p^* -\left[ \left( 1 - \alpha_{1} \right) p^* + \alpha_0 \left( 1 - p^* \right)p^* \right]
+\end{eqnarray*}
+so we have
+\begin{equation}
+ Cov(T^*, T) = Var(T^*)(1-\alpha_0-\alpha_1) 
+ \label{eq:CovTstarT}
+\end{equation}
+Now, since $w = T - T^*$
+\begin{equation}
+  Cov(T^*,w) = Cov(T^*,T) - Var(T^*) = -Var(T^*)(\alpha_0 + \alpha_1)
+  \label{eq:CovTstarW}
+\end{equation}
+which shows that it is \emph{impossible} for a binary regressor to suffer from classical measurement error: the true value $T^*$ must be \emph{negatively} correlated with the measurement error $w$.
+
+Another way to see this is by calculating the conditional expectation of $w$ given $T^*$.
+Since $T$ and $T^*$ are both binary, $w$ can only take on values in the set $\left\{ -1,0,1 \right\}$.
+The conditional distribution of $w$ given $T^*$ is as follows:
+\begin{eqnarray*}
+  \begin{array}{l}
+  T^* = 0 \implies \left\{
+  \begin{array}{lll}
+    T = 0 & \mbox{with prob. } 1 - \alpha_0& \iff w = 0 \\
+    T = 1 & \mbox{with prob. } \alpha_0 & \iff w = 1\\ 
+  \end{array}
+  \right. \\ \\
+  T^* = 1 \implies \left\{
+  \begin{array}{lll}
+    T = 0 & \mbox{with prob. } \alpha_1& \iff w = -1 \\
+    T = 1 & \mbox{with prob. } 1 - \alpha_1 & \iff w = 0\\ 
+  \end{array}
+  \right.
+\end{array}
+\end{eqnarray*}
+and hence
+\begin{eqnarray}
+  E[w|T^*=0] &=&  \alpha_0
+  \label{eq:wTstar0}\\
+  E[w|T^*=1] &=& -\alpha_1
+  \label{eq:wTstar1}
+\end{eqnarray}
+
+Since classical measurement error is impossible we assume instead that $w$ is \emph{conditionally} independent of $u$ and $z$ (and any covariates we may choose to include in the model) \emph{given} $T^*$.
+To take a particular example, consider self-reports of smoking behavior.
+Our measurement error assumption allows for the possibility that smokers are more likely to mis-represent their true smoking status than nonsmokers.
+After controlling for true smoking status, however, it rules out any relationship between measurement error and the instrument, as well as any other characteristics, observed or unobserved, that determine the outcome $y$.
+Although weaker than classical measurement error, this assumption is still quite strong.
+
+In the case of classical measurement error, the variance of $T^*$ cannot exceed that of $T=T^*+w$.
+When $T^*$ is binary, however, this is no longer the case.
+To see why, we first express $p^*$ in terms of $p$ and $\alpha_0, \alpha_1$.
+By the Law of Total Probability,
+\begin{equation*}
+ p = (1-\alpha_1)p^* + \alpha_0(1-p^*) = (1 - \alpha_0 - \alpha_1) p^* + \alpha_0
+\end{equation*}
+which gives
+\begin{equation}
+  p^* = \frac{p - \alpha_0}{1 - \alpha_0 - \alpha_1}
+  \label{eq:Pstar}
+\end{equation}
+and accordingly
+\begin{equation}
+  1 - p^* = \frac{1 - p - \alpha_1}{1 -\alpha_0 - \alpha_1}
+  \label{eq:1minusPstar}
+\end{equation}
+so that
+\begin{equation}
+  Var(T^*) = p^*(1-p^*) = \frac{(p-\alpha_0)(1-p-\alpha_1)}{(1-\alpha_0 -\alpha_1)^2}
+  \label{eq:VarTstar}
+\end{equation}
+We see from this expression that there is no general relationship between $Var(T^*)$ and $Var(T) = p(1-p)$.
+Either the variance of the true regressor or the mis-measured regressor could be the larger, depending on the values of $p$, $\alpha_0$ and $\alpha_1$.
+
+
+
+
+\subsection{The OLS Estimator}
+Let $\beta_{OLS}$ denote the probability limit of the OLS estimator.
+We have:
+\begin{eqnarray*}
+  \beta_{OLS} &=& \frac{Cov(T,Y)}{Var(T)} = \frac{Cov(T, c + \beta T^* + u)}{Var(T)} = \frac{\beta Cov(T,T^*) + Cov(T,u)}{Var(T)} \\
+&=& \frac{\beta Cov(T,T^*) + Cov(T^*,u) + Cov(w,u)}{Var(T)} \\
+\end{eqnarray*}
+To simplify this expression we first need to calculate $Cov(w,u)$.
+Using the our measurement error assumption $E[wu|T^*]=E[w|T^*]E[u|T^*]$ and since the model includes a constant $E[u]=0$.
+Hence,
+\begin{eqnarray*}
+  Cov(w,u) &=& E[wu] = E\left[ E\left( wu|T^* \right) \right] = E\left[ E\left( w|T^* \right)E\left( u|T^* \right) \right] \\
+  &=& p^* E\left( w|T^*=1 \right)E\left( u|T^*=1 \right) + \left( 1-p^* \right)E\left( w|T^*=0 \right)E(u |T^* = 0)
+\end{eqnarray*}
+Substituting Equations \ref{eq:CovTstarU}, \ref{eq:uTstar0}, \ref{eq:CovTstarT}, \ref{eq:wTstar0} and \ref{eq:wTstar1} and simplifying we find that
+\begin{equation}
+  Cov(w,u) = -Cov(T^*,u)(\alpha_0 + \alpha_1) 
+  \label{eq:CovWU}
+\end{equation}
+from which it follows that
+\begin{equation*}
+  \beta_{OLS} = \left( 1 - \alpha_0 - \alpha_1 \right)\left\{ \beta \left[\frac{Var(T^*)}{Var(T)}\right] + \frac{Cov(T^*,u)}{Var(T)} \right\}
+\end{equation*}
+Finally, expanding and substituting $p(1-p)$ for $Var(T)$ and Equation \ref{eq:VarTstar} for $Var(T^*)$, we find that
+\begin{eqnarray}
+  \beta_{OLS} = \frac{1}{p(1-p)}\left\{ \left[ \frac{(p - \alpha_0)(1 - p - \alpha_1)}{1 - \alpha_0 - \alpha_1} \right] \beta + (1-\alpha_0-\alpha_1)Cov(T^*,u)\right\}
+  \label{eq:plimOLS}
+\end{eqnarray}
+Note that, even if $Cov(T^*,u)=0$ it is \emph{not necessarily true} that the OLS probability limit is attenuated towards zero.
+The sum $\alpha_0 + \alpha_1$ is not constrained to be less than zero because the respective probabilities are conditional on different values of $T^*$.
+Accordingly, if the measurement error is very severe, it is possible for the OLS probability limit to have the wrong sign. 
+When $\alpha_0 + \alpha_1 < 1$ we have the usual OLS attenuation bias result.
+
+\subsection{The IV Estimator}
+Let $\beta_{IV}$ denote the probability limit of the instrumental variables estimator.
+We have:
+\begin{eqnarray*}
+  \beta_{IV} =  \frac{Cov(z,y)}{Cov(z,T)} = \frac{Cov(z,c+\beta T^* + u)}{Cov(z,T)} =  \frac{\beta Cov(z,T^*) + Cov(z,u)}{Cov(z,T)}
+\end{eqnarray*}
+To evaluate this quantity we need to relate $Cov(z,T^*)$ to $Cov(z,T)$.
+First note that
+\begin{equation*}
+  Cov(z,T) = Cov(z, T^*+w) = Cov(z,T^*) + Cov(z,w)
+\end{equation*}
+Rearranging,
+\begin{equation}
+  Cov(z,T) - Cov(z,T^*) = Cov(z,w)
+  \label{eq:diffCovZT}
+\end{equation}
+Now, unlike in the case of classical measurement error, it is \emph{not} in general true that $Cov(z,w)=0$.
+Our assumption only tells us that $Cov(z,w|T^*)=0$.
+By the definition of conditional covariance, this implies that
+\begin{equation*}
+  0 = Cov(z,w|T^*) = Cov(z,w) - Cov(z,T^*)Cov(T^*,w)/Var(T^*)
+\end{equation*}
+In other words:
+\begin{equation*}
+  Var(T^*) Cov(z,w) = Cov(z,T^*)Cov(T^*,w)
+\end{equation*}
+Using Equation \ref{eq:CovTstarW} to substitute for $Cov(T^*,w)$ and cancelling a factor of $Var(T^*)$ from each side, we find that
+\begin{equation}
+  Cov(z,w) = -(\alpha_0 + \alpha_1) Cov(z,T^*)
+  \label{eq:CovZW}
+\end{equation}
+Substituting this into Equation \ref{eq:diffCovZT} and rearranging gives
+\begin{equation}
+  \frac{Cov(z,T)}{Cov(z,T^*)} = \frac{1}{1-\alpha_0-\alpha_1}
+  \label{eq:ratioCovTZ}
+\end{equation}
+and therefore
+\begin{equation}
+  \beta_{IV} =  \frac{\beta}{1 - \alpha_0 - \alpha_1} + \frac{Cov(z,u)}{Cov(z,T)}
+  \label{eq:IVplim}
+\end{equation}
+Note that, even if $Cov(z,u) = 0$, the IV estimator is \emph{not} consistent for $\beta$.
+Without knowledge of $\alpha_0 + \alpha_1$, IV cannot solve the problem of measurement error in a binary regressor. 
+Provided that the measurement error is not too severe, $\alpha_0 + \alpha_1 < 1$, IV will \emph{over--estimate} the true effect of $T^*$.
+Note, however, that IV does solve the problem of an endogeneous binary regressor but only if there is not measurement error: provided that $Cov(z,u)=0$ and $\alpha_0 = \alpha_1=0$, $\beta_{IV} = \beta$.
+
+\subsection{The ``Modified'' IV Estimator}
+Define 
+\begin{equation}
+\widetilde{z} = T(z - E[z])
+  \label{eq:Ztilde}
+\end{equation}
+and let $\widetilde{\beta}_{IV}$ denote the IV estimator that uses $\widetilde{z}$ in place of $z$, namely
+\begin{eqnarray*}
+  \widetilde{\beta}_{IV} &=& \frac{Cov(\widetilde{z},y)}{Cov\left( \widetilde{z},T \right)} = \frac{\beta Cov(\widetilde{z},T^*) + Cov(\widetilde{z},u)}{Cov(\widetilde{z},T)}
+\end{eqnarray*}
+The derivations for this estimator are more complicated than those for the OLS and IV estimator, so we proceed in three steps.
+
+\paragraph{Step 1}
+We begin by expressing $Cov(\widetilde{z},T)$ in terms of $Cov(z,T)$.
+We have:
+\begin{eqnarray*}
+  Cov(\widetilde{z},T) &=& Cov\left( T\left\{ z- E[z] \right\}, T \right) = Cov(zT,T) - E(z)Var(T)\\
+  &=& E(zT^2) - E(zT)E(T) - E(z)Var(T) \\
+  &=& E[E(z|T)T^2] - pE[E(z|T)T] - p(1-p)E(z) \\
+  &=& pE(z|T=1) - p^2 E(z|T=1) - p(1-p)E(z)
+\end{eqnarray*}
+which gives
+\begin{equation}
+  Cov(\widetilde{z},T)= p(1-p)\left[ E(z|T=1) - E(z) \right]
+  \label{eq:CovZtildeT}
+\end{equation}
+Since
+\begin{equation}
+  Cov(z,T) =   E\left[ E(z|T)T \right] - pE(z) =  p\left[ E(z|T=1) - E\left( z \right) \right]
+  \label{eq:CovZT}
+\end{equation}
+we see that
+\begin{equation}
+  \frac{Cov(\widetilde{z},T)}{Cov(z,T)} = (1-p)
+  \label{eq:ratioCovZT}
+\end{equation}
+This equation will be useful below and also indicates that the denominator of the expression provides \emph{no additional information}: $Cov(\widetilde{z},T)$ is mechanically related to $Cov(z,T)$ through the observable probability $1-p$.
+
+\paragraph{Step 2:}
+Next we express $Cov(\widetilde{z},T^*)$ in terms of $Cov(\widetilde{z},T)$. 
+To begin, note that
+\begin{equation*}
+  Cov(\widetilde{z}, T^*) =  Cov(zT,T^*) - Cov(T,T^*)E(z)
+\end{equation*}
+Now, we can express $Cov(zT,T^*)$ as follows: 
+\begin{eqnarray*}
+  Cov(zT, T^*) &=&  E(zTT^*) - E(zT)E(T^*)\\ 
+  &=& E\left[ z(T^*+w)T^* \right] - E\left[ E(z|T)T \right]p^*\\
+  &=& E\left\{ E\left[z(T^*+w)T^*  |T^*\right] \right\} - pp^*E(z|T=1)\\
+  &=& p^*E(z|T^*=1) + E\left[ E(zw|T^*)T^* \right]- pp^* E(z|T=1) \\
+  &=& p^*E(z|T^*=1) + E\left[ E(z|T^*)E(w|T^*)T^* \right] - pp^*E(z|T=1)\\
+  &=& p^*\left[ (1-\alpha_1) E(z|T^*=1) - p E(z|T=1) \right]\\
+  &=& \left( \frac{p - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)\left[ (1-\alpha_1) E(z|T^*=1) - p E(z|T=1) \right]
+\end{eqnarray*}
+by Equations \ref{eq:wTstar1} and \ref{eq:Pstar} and the assumption that $z$ is independent of $w$ given $T^*$.
+To simplify further we need to relate $E(z|T^*=1)$ to $E(z|T=1)$.
+Combining Equations \ref{eq:ratioCovTZ} and \ref{eq:ratioCovZT} with the fact that 
+\begin{equation*}
+  Cov(z,T^*) = E\left[ E(z|T^*)T \right]- p^*E(z) = p^*\left[ E(z|T^*=1) - E(z) \right]
+\end{equation*}
+gives
+\begin{equation*}
+  (1-\alpha_0 - \alpha_1)p^*\left[ E(z|T^*) - E(z) \right] = p\left[ E(z|T=1) - E(z) \right]
+\end{equation*}
+Rearranging and multiplying both sides by $(1-\alpha_1)$
+\begin{equation*}
+  (1-\alpha_1)E(z|T^*=1) = \frac{p(1-\alpha_1)}{p^*(1-\alpha_0 - \alpha_1)}\left[ E(z|T=1) - E(z) \right] + E(z)
+\end{equation*}
+and substituting Equation \ref{eq:Pstar}, we have
+\begin{equation*}
+  (1-\alpha_1)E(z|T^*=1) = \frac{p(1-\alpha_1)}{p - \alpha_0}\left[ E(z|T=1) - E(z) \right] + (1-\alpha_1)E(z)
+\end{equation*}
+and hence
+\begin{equation*}
+  (1-\alpha_1)E(z|T^*=1) - pE(z|T=1) = p\left[ \frac{\left( 1 -p-\alpha_1 \right) + \alpha_0}{p - \alpha_0} \right]E(z|T=1) - \left[ \frac{\alpha_0(1-\alpha_1)}{p - \alpha_0} \right] E(z)
+\end{equation*}
+Substituting the preceding into our expression for $Cov(zT,T^*)$,
+\begin{equation}
+  Cov(zT,T^*) = \frac{p\left[ \left( 1 - p - \alpha_1 \right) + \alpha_0 \right]E(z|T=1) - \alpha_0(1-\alpha_1)E(z)}{1 - \alpha_0 - \alpha_1} 
+  \label{eq:CovzTTstar}
+\end{equation}
+Now, by Equations \ref{eq:CovTstarT} and \ref{eq:VarTstar}
+\begin{eqnarray*}
+  Cov(T,T^*)E(z) &=& p^*(1-p^*)(1-\alpha_0 -\alpha_1)E(z) \\
+  &=& \frac{(p -\alpha_0)(1-p-\alpha_1)\left( 1 - \alpha_0 - \alpha_1 \right)}{(1 - \alpha_0 - \alpha_1)^2}E(z)\\
+  &=& \frac{(p -\alpha_0)(1-p-\alpha_1)}{1 - \alpha_0 - \alpha_1}E(z)\\
+  &=& \frac{p(1 - p - \alpha_1) - \alpha_0\left( 1 - p -\alpha_1 \right)}{1 - \alpha_0 - \alpha_1}E(z)\\
+  &=& \frac{p(1 - p - \alpha_1 + \alpha_0) - \alpha_0\left( 1  -\alpha_1 \right)}{1 - \alpha_0 - \alpha_1}E(z)
+\end{eqnarray*}
+Combining this expression with Equation \ref{eq:CovzTTstar} gives 
+\begin{eqnarray*}
+  Cov(\widetilde{z},T^*) &=& Cov(zT,T^*) - Cov(T,T^*)E(z)\\
+  &=& \left[ \frac{p \left( 1 - p - \alpha_1 + \alpha_0 \right) }{1 - \alpha_0 - \alpha_1} \right]E(z|T=1) - \left[ \frac{p(1 - p - \alpha_1 + \alpha_0)}{1 - \alpha_0 - \alpha_1} \right]E(z)\\
+  &=& \left[ \frac{ \left( 1 - p - \alpha_1 + \alpha_0 \right) }{1 - \alpha_0 - \alpha_1} \right]\left\{p\left[E(z|T=1) - E(z)\right]\right\}\\
+  &=& \left[ \frac{ \left( 1 - p - \alpha_1 + \alpha_0 \right) }{1 - \alpha_0 - \alpha_1} \right]Cov(z,T)\\
+  &=& \left[ \frac{ \left( 1 - p - \alpha_1 + \alpha_0 \right) }{1 - \alpha_0 - \alpha_1} \right]\frac{Cov(\widetilde{z},T)}{(1-p)}
+\end{eqnarray*}
+where the final two equalities follow from Equations \ref{eq:CovZT} and \ref{eq:ratioCovZT}.
+In other words,
+\begin{equation}
+  \frac{Cov(\widetilde{z},T^*)}{Cov(\widetilde{z},T)} = \frac{(1- p - \alpha_1) + \alpha_0}{(1-p)(1 - \alpha_0 - \alpha_1)}
+\end{equation}
+
+\paragraph{Step 3:} Finally we calculate $Cov(\widetilde{z},u)$.
+By the definition of $\widetilde{z}$,
+\begin{equation*}
+  Cov(\widetilde{z},u) =  E(zTu) - E(z)E(Tu)
+\end{equation*}
+Now, since $E(u) = 0$, 
+\begin{eqnarray*}
+ E(Tu) &=& Cov(T,u) = Cov(T^* + w, u) = Cov(T^*,u) + Cov(w,u)\\
+ &=& Cov(T^*,u) - Cov(T^*,u)(\alpha_0 + \alpha_1)
+\end{eqnarray*}
+by Equation \ref{eq:CovWU}. 
+Calculating $E(zTu)$ is a bit more involved.
+First we expand it as
+\begin{equation*}
+  E(zTu) = E(zT^*u) + E(zwu)
+\end{equation*}
+Although it is not immediately apparent, we can factorize $E(zwu)$ in terms of $E(zT^*u)$ and $Cov(zu)$, using the fact that
+\begin{equation*}
+  E(zTu^*) = E\left[ E\left( zu|T^* \right)T^* \right] = p^* E\left( zu|T^*=1 \right)
+\end{equation*}
+and
+\begin{eqnarray*}
+  Cov(z,u) &=& E(zu) = E\left[ E\left( zu|T^* \right) \right]\\
+  &=& p^* E\left( zu|T^*=1 \right) + (1-p^*)E\left( zu|T^*=0 \right) \\
+  &=& E(zT^*u) + (1-p^*)E\left( zu|T^*=0 \right)
+\end{eqnarray*}
+Specifically, using the preceding two relationships, the assumption that $w$ is independent of $z$ and $u$ conditional on $T^*$, and Equations \ref{eq:wTstar0}--\ref{eq:wTstar1}, we have
+\begin{eqnarray*}
+  E(zwu) &=& E\left[ E\left( zwu|T^* \right) \right] = E\left[ E\left( zu|T^* \right)E\left( w|T^* \right) \right]\\
+  &=& p^*E\left( zu|T^*=1 \right)E\left( w|T^*=1 \right) + (1-p^*)E\left( zu|T^*=0 \right)E(w|T^*=0)\\
+  &=& -\alpha_1 E(zT^*u) + \alpha_0\left[Cov(z,u) - E(zT^*u)\right]\\
+  &=& -\left( \alpha_0 + \alpha_1 \right)E(zT^*u) + \alpha_0 Cov(z,u)
+\end{eqnarray*}
+Hence,
+\begin{eqnarray*}
+  E(zTu) &=&  E(zT^*u) + E(zwu)\\
+  &=& (1 - \alpha_0 - \alpha_1) E(zT^*u) + \alpha_0 Cov(z,u)
+\end{eqnarray*}
+and therefore
+\begin{eqnarray*}
+  Cov(\widetilde{z},u) &=& E(zTu) - E(z)E(Tu) \\
+  &=& (1 - \alpha_0 - \alpha_1) E(zT^*u) + \alpha_0 Cov(z,u) - E(z) \left( 1 - \alpha_0 -\alpha_1 \right)Cov(T^*u)\\
+  &=& \left( 1-\alpha_0 - \alpha_1 \right)\left\{ E\left( zT^*u \right) - E(z)E(T^*u) \right\} + \alpha_0 Cov(z,u)
+\end{eqnarray*}
+\paragraph{Putting Everything Together:}
+Using the results of steps 1--3,  
+\begin{eqnarray*}
+  \widetilde{\beta}_{IV} &=&  \frac{Cov\left( \widetilde{z},y \right)}{Cov(\widetilde{z},T)} = \frac{\beta Cov(\widetilde{z},T^*) + Cov(\widetilde{z},u)}{Cov(\widetilde{z},T)} \\
+  &=& \left[\frac{(1- p - \alpha_1) + \alpha_0}{(1-p)(1 - \alpha_0 - \alpha_1)}\right]\beta + \frac{\left( 1-\alpha_0 - \alpha_1 \right)\left\{ E\left( zT^*u \right) - E(z)E(T^*u) \right\} + \alpha_0 Cov(z,u)}{Cov(\widetilde{z},T)}
+\end{eqnarray*}
+
+\subsection{Conditions for Identification}
+Talk about Mahajan, BBS, KRS and Frazis and Loewenstein and derive the BBS-KRS moment-based estimator.
+Talk about the way that a third moment becomes useful for identifying second moments under particular assumptions.
+Explain why IV rather than OLS with $\widetilde{z}$, namely the fact that $Var(\widetilde{z})$ involves a fourth moment.
+Give the counterexample to Frazis and Loewenstein and explain the difference between the case of two measures of $T^*$ and an instrument $z$ more generally.
+In the former case $E[zT^*u]=0$ as a direct consequence of the measurement error assumption; in the latter case it does not.
+Frazis and Loewenstein don't notice this.
+Mahajan is unaware of Frazis and Loewenstein and gives sufficient conditions for identification with and without $Cov(T^*,u)=0$ although he only treats the case of binary $z$.
+(His results can be extended to discrete $z$ but not to continuous $z$ according to Shennach and Hu.)
+Although Mahajan's assumptions to achieve identification, they are deceptively strong and unlikely to be satisfied in practice.
+Indeed, Frazis and Loewenstein make this point in their brief discussion of the case of endogenous $T^*$.
+
+
+
+
+
+
+
+
+
+
+
+
+
