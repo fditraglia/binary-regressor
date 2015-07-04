@@ -1,28 +1,40 @@
-\documentclass[12pt]{article}
+\documentclass[draft]{ectaart}
 \usepackage{frankstyle}
-\usepackage{textpos}
 \begin{document}
 
-\title{On The Use of Instrumental Variables to Identify the Effect of a Mis-measured, Binary Regressor}
+\begin{frontmatter}
+\title{On the Use of Instrumental Variables to Identify the Effect of a Mis-measured, Binary Regressor\protect\thanksref{T1}}
+\runtitle{Binary, Mis-measured Regressor}
+\thankstext{T1}{We thank\dots}
 
-\author{Francis J.\ DiTraglia \\ Camilo Garcia-Jimeno\\  \\
-		University of Pennsylvania}
+\begin{aug}
+\author{\fnms{Francis} J.\ \snm{DiTraglia}\thanksref{a}\ead[label=e1]{fditra@econ.upenn.edu}}
+\author{\fnms{Camilo} \snm{Garcia-Jimeno}\thanksref{a}\ead[label=e2]{gcamilo@econ.upenn.edu}}
 
-\maketitle 
+\runauthor{F.J.\ DiTraglia, and C.\ Garcia-Jimeno} 
+
+\address[a]{Dept.\ of Economics, University of Pennsylvania, 3718 Locust Walk, Philadelphia, PA 19104, U.S.A.;
+\printead{e1,e2}
+}
+
+\end{aug}
+
 \begin{abstract}
-	\input{abstract.tex}
+  \input{abstract.tex}
 \end{abstract}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{textblock}{2}(5,-12)
-\begin{rotate}{0}
-\fbox{\Large\bf Preliminary and Incomplete}
-\end{rotate}
-\end{textblock}
-%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{keyword}
+\kwd{Instrumental Variables}
+\kwd{Measurement Error}
+\kwd{Binary Regressor}
+\kwd{Endogeneity}
+\end{keyword}
+
+\end{frontmatter}
 
 %Body of the paper
 \input{introduction.tex}
+\input{mahajan.tex}
 \input{conclusion.tex}
 
 %\bibliographystyle{elsarticle-harv}

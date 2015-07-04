@@ -1,0 +1,61 @@
+%!TEX root = ./main.tex
+\section{Notes on Mahajan (2006)}
+
+Mahajan (2006) considers regression models of the form
+\begin{equation}
+  E\left[ y - g(x^*,z) \right] = 0
+\end{equation}
+where $x^*$ is an unobserved binary regressor and $z$ is a $d_z \times 1$ vector of control regressors.
+Rather than $x^*$ we observe a noisy measure $x$ called the ``surrogate'' and an additional variable $v$ that acts, in essence, as an instrumental variable.
+Since $v$ does not, strictly speaking, meet the traditional requirements for an instrument, Mahajan refers to it as an ``instrument-like variable'' or ILV for short.
+Throughout the paper, Mahajan assumes that $v$ is binary although he claims that the same idea applies to arbitrary discrete variables.
+The paper considers two main cases: one in which $x^*$ is assumed to be exogenous, and another in which it is not.
+
+\subsection{The Case of Exogenous $x^*$}
+The first is based on the restriction
+\begin{equation}
+  E\left[ y - g(x^*,z)\left. \right| x^*,x, z, v \right] = 0
+  \label{eq:mahajan1}
+\end{equation}
+
+\subsection{The Case of Endogenous $x^*$}
+While the preceding case required $x^*$ to be exogenous, Mahajan claims (page 640) that his identification results can be extended to account for endogeneity provided that one is willing to restrict attending to additively separable models of the form
+\begin{equation}
+  y = g^*(x^*,z) + \varepsilon
+  \label{eq:mahajan10}
+\end{equation}
+In this case, the ILV is assumed to satisfy the usual instrumental variables mean independence assumption
+\begin{equation}
+E\left[ \varepsilon|z,v \right]=0 
+\label{eq:ivassump}
+\end{equation}
+and Equation \ref{eq:mahajan1} is replaced by
+\begin{equation}
+  E\left[ y|x^*,x,z,v \right] = E\left[ y|x^*,z \right]
+  \label{eq:mahajan11}
+\end{equation}
+
+Unfortunately, Mahajan's proof is incorrect and the model in Equation \ref{eq:mahajan10} is unidentified.
+The mistake stems from a false analogy with the identification proof in the case of exogenous $x^*$.
+In A.2 Mahajan argues, correctly, that under \ref{eq:mahajan10}--\ref{eq:mahajan11} knowledge of the mis-classification rates is sufficient to identify the model even when $x^*$ is endogenous.
+He then appeals to Theorem 1 to argue that the mis-classification rates are indeed identified.
+The proof of Theorem 1, however, depends crucially on the assumption that $x^*$ is exogenous.
+Without this assumption, the mis-classification rates are unidentified, as we now show.
+For ease of exposition we consider the case without covariates.
+Equivalently, one can interpret all of the expressions that follow as implicitly conditioned on $z=z_a$ where $z_a$ is a value in the support of $z$.\footnote{Because the covariates are held fixed throughout the proof of Mahajan's Theorem 1, there is no loss of generality.}
+
+Without covariates we can write 
+\begin{equation}
+  y = \alpha + \beta x^* + \varepsilon
+  \label{eq:nocovariates}
+\end{equation}
+where $\alpha=g^*(0)$ and $\beta = g^*(1) - g^*(0)$ and the mis-classification rates become $\eta_0 =  P(x=1|x^*=0)$ and $\eta_1 =  P(x=1|x^*=1)$.
+Now define
+\begin{equation}
+m_{jk} = E\left[ \varepsilon|x^*=j, v = k \right]
+  \label{eq:mdef}
+\end{equation}
+
+
+
+
