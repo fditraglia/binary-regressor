@@ -1,0 +1,28 @@
+%!TEX root = ./main.tex
+\section{Identification by Homoskedasticity}
+\todo[inline]{This section uses our notation rather than Mahajan's. We'll have to decide what notation we want to use in the paper itself but for the moment I'm trying to avoid confusion by talking about Mahajan's proofs using his own notation while keeping our derivations in the same notation we used on the whiteboard.}
+
+Now suppose that one is prepared to assume that
+\begin{equation}
+  E[u^2|z]=E[u^2].
+  \label{eq:homosked}
+\end{equation}
+When combined with the usual IV assumption, $E[u|z]=0$, this implies $Var(u|z) = Var(u)$.
+Whether this assumption is reasonable, naturally, depends on the application.
+When $z$ is the offer of treatment in a randomized controlled trial, for example, Equation \ref{eq:homosked} holds automatically as a consequence of the randomization.
+Similarly, in studies based on a ``natural'' rather than controlled experiment one typically argues that the instrument is not merely uncorrelated with $u$ but \emph{independent} of it, so that Equation \ref{eq:homosked} follows.
+
+To see why homoskedasticity with respect to the instrument provides additional identifying information, first express the conditional variance of $y$ as follows
+\begin{equation}
+ Var(y|z) = \beta^2 Var\left( T^*|z \right) + Var(u|z) + 2\beta Cov(T^*,u|z)
+  \label{eq:varyz}
+\end{equation}
+Under \ref{eq:homosked}, $Var(u|z)$ does not depend on $z$.
+Hence the \emph{difference} of conditional variances evaluated at two values $z_a$ and $z_b$ in the support of $z$ is simply
+\begin{equation}
+  \Delta Var(y|z_a,z_b) = \beta^2\Delta Var(T^*|z_a,z_b) + 2\beta \Delta Cov(T^*,u|z_a, z_b)]
+  \label{eq:varydiff}
+\end{equation}
+Where $\Delta Var(y|z_a,z_b) = Var(y|z = z_a) - Var(y|z = z_b)$, and we define $\Delta Var(T^*|z_a, z_b)$ and $\Delta Cov(T^*,u|z_a,z_b)$ analogously.  
+
+By iterated expectations over the distribution of $T^*|z$ and the assumption that $T$ is conditionally independent of $z$ given $T^*$, we have
