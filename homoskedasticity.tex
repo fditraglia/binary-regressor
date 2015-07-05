@@ -1,6 +1,6 @@
 %!TEX root = ./main.tex
 \section{Identification by Homoskedasticity}
-\todo[inline]{This section uses our notation rather than Mahajan's. We'll have to decide what notation we want to use in the paper itself but for the moment I'm trying to avoid confusion by talking about Mahajan's proofs using his own notation while keeping our derivations in the same notation we used on the whiteboard. I think that by assuming the instrument takes on three values (as in Lewbell) and imposing our homoskedasticity assumption we'll get identification in the case where $T^*$ is endogenous so written out this derivation for arbitrary discrete $z$.}
+\todo[inline]{This section uses our notation rather than Mahajan's. We'll have to decide what notation we want to use in the paper itself but for the moment I'm trying to avoid confusion by talking about Mahajan's proofs using his own notation while keeping our derivations in the same notation we used on the whiteboard. I think that by assuming the instrument takes on three values (as in Lewbell) and imposing our homoskedasticity assumption we'll get identification in the case where $T^*$ is endogenous so I've written out this derivation for arbitrary discrete $z$.}
 
 Now suppose that one is prepared to assume that
 \begin{equation}
@@ -61,4 +61,54 @@ Combining this with Equation \ref{eq:pTstar|z} and evaluating at $z_a$ and $z_b$
 where $m_{1a} = E\left[ u|T^*=1,z_a \right]$ and $m_{1b} = E[u|T^*=1,z_b]$.
 
 Both Equations \ref{eq:vardiffTstar} and \ref{eq:diffCovTstaru} involve only observable quantities and the mis-classification rates $\alpha_0$ and $\alpha_1$.
-Equation 
+Equation \ref{eq:varydiff}, however, also involves $\beta$.
+Fortunately we can eliminiate this quantity as follows.
+First, let $\mathcal{W}(z_a, z_b)$ denote the Wald Estimator of $\beta$ given by
+\begin{equation}
+  \mathcal{W}(z_a,z_b) = \frac{E(y|z_a) - E(y|z_b)}{E(T|z_a) - E(T|z_b)}
+  \label{eq:waldab}
+\end{equation}
+Since $E(u|z) = 0$,
+\begin{equation*}
+  E(y|z_a) - E(y|z_b) = \beta \left[ E\left( T^*|z_a \right) - E\left( T^* | z_b \right) \right]
+\end{equation*}
+and by Equation \ref{eq:pTstar|z}, 
+\begin{equation*}
+  E(T|z_a) - E(T|z_b) = \left( 1 - \alpha_0 - \alpha_1 \right) \left[ E(T^*|z_a) - E(T^*|z_b) \right]
+\end{equation*}
+thus we find that
+\begin{equation}
+  \beta = (1 - \alpha_0 - \alpha_1) \mathcal{W}(z_a,z_b).
+  \label{eq:betaWald}
+\end{equation}
+Finally, combining Equations \ref{eq:varydiff},  \ref{eq:vardiffTstar}, \ref{eq:diffCovTstaru} and \ref{eq:betaWald} we have
+\begin{equation}
+  \begin{split}
+    \Delta Var(y|z_a,z_b)&= \mathcal{W}\left( z_a,z_b \right)^2 \left\{ \Delta Var(T|z_a,z_b) + (\alpha_0 - \alpha_1)\Delta E(T|z_a,z_b) \right\}\\
+    &\quad + 2 \mathcal{W}(z_a,z_b) \left\{ \left[E\left( T|z_a \right) - \alpha_0\right] m_{1a} - \left[ E(T|z_b) - \alpha_0 \right] m_{1b}  \right\} 
+  \end{split}
+  \label{eq:homoskedcondition}
+\end{equation}
+an equation relating $\alpha_0, \alpha_1, m_{1a}$ and $m_{1b}$ to various observable quantities.
+
+Equation \ref{eq:homoskedcondition} provides an additional identifying restriction for each unique \emph{pair} of values $(z_a,z_b)$ in the support of $z$.
+If $z$ takes on two values it provides one restriction, whereas if $z$ takes on three values if provides two restrictions, and so on.
+To take a particularly simple example, suppose that $z$ is binary and Mahajan's (2006) assumption that $E[u|z,T^*] = 0$ holds.
+Then Equation \ref{eq:homoskedcondition} reduces to
+\begin{equation*}
+  \Delta Var(y|1,0) = \left[ \frac{Cov(z,y)}{Cov(z,T)} \right]^2 \left\{\Delta Var(T|1,0) + (\alpha_0 - \alpha_1) \left[ \frac{Cov(z,T)}{Var(z)} \right]  \right\}
+\end{equation*}
+Rearranging, we see that
+\begin{equation*}
+  \alpha_0 - \alpha_1 = \Delta Var(y|1,0) \left[ \frac{Cov(z,T)Var(z)}{Cov(z,y)^2} \right] - \Delta Var(T|1,0)\left[ \frac{Var(z)}{Cov(z,T)} \right] 
+\end{equation*}
+In other words, the homoskedasticity restriction identifies the \emph{difference} between the mis-classification rates.
+This makes intuitive sense.
+Provided that the variance of $u$ is unrelated to $z$ the only way that the variance of $y$ can differ across values of $z$ is if some values of $z$ provide \emph{more} information about the distribution of $T^*$ than others.
+This is only possible if the mis-classification rates differ.
+
+Of course, one need not impose the restriction that $E[u|z,T^*]=0$ to use the identifying information provided by Equation \ref{eq:homoskedcondition}.
+Indeed, by exploiting homoskedasticity with respect to the instrument we can identify $\beta$ using weaker conditions than Mahajan (2006) without requiring that $z$ take on three or more values, as in Lewbel (2007).
+Moreover, when $z$ does take on three or more values we can identify $\beta$ even when $T^*$ is endogenous.
+
+\todo[inline]{I'm pretty sure this is true, but we do still need to prove it!}
