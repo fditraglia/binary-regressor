@@ -40,7 +40,7 @@ The mistake stems from a false analogy with the identification proof in the case
 In A.2 Mahajan argues, correctly, that under \ref{eq:mahajan10}--\ref{eq:mahajan11} knowledge of the mis-classification rates is sufficient to identify the model even when $x^*$ is endogenous.
 He then appeals to Theorem 1 to argue that the mis-classification rates are indeed identified.
 The proof of Theorem 1, however, depends crucially on the assumption that $x^*$ is exogenous.
-Without this assumption, the mis-classification rates are unidentified, as we now show.
+Without this assumption, the mis-classification rates are unidentified, as we now show
 For ease of exposition we consider the case without covariates.
 Equivalently, one can interpret all of the expressions that follow as implicitly conditioned on $z=z_a$ where $z_a$ is a value in the support of $z$.\footnote{Because the covariates are held fixed throughout the proof of Mahajan's Theorem 1, there is no loss of generality.}
 
@@ -49,12 +49,13 @@ Without covariates we can write
   y = \alpha + \beta x^* + \varepsilon
   \label{eq:nocovariates}
 \end{equation}
-where $\alpha=g^*(0)$ and $\beta = g^*(1) - g^*(0)$ and the mis-classification rates become $\eta_0 =  P(x=1|x^*=0)$ and $\eta_1 =  P(x=1|x^*=1)$.
+where $\alpha=g^*(0)$ and $\beta = g^*(1) - g^*(0)$ and the mis-classification rates become $\eta_0 =  P(x=1|x^*=0)$ and $\eta_1 =  P(x=0|x^*=1)$.
 Now define
 \begin{equation}
 m_{jk} = E\left[ \varepsilon|x^*=j, v = k \right]
   \label{eq:mdef}
 \end{equation}
+
 
 
 
