@@ -1,0 +1,204 @@
+%!TEX root = ./main.tex
+\section{Lewbel (2007)}
+
+Lewbel shows that under an exogenous (but missclasified) treatment,
+and an instrument that takes on (at least) three values, the treatment
+effect is identified. Lewbel's three-valued instrument equivalent
+to having two binary instruments. Here we show how the logic in Lewbel's
+argument maps into the two binary instruments case within our framework.
+
+The model is 
+
+\[
+\mathbb{E}[Y|T^{*},T]=\alpha+\beta T^{*}
+\]
+
+
+Using iterated expectations over the distribution of $T^{*}$ given
+$T$, 
+
+\[
+\mathbb{E}[Y|T]=\mathbb{E}_{T^{*}|T}\left[\mathbb{E}[Y|T^{*},T]\right]=\mathbb{P}(T^{*}=1|T)\mathbb{E}[Y|T^{*}=1]+\mathbb{P}(T^{*}=0|T)\mathbb{E}[Y|T^{*}=0]
+\]
+\[
+\mathbb{E}[Y|T]=\mathbb{P}(T^{*}=1|T)(\alpha+\beta)+\mathbb{P}(T^{*}=0|T)\alpha
+\]
+\[
+\mathbb{E}[Y|T]=\alpha+\mathbb{P}(T^{*}=1|T)\beta
+\]
+which implies that 
+\[
+\mathbb{E}[Y|T=1]-\mathbb{E}[Y|T=0]\equiv\beta^{OLS}=\left[\mathbb{P}(T^{*}=1|T=1)-\mathbb{P}(T^{*}=1|T=0)\right]\beta
+\]
+
+
+Lewbel defines $M(\alpha_{0},\alpha_{1},p)=\mathbb{P}(T^{*}=1|T=1)-\mathbb{P}(T^{*}=1|T=0)$,
+implying that 
+\begin{equation}
+\beta=\frac{\beta^{OLS}}{M(\alpha_{0},\alpha_{1},p)}
+\end{equation}
+
+
+Lewbel also points out that $M(\alpha_{0},\alpha_{1},p)$ can also
+be expressed as 
+\[
+M(\alpha_{0},\alpha_{1},p)=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-\alpha_{1})\alpha_{0}}{p}-\frac{(1-\alpha_{0})\alpha_{1}}{1-p}\right]
+\]
+which I show below:
+
+Using Bayes rule,
+
+\[
+M(\alpha_{0},\alpha_{1},p)=\frac{\mathbb{P}(T=1|T^{*}=1)p^{*}}{p}-\frac{\mathbb{P}(T=0|T^{*}=1)p^{*}}{1-p}
+\]
+\[
+M(\alpha_{0},\alpha_{1},p)=\frac{(1-\alpha_{1})p^{*}}{p}-\frac{\alpha_{1}p^{*}}{1-p}
+\]
+\begin{equation}
+=p^{*}\frac{(1-\alpha_{1})(1-p)-\alpha_{1}p}{p(1-p)}
+\end{equation}
+
+
+Recall that previously we have shown that
+
+\[
+p^{*}=\frac{p-\alpha_{0}}{1-\alpha_{0}-\alpha_{1}}
+\]
+Replacing for $p^{*}$ in equation $(2)$, 
+\[
+M(\alpha_{0},\alpha_{1},p)=\frac{p-\alpha_{0}}{1-\alpha_{0}-\alpha_{1}}\frac{(1-\alpha_{1})(1-p)-\alpha_{1}p}{p(1-p)}
+\]
+\[
+=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[\frac{(p-\alpha_{0})(1-\alpha_{1})(1-p)-(p-\alpha_{0})\alpha_{1}p}{p(1-p)}\right]
+\]
+\[
+=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[\frac{p(1-p)-p(1-p)\alpha_{1}-(1-p)(1-\alpha_{1})\alpha_{0}-(p-\alpha_{0})\alpha_{1}p}{p(1-p)}\right]
+\]
+\[
+=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-p)(1-\alpha_{1})\alpha_{0}+p\alpha_{1}-p^{2}\alpha_{1}+p^{2}\alpha_{1}-\alpha_{0}\alpha_{1}p}{p(1-p)}\right]
+\]
+\[
+=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-p)(1-\alpha_{1})\alpha_{0}}{p(1-p)}-\frac{p\alpha_{1}(1-\alpha_{0})}{p(1-p)}\right]
+\]
+\begin{equation}
+=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-\alpha_{1})\alpha_{0}}{p}-\frac{(1-\alpha_{0})\alpha_{1}}{1-p}\right]
+\end{equation}
+
+
+Now we use iterated expectations over the distribution of $T^{*}$
+given $T$ and $Z_{k}$, where $Z_{k}$ are the instruments ($k=1,2$):
+\[
+\mathbb{E}[Y|T,Z_{k}]=\mathbb{E}_{T^{*}|T,Z_{k}}\left[\mathbb{E}[Y|T^{*},T,Z_{k}]\right]=\mathbb{P}(T^{*}=1|T,Z_{k})\mathbb{E}[Y|T^{*}=1]+\mathbb{P}(T^{*}=0|T,Z_{k})\mathbb{E}[Y|T^{*}=0]
+\]
+\[
+\mathbb{E}[Y|T,Z_{k}]=\mathbb{P}(T^{*}=1|T,Z_{k})(\alpha+\beta)+\mathbb{P}(T^{*}=0|T,Z_{k})\alpha
+\]
+\[
+\mathbb{E}[Y|T,Z_{k}]=\alpha+\mathbb{P}(T^{*}=1|T,Z_{k})\beta
+\]
+which implies that
+\[
+\mathbb{E}[Y|T=1,Z_{k}]-\mathbb{E}[Y|T=0,Z_{k}]\equiv\beta_{Z_{k}}^{OLS}=\left[\mathbb{P}(T^{*}=1|T=1,Z_{k})-\mathbb{P}(T^{*}=1|T=0,Z_{k})\right]\beta
+\]
+
+
+Notice that analogous to equation (3), 
+\[
+\mathbb{P}(T^{*}=1|T=1,Z_{k})-\mathbb{P}(T^{*}=1|T=0,Z_{k})\equiv M(\alpha_{0},\alpha_{1},p_{k})=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-\alpha_{1})\alpha_{0}}{p_{k}}-\frac{(1-\alpha_{0})\alpha_{1}}{1-p_{k}}\right]
+\]
+where $p_{k}=\mathbb{P}(T=1|Z_{k})$, under the assumption that the
+missclasiffication probabilities are independent of $Z_{k}$ which
+Lewbel assumes.
+
+This implies that if we run an OLS regression on the observations
+for which $Z_{k}=1$ only, then we have that 
+\begin{equation}
+\beta=\frac{\beta_{Z_{k}=1}^{OLS}}{M(\alpha_{0},\alpha_{1},p_{k})}
+\end{equation}
+Since we have two instruments, we have two of these equations. Equations
+(1) and (4) imply that 
+\[
+\frac{\beta^{OLS}}{M(\alpha_{0},\alpha_{1},p)}=\frac{\beta_{Z_{k}=1}^{OLS}}{M(\alpha_{0},\alpha_{1},p_{k})}
+\]
+\[
+\beta^{OLS}M(\alpha_{0},\alpha_{1},p_{k})=\beta_{Z_{k}=1}^{OLS}M(\alpha_{0},\alpha_{1},p)
+\]
+
+
+\begin{equation}
+\beta^{OLS}M(\alpha_{0},\alpha_{1},p_{k})-\beta_{Z_{k}=1}^{OLS}M(\alpha_{0},\alpha_{1},p)=0,\qquad k=1,2
+\end{equation}
+
+
+(5) are two equations in two unknowns, $\alpha_{0}$ and $\alpha_{1}$:
+
+\[
+\beta^{OLS}\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-\alpha_{1})\alpha_{0}}{p_{k}}-\frac{(1-\alpha_{0})\alpha_{1}}{1-p_{k}}\right]-\beta_{Z_{k}=1}^{OLS}\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-\alpha_{1})\alpha_{0}}{p}-\frac{(1-\alpha_{0})\alpha_{1}}{1-p}\right]=0
+\]
+\[
+\beta^{OLS}\left[1-\frac{(1-\alpha_{1})\alpha_{0}}{p_{k}}-\frac{(1-\alpha_{0})\alpha_{1}}{1-p_{k}}\right]-\beta_{Z_{k}=1}^{OLS}\left[1-\frac{(1-\alpha_{1})\alpha_{0}}{p}-\frac{(1-\alpha_{0})\alpha_{1}}{1-p}\right]=0
+\]
+\[
+(1-\alpha_{1})\alpha_{0}\left[\frac{\beta_{Z_{k}=1}^{OLS}}{p}-\frac{\beta^{OLS}}{p_{k}}\right]+(1-\alpha_{0})\alpha_{1}\left[\frac{\beta_{Z_{k}=1}^{OLS}}{1-p}-\frac{\beta^{OLS}}{1-p_{k}}\right]=\beta_{Z_{k}=1}^{OLS}-\beta^{OLS}
+\]
+which we can rewrite as 
+\[
+B_{0}w_{0}^{k}+B_{1}w_{1}^{k}=w_{2}^{k}
+\]
+
+
+This is a system of two linear equations in two unknowns, $B_{0}$
+and $B_{1}$. In matrix form,
+
+\[
+\left[\begin{array}{cc}
+w_{0}^{1} & w{}_{1}^{1}\\
+w_{0}^{2} & w_{1}^{2}
+\end{array}\right]\left[\begin{array}{c}
+B_{0}\\
+B_{1}
+\end{array}\right]=\left[\begin{array}{c}
+w_{2}^{1}\\
+w_{2}^{2}
+\end{array}\right]
+\]
+
+
+as long as $w_{0}^{1}w_{1}^{2}-w_{0}^{2}w_{1}^{1}\neq0$ (which is
+Assumption A5 in Lewbel (2007)),
+
+\[
+\left[\begin{array}{c}
+B_{0}\\
+B_{1}
+\end{array}\right]=\frac{1}{w_{0}^{1}w_{1}^{2}-w_{0}^{2}w_{1}^{1}}\left[\begin{array}{c}
+w_{1}^{2}w_{2}^{1}-w_{1}^{1}w_{2}^{2}\\
+w_{0}^{1}w_{2}^{2}-w_{0}^{2}w_{2}^{1}
+\end{array}\right]
+\]
+
+
+Finally, given that $B_{0}=(1-\alpha_{1})\alpha_{0}$ and $B_{1}=(1-\alpha_{0})\alpha_{1}$,
+we can solve for the missclassification rates:
+
+\[
+B_{1}=\alpha_{1}-\alpha_{1}\frac{B_{0}}{1-\alpha_{1}}
+\]
+\[
+\alpha_{1}=\frac{1}{2}\left[1-B_{0}+B_{1}\pm\sqrt{(1-B_{0}+B_{1})^{2}-4B_{1}}\right]
+\]
+
+
+and 
+\[
+\alpha_{0}=\frac{B_{0}}{1-\frac{1}{2}\left[1-B_{0}+B_{1}\pm\sqrt{(1-B_{0}+B_{1})^{2}-4B_{1}}\right]}
+\]
+
+Once we have $(\alpha_{0},\alpha_{1})$ we can go back to equation
+$(1)$ and recover $\beta$.
+
+In page 544 Lewbel observes that if hs instrument were binary (if
+we only had one instrument in our case), identification could be achieved
+with one additional restriction on the missclasification rates. One
+such restriction is implied by homoskedasticity on the instrument,
+which he does not mention. 
