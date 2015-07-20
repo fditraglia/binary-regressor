@@ -110,5 +110,58 @@ This is only possible if the mis-classification rates differ.
 Of course, one need not impose the restriction that $E[u|z,T^*]=0$ to use the identifying information provided by Equation \ref{eq:homoskedcondition}.
 Indeed, by exploiting homoskedasticity with respect to the instrument we can identify $\beta$ using weaker conditions than Mahajan (2006) without requiring that $z$ take on three or more values, as in Lewbel (2007).
 Moreover, when $z$ does take on three or more values we can identify $\beta$ even when $T^*$ is endogenous.
-
 \todo[inline]{I'm pretty sure this is true, but we do still need to prove it!}
+
+In the general case where we do not impose Mahajan's assumption that $E[u|z,T^*]=0$ the purpose of the homoskedasticity restrictions is to eliminate a quantity that appears in the moment condition that arises from the ``modified IV estimator'' in which $\widetilde{z} \equiv T\left( z - E[z] \right)$ is used as an instrument for $T$.
+We showed previously that 
+\begin{equation*}
+  \widetilde{\beta}_{IV} = \beta\left[ \frac{\left( 1 - p - \alpha_1 \right) + \alpha_0}{(1-p)(1 - \alpha_0 - \alpha_1)} \right] + \left[ \frac{\left( 1 - \alpha_0 - \alpha_1 \right)\left\{E[zT^*u] - E[z]E[T^*u]  \right\}}{(1-p) Cov(z,T)} \right]
+\end{equation*}
+
+First consider the case in which $T^*$ is exogenous, so that $E(T^*u)=0$, and $z$ is binary.
+Then the preceding reduces to
+\begin{equation*}
+  \widetilde{\beta}_{IV} = \beta\left[ \frac{\left( 1 - p - \alpha_1 \right) + \alpha_0}{(1-p)(1 - \alpha_0 - \alpha_1)} \right] + \left[ \frac{\left( 1 - \alpha_0 - \alpha_1 \right)E[zT^*u] }{(1-p) Cov(z,T)} \right]
+\end{equation*}
+where
+\begin{equation*}
+  E[zT^*u] = E_{T^*,z}\left[ E\left( zT^*u |z,T^*\right) \right] = p_{11} m_{11}
+\end{equation*}
+where $p_{jk}=P(T^*=j, z=k)$ and $m_{jk}=E[u|T^*=j,z=k]$.
+Note that by the definition of conditional probability we can equivalently express this as
+\begin{equation*}
+  E[zT^*u]= E(T^*|z=1)P(z=1)m_{11}
+\end{equation*}
+Thus we can rewrite the numerator of the second term in the expression for  $\widetilde{\beta}$ from above as
+\begin{eqnarray*}
+  C &=& (1-\alpha_0 - \alpha_1) E(zT^*u)\\
+  &=& (1-\alpha_0-\alpha_1) E(T^*|z=1)P(z=1)m_{11}\\
+  &=& \left[ E(T|z=1) - \alpha_0 \right]P(z=1)m_{11}
+\end{eqnarray*}
+using Equation \ref{eq:pTstar|z}.
+Thus, when $T^*$ is exogenous and $z$ is binary, the expression for $\widetilde{\beta}_{IV}$ can be written as
+\begin{equation}
+  \widetilde{\beta}_{IV} = \beta\left[ \frac{\left( 1 - p - \alpha_1 \right) + \alpha_0}{(1-p)(1 - \alpha_0 - \alpha_1)} \right] + \left[ \frac{P(z=1) \left[ E(T|z=1)- \alpha_0 \right]m_{11} }{(1-p) Cov(z,T)} \right]
+\end{equation}
+
+Now we will show that the second term from Equation \ref{eq:homoskedcondition} can be expressed in a similar fashion.
+The term in question is:
+\begin{equation*}
+  D = \left[ E\left( T|z=1 \right)-\alpha_0 \right]m_{11} - \left[ E\left( T|z=0 \right) - \alpha_0 \right] m_{10}
+\end{equation*}
+Imposing $Cov(T^*,u)=0$ gives $p_{10}m_{10} + p_{11}m_{11}=0$.
+Thus $m_{10} = -p_{11}m_{11}/p_{10}$.
+Now, by Equation \ref{eq:pTstar|z},
+\begin{equation*}
+  -\frac{p_{11}}{p_{10}} = -\frac{P(T^*=1|z=1)P(z=1)}{P(T^*=1|z=0)P(z=0)} = -\frac{\left[ E(T|z=1) - \alpha_0 \right]P(z=1)}{\left[ E(T|z=0) - \alpha_0 \right]P(z=0)}
+\end{equation*}
+Substituting this into the expression for $D$, we have
+\begin{equation*}
+  D = \left[ \frac{E(T|z=1) - \alpha_0}{P(z=0)} \right]m_{11}
+\end{equation*}
+and therefore, in the case where $z$ is binary and $T^*$ is exogenous Equation \ref{eq:homoskedcondition} simplifies to
+\begin{equation}
+  \Delta Var(y|z)= \mathcal{W}^2 \left\{ \Delta Var(T|z) + (\alpha_0 - \alpha_1)\Delta E(T|z) \right\} + 2 \mathcal{W}\left\{\frac{E(T|z=1) - \alpha_0}{P(z=0)}  \right\} m_{11}
+\end{equation}
+
+\todo[inline]{I think this will make things easier to solve because we could treat the quantity $\left[ E(T|z=1)-\alpha_0 \right]m_{11}$ as a unit and eliminate it from the system. But I could be wrong\dots}
