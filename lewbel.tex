@@ -1,8 +1,8 @@
 %!TEX root = ./main.tex
 \section{Lewbel (2007)}
 
-Lewbel shows that under an exogenous (but missclasified) treatment,
-and an instrument that takes on (at least) three values, the treatment
+Lewbel shows that under an exogenous but missclasified treatment,
+and an instrument that takes on at least three values, the treatment
 effect is identified. 
 The model is 
 \[
@@ -23,7 +23,7 @@ which implies that
 Lewbel defines 
 $$M(\alpha_{0},\alpha_{1},p)=\mathbb{P}(T^{*}=1|T=1)-\mathbb{P}(T^{*}=1|T=0)$$
 implying that $\beta_{OLS} =\beta M(\alpha_{0},\alpha_{1},p)$.
-He then points out that we can re-express $M(\alpha_0, \alpha_1,p)$ as
+It turns out that we can re-express $M(\alpha_0, \alpha_1,p)$ as
 \[
 M(\alpha_{0},\alpha_{1},p)=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-\alpha_{1})\alpha_{0}}{p}-\frac{(1-\alpha_{0})\alpha_{1}}{1-p}\right]
 \]
@@ -47,7 +47,35 @@ Substituting this into the expression for $M(\alpha_0, \alpha_1, p)$ and simplif
 &=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-p)(1-\alpha_{1})\alpha_{0}}{p(1-p)}-\frac{p\alpha_{1}(1-\alpha_{0})}{p(1-p)}\right]\\
 &=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-\alpha_{1})\alpha_{0}}{p}-\frac{(1-\alpha_{0})\alpha_{1}}{1-p}\right]
 \end{align*}
-as claimed.
+
+Now, the instrument $z$ is assumed to be discrete and to take on at least three distinct values.
+Let $\beta_{OLS}^k$ denote the OLS estimator based only on observations for which $z = z_k$, where $z_k$ is a particular value in the support of $z_k$, that is
+\begin{equation*}
+  \beta_{OLS}^k = \frac{Cov(T,Y| z = z_k)}{Var(T|z=z_k)} 
+\end{equation*}
+and let $p_k = E(T|z=z_k)$.
+The denominator of the expression for $\beta_{OLS}^k$ is simply $Var(T|z=z_k) = p_k(1-p_k)$.
+For the numerator, note that
+\begin{align*}
+  Cov(T,y|z) &= E(Ty|z) - E(T|z)E(y|z)\\
+  &= E_{T|z}\left[E\left( y|T,z \right)T  \right] - E(T|z) E_{T|z}\left[ E(y|T,z) \right]\\
+  &= E(y|T=1,z)E(T|z)\\
+  &\quad - E(T|z)\left\{ E(T|z)E(y|T=1,z) + [1 - E(T|z)]E(y|T=0,z) \right\}\\
+  &= E(T|z)\left[ 1-E(T|z) \right]\left\{ E(y|T=1,z) - E(y|T=0,z) \right\}
+\end{align*}
+by iterated expectations over the distribution of $T^*$ given $T$ and $z$.
+Thus, 
+\begin{equation*}
+  \beta_{OLS}^k = E\left( y | T=1,z=z_k \right) - E(y|T=0,z=z_k)
+\end{equation*}
+and finally, since $E(y|T,z) = \alpha + \beta P(T^*=1|T,z)$, we see that
+\begin{equation*}
+  \beta_{OLS}^k = \beta \left\{P\left( T^*=1|T=1,z=z_k \right) - P(T^*=1|T=0, z=z_k)  \right\}
+\end{equation*}
+Notice that this expression looks almost identical to $\beta_{OLS} = \beta M(\alpha_0, \alpha_1, p)$ from above.
+The only difference is that we add the condition that $z=z_k$.
+ 
+
 Now we use iterated expectations over the distribution of $T^{*}$
 given $T$ and $Z_{k}$, where $Z_{k}$ are the instruments ($k=1,2$):
 \[
