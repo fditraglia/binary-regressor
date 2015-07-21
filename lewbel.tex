@@ -156,26 +156,41 @@ w_{1}^{2}w_{2}^{1}-w_{1}^{1}w_{2}^{2}\\
 w_{0}^{1}w_{2}^{2}-w_{0}^{2}w_{2}^{1}
 \end{array}\right]
 \]
-
-\todo[inline]{Still need to type in the part about the terms under the square root. Show that there are always two real solutions: one positive and one negative, both equal in magnitude. To tell which is the solution we need to impose the condition that the measurement error isn't too severe.}
-
-Finally, given that $B_{0}=(1-\alpha_{1})\alpha_{0}$ and $B_{1}=(1-\alpha_{0})\alpha_{1}$,
-we can solve for the mis-classification rates as follows:
-\[
-B_{1}=\alpha_{1}-\alpha_{1}\frac{B_{0}}{1-\alpha_{1}}
-\]
+Finally, given that $B_{0}=(1-\alpha_{1})\alpha_{0}$ and $B_{1}=(1-\alpha_{0})\alpha_{1}$, we can solve for the mis-classification rates as follows.
+First, rearranging the definition of $B_1$ gives $\alpha_0 = 1 - B_1/\alpha_1$.
+Substituting this into the definition of $B_0$, we see that $B_0 = (1 - B_1/\alpha_1)(1-\alpha_1)$, yielding the following quadratic equation
+\begin{equation*}
+  \alpha_1^2 - (1 - B_0 + B_1) \alpha_1 + B_1 = 0
+\end{equation*}
+Solving, we find that
 \[
 \alpha_{1}=\frac{1}{2}\left[1-B_{0}+B_{1}\pm\sqrt{(1-B_{0}+B_{1})^{2}-4B_{1}}\right]
 \]
-and 
+and since $\alpha_0 = B_0/(1- \alpha_1)$
 \[
 \alpha_{0}=\frac{B_{0}}{1-\frac{1}{2}\left[1-B_{0}+B_{1}\pm\sqrt{(1-B_{0}+B_{1})^{2}-4B_{1}}\right]}
 \]
+To determine the nature of these solutions, we re-express the discriminant: \begin{align*}
+  (1 - B_0 + B_1)^2 - 4 B_1 &=\left[ 1 - \alpha_0\left( 1 - \alpha_1 \right) + \left( 1 - \alpha_0 \right)\alpha_1 \right]^2 - 4\alpha_1(1 - \alpha_0) \\
+  &= \left( 1 - \alpha_0 + \alpha_1 \right)^2 - 4\alpha_1(1 - \alpha_0) \\
+  &= \left[ (1 - \alpha_0 - \alpha_1) + 2\alpha_1 \right]^2 - 4\alpha_1(1 - \alpha_0)\\
+  &= \left[(1 - \alpha_0 - \alpha_1)^2 - 4\alpha_1(1- \alpha_0)\right] - 
+  4(\alpha_1 - \alpha_0 \alpha_1) \\
+  &= (1 -\alpha_0 - \alpha_1)^2
+\end{align*}
+Since the discriminant is necessarily positive, the solutions are always real.
+But more importantly, we have established that
+\begin{equation*}
+  1 - \alpha_0 - \alpha_1 = \pm \sqrt{(1 - B_0 + B_1)^2 - 4 B_1 }
+\end{equation*}
+Since $\beta = \beta_{IV} (1 - \alpha_0 - \alpha_1)$, this expression \emph{alone} is sufficient to identify $\beta$: there is no need to substitute the solutions for $(\alpha_0, \alpha_1)$ into $M(\alpha_0, \alpha_1, p)$.
+Moreover, it clarifies the role of the assumption $1 - \alpha_0 - \alpha_1>0$: without this restriction we learn the \emph{magnitude} of $\beta$ but not the sign.
 
-Given knowledge of $(\alpha_{0},\alpha_{1})$ we can solve for $\beta$ using $\beta= \beta_{OLS}/M(\alpha_0, \alpha_1, p)$. 
 
-In page 544 Lewbel observes that if hs instrument were binary (if
+In page 544 Lewbel observes that if his instrument were binary (if
 we only had one instrument in our case), identification could be achieved
 with one additional restriction on the missclasification rates. One
 such restriction is implied by homoskedasticity on the instrument,
 which he does not mention. 
+
+\todo[inline]{I like the way that Lewbel sets things up. I wonder whether a similar way of doing things would simplify some of our other calculations.}
