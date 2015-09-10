@@ -1,6 +1,6 @@
 %!TEX root = ./main.tex
 \section{A Review of the Literature}
-\todo[inline]{Should probably start off, possible in previous section, by writing out a general encompassing framework that will allow us to talk about all the papers in this section. Present our model before this section.}
+\todo[inline]{Should probably start off, possible in previous section, by writing out a general encompassing framework that will allow us to talk about all the papers in this section. Present our model before this section. Should also mention the assumption $1-\alpha_0-\alpha_1>0$.}
 
 Many examples want to estimate effect of binary treatment.
 Often treatment is mis-measured and possibly endogenous.
@@ -42,5 +42,33 @@ While it might seem strange to assume in practice that $E[zu]=E[T^*u]=0$ are exo
 
 
 \cite{FL} also briefly discuss case in which $T^*$ is endogenous, basically conclude that all you can get in this case is bounds for the treatment effect.
+
+\cite{Mahajan} considers the case of a binary regressor subject to non-differential measurement error when one has available a binary instrument (he calls it an ILV).
+Doesn't seem to be aware of \cite{FL}, similar to \cite{BBS} and \cite{KRS} although he allows for non-parametric effects of covariates and allows the mis-classification error rates to depend on covariates.
+(Although since covariates are held fixed in the proofs, this isn't a big deal.)
+Uses the assumption $E[u|T^*,z]$ to get identification using same basic estimator as \cite{BBS}.
+Also says that he can get identification when $T^*$ is endogenous, but this is wrong.
+He correctly shows that it would be sufficient to learn the mis-classification error rates (as we know, the IV estimator converges to $\beta/(1-\alpha_0-\alpha_1)$ even when $T^*$ is endogenous).
+However, he then states that his earlier theorem has proven that these rates are identified. 
+That theorem, however, relies crucially on the assumption that $T^*$ is exogenous!
+
+\todo[inline]{Also need to talk about Lewbell. He is allowing for a certain kind of instrument invalidity (really his ``instrument'' is more like a covariate) but requires three values for the instrument.}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
