@@ -1,0 +1,46 @@
+%!TEX root = ./main.tex
+\section{A Review of the Literature}
+\todo[inline]{Should probably start off, possible in previous section, by writing out a general encompassing framework that will allow us to talk about all the papers in this section. Present our model before this section.}
+
+Many examples want to estimate effect of binary treatment.
+Often treatment is mis-measured and possibly endogenous.
+Measurement error in binary regressor cannot be classical.
+This has been know for a while, see \cite{Aigner} and \cite{Bollinger}.
+Intuition: can only mis-code true zero and one and true one as zero.
+Describe non-differential measurement error idea.
+Under this kind of measurement error, IV estimator is inconsistent for the causal effect: can remove the effect of endogeneity but not of measurement error.
+See for example \cite{KRS,BBS,FL}.
+
+
+Now talk about \cite{KRS} and \cite{BBS}.
+Two measures of exogenous binary treatment with non-differential measurement error allow one to identify treatment effect.
+Method of moments estimator \emph{not} IV.
+Relies on discreteness of the problem: construct ``cells'' for $E[y|z,T]$.
+Talk about how the two papers differ in their contribution.
+\cite{BBS} consider not only the binary case but a continuous version that isn't identified.
+Need to figure out how \cite{Card} relates to these as well.
+
+\cite{FL} point out that an instrument can be used in place of a second measure of $T^*$ provided that $T^*$ is still exogenous.
+Essentially the same estimator as in \cite{BBS} and \cite{KRS} but more general since the instrument need not be binary: can in fact be continuous.
+But they make a mistake. 
+They assume $E[zu]=0$, $E[T^*u]=0$ and non-differential measurement error and claim that this is sufficient to consistently estimate $\beta$.
+However, this is incorrect: we need the additional assumption that $E[zT^*u]=0$ which is stronger.
+(They seem to think that this term only appears when you have an endogenous $T^*$.)
+While \cite{FL} are aware that there are some differences between two measures of $T^*$, as in \cite{BBS}, and an arbitrary instrument $z$, they seem to have missed one subtle point.
+The assumptions in \cite{BBS} in fact imply that $E[u|T^*,z]=0$.\footnote{This follows from Assumptions A1 and A2 combined with Equation 3.}
+From this it follows that $E[zT^*u]=E[zu]=E[T^*u]=0$. 
+However, if one takes the non-differential measurement assumption literally it is in fact sufficient in the case of two measures to assume only that $E[zu]=E[T^*u]=0$:
+\begin{align}
+  E[zT^*u] &= E[(T^*+w)T^*u] = E[(T^*)^2u] + E[wuT^*]  \\
+  &= E\left[ E\left( u|T^* \right)(T^*)^2 \right] + E\left[E\left( wu|T^* \right)T^*\right]\\
+  &= 0 + E\left[ E(w|T^*)E(u|T^*)T^* \right] = 0
+\end{align}
+using the fact that $E[u|T^*]=0$ and $w$ is independent of $u$ conditional on $T^*$.
+This argument does \emph{not} necessarily apply to an arbitrary instrument $z$: $E[zu]=E[T^*u]=0$ does not imply that $E[zT^*u]=0$.
+\todo[inline]{Put in our simple binary example.}
+While it might seem strange to assume in practice that $E[zu]=E[T^*u]=0$ are exogenous but not that $E[zT^*u]=0$ the point is merely that this is an additional assumption beyond the usual assumptions of lack of correlation. 
+
+
+\cite{FL} also briefly discuss case in which $T^*$ is endogenous, basically conclude that all you can get in this case is bounds for the treatment effect.
+
+
