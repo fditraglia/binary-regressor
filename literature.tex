@@ -18,7 +18,8 @@ Method of moments estimator \emph{not} IV.
 Relies on discreteness of the problem: construct ``cells'' for $E[y|z,T]$.
 Talk about how the two papers differ in their contribution.
 \cite{BBS} consider not only the binary case but a continuous version that isn't identified.
-Need to figure out how \cite{Card} relates to these as well.
+\todo[inline]{Need to figure out how \cite{Card} relates to these as well.
+It looks like he does not in fact use two measures to estimate the effect of union status on wages. Instead he uses a two-period panel dataset and examines external information comparing employer and employee reporting of union status. This leads him to propose the assumption that the ``up'' and ``down'' mis-classification probabilities are equal, since it fits this external dataset well. This is the ``quasi-classical'' measurement error case that we talked about previously. There is only one measurement error parameter and presumably the panel dataset allows him to identify it.}
 
 \cite{FL} point out that an instrument can be used in place of a second measure of $T^*$ provided that $T^*$ is still exogenous.
 Essentially the same estimator as in \cite{BBS} and \cite{KRS} but more general since the instrument need not be binary: can in fact be continuous.
@@ -42,17 +43,25 @@ While it might seem strange to assume in practice that $E[zu]=E[T^*u]=0$ are exo
 
 
 \cite{FL} also briefly discuss case in which $T^*$ is endogenous, basically conclude that all you can get in this case is bounds for the treatment effect.
+\todo[inline]{Presumably we're going to show that this isn't the case!}
 
 \cite{Mahajan} considers the case of a binary regressor subject to non-differential measurement error when one has available a binary instrument (he calls it an ILV).
 Doesn't seem to be aware of \cite{FL}, similar to \cite{BBS} and \cite{KRS} although he allows for non-parametric effects of covariates and allows the mis-classification error rates to depend on covariates.
 (Although since covariates are held fixed in the proofs, this isn't a big deal.)
+The crucial assumption for the instrument-like variable is that it is unrelated to the mis-classification probabilities.
 Uses the assumption $E[u|T^*,z]$ to get identification using same basic estimator as \cite{BBS}.
 Also says that he can get identification when $T^*$ is endogenous, but this is wrong.
 He correctly shows that it would be sufficient to learn the mis-classification error rates (as we know, the IV estimator converges to $\beta/(1-\alpha_0-\alpha_1)$ even when $T^*$ is endogenous).
 However, he then states that his earlier theorem has proven that these rates are identified. 
 That theorem, however, relies crucially on the assumption that $T^*$ is exogenous!
 
-\todo[inline]{Also need to talk about Lewbell. He is allowing for a certain kind of instrument invalidity (really his ``instrument'' is more like a covariate) but requires three values for the instrument.}
+Another closely related paper is \cite{Lewbel}.
+Whereas Mahajan makes sufficient assumptions to identify $\beta$ with a two-valued $z$, provided that $T^*$ is exogenous, Lewbel works with a three-valued $z$.
+While Lewbel also assumes that $E[T^*u]=0$, his ``instrument'' is really more like a covariate.
+He assumes that $z$ is unrelated to the mis-classification probabilities but allows it to have a direct effect on $y$, as long as there is no interaction between $T^*$ and $z$.
+Since this involves imposing fewer restrictions on the $m_{ij}$, Lewbel requires that $z$ take on more values.
+There is also some kind of determinant condition that we don't fully understand yet, but will figure out soon!
+
 
 
 
