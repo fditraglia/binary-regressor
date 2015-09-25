@@ -18,7 +18,9 @@ binaryDGP <- function(a0, a1, p0 = 0.2, p1 = 0.7, q = 0.5, c = 0, b = 1,
   m10 <- m11 - d1
   z <- rbinom(N, 1, q)
   xstar <- (1 - z) * rbinom(N, 1, p0) + z * rbinom(N, 1, p1) 
-  e <- rnorm(N, 0, sigma)
+  sigma0 <- sqrt(sigma^2 - (m10^2 * p0 + m00^2 * (1 - p0)))
+  sigma1 <- sqrt(sigma^2 - (m11^2 * p1 + m01^2 * (1 - p1)))
+  e <- (1 - z) * rnorm(N, 0, sigma0) + z * rnorm(N, 0, sigma1)
   m <- (1 - xstar) * (1 - z) * m00 + xstar * (1 - z) * m10 +
     (1 - xstar) * z * m01 + xstar * z * m11
   u <- e + m
