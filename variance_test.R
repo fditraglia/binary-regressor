@@ -34,7 +34,7 @@ binaryDGP <- function(a0, a1, p0 = 0.2, p1 = 0.7, q = 0.5, c = 0, b = 1,
 
 set.seed(208)
 
-foo <- binaryDGP(0.1, 0.2)
+foo <- binaryDGP(0.05, 0.4)
 dat <- foo$dat
 dat0 <- subset(dat, z == 0)
 dat1 <- subset(dat, z == 1)
@@ -49,10 +49,11 @@ Var_x0 <- var(dat0$x)
 W <- (mean(dat1$y) - mean(dat0$y)) / (p1 - p0)
 Wtilde <- (mean(dat1$y * dat1$x) - mean(dat0$y * dat0$x)) / (p1 - p0)
 
-# This should equal a0 - a1 but doesn't!
+# This should equal a0 - a1 
 (2 * p - 1 - p1 - p0) + (2 / W) * (Wtilde - ybar) - 
   (Var_y1 - Var_y0) / ((p1 - p0) * W^2)
 with(foo$param, a0 - a1)
+# and it does!
 
 # Check the other equations!!!
 # Wald
@@ -68,12 +69,10 @@ ybar + W * ((1 - p) + with(foo$param, a0 - a1)) + mu / (p1 - p0)
 W^2 * ( (Var_x1 - Var_x0) + with(foo$param, a0 - a1) * (p1 - p0)) +
   2 * W * mu
 Var_y1 - Var_y0
-# This doesn't seem to be correct!
 
 # Check the equations upon which it is based
 0.7 * (1 - 0.7) + 1 + 2 * cov(dat1$xstar, dat1$u)
 Var_y1
-Var_y0
 
 
 
