@@ -19,13 +19,17 @@ While most of their paper is devoted to case of exogenous treatment, \cite{FL} s
 Although do not provide a formal proof, argue the model won't be identified except under very strong parametric restrictions since relaxing exogeneity introduces two new parameters.
 \cite{FL} consider traditional linear IV model making no distinction between continuous and discrete instrument.
 In contrast \cite{Mahajan}, apparently unaware of \cite{FL},  concludes that the treatment effect is identified under endogeneity and mis-classification.
-This paper: show that the analysis in both \cite{FL} and \cite{Mahajan} is flawed, present general analysis of non-parametric identification of binary treatment effect under mis-classification and possible endogeneity. 
-
+Clearly there is some confusion in the literature about these kinds of models, main goal of this paper is to clarify what can and cannot be learned about a causal effect in the presence of mis-classification and endogeneity. 
+Present a general analysis of non-parametric identification in this setting.
 Key ingredient: put existing papers into a common framework, including \cite{Lewbel} who works with an ``instrument'' that actually has a direct effect on the outcome.
 Explain the model we will work with here and how we hold covariates fixed as in the proofs of other papers, how this allows us to simplify notation.
 Introduce the ``m'' notation.
 
+
+
+
 Summary of our findings goes here. 
+First, the analysis in both \cite{FL} and \cite{Mahajan} is flawed.
 \cite{FL} get the exogeneity assumption wrong while \cite{Mahajan} assumes a contradiction: no first stage.
 We Consider ways to get extra moment conditions to try to achieve identification: homoskedasticity restriction and additional values of instrument, a la \cite{Lewbel}.
 The homoskedasticity condition yields a simple and informative partial identification result regardless of the number of values the instrument takes on.
