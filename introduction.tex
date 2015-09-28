@@ -1,3 +1,37 @@
 %!TEX root = ./main.tex
 \section{Introduction}
-Introduction goes here.
+
+Measurement error and endogeneity are two key problems when trying to learn about causation in social research.
+Popularity of instrumental variables because they can solve both problems at once in certain cases.
+Most familiar example is linear model with classical measurement error.
+Many treatments of interest, however, are binary and measurement error in a binary regressor, typically referred to as misclassification, \emph{cannot} be classical.
+A true one can only be mis-classified as a zero while a true zero can only be mis-classified as a one, leading to a negative correlation between a binary regressor and its measurement error.
+This has been known for a while: see \cite{Aigner} and \cite{Bollinger}.
+Assumption that replaces classical measurement error in this case is non-differential measurement error.
+Explain briefly.
+Unfortunately, IV is inconsistent under non-differential measurement error: removes only the effect of endogeneity, not measurement error.
+Papers that explain how to construct a method of moments estimator, not IV, that uses an instrument, or second measure, to eliminate non-differential measurement error when the treatment of interest is \emph{exogenous}: \cite{KRS}, \cite{BBS}, \cite{FL}.
+Later generalizations of this idea by \cite{Lewbel} and \cite{Mahajan}.
+
+Only two papers discuss case in which the treatment is endogenous as well as mis-classified and they reach apparently contradictory conclusions.
+(Should also mention the \cite{Hausman} and Tanguay Brachet stuff, although identification here is really ``at infinity'' and depends crucially on the parametric specification.)
+While most of their paper is devoted to case of exogenous treatment, \cite{FL} spend a few paragraphs discussing extension to endogenous treatment.
+Although do not provide a formal proof, argue the model won't be identified except under very strong parametric restrictions since relaxing exogeneity introduces two new parameters.
+\cite{FL} consider traditional linear IV model making no distinction between continuous and discrete instrument.
+In contrast \cite{Mahajan}, apparently unaware of \cite{FL},  concludes that the treatment effect is identified under endogeneity and mis-classification.
+This paper: show that the analysis in both \cite{FL} and \cite{Mahajan} is flawed, present general analysis of non-parametric identification of binary treatment effect under mis-classification and possible endogeneity. 
+
+Key ingredient: put existing papers into a common framework, including \cite{Lewbel} who works with an ``instrument'' that actually has a direct effect on the outcome.
+Explain the model we will work with here and how we hold covariates fixed as in the proofs of other papers, how this allows us to simplify notation.
+Introduce the ``m'' notation.
+
+Summary of our findings goes here. 
+\cite{FL} get the exogeneity assumption wrong while \cite{Mahajan} assumes a contradiction: no first stage.
+We Consider ways to get extra moment conditions to try to achieve identification: homoskedasticity restriction and additional values of instrument, a la \cite{Lewbel}.
+The homoskedasticity condition yields a simple and informative partial identification result regardless of the number of values the instrument takes on.
+Presumably we will prove that no matter how many values the instrument takes on, we can't get identification, with or without the homoskedasticity condition.
+Possibly consider some additional restrictions on the $m^*_{jk}$ that would yield identification: some kind of symmetry condition on selection or something.
+Probably these assumptions aren't very plausible in practice.
+Summary of paper.
+Example from development experiment?
+Proofs in appendix.
