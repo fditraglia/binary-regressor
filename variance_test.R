@@ -1,11 +1,11 @@
-# Since this is the DGP these are the "star" probabilities but 
+# Since this is the DGP these are the "star" probabilities but
 # to reduce typing I don't indicate this, e.g. p denotes p* in the notation
 # of the paper. Further, since T is TRUE I call the treatment x. Since I do
 # need to distinguish between the true and observed treatment I preserve the
 # difference between T and T* from the paper as x and xstar in the code
 
 
-binaryDGP <- function(a0, a1, p0 = 0.2, p1 = 0.7, q = 0.5, c = 0, b = 1, 
+binaryDGP <- function(a0, a1, p0 = 0.2, p1 = 0.7, q = 0.5, c = 0, b = 1,
                       d0 = -1, d1 = 1, sigma = 1, N = 1000000){
   p10 <- p0 * (1 - q)
   p11 <- p1 * q
@@ -17,7 +17,7 @@ binaryDGP <- function(a0, a1, p0 = 0.2, p1 = 0.7, q = 0.5, c = 0, b = 1,
   m11 <- (p1 - 1)/p1 * m01
   m10 <- m11 - d1
   z <- rbinom(N, 1, q)
-  xstar <- (1 - z) * rbinom(N, 1, p0) + z * rbinom(N, 1, p1) 
+  xstar <- (1 - z) * rbinom(N, 1, p0) + z * rbinom(N, 1, p1)
   sigma0 <- sqrt(sigma^2 - (m10^2 * p0 + m00^2 * (1 - p0)))
   sigma1 <- sqrt(sigma^2 - (m11^2 * p1 + m01^2 * (1 - p1)))
   e <- (1 - z) * rnorm(N, 0, sigma0) + z * rnorm(N, 0, sigma1)
@@ -27,7 +27,7 @@ binaryDGP <- function(a0, a1, p0 = 0.2, p1 = 0.7, q = 0.5, c = 0, b = 1,
   y <- c + b * xstar + u
   x <- (1 - xstar) * rbinom(N, 1, a0) + xstar * rbinom(N, 1, 1 - a1)
   dat <- data.frame(x, y, z, xstar, u)
-  param <- data.frame(a0, a1, b, c, sigma, d0, d1, p0, p1, q, 
+  param <- data.frame(a0, a1, b, c, sigma, d0, d1, p0, p1, q,
                       m00, m01, m10, m11, p00, p01, p10, p11)
   return(list(dat = dat, param = param))
 }
@@ -49,15 +49,15 @@ Var_x0 <- var(dat0$x)
 W <- (mean(dat1$y) - mean(dat0$y)) / (p1 - p0)
 Wtilde <- (mean(dat1$y * dat1$x) - mean(dat0$y * dat0$x)) / (p1 - p0)
 
-# This should equal a0 - a1 
-(2 * p - 1 - p1 - p0) + (2 / W) * (Wtilde - ybar) - 
+# This should equal a0 - a1
+(2 * p - 1 - p1 - p0) + (2 / W) * (Wtilde - ybar) -
   (Var_y1 - Var_y0) / ((p1 - p0) * W^2)
 with(foo$param, a0 - a1)
 # and it does!
 
 # Check the other equations!!!
 # Wald
-W 
+W
 1/(1 - with(foo$param, a0 + a1))
 
 # Modified Wald
@@ -75,11 +75,29 @@ Var_y1 - Var_y0
 Var_y1
 
 
+# Test the equations from September 29th
+# (Something appears to be very wrong here!)
+set.seed(1234)
+foo <- binaryDGP(a0 = 0.2, a1 = 0.4, p0 = 0.1, p1 = 0.8, q = 1/2, c = 0,
+                 b = 1, d0 = 0, d1 = 0, sigma = 0.5)
 
+p0 <- foo$param$p0
+p1 <- foo$param$p1
+y00 <- (1 - p0) * mean(subset(foo$dat, (x == 0) & (z == 0))$y)
+y10 <- p0 * mean(subset(foo$dat, (x == 1) & (z == 0))$y)
+y01 <- (1 - p1) * mean(subset(foo$dat, (x == 0) & (z == 1))$y)
+y11 <- p1 * mean(subset(foo$dat, (x == 1) & (z == 1))$y)
 
+y01 / (y11 + y01) # should equal a1 = 0.4
+y00 / (y10 + y00) # should equal a1 = 0.4
 
+(y01 * p0 - y00 * p1)/(y01 - y00) # should equal a0 = 0.2 but it's negative!
 
-
-
+y01
+with(foo$param, b/(1 - a0 - a1) * a1 * (p1 - a0)) # should equal y01
+y11
+with(foo$param, b/(1 - a0 - a1) * (1 - a1) * (p1 - a0)) # should equal y11
+y00
+with(foo$param, b/(1 - a0 - a1) * a1 * (p0 - a0)) # should equal y11
 
 
