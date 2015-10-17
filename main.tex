@@ -1,46 +1,36 @@
-\documentclass[draft]{ectaart}
+\documentclass[12pt]{article}
 \usepackage{frankstyle}
+
+\title{On the Use of Instrumental Variables to Identify the Effect of a Mis-measured, Binary Regressor}
+
+\author{Francis J.\ DiTraglia  \hspace{2em} Camilo Garcia-Jimeno\\
+\normalsize University of Pennsylvania}
+
 \begin{document}
 
-\begin{frontmatter}
-\title{On the Use of Instrumental Variables to Identify the Effect of a Mis-measured, Binary Regressor\protect\thanksref{T1}}
-\runtitle{Binary, Mis-measured Regressor}
-\thankstext{T1}{We thank\dots}
+\maketitle
 
-\begin{aug}
-\author{\fnms{Francis} J.\ \snm{DiTraglia}\thanksref{a}\ead[label=e1]{fditra@econ.upenn.edu}}
-\author{\fnms{Camilo} \snm{Garcia-Jimeno}\thanksref{a}\ead[label=e2]{gcamilo@econ.upenn.edu}}
-
-\runauthor{F.J.\ DiTraglia, and C.\ Garcia-Jimeno} 
-
-\address[a]{Dept.\ of Economics, University of Pennsylvania, 3718 Locust Walk, Philadelphia, PA 19104, U.S.A.;
-\printead{e1,e2}
-}
-
-\end{aug}
 
 \begin{abstract}
-  \input{abstract.tex}
+  \singlespacing
+	\input{abstract.tex}
+
+  	\bigskip
+	\noindent\textbf{Keywords:} Instrumental variables, Measurement error, Endogeneity, Binary regressor, Partial Identification
+
+	\medskip
+  \noindent\textbf{JEL Codes:} C10, C18, C25, C26
 \end{abstract}
-
-\begin{keyword}
-\kwd{Instrumental Variables}
-\kwd{Measurement Error}
-\kwd{Binary Regressor}
-\kwd{Endogeneity}
-\end{keyword}
-
-\end{frontmatter}
 
 %Body of the paper
 \input{introduction.tex}
 \input{literature.tex}
-\input{binary_instrument.tex}
-\input{mahajan.tex}
-\input{lewbel.tex}
+%\input{binary_instrument.tex}
+%\input{mahajan.tex}
+%\input{lewbel.tex}
 \input{homoskedasticity.tex}
-\input{continuous.tex}
-\input{conclusion.tex}
+%\input{continuous.tex}
+%\input{conclusion.tex}
 
 \bibliographystyle{elsarticle-harv}
 \bibliography{binary}

@@ -1,5 +1,57 @@
 %!TEX root = ./main.tex
-\section{A Review of the Literature}
+\section{Notation and Related Literature}
+\todo[inline]{Give the general model, the full notation, and the shorthand notation. Also give the ``m'' notation since this will make it easier to talk about the papers.}
+
+\todo[inline]{Why is this model interesting? What is known about it?}
+Many treatments of interest in applied work are binary.
+To take a particularly prominent example, consider treatment status in a randomized controlled trial.
+Even if the randomization is pristine, which yields a valid binary instrument (the offer of treatment), subjects may select into treatment based on unobservables, and, given the given the many real-world complications that arise in the field, measurement error may be an important concern.
+As is well known, instrumental variables (IV) based on a single valid instrument suffices to recover the treatment effect in a linear model with a single endogenous regressor subject to classical measurement.
+As is less well known, classical measurement error is in fact impossible when the regressor of interest is binary: because a true 1 can only be mis-measured as a 0 and a true 0 can only be mis-measured as a 1, the measurement error must be \emph{negatively} correlated with the true treatment status \citep{Aigner,Bollinger}. 
+
+Measurement error in binary regressor is usually called \emph{mis-classification}.
+The simplest form of mis-classification is so-called \emph{non-differential} measurement error.
+In this case, conditional on true treatment status, and possibly a set of exogenous covariates, the measurement error is assumed to be un-correlated with the other variables of the system.
+Even under this comparatively mild departure from classical measurement error, \cite{Bollinger} has shown that the IV estimator does not recover the true treatment effect: while the IV estimator removes the effect of regressor endogeneity it is inconsistent and the asymptotic bias depends on the extent of measurement error.
+When the regressor of interest is in fact \emph{exogenous}, however, and a valid instrument is available, it is possible to recover the treatment effect using a GMM approach.
+\cite{BBS} and \cite{KRS} more-or-less simultaneously pointed this out in a setting in which \emph{two} alternative measures of treatment are available, both subject to non-differential measurement error.
+In essence, one measure serves as an instrument for the other although the estimator is quite different from IV.\footnote{Ignoring covariates, the observable moments in this case are the joint probability distribution of the two binary treatment measures and the conditional means of the outcome variable given the two measure. Although the system is highly non-linear, it can be manipulated to yield an explicit solution for the treatment effect provided that the true treatment is exogenous.}
+
+
+
+
+
+
+Unfortunately, IV is inconsistent under non-differential measurement error: removes only the effect of endogeneity, not measurement error.
+Papers that explain how to construct a method of moments estimator, not IV, that uses an instrument, or second measure, to eliminate non-differential measurement error when the treatment of interest is \emph{exogenous}: \cite{KRS}, \cite{BBS}, \cite{FL}.
+Later generalizations of this idea by \cite{Lewbel} and \cite{Mahajan}.
+
+Only two papers discuss case in which the treatment is endogenous as well as mis-classified and they reach apparently contradictory conclusions.
+(Should also mention the \cite{Hausman} and Tanguay Brachet stuff, although identification here is really ``at infinity'' and depends crucially on the parametric specification.)
+While most of their paper is devoted to case of exogenous treatment, \cite{FL} spend a few paragraphs discussing extension to endogenous treatment.
+Although do not provide a formal proof, argue the model won't be identified except under very strong parametric restrictions since relaxing exogeneity introduces two new parameters.
+\cite{FL} consider traditional linear IV model making no distinction between continuous and discrete instrument.
+In contrast \cite{Mahajan}, apparently unaware of \cite{FL},  concludes that the treatment effect is identified under endogeneity and mis-classification.
+Clearly there is some confusion in the literature about these kinds of models, main goal of this paper is to clarify what can and cannot be learned about a causal effect in the presence of mis-classification and endogeneity. 
+Present a general analysis of non-parametric identification in this setting.
+Key ingredient: put existing papers into a common framework, including \cite{Lewbel} who works with an ``instrument'' that actually has a direct effect on the outcome.
+Explain the model we will work with here and how we hold covariates fixed as in the proofs of other papers, how this allows us to simplify notation.
+Introduce the ``m'' notation.
+
+
+
+
+Summary of our findings goes here. 
+First, the analysis in both \cite{FL} and \cite{Mahajan} is flawed.
+\cite{FL} get the exogeneity assumption wrong while \cite{Mahajan} assumes a contradiction: no first stage.
+We Consider ways to get extra moment conditions to try to achieve identification: homoskedasticity restriction and additional values of instrument, a la \cite{Lewbel}.
+The homoskedasticity condition yields a simple and informative partial identification result regardless of the number of values the instrument takes on.
+Presumably we will prove that no matter how many values the instrument takes on, we can't get identification, with or without the homoskedasticity condition.
+Possibly consider some additional restrictions on the $m^*_{jk}$ that would yield identification: some kind of symmetry condition on selection or something.
+Probably these assumptions aren't very plausible in practice.
+Summary of paper.
+Example from development experiment?
+Proofs in appendix.
 \todo[inline]{Should probably start off, possible in previous section, by writing out a general encompassing framework that will allow us to talk about all the papers in this section. Present our model before this section. Should also mention the assumption $1-\alpha_0-\alpha_1>0$.}
 
 Many examples want to estimate effect of binary treatment.
