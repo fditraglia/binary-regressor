@@ -151,8 +151,6 @@ which we can substitute into Equations \ref{eq:MC0} and \ref{eq:MC1} to yield
   \label{eq:MC1IV}
   \hat{y}_{1k} &=(1-\alpha_1)(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + \alpha_0 c + (p _k -  \alpha_0)m_{1k}^*.
 \end{align}
-So what do we gain from the instrument validity assumption?
-Imposing Equation \ref{eq:validInstrument} replaces the $K$ unknown parameters $\left\{ m^*_{0k}\right\}_{k=1}^K $ with a single parameter $c$, leaving us with the same $2K$ equations but only $K+4$ unknowns.
 Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} also make it clear why the IV estimator is inconsistent in the face of non-differential measurement error, and that this inconsistency does not depend on the endogeneity of the treatment, as noted by \cite{FL}.
 Adding together Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} yields
 \begin{equation*}
@@ -166,7 +164,32 @@ Taking the difference of the preceding expression expression evaluated at two di
 \end{equation}
 which is the well-known Wald IV estimator, since $\hat{y}_{0k} + \hat{y}_{1k} = \mathbb{E}[y|z = z_k]$.
 
-For any 
+Imposing Equation \ref{eq:validInstrument} replaces the $K$ unknown parameters $\left\{ m^*_{0k}\right\}_{k=1}^K $ with a single parameter $c$, leaving us with the same $2K$ equations but only $K+4$ unknowns.
+When $K=2$ we have 4 equations and 6 unknowns.
+So how can one identify $\beta$ in this case?
+The literature has imposed additional assumptions which, using our notation, can once again be mapped into restrictions on the $m_{tk}^*$.
+\cite{BBS}, \cite{KRS}, and \cite{Mahajan} make a \emph{joint} exogeneity assumption on $(T^*,z)$, namely $\mathbb{E}[\varepsilon|T^*,z]=0$.
+Notice that this is strictly stronger than assuming that the instrument is valid and the treatment is exogenous.
+In our notation, this joint exogeneity assumption is equivalent to imposing $m_{tk}^*=c$ for all $t,k$.
+This reduces the parameter count to 4 regardless of the value of $K$.
+Thus, then the instrument is binary, we have exactly as many equations as unknowns.
+The arguments in \cite{BBS}, \cite{KRS}, and \cite{Mahajan} are all equivalent to solving Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} for $\beta$ under the added restriction that $m^*_{1k}=c$, establishing identification for this case.
+\cite{FL} use the same argument in a linear model with a potentially continuous instrument, but impose only the weaker conditions that the treatment is exogenous and the instrument is valid. 
+Nevertheless, a crucial step in their derivation implicitly assumes the stronger joint exogeneity assumption used by \cite{BBS}, \cite{KRS} and \cite{Mahajan}.
+Without this assumption, their proof does not in fact go through.
+%Add a footnote showing the gap between the two sets of assumptions and how it relates to the continuous case, triple moment, etc.
+
+If one wishes to allow for an endogenous treatment, clearly the joint exogeneity assumption $m_{tk}^*=c$ is unusable: we are back to $2K$ equations in $K+4$ unknowns.
+Based on the identification arguments described above, there would seem to be two possible avenues for identification of the treatment effect when a valid instrument is available.
+A first possibility would be to impose alternative conditions on the $m^*_{tk}$ that are compatible with an endogenous treatment.
+If $z$ is binary, two additional restrictions would suffice to equate the counts of moments and unknowns.
+This is the route followed by \cite{Mahajan} in his proof of identification with a binary instrument and endogenous treatment.
+His Equation (11), expressed in our notation, amounts to adding the two restriction $m^*_{11} = m^*_{12}$ and $m^*_{01} = m^*_{02}$. 
+Another possibility, suggested by \citeauthor{Lewbel}'s approach, would be to rely on an instrument that takes on more than two values.
+Following this approach would suggest a 4-valued instrument, the smallest value of $K$ for which $2K = K+4$.
+In the following section we present two of our main results: first \citeauthor{Mahajan}'s approach leads to a contradiction, and second, regardless of the value of $K$, $\beta$ is unidentified.  
+
+
 
 %\cite{FL} point out that an instrument can be used in place of a second measure of $T^*$ provided that $T^*$ is still exogenous.
 %Essentially the same estimator as in \cite{BBS} and \cite{KRS} but more general since the instrument need not be binary: can in fact be continuous.
