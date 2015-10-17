@@ -2,9 +2,8 @@
 \section{Introduction}
 
 This paper studies the use of a valid instrument to identify the causal effect of an endogeneous, binary treatment that is subject to non-differential measurement error in a non-parametric regression model with additively separable errors. 
-Although a relevant case for applied work, this setting has received little attention from econometricians, and the scant existing literature is contradictory.
-\cite{FL} provide a brief discussion of the prospects for identification in the parametric linear case, suggesting that, in general, identification should be expected to fail.
-In contrast, an important paper by \cite{Mahajan} includes a proof of identification in the more general non-parametric model that relies on the availability of a discrete instrument that takes on at least two values.   
+Although a relevant case for applied work, this setting has received little attention in the literature.
+The only existing result appears in an important paper by \cite{Mahajan}, who proves identification by relying on a discrete instrument that takes on at least two values.   
 Here we show that this result is incorrect. 
 To do so, we begin by providing a convenient notational framework within which to situate the problem.
 Using this framework we show that the proof in Appendix A.2 of \cite{Mahajan} leads to a contradiction.
@@ -12,10 +11,11 @@ Throughout the paper, \cite{Mahajan} maintains an assumption (Assumption 4) whic
 This assumption requires that the instrumental variable be relevant.
 When extending his result for an exogenous treatment to the more general case of an endogenous one in a model with additively separable errors, however, he must impose an additional condition on the model (Equation 11), which turns out to imply the lack of a first-stage, violating the Dependency Condition.
 
-Since one cannot impose the condition in Equation 11 of \cite{Mahajan}, we go on to consider the prospects for identification in this model more broadly.
+Since one cannot impose the condition in Equation 11 of \cite{Mahajan}, we go on to study the prospects for identification in this model more broadly.
 We consider two possibilities.
 First, borrowing an idea from \cite{Lewbel}, we explore whether expanding the support of the instrument, so that it takes on more than two values, yields identification.
-While allowing the instrument to take on additional values does increase the number of available moment conditions, we show that under the standard instrumental variables assumptions these additional moment conditions provide no additional identifying information about the treatment effect.
+Allowing the instrument to take on additional values increases the number of available moment conditions.
+We show, however, that these additional moments cannot point identify the treatment effect.
 This holds true regardless of how many (finite) values the instrument takes on.
 
 We then consider a new source of identifying information in the form of a conditional homoskedasticity assumption. 

@@ -1,0 +1,155 @@
+%!TEX root = ./main.tex
+\section{The Model}
+Let $T^*$ be a binary indicator of true treatment status, possibly endogenous, $\mathbf{x}$ be a vector of exogenous covariates, and $y$ be an outcome of interest where
+\begin{equation}
+  y = h(T^*, \mathbf{x}) + \varepsilon
+  \label{eq:model}
+\end{equation}
+and $\varepsilon$ is mean zero.
+Since $T^*$ is potentially endogenous, $\mathbb{E}[\varepsilon|T^*,\mathbf{x}]$ may not be zero.
+Now let $z$ be a discrete instrumental variable with support set $\{z_k\}_{k=1}^K$ satisfying the usual instrumental variables assumption, namely $\mathbb{E}[\varepsilon|z,\mathbf{x}]=0$.
+We assume throughout that $z$ is a relevant instrument for $T^*$, in other words 
+\begin{equation}
+\mathbb{P}(T^*=1|\mathbf{x},z_j)\neq \mathbb{P}(T^*=1|\mathbf{x},z_k), \quad \forall k\neq j.
+\label{eq:relevance}
+\end{equation}
+Our goal is to estimate the average treatment effect (ATE) function
+\begin{equation}
+  \tau(\mathbf{x}) = h(1,\mathbf{x}) - h(0,\mathbf{x}).
+  \label{eq:ATE}
+\end{equation}
+We maintain throughout that $\tau(\mathbf{x}) \neq 0$.
+If it were, this would imply that $T^*$ is irrelevant for $y$ which can be directly tested regardless of whether any mis-classification is present and regardless of whether $T^*$ is endogenous.\footnote{This is because, as we will see below, the Wald Estimator is identified and is proportional to the treatment effect. This estimator exists provided that we have a valid and relevant instrument that takes on at least two values.} 
+
+Now, suppose we observe not $T^*$ but a noisy measure $T$ polluted by non-differential measurement error.
+In particular, we assume that
+\begin{eqnarray}
+  \label{eq:a0}
+  \mathbb{P}(T = 1| T^* = 0, \mathbf{x}, z)  &=&  \alpha_0(\mathbf{x})\\
+  \label{eq:a1}
+  \mathbb{P}(T = 0| T^* = 1, \mathbf{x}, z)  &=&  \alpha_1(\mathbf{x})
+\end{eqnarray}
+and additionally that
+\begin{equation}
+  \mathbb{E}[\varepsilon|T^*,T,\mathbf{x},z] =  \mathbb{E}[\varepsilon|T^*,\mathbf{x},z]
+  \label{eq:nondiff}
+\end{equation}
+Equations \ref{eq:a0}--\ref{eq:a1} amount to the assumption that $z$ and $T$ are conditionally independent given $(T^*,\mathbf{x})$. 
+In other words, $z$ provides no additional information about the process that causes $T$ to be mis-classified above that already contained in $T^*$ and $\mathbf{x}$.
+In contrast, we allow for the possibility that measurement error process \emph{does} depend on the exogenous covariates $\mathbf{x}$. 
+Equation \ref{eq:nondiff} states that, given knowledge of true treatment status, the instrument and the exogenous covariates, the \emph{observed} treatment status contains no information about the mean of the regression error term.  
+The assumptions on the measurement error process contained in Equations \ref{eq:a0}--\ref{eq:nondiff} are standard in the literature.
+Another standard assumption is the condition
+\begin{equation}
+  \alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) < 1
+  \label{eq:alphaIneq}
+\end{equation}
+which rules out the possibility that $1-T$ is a better measure of $T^*$ than $T$ is, and vice-versa.
+While we do not rely on this condition below, it appears, for example in \cite{Mahajan}, and \cite{Lewbel}, among others.
+
+Our arguments below, like those of \cite{Mahajan} and \cite{Lewbel}, proceed by holding the exogenous covariates \emph{fixed} at some level $\mathbf{x}_a$.
+As such, there is no loss of generality from suppressing dependence on $\mathbf{x}$ in our notation. 
+It should be understood throughout that any conditioning statements are evaluated at $\mathbf{x}=\mathbf{x}_a$.
+To this end let $c = h(0,\mathbf{x}_a)$ and define $\beta = h(1,\mathbf{x}_a) - h(0,\mathbf{x}_a)$.
+Using this notation, Equation \ref{eq:model} can be re-expressed as a simple linear model, namely 
+\begin{equation}
+  y = \beta T^* + u 
+  \label{eq:linear}
+\end{equation}
+where we define $u = c + \varepsilon$, an error term that need not be mean zero.
+
+In the context of Equation \ref{eq:linear} the only observable information consists of the moments of $y$, conditional on $T,z$, the conditional probabilities of $T$ given $z$, and the marginal probabilities of $z$.
+For the moment, following the existing literature, we will restrict attention to the conditional mean of $y$.
+Let $\bar{y}_{t,k}$ denote $\mathbb{E}[y|T=t,z=z_k]$, let $p_k$ denote $\mathbb{P}(T=1|z=z_k)$ and let $q_k = \mathbb{P}(z=z_k)$.
+Table \ref{tab:observables} depicts the observable moments for this problem.
+
+\begin{table}
+  \centering
+  \begin{tabular}{c|c|c|c|c|}
+    \multicolumn{1}{c}{}& \multicolumn{1}{c}{$z=1$} &\multicolumn{1}{c}{$z=1$} & \multicolumn{1}{c}{\dots} &\multicolumn{1}{c}{$z=K$}\\
+    \cline{2-5}
+    $T=0$ & \diagbox[dir=NE]{$\bar{y}_{01}$}{$p_{01}$} & \diagbox[dir=NE]{$\bar{y}_{02}$}{$p_{02}$} & \dots &\diagbox[dir=NE]{$\bar{y}_{0K}$}{$p_{0K}$}\\
+    \cline{2-5}
+    $T=1$ & \diagbox[dir=NE]{$\bar{y}_{11}$}{$p_{11}$} & \diagbox[dir=NE]{$\bar{y}_{12}$}{$p_{12}$} & \dots &\diagbox[dir=NE]{$\bar{y}_{1K}$}{$p_{1K}$}\\
+    \cline{2-5}
+  \end{tabular}
+  \caption{Observables, using the shorthand $p_{0k}=q_k(1-p_k)$ and $p_{1k}=q_kp_k$.}
+  \label{tab:observables}
+\end{table}
+
+The observed cell means $\bar{y}_{tk}$ depend on a number of unobservable parameters which we now define. 
+Let $m^*_{tk}$ denote the conditional mean of $u$ given $T^*=t$ and $z=z_k$, $\mathbb{E}[u|T^*=t, z=z_k]$, and let $p^*_k$ denote $\mathbb{P}(T^*=1|z=z_k)$.
+These quantities are depicted in Table \ref{tab:unobservables}.
+By the Law of Total Probability and the definitions of $p_k$ and $p_k^*$,
+\begin{eqnarray*}
+  p_k &=&  \mathbb{P}(T=1|z=z_k,T^*=0)(1-p^*_{k}) + \mathbb{P}(T=1|z=z_k,T^*=1)p^*_k \\
+  &=& \alpha_0 (1-p^*_k) + (1 - \alpha_1) p_k^* 
+\end{eqnarray*}
+since the misclassification probabilities do not depend on $z$ by Equations \ref{eq:a0}--\ref{eq:a1}.
+Rearranging, 
+\begin{equation}
+  p_k^* = \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1}, \quad
+  1 -p_k^* = \frac{1 - p_k - \alpha_1}{1 - \alpha_0 - \alpha_1}. 
+  \label{eq:pkstar}
+\end{equation}
+Equation \ref{eq:pkstar} implies that $p_k^*$ is observable up to knowledge of the mis-classification rates $\alpha_0,\alpha_1$ since $p_k$ is observable.
+Thus, the full set of parameters needed to characterize the model in Equation \ref{eq:linear} consists of $\beta, \alpha_0, \alpha_1$ and the conditional means of $u$, namely $m^*_{t,k}$ for a total of $2K+3$ parameters.
+In contrast, there are only $2K$ available moment conditions, namely:
+\begin{align}
+  \label{eq:MC0}
+  \hat{y}_{0k} &=\frac{\alpha_1(p_k - \alpha_0)(\beta + m_{1k}^*) + (1 - \alpha_0)(1 - p _k -  \alpha_1)m_{0k}^*}{1 - \alpha_0 - \alpha_1} \\[1.5ex]
+  \label{eq:MC1}
+  \hat{y}_{1k} &= \frac{(1-\alpha_1)(p_k - \alpha_0)(\beta+m_{1k}^*)+  \alpha_0(1-p_k - \alpha_1)m_{0k}^*}{1-\alpha_0 - \alpha_1}
+\end{align}
+by the Law of Iterated Expectations, where the observables on the left hand side are defined according to $\hat{y}_{0k} = (1-p_k)\bar{y}_{0k}$ and $\hat{y}_{1k}= p_k \bar{y}_{1k}$.
+
+\begin{table}
+  \centering
+  \begin{tabular}{c|c|c|c|c|}
+    \multicolumn{1}{c}{}& \multicolumn{1}{c}{$z=1$} &\multicolumn{1}{c}{$z=1$} & \multicolumn{1}{c}{\dots} &\multicolumn{1}{c}{$z=K$}\\
+    \cline{2-5}
+    $T^*=0$ & \diagbox[dir=NE]{$m^*_{01}$}{$p^*_{01}$} & \diagbox[dir=NE]{$m^*_{02}$}{$p^*_{02}$} & \dots &\diagbox[dir=NE]{$m^*_{0K}$}{$p^*_{0K}$}\\
+    \cline{2-5}
+    $T^*=1$ & \diagbox[dir=NE]{$m^*_{11}$}{$p^*_{11}$} & \diagbox[dir=NE]{$m^*_{12}$}{$p^*_{12}$} & \dots &\diagbox[dir=NE]{$m^*_{1K}$}{$p^*_{1K}$}\\
+    \cline{2-5}
+  \end{tabular}
+  \caption{Unobservables, using the shorthand $p^*_{0k}=q_k(1-p^*_k)$ and $p^*_{1k}=q_kp_k^*$.}
+  \label{tab:unobservables}
+\end{table}
+
+
+
+
+
+%\cite{FL} point out that an instrument can be used in place of a second measure of $T^*$ provided that $T^*$ is still exogenous.
+%Essentially the same estimator as in \cite{BBS} and \cite{KRS} but more general since the instrument need not be binary: can in fact be continuous.
+%But they make a mistake. 
+%They assume $E[zu]=0$, $E[T^*u]=0$ and non-differential measurement error and claim that this is sufficient to consistently estimate $\beta$.
+%However, this is incorrect: we need the additional assumption that $E[zT^*u]=0$ which is stronger.
+%(They seem to think that this term only appears when you have an endogenous $T^*$.)
+%While \cite{FL} are aware that there are some differences between two measures of $T^*$, as in \cite{BBS}, and an arbitrary instrument $z$, they seem to have missed one subtle point.
+%The assumptions in \cite{BBS} in fact imply that $E[u|T^*,z]=0$.\footnote{This follows from Assumptions A1 and A2 combined with Equation 3.}
+%From this it follows that $E[zT^*u]=E[zu]=E[T^*u]=0$. 
+%However, if one takes the non-differential measurement assumption literally it is in fact sufficient in the case of two measures to assume only that $E[zu]=E[T^*u]=0$:
+%\begin{align}
+%  E[zT^*u] &= E[(T^*+w)T^*u] = E[(T^*)^2u] + E[wuT^*]  \\
+%  &= E\left[ E\left( u|T^* \right)(T^*)^2 \right] + E\left[E\left( wu|T^* \right)T^*\right]\\
+%  &= 0 + E\left[ E(w|T^*)E(u|T^*)T^* \right] = 0
+%\end{align}
+%using the fact that $E[u|T^*]=0$ and $w$ is independent of $u$ conditional on $T^*$.
+%This argument does \emph{not} necessarily apply to an arbitrary instrument $z$: $E[zu]=E[T^*u]=0$ does not imply that $E[zT^*u]=0$.
+%\todo[inline]{Put in our simple binary example.}
+%While it might seem strange to assume in practice that $E[zu]=E[T^*u]=0$ are exogenous but not that $E[zT^*u]=0$ the point is merely that this is an additional assumption beyond the usual assumptions of lack of correlation. 
+%
+%
+%Mahajan uses the assumption $E[u|T^*,z]$ to get identification using same basic estimator as \cite{BBS}.
+%
+%Another closely related paper is \cite{Lewbel}.
+%Whereas Mahajan makes sufficient assumptions to identify $\beta$ with a two-valued $z$, provided that $T^*$ is exogenous, Lewbel works with a three-valued $z$.
+%While Lewbel also assumes that $E[T^*u]=0$, his ``instrument'' is really more like a covariate.
+%He assumes that $z$ is unrelated to the mis-classification probabilities but allows it to have a direct effect on $y$, as long as there is no interaction between $T^*$ and $z$.
+%Since this involves imposing fewer restrictions on the $m_{ij}$, Lewbel requires that $z$ take on more values.
+%There is also some kind of determinant condition that we don't fully understand yet, but will figure out soon!
+%
+%
+%
