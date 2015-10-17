@@ -57,7 +57,6 @@ Using this notation, Equation \ref{eq:model} can be re-expressed as a simple lin
   \label{eq:linear}
 \end{equation}
 where we define $u = c + \varepsilon$, an error term that need not be mean zero.
-
 In the context of Equation \ref{eq:linear} the only observable information consists of the moments of $y$, conditional on $T,z$, the conditional probabilities of $T$ given $z$, and the marginal probabilities of $z$.
 For the moment, following the existing literature, we will restrict attention to the conditional mean of $y$.
 Let $\bar{y}_{t,k}$ denote $\mathbb{E}[y|T=t,z=z_k]$, let $p_k$ denote $\mathbb{P}(T=1|z=z_k)$ and let $q_k = \mathbb{P}(z=z_k)$.
@@ -93,7 +92,7 @@ Rearranging,
   \label{eq:pkstar}
 \end{equation}
 Equation \ref{eq:pkstar} implies that $p_k^*$ is observable up to knowledge of the mis-classification rates $\alpha_0,\alpha_1$ since $p_k$ is observable.
-Thus, the full set of parameters needed to characterize the model in Equation \ref{eq:linear} consists of $\beta, \alpha_0, \alpha_1$ and the conditional means of $u$, namely $m^*_{t,k}$ for a total of $2K+3$ parameters.
+Thus, the full set of parameters needed to characterize the model in Equation \ref{eq:linear} consists of $\beta, \alpha_0, \alpha_1$ and the conditional means of $u$, namely $m^*_{tk}$ for a total of $2K+3$ parameters.
 In contrast, there are only $2K$ available moment conditions, namely:
 \begin{align}
   \label{eq:MC0}
@@ -102,6 +101,7 @@ In contrast, there are only $2K$ available moment conditions, namely:
   \hat{y}_{1k} &= \frac{(1-\alpha_1)(p_k - \alpha_0)(\beta+m_{1k}^*)+  \alpha_0(1-p_k - \alpha_1)m_{0k}^*}{1-\alpha_0 - \alpha_1}
 \end{align}
 by the Law of Iterated Expectations, where the observables on the left hand side are defined according to $\hat{y}_{0k} = (1-p_k)\bar{y}_{0k}$ and $\hat{y}_{1k}= p_k \bar{y}_{1k}$.
+Notice that the observable ``weighted'' cell mean $\hat{y}_{tk}$ depends on both $m^*_{tk}$ \emph{and} $m^*_{1-t,k}$ since the cell in which $T=t$ from Table \ref{tab:observables} is in fact a mixture of both the cells $T^*=0$ and $T^*=1$ from Table \ref{tab:unobservables}, for a particular column $k$.
 
 \begin{table}
   \centering
@@ -117,9 +117,31 @@ by the Law of Iterated Expectations, where the observables on the left hand side
   \label{tab:unobservables}
 \end{table}
 
-
-
-
+Clearly we have fewer equations than unknowns.
+However, there is an additional restriction we have yet to impose: the instrument validity condition that $\mathbb{E}[\varepsilon|z]=0$.
+Since $u = c + \varepsilon$, this is equivalent to
+\begin{equation}
+  \mathbb{E}[u|z] = E[u] = c.
+  \label{eq:validInstrument}
+\end{equation}
+By the Law of Iterated Expectations, this can be expressed as 
+\begin{equation*}
+  (1 - p_k^*)m_{0k}^* + p_k^* m_{1k}^* = c 
+\end{equation*}
+for all $k = 1, \dots, K$.
+This restriction imposes that a particular weighted sum over the rows of a particular column of Table \ref{tab:unobservables} is constant \emph{across} columns.
+Using Equation \ref{eq:pkstar} and rearranging gives 
+\begin{equation*}
+  \frac{(1 - p_k - \alpha_1) m_{0k}^*}{1 - \alpha_0 - \alpha_1} = c - \frac{(p_k - \alpha_0)m_{1k^*}}{1 - \alpha_0 - \alpha_1}
+\end{equation*}
+which we can substitute into Equations \ref{eq:MC0} and \ref{eq:MC1} to yield
+\begin{align}
+  \label{eq:MC0IV}
+  \hat{y}_{0k} &=\alpha_1(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + (1-\alpha_0)c - (p _k -  \alpha_0)m_{1k}^* \\[1.5ex]
+  \label{eq:MC1IV}
+  \hat{y}_{1k} &=(1-\alpha_1)(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + \alpha_0 c + (p _k -  \alpha_0)m_{1k}^*.
+\end{align}
+We see that by imposing Equation \ref{eq:validInstrument} replaces the $K$ unknown parameters $\left\{ m^*_{0k}\right\}_{k=1}^K $ with a single parameter $c$, leaving us with $2K$ equations in $K+4$ unknowns.
 
 %\cite{FL} point out that an instrument can be used in place of a second measure of $T^*$ provided that $T^*$ is still exogenous.
 %Essentially the same estimator as in \cite{BBS} and \cite{KRS} but more general since the instrument need not be binary: can in fact be continuous.
