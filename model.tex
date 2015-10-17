@@ -118,8 +118,18 @@ Notice that the observable ``weighted'' cell mean $\hat{y}_{tk}$ depends on both
 \end{table}
 
 Clearly we have fewer equations than unknowns.
-However, there is an additional restriction we have yet to impose: the instrument validity condition that $\mathbb{E}[\varepsilon|z]=0$.
-Since $u = c + \varepsilon$, this is equivalent to
+What additional restrictions could we consider imposing on the system? 
+In a very interesting paper, \cite{Lewbel} proposes using a three-valued ``instrument'' that does \emph{not} satisfy the exclusion restriction.
+By assuming instead that there is no \emph{interaction} between the instrument and the treatment, he is able to prove identification of the treatment effect.
+Using our notation it is very easy to see why and how \citeauthor{Lewbel}'s argument works.
+His moment conditions are equivalent to Equations \ref{eq:MC0} and \ref{eq:MC1} with the additional restriction that $m^*_{0k} = m^*_{1k}$ for all $k= 1, \dots, K$.
+This leaves the number of equations unchanged at $2K$, but reduces the number of unknowns to $K+3$.
+The smallest $K$ for which $K+3$ is at least as large as $2K$ is 3, which makes it clear why \citeauthor{Lewbel}'s proof requires that the ``instrument'' take on at least three values.
+%Footnote explaining why Lewbel can't use a regressor exog condition to get identification with a two-valued instrument: it's because he's leaving out a relevant regressor, namely z. This means that the error term of changes. See our whiteboard photo from 2015-09-18 14.04.59
+
+Unlike \cite{Lewbel}, we, along with \cite{Mahajan} and others, assume that $z$ satisfies the exclusion restriction. 
+This implies a different constraint on the $m^*_{tk}$ from Table \ref{tab:unobservables}.
+Since $u = c + \varepsilon$, $\mathbb{E}[\varepsilon|z]=0$ implies that
 \begin{equation}
   \mathbb{E}[u|z] = E[u] = c.
   \label{eq:validInstrument}
@@ -129,7 +139,7 @@ By the Law of Iterated Expectations, this can be expressed as
   (1 - p_k^*)m_{0k}^* + p_k^* m_{1k}^* = c 
 \end{equation*}
 for all $k = 1, \dots, K$.
-This restriction imposes that a particular weighted sum over the rows of a particular column of Table \ref{tab:unobservables} is constant \emph{across} columns.
+This restriction imposes that a particular weighted sum over the rows of a given column of Table \ref{tab:unobservables} takes the same value \emph{across} columns.
 Using Equation \ref{eq:pkstar} and rearranging gives 
 \begin{equation*}
   \frac{(1 - p_k - \alpha_1) m_{0k}^*}{1 - \alpha_0 - \alpha_1} = c - \frac{(p_k - \alpha_0)m_{1k^*}}{1 - \alpha_0 - \alpha_1}
@@ -141,7 +151,22 @@ which we can substitute into Equations \ref{eq:MC0} and \ref{eq:MC1} to yield
   \label{eq:MC1IV}
   \hat{y}_{1k} &=(1-\alpha_1)(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + \alpha_0 c + (p _k -  \alpha_0)m_{1k}^*.
 \end{align}
-We see that by imposing Equation \ref{eq:validInstrument} replaces the $K$ unknown parameters $\left\{ m^*_{0k}\right\}_{k=1}^K $ with a single parameter $c$, leaving us with $2K$ equations in $K+4$ unknowns.
+So what do we gain from the instrument validity assumption?
+Imposing Equation \ref{eq:validInstrument} replaces the $K$ unknown parameters $\left\{ m^*_{0k}\right\}_{k=1}^K $ with a single parameter $c$, leaving us with the same $2K$ equations but only $K+4$ unknowns.
+Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} also make it clear why the IV estimator is inconsistent in the face of non-differential measurement error, and that this inconsistency does not depend on the endogeneity of the treatment, as noted by \cite{FL}.
+Adding together Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} yields
+\begin{equation*}
+  \hat{y}_{0k} + \hat{y}_{1k} = c + (p_k - \alpha_0)\left( \frac{\beta}{1 - \alpha_0 - \alpha_1} \right) 
+\end{equation*}
+completely eliminating the $m^*_{1k}$ from the system.
+Taking the difference of the preceding expression expression evaluated at two different values of the instrument, $z_{k}$ and $z_{\ell}$, and rearranging
+\begin{equation}
+  \mathcal{W} = \frac{(\hat{y}_{0k} + \hat{y}_{1k}) - (\hat{y}_{0\ell} + \hat{y}_{1\ell})}{p_k - p_\ell} =  \frac{\beta}{1 - \alpha_0 - \alpha_1}
+  \label{eq:wald}
+\end{equation}
+which is the well-known Wald IV estimator, since $\hat{y}_{0k} + \hat{y}_{1k} = \mathbb{E}[y|z = z_k]$.
+
+For any 
 
 %\cite{FL} point out that an instrument can be used in place of a second measure of $T^*$ provided that $T^*$ is still exogenous.
 %Essentially the same estimator as in \cite{BBS} and \cite{KRS} but more general since the instrument need not be binary: can in fact be continuous.
