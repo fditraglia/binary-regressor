@@ -76,7 +76,32 @@ To do this, he must build a bridge between Assumption \ref{assump:A2} and Assump
 by Assumption \ref{assump:Eq11}, since $\mathbb{E}[\varepsilon|T^*]$ is $(T^*,T,z)$--measurable.
 \end{proof}
 
-To summarize, Mahajan's claim is equivalent to the proposition that under Assumptions \ref{assump:A2}(i), \ref{assump:A1}(ii)--(v), and \ref{assump:Eq11}, $\beta$ is identified even if $T^*$ is endogenous.
+To summarize, \citeauthor{Mahajan}'s claim is equivalent to the proposition that under Assumptions \ref{assump:A2}(i), \ref{assump:A1}(ii)--(v), and \ref{assump:Eq11}, $\beta$ is identified even if $T^*$ is endogenous.
+Although Result \ref{res:A2}, Theorem \ref{thm:1} and Result \ref{res:Eq11} are all correct, \citeauthor{Mahajan}'s claim is not.
+While Assumption \ref{assump:Eq11} does guarantee that Assumption \ref{assump:A1}(i) holds, when combined with Assumption \ref{assump:A2}(i) it also implies that \ref{assump:A1}(ii) fails if $T^*$ is endogenous.
+\begin{pro}[Lack of a First Stage]
+  \label{pro:FirstStage}
+  Suppose that Assumptions \ref{assump:A2}(i) and \ref{assump:Eq11} hold and $\mathbb{E}[\varepsilon|T^*]\neq0$. Then $\mathbb{P}(T^*=1|z_1) = \mathbb{P}(T^*=1|z_2)$, violating Assumption \ref{assump:A1}(ii). 
+\end{pro}
+\begin{proof}[Proof of Proposition \ref{pro:FirstStage}]
+  By the Law of Iterated Expectations,
+  \begin{equation}
+    \label{eq:NoSelection}
+    \mathbb{E}[\varepsilon|T^*,z] = \mathbb{E}_{T|T^*,z}\left[\mathbb{E}\left(\varepsilon|T^*,T,z \right)  \right] = \mathbb{E}_{T|T^*,z}\left[\mathbb{E}\left(\varepsilon|T^* \right)  \right]
+    = \mathbb{E}\left[ \varepsilon|T^* \right]
+  \end{equation}
+    where the second equality follows from Assumption \ref{assump:Eq11} and the final equality comes from the fact that $\mathbb{E}[\varepsilon|T^*]$ is $(T^*,z)$--measurable. 
+  Using our notation from above let $u = c + \varepsilon$ and define $m^*_{tk}=\mathbb{E}[u|T^*=t,z=z_k]$.
+  Since $c$ is a constant, by Equation \ref{eq:NoSelection} we see that $m^*_{01}=m^*_{02}$ and $m^*_{11}=m^*_{12}$.
+  Now, by Assumption \ref{assump:A2}(i) we have $\mathbb{E}[\varepsilon|z]=0$ so that $\mathbb{E}[u|z_1]= \mathbb{E}[u|z_2] =c$.
+  Again using iterated expectations, 
+  \begin{align*}
+    \mathbb{E}\left[u|z_1 \right] &= \mathbb{E}_{T^*|z_1}\left[\mathbb{E}\left( u|T^*,z_1 \right)  \right] = (1-p_1^*) m^*_{01} + p^*_1 m^*_{11}=c\\
+    \mathbb{E}\left[u|z_2 \right] &= \mathbb{E}_{T^*|z_2}\left[\mathbb{E}\left( u|T^*,z_2 \right)  \right] = (1-p_2^*) m^*_{02} + p^*_2 m^*_{12}=c
+  \end{align*}
+  The preceding two equations, combined with $m^*_{01}=m^*_{02}$ and $m^*_{11}=m^*_{12}$ imply that $p_1^* = p_2^*$ unless $m^*_{01} = m^*_{11} = m^*_{02} = m^*_{12} = c$.
+  But this four-way equality is ruled out by the assumption that $\mathbb{E}[\varepsilon|T^*]\neq0$. 
+\end{proof}
 
 
 \paragraph{Mahajan}
