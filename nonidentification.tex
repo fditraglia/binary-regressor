@@ -115,7 +115,7 @@ Unfortunately, this is not the case as we now show.
 \begin{pro}[Lack of Identification]
   \label{pro:Lack}
   Suppose that the Assumption \ref{assump:A2} holds and additionally that $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*,z]$ (non-differential measurement error).  
-  Then regardless of how many values $z$ takes on, $\beta$ is unidentified based on the observables contained in Table \ref{tab:observables}.
+  Then regardless of how many values $z$ takes on, generically $\beta$ is unidentified based on the observables contained in Table \ref{tab:observables}.
 \end{pro}
 \begin{proof}[Proof of Proposition \ref{pro:Lack}]
   The assumptions of this proposition are the same as those used to derive Equations \ref{eq:MC0IV} and \ref{eq:MC1IV}. 
@@ -160,5 +160,6 @@ Equation \ref{eq:mSolve} is a manifold parameterized by $(\beta,\alpha_1)$ that 
 Thus, by adjusting $\left\{ m^*_{1k} \right\}_{k=1}^K$ according to Equation \ref{eq:mSolve} we are free to vary $\beta$ while holding all observable moments fixed. 
 \end{proof}
 
-\todo[inline]{Notice that Equation 20 breaks if $p_k = \alpha_0$. This is because it would reduce the pair of equations to an expression  kill the $m^*_{1k}$ term in the pair of equations for this particular value of $k$. }
+\todo[inline]{Notice that Equation 20 breaks if $p_k = \alpha_0$. This is because it would reduce the pair of equations to an expression  kill the $m^*_{1k}$ term in the pair of equations for this particular value of $k$. This seems to be related to \cite{Hausman}}
 
+\todo[inline]{Add some discussion of what this proof means, why there is a lack of identification intuitively, why adding more values for the instrument doesn't help, etc.}
