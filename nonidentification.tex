@@ -138,8 +138,27 @@ We now show that Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} can be expressed in
 Conveniently, this eliminates $\alpha_0$ from the system.
 After some algebra, 
 \begin{align}
+  \label{eq:OtherSameEquation}
   \hat{y}_{0k} &= \alpha_1 (\mathcal{Q} - m^*_{1k}) + \beta(c-m^*_{1k})/\mathcal{W} + (1-p_k)\left[m^*_{1k} - \mathcal{W}\alpha_1\right]\\
   \hat{y}_{1k} &= (1-\alpha_1) \mathcal{Q} + \beta(m^*_{1k} - c)/\mathcal{W} - (1-p_k)\left[m^*_{1k} + \mathcal{W}(1-\alpha_1)\right]
+  \label{eq:SimplifyMe}
 \end{align}
-
+Now, rearranging Equation \ref{eq:SimplifyMe} we see that
+\begin{equation}
+  \mathcal{Q} - \hat{y}_{1k} - \mathcal{W}(1-p_k) = \alpha_1 (\mathcal{Q} - m^*_{1k}) + \beta(c-m^*_{1k})/\mathcal{W} + (1-p_k)\left[m^*_{1k} - \mathcal{W}\alpha_1\right]
+  \label{eq:SameEquation}
+\end{equation}
+Notice that the right-hand side of Equation \ref{eq:SameEquation} is the \emph{same} as that of Equation \ref{eq:OtherSameEquation} and that $\mathcal{Q} - \hat{y}_{1k} - \mathcal{W}(1-p_k)$ is precisely $\hat{y}_{0k}$.
+In other words, given the constraint that $\mathcal{W}$ and $\mathcal{Q}$ must be held fixed, we only have \emph{one} equation for each value that the instrument takes on.
+Finally, we can solve this equation for $m^*_{1k}$ as
+\begin{equation}
+  m^*_{1k} = \frac{\mathcal{W}(\hat{y}_{0k}-\alpha_1 \mathcal{Q}) - \beta(\mathcal{Q}-\beta-\mathcal{W}\alpha_1) + \mathcal{W}^2(1-p_k)\alpha_1}{\mathcal{W}(1-p_k - \alpha_1) - \beta}
+  \label{eq:mSolve}
+\end{equation}
+using the fact that $c = \mathcal{Q} - \beta - \mathcal{W}\alpha_1$.
+Equation \ref{eq:mSolve} is a manifold parameterized by $(\beta,\alpha_1)$ that is \emph{unique} to each value that the instrument takes on. 
+Thus, by adjusting $\left\{ m^*_{1k} \right\}_{k=1}^K$ according to Equation \ref{eq:mSolve} we are free to vary $\beta$ while holding all observable moments fixed. 
 \end{proof}
+
+\todo[inline]{Notice that Equation 20 breaks if $p_k = \alpha_0$. This is because it would reduce the pair of equations to an expression  kill the $m^*_{1k}$ term in the pair of equations for this particular value of $k$. }
+
