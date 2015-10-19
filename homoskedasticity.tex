@@ -1,167 +1,65 @@
 %!TEX root = ./main.tex
-\section{Identification by Homoskedasticity}
-\todo[inline]{This section uses our notation rather than Mahajan's. We'll have to decide what notation we want to use in the paper itself but for the moment I'm trying to avoid confusion by talking about Mahajan's proofs using his own notation while keeping our derivations in the same notation we used on the whiteboard. I think that by assuming the instrument takes on three values (as in Lewbell) and imposing our homoskedasticity assumption we'll get identification in the case where $T^*$ is endogenous so I've written out this derivation for arbitrary discrete $z$.}
-
-Now suppose that one is prepared to assume that
-\begin{equation}
-  E[u^2|z]=E[u^2].
-  \label{eq:homosked}
-\end{equation}
-When combined with the usual IV assumption, $E[u|z]=0$, this implies $Var(u|z) = Var(u)$.
+\section{Identification by Homoskedasticity?}
+Having show that the moment conditions from Table \ref{tab:observables} do not identify $\beta$ regardless of the value of $K$, we now consider using the conditional \emph{variance} of $y$.
+Exploiting this information requires us to make an additional assumption.
+\begin{assump}[Homoskedasticity]
+  $\mathbb{E}[\varepsilon^2|z]=\mathbb{E}[\varepsilon^2]$
+  \label{assump:homosked}
+\end{assump}
+When combined with the usual IV assumption, $\mathbb{E}[u|z]=0$, Assumption \ref{assump:homosked} implies that $Var(\varepsilon|z) = Var(\varepsilon)$.
 Whether this assumption is reasonable, naturally, depends on the application.
-When $z$ is the offer of treatment in a randomized controlled trial, for example, Equation \ref{eq:homosked} holds automatically as a consequence of the randomization.
-Similarly, in studies based on a ``natural'' rather than controlled experiment one typically argues that the instrument is not merely uncorrelated with $u$ but \emph{independent} of it, so that Equation \ref{eq:homosked} follows.
+When $z$ is the offer of treatment in a randomized controlled trial, for example, Assumption \ref{assump:homosked} holds automatically as a consequence of the randomization.
+Similarly, in studies based on a ``natural'' rather than controlled experiment one typically argues that the instrument is not merely uncorrelated with the error term but \emph{independent} of it, so that Assumption \ref{assump:homosked} follows.
+\begin{pro}
+  \label{pro:homosked}
+  Under the conditions of Proposition \ref{pro:Lack} and Assumption \ref{assump:homosked}, $(\alpha_0 - \alpha_1)$ is identified. 
+\end{pro}
+\begin{proof}[Proof of Proposition \ref{pro:homosked}]
+  Let $s^2_k$ denote the conditional variance of $y$ given that $z=z_k$.
+  Then we have:
+\begin{equation}
+  s_k^2 = \beta^2 \sigma^2_{T^*|z_k} + \sigma^2_\varepsilon + 2\beta \sigma_{T^*,\varepsilon|z_k}
+\end{equation}
+where $\sigma^2_{T^*|z+k}$ denotes the conditional variance of $T^*$ given that $z = z_k$, $\sigma_{T^*,\varepsilon|z_k}$ denotes the conditional covariance between $T^*$ and $\varepsilon$ given that $z=z_k$ and we have used the fact that $Var(\varepsilon|z)$ does not depend on $z$ by Assumption \ref{assump:homosked}.
+Taking differences across two values $z_k$ and $z_\ell$ of the instrument, we have
+\begin{equation}
+  s^2_k - s^2_\ell = \beta^2\left( \sigma^2_{T^*|z_k} - \sigma^2_{T^*|z_\ell} \right) + 2\beta \left( \sigma_{T^*,\varepsilon|z_k} - \sigma_{T^*,\varepsilon|z_\ell} \right).
+\end{equation}
+Now, by the definition of $p^*_k$ and Equation \ref{eq:pkstar},
+\begin{equation}
+  \sigma^2_{T^*|z_k}= p^*_k (1-p^*_k) = \frac{(p_k - \alpha_0)(1 - p_k - \alpha_1)}{(1 - \alpha_0 - \alpha_1)^2} 
+\end{equation}
+which implies that 
+\begin{equation}
+  \left( \sigma^2_{T^*|z_k} - \sigma^2_{T^*|z_\ell} \right)= \frac{p_k(1-p_k) - p_\ell(1-p_\ell) + (\alpha_0 - \alpha_1)(p_k - p_\ell)}{(1 - \alpha_0 - \alpha_1)^2}.
+\end{equation}
+Turning our attention to the conditional covariances, note that
+\begin{equation}
+  \sigma_{T^*,\varepsilon|z_k} = E_{T^*|z}\left[E\left( T^*\varepsilon|T^*z_k \right)  \right] = p_k^* (m^*_{1k}-c) 
+\end{equation}
+since $E[\varepsilon|z] = 0$.
+Thus, by Equation \ref{eq:pkstar},
+\begin{equation}
+  \left( \sigma_{T^*,\varepsilon|z_k} - \sigma_{T^*,\varepsilon|z_\ell} \right) = \frac{(p_k - \alpha_0)(m^*_{1k}-c) - (p_\ell - \alpha_0)(m^*_{1\ell}-c)}{1 - \alpha_0 - \alpha_1} 
+\end{equation}
+Now, substituting $\mathcal{W} = \beta/(1-\alpha_0-\alpha_1)$, we find that
+\begin{align*}
+  s^2_k - s^2_\ell = \mathcal{W}^2\left[p_k(1-p_k) - p_\ell(1-p_\ell) + (\alpha_0 - \alpha_1)(p_k - p_\ell)\right]\\  
+  + 2\mathcal{W}\left[(p_k - \alpha_0)(m^*_{1k}-c) - (p_\ell - \alpha_0)(m^*_{1\ell}-c)\right]
+\end{align*}
+Now, define the observable
+\begin{equation*}
+  \widetilde{\mathcal{W}}_{k\ell} = \frac{\mathbb{E}[yT|z_k] - \mathbb{E}[yT|z_\ell]}{p_k - p_\ell}
+\end{equation*}
+Some algebra shows that, under our assumptions,
+\begin{align*}
+(p_k - \alpha_0)&(m^*_{1k}-c) - (p_\ell - \alpha_0)(m^*_{1\ell}-c) =\\
+& (p_k - p_\ell)\left[ \widetilde{W}_{k\ell} - \mathbb{E}[y] - \mathcal{W}\left\{ (1 - p) + (\alpha_0 - \alpha_1) \right\} \right]
+\end{align*}
+where $p = E[T]$.
+Substituting this into our expression for $s_k^2 - s_\ell^2$ allows us to solve for $\alpha_0 - \alpha_1$ in terms of observables, specifically:
+\begin{equation*}
+  \alpha_0 - \alpha_1 = (2p - 1 - p_k - p_\ell) + \frac{2(\widetilde{W}_{k\ell} - \mathbb{E}[y])}{\mathcal{W}} - \frac{s_k^2 - s_\ell^2}{(p_k - p_\ell)\mathcal{W}^2}.
+\end{equation*}
+\end{proof}
 
-To see why homoskedasticity with respect to the instrument provides additional identifying information, first express the conditional variance of $y$ as follows
-\begin{equation}
- Var(y|z) = \beta^2 Var\left( T^*|z \right) + Var(u|z) + 2\beta Cov(T^*,u|z)
-  \label{eq:varyz}
-\end{equation}
-Under \ref{eq:homosked}, $Var(u|z)$ does not depend on $z$.
-Hence the \emph{difference} of conditional variances evaluated at two values $z_a$ and $z_b$ in the support of $z$ is simply
-\begin{equation}
-  \Delta Var(y|z_a,z_b) = \beta^2\Delta Var(T^*|z_a,z_b) + 2\beta \Delta Cov(T^*,u|z_a, z_b)]
-  \label{eq:varydiff}
-\end{equation}
-Where $\Delta Var(y|z_a,z_b) = Var(y|z = z_a) - Var(y|z = z_b)$, and we define $\Delta Var(T^*|z_a, z_b)$ and $\Delta Cov(T^*,u|z_a,z_b)$ analogously.  
-
-First we simplify the $\Delta Var(T^*|z_a,z_b)$ term.
-Since $T$ is conditionally independent of $z$ given $T^*$, 
-\begin{eqnarray*}
-  P(T=1|z) &=& E_{T^*|z}\left[E\left( T|z,T^* \right)  \right] = E_{T^*|z}\left[E\left( T|T^* \right)  \right]\\
-  &=&  P\left( T^* = 1 | z \right) \left( 1-\alpha_1 \right) + \left[ 1 - P\left( T^*=1|z \right) \right] \alpha_0\\
-  &=& \alpha_0 + \left( 1 - \alpha_0 - \alpha_1 \right) P(T^*=1|z)
-\end{eqnarray*}
-Rearranging,
-\begin{equation}
-  P(T^*=1|z) = \frac{P(T=1|z) - \alpha_0}{1 - \alpha_0 - \alpha_1}
-  \label{eq:pTstar|z}
-\end{equation}
-and accordingly,
-\begin{equation}
-  Var(T^*|z) = \frac{\left[ P\left( T=1|z \right) - \alpha_0 \right]\left[ 1 - P\left( T=1|z \right) - \alpha_1 \right]}{\left( 1 - \alpha_0 - \alpha_1 \right)^2}
-  \label{eq:VarTstar|z}
-\end{equation}
-Thus, evaluating Equation \ref{eq:VarTstar|z} at $z_a$ and $z_b$ and simplifying,
-\begin{equation}
-  \Delta Var(T^*|z_a,z_b) = \frac{\Delta Var(T|z_a,z_b) + \left( \alpha_0 - \alpha_1 \right) \Delta E(T|z_a, z_b) }{\left( 1 - \alpha_0 - \alpha_1 \right)^2}
-  \label{eq:vardiffTstar}
-\end{equation}
-Turning our attention to $\Delta Cov(T^*,u|z_a,z_b)$ first note that
-\begin{equation}
-  Cov(T^*,u|z) = E_{T^*|z}\left[E\left( T^*u|z,T^* \right)  \right] = P(T^*=1|z)E\left( u|T^*=1,z \right) 
-  \label{eq:covTstaru}
-\end{equation}
-since $E[z|u] = 0$.
-Combining this with Equation \ref{eq:pTstar|z} and evaluating at $z_a$ and $z_b$ gives
-\begin{equation}
-  \Delta Cov(T^*,u|z_a,z_b) = \frac{\left[E\left( T|z_a \right) - \alpha_0\right] m_{1a} - \left[ E(T|z_b) - \alpha_0 \right] m_{1b} }{1 - \alpha_0 - \alpha_1}
-  \label{eq:diffCovTstaru}
-\end{equation}
-where $m_{1a} = E\left[ u|T^*=1,z_a \right]$ and $m_{1b} = E[u|T^*=1,z_b]$.
-
-Both Equations \ref{eq:vardiffTstar} and \ref{eq:diffCovTstaru} involve only observable quantities and the mis-classification rates $\alpha_0$ and $\alpha_1$.
-Equation \ref{eq:varydiff}, however, also involves $\beta$.
-Fortunately we can eliminiate this quantity as follows.
-First, let $\mathcal{W}(z_a, z_b)$ denote the Wald Estimator of $\beta$ given by
-\begin{equation}
-  \mathcal{W}(z_a,z_b) = \frac{E(y|z_a) - E(y|z_b)}{E(T|z_a) - E(T|z_b)}
-  \label{eq:waldab}
-\end{equation}
-Since $E(u|z) = 0$,
-\begin{equation*}
-  E(y|z_a) - E(y|z_b) = \beta \left[ E\left( T^*|z_a \right) - E\left( T^* | z_b \right) \right]
-\end{equation*}
-and by Equation \ref{eq:pTstar|z}, 
-\begin{equation*}
-  E(T|z_a) - E(T|z_b) = \left( 1 - \alpha_0 - \alpha_1 \right) \left[ E(T^*|z_a) - E(T^*|z_b) \right]
-\end{equation*}
-thus we find that
-\begin{equation}
-  \beta = (1 - \alpha_0 - \alpha_1) \mathcal{W}(z_a,z_b).
-  \label{eq:betaWald}
-\end{equation}
-Finally, combining Equations \ref{eq:varydiff},  \ref{eq:vardiffTstar}, \ref{eq:diffCovTstaru} and \ref{eq:betaWald} we have
-\begin{equation}
-  \begin{split}
-    \Delta Var(y|z_a,z_b)&= \mathcal{W}\left( z_a,z_b \right)^2 \left\{ \Delta Var(T|z_a,z_b) + (\alpha_0 - \alpha_1)\Delta E(T|z_a,z_b) \right\}\\
-    &\quad + 2 \mathcal{W}(z_a,z_b) \left\{ \left[E\left( T|z_a \right) - \alpha_0\right] m_{1a} - \left[ E(T|z_b) - \alpha_0 \right] m_{1b}  \right\} 
-  \end{split}
-  \label{eq:homoskedcondition}
-\end{equation}
-an equation relating $\alpha_0, \alpha_1, m_{1a}$ and $m_{1b}$ to various observable quantities.
-
-Equation \ref{eq:homoskedcondition} provides an additional identifying restriction for each unique \emph{pair} of values $(z_a,z_b)$ in the support of $z$.
-If $z$ takes on two values it provides one restriction, whereas if $z$ takes on three values if provides two restrictions, and so on.
-To take a particularly simple example, suppose that $z$ is binary and Mahajan's (2006) assumption that $E[u|z,T^*] = 0$ holds.
-Then Equation \ref{eq:homoskedcondition} reduces to
-\begin{equation*}
-  \Delta Var(y|1,0) = \left[ \frac{Cov(z,y)}{Cov(z,T)} \right]^2 \left\{\Delta Var(T|1,0) + (\alpha_0 - \alpha_1) \left[ \frac{Cov(z,T)}{Var(z)} \right]  \right\}
-\end{equation*}
-Rearranging, we see that
-\begin{equation*}
-  \alpha_0 - \alpha_1 = \Delta Var(y|1,0) \left[ \frac{Cov(z,T)Var(z)}{Cov(z,y)^2} \right] - \Delta Var(T|1,0)\left[ \frac{Var(z)}{Cov(z,T)} \right] 
-\end{equation*}
-In other words, the homoskedasticity restriction identifies the \emph{difference} between the mis-classification rates.
-This makes intuitive sense.
-Provided that the variance of $u$ is unrelated to $z$ the only way that the variance of $y$ can differ across values of $z$ is if some values of $z$ provide \emph{more} information about the distribution of $T^*$ than others.
-This is only possible if the mis-classification rates differ.
-
-Of course, one need not impose the restriction that $E[u|z,T^*]=0$ to use the identifying information provided by Equation \ref{eq:homoskedcondition}.
-Indeed, by exploiting homoskedasticity with respect to the instrument we can identify $\beta$ using weaker conditions than Mahajan (2006) without requiring that $z$ take on three or more values, as in Lewbel (2007).
-Moreover, when $z$ does take on three or more values we can identify $\beta$ even when $T^*$ is endogenous.
-\todo[inline]{I'm pretty sure this is true, but we do still need to prove it!}
-
-In the general case where we do not impose Mahajan's assumption that $E[u|z,T^*]=0$ the purpose of the homoskedasticity restrictions is to eliminate a quantity that appears in the moment condition that arises from the ``modified IV estimator'' in which $\widetilde{z} \equiv T\left( z - E[z] \right)$ is used as an instrument for $T$.
-We showed previously that 
-\begin{equation*}
-  \widetilde{\beta}_{IV} = \beta\left[ \frac{\left( 1 - p - \alpha_1 \right) + \alpha_0}{(1-p)(1 - \alpha_0 - \alpha_1)} \right] + \left[ \frac{\left( 1 - \alpha_0 - \alpha_1 \right)\left\{E[zT^*u] - E[z]E[T^*u]  \right\}}{(1-p) Cov(z,T)} \right]
-\end{equation*}
-
-First consider the case in which $T^*$ is exogenous, so that $E(T^*u)=0$, and $z$ is binary.
-Then the preceding reduces to
-\begin{equation*}
-  \widetilde{\beta}_{IV} = \beta\left[ \frac{\left( 1 - p - \alpha_1 \right) + \alpha_0}{(1-p)(1 - \alpha_0 - \alpha_1)} \right] + \left[ \frac{\left( 1 - \alpha_0 - \alpha_1 \right)E[zT^*u] }{(1-p) Cov(z,T)} \right]
-\end{equation*}
-where
-\begin{equation*}
-  E[zT^*u] = E_{T^*,z}\left[ E\left( zT^*u |z,T^*\right) \right] = p_{11} m_{11}
-\end{equation*}
-where $p_{jk}=P(T^*=j, z=k)$ and $m_{jk}=E[u|T^*=j,z=k]$.
-Note that by the definition of conditional probability we can equivalently express this as
-\begin{equation*}
-  E[zT^*u]= E(T^*|z=1)P(z=1)m_{11}
-\end{equation*}
-Thus we can rewrite the numerator of the second term in the expression for  $\widetilde{\beta}$ from above as
-\begin{eqnarray*}
-  C &=& (1-\alpha_0 - \alpha_1) E(zT^*u)\\
-  &=& (1-\alpha_0-\alpha_1) E(T^*|z=1)P(z=1)m_{11}\\
-  &=& \left[ E(T|z=1) - \alpha_0 \right]P(z=1)m_{11}
-\end{eqnarray*}
-using Equation \ref{eq:pTstar|z}.
-Thus, when $T^*$ is exogenous and $z$ is binary, the expression for $\widetilde{\beta}_{IV}$ can be written as
-\begin{equation}
-  \widetilde{\beta}_{IV} = \beta\left[ \frac{\left( 1 - p - \alpha_1 \right) + \alpha_0}{(1-p)(1 - \alpha_0 - \alpha_1)} \right] + \left[ \frac{P(z=1) \left[ E(T|z=1)- \alpha_0 \right]m_{11} }{(1-p) Cov(z,T)} \right]
-\end{equation}
-
-Now we will show that the second term from Equation \ref{eq:homoskedcondition} can be expressed in a similar fashion.
-The term in question is:
-\begin{equation*}
-  D = \left[ E\left( T|z=1 \right)-\alpha_0 \right]m_{11} - \left[ E\left( T|z=0 \right) - \alpha_0 \right] m_{10}
-\end{equation*}
-Imposing $Cov(T^*,u)=0$ gives $p_{10}m_{10} + p_{11}m_{11}=0$.
-Thus $m_{10} = -p_{11}m_{11}/p_{10}$.
-Now, by Equation \ref{eq:pTstar|z},
-\begin{equation*}
-  -\frac{p_{11}}{p_{10}} = -\frac{P(T^*=1|z=1)P(z=1)}{P(T^*=1|z=0)P(z=0)} = -\frac{\left[ E(T|z=1) - \alpha_0 \right]P(z=1)}{\left[ E(T|z=0) - \alpha_0 \right]P(z=0)}
-\end{equation*}
-Substituting this into the expression for $D$, we have
-\begin{equation*}
-  D = \left[ \frac{E(T|z=1) - \alpha_0}{P(z=0)} \right]m_{11}
-\end{equation*}
-and therefore, in the case where $z$ is binary and $T^*$ is exogenous Equation \ref{eq:homoskedcondition} simplifies to
-\begin{equation}
-  \Delta Var(y|z)= \mathcal{W}^2 \left\{ \Delta Var(T|z) + (\alpha_0 - \alpha_1)\Delta E(T|z) \right\} + 2 \mathcal{W}\left\{\frac{E(T|z=1) - \alpha_0}{P(z=0)}  \right\} m_{11}
-\end{equation}
-
-\todo[inline]{I think this will make things easier to solve because we could treat the quantity $\left[ E(T|z=1)-\alpha_0 \right]m_{11}$ as a unit and eliminate it from the system. But I could be wrong\dots}
