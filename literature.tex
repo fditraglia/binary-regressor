@@ -2,13 +2,13 @@
 \section{Related Literature}
 Many treatments of interest in applied work are binary.
 To take a particularly prominent example, consider treatment status in a randomized controlled trial.
-Even if the randomization is pristine, which yields a valid binary instrument (the offer of treatment), subjects may select into treatment based on unobservables, and, given the given the many real-world complications that arise in the field, measurement error may be an important concern.
-As is well known, instrumental variables (IV) based on a single valid instrument suffices to recover the treatment effect in a linear model with a single endogenous regressor subject to classical measurement.
+Even if the randomization is pristine, which yields a valid binary instrument (the offer of treatment), subjects may select into treatment based on unobservables, and given the many real-world complications that arise in the field, measurement error may be an important concern.
+As is well known, instrumental variables (IV) based on a single valid instrument suffices to recover the treatment effect in a linear model with a single endogenous regressor subject to classical measurement errors.
 As is less well known, classical measurement error is in fact impossible when the regressor of interest is binary: because a true 1 can only be mis-measured as a 0 and a true 0 can only be mis-measured as a 1, the measurement error must be \emph{negatively} correlated with the true treatment status \citep{Aigner,Bollinger}. 
 
-Measurement error in binary regressor is usually called \emph{mis-classification}.
+Measurement error in a binary regressor is usually called \emph{mis-classification}.
 The simplest form of mis-classification is so-called \emph{non-differential} measurement error.
-In this case, conditional on true treatment status, and possibly a set of exogenous covariates, the measurement error is assumed to be uncorrelated with the other variables of the system.
+In this case, conditional on true treatment status, and possibly a set of exogenous covariates, the measurement error is assumed to be uncorrelated with all other variables in the system.
 Even under this comparatively mild departure from classical measurement error, the IV estimator is inconsistent \citep{BBS, KRS}. 
 Moreover, the probability limit of the IV estimator does not depend on whether the treatment is endogenous or not \citep{FL}.
 
@@ -21,7 +21,7 @@ However, as we will show below, the assumptions required to obtain this result a
 Although unaware of \cite{FL}, \cite{Mahajan} makes the correct assumption over the instrument and treatment to guarantee identification of the conditional mean function.
 When the treatment is in fact exogenous, this coincides with the treatment effect.
 \cite{Lewbel} provides a related identification result in the same model as \cite{Mahajan} under different assumptions.
-In particular, the variable that plays the role of the ``instrument'' need not satisfy the exclusion restriction provided that it takes on at least three distinct values. 
+In particular, the variable that plays the role of the ``instrument'' need not satisfy the exclusion restriction provided that it does not interact with the treatment and takes on at least three distinct values. 
 
 % Eventually, need to talk about Hausman, and Tanguay Brachet here!
 

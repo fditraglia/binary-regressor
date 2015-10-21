@@ -9,7 +9,7 @@ Exploiting this information requires us to make an additional assumption.
 When combined with the usual IV assumption, $\mathbb{E}[u|z]=0$, Assumption \ref{assump:homosked} implies that $Var(\varepsilon|z) = Var(\varepsilon)$.
 Whether this assumption is reasonable, naturally, depends on the application.
 When $z$ is the offer of treatment in a randomized controlled trial, for example, Assumption \ref{assump:homosked} holds automatically as a consequence of the randomization.
-Similarly, in studies based on a ``natural'' rather than controlled experiment one typically argues that the instrument is not merely uncorrelated with the error term but \emph{independent} of it, so that Assumption \ref{assump:homosked} follows.
+Similarly, in studies based on a ``natural'' rather than a controlled experiment, one typically argues that the instrument is not merely uncorrelated with the error term but \emph{independent} of it, so that Assumption \ref{assump:homosked} follows.
 \begin{pro}
   \label{pro:homosked}
   Under the conditions of Proposition \ref{pro:Lack} and Assumption \ref{assump:homosked}, $(\alpha_0 - \alpha_1)$ is identified. 
@@ -20,7 +20,7 @@ Similarly, in studies based on a ``natural'' rather than controlled experiment o
 \begin{equation}
   s_k^2 = \beta^2 \sigma^2_{T^*|z_k} + \sigma^2_\varepsilon + 2\beta \sigma_{T^*,\varepsilon|z_k}
 \end{equation}
-where $\sigma^2_{T^*|z+k}$ denotes the conditional variance of $T^*$ given that $z = z_k$, $\sigma_{T^*,\varepsilon|z_k}$ denotes the conditional covariance between $T^*$ and $\varepsilon$ given that $z=z_k$ and we have used the fact that $Var(\varepsilon|z)$ does not depend on $z$ by Assumption \ref{assump:homosked}.
+where $\sigma^2_{T^*|z_k}$ denotes the conditional variance of $T^*$ given that $z = z_k$, $\sigma_{T^*,\varepsilon|z_k}$ denotes the conditional covariance between $T^*$ and $\varepsilon$ given that $z=z_k$ and we have used the fact that $Var(\varepsilon|z)$ does not depend on $z$ by Assumption \ref{assump:homosked}.
 Taking differences across two values $z_k$ and $z_\ell$ of the instrument, we have
 \begin{equation}
   s^2_k - s^2_\ell = \beta^2\left( \sigma^2_{T^*|z_k} - \sigma^2_{T^*|z_\ell} \right) + 2\beta \left( \sigma_{T^*,\varepsilon|z_k} - \sigma_{T^*,\varepsilon|z_\ell} \right).

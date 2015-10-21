@@ -10,7 +10,7 @@ Since $T^*$ is potentially endogenous, $\mathbb{E}[\varepsilon|T^*,\mathbf{x}]$ 
 Now let $z$ be a discrete instrumental variable with support set $\{z_k\}_{k=1}^K$ satisfying the usual instrumental variables assumption, namely $\mathbb{E}[\varepsilon|z,\mathbf{x}]=0$.
 We assume throughout that $z$ is a relevant instrument for $T^*$, in other words 
 \begin{equation}
-\mathbb{P}(T^*=1|\mathbf{x},z_j)\neq \mathbb{P}(T^*=1|\mathbf{x},z_k), \quad \forall k\neq j.
+\mathbb{P}(T^*=1|z_j,\mathbf{x})\neq \mathbb{P}(T^*=1|z_k,\mathbf{x}), \quad \forall k\neq j.
 \label{eq:relevance}
 \end{equation}
 Our goal is to estimate the average treatment effect (ATE) function
@@ -19,24 +19,24 @@ Our goal is to estimate the average treatment effect (ATE) function
   \label{eq:ATE}
 \end{equation}
 We maintain throughout that $\tau(\mathbf{x}) \neq 0$.
-If it were, this would imply that $T^*$ is irrelevant for $y$ which can be directly tested regardless of whether any mis-classification is present and regardless of whether $T^*$ is endogenous.\footnote{This is because, as we will see below, the Wald Estimator is identified and is proportional to the treatment effect. This estimator exists provided that we have a valid and relevant instrument that takes on at least two values.} 
+If it were zero, this would imply that $T^*$ is irrelevant for $y$ which can be directly tested regardless of whether any mis-classification is present and regardless of whether $T^*$ is endogenous.\footnote{This is because, as we will see below, the Wald Estimator is identified and is proportional to the treatment effect. This estimator exists provided that we have a valid and relevant instrument that takes on at least two values.} 
 
 Now, suppose we observe not $T^*$ but a noisy measure $T$ polluted by non-differential measurement error.
 In particular, we assume that
 \begin{eqnarray}
   \label{eq:a0}
-  \mathbb{P}(T = 1| T^* = 0, \mathbf{x}, z)  &=&  \alpha_0(\mathbf{x})\\
+  \mathbb{P}(T = 1| T^* = 0, z, \mathbf{x})  &=&  \alpha_0(\mathbf{x})\\
   \label{eq:a1}
-  \mathbb{P}(T = 0| T^* = 1, \mathbf{x}, z)  &=&  \alpha_1(\mathbf{x})
+  \mathbb{P}(T = 0| T^* = 1, z, \mathbf{x})  &=&  \alpha_1(\mathbf{x})
 \end{eqnarray}
 and additionally that
 \begin{equation}
-  \mathbb{E}[\varepsilon|T^*,T,\mathbf{x},z] =  \mathbb{E}[\varepsilon|T^*,\mathbf{x},z]
+  \mathbb{E}[\varepsilon|T^*,T,z,\mathbf{x}] =  \mathbb{E}[\varepsilon|T^*,z,\mathbf{x}]
   \label{eq:nondiff}
 \end{equation}
 Equations \ref{eq:a0}--\ref{eq:a1} amount to the assumption that $z$ and $T$ are conditionally independent given $(T^*,\mathbf{x})$. 
 In other words, $z$ provides no additional information about the process that causes $T$ to be mis-classified above that already contained in $T^*$ and $\mathbf{x}$.
-In contrast, we allow for the possibility that measurement error process \emph{does} depend on the exogenous covariates $\mathbf{x}$. 
+In contrast, we allow for the possibility that the measurement error process \emph{does} depend on the exogenous covariates $\mathbf{x}$. 
 Equation \ref{eq:nondiff} states that, given knowledge of true treatment status, the instrument and the exogenous covariates, the \emph{observed} treatment status contains no information about the mean of the regression error term.  
 The assumptions on the measurement error process contained in Equations \ref{eq:a0}--\ref{eq:nondiff} are standard in the literature.
 Another standard assumption is the condition
@@ -167,14 +167,14 @@ Taking the difference of the preceding expression expression evaluated at two di
 which is the well-known Wald IV estimator, since $\hat{y}_{0k} + \hat{y}_{1k} = \mathbb{E}[y|z = z_k]$.
 
 Imposing Equation \ref{eq:validInstrument} replaces the $K$ unknown parameters $\left\{ m^*_{0k}\right\}_{k=1}^K $ with a single parameter $c$, leaving us with the same $2K$ equations but only $K+4$ unknowns.
-When $K=2$ we have 4 equations and 6 unknowns.
+When $K=2$ (a binary instrument) we have 4 equations and 6 unknowns.
 So how can one identify $\beta$ in this case?
 The literature has imposed additional assumptions which, using our notation, can once again be mapped into restrictions on the $m_{tk}^*$.
 \cite{BBS}, \cite{KRS}, and \cite{Mahajan} make a \emph{joint} exogeneity assumption on $(T^*,z)$, namely $\mathbb{E}[\varepsilon|T^*,z]=0$.
 Notice that this is strictly stronger than assuming that the instrument is valid and the treatment is exogenous.
 In our notation, this joint exogeneity assumption is equivalent to imposing $m_{tk}^*=c$ for all $t,k$.
 This reduces the parameter count to 4 regardless of the value of $K$.
-Thus, then the instrument is binary, we have exactly as many equations as unknowns.
+Thus, when the instrument is binary, we have exactly as many equations as unknowns.
 The arguments in \cite{BBS}, \cite{KRS}, and \cite{Mahajan} are all equivalent to solving Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} for $\beta$ under the added restriction that $m^*_{1k}=c$, establishing identification for this case.
 \cite{FL} use the same argument in a linear model with a potentially continuous instrument, but impose only the weaker conditions that the treatment is exogenous and the instrument is valid. 
 Nevertheless, a crucial step in their derivation implicitly assumes the stronger joint exogeneity assumption used by \cite{BBS}, \cite{KRS} and \cite{Mahajan}.
@@ -186,7 +186,7 @@ Based on the identification arguments described above, there would seem to be tw
 A first possibility would be to impose alternative conditions on the $m^*_{tk}$ that are compatible with an endogenous treatment.
 If $z$ is binary, two additional restrictions would suffice to equate the counts of moments and unknowns.
 This is the route followed by \cite{Mahajan} in his proof of identification with a binary instrument and endogenous treatment.
-His Equation (11), expressed in our notation, amounts to adding the two restriction $m^*_{11} = m^*_{12}$ and $m^*_{01} = m^*_{02}$. 
+His Equation (11), expressed in our notation, amounts to adding two cross-column restrictions in Table \ref{tab:unobservables}: $m^*_{11} = m^*_{12}$ and $m^*_{01} = m^*_{02}$. 
 Another possibility, suggested by \citeauthor{Lewbel}'s approach, would be to rely on an instrument that takes on more than two values.
 Following this approach would suggest a 4-valued instrument, the smallest value of $K$ for which $2K = K+4$.
 In the following section we present two of our main results: first \citeauthor{Mahajan}'s approach leads to a contradiction, and second, regardless of the value of $K$, $\beta$ is unidentified.  
