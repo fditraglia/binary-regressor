@@ -73,31 +73,3 @@ Var_y1 - Var_y0
 # Check the equations upon which it is based
 0.7 * (1 - 0.7) + 1 + 2 * cov(dat1$xstar, dat1$u)
 Var_y1
-
-
-# Test the equations from September 29th
-# (Something appears to be very wrong here!)
-set.seed(1234)
-foo <- binaryDGP(a0 = 0.2, a1 = 0.4, p0 = 0.1, p1 = 0.8, q = 1/2, c = 0,
-                 b = 1, d0 = 0, d1 = 0, sigma = 0.5)
-
-p0 <- foo$param$p0
-p1 <- foo$param$p1
-y00 <- (1 - p0) * mean(subset(foo$dat, (x == 0) & (z == 0))$y)
-y10 <- p0 * mean(subset(foo$dat, (x == 1) & (z == 0))$y)
-y01 <- (1 - p1) * mean(subset(foo$dat, (x == 0) & (z == 1))$y)
-y11 <- p1 * mean(subset(foo$dat, (x == 1) & (z == 1))$y)
-
-y01 / (y11 + y01) # should equal a1 = 0.4
-y00 / (y10 + y00) # should equal a1 = 0.4
-
-(y01 * p0 - y00 * p1)/(y01 - y00) # should equal a0 = 0.2 but it's negative!
-
-y01
-with(foo$param, b/(1 - a0 - a1) * a1 * (p1 - a0)) # should equal y01
-y11
-with(foo$param, b/(1 - a0 - a1) * (1 - a1) * (p1 - a0)) # should equal y11
-y00
-with(foo$param, b/(1 - a0 - a1) * a1 * (p0 - a0)) # should equal y11
-
-
