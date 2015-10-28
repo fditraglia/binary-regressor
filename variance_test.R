@@ -5,8 +5,8 @@
 # difference between T and T* from the paper as x and xstar in the code
 
 
-binaryDGP <- function(a0, a1, p0 = 0.2, p1 = 0.7, q = 0.5, c = 0, b = 1,
-                      d0 = -1, d1 = 1, sigma = 1, N = 1000000){
+binaryDGP <- function(a0, a1, p0 = 0.2, p1 = 0.7, q = 0.5, c = 0.5, b = 1,
+                      d0 = -1, d1 = 1, sigma = 1, N = 10000000){
   p10 <- p0 * (1 - q)
   p11 <- p1 * q
   p01 <- q - p11
@@ -34,24 +34,24 @@ binaryDGP <- function(a0, a1, p0 = 0.2, p1 = 0.7, q = 0.5, c = 0, b = 1,
 
 set.seed(208)
 
-foo <- binaryDGP(0.05, 0.4)
+foo <- binaryDGP(0.06, 0.42)
 dat <- foo$dat
 dat0 <- subset(dat, z == 0)
 dat1 <- subset(dat, z == 1)
 ybar <- mean(dat$y)
-p <- mean(dat$x)
-p1 <- mean(dat1$x)
-p0 <- mean(dat0$x)
+p_hat <- mean(dat$x)
+p1_hat <- mean(dat1$x)
+p0_hat <- mean(dat0$x)
 Var_y1 <- var(dat1$y)
 Var_x1 <- var(dat1$x)
 Var_y0 <- var(dat0$y)
 Var_x0 <- var(dat0$x)
-W <- (mean(dat1$y) - mean(dat0$y)) / (p1 - p0)
-Wtilde <- (mean(dat1$y * dat1$x) - mean(dat0$y * dat0$x)) / (p1 - p0)
+W <- (mean(dat1$y) - mean(dat0$y)) / (p1_hat - p0_hat)
+Wtilde <- (mean(dat1$y * dat1$x) - mean(dat0$y * dat0$x)) / (p1_hat - p0_hat)
 
 # This should equal a0 - a1
-(2 * p - 1 - p1 - p0) + (2 / W) * (Wtilde - ybar) -
-  (Var_y1 - Var_y0) / ((p1 - p0) * W^2)
+(2 * p_hat - 1 - p1_hat - p0_hat) + (2 / W) * (Wtilde - ybar) -
+  (Var_y1 - Var_y0) / ((p1_hat - p0_hat) * W^2)
 with(foo$param, a0 - a1)
 # and it does!
 
@@ -61,15 +61,53 @@ W
 1/(1 - with(foo$param, a0 + a1))
 
 # Modified Wald
-mu <- foo$param$m11 * (p1 - foo$param$a0) - foo$param$m10 * (p0 - foo$param$a0)
+mu <- foo$param$m11 * (p1_hat - foo$param$a0) - foo$param$m10 * (p0_hat - foo$param$a0)
 Wtilde
-ybar + W * ((1 - p) + with(foo$param, a0 - a1)) + mu / (p1 - p0)
+ybar + W * ((1 - p_hat) + with(foo$param, a0 - a1)) + mu / (p1_hat - p0_hat)
 
 # Original Variance Equation (before solving with modified Wald)
-W^2 * ( (Var_x1 - Var_x0) + with(foo$param, a0 - a1) * (p1 - p0)) +
+W^2 * ( (Var_x1 - Var_x0) + with(foo$param, a0 - a1) * (p1_hat - p0_hat)) +
   2 * W * mu
 Var_y1 - Var_y0
 
 # Check the equations upon which it is based
 0.7 * (1 - 0.7) + 1 + 2 * cov(dat1$xstar, dat1$u)
 Var_y1
+
+
+#---------------- Test out equation for (a0 - a1) from October 28th
+R1 <- mean(dat1$y^2) - mean(dat0$y^2)
+R2 <- mean(dat1$y * dat1$x) - mean(dat0$y * dat0$x)
+#R2 should be Wtilde up to scale:
+R2 / (p1_hat - p0_hat)
+Wtilde
+
+mu_tilde <- with(foo$param, (p1_hat - a0) * (m11 + c) - (p0_hat - a0) * (m10 + c))
+mu_tilde - mu 
+# Should equal the following:
+foo$param$c * (p1_hat - p0_hat) #and it does!
+
+#Check the the Delta(yT) equation
+(1 - foo$param$a1) * W * (p1_hat - p0_hat) + mu_tilde
+#Should equal R2
+R2 #and it does!
+
+#Check the Delta(y^2) equation
+foo$param$b * W * (p1_hat - p0_hat) + 2 * W * mu_tilde
+#Should equal R1
+R1 #And it does!
+
+#Check the expression for the identified quantity R
+R <- (R1 - 2 * W * R2) / (W * (p1_hat - p0_hat))
+R #should equal the following
+foo$param$b - 2 * (1 - foo$param$a1) * W
+# and it does!
+
+#Should be (a0 - a1)
+-1 - R/W
+with(foo$param, a0 - a1)
+# and it is!
+
+
+
+
