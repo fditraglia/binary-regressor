@@ -1,5 +1,5 @@
 %!TEX root = ./main.tex
-\section{The Model and Assumptions}
+\section{The Model and Notation}
 Let $T^*$ be a binary indicator of true treatment status, possibly endogenous, $\mathbf{x}$ be a vector of exogenous covariates, and $y$ be an outcome of interest where
 \begin{equation}
   y = h(T^*, \mathbf{x}) + \varepsilon
@@ -61,6 +61,7 @@ Using this notation, Equation \ref{eq:model} can be re-expressed as a simple lin
 where we define $u = c + \varepsilon$, an error term that need not be mean zero.
 In the context of Equation \ref{eq:linear} the only observable information consists of the moments of $y$, conditional on $T,z$, the conditional probabilities of $T$ given $z$, and the marginal probabilities of $z$.
 For the moment, following the existing literature, we will restrict attention to the conditional mean of $y$.
+Below in section 5 we consider using higher moments of $y$.
 Let $\bar{y}_{t,k}$ denote $\mathbb{E}[y|T=t,z=z_k]$, let $p_k$ denote $\mathbb{P}(T=1|z=z_k)$ and let $q_k = \mathbb{P}(z=z_k)$.
 Table \ref{tab:observables} depicts the observable moments for this problem.
 
@@ -126,7 +127,7 @@ By assuming instead that there is no \emph{interaction} between the instrument a
 Using our notation it is very easy to see why and how \citeauthor{Lewbel}'s argument works.
 His moment conditions are equivalent to Equations \ref{eq:MC0} and \ref{eq:MC1} with the additional restriction that $m^*_{0k} = m^*_{1k}$ for all $k= 1, \dots, K$.
 This leaves the number of equations unchanged at $2K$, but reduces the number of unknowns to $K+3$.
-The smallest $K$ for which $K+3$ is at least as large as $2K$ is 3, which makes it clear why \citeauthor{Lewbel}'s proof requires that the ``instrument'' take on at least three values.
+The smallest $K$ for which $K+3$ is at least as large as $2K$ is 3, which makes it clear why \citeauthor{Lewbel}'s proof must require that the ``instrument'' take on at least three values.\footnote{The context considered by \cite{Lewbel} is slightly different from the one we pursue here, in that his ``instrument'' is more like a covariate: it is allowed to have a direct effect on the outcome of interest.  For this reason, \cite{Lewbel} cannot use the exogeneity of the treatment to obtain identification based on a two-valued instrument.}
 %Footnote explaining why Lewbel can't use a regressor exog condition to get identification with a two-valued instrument: it's because he's leaving out a relevant regressor, namely z. This means that the error term of changes. See our whiteboard photo from 2015-09-18 14.04.59
 
 Unlike \cite{Lewbel}, we, along with \cite{Mahajan} and others, assume that $z$ satisfies the exclusion restriction. 

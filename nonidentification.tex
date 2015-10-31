@@ -1,12 +1,12 @@
 %!TEX root = ./main.tex
-\section{Nonidentification}
+\section{Non-identification Based on First Moments}
 
 \subsection{Mahajan's Approach}
 Here we show that \citeauthor{Mahajan}'s proof of identification for an endogenous treatment is incorrect.
 The problem is subtle so we give his argument in full detail.
 We continue to supress dependence on the exogenous covariates $\mathbf{x}$.
 
-The first step of the argument is to show that if one could recover the conditional mean function of $y$ given $T^*$, then a valid and relevant binary instrument would suffice to identify the treatment effect.  
+The first step of \citeauthor{Mahajan}'s argument is to show that if one could recover the conditional mean function of $y$ given $T^*$, then a valid and relevant binary instrument would suffice to identify the treatment effect.  
 \begin{assump}[Mahajan A2]\mbox{}
   \label{assump:A2} Suppose that $y = c+ \beta T^* + \varepsilon$ where
   \begin{enumerate}[(i)]
@@ -79,6 +79,7 @@ by Assumption \ref{assump:Eq11}, since $\mathbb{E}[\varepsilon|T^*]$ is $(T^*,T,
 To summarize, \citeauthor{Mahajan}'s claim is equivalent to the proposition that under Assumptions \ref{assump:A2}(i), \ref{assump:A1}(ii)--(v), and \ref{assump:Eq11}, $\beta$ is identified even if $T^*$ is endogenous.
 Although Result \ref{res:A2}, Theorem \ref{thm:1} and Result \ref{res:Eq11} are all correct, \citeauthor{Mahajan}'s claim is not.
 While Assumption \ref{assump:Eq11} does guarantee that Assumption \ref{assump:A1}(i) holds, when combined with Assumption \ref{assump:A2}(i) it also implies that \ref{assump:A1}(ii) fails if $T^*$ is endogenous.
+The failure of Assumption \ref{assump:A1}(ii) in turn leads to a division by zero in the solution to the linear system following \citeauthor{Mahajan}'s displayed Equation 26: the system no longer has a unique solution so identification fails. 
 \begin{pro}[Lack of a First Stage]
   \label{pro:FirstStage}
   Suppose that Assumptions \ref{assump:A2}(i) and \ref{assump:Eq11} hold and $\mathbb{E}[\varepsilon|T^*]\neq0$. Then $\mathbb{P}(T^*=1|z_1) = \mathbb{P}(T^*=1|z_2)$, violating Assumption \ref{assump:A1}(ii). 
@@ -102,8 +103,6 @@ While Assumption \ref{assump:Eq11} does guarantee that Assumption \ref{assump:A1
   The preceding two equations, combined with $m^*_{01}=m^*_{02}$ and $m^*_{11}=m^*_{12}$ imply that $p_1^* = p_2^*$ unless $m^*_{01} = m^*_{11} = m^*_{02} = m^*_{12} = c$.
   But this four-way equality is ruled out by the assumption that $\mathbb{E}[\varepsilon|T^*]\neq0$. 
 \end{proof}
-
-\todo[inline]{Add discussion of Mahajan's proof. In particular, explain why he needs there to be a first stage!}
 
 
 \subsection{Generic Lack of Identification}
@@ -160,6 +159,6 @@ Equation \ref{eq:mSolve} is a manifold parameterized by $(\beta,\alpha_1)$ that 
 Thus, by adjusting $\left\{ m^*_{1k} \right\}_{k=1}^K$ according to Equation \ref{eq:mSolve} we are free to vary $\beta$ while holding all observable moments fixed. 
 \end{proof}
 
-\todo[inline]{Notice that Equation 20 breaks if $p_k = \alpha_0$. This is because it would reduce the pair of equations to an expression  kill the $m^*_{1k}$ term in the pair of equations for this particular value of $k$. This seems to be related to \cite{Hausman}}
+%Notice that Equation 20 breaks if $p_k = \alpha_0$. This is because it would reduce the pair of equations to an expression  kill the $m^*_{1k}$ term in the pair of equations for this particular value of $k$. This seems to be related to \cite{Hausman}
 
-\todo[inline]{Add some discussion of what this proof means, why there is a lack of identification intuitively, why adding more values for the instrument doesn't help, etc.}
+%Add some discussion of what this proof means, why there is a lack of identification intuitively, why adding more values for the instrument doesn't help, etc.

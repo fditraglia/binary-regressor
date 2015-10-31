@@ -1,32 +1,41 @@
 %!TEX root = ./main.tex
 \section{Introduction}
 
-This paper studies the use of a valid instrument to identify the causal effect of an endogeneous, binary treatment that is subject to non-differential measurement error in a non-parametric regression model with additively separable errors. 
+This paper studies the use of a discrete instrumental variable to identify the causal effect of a endogenous, mis-measured, binary treatment in a homogeneous effects model with additively separable errors.
 Although a relevant case for applied work, this setting has received little attention in the literature.
-The only existing result appears in an important paper by \cite{Mahajan}, who proves identification by relying on a discrete instrument that takes on at least two values.   
-Here we begin by showing this result is incorrect. 
-To do so, we first provide a convenient notational framework within which to situate the problem.
-Using this framework we show that the proof in Appendix A.2 of \cite{Mahajan} leads to a contradiction.
-Throughout the paper, \cite{Mahajan} maintains an assumption (Assumption 4) which he calls the ``Dependency Condition.'' 
+The only existing result for the case of an endogenous treatment appears in an important paper by \cite{Mahajan}, who is primarily concerned with the case of an exogenous treatment.
+As we show below, \citeauthor{Mahajan}'s identification result for the endogenous treatment case is incorrect.
+As far as we are aware, this leaves the problem considered in this paper completely unsolved.
+
+We begin by providing a convenient notational framework within which to situate the problem.
+Using this framework we then show that the proof in Appendix A.2 of \cite{Mahajan} leads to a contradiction.
+Throughout his paper, \cite{Mahajan} maintains an assumption (Assumption 4) which he calls the ``Dependency Condition.'' 
 This assumption requires that the instrumental variable be relevant.
-When extending his result for an exogenous treatment to the more general case of an endogenous one in a model with additively separable errors, however, he must impose an additional condition on the model (Equation 11), which turns out to imply the lack of a first-stage, violating the Dependency Condition.
+When extending his result for an exogenous treatment to the more general case of an endogenous one, however, he must impose an additional condition on the model (Equation 11), which turns out to imply the lack of a first-stage, violating the Dependency Condition.
 
 Since one cannot impose the condition in Equation 11 of \cite{Mahajan}, we go on to study the prospects for identification in this model more broadly.
 We consider two possibilities.
-First, borrowing an idea from \cite{Lewbel}, we explore whether expanding the support of the instrument, so that it takes on more than two values, yields identification.
-Allowing the instrument to take on additional values increases the number of available moment conditions.
-We show, however, that these additional moments cannot point identify the treatment effect.
-This holds true regardless of how many (finite) values the instrument takes on.
+First, since \citeauthor{Mahajan}'s identification results require only a binary instrument,  we borrow an idea from \cite{Lewbel} and explore whether expanding the support of the instrument yields identification based on moment equations similar to those used by \cite{Mahajan}.
+While allowing the instrument to take on additional values does increase the number of available moment conditions, we show that these moments cannot point identify the treatment effect, regardless of how many (finite) values the instrument takes on.
 
-We then consider a new source of identifying information in the form of a conditional homoskedasticity assumption. 
-In particular, we suppose that the conditional \emph{variance} of the regression error term given the instrument is constant.
-While stronger than the usual mean independence assumption, this assumption holds automatically in a randomized controlled trial or a genuine natural experiment. 
+We then consider a new source of identifying information that arises from imposing stronger assumptions on the instrumental variable.
+\cite{Mahajan} and related papers, discussed below, use only conditional means of the outcome to identify the treatment effect.
+However, if the instrument is not merely mean independent but in fact \emph{statistically independent} of the regression error term, as in a randomized controlled trial or a true natural experiment, additional moment conditions become available.
 To the best of our knowledge, this source of information has not been exploited in the extant literature on instrumental variables.  
-We show that this assumption leads to a novel partial identification result that is easy to implement in practice and can be applied regardless of the number of values that the instrument takes on.
-Moreover, it can be used to obtain point identification in some special cases that nevertheless may be empirically relevant. 
+Under this stronger condition on the instrument, we first show that conditional second moments of the outcome variable identify the \emph{difference} of mis-classification rates in the mis-measured regressor: the probability that a true one is classified as a zero minus the probability that a true zero is classified as a one.
+Because these rates must equal each other when there is no mis-classification error, our result can be used to test a necessary condition for the absence of measurement error.   
+It can also be used to construct simple and informative partial identification bounds for the treatment effect.
+When one of the mis-classification rates is known, this identifies the treatment effect.
+More generally, however, this is not the case.
+We go on to show that conditional third moments point identify one of the mis-classification rates.
+Thus, combining conditional first, second and third moment information point identifies the treatment effect.
 
-The remainder of this paper is organized as follows. In section 2 we discuss the literature in relation to our framework. Section 3 then lays out the econometric model, its assumptions, and our notational framework. Section 4 then presents two of our main results: A proof of \citeauthor{Mahajan}'s incorrect claim of identification under non-differential misclassification with a valid instrument and an endogenous treatment, and our proof of the generic un-identification of this model. Section 5 then presents our partial identification results relying on a conditional homoskedasticity assumption, a test for the presence of misclassification, and a simulation exercise illustrating its usefulness. Section 6 concludes.
-
+The remainder of this paper is organized as follows. 
+In section 2 we discuss the literature in relation to the problem considered here. 
+Section 3 then lays out the econometric model, its assumptions, and our notational framework. 
+Section 4 considers identification based on conditional means, showing that \citeauthor{Mahajan}'s proof is incorrect and that increasing the support of the instrument cannot be used to obtain identification.
+Section 5 considers presents our results under stronger conditions on the instrument, based on conditional second and third moments of the outcome variable.
+Section 6 concludes.  
 
  
 
