@@ -16,60 +16,42 @@ When $z$ is not merely mean-independent but in fact \emph{statistically} indepen
 %Similarly, in studies based on a ``natural'' rather than a controlled experiment, one typically argues that the instrument is not merely uncorrelated with the error term but \emph{independent} of it, so that Assumption \ref{assump:homosked} follows.
 \begin{thm}
   \label{pro:homosked}
-  Under Assumption \ref{assump:homosked} and the conditions of Theorem \ref{pro:Lack} the difference of mis-classification rates, $(\alpha_1 - \alpha_0)$ is identified. 
+  Under Assumption \ref{assump:homosked} and the conditions of Theorem \ref{pro:Lack} the difference of mis-classification rates, $(\alpha_1 - \alpha_0)$ is identified provided that $z$ takes on at least two values.
 \end{thm}
 \begin{proof}[Proof of Theorem \ref{pro:homosked}]
-  Let $s^2_k$ denote the conditional variance of $y$ given that $z=z_k$.
-  Then we have:
-\begin{equation}
-  s_k^2 = \beta^2 \sigma^2_{T^*|z_k} + \sigma^2_\varepsilon + 2\beta \sigma_{T^*,\varepsilon|z_k}
-\end{equation}
-where $\sigma^2_{T^*|z_k}$ denotes the conditional variance of $T^*$ given that $z = z_k$, $\sigma_{T^*,\varepsilon|z_k}$ denotes the conditional covariance between $T^*$ and $\varepsilon$ given that $z=z_k$ and we have used the fact that $Var(\varepsilon|z)$ does not depend on $z$ by Assumption \ref{assump:homosked}.
-Taking differences across two values $z_k$ and $z_\ell$ of the instrument, we have
-\begin{equation}
-  s^2_k - s^2_\ell = \beta^2\left( \sigma^2_{T^*|z_k} - \sigma^2_{T^*|z_\ell} \right) + 2\beta \left( \sigma_{T^*,\varepsilon|z_k} - \sigma_{T^*,\varepsilon|z_\ell} \right).
-\end{equation}
-Now, by the definition of $p^*_k$ and Equation \ref{eq:pkstar},
-\begin{equation}
-  \sigma^2_{T^*|z_k}= p^*_k (1-p^*_k) = \frac{(p_k - \alpha_0)(1 - p_k - \alpha_1)}{(1 - \alpha_0 - \alpha_1)^2} 
-\end{equation}
-which implies that 
-\begin{equation}
-  \left( \sigma^2_{T^*|z_k} - \sigma^2_{T^*|z_\ell} \right)= \frac{p_k(1-p_k) - p_\ell(1-p_\ell) + (\alpha_0 - \alpha_1)(p_k - p_\ell)}{(1 - \alpha_0 - \alpha_1)^2}.
-\end{equation}
-Turning our attention to the conditional covariances, note that
-\begin{equation}
-  \sigma_{T^*,\varepsilon|z_k} = E_{T^*|z}\left[E\left( T^*\varepsilon|T^*z_k \right)  \right] = p_k^* (m^*_{1k}-c) 
-\end{equation}
-since $E[\varepsilon|z] = 0$.
-Thus, by Equation \ref{eq:pkstar},
-\begin{equation}
-  \left( \sigma_{T^*,\varepsilon|z_k} - \sigma_{T^*,\varepsilon|z_\ell} \right) = \frac{(p_k - \alpha_0)(m^*_{1k}-c) - (p_\ell - \alpha_0)(m^*_{1\ell}-c)}{1 - \alpha_0 - \alpha_1} 
-\end{equation}
-Now, substituting $\mathcal{W} = \beta/(1-\alpha_0-\alpha_1)$, we find that
-\begin{align*}
-  s^2_k - s^2_\ell = \mathcal{W}^2\left[p_k(1-p_k) - p_\ell(1-p_\ell) + (\alpha_0 - \alpha_1)(p_k - p_\ell)\right]\\  
-  + 2\mathcal{W}\left[(p_k - \alpha_0)(m^*_{1k}-c) - (p_\ell - \alpha_0)(m^*_{1\ell}-c)\right]
-\end{align*}
-Now, define the observable
-\begin{equation*}
-  \widetilde{\mathcal{W}}_{k\ell} = \frac{\mathbb{E}[yT|z_k] - \mathbb{E}[yT|z_\ell]}{p_k - p_\ell}
-\end{equation*}
-Some algebra shows that, under our assumptions,
-\begin{align*}
-(p_k - \alpha_0)&(m^*_{1k}-c) - (p_\ell - \alpha_0)(m^*_{1\ell}-c) =\\
-& (p_k - p_\ell)\left[ \widetilde{W}_{k\ell} - \mathbb{E}[y] - \mathcal{W}\left\{ (1 - p) + (\alpha_0 - \alpha_1) \right\} \right]
-\end{align*}
-where $p = E[T]$.
-Substituting this into our expression for $s_k^2 - s_\ell^2$ allows us to solve for $\alpha_0 - \alpha_1$ in terms of observables, specifically:
-\begin{equation*}
-  \alpha_0 - \alpha_1 = (2p - 1 - p_k - p_\ell) + \frac{2(\widetilde{W}_{k\ell} - \mathbb{E}[y])}{\mathcal{W}} - \frac{s_k^2 - s_\ell^2}{(p_k - p_\ell)\mathcal{W}^2}.
-\end{equation*}
+  First define
+  \begin{eqnarray}
+    \label{eq:mustar}
+    \mu_{k\ell}^* &=&  (p_k - \alpha_0) m_{1k^*} - (p_{\ell}-\alpha_0)m_{k\ell} \\
+    \label{eq:y2def}
+    \Delta\overline{y^2} &=&  \mathbb{E}(y^2|z_k) - \mathbb{E}(y^2|z_\ell)\\
+    \label{eq:yTdef}
+    \Delta\overline{yT} &=&  \mathbb{E}(yT|z_k) - \mathbb{E}(yT|z_\ell)
+  \end{eqnarray}
+  By iterated expectations it follows, after some algebra, that
+  \begin{eqnarray}
+    \label{eq:y2}
+    \Delta\overline{y^2} &=& \beta \mathcal{W} (p_k - p_\ell)  + 2 \mathcal{W} \mu_{k\ell}^* \\
+    \label{eq:yT}
+    \Delta\overline{yT} &=& (1-\alpha_1)\mathcal{W}(p_k - p_\ell) + \mu_{k\ell}^* 
+  \end{eqnarray}
+  Now, solving Equation \ref{eq:yT} for $\mu_{k\ell}^*$ and substituting the result into Equation \ref{eq:y2} and rearranging,
+  \begin{equation}
+    \mathcal{R} \equiv \beta - 2(1-\alpha_1)\mathcal{W} = \frac{\Delta\overline{y^2} - 2 \mathcal{W}\Delta\overline{yT}}{\mathcal{W}(p_k - p_\ell)}.
+    \label{eq:Rdef}
+  \end{equation}
+  Since $\mathcal{W}$ is identified it follows that $\mathcal{R}$ is identified.
+  Rearranging the preceding equality and substituting $\beta=\mathcal{W}(1-\alpha_0 -\alpha_1)$ to eliminate $\beta$, we find that
+  \begin{equation}
+    \alpha_1 - \alpha_0 = 1 + \mathcal{R}/\mathcal{W}.
+   \label{eq:aDiff}
+  \end{equation}
+  Because both $\mathcal{R}$ and $\mathcal{W}$ are identified, it follows that the difference of error rates is also identified.
 \end{proof}
 
 \begin{thm}
   \label{thm:skew}
-  Under Assumptions \ref{assump:homosked}-\ref{assump:skew} and the conditions of Theorem \ref{pro:Lack}, the mis-classification rates $\alpha_0$ and $\alpha_1$ and the treatment effect $\beta$ are identified.
+  Under Assumptions \ref{assump:homosked}-\ref{assump:skew} and the conditions of Theorem \ref{pro:Lack}, the mis-classification rates $\alpha_0$ and $\alpha_1$ and the treatment effect $\beta$ are identified provided that $z$ takes on at least two values.
 \end{thm}
 
 \begin{proof}[Proof of Theorem \ref{thm:skew}]

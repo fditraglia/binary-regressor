@@ -18,8 +18,8 @@ s_noise <- 1
 e <- rnorm(n, 0, s_noise) + ability
 y <- c + b * xstar + e
 # Measurement Error
-a0 <- 0.05
-a1 <- 0.2
+a0 <- 0.84
+a1 <- 0.62
 x <- (1 - xstar) * rbinom(n, 1, a0) + xstar * rbinom(n, 1, 1 - a1)
 
 # Sanity Check
@@ -120,7 +120,6 @@ b - 2 * (1 - a1) * W
 
 
 #Try checking the solution for b using third moments
-# Seems to contain a small mistake...
 dy2 <- R1
 dyT <- R2
 dy3 <- mean(dat1$y^3) - mean(dat0$y^3)
@@ -133,24 +132,47 @@ C <- 3 * W * (dy2T + 2 * R * dyT + 2 * R^2 * (p1_hat - p0_hat)) - dy3
 polyroot(c(C, B, A))
 
 #Check the equations upon which the quadratic is based
-v00 <- mean(subset(dat0, xstar == 0)$u^2)
-v01 <- mean(subset(dat1, xstar == 0)$u^2)
-v10 <- mean(subset(dat0, xstar == 1)$u^2)
-v11 <- mean(subset(dat1, xstar == 1)$u^2)
+# v00 <- mean(subset(dat0, xstar == 0)$u^2)
+# v01 <- mean(subset(dat1, xstar == 0)$u^2)
+# v10 <- mean(subset(dat0, xstar == 1)$u^2)
+# v11 <- mean(subset(dat1, xstar == 1)$u^2)
+# 
+# with(foo$param, v00 * (1 - p0) + v01 * p0)
+# with(foo$param, v10 * (1 - p1) + v11 * p1)
+# with(foo$param, sigma)^2
+# 
+# v <- with(foo$param, p1 * v11 - p0 * v10)
+# v_tilde <- with(foo$param, p1 * (v11 + c^2) - p0 * (v10 + c^2))
+# 
+# # Difference of expectation of y^3 equation
+# foo$param$b^2 * W * (p1_hat - p0_hat) + 3 * foo$param$b * W * mu_tilde + 3 * W * v_tilde
+# # Should equal dy3...
+# dy3 # Close enough!
+# 
+# # Difference of E[y^2 T] equation
+# foo$param$b * (1 - foo$param$a1) * W * (p1_hat - p0_hat) + 2 * (1 - foo$param$a1) * W * mu_tilde + v_tilde
+# # Should equal dy2T...
+# dy2T #Yes!
 
-with(foo$param, v00 * (1 - p0) + v01 * p0)
-with(foo$param, v10 * (1 - p1) + v11 * p1)
-with(foo$param, sigma)^2
+#------------Check Camilo's other quadratic for (1 - a1) - Halloween 2015
+S <- (dy3 - 3 * W * (dy2T + R * dyT)) / (W * (p1_hat - p0_hat))
+S
+# Should be equal to the following
+b^2 - 3 * W * (1 - a1) * (b + R)
+# and it is!
 
-v <- with(foo$param, p1 * v11 - p0 * v10)
-v_tilde <- with(foo$param, p1 * (v11 + c^2) - p0 * (v10 + c^2))
+A2 <- 2 * W^2
+B2 <- 2 * R * W
+C2 <- S - R^2
 
-# Difference of expectation of y^3 equation
-foo$param$b^2 * W * (p1_hat - p0_hat) + 3 * foo$param$b * W * mu_tilde + 3 * W * v_tilde
-# Should equal dy3...
-dy3 # Close enough!
+polyroot(c(C2, B2, A2))
+#should equal (1 - a1)
+1 - a1 #and it does!
 
-# Difference of E[y^2 T] equation
-foo$param$b * (1 - foo$param$a1) * W * (p1_hat - p0_hat) + 2 * (1 - foo$param$a1) * W * mu_tilde + v_tilde
-# Should equal dy2T...
-dy2T #Yes!
+#------------Check The other thing...
+A3 <- 2 * W^2
+B3 <- -6 * W * R
+C3 <- S + 3 * R^2
+
+
+polyroot(c(C3, B3, A3))
