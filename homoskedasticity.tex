@@ -1,20 +1,24 @@
 %!TEX root = ./main.tex
 \section{Identification Based on Higher Moments}
-Having shown that the moment conditions from Table \ref{tab:observables} do not identify $\beta$ regardless of the value of $K$, we now consider using the conditional \emph{variance} of $y$.
-Exploiting this information requires us to make an additional assumption.
-\begin{assump}[Homoskedasticity]
+Having shown that the moment conditions from Table \ref{tab:observables} do not identify $\beta$ regardless of the value of $K$, we now consider exploiting the information contained in higher moments of $y$. 
+When $z$ is not merely mean-independent but in fact \emph{statistically} independent of $\varepsilon$, as in a randomized controlled trial or a true natural experiment, the following assumptions hold automatically.
+\begin{assump}[Second Moment Independence]
   $\mathbb{E}[\varepsilon^2|z]=\mathbb{E}[\varepsilon^2]$
   \label{assump:homosked}
 \end{assump}
-When combined with the usual IV assumption, $\mathbb{E}[u|z]=0$, Assumption \ref{assump:homosked} implies that $Var(\varepsilon|z) = Var(\varepsilon)$.
-Whether this assumption is reasonable, naturally, depends on the application.
-When $z$ is the offer of treatment in a randomized controlled trial, for example, Assumption \ref{assump:homosked} holds automatically as a consequence of the randomization.
-Similarly, in studies based on a ``natural'' rather than a controlled experiment, one typically argues that the instrument is not merely uncorrelated with the error term but \emph{independent} of it, so that Assumption \ref{assump:homosked} follows.
-\begin{pro}
+\begin{assump}[Third Moment Independence]
+  $\mathbb{E}[\varepsilon^3|z]=\mathbb{E}[\varepsilon^3]$
+  \label{assump:skew}
+\end{assump}
+%When combined with the usual IV assumption, $\mathbb{E}[u|z]=0$, Assumption \ref{assump:homosked} implies that $Var(\varepsilon|z) = Var(\varepsilon)$.
+%Whether this assumption is reasonable, naturally, depends on the application.
+%When $z$ is the offer of treatment in a randomized controlled trial, for example, Assumption \ref{assump:homosked} holds automatically as a consequence of the randomization.
+%Similarly, in studies based on a ``natural'' rather than a controlled experiment, one typically argues that the instrument is not merely uncorrelated with the error term but \emph{independent} of it, so that Assumption \ref{assump:homosked} follows.
+\begin{thm}
   \label{pro:homosked}
-  Under the conditions of Proposition \ref{pro:Lack} and Assumption \ref{assump:homosked}, $(\alpha_0 - \alpha_1)$ is identified. 
-\end{pro}
-\begin{proof}[Proof of Proposition \ref{pro:homosked}]
+  Under Assumption \ref{assump:homosked} and the conditions of Theorem \ref{pro:Lack} the difference of mis-classification rates, $(\alpha_1 - \alpha_0)$ is identified. 
+\end{thm}
+\begin{proof}[Proof of Theorem \ref{pro:homosked}]
   Let $s^2_k$ denote the conditional variance of $y$ given that $z=z_k$.
   Then we have:
 \begin{equation}
@@ -63,3 +67,13 @@ Substituting this into our expression for $s_k^2 - s_\ell^2$ allows us to solve 
 \end{equation*}
 \end{proof}
 
+\begin{thm}
+  \label{thm:skew}
+  Under Assumptions \ref{assump:homosked}-\ref{assump:skew} and the conditions of Theorem \ref{pro:Lack}, the mis-classification rates $\alpha_0$ and $\alpha_1$ and the treatment effect $\beta$ are identified.
+\end{thm}
+
+\begin{proof}[Proof of Theorem \ref{thm:skew}]
+  From the proof of Theorem \ref{pro:Lack}, $\mathcal{W} = \beta/(1-\alpha_0 - \alpha_1)$ is identified. 
+  And from the proof of \ref{pro:homosked}, $(\alpha_1 - \alpha_0) = 1 + \mathcal{R}/\mathcal{W}$ is identified.
+  Thus, it suffices to identify $(1-\alpha_1)$. 
+\end{proof}

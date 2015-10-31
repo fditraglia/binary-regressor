@@ -17,11 +17,11 @@ The first step of \citeauthor{Mahajan}'s argument is to show that if one could r
   \end{enumerate}
 \end{assump}
 
-\begin{res}[Mahajan A2]
+\begin{lem}[Mahajan A2]
   \label{res:A2}
 Under Assumption \ref{assump:A2}, knowledge of the mis-classification error rates $\alpha_0, \alpha_1$ suffices to identify $\beta$.
-\end{res}
-\begin{proof}[Proof of Proposition \ref{res:A2}]
+\end{lem}
+\begin{proof}[Proof of Lemma \ref{res:A2}]
 Since $z$ is a valid instrument that does not influence the mis-classification probabilities
 \[\mathbb{E}[y|z_k] = c + \beta \mathbb{E}[T^*|z_k] + \mathbb{E}[\varepsilon|z_k] = c + \beta p_k^* = c + \beta \left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)\]
 by Equation \ref{eq:pkstar}.
@@ -40,17 +40,17 @@ In his Theorem 1, \cite{Mahajan} proves that $\alpha_0, \alpha_1$ can in fact be
     \item $\mathbb{E}[y|T^*=0]\neq \mathbb{E}[y|T^*=1]$
   \end{enumerate}
 \end{assump}
-\begin{thm}[Mahajan Theorem 1]
+\begin{lem}[Mahajan Theorem 1]
   \label{thm:1}
   Under Assumptions \ref{assump:A1}, the error rates $\alpha_0, \alpha_1$ are identified as is the conditional mean function $\mathbb{E}[y|T^*]$.
-\end{thm}
-\begin{proof}[Proof of Theorem \ref{thm:1}]
+\end{lem}
+\begin{proof}[Proof of Lemma \ref{thm:1}]
   See \cite{Mahajan} Appendix A.1. 
 \end{proof}
-Notice that the identification of the error rates in Theorem \ref{thm:1} does not depend on the interpretation of the conditional mean function $\mathbb{E}[y|T^*]$.
+Notice that the identification of the error rates in Lemma \ref{thm:1} does not depend on the interpretation of the conditional mean function $\mathbb{E}[y|T^*]$.
 If $T^*$ is an exogenous treatment, the conditional mean coincides with the treatment effect; if it is endogenous, this is not the case.
 Either way, the meaning of $\alpha_0, \alpha_1$ is unchanged: these parameters simply characterize the mis-classification process. 
-Based on this observation, \cite{Mahajan} claims that he can rely on Theorem \ref{thm:1} to identify $\alpha_0,\alpha_1$ and thus the causal effect $\beta$ when the treatment is endogenous via Result \ref{res:A2}.
+Based on this observation, \cite{Mahajan} claims that he can rely on Lemma \ref{thm:1} to identify $\alpha_0,\alpha_1$ and thus the causal effect $\beta$ when the treatment is endogenous via Lemma \ref{res:A2}.
 To do this, he must build a bridge between Assumption \ref{assump:A2} and Assumption \ref{assump:A1} that allows $T^*$ to be endogenous.
 \cite{Mahajan} does this by imposing one additional assumption: Equation 11 in his paper.
 \begin{assump}[Mahajan Equation 11]
@@ -58,12 +58,12 @@ To do this, he must build a bridge between Assumption \ref{assump:A2} and Assump
   Let $y = c + \beta T^* + \varepsilon$ where $\mathbb{E}[\varepsilon|T^*]$ may not be zero and suppose that 
   \[\mathbb{E}[\varepsilon|T^*,T,z] = \mathbb{E}[\varepsilon|T^*].\]
 \end{assump}
-\begin{res}
+\begin{lem}
   \label{res:Eq11}
   Suppose that $y = c + \beta T^* + \varepsilon$ where $E[\varepsilon|z]=0$ and define the unobserved projection error $\nu = y - \mathbb{E}[y|T^*]$.
   Then Assumption \ref{assump:Eq11} implies that $E[\nu|T^*,T,z]=0$, which is Assumption \ref{assump:A1}(i).
-\end{res}
-\begin{proof}[Proof of Result \ref{res:Eq11}]
+\end{lem}
+\begin{proof}[Proof of Lemma \ref{res:Eq11}]
   Taking conditional expectations of the causal model,
   \[\mathbb{E}[y|T^*] = c + \beta T^* + \mathbb{E}[\varepsilon|T^*]\]
   which implies that 
@@ -77,7 +77,7 @@ by Assumption \ref{assump:Eq11}, since $\mathbb{E}[\varepsilon|T^*]$ is $(T^*,T,
 \end{proof}
 
 To summarize, \citeauthor{Mahajan}'s claim is equivalent to the proposition that under Assumptions \ref{assump:A2}(i), \ref{assump:A1}(ii)--(v), and \ref{assump:Eq11}, $\beta$ is identified even if $T^*$ is endogenous.
-Although Result \ref{res:A2}, Theorem \ref{thm:1} and Result \ref{res:Eq11} are all correct, \citeauthor{Mahajan}'s claim is not.
+Although Lemmas \ref{res:A2}, \ref{thm:1} and \ref{res:Eq11} are all correct, \citeauthor{Mahajan}'s claim is not.
 While Assumption \ref{assump:Eq11} does guarantee that Assumption \ref{assump:A1}(i) holds, when combined with Assumption \ref{assump:A2}(i) it also implies that \ref{assump:A1}(ii) fails if $T^*$ is endogenous.
 The failure of Assumption \ref{assump:A1}(ii) in turn leads to a division by zero in the solution to the linear system following \citeauthor{Mahajan}'s displayed Equation 26: the system no longer has a unique solution so identification fails. 
 \begin{pro}[Lack of a First Stage]
@@ -111,13 +111,13 @@ But this alone does not establish that a valid instrument is insufficient to ide
 In particular, our equation counts from above appear to suggest that a valid instrument that takes on at least four values might suffice for identification.
 Unfortunately, this is not the case as we now show.
 
-\begin{pro}[Lack of Identification]
+\begin{thm}[Lack of Identification]
   \label{pro:Lack}
   Suppose that Assumption \ref{assump:A2} holds and additionally that $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*,z]$ (non-differential measurement error).  
   Then regardless of how many values $z$ takes on, generically $\beta$ is unidentified based on the observables contained in Table \ref{tab:observables}.
-\end{pro}
-\begin{proof}[Proof of Proposition \ref{pro:Lack}]
-  The assumptions of this proposition are the same as those used to derive Equations \ref{eq:MC0IV} and \ref{eq:MC1IV}. 
+\end{thm}
+\begin{proof}[Proof of Theorem \ref{pro:Lack}]
+  The assumptions of this Theorem are the same as those used to derive Equations \ref{eq:MC0IV} and \ref{eq:MC1IV}. 
   These expressions, for $k = 1, \dots, K$ constitute the full set of available moment conditions.
   To establish lack of identification, we derive a parametric relationship between $\beta$ and the other model parameters such that, varying $\beta$ along this parametric relationship, the observables $(\hat{y}_{0k},\hat{y}_{1k})$ are unchanged for all $k$.   
 
