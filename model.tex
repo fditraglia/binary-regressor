@@ -45,8 +45,9 @@ Another standard assumption is the condition
   \label{eq:alphaIneq}
 \end{equation}
 which rules out the possibility that $1-T$ is a better measure of $T^*$ than $T$ is, and vice-versa.
-This condition is standard in the literature \citep{Mahajan,Lewbel,FL,BBS,KRS}.
-Without it, the treatment effect would only be identified up to sign.
+This condition is imposed in the literature \citep{Mahajan,Lewbel,FL,BBS,KRS} because in its absence the treatment effect would only be identified up to sign.
+Our results will not in fact require the condition in Equation \ref{eq:alphaIneq} to hold.
+
 
 
 Our arguments below, like those of \cite{Mahajan} and \cite{Lewbel}, proceed by holding the exogenous covariates \emph{fixed} at some level $\mathbf{x}_a$.
@@ -60,7 +61,7 @@ Using this notation, Equation \ref{eq:model} can be re-expressed as a simple lin
 \end{equation}
 where we define $u = c + \varepsilon$, an error term that need not be mean zero.
 In the context of Equation \ref{eq:linear} the only observable information consists of the moments of $y$, conditional on $T,z$, the conditional probabilities of $T$ given $z$, and the marginal probabilities of $z$.
-For the moment, following the existing literature, we will restrict attention to the conditional mean of $y$.
+For now, following the existing literature, we will restrict attention to the conditional mean of $y$.
 Below in section 5 we consider using higher moments of $y$.
 Let $\bar{y}_{t,k}$ denote $\mathbb{E}[y|T=t,z=z_k]$, let $p_k$ denote $\mathbb{P}(T=1|z=z_k)$ and let $q_k = \mathbb{P}(z=z_k)$.
 Table \ref{tab:observables} depicts the observable moments for this problem.
@@ -190,7 +191,7 @@ This is the route followed by \cite{Mahajan} in his proof of identification with
 His Equation (11), expressed in our notation, amounts to adding two cross-column restrictions in Table \ref{tab:unobservables}: $m^*_{11} = m^*_{12}$ and $m^*_{01} = m^*_{02}$. 
 Another possibility, suggested by \citeauthor{Lewbel}'s approach, would be to rely on an instrument that takes on more than two values.
 Following this approach would suggest a 4-valued instrument, the smallest value of $K$ for which $2K = K+4$.
-In the following section we present two of our main results: first \citeauthor{Mahajan}'s approach leads to a contradiction, and second, regardless of the value of $K$, $\beta$ is unidentified.  
+In the following section we present two of our main results: first \citeauthor{Mahajan}'s approach leads to a contradiction, and second, regardless of the value of $K$, $\beta$ is unidentified based on conditional mean information.
 
 
 

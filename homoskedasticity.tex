@@ -49,6 +49,17 @@ When $z$ is not merely mean-independent but in fact \emph{statistically} indepen
   Because both $\mathcal{R}$ and $\mathcal{W}$ are identified, it follows that the difference of error rates is also identified.
 \end{proof}
 
+The preceding result can be used in several ways.
+One possibility is to test for the presence of mis-classification error.
+If the treatment is measured without error, then $\alpha_0$ must equal $\alpha_1$.
+By examining the identified quantities $\mathcal{R}$ and $\mathcal{W}$, one could possibly discover that this requirement it violated.
+Moreover, in some settings mis-classification may be one-sided.
+In a smoking and birthweight example, it seems unlikely that mothers who did \emph{not} smoke during pregnancy would falsely claim to have smoked.
+If either of $\alpha_0, \alpha_1$ is known, Theorem \ref{pro:homosked} point identifies the unknown error rate and hence $\beta$, using the fact that $\beta=\mathcal{W}(1-\alpha_0-\alpha_1)$.
+When neither of the error rates is known \emph{a priori}, the same basic idea can be used to construct \emph{bounds} for $\beta$.
+
+We now show that by augmenting Theorem \ref{pro:homosked} with information on conditional \emph{third} moments, we can point identify $\beta$.
+
 \begin{thm}
   \label{thm:skew}
   Under Assumptions \ref{assump:homosked}-\ref{assump:skew} and the conditions of Theorem \ref{pro:Lack}, the mis-classification rates $\alpha_0$ and $\alpha_1$ and the treatment effect $\beta$ are identified provided that $z$ takes on at least two values.
@@ -106,3 +117,7 @@ This implies that the second root of Equation \ref{eq:quadratic} identifies $\al
 Since we know the sign of the difference $\alpha_1 - \alpha_0$ from Theorem \ref{pro:homosked}, we know which mis-classification rate is larger and hence can correctly label the two roots.
 Finally, substituting into $\beta = \mathcal{W}(1-\alpha_0-\alpha_1)$, we identify the treatment effect.
 \end{proof}
+
+Note that, in contrast to all other results in the literature \citep{KRS, BBS, FL, Mahajan, Lewbel}, our proof does \emph{not} require the assumption that $\alpha_0 + \alpha_1 <1$ to identify $\beta$.
+
+

@@ -13,7 +13,7 @@ The first step of \citeauthor{Mahajan}'s argument is to show that if one could r
     \item $\mathbb{E}[\varepsilon|z]=0$
     \item $\mathbb{P}(T^*=1|z_k)\neq \mathbb{P}(T^*=1|z_\ell)$ for all $k\neq \ell$
     \item $\mathbb{P}(T = 1| T^* = 0, z) = \alpha_0$, $\mathbb{P}(T = 0| T^* = 1, z) = \alpha_1$
-    \item $\alpha_0 + \alpha_1 < 1$
+    \item $\alpha_0 + \alpha_1 \neq 1$
   \end{enumerate}
 \end{assump}
 
@@ -130,7 +130,7 @@ Unfortunately, this is not the case as we now show.
   \end{align*}
 Substituting these into Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} and summing the two, we find, after some algebra, that
 \[\hat{y}_{0k} + \hat{y}_{1k} + \mathcal{W}(1-p_k) = c + \beta + \mathcal{W} \alpha_1.\]
-Since the left-hand side of this expression depends only on observables and the identified quantity $\mathcal{W}$ this shows that the right-hand side is itself identified in this model.
+Since the left-hand side of this expression depends only on observables and the identified quantity $\mathcal{W}$, this shows that the right-hand side is itself identified in this model.
 For simplicity, we define $\mathcal{Q} = c + \beta + \mathcal{W}\alpha_1$.
 Since $\mathcal{W}$ and $\mathcal{Q}$ are both identified, varying either \emph{necessarily} changes the observables, so we must hold both of them constant. 
 We now show that Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} can be expressed in terms of $\mathcal{W}$ and $\mathcal{Q}$.
