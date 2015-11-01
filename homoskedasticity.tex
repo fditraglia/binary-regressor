@@ -35,7 +35,7 @@ When $z$ is not merely mean-independent but in fact \emph{statistically} indepen
     \label{eq:yT}
     \Delta\overline{yT} &=& (1-\alpha_1)\mathcal{W}(p_k - p_\ell) + \mu_{k\ell}^* 
   \end{eqnarray}
-  Now, solving Equation \ref{eq:yT} for $\mu_{k\ell}^*$ and substituting the result into Equation \ref{eq:y2} and rearranging,
+  Now, solving Equation \ref{eq:yT} for $\mu_{k\ell}^*$, substituting the result into Equation \ref{eq:y2} and rearranging,
   \begin{equation}
     \mathcal{R} \equiv \beta - 2(1-\alpha_1)\mathcal{W} = \frac{\Delta\overline{y^2} - 2 \mathcal{W}\Delta\overline{yT}}{\mathcal{W}(p_k - p_\ell)}.
     \label{eq:Rdef}
@@ -55,7 +55,54 @@ When $z$ is not merely mean-independent but in fact \emph{statistically} indepen
 \end{thm}
 
 \begin{proof}[Proof of Theorem \ref{thm:skew}]
-  From the proof of Theorem \ref{pro:Lack}, $\mathcal{W} = \beta/(1-\alpha_0 - \alpha_1)$ is identified. 
-  And from the proof of \ref{pro:homosked}, $(\alpha_1 - \alpha_0) = 1 + \mathcal{R}/\mathcal{W}$ is identified.
-  Thus, it suffices to identify $(1-\alpha_1)$. 
+  First define 
+  \begin{eqnarray}
+    \label{eq:vstar}
+  v^*_{tk} &=&  \mathbb{E}(u^2|T^*=t, z = z_k)\\
+    \label{eq:lambda}
+  \lambda_{k\ell}^* &=& (p_k - \alpha_0) v_{1k}^* - (p_\ell - \alpha_0) v_{1\ell}^*\\
+    \label{eq:y3def}
+    \Delta\overline{y^3} &=&  \mathbb{E}(y^3|z_k) - \mathbb{E}(y^3|z_\ell)\\
+    \label{eq:y2Tdef}
+    \Delta\overline{y^2T} &=&  \mathbb{E}(y^2T|z_k) - \mathbb{E}(y^2T|z_\ell)
+  \end{eqnarray}
+  where $u$, as above, is defined as $\varepsilon + c$.
+  By iterated expectations it follows, after some algebra, that
+  \begin{eqnarray}
+    \label{eq:y3}
+    \Delta\overline{y^3} &=& \beta^2 \mathcal{W} (p_k - p_\ell)  + 3 \beta \mathcal{W} \mu_{k\ell}^* + 3 \mathcal{W} \lambda^*_{k\ell}\\
+    \label{eq:y2T}
+    \Delta\overline{y^2T} &=& \beta(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + 2(1-\alpha_1)\mathcal{W}\mu_{k\ell}^* + \lambda_{k\ell}^* 
+  \end{eqnarray}
+  where, as above, the identified quantity $\mathcal{W}$ equals $\beta/(1 - \alpha_0 - \alpha_1)$ and $\mu_{k\ell}^*$ is as defined in Equation \ref{eq:mustar}.
+  Now, substituting for $\lambda^*_{k\ell}$ in Equation \ref{eq:y3} using Equation \ref{eq:y2T} and rearranging, we find that
+  \begin{equation}
+    \Delta \overline{y^3} - 3 \mathcal{W} \Delta\overline{y^2T} = \beta \mathcal{W} (p_k - p_\ell)\left[ \beta - 3 \mathcal{W} (1-\alpha_1) \right]+ 3\mathcal{W}\mathcal{R}\mu^*_{k\ell}
+    \label{eq:diffy3}
+  \end{equation}
+  where $\mathcal{R}$ is as defined in Equation \ref{eq:Rdef}.
+  Now, using Equation \ref{eq:yT} to eliminate $\mu_{k\ell}^*$ from the preceding equation, we find after some algebra that 
+  \begin{equation}
+    \mathcal{S} \equiv \beta^2 - 3\mathcal{W}(1-\alpha_1) (\beta + \mathcal{R}) = \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}.
+    \label{eq:Sdef}
+  \end{equation}
+  Notice that $\mathcal{S}$ is identified.
+  Finally, by eliminating $\beta$ from the preceding expression using Equation \ref{eq:Rdef}, we obtain a quadratic equation in $(1-\alpha_1)$, namely 
+  \begin{equation}
+    2\mathcal{W}^2 (1-\alpha_1)^2 + 2 \mathcal{R}\mathcal{W} (1-\alpha_1) + (\mathcal{S} -\mathcal{R}^2) = 0.
+    \label{eq:quadratic}
+  \end{equation}
+  Note that, since, $\mathcal{W}, \mathcal{R}$ and $\mathcal{S}$ are all identified, we can solve Equation \ref{eq:quadratic} for $(1-\alpha_1)$.
+The solutions are as follows
+\begin{equation}
+  (1 - \alpha_1) = \frac{1}{2} \left( -\frac{\mathcal{R}}{\mathcal{W}} \pm  \frac{1}{\mathcal{W}}\sqrt{3\mathcal{R}^2 - 2 \mathcal{S}}\right)
+  \label{eq:quadsolutions}
+\end{equation}
+It can be shown that $3\mathcal{R}^2 - 2\mathcal{S} = \left[ \mathcal{R} + 2 \mathcal{W}(1-\alpha_1) \right]^2$ so the quantity under the radical is guaranteed to be positive, yielding two real solutions.
+One of these is $(1-\alpha_1)$, but what about the other root?
+Using Equation \ref{eq:aDiff} we can re-express Equation \ref{eq:quadratic} as a quadratic in $\alpha_0$.
+Surprisingly, after simplifying, we obtain a quadratic with \emph{identical} coefficients.
+This implies that the second root of Equation \ref{eq:quadratic} identifies $\alpha_0$.
+Since we know the sign of the difference $\alpha_1 - \alpha_0$ from Theorem \ref{pro:homosked}, we know which mis-classification rate is larger and hence can correctly label the two roots.
+Finally, substituting into $\beta = \mathcal{W}(1-\alpha_0-\alpha_1)$, we identify the treatment effect.
 \end{proof}

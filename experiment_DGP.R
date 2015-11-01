@@ -176,3 +176,11 @@ C3 <- S + 3 * R^2
 
 
 polyroot(c(C3, B3, A3))
+
+
+#-------------Check final stuff!
+R^2 - 2 * (1 - a1) * W * (R + (1 - a1) * W) #should equal S...
+S #Yes!
+
+3 * R^2 - 2 * S # Should equal the following...
+R^2 + 2 * (1 - a1) * W^2 * -a0
