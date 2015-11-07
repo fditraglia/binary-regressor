@@ -23,9 +23,7 @@ When the treatment is in fact exogenous, this coincides with the treatment effec
 \cite{Lewbel} provides a related identification result in the same model as \cite{Mahajan} under different assumptions.
 In particular, the variable that plays the role of the ``instrument'' need not satisfy the exclusion restriction provided that it does not interact with the treatment and takes on at least three distinct values. 
 
-% Eventually, need to talk about Hausman, and Tanguay Brachet here!
 
-% Need to figure out how Card relates to these as well.  It looks like he does not in fact use two measures to estimate the effect of union status on wages. Instead he uses a two-period panel dataset and examines external information comparing employer and employee reporting of union status. This leads him to propose the assumption that the ``up'' and ``down'' mis-classification probabilities are equal, since it fits this external dataset well. This is the ``quasi-classical'' measurement error case that we talked about previously. There is only one measurement error parameter and presumably the panel dataset allows him to identify it.
 
 Much less is known about the case in which the treatment, in addition to suffering from non-differential measurement error, is also endogenous.
 Only two papers consider this case.
@@ -35,17 +33,65 @@ The second paper that considers this case is \cite{Mahajan}.
 He extends his main result to the case of an endogenous treatment, providing an explicit proof of identification under the usual IV assumption in a model with additively separable errors.
 Although their discussion does not apply to the non-parametric case, \citeauthor{FL}'s intuition turns out to be right: \citeauthor{Mahajan}'s proof is incorrect, as we prove below using a convenient notational framework introduced in the following section.
 
-\subsection{New papers to cite\dots}
+
+
+
+\subsection{New Lit Review}
+Economic data is often measured with error for a variety of reasons, motivating a long tradition of measurement error modelling in econometrics. 
+The textbook case considers a continuous regressor subject to classical measurement error in a linear model.
+In this setting, the measurement error is assumed to be unrelated to the true, unobserved, value of the regressor of interest.
+Regardless of whether this unobserved regressor is exogenous or endogenous, a single valid instrument suffices to identify its effect.
+When an instrument is unavailable, \cite{lewbel1997} shows that higher moment assumptions can be used to construct one, provided that the mis-measured regressor is exogenous.
+When it is endogenous, \cite{lewbel2012} uses a heteroskedasticity assumption to obtain identification.
+
+Departures from the linear, classical measurement error setting pose serious identification challenges.
+One strand of the literature considers relaxing the assumption of linearity while maintaining that of classical measurement error.
+\cite{schennach2004}, for example, uses repeated measures of each mis-measured regressor to obtain identification, while \cite{schennach2007} uses an instrumental variable.  
+Both papers consider the case of exogenous regressors.\footnote{For comprehensive reviews of the challenges of addressing measurement error in non-linear models, see  \cite{chensurvey} and \cite{SchennachSurvey}.}
+More recently, \cite{SongSchennachWhite} rely on a repeated measure of the mis-measured regressor and the existence of a set of additional regressors, conditional upon which the regressor of interest is unrelated to the unobservables, to obtain identification.      
+Another strand of the literature considers relaxing the assumption of classical measurement error, by allowing the measurement error to be related to the true value of the unobserved regressor.
+\cite{ChenHongTamer} obtain identification in a general class of moment condition models with mis-measured data by relying on the existence of an auxiliary dataset from which they can estimate the measurement error process.
+In contrast, \cite{HuSchennach} and \cite{song2015} rely on an instrumental variable and an additional conditional location assumption on the measurement error distribution. 
+More recently, \cite{HuShiuWoutersen} use a continuous instrument to identify the ratio of partial effects of two continuous regressors, one measured with error, in a linear single index model, 
+
+Many regressors (treatments) of interest in economics, however, are binary, and in this case classical measurement error is impossible.
+Because a true 1 can only be mis-measured as a 0 and a true 0 can only be mis-measured as a 1, the measurement error must be \emph{negatively} correlated with the true treatment status \citep{Aigner,Bollinger}. 
+For this reason, even in a textbook linear model, the instrumental variables estimator can only remove the effect of endogeneity, not that of measurement error \cite{FL}. 
+
+Measurement error in a discrete variable is usually called \emph{mis-classification}.
+The simplest form of mis-classification is so-called \emph{non-differential} measurement error.
+In this case, conditional on true treatment status, and possibly a set of exogenous covariates, the measurement error is assumed to be unrelated to all other variables in the system.
+
+A number of papers consider the case of a binary treatment, subject to non-differential measurement error, in a linear model.
+When the treatment is \emph{exogenous}, a valid instrument suffices to recover the treatment effect using a non-linear GMM estimator.
+\cite{BBS} and \cite{KRS} more-or-less simultaneously pointed this out in a setting in which \emph{two} alternative measures of treatment are available, both subject to non-differential measurement error.
+In essence, one measure serves as an instrument for the other although the estimator is quite different from IV.\footnote{Ignoring covariates, the observable moments in this case are the joint probability distribution of the two binary treatment measures and the conditional means of the outcome variable given the two measures. Although the system is highly non-linear, it can be manipulated to yield an explicit solution for the treatment effect provided that the true treatment is exogenous.}
+Subsequently, \cite{FL} correctly note that an instrumental variable can take the place of one of the measures of treatment in a linear model with an exogenous treatment, allowing one to implement a variant of the GMM estimator proposed by \cite{BBS} and \cite{KRS}.
+However, as we will show below, the assumptions required to obtain this result are are stronger than \cite{FL} appear to realize: the usual IV assumption that the instrument is mean independent of the regression error is insufficient for identification. 
+
+
+
+\cite{Mahajan} extends the results of \cite{BBS} and \cite{KRS} to a more general nonparametric regression setting using a binary instrument in place of one of the treatment measures. 
+Although unaware of \cite{FL}, \cite{Mahajan} makes the correct assumption over the instrument and treatment to guarantee identification of the conditional mean function.
+When the treatment is in fact exogenous, this coincides with the treatment effect.
+\cite{Lewbel} provides a related identification result in the same model as \cite{Mahajan} under different assumptions.
+In particular, the variable that plays the role of the ``instrument'' need not satisfy the exclusion restriction provided that it does not interact with the treatment and takes on at least three distinct values. 
+
+
+Much less is known about the case in which the treatment, in addition to suffering from non-differential measurement error, is also endogenous.
+Only two papers consider this case.
+\cite{FL} briefly discuss the prospects for identification in this setting.
+Although they do not provide a formal proof they argue, in the context of their parametric linear model, that the treatment effect is unlikely to be identified unless one is willing to impose strong and somewhat unnatural conditions. 
+The second paper that considers this case is \cite{Mahajan}.
+He extends his main result to the case of an endogenous treatment, providing an explicit proof of identification under the usual IV assumption in a model with additively separable errors.
+Although their discussion does not apply to the non-parametric case, \citeauthor{FL}'s intuition turns out to be right: \citeauthor{Mahajan}'s proof is incorrect, as we prove below using a convenient notational framework introduced in the following section.
+
 
 \cite{Card} need to decide how/if to cite this paper.
-
-
-
 
 \cite{ChenHuLewbel} binary treatment, no endogeneity, no instrument, higher moments.
 
 \cite{ChenHuLewbel2} Non-parametric regression model with mis-measured exogenous binary regressor. No instrument, get non-parametric identification from higher moments of the error distribution.
-
 
 \cite{Hausman} regression model with mis-classified discrete \emph{outcome}. Recover regression parameters and mis-classification rates using parametric model (logit/probit). Also suggest semi-parametric procedure.
 In principle, this could be used as a first stage in an IV setup but two problems.
@@ -72,44 +118,8 @@ Partial identification results relying on auxiliary data.
 \cite{das2005} non-parametric IV model, discrete endogenous regressors. Doesn't look at measurement error.
 
 
+\cite{shiu2015} identifies the effect of a discrete, mis-measured, endogenous regressor in a sample selection model with a known, parametric first-stage, a valid instrument and an additional excluded regressor.  
 
-\subsection{New Lit Review}
-Economic data is often measured with error for a variety of reasons, motivating a long tradition of measurement error modelling in econometrics. 
-The textbook case considers a continuous regressor subject to classical measurement error in a linear model.
-In this setting, the measurement error is assumed to be unrelated to the true, unobserved, value of the regressor of interest.
-Regardless of whether this unobserved regressor is exogenous or endogenous, a single valid instrument suffices to identify its effect.
-When an instrument is unavailable, \cite{lewbel1997} shows that higher moment assumptions can be used to construct one, provided that the mis-measured regressor is exogenous.
-When it is endogenous, \cite{lewbel2012} uses a heteroskedasticity assumption to obtain identification.
-
-Departures from the linear, classical measurement error setting pose serious identification challenges.
-One strand of the literature considers relaxing the assumption of linearity while maintaining that of classical measurement error.
-\cite{schennach2004}, for example, uses repeated measures of each mis-measured regressor to obtain identification, while \cite{schennach2007} uses an instrumental variable.  
-Both papers consider the case of exogenous regressors.\footnote{For comprehensive reviews of the challenges of addressing measurement error in non-linear models, see  \cite{chensurvey} and \cite{SchennachSurvey}.}
-More recently, \cite{SongSchennachWhite} rely on a repeated measure of the mis-measured regressor and the existence of a set of additional regressors, conditional upon which the regressor of interest is unrelated to the unobservables, to obtain identification.      
-
-Another strand of the literature considers relaxing the assumption of classical measurement error, by allowing the measurement error to be related to the true value of the unobserved regressor.
-\cite{ChenHongTamer} obtain identification in a general class of moment condition models with mis-measured data by relying on the existence of an auxiliary dataset from which they can estimate the measurement error process.
-In contrast, \cite{HuSchennach} rely on an instrumental variable and the assumption that some measure of location for the measurement error distribution, such as the median, is known to be equal to zero conditional on the value of the true, unobserved regressor.
-
-Three very recent papers rely on a continuous instrument to study the effect of a continuous, endogenous regressor measured with non-classical measurement error in a potentially non-linear model. 
-\cite{song2015} obtains identification results for a class of conditional moment restriction models, while  \cite{HuShiuWoutersen} identify the ratio of partial effects of two continuous regressors, one measured with error, in a linear index model. 
-In related work, \cite{shiu2015} studies a sample selection model with a known, parametric first-stage, a valid instrument and an additional excluded regressor.
-
-
-
-As is less well known, classical measurement error is in fact impossible when the regressor of interest is binary: because a true 1 can only be mis-measured as a 0 and a true 0 can only be mis-measured as a 1, the measurement error must be \emph{negatively} correlated with the true treatment status \citep{Aigner,Bollinger}. 
-
-Measurement error in a binary regressor is usually called \emph{mis-classification}.
-The simplest form of mis-classification is so-called \emph{non-differential} measurement error.
-In this case, conditional on true treatment status, and possibly a set of exogenous covariates, the measurement error is assumed to be uncorrelated with all other variables in the system.
-Even under this comparatively mild departure from classical measurement error, the IV estimator is inconsistent \citep{BBS, KRS}. 
-The existing literature has considered several of these. 
-
-
-continuous/discrete
-nonlinear model (functional form)
-nature of measurement error
-availability of additional information (auxiliary data/instrument)
 
 
 
