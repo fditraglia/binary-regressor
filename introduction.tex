@@ -1,38 +1,63 @@
 %!TEX root = ./main.tex
 \section{Introduction}
-%Many treatments of interest in applied work are binary.
-%To take a particularly prominent example, consider treatment status in a randomized controlled trial.
-%Even if the randomization is pristine, which yields a valid binary instrument (the offer of treatment), subjects may select into treatment based on unobservables, and given the many real-world complications that arise in the field, measurement error may be an important concern.
-This paper studies the use of a discrete instrumental variable to identify the causal effect of an endogenous, mis-measured, binary treatment in a homogeneous effects model with additively separable errors.
-Although a relevant case for applied work, this setting has received little attention in the literature.
+Many treatments of interest in applied work are binary.
+To take a particularly prominent example, consider treatment status in a randomized controlled trial.
+Even if the randomization is pristine, which yields a valid binary instrument (the offer of treatment), subjects may select into treatment based on unobservables, and given the many real-world complications that arise in the field, measurement error may be an important concern.
+This paper studies the use of a discrete instrumental variable to identify the causal effect of an endogenous, mis-measured, binary treatment in a model with additively separable errors.
+Specifically, we consider the following model 
+\begin{equation}
+  y = h(T^*, \mathbf{x}) + \varepsilon
+  \label{eq:model}
+\end{equation}
+where $T^*$ is a mis-measured, endogenous treatment, $\mathbf{x}$ is a vector of exogenous controls, and $\varepsilon$ is a mean-zero error.
+Since $T^*$ is potentially endogenous, $\mathbb{E}[\varepsilon|T^*,\mathbf{x}]$ may not be zero.
+Our goal is to non-parametrically estimate the average treatment effect (ATE) function
+\begin{equation}
+  \tau(\mathbf{x}) = h(1,\mathbf{x}) - h(0,\mathbf{x}).
+  \label{eq:ATE}
+\end{equation}
+using a single discrete instrumental variable $z$.
+We assume throughout that $z$ is a relevant instrument for $T^*$, in other words 
+\begin{equation}
+\mathbb{P}(T^*=1|z_j,\mathbf{x})\neq \mathbb{P}(T^*=1|z_k,\mathbf{x}), \quad \forall k\neq j.
+\end{equation}
+While the structural relationship involves $T^*$, we observe only a noisy measure $T$, polluted by non-differential measurement error.
+In particular, we assume that
+\begin{eqnarray}
+  \label{eq:a0}
+  \mathbb{P}(T = 1| T^* = 0, z, \mathbf{x})  &=&  \alpha_0(\mathbf{x})\\
+  \label{eq:a1}
+  \mathbb{P}(T = 0| T^* = 1, z, \mathbf{x})  &=&  \alpha_1(\mathbf{x})
+\end{eqnarray}
+where the mis-classification error rates $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ can depend on $\mathbf{x}$ but not $z$, and additionally that, conditional on true treatment status, observed treatment status provides no additional information about the error term, in other words
+\begin{equation}
+  \mathbb{E}[\varepsilon|T^*,T,z,\mathbf{x}] =  \mathbb{E}[\varepsilon|T^*,z,\mathbf{x}].
+  \label{eq:nondiff}
+\end{equation}
+
+Although a relevant case for applied work, the setting we consider here has received little attention in the literature.
 The only existing result for the case of an endogenous treatment appears in an important paper by \cite{Mahajan}, who is primarily concerned with the case of an exogenous treatment.
 As we show below, \citeauthor{Mahajan}'s identification result for the endogenous treatment case is incorrect.
 As far as we are aware, this leaves the problem considered in this paper completely unsolved.
 
-We begin by providing a convenient notational framework within which to situate the problem.
-Using this framework we then show that the proof in Appendix A.2 of \cite{Mahajan} leads to a contradiction.
+We begin by showing that the proof in Appendix A.2 of \cite{Mahajan} leads to a contradiction.
 Throughout his paper, \cite{Mahajan} maintains an assumption (Assumption 4) which he calls the ``Dependency Condition.'' 
 This assumption requires that the instrumental variable be relevant.
 When extending his result for an exogenous treatment to the more general case of an endogenous one, however, he must impose an additional condition on the model (Equation 11), which turns out to imply the lack of a first-stage, violating the Dependency Condition.
-
 Since one cannot impose the condition in Equation 11 of \cite{Mahajan}, we go on to study the prospects for identification in this model more broadly.
 We consider two possibilities.
 First, since \citeauthor{Mahajan}'s identification results require only a binary instrument,  we borrow an idea from \cite{Lewbel} and explore whether expanding the support of the instrument yields identification based on moment equations similar to those used by \cite{Mahajan}.
 While allowing the instrument to take on additional values does increase the number of available moment conditions, we show that these moments cannot point identify the treatment effect, regardless of how many (finite) values the instrument takes on.
 
 We then consider a new source of identifying information that arises from imposing stronger assumptions on the instrumental variable.
-\cite{Mahajan} and related papers, discussed below, use only conditional means of the outcome to identify the treatment effect.
-However, if the instrument is not merely mean independent but in fact \emph{statistically independent} of the regression error term, as in a randomized controlled trial or a true natural experiment, additional moment conditions become available.
-To the best of our knowledge, this source of information has not been exploited in the extant literature on instrumental variables.  
-Under this stronger condition on the instrument, we first show that conditional second moments of the outcome variable identify the \emph{difference} of mis-classification rates in the mis-measured regressor: the probability that a true one is classified as a zero minus the probability that a true zero is classified as a one.
+If the instrument is not merely mean independent but in fact \emph{statistically independent} of the regression error term, as in a randomized controlled trial or a true natural experiment, additional moment conditions become available.
+We show that adding a conditional second moment independence assumption on the instrument identifies the \emph{difference} of mis-classification rates $\alpha_1(\mathbf{x})-\alpha_0(\mathbf{x})$. 
 Because these rates must equal each other when there is no mis-classification error, our result can be used to test a necessary condition for the absence of measurement error.   
 It can also be used to construct simple and informative partial identification bounds for the treatment effect.
 When one of the mis-classification rates is known, this identifies the treatment effect.
 More generally, however, this is not the case.
-We go on to show that conditional third moments point identify both mis-classification rates.
-Thus, combining conditional first, second and third moment information point identifies the treatment effect.
-
-Our non-parametric point and partial identification results lead to simple, closed-form method of moments estimators that should be straightforward to apply in practice.
+We go on to show that a conditional third moment independence assumption on the instrument point identifies both $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ and hence the ATE function $\tau(\mathbf{x})$. 
+Both our point identification and partial identification results require only a binary instrument, and lead to simple, closed-form method of moments estimators that should be straightforward to apply in practice.
 
 The remainder of this paper is organized as follows. 
 In section 2 we discuss the literature in relation to the problem considered here. 
