@@ -9,14 +9,14 @@ Specifically, we consider the following model
   y = h(T^*, \mathbf{x}) + \varepsilon
   \label{eq:model}
 \end{equation}
-where $T^*$ is a mis-measured, endogenous treatment, $\mathbf{x}$ is a vector of exogenous controls, and $\varepsilon$ is a mean-zero error.
+where $T^*\in \left\{ 0,1 \right\}$ is a mis-measured, endogenous treatment, $\mathbf{x}$ is a vector of exogenous controls, and $\varepsilon$ is a mean-zero error.
 Since $T^*$ is potentially endogenous, $\mathbb{E}[\varepsilon|T^*,\mathbf{x}]$ may not be zero.
 Our goal is to non-parametrically estimate the average treatment effect (ATE) function
 \begin{equation}
   \tau(\mathbf{x}) = h(1,\mathbf{x}) - h(0,\mathbf{x}).
   \label{eq:ATE}
 \end{equation}
-using a single discrete instrumental variable $z$.
+using a single discrete instrumental variable $z \in \left\{ z_k \right\}_{k=1}^K$.
 We assume throughout that $z$ is a relevant instrument for $T^*$, in other words 
 \begin{equation}
 \mathbb{P}(T^*=1|z_j,\mathbf{x})\neq \mathbb{P}(T^*=1|z_k,\mathbf{x}), \quad \forall k\neq j.

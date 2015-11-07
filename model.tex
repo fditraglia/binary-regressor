@@ -1,55 +1,7 @@
 %!TEX root = ./main.tex
-\section{The Model and Notation}
-Let $T^*$ be a binary indicator of true treatment status, possibly endogenous, $\mathbf{x}$ be a vector of exogenous covariates, and $y$ be an outcome of interest where
-\begin{equation}
-  y = h(T^*, \mathbf{x}) + \varepsilon
-  \label{eq:model2}
-\end{equation}
-and $\varepsilon$ is mean zero.
-Since $T^*$ is potentially endogenous, $\mathbb{E}[\varepsilon|T^*,\mathbf{x}]$ may not be zero.
-Now let $z$ be a discrete instrumental variable with support set $\{z_k\}_{k=1}^K$ satisfying the usual instrumental variables assumption, namely $\mathbb{E}[\varepsilon|z,\mathbf{x}]=0$.
-We assume throughout that $z$ is a relevant instrument for $T^*$, in other words 
-\begin{equation}
-\mathbb{P}(T^*=1|z_j,\mathbf{x})\neq \mathbb{P}(T^*=1|z_k,\mathbf{x}), \quad \forall k\neq j.
-\label{eq:relevance}
-\end{equation}
-Our goal is to estimate the average treatment effect (ATE) function
-\begin{equation}
-  \tau(\mathbf{x}) = h(1,\mathbf{x}) - h(0,\mathbf{x}).
-  \label{eq:ATE2}
-\end{equation}
-We maintain throughout that $\tau(\mathbf{x}) \neq 0$.
-If it were zero, this would imply that $T^*$ is irrelevant for $y$ which can be directly tested regardless of whether any mis-classification is present and regardless of whether $T^*$ is endogenous.\footnote{This is because, as we will see below, the Wald Estimator is identified and is proportional to the treatment effect. This estimator exists provided that we have a valid and relevant instrument that takes on at least two values.} 
-
-Now, suppose we observe not $T^*$ but a noisy measure $T$ polluted by non-differential measurement error.
-In particular, we assume that
-\begin{eqnarray}
-  \label{eq:a02}
-  \mathbb{P}(T = 1| T^* = 0, z, \mathbf{x})  &=&  \alpha_0(\mathbf{x})\\
-  \label{eq:a12}
-  \mathbb{P}(T = 0| T^* = 1, z, \mathbf{x})  &=&  \alpha_1(\mathbf{x})
-\end{eqnarray}
-and additionally that
-\begin{equation}
-  \mathbb{E}[\varepsilon|T^*,T,z,\mathbf{x}] =  \mathbb{E}[\varepsilon|T^*,z,\mathbf{x}]
-  \label{eq:nondiff2}
-\end{equation}
-Equations \ref{eq:a0}--\ref{eq:a1} amount to the assumption that $z$ and $T$ are conditionally independent given $(T^*,\mathbf{x})$. 
-In other words, $z$ provides no additional information about the process that causes $T$ to be mis-classified above that already contained in $T^*$ and $\mathbf{x}$.
-In contrast, we allow for the possibility that the measurement error process \emph{does} depend on the exogenous covariates $\mathbf{x}$. 
-Equation \ref{eq:nondiff} states that, given knowledge of true treatment status, the instrument and the exogenous covariates, the \emph{observed} treatment status contains no information about the mean of the regression error term.  
-The assumptions on the measurement error process contained in Equations \ref{eq:a0}--\ref{eq:nondiff} are standard in the literature.
-Another standard assumption is the condition
-\begin{equation}
-  \alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) < 1
-  \label{eq:alphaIneq}
-\end{equation}
-which rules out the possibility that $1-T$ is a better measure of $T^*$ than $T$ is, and vice-versa.
-This condition is imposed in the literature \citep{Mahajan,Lewbel,FL,BBS,KRS} because in its absence the treatment effect would only be identified up to sign.
-Our results will not in fact require the condition in Equation \ref{eq:alphaIneq} to hold.
-
-
-
+\section{Main Results}
+\subsection{Notation and Basic Properties of the Model}
+Consider the model described in Equations \ref{eq:model}--\ref{eq:nondiff}.
 Our arguments below, like those of \cite{Mahajan} and \cite{Lewbel}, proceed by holding the exogenous covariates \emph{fixed} at some level $\mathbf{x}_a$.
 As such, there is no loss of generality from suppressing dependence on $\mathbf{x}$ in our notation. 
 It should be understood throughout that any conditioning statements are evaluated at $\mathbf{x}=\mathbf{x}_a$.
@@ -60,11 +12,14 @@ Using this notation, Equation \ref{eq:model} can be re-expressed as a simple lin
   \label{eq:linear}
 \end{equation}
 where we define $u = c + \varepsilon$, an error term that need not be mean zero.
-In the context of Equation \ref{eq:linear} the only observable information consists of the moments of $y$, conditional on $T,z$, the conditional probabilities of $T$ given $z$, and the marginal probabilities of $z$.
+We maintain throughout that $\beta \neq 0$.
+If it were zero, this would imply that $T^*$ is irrelevant for $y$ which can be directly tested regardless of whether any mis-classification is present and regardless of whether $T^*$ is endogenous.\footnote{This is because, as we will see below, the Wald Estimator is identified and is proportional to the treatment effect. This estimator exists provided that we have a valid and relevant instrument that takes on at least two values.} 
+
+From the perspective of non-parametric identification, the observables in this problem are the conditional distribution of $y$ given $(T,z)$, the conditional probabilities of $T$ given $z$, and the marginal probabilities of $z$.
 For now, following the existing literature, we will restrict attention to the conditional mean of $y$.
-Below in section 5 we consider using higher moments of $y$.
+Below we consider using higher moments of $y$.
 Let $\bar{y}_{t,k}$ denote $\mathbb{E}[y|T=t,z=z_k]$, let $p_k$ denote $\mathbb{P}(T=1|z=z_k)$ and let $q_k = \mathbb{P}(z=z_k)$.
-Table \ref{tab:observables} depicts the observable moments for this problem.
+Table \ref{tab:observables} depicts the observable first moments for this problem.
 
 \begin{table}
   \centering
@@ -95,8 +50,13 @@ Rearranging,
   1 -p_k^* = \frac{1 - p_k - \alpha_1}{1 - \alpha_0 - \alpha_1}. 
   \label{eq:pkstar}
 \end{equation}
-Equation \ref{eq:pkstar} implies that $p_k^*$ is observable up to knowledge of the mis-classification rates $\alpha_0,\alpha_1$ since $p_k$ is observable.
-Thus, the full set of parameters needed to characterize the model in Equation \ref{eq:linear} consists of $\beta, \alpha_0, \alpha_1$ and the conditional means of $u$, namely $m^*_{tk}$ for a total of $2K+3$ parameters.
+Equation \ref{eq:pkstar} implies that $p_k^*$ is observable given knowledge of $\alpha_0$ and $\alpha_1$, since $p_k$ is observable.
+Note that for these equations to be meaningful, we require that $\alpha_0 + \alpha_1 \neq 0$.
+Indeed, the existing literature \citep{Mahajan,Lewbel,FL,BBS,KRS} imposes the stronger condition that $\alpha_0 + \alpha_1 < 1$, namely that the measurement error is not so severe that $1-T$ is a better predictor of $T^*$ than $T$ is, and vice-versa.
+In its absence the treatment effect would only be identified up to sign.
+Our identification and partial identification results, presented below, will not in fact require that $\alpha_0 + \alpha_1 < 1$.
+
+The full set of parameters needed to characterize the model in Equation \ref{eq:linear} consists of $\beta, \alpha_0, \alpha_1$ and the conditional means of $u$, namely $m^*_{tk}$ for a total of $2K+3$ parameters.
 In contrast, there are only $2K$ available moment conditions, namely:
 \begin{align}
   \label{eq:MC0}
@@ -120,6 +80,8 @@ Notice that the observable ``weighted'' cell mean $\hat{y}_{tk}$ depends on both
   \caption{Unobservables, using the shorthand $p^*_{0k}=q_k(1-p^*_k)$ and $p^*_{1k}=q_kp_k^*$.}
   \label{tab:unobservables}
 \end{table}
+
+
 
 Clearly we have fewer equations than unknowns.
 What additional restrictions could we consider imposing on the system? 
