@@ -1,42 +1,5 @@
 %!TEX root = ./main.tex
 \section{Related Literature}
-Many treatments of interest in applied work are binary.
-To take a particularly prominent example, consider treatment status in a randomized controlled trial.
-Even if the randomization is pristine, which yields a valid binary instrument (the offer of treatment), subjects may select into treatment based on unobservables, and given the many real-world complications that arise in the field, measurement error may be an important concern.
-As is well known, instrumental variables (IV) based on a single valid instrument suffices to recover the treatment effect in a linear model with a single endogenous regressor subject to classical measurement errors.
-As is less well known, classical measurement error is in fact impossible when the regressor of interest is binary: because a true 1 can only be mis-measured as a 0 and a true 0 can only be mis-measured as a 1, the measurement error must be \emph{negatively} correlated with the true treatment status \citep{Aigner,Bollinger}. 
-
-Measurement error in a binary regressor is usually called \emph{mis-classification}.
-The simplest form of mis-classification is so-called \emph{non-differential} measurement error.
-In this case, conditional on true treatment status, and possibly a set of exogenous covariates, the measurement error is assumed to be uncorrelated with all other variables in the system.
-Even under this comparatively mild departure from classical measurement error, the IV estimator is inconsistent \citep{BBS, KRS}. 
-Moreover, the probability limit of the IV estimator does not depend on whether the treatment is endogenous or not \citep{FL}.
-
-When the treatment is in fact \emph{exogenous}, however, a valid instrument suffices to recover the treatment effect using a non-linear GMM estimator.
-\cite{BBS} and \cite{KRS} more-or-less simultaneously pointed this out in a setting in which \emph{two} alternative measures of treatment are available, both subject to non-differential measurement error.
-In essence, one measure serves as an instrument for the other although the estimator is quite different from IV.\footnote{Ignoring covariates, the observable moments in this case are the joint probability distribution of the two binary treatment measures and the conditional means of the outcome variable given the two measures. Although the system is highly non-linear, it can be manipulated to yield an explicit solution for the treatment effect provided that the true treatment is exogenous.}
-Subsequently, \cite{FL} correctly note that an instrumental variable can take the place of one of the measures of treatment in a linear model with an exogenous treatment, allowing one to implement a variant of the GMM estimator proposed by \cite{BBS} and \cite{KRS}.
-However, as we will show below, the assumptions required to obtain this result are are stronger than \cite{FL} appear to realize: the usual IV assumption that the instrument is mean independent of the regression error is insufficient for identification. 
-\cite{Mahajan} extends the results of \cite{BBS} and \cite{KRS} to a more general nonparametric regression setting using a binary instrument in place of one of the treatment measures. 
-Although unaware of \cite{FL}, \cite{Mahajan} makes the correct assumption over the instrument and treatment to guarantee identification of the conditional mean function.
-When the treatment is in fact exogenous, this coincides with the treatment effect.
-\cite{Lewbel} provides a related identification result in the same model as \cite{Mahajan} under different assumptions.
-In particular, the variable that plays the role of the ``instrument'' need not satisfy the exclusion restriction provided that it does not interact with the treatment and takes on at least three distinct values. 
-
-
-
-Much less is known about the case in which the treatment, in addition to suffering from non-differential measurement error, is also endogenous.
-Only two papers consider this case.
-\cite{FL} briefly discuss the prospects for identification in this setting.
-Although they do not provide a formal proof they argue, in the context of their parametric linear model, that the treatment effect is unlikely to be identified unless one is willing to impose strong and somewhat unnatural conditions. 
-The second paper that considers this case is \cite{Mahajan}.
-He extends his main result to the case of an endogenous treatment, providing an explicit proof of identification under the usual IV assumption in a model with additively separable errors.
-Although their discussion does not apply to the non-parametric case, \citeauthor{FL}'s intuition turns out to be right: \citeauthor{Mahajan}'s proof is incorrect, as we prove below using a convenient notational framework introduced in the following section.
-
-
-
-
-\subsection{New Lit Review}
 Economic data is often measured with error for a variety of reasons, motivating a long tradition of measurement error modelling in econometrics. 
 The textbook case considers a continuous regressor subject to classical measurement error in a linear model.
 In this setting, the measurement error is assumed to be unrelated to the true, unobserved, value of the regressor of interest.
@@ -57,69 +20,40 @@ More recently, \cite{HuShiuWoutersen} use a continuous instrument to identify th
 Many regressors (treatments) of interest in economics, however, are binary, and in this case classical measurement error is impossible.
 Because a true 1 can only be mis-measured as a 0 and a true 0 can only be mis-measured as a 1, the measurement error must be \emph{negatively} correlated with the true treatment status \citep{Aigner,Bollinger}. 
 For this reason, even in a textbook linear model, the instrumental variables estimator can only remove the effect of endogeneity, not that of measurement error \cite{FL}. 
-
-Measurement error in a discrete variable is usually called \emph{mis-classification}.
+Measurement error in a discrete variable is usually called mis-classification.\footnote{For general results on partial identification of discrete probability distributions using mis-classified observations, see \cite{molinari}.}
 The simplest form of mis-classification is so-called \emph{non-differential} measurement error.
 In this case, conditional on true treatment status, and possibly a set of exogenous covariates, the measurement error is assumed to be unrelated to all other variables in the system.
 
-A number of papers consider the case of a binary treatment, subject to non-differential measurement error, in a linear model.
-When the treatment is \emph{exogenous}, a valid instrument suffices to recover the treatment effect using a non-linear GMM estimator.
-\cite{BBS} and \cite{KRS} more-or-less simultaneously pointed this out in a setting in which \emph{two} alternative measures of treatment are available, both subject to non-differential measurement error.
+A number of papers have studied this problem without the use of instrumental variables under the assumption that the mis-measured binary treatment is exogenous.
+The first to address this problem was \cite{Aigner}, who characterized the asymptotic bias of the OLS estimator in this setting, and proposed a technique for correcting it using outside information on the mis-classification process.
+Another early contribution by \cite{Bollinger} provides partial identification bounds.
+More recently, \cite{ChenHuLewbel} use higher moment assumptions to obtain identification in a linear regression model, and \cite{ChenHuLewbel2} extend these results to the non-parametric setting. 
+\cite{HasseltBollinger} and \cite{BollingerHasseltWP} provide additional partial identification results.
+
+Continuing under the assumption of an exogenous treatment, a number of other papers in the literature have considered the identifying power of an instrumental variable, or something like one.
+\cite{BBS} and \cite{KRS} more-or-less simultaneously pointed out that when \emph{two} alternative measures of treatment are available, both subject to non-differential measurement error, a non-linear GMM estimator can be used to recover the treatment effect.
 In essence, one measure serves as an instrument for the other although the estimator is quite different from IV.\footnote{Ignoring covariates, the observable moments in this case are the joint probability distribution of the two binary treatment measures and the conditional means of the outcome variable given the two measures. Although the system is highly non-linear, it can be manipulated to yield an explicit solution for the treatment effect provided that the true treatment is exogenous.}
 Subsequently, \cite{FL} correctly note that an instrumental variable can take the place of one of the measures of treatment in a linear model with an exogenous treatment, allowing one to implement a variant of the GMM estimator proposed by \cite{BBS} and \cite{KRS}.
 However, as we will show below, the assumptions required to obtain this result are are stronger than \cite{FL} appear to realize: the usual IV assumption that the instrument is mean independent of the regression error is insufficient for identification. 
 
-
-
 \cite{Mahajan} extends the results of \cite{BBS} and \cite{KRS} to a more general nonparametric regression setting using a binary instrument in place of one of the treatment measures. 
 Although unaware of \cite{FL}, \cite{Mahajan} makes the correct assumption over the instrument and treatment to guarantee identification of the conditional mean function.
 When the treatment is in fact exogenous, this coincides with the treatment effect.
-\cite{Lewbel} provides a related identification result in the same model as \cite{Mahajan} under different assumptions.
+\cite{hu2008} derives related results when the mis-classified discrete regressor may take on more than two values.
+\cite{Lewbel} provides an identification result for the same model as \cite{Mahajan} under different assumptions.
 In particular, the variable that plays the role of the ``instrument'' need not satisfy the exclusion restriction provided that it does not interact with the treatment and takes on at least three distinct values. 
 
-
-Much less is known about the case in which the treatment, in addition to suffering from non-differential measurement error, is also endogenous.
-Only two papers consider this case.
+Much less is known about the case in which a binary, or discrete, treatment is not only mis-measured but endogenous.
 \cite{FL} briefly discuss the prospects for identification in this setting.
-Although they do not provide a formal proof they argue, in the context of their parametric linear model, that the treatment effect is unlikely to be identified unless one is willing to impose strong and somewhat unnatural conditions. 
-The second paper that considers this case is \cite{Mahajan}.
+Although they do not provide a formal proof they argue, in the context of their parametric linear model, that the treatment effect is unlikely to be identified unless one is willing to impose strong and somewhat unnatural conditions.\footnote{For example, one could consider using the results of \cite{Hausman}, who study regressions with a mis-classified, discrete \emph{outcome} variable, as a first-stage in an IV setting. In principle, this approach would fully identify the mis-classification error process. Using these results, however, requires either an explicit, nonlinear, parametric model for the first stage, or an identification at infinity argument.} 
+A second paper that considers this case is \cite{Mahajan}.
 He extends his main result to the case of an endogenous treatment, providing an explicit proof of identification under the usual IV assumption in a model with additively separable errors.
-Although their discussion does not apply to the non-parametric case, \citeauthor{FL}'s intuition turns out to be right: \citeauthor{Mahajan}'s proof is incorrect, as we prove below using a convenient notational framework introduced in the following section.
-
-
-\cite{Card} need to decide how/if to cite this paper.
-
-\cite{ChenHuLewbel} binary treatment, no endogeneity, no instrument, higher moments.
-
-\cite{ChenHuLewbel2} Non-parametric regression model with mis-measured exogenous binary regressor. No instrument, get non-parametric identification from higher moments of the error distribution.
-
-\cite{Hausman} regression model with mis-classified discrete \emph{outcome}. Recover regression parameters and mis-classification rates using parametric model (logit/probit). Also suggest semi-parametric procedure.
-In principle, this could be used as a first stage in an IV setup but two problems.
-First, probably don't want to make the parametric assumption.
-Second, if you try to do without it, really have identification at infinity so the instrument needs to be continuous and have large support: exclusively using information in the tails to estimate the mis-classification probabilities.
-
-\cite{molinari} looks at identifying a discrete probability distribution from mis-classified data.
-
-\cite{hu2008} seems to essentially re-do Mahajan with a $k$-valued treatment.
-
-\cite{Bollinger} partial identification, regression with exogenous, mis-measured, binary regressor
-
-\cite{BollingerHasseltWP} partial identification, regression with mis-measured, exogenous binary treatment
-
-\cite{HasseltBollinger} exogenous treatment, no instrument.
-
-
-\cite{kreider2007} differences in employment status: disabled versus not. Disability is mis-measured, nasty measurement error. Partial identification, measurement error may be non-differential, binary outcome but what is it about????
-
-\cite{kreider2012} effects of food stamps on health outcomes of children, participation in SNAP (food stamp program) is both mis-reported an endogenous.
-Don't require non-differential measurement error.
-Partial identification results relying on auxiliary data.
-
-\cite{das2005} non-parametric IV model, discrete endogenous regressors. Doesn't look at measurement error.
-
-
-\cite{shiu2015} identifies the effect of a discrete, mis-measured, endogenous regressor in a sample selection model with a known, parametric first-stage, a valid instrument and an additional excluded regressor.  
-
-
+Although their discussion does not apply to the non-parametric case, \citeauthor{FL}'s intuition turns out to be right: \citeauthor{Mahajan}'s proof is incorrect, as we show below.
+The results we derive here most closely relate to the setting considered in \cite{Mahajan} in that we study non-parametric identification of the effect of a binary, endogenous treatment, using a discrete instrument.
+Unlike \cite{Mahajan} we consider and indeed show the necessity of using higher-moment information to identify the causal effect of interest.
+Unlike \cite{kreider2012}, who partially identify the effects of food stamps on health outcomes of children under weak measurement error assumptions, we do not rely on auxiliary data. 
+Unlike \cite{shiu2015}, who considers a sample selection model with a discrete, mis-measured, endogenous regressor, we do not rely on a parametric assumption about the form of the first-stage.
+Moreover, unlike the identification strategies from the existing literature described above, we do not rely upon continuity of the instrument, a large support condition, or restrictions on the relationship between the true, unmeasured treatment and its observed surrogate, subject to the condition that the measurement error process is non-differential.
+Our non-parametric point and partial identification results lead to simple, closed-form method of moments estimators that should be straightforward to apply in practice.
 
 
