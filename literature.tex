@@ -34,3 +34,54 @@ Although they do not provide a formal proof they argue, in the context of their 
 The second paper that considers this case is \cite{Mahajan}.
 He extends his main result to the case of an endogenous treatment, providing an explicit proof of identification under the usual IV assumption in a model with additively separable errors.
 Although their discussion does not apply to the non-parametric case, \citeauthor{FL}'s intuition turns out to be right: \citeauthor{Mahajan}'s proof is incorrect, as we prove below using a convenient notational framework introduced in the following section.
+
+\subsection{New papers to cite\dots}
+\cite{SongSchennachWhite} continuous treatment, supposedly endog but actually exog conditional on covariates, also use repeated measure of treatment.
+
+\cite{song2015} General semi-parametric moment condition models but requires continuous regressor and IV. 
+
+\cite{HuShiuWoutersen} require continuous instrument, continuous regressor. Identify ratio of partial effects.
+
+Survey articles on nonlinear measurement error models: \cite{chensurvey} and \cite{SchennachSurvey}.
+
+\cite{lewbel1997} continuous, exogenous treatment, no instrument, use higher moments to construct instruments.
+
+\cite{lewbel2012} Regression with continuous, possibly endogenous regressor subject to classical measurement error. Get identification by assuming heteroskedastic errors.
+Also partial identification under weaker assumption.
+
+\cite{ChenHuLewbel} binary treatment, no endogeneity, no instrument, higher moments.
+
+\cite{ChenHuLewbel2} Non-parametric regression model with mis-measured exogenous binary regressor. No instrument, get non-parametric identification from higher moments of the error distribution.
+
+\cite{shiu2015} sample selection model in which outcomes are missing not-at-random, requires instrument with known parametric first stage and an additional excluded regressor.
+
+\cite{Hausman} regression model with mis-classified discrete \emph{outcome}. Recover regression parameters and mis-classification rates using parametric model (logit/probit). Also suggest semi-parametric procedure.
+In principle, this could be used as a first stage in an IV setup but two problems.
+First, probably don't want to make the parametric assumption.
+Second, if you try to do without it, really have identification at infinity so the instrument needs to be continuous and have large support: exclusively using information in the tails to estimate the mis-classification probabilities.
+
+\cite{molinari} looks at identifying a discrete probability distribution from mis-classified data.
+
+\cite{hu2008} seems to essentially re-do Mahajan with a $k$-valued treatment.
+
+\cite{Bollinger} partial identification, regression with exogenous, mis-measured, binary regressor
+
+\cite{BollingerHasseltWP} partial identification, regression with mis-measured, exogenous binary treatment
+
+\cite{HasseltBollinger} exogenous treatment, no instrument.
+
+
+\cite{kreider2007} differences in employment status: disabled versus not. Disability is mis-measured, nasty measurement error. Partial identification, measurement error may be non-differential, binary outcome but what is it about????
+
+\cite{kreider2012} effects of food stamps on health outcomes of children, participation in SNAP (food stamp program) is both mis-reported an endogenous.
+Don't require non-differential measurement error.
+Partial identification results relying on auxiliary data.
+
+\cite{das2005} non-parametric IV model, discrete endogenous regressors. Doesn't look at measurement error.
+
+\cite{ChenHongTamer} moment condition model, mis-measured data (either regressors or outcomes), allow any amount of correlation between true vars and measurement error. Use an auxiliary dataset in which both truth and mis-measured are observed and need conditional distribution of truth given measurement to be the same in the auxiliary sample and the real sample. 
+
+\cite{schennach2004} nonlinear errors-in-variables model, continuous treatment, no endogeneity, no instrument, continuous treatment. Uses repeated measure for each of the mis-measured variables. 
+\cite{schennach2007} does the same thing but with instrument rather than repeated measure.
+\cite{HuShennach} same as prev but with non-classical measurement error and an instrument. Can't directly extend the Lewbel/Mahajan stuff to the case of continuous regressor, use an assumption that some ``measure of location'' of the measurement error distribution. 
+
