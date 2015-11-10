@@ -1,0 +1,290 @@
+#Monte Carlo Studies on test power GDP4
+#This verstion: 15, August, 2014
+
+library(fBasics)
+
+MC_Testpower<-list();
+
+#Monte Carlo Iterations: J times
+J<-1000;
+
+B<-300;   #bootstrap iterations;
+
+#The nominal test size;
+alpha<-c(0.1,0.05,0.01);
+
+#########################################################
+#Defining trimming constants
+xis <- c(sqrt(0.005*(1-0.005)),sqrt(0.05*(1-0.05)),sqrt(0.1*(1-0.1)),1);
+xiN<-length(xis);
+size1<-1;  #No coarsening when creating the intervals
+size0<-1;
+
+
+
+### Monte Carlo Main program################################ 
+
+#Small Sample
+m<-100;   #sample size with Z=1
+n<-100;   #sample size with Z=0
+N<-m+n;  #total sample size
+lambda<-m/N;
+
+
+##############Data generation: Generate J Datasets##############
+data.array<-array(0,dim=c(N,3,J));  #Arrays containing J-datasets.
+
+p1<-0.55;
+p0<-0.45;
+muz1d1<-0;
+sigmaz1d1<-1;
+muz0d1<-c(-1,-0.5,0,0.5,1);
+sigmaz0d1<-c(0.125,0.125,0.125,0.125,0.125)
+w<-c(0.15,0.2,0.3,0.2,0.15);
+
+for(j in 1:J){
+              YP1<-rnorm(m,muz1d1,sigmaz1d1);
+              W<-sample(c(1:5),size=n, replace=TRUE, prob=w);
+              YQ1<-rnorm(n,muz0d1[W],sigmaz0d1[W]);
+              YP0<-rnorm(m,0,1);
+              YQ0<-rnorm(n,0,1);
+              DP<-rbinom(m,1,p1);
+              DQ<-rbinom(n,1,p0);
+
+              YP<-YP1*DP+YP0*(1-DP);
+              YQ<-YQ1*DQ+YQ0*(1-DQ);
+
+              Y<-c(YP,YQ);
+              D<-c(DP,DQ);
+              Z<-c(rep(1,m),rep(0,n))
+
+              data.array[,,j]<-cbind(Y,D,Z);  #Note The first m obs have Z=1, and the rest has Z=0
+}
+
+Reject.rate<-matrix(0,nrow=xiN,ncol=3);
+
+for(k in 1:xiN){
+               Teststats<-rep(0,J)
+               bootcvs<-matrix(0,nrow=J,ncol=length(alpha));
+               Teststats<-apply(data.array,3,compute.stat, m=m, n=n, lambda=lambda, xi=xis[k], size1=size1, size0=size0);
+               bootcvs<-apply(data.array,3,boot.cv,m=m,n=n,lambda=lambda,B=B,alpha=alpha,xi=xis[k], size1=size1, size0=size0);
+               Reject<-Teststats>=t(bootcvs);
+               Reject.rate[k,]<-colMeans(Reject);
+}
+
+MC_Testpower$Small$rejection<-Reject.rate;
+MC_Testpower$Small$trimming<-xis;
+
+MC_Testpower$Small
+
+
+save(MC_Testpower, file="powerDGP4.Rdata");
+
+
+################################################
+###########Small & Medium sample sizes####################
+
+#Small sample and medium sample sizes
+m<-100;   #sample size with Z=1
+n<-500;   #sample size with Z=0
+N<-m+n;  #total sample size
+lambda<-m/N;
+
+##############Data generation: Generate J Datasets##############
+data.array<-array(0,dim=c(N,3,J));  #Arrays containing J-datasets.
+
+for(j in 1:J){
+              YP1<-rnorm(m,muz1d1,sigmaz1d1);
+              W<-sample(c(1:5),size=n, replace=TRUE, prob=w);
+              YQ1<-rnorm(n,muz0d1[W],sigmaz0d1[W]);
+              YP0<-rnorm(m,0,1);
+              YQ0<-rnorm(n,0,1);
+              DP<-rbinom(m,1,p1);
+              DQ<-rbinom(n,1,p0);
+
+              YP<-YP1*DP+YP0*(1-DP);
+              YQ<-YQ1*DQ+YQ0*(1-DQ);
+
+              Y<-c(YP,YQ);
+              D<-c(DP,DQ);
+              Z<-c(rep(1,m),rep(0,n))
+
+              data.array[,,j]<-cbind(Y,D,Z);  #Note The first m obs have Z=1, and the rest has Z=0
+}
+
+Reject.rate<-matrix(0,nrow=xiN,ncol=3);
+
+for(k in 1:xiN){
+               Teststats<-rep(0,J)
+               bootcvs<-matrix(0,nrow=J,ncol=length(alpha));
+               Teststats<-apply(data.array,3,compute.stat, m=m, n=n, lambda=lambda, xi=xis[k], size1=size1, size0=size0);
+               bootcvs<-apply(data.array,3,boot.cv,m=m,n=n,lambda=lambda,B=B,alpha=alpha,xi=xis[k], size1=size1, size0=size0);
+               Reject<-Teststats>=t(bootcvs);
+               Reject.rate[k,]<-colMeans(Reject);
+}
+
+MC_Testpower$SmallMed$rejection<-Reject.rate;
+MC_Testpower$SmallMed$trimming<-xis;
+
+MC_Testpower$SmallMed
+
+save(MC_Testpower, file="powerDGP4.Rdata");
+
+
+##########################################################
+###########Medium & Medium sample sizes####################
+
+#Medium sample sizes
+m<-500;   #sample size with Z=1
+n<-500;   #sample size with Z=0
+N<-m+n;  #total sample size
+lambda<-m/N;
+
+
+##############Data generation: Generate J Datasets##############
+data.array<-array(0,dim=c(N,3,J));  #Arrays containing J-datasets.
+
+for(j in 1:J){
+              YP1<-rnorm(m,muz1d1,sigmaz1d1);
+              W<-sample(c(1:5),size=n, replace=TRUE, prob=w);
+              YQ1<-rnorm(n,muz0d1[W],sigmaz0d1[W]);
+              YP0<-rnorm(m,0,1);
+              YQ0<-rnorm(n,0,1);
+              DP<-rbinom(m,1,p1);
+              DQ<-rbinom(n,1,p0);
+
+              YP<-YP1*DP+YP0*(1-DP);
+              YQ<-YQ1*DQ+YQ0*(1-DQ);
+
+              Y<-c(YP,YQ);
+              D<-c(DP,DQ);
+              Z<-c(rep(1,m),rep(0,n))
+
+              data.array[,,j]<-cbind(Y,D,Z);  #Note The first m obs have Z=1, and the rest has Z=0
+}
+
+Reject.rate<-matrix(0,nrow=xiN,ncol=3);
+
+for(k in 1:xiN){
+               Teststats<-rep(0,J)
+               bootcvs<-matrix(0,nrow=J,ncol=length(alpha));
+               Teststats<-apply(data.array,3,compute.stat, m=m, n=n, lambda=lambda, xi=xis[k], size1=size1, size0=size0);
+               bootcvs<-apply(data.array,3,boot.cv,m=m,n=n,lambda=lambda,B=B,alpha=alpha,xi=xis[k], size1=size1, size0=size0);
+               Reject<-Teststats>=t(bootcvs);
+               Reject.rate[k,]<-colMeans(Reject);
+}
+
+
+MC_Testpower$Med$rejection<-Reject.rate;
+MC_Testpower$Med$trimming<-xis;
+
+MC_Testpower$Med
+
+
+save(MC_Testpower, file="powerDGP4.Rdata");
+
+
+##########################################################
+###########Small & Large sample sizes####################
+
+#Medium sample sizes
+m<-100;   #sample size with Z=1
+n<-1000;   #sample size with Z=0
+N<-m+n;  #total sample size
+lambda<-m/N;
+
+
+##############Data generation: Generate J Datasets##############
+data.array<-array(0,dim=c(N,3,J));  #Arrays containing J-datasets.
+
+for(j in 1:J){
+              YP1<-rnorm(m,muz1d1,sigmaz1d1);
+              W<-sample(c(1:5),size=n, replace=TRUE, prob=w);
+              YQ1<-rnorm(n,muz0d1[W],sigmaz0d1[W]);
+              YP0<-rnorm(m,0,1);
+              YQ0<-rnorm(n,0,1);
+              DP<-rbinom(m,1,p1);
+              DQ<-rbinom(n,1,p0);
+
+              YP<-YP1*DP+YP0*(1-DP);
+              YQ<-YQ1*DQ+YQ0*(1-DQ);
+
+              Y<-c(YP,YQ);
+              D<-c(DP,DQ);
+              Z<-c(rep(1,m),rep(0,n))
+
+              data.array[,,j]<-cbind(Y,D,Z);  #Note The first m obs have Z=1, and the rest has Z=0
+}
+
+Reject.rate<-matrix(0,nrow=xiN,ncol=3);
+
+for(k in 1:xiN){
+               Teststats<-rep(0,J)
+               bootcvs<-matrix(0,nrow=J,ncol=length(alpha));
+               Teststats<-apply(data.array,3,compute.stat, m=m, n=n, lambda=lambda, xi=xis[k], size1=size1, size0=size0);
+               bootcvs<-apply(data.array,3,boot.cv,m=m,n=n,lambda=lambda,B=B,alpha=alpha,xi=xis[k], size1=size1, size0=size0);
+               Reject<-Teststats>=t(bootcvs);
+               Reject.rate[k,]<-colMeans(Reject);
+}
+
+MC_Testpower$SmallLarge$rejection<-Reject.rate;
+MC_Testpower$SmallLarge$trimming<-xis;
+
+MC_Testpower$SmallLarge
+
+
+save(MC_Testpower, file="powerDGP4.Rdata");
+
+
+##########################################################
+###########Large & Large sample sizes####################
+
+#Medium sample sizes
+m<-1000;   #sample size with Z=1
+n<-1000;   #sample size with Z=0
+N<-m+n;  #total sample size
+lambda<-m/N;
+
+
+##############Data generation: Generate J Datasets##############
+data.array<-array(0,dim=c(N,3,J));  #Arrays containing J-datasets.
+
+for(j in 1:J){
+              YP1<-rnorm(m,muz1d1,sigmaz1d1);
+              W<-sample(c(1:5),size=n, replace=TRUE, prob=w);
+              YQ1<-rnorm(n,muz0d1[W],sigmaz0d1[W]);
+              YP0<-rnorm(m,0,1);
+              YQ0<-rnorm(n,0,1);
+              DP<-rbinom(m,1,p1);
+              DQ<-rbinom(n,1,p0);
+
+              YP<-YP1*DP+YP0*(1-DP);
+              YQ<-YQ1*DQ+YQ0*(1-DQ);
+
+              Y<-c(YP,YQ);
+              D<-c(DP,DQ);
+              Z<-c(rep(1,m),rep(0,n))
+
+              data.array[,,j]<-cbind(Y,D,Z);  #Note The first m obs have Z=1, and the rest has Z=0
+}
+
+Reject.rate<-matrix(0,nrow=xiN,ncol=3);
+
+for(k in 1:xiN){
+               Teststats<-rep(0,J)
+               bootcvs<-matrix(0,nrow=J,ncol=length(alpha));
+               Teststats<-apply(data.array,3,compute.stat, m=m, n=n, lambda=lambda, xi=xis[k], size1=size1, size0=size0);
+               bootcvs<-apply(data.array,3,boot.cv,m=m,n=n,lambda=lambda,B=B,alpha=alpha,xi=xis[k], size1=size1, size0=size0);
+               Reject<-Teststats>=t(bootcvs);
+               Reject.rate[k,]<-colMeans(Reject);
+}
+
+MC_Testpower$Large$rejection<-Reject.rate;
+MC_Testpower$Large$trimming<-xis;
+
+MC_Testpower
+
+save(MC_Testpower, file="powerDGP4.Rdata");
+
+
+

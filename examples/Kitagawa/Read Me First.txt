@@ -1,0 +1,21 @@
+This folder contain the programs used for the Monte Carlo studies and the empirical applications of "A Test for Instrument Validity" by T. Kitagawa.  The programs are written in R. (last updated 2 June 2015)
+
+(1) "MC" folder contains the codes to replicate the Monte Carlo results.
+
+"Functions.txt" consists of the functions used in the Monte Carlo program.  These functions should be compiled in prior to running the other files in "MC" folder.
+
+"MCsize.txt" replicates Table II.  
+"MCpowerDGP1" replicates GDP1 in Table III.
+"MCpowerDGP2" replicates GDP2 in Table III.
+"MCpowerDGP3" replicates GDP3 in Table III.
+"MCpowerDGP4" replicates GDP4 in Table III.
+
+(2) "EmpApp" folder contains the codes to replicate Table 1 in the main text.
+
+"extract.dta" is the draft lottery dataset used in Angrist and Krueger (1995, JBES), I downloaded it from http://economics.mit.edu/faculty/angrist/data1/data/angkru95 on 31 May 2015.  
+"draftCPS.csv" is exported from "extract.dta". See "draftCPS doc.txt" in the same folder for a documentation about this csv file.
+"CARD.raw"  is the proximity to college data of Card (1993). 
+"Functions.txt" consists of the functions used in computing the p-values in Table 1.  These functions should be compiled in prior to running the other program files in "EmpApp" folder.
+"TestDraft.txt" computes the p-values of the test for draft lottery data.
+"TestCollege.txt" computes the p-values of the test for the proximity to college data without conditioning any covariates.
+"TestCollegeX.txt" computes the p-values of the test for the proximity to college data with the conditioning covariates listed in Table I.

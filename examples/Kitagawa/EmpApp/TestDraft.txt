@@ -1,0 +1,268 @@
+#Empirical Example
+#Draft Data
+#(last updated on 1 June 2015)
+#The dataset to be used is "draftCPS.csv"
+
+library("lattice");
+library(fBasics);
+
+Draftdata<-read.table(file="draftCPS.csv", header=T, sep=",");
+
+#Variables in Dratdata:
+#"yob": year of birth (50, 51, 52, or 53)
+#"year": CPS years (79, 81, 82, 83, 84, or 85)
+#"annwage": nominal annual earnings
+#"weeks": number of weeks worked last year
+#"veteran": veteran status
+#"lott1": dummy for lottery number RSN 1 - 25
+#"lott2": dummy for lottery number RSN 26 - 50
+#"lott3": dummy for lottery number RSN 51 - 75
+#"lott4": dummy for lottery number RSN 76 - 100
+#"lott5": dummy for lottery number RSN 101 - 125
+#"lott6": dummy for lottery number RSN 126 - 150
+#"lott7": dummy for lottery number RSN 151 - 175
+#"lott8": dummy for lottery number RSN 176 - 200
+#"lott9": dummy for lottery number RSN 201 - 225
+#"lott10": dummy for lottery number RSN 226 - 250
+#"lott11": dummy for lottery number RSN 251 - 275
+#"lott12": dummy for lottery number RSN 276 - 300
+#"lott13": dummy for lottery number RSN 301 - 325
+
+
+
+#############Construction of Variables###############
+##The CPI is obtained from the inflation calculator in http://www.bls.gov/data/inflation_calculator.htm on 1 June 2015.
+# $1 in 1980 --> $0.791262 in 1978
+# $1 in 1981 --> $0.717272 in 1978
+# $1 in 1982 --> $0.675648 in 1978
+# $1 in 1983 --> $0.654618 in 1978
+# $1 in 1984 --> $0.627526 in 1978
+
+#########Construction of (Y,D,Z)###############
+
+#Real annual earnings
+earn<-Draftdata$annwage*((Draftdata$year==79)+(Draftdata$year==81)*0.791262+(Draftdata$year==82)*0.717272+(Draftdata$year==83)*0.675648+(Draftdata$year==84)*0.654618+(Draftdata$year==85)*0.627526);
+
+#Real weekly earnings
+weekwage<-(Draftdata$weeks>0)*earn/pmax(1,Draftdata$weeks) # Note the observations (266obs) with positive annual earnings with zero week worked are treated as zero weekly wages
+
+#binary instrument, Z=1 if the lottery number is <=100.  This construction of Z is the same as Abadie (2002, JASA).
+
+Z<-Draftdata$lott1+Draftdata$lott2+Draftdata$lott3+Draftdata$lott4;
+
+draftdata1<-data.frame("Y"=log(earn+1), "D"=Draftdata$veteran, "Z"=Z);
+
+draftdata2<-data.frame("Y"=log(weekwage+1), "D"=Draftdata$veteran, "Z"=Z);
+
+N<-length(earn);
+m<-length(subset(draftdata1$Y,draftdata1$Z==1));
+n<-length(subset(draftdata1$Y,draftdata1$Z==0));
+lambda<-m/N;
+
+##########We first analyze the case where Y is annual earnings################
+
+##########draw the subdensities.
+
+p1<-sum(subset(draftdata1$D,draftdata1$Z==1))/m
+p0<-sum(subset(draftdata1$D,draftdata1$Z==0))/n
+
+Yd1z1<-subset(draftdata1$Y,(draftdata1$D==1)&(draftdata1$Z==1));
+Yd1z0<-subset(draftdata1$Y,(draftdata1$D==1)&(draftdata1$Z==0));
+Yd0z1<-subset(draftdata1$Y,(draftdata1$D==0)&(draftdata1$Z==1));
+Yd0z0<-subset(draftdata1$Y,(draftdata1$D==0)&(draftdata1$Z==0));
+
+fromYd1<-min(quantile(Yd1z1,p=0.005),quantile(Yd1z0,p=0.005));
+toYd1<-max(Yd1z1,Yd1z0);
+fromYd0<-min(quantile(Yd0z1,p=0.005),quantile(Yd0z0,p=0.005));
+toYd0<-max(Yd0z1,Yd0z0);
+
+evalpoints<-2048;
+
+kerneld1z1<-density(Yd1z1, bw=0.07, n=evalpoints,from = fromYd1, to =toYd1);
+kerneld1z0<-density(Yd1z0, bw=0.07, n=evalpoints,from = fromYd1, to =toYd1);
+kerneld0z1<-density(Yd0z1, bw=0.07, n=evalpoints,from = fromYd0, to =toYd0);
+kerneld0z0<-density(Yd0z0, bw=0.07, n=evalpoints,from = fromYd0, to =toYd0);
+
+unempd1z1<-sum((Yd1z1==0))/length(Yd1z1);
+unempd1z0<-sum((Yd1z0==0))/length(Yd1z0);
+unempd0z1<-sum((Yd0z1==0))/length(Yd0z1);
+unempd0z0<-sum((Yd0z0==0))/length(Yd0z0);
+
+ysup1<-kerneld1z1$x;
+ysup0<-kerneld0z1$x;
+
+fd1z1<-kerneld1z1$y;
+fd1z0<-kerneld1z0$y;
+fd0z1<-kerneld0z1$y;
+fd0z0<-kerneld0z0$y;
+
+
+densd1z0<-cbind(ysup1,p0*fd1z0,1,2);
+densd1z1<-cbind(ysup1,p1*fd1z1,1,1);
+#normdensd1<-cbind(ysup1,dnorm(ysup1,mean(Yd1z1),sd(Yd1z1)),1,3);
+densd0z0<-cbind(ysup0,(1-p0)*fd0z0,2,2);
+densd0z1<-cbind(ysup0,(1-p1)*fd0z1,2,1);
+#normdensd0<-cbind(ysup0,dnorm(ysup0,9.5,0.5),2,2);
+
+######Figure 3 in the main text############
+
+figure<-rbind(densd0z1,densd1z1,densd0z0,densd1z0);
+Figure<-data.frame(x=as.numeric(figure[,1]),y=as.numeric(figure[,2]),D=factor(figure[,3],labels=c("Y(1):Treated Outcome","Y(0):Control Outcome")),Z=factor(figure[,4],labels=c("Z=1","Z=0")));
+
+key.dens<-list(space="bottom",text=list(c("Z=1: Eligible","Z=0: Not eligible")), lines=list(lty=c(1,2),lwd=c(2,2),col=c("black","black")) );
+xyplot(y~x | D, data=Figure, groups = Z, type="l",lty=c(1,2),lwd=c(2,2),col="black",xlim=c(6.5,11),ylim=c(0,0.6),aspect=1,xlab="Y: Logarithm of annual earnings",ylab="probability density",key=key.dens,between=list(x=0.5,y=0.5),as.table=TRUE)
+
+#The values of subdensities at Y=0
+unempd1z1*p1
+unempd1z0*p0
+unempd0z1*(1-p1)
+unempd0z0*(1-p0)
+
+
+#####Subdensity plots with colors (not used in the paper)############
+plot(ysup1,fd1z1*p1,col="red", type="l", lwd=2,ylab="density",xlab="Y(1)",main="Draft Data, Outcome with Treatment")
+lines(ysup1,fd1z0*p0, col="blue",lty="dashed",lwd=2);
+legend(4,0.15,"Z=1:eligible",lty="solid", col="red", lwd=2,bty = "n");
+legend(4,0.14,"Z=0:not eligible",lty="dashed", col="blue",lwd=2,,bty="n");
+
+plot(ysup1,fd0z0*(1-p0), col="blue",type="l",lty="dashed", lwd=2,ylab="density",xlab="Y(1)",main="Draft Data, Outcome without Treatment")
+lines(ysup1,fd0z1*(1-p1),col="red", type="l",lwd=2);
+legend(4,0.4,"Z=1:eligible",lty="solid", col="red", lwd=2,bty = "n");
+legend(4,0.37,"Z=0:not eligible",lty="dashed", col="blue",lwd=2,,bty="n");
+
+
+##########Calculate the statistic for sample with Y=log(annual earnings +1)###############
+
+
+#Rearrange the original data
+
+draftdataz1<-subset(draftdata1, draftdata1$Z==1);
+draftdataz0<-subset(draftdata1, draftdata1$Z==0);
+
+pooldata<-as.matrix(rbind(draftdataz1,draftdataz0));
+
+
+#Defining trimming constants
+xis <- c(sqrt(0.005*(1-0.005)),sqrt(0.05*(1-0.05)),sqrt(0.1*(1-0.1)),1);
+xiN<-length(xis);
+B<-500;  #Bootstrap iterations
+size1<-1;  #The grid steps
+size0<-1;
+Tw<-rep(0,xiN);
+pval<-rep(0,xiN);
+
+grids<-generate.grids.coarse(data=pooldata,size1,size0);
+
+for(k in 1:xiN){
+               xi<-xis[k]
+               Tw[k]<-compute.stat.grids.H(pooldata,m,n,grids,lambda,xi)
+               pval[k]<-boot.pval(pooldata,m,n,lambda,B,xi,size1,size0,teststat=Tw[k])
+}
+
+xis
+Tw
+pval
+
+########Repeat the same analysis as above for Y = log weekly wages########
+##########draw the subdensities.
+
+p1<-sum(subset(draftdata2$D,draftdata2$Z==1))/m
+p0<-sum(subset(draftdata2$D,draftdata2$Z==0))/n
+
+Yd1z1<-subset(draftdata2$Y,(draftdata2$D==1)&(draftdata2$Z==1));
+Yd1z0<-subset(draftdata2$Y,(draftdata2$D==1)&(draftdata2$Z==0));
+Yd0z1<-subset(draftdata2$Y,(draftdata2$D==0)&(draftdata2$Z==1));
+Yd0z0<-subset(draftdata2$Y,(draftdata2$D==0)&(draftdata2$Z==0));
+
+fromYd1<-min(quantile(Yd1z1,p=0.005),quantile(Yd1z0,p=0.005));
+toYd1<-max(Yd1z1,Yd1z0);
+fromYd0<-min(quantile(Yd0z1,p=0.005),quantile(Yd0z0,p=0.005));
+toYd0<-max(Yd0z1,Yd0z0);
+
+evalpoints<-2048;
+
+kerneld1z1<-density(Yd1z1, bw=0.07, n=evalpoints,from = fromYd1, to =toYd1);
+kerneld1z0<-density(Yd1z0, bw=0.07, n=evalpoints,from = fromYd1, to =toYd1);
+kerneld0z1<-density(Yd0z1, bw=0.07, n=evalpoints,from = fromYd0, to =toYd0);
+kerneld0z0<-density(Yd0z0, bw=0.07, n=evalpoints,from = fromYd0, to =toYd0);
+
+unempd1z1<-sum((Yd1z1==0))/length(Yd1z1);
+unempd1z0<-sum((Yd1z0==0))/length(Yd1z0);
+unempd0z1<-sum((Yd0z1==0))/length(Yd0z1);
+unempd0z0<-sum((Yd0z0==0))/length(Yd0z0);
+
+ysup1<-kerneld1z1$x;
+ysup0<-kerneld0z1$x;
+
+fd1z1<-kerneld1z1$y;
+fd1z0<-kerneld1z0$y;
+fd0z1<-kerneld0z1$y;
+fd0z0<-kerneld0z0$y;
+
+
+densd1z0<-cbind(ysup1,p0*fd1z0,1,2);
+densd1z1<-cbind(ysup1,p1*fd1z1,1,1);
+#normdensd1<-cbind(ysup1,dnorm(ysup1,mean(Yd1z1),sd(Yd1z1)),1,3);
+densd0z0<-cbind(ysup0,(1-p0)*fd0z0,2,2);
+densd0z1<-cbind(ysup0,(1-p1)*fd0z1,2,1);
+#normdensd0<-cbind(ysup0,dnorm(ysup0,9.5,0.5),2,2);
+
+######Subdensity plots with weekly wages (not used in the paper)############
+
+figure<-rbind(densd0z1,densd1z1,densd0z0,densd1z0);
+Figure<-data.frame(x=as.numeric(figure[,1]),y=as.numeric(figure[,2]),D=factor(figure[,3],labels=c("Y(1):Treated Outcome","Y(0):Control Outcome")),Z=factor(figure[,4],labels=c("Z=1","Z=0")));
+
+key.dens<-list(space="bottom",text=list(c("Z=1: Eligible","Z=0: Not eligible")), lines=list(lty=c(1,2),lwd=c(2,2),col=c("black","black")) );
+xyplot(y~x | D, data=Figure, groups = Z, type="l",lty=c(1,2),lwd=c(2,2),col="black",xlim=c(2,8),ylim=c(0,0.7),aspect=1,xlab="Y: Logarithm of annual earnings",ylab="probability density",key=key.dens,between=list(x=0.5,y=0.5),as.table=TRUE)
+
+#The values of subdensities at Y=0
+unempd1z1*p1
+unempd1z0*p0
+unempd0z1*(1-p1)
+unempd0z0*(1-p0)
+
+
+#####Subdensity plots with colors (not used in the paper)############
+plot(ysup1,fd1z1*p1,col="red", type="l", lwd=2,ylab="density",xlab="Y(1)",main="Draft Data, Outcome with Treatment")
+lines(ysup1,fd1z0*p0, col="blue",lty="dashed",lwd=2);
+legend(2,0.15,"Z=1:eligible",lty="solid", col="red", lwd=2,bty = "n");
+legend(2,0.14,"Z=0:not eligible",lty="dashed", col="blue",lwd=2,,bty="n");
+
+plot(ysup1,fd0z0*(1-p0), col="blue",type="l",lty="dashed", lwd=2,ylab="density",xlab="Y(1)",main="Draft Data, Outcome without Treatment")
+lines(ysup1,fd0z1*(1-p1),col="red", type="l",lwd=2);
+legend(2,0.4,"Z=1:eligible",lty="solid", col="red", lwd=2,bty = "n");
+legend(2,0.37,"Z=0:not eligible",lty="dashed", col="blue",lwd=2,,bty="n");
+
+
+##########Calculate the statistic for sample with Y=log(weekly wages +1)###############
+
+
+#Rearrange the original data
+
+draftdataz1<-subset(draftdata2, draftdata2$Z==1);
+draftdataz0<-subset(draftdata2, draftdata2$Z==0);
+
+pooldata<-as.matrix(rbind(draftdataz1,draftdataz0));
+
+
+#Defining trimming constants
+xis <- c(sqrt(0.005*(1-0.005)),sqrt(0.05*(1-0.05)),sqrt(0.1*(1-0.1)),1);
+xiN<-length(xis);
+B<-500;  #Bootstrap iterations
+size1<-1;  #The grid steps
+size0<-1;
+Tw<-rep(0,xiN);
+pval<-rep(0,xiN);
+
+grids<-generate.grids.coarse(data=pooldata,size1,size0);
+
+for(k in 1:xiN){
+               xi<-xis[k]
+               Tw[k]<-compute.stat.grids.H(pooldata,m,n,grids,lambda,xi)
+               pval[k]<-boot.pval(pooldata,m,n,lambda,B,xi,size1,size0,teststat=Tw[k])
+}
+
+xis
+Tw
+pval
+

@@ -1,7 +1,6 @@
 # A selection model with randomly assigned offer of treatment
 # and non-differential measurement error
-dgp <- function(a0, a1, b = 2, c = 0.5, g0 = -1, g1 = 5, s_noise = 1,
-                s_ability = 1, q = 0.5, n = 200){
+dgp <- function(a0, a1, b = 3000, c = 10000, g0 = 0, g1 = 100, s_noise = 500, s_ability = 500, q = 0.5, n = 1000){
   
   z <- rbinom(n, 1, q) #offer of treatment
   ability <- rnorm(n, 0, s_ability)
@@ -40,7 +39,7 @@ est <- function(inData){
 }
 
 set.seed(8372)
-sim <- t(replicate(5000, est(dgp(0.1, 0.2))))
+sim <- t(replicate(5000, est(dgp(0.0, 0.0))))
 sim <- as.data.frame(sim)
 mean(sim$a1_a0)
 hist(sim$a1_a0)
@@ -55,3 +54,4 @@ qqline(sim$root1)
 hist(sim$root2)
 qqnorm(sim$root2)
 qqline(sim$root2)
+
