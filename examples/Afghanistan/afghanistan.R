@@ -109,9 +109,35 @@ datCovariates <- with(kids, data.frame(x, y, z,
 
 # remove missing observations
 datCovariates <- na.omit(datCovariates)
-datCovariates0 <- subset(datCovariates, z == 0)
-c0 <- unique(datCovariates0$c)
-datCovariates0 <- subset(datCovariates, z == 1)
-c1 <- unique(datCovariates1$c)
+
+# Partial out the covariates using 2SLS since coeffs for exog regressors are
+# not affected by the measurement error in the binary indicator
+library(sem)
+b_tsls <- tsls(y ~ x + female + age + yrsvill + farsi + tajik + farmers +
+                  agehead + educhead + nhh + land + sheep + distschool,
+                 ~ z + female + age + yrsvill + farsi + tajik + farmers + 
+                 agehead + educhead + nhh + land + sheep + distschool, 
+              data = datCovariates)$coefficients
+
+b_adjust <- b_tsls
+b_adjust[2] <- 0
+y_adjust <- datCovariates$y - model.matrix(~ x + female + age + yrsvill + 
+                                             farsi + tajik + farmers + 
+                                             agehead + educhead + nhh + 
+                                             land + sheep + distschool, 
+                                           data = datCovariates) %*% b_adjust
+
+datCovariates$y_adjust <- y_adjust
+
+dat2 <- with(datCovariates, data.frame("x" = x, "y" = y_adjust, "z" = z))
+est(dat2)
 
 # Try bootstraps that impose the cluster structure
+
+
+# form groups for cluster bootstrapping
+cfull <- unique(datCovariates$c)
+datCovariates0 <- subset(datCovariates, z == 0)
+c0 <- unique(datCovariates0$c)
+datCovariates1 <- subset(datCovariates, z == 1)
+c1 <- unique(datCovariates1$c)
