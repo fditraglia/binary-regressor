@@ -1,6 +1,10 @@
 %!TEX root = ./main.tex
 
-\subsection{Generic Lack of Identification}
+\subsection{Lack of Identification From Conditional Means}
+We have seen that \cite{Mahajan}'s approach cannot identify $\beta$ when the treatment is endogenous: Assumption \ref{assump:Eq11} in fact implies that the instrument is \emph{irrelevant}. 
+But this alone does not establish that a valid instrument is insufficient to identify $\beta$ when the treatment is endogenous.
+We now show that conditional mean information is in fact insufficient for identification, regardless of how many values the instrument takes on.
+
 The full set of parameters needed to characterize the model in Equation \ref{eq:linear} consists of $\beta, \alpha_0, \alpha_1$ and the conditional means of $u$, namely $m^*_{tk}$ for a total of $2K+3$ parameters.
 In contrast, there are only $2K$ available moment conditions, namely:
 \begin{align}
@@ -109,10 +113,6 @@ In the following section we present two of our main results: first \citeauthor{M
 %
 %
 %
-We have seen that \cite{Mahajan}'s approach cannot identify $\beta$ when the treatment is endogenous: Assumption \ref{assump:Eq11} in fact implies that the instrument is \emph{irrelevant}. 
-But this alone does not establish that a valid instrument is insufficient to identify $\beta$ when the treatment is endogenous.
-In particular, our equation counts from above appear to suggest that a valid instrument that takes on at least four values might suffice for identification.
-Unfortunately, this is not the case as we now show.
 
 \begin{thm}[Lack of Identification]
   \label{pro:Lack}

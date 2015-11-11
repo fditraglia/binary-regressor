@@ -102,4 +102,19 @@ The failure of Assumption \ref{assump:A1}(ii) in turn leads to a division by zer
   But this four-way equality is ruled out by the assumption that $\mathbb{E}[\varepsilon|T^*]\neq0$. 
 \end{proof}
 
+To understand the economic intuition behind Proposition \ref{pro:FirstStage}, consider a simple example in which we randomize the offer of a job training program to a sample of workers to study the impact on future earnings.
+In this context $z$ indicates whether a particular individual is \emph{offered} job training by the experimenter while $T^*$ indicates whether she actually \emph{obtains} job training from any source, inside or outside of the experiment.
+We observe not $T^*$ but a self-report $T$ that is measured with error.
+In this example $u$ contains all of the unobservable factors that determine an individual's wage.
 
+Assumption \ref{assump:Eq11} allows for endogenous treatment receipt: $\mathbb{E}[u|T^*=1]$ may be different from $\mathbb{E}[u|T^*=0]$.
+We might expect, for example, that individuals who obtain job training are more motivated than those who do not, and hence earn higher wages on average. 
+However, Assumption \ref{assump:Eq11} imposes that $\mathbb{E}\left[u|T^*=t,z_1 \right]=\mathbb{E}\left[ u|T^*=t,z_2 \right]$ for $t=0,1$.
+This has two implications.
+First, it means that, among those who do not obtain job training, the average value of $u$ is the same for those who were offered training and those who were not.
+Second, it means that, among those who \emph{did} obtain job training, the average value of $u$ is the same for those who were offered training and those who were not.
+In other words, Assumption \ref{assump:Eq11} requires that there is \emph{no selection on unobservables}.
+This is exactly the opposite of what we would expect in the job training example.
+For example, individuals who are offered job training but refuse it, are likely to be very different from those who are not offered training and fail to obtain it from an outside source. 
+And herein lies the problem: Assumption \ref{assump:Eq11} simultaneously allows endogeneity and rules out selection.
+Given that the offer of job training is randomly assigned, and hence a valid instrument, the only way to avoid a contradiction is if there is no first stage: the fraction of individuals who take up job training cannot depend on the offer of training.
