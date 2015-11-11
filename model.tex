@@ -35,6 +35,7 @@ Table \ref{tab:observables} depicts the observable first moments for this proble
   \label{tab:observables}
 \end{table}
 
+
 The observed cell means $\bar{y}_{tk}$ depend on a number of unobservable parameters which we now define. 
 Let $m^*_{tk}$ denote the conditional mean of $u$ given $T^*=t$ and $z=z_k$, $\mathbb{E}[u|T^*=t, z=z_k]$, and let $p^*_k$ denote $\mathbb{P}(T^*=1|z=z_k)$.
 These quantities are depicted in Table \ref{tab:unobservables}.
@@ -56,17 +57,6 @@ Indeed, the existing literature \citep{Mahajan,Lewbel,FL,BBS,KRS} imposes the st
 In its absence the treatment effect would only be identified up to sign.
 Our identification and partial identification results, presented below, will not in fact require that $\alpha_0 + \alpha_1 < 1$.
 
-The full set of parameters needed to characterize the model in Equation \ref{eq:linear} consists of $\beta, \alpha_0, \alpha_1$ and the conditional means of $u$, namely $m^*_{tk}$ for a total of $2K+3$ parameters.
-In contrast, there are only $2K$ available moment conditions, namely:
-\begin{align}
-  \label{eq:MC0}
-  \hat{y}_{0k} &=\frac{\alpha_1(p_k - \alpha_0)(\beta + m_{1k}^*) + (1 - \alpha_0)(1 - p _k -  \alpha_1)m_{0k}^*}{1 - \alpha_0 - \alpha_1} \\[1.5ex]
-  \label{eq:MC1}
-  \hat{y}_{1k} &= \frac{(1-\alpha_1)(p_k - \alpha_0)(\beta+m_{1k}^*)+  \alpha_0(1-p_k - \alpha_1)m_{0k}^*}{1-\alpha_0 - \alpha_1}
-\end{align}
-by the Law of Iterated Expectations, where the observables on the left hand side are defined according to $\hat{y}_{0k} = (1-p_k)\bar{y}_{0k}$ and $\hat{y}_{1k}= p_k \bar{y}_{1k}$.
-Notice that the observable ``weighted'' cell mean $\hat{y}_{tk}$ depends on both $m^*_{tk}$ \emph{and} $m^*_{1-t,k}$ since the cell in which $T=t$ from Table \ref{tab:observables} is in fact a mixture of both the cells $T^*=0$ and $T^*=1$ from Table \ref{tab:unobservables}, for a particular column $k$.
-
 \begin{table}
   \centering
   \begin{tabular}{c|c|c|c|c|}
@@ -81,111 +71,11 @@ Notice that the observable ``weighted'' cell mean $\hat{y}_{tk}$ depends on both
   \label{tab:unobservables}
 \end{table}
 
-
-
-Clearly we have fewer equations than unknowns.
-What additional restrictions could we consider imposing on the system? 
-In a very interesting paper, \cite{Lewbel} proposes using a three-valued ``instrument'' that does \emph{not} satisfy the exclusion restriction.
-By assuming instead that there is no \emph{interaction} between the instrument and the treatment, he is able to prove identification of the treatment effect.
-Using our notation it is very easy to see why and how \citeauthor{Lewbel}'s argument works.
-His moment conditions are equivalent to Equations \ref{eq:MC0} and \ref{eq:MC1} with the additional restriction that $m^*_{0k} = m^*_{1k}$ for all $k= 1, \dots, K$.
-This leaves the number of equations unchanged at $2K$, but reduces the number of unknowns to $K+3$.
-The smallest $K$ for which $K+3$ is at least as large as $2K$ is 3, which makes it clear why \citeauthor{Lewbel}'s proof must require that the ``instrument'' take on at least three values.\footnote{The context considered by \cite{Lewbel} is slightly different from the one we pursue here, in that his ``instrument'' is more like a covariate: it is allowed to have a direct effect on the outcome of interest.  For this reason, \cite{Lewbel} cannot use the exogeneity of the treatment to obtain identification based on a two-valued instrument.}
-%Footnote explaining why Lewbel can't use a regressor exog condition to get identification with a two-valued instrument: it's because he's leaving out a relevant regressor, namely z. This means that the error term of changes. See our whiteboard photo from 2015-09-18 14.04.59
-
-Unlike \cite{Lewbel}, we, along with \cite{Mahajan} and others, assume that $z$ satisfies the exclusion restriction. 
-This implies a different constraint on the $m^*_{tk}$ from Table \ref{tab:unobservables}.
-Since $u = c + \varepsilon$, $\mathbb{E}[\varepsilon|z]=0$ implies that
+A key assumption below will be the conditional mean independence of the error term and instrument, in other words $\mathbb{E}\left[ \varepsilon|z \right]=0$.
+Since we have defined $u = c + \varepsilon$, this assumption can be expressed in terms of $m^*_{tk}$ as
 \begin{equation}
-  \mathbb{E}[u|z] = E[u] = c.
-  \label{eq:validInstrument}
-\end{equation}
-By the Law of Iterated Expectations, this can be expressed as 
-\begin{equation*}
   (1 - p_k^*)m_{0k}^* + p_k^* m_{1k}^* = c 
-\end{equation*}
+\end{equation}
 for all $k = 1, \dots, K$.
 This restriction imposes that a particular weighted sum over the rows of a given column of Table \ref{tab:unobservables} takes the same value \emph{across} columns.
-Using Equation \ref{eq:pkstar} and rearranging gives 
-\begin{equation*}
-  \frac{(1 - p_k - \alpha_1) m_{0k}^*}{1 - \alpha_0 - \alpha_1} = c - \frac{(p_k - \alpha_0)m_{1k^*}}{1 - \alpha_0 - \alpha_1}
-\end{equation*}
-which we can substitute into Equations \ref{eq:MC0} and \ref{eq:MC1} to yield
-\begin{align}
-  \label{eq:MC0IV}
-  \hat{y}_{0k} &=\alpha_1(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + (1-\alpha_0)c - (p _k -  \alpha_0)m_{1k}^* \\[1.5ex]
-  \label{eq:MC1IV}
-  \hat{y}_{1k} &=(1-\alpha_1)(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + \alpha_0 c + (p _k -  \alpha_0)m_{1k}^*.
-\end{align}
-Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} also make it clear why the IV estimator is inconsistent in the face of non-differential measurement error, and that this inconsistency does not depend on the endogeneity of the treatment, as noted by \cite{FL}.
-Adding together Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} yields
-\begin{equation*}
-  \hat{y}_{0k} + \hat{y}_{1k} = c + (p_k - \alpha_0)\left( \frac{\beta}{1 - \alpha_0 - \alpha_1} \right) 
-\end{equation*}
-completely eliminating the $m^*_{1k}$ from the system.
-Taking the difference of the preceding expression expression evaluated at two different values of the instrument, $z_{k}$ and $z_{\ell}$, and rearranging
-\begin{equation}
-  \mathcal{W} = \frac{(\hat{y}_{0k} + \hat{y}_{1k}) - (\hat{y}_{0\ell} + \hat{y}_{1\ell})}{p_k - p_\ell} =  \frac{\beta}{1 - \alpha_0 - \alpha_1}
-  \label{eq:wald}
-\end{equation}
-which is the well-known Wald IV estimator, since $\hat{y}_{0k} + \hat{y}_{1k} = \mathbb{E}[y|z = z_k]$.
 
-Imposing Equation \ref{eq:validInstrument} replaces the $K$ unknown parameters $\left\{ m^*_{0k}\right\}_{k=1}^K $ with a single parameter $c$, leaving us with the same $2K$ equations but only $K+4$ unknowns.
-When $K=2$ (a binary instrument) we have 4 equations and 6 unknowns.
-So how can one identify $\beta$ in this case?
-The literature has imposed additional assumptions which, using our notation, can once again be mapped into restrictions on the $m_{tk}^*$.
-\cite{BBS}, \cite{KRS}, and \cite{Mahajan} make a \emph{joint} exogeneity assumption on $(T^*,z)$, namely $\mathbb{E}[\varepsilon|T^*,z]=0$.
-Notice that this is strictly stronger than assuming that the instrument is valid and the treatment is exogenous.
-In our notation, this joint exogeneity assumption is equivalent to imposing $m_{tk}^*=c$ for all $t,k$.
-This reduces the parameter count to 4 regardless of the value of $K$.
-Thus, when the instrument is binary, we have exactly as many equations as unknowns.
-The arguments in \cite{BBS}, \cite{KRS}, and \cite{Mahajan} are all equivalent to solving Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} for $\beta$ under the added restriction that $m^*_{1k}=c$, establishing identification for this case.
-\cite{FL} use the same argument in a linear model with a potentially continuous instrument, but impose only the weaker conditions that the treatment is exogenous and the instrument is valid. 
-Nevertheless, a crucial step in their derivation implicitly assumes the stronger joint exogeneity assumption used by \cite{BBS}, \cite{KRS} and \cite{Mahajan}.
-Without this assumption, their proof does not in fact go through.
-%Add a footnote showing the gap between the two sets of assumptions and how it relates to the continuous case, triple moment, etc.
-
-If one wishes to allow for an endogenous treatment, clearly the joint exogeneity assumption $m_{tk}^*=c$ is unusable: we are back to $2K$ equations in $K+4$ unknowns.
-Based on the identification arguments described above, there would seem to be two possible avenues for identification of the treatment effect when a valid instrument is available.
-A first possibility would be to impose alternative conditions on the $m^*_{tk}$ that are compatible with an endogenous treatment.
-If $z$ is binary, two additional restrictions would suffice to equate the counts of moments and unknowns.
-This is the route followed by \cite{Mahajan} in his proof of identification with a binary instrument and endogenous treatment.
-His Equation (11), expressed in our notation, amounts to adding two cross-column restrictions in Table \ref{tab:unobservables}: $m^*_{11} = m^*_{12}$ and $m^*_{01} = m^*_{02}$. 
-Another possibility, suggested by \citeauthor{Lewbel}'s approach, would be to rely on an instrument that takes on more than two values.
-Following this approach would suggest a 4-valued instrument, the smallest value of $K$ for which $2K = K+4$.
-In the following section we present two of our main results: first \citeauthor{Mahajan}'s approach leads to a contradiction, and second, regardless of the value of $K$, $\beta$ is unidentified based on conditional mean information.
-
-
-
-%\cite{FL} point out that an instrument can be used in place of a second measure of $T^*$ provided that $T^*$ is still exogenous.
-%Essentially the same estimator as in \cite{BBS} and \cite{KRS} but more general since the instrument need not be binary: can in fact be continuous.
-%But they make a mistake. 
-%They assume $E[zu]=0$, $E[T^*u]=0$ and non-differential measurement error and claim that this is sufficient to consistently estimate $\beta$.
-%However, this is incorrect: we need the additional assumption that $E[zT^*u]=0$ which is stronger.
-%(They seem to think that this term only appears when you have an endogenous $T^*$.)
-%While \cite{FL} are aware that there are some differences between two measures of $T^*$, as in \cite{BBS}, and an arbitrary instrument $z$, they seem to have missed one subtle point.
-%The assumptions in \cite{BBS} in fact imply that $E[u|T^*,z]=0$.\footnote{This follows from Assumptions A1 and A2 combined with Equation 3.}
-%From this it follows that $E[zT^*u]=E[zu]=E[T^*u]=0$. 
-%However, if one takes the non-differential measurement assumption literally it is in fact sufficient in the case of two measures to assume only that $E[zu]=E[T^*u]=0$:
-%\begin{align}
-%  E[zT^*u] &= E[(T^*+w)T^*u] = E[(T^*)^2u] + E[wuT^*]  \\
-%  &= E\left[ E\left( u|T^* \right)(T^*)^2 \right] + E\left[E\left( wu|T^* \right)T^*\right]\\
-%  &= 0 + E\left[ E(w|T^*)E(u|T^*)T^* \right] = 0
-%\end{align}
-%using the fact that $E[u|T^*]=0$ and $w$ is independent of $u$ conditional on $T^*$.
-%This argument does \emph{not} necessarily apply to an arbitrary instrument $z$: $E[zu]=E[T^*u]=0$ does not imply that $E[zT^*u]=0$.
-%\todo[inline]{Put in our simple binary example.}
-%While it might seem strange to assume in practice that $E[zu]=E[T^*u]=0$ are exogenous but not that $E[zT^*u]=0$ the point is merely that this is an additional assumption beyond the usual assumptions of lack of correlation. 
-%
-%
-%Mahajan uses the assumption $E[u|T^*,z]$ to get identification using same basic estimator as \cite{BBS}.
-%
-%Another closely related paper is \cite{Lewbel}.
-%Whereas Mahajan makes sufficient assumptions to identify $\beta$ with a two-valued $z$, provided that $T^*$ is exogenous, Lewbel works with a three-valued $z$.
-%While Lewbel also assumes that $E[T^*u]=0$, his ``instrument'' is really more like a covariate.
-%He assumes that $z$ is unrelated to the mis-classification probabilities but allows it to have a direct effect on $y$, as long as there is no interaction between $T^*$ and $z$.
-%Since this involves imposing fewer restrictions on the $m_{ij}$, Lewbel requires that $z$ take on more values.
-%There is also some kind of determinant condition that we don't fully understand yet, but will figure out soon!
-%
-%
-%
