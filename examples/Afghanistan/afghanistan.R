@@ -153,7 +153,7 @@ second_stage <- formula(~ x + female + age + yrsvill + farsi + tajik +
                           farmers + agehead + educhead + nhh + land + 
                           sheep + distschool)
 
-# Try a bootstrap without covariates imposing cluster structure
+# Try a bootstrap with covariates imposing cluster structure
 goodboot <- function(){
   dat0_boot <- do.call("rbind", clust0[sample(1:length(clust0), replace = TRUE)])
   dat1_boot <- do.call("rbind", clust1[sample(1:length(clust1), replace = TRUE)])
@@ -175,11 +175,11 @@ goodboot <- function(){
 
 
 set.seed(11)
-goodbootdraws <- as.data.frame(t(replicate(10000, goodboot())))
+goodbootdraws <- as.data.frame(t(replicate(2000, goodboot())))
 head(goodbootdraws)
 adiff <- goodbootdraws$a1_a0
 hist(adiff)
-quantile(adiff, c(0.025, 0.975))
+quantile(adiff, c(0.05, 0.95))
 mean(adiff)
 
 
