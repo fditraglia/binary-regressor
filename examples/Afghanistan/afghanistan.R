@@ -141,3 +141,50 @@ datCovariates0 <- subset(datCovariates, z == 0)
 c0 <- unique(datCovariates0$c)
 datCovariates1 <- subset(datCovariates, z == 1)
 c1 <- unique(datCovariates1$c)
+
+# Form lists of village clusters for boostrapping
+clust1 <- lapply(c1, function(x) datCovariates[datCovariates$c == x,])
+clust0 <- lapply(c0, function(x) datCovariates[datCovariates$c == x,]) 
+
+first_stage <- formula(~ z + female + age + yrsvill + farsi + tajik + 
+                         farmers + agehead + educhead + nhh + land + 
+                         sheep + distschool)
+second_stage <- formula(~ x + female + age + yrsvill + farsi + tajik + 
+                          farmers + agehead + educhead + nhh + land + 
+                          sheep + distschool)
+
+# Try a bootstrap without covariates imposing cluster structure
+goodboot <- function(){
+  dat0_boot <- do.call("rbind", clust0[sample(1:length(clust0), replace = TRUE)])
+  dat1_boot <- do.call("rbind", clust1[sample(1:length(clust1), replace = TRUE)])
+  dat_boot <- rbind(dat0_boot, dat1_boot)
+  y <- matrix(dat_boot$y)
+  X <- model.matrix(second_stage, dat_boot)
+  Z <- model.matrix(first_stage, dat_boot)
+  Qz <- qr.Q(qr(Z))
+  Xtilde <- crossprod(Qz, X)
+  ytilde <- crossprod(Qz, y)
+  qrTilde <- qr(Xtilde)
+  Rtilde <- qr.R(qrTilde)
+  Qtilde <- qr.Q(qrTilde)
+  b_IV <- backsolve(Rtilde, crossprod(Qtilde, ytilde))
+  b_IV[2] <- 0
+  y_boot_adjust <- y - X %*% b_IV
+  est(data.frame("x" = dat_boot$x, "y" = y_boot_adjust, "z" = dat_boot$z))
+}
+
+
+set.seed(11)
+goodbootdraws <- as.data.frame(t(replicate(10000, goodboot())))
+head(goodbootdraws)
+adiff <- goodbootdraws$a1_a0
+hist(adiff)
+quantile(adiff, c(0.025, 0.975))
+mean(adiff)
+
+
+
+
+
+
+
