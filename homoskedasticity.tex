@@ -61,7 +61,7 @@ We now show that by augmenting Theorem \ref{pro:homosked} with information on co
 
 \begin{thm}
   \label{thm:skew}
-  Under Assumptions \ref{assump:homosked}-\ref{assump:skew} and the conditions of Theorem \ref{pro:Lack}, the mis-classification rates $\alpha_0$ and $\alpha_1$ and the treatment effect $\beta$ are identified provided that $\alpha_0 \neq \alpha_1$ and $z$ takes on at least two values.
+  Under Assumptions \ref{assump:homosked}-\ref{assump:skew} and the conditions of Theorem \ref{pro:Lack}, the mis-classification rates $\alpha_0$ and $\alpha_1$ and the treatment effect $\beta$ are identified provided that $\alpha_0 + \alpha_1 < 1$ and $z$ takes on at least two values.
 \end{thm}
 
 \begin{proof}[Proof of Theorem \ref{thm:skew}]
@@ -111,14 +111,16 @@ The solutions are as follows
 It can be shown that $3\mathcal{R}^2 - 2\mathcal{S} = \left[ \mathcal{R} + 2 \mathcal{W}(1-\alpha_1) \right]^2$ so the quantity under the radical is guaranteed to be positive, yielding two real solutions.
 One of these is $(1-\alpha_1)$.
 Using Equation \ref{eq:aDiff} we can re-express Equation \ref{eq:quadratic} as a quadratic in $\alpha_0$.
-After simplifying, we obtain a quadratic with \emph{identical} coefficients, implying that the second root of Equation \ref{eq:quadratic} identifies $\alpha_0$.
-Provided that $\alpha_0 \neq \alpha_1$, we learn the sign of the difference $(\alpha_1 - \alpha_0)$ from Theorem \ref{pro:homosked}.
-This tells us which mis-classification rate is larger and hence allows us to correctly label the two roots.
-Substituting into $\beta = \mathcal{W}(1-\alpha_0-\alpha_1)$ identifies the treatment effect.
+After simplifying, we obtain a quadratic with \emph{identical} coefficients, implying that the other root of Equation \ref{eq:quadratic} identifies $\alpha_0$.
+Now, let $r_{max}$ denote the larger of the two roots of Equation \ref{eq:quadratic} and $r_{min}$ the smaller.
+(By assumption $\alpha_0 + \alpha_1 \neq 1$ which implies $r_{max} \neq r_{min}$.)
+We claim that $r_{max} = 1 - \alpha_1$ and hence that $r_{min} = \alpha_0$.
+Suppose that this were not the case.
+Then $r_{max} = \alpha_0$ and $r_{min}=1 - \alpha_1$ and accordingly
+\[1 - \alpha_0 - \alpha_1 = r_{min} - r_{max} < 0\]
+which violates the assumption $\alpha_0 + \alpha_1 < 1$.
+Therefore $\alpha_0$ and $\alpha_1$ are identified and multiplying the Wald estimator $\mathcal{W}$ by $(1 - \alpha_0 - \alpha_1)$ identifies $\beta$.
 \end{proof}
 
-Note that, in contrast to other results in the literature \citep{KRS, BBS, FL, Mahajan, Lewbel}, this result does \emph{not} require the assumption that $\alpha_0 + \alpha_1 <1$ to identify $\beta$.
-However, it does require that $\alpha_0 \neq \alpha_1$.
-If, on the contrary, $\alpha_0 = \alpha_1 = \alpha$ the preceding result produces two candidates for $\alpha$, but we cannot tell which is the true mis-classification rate and which is its complement $1-\alpha$. 
-In this case, $\beta$ is only identified up to sign.
-Nevertheless, by imposing the additional assumption that $\alpha < 1/2$ we can distinguish the two solutions and hence identify the sign of the treatment effect. 
+Note that, unlike Theorem \ref{pro:homosked}, Theorem \ref{thm:skew} requires the assumption that $\alpha_0 + \alpha_1 < 1$.
+Without this assumption, we identify $\beta$ only up to sign.
