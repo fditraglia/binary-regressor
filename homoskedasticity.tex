@@ -52,7 +52,7 @@ When $z$ is not merely mean-independent but in fact \emph{statistically} indepen
 The preceding result can be used in several ways.
 One possibility is to test for the presence of mis-classification error.
 If the treatment is measured without error, then $\alpha_0$ must equal $\alpha_1$.
-By examining the identified quantities $\mathcal{R}$ and $\mathcal{W}$, one could possibly discover that this requirement it violated.
+By examining the identified quantities $\mathcal{R}$ and $\mathcal{W}$, one could possibly discover that this requirement it violated.\footnote{Note that Theorem \ref{pro:homosked} requires $\alpha_0 + \alpha_1 \neq 1$, since the Wald estimator would otherwise be undefined. Accordingly, we cannot test for measurement error in the non-generic case $\alpha_0 = \alpha_1 = 1/2$.}
 Moreover, in some settings mis-classification may be one-sided.
 In a smoking and birthweight example, it seems unlikely that mothers who did \emph{not} smoke during pregnancy would falsely claim to have smoked.
 If either of $\alpha_0, \alpha_1$ is known, Theorem \ref{pro:homosked} point identifies the unknown error rate and hence $\beta$, using the fact that $\beta=\mathcal{W}(1-\alpha_0-\alpha_1)$.
@@ -61,7 +61,7 @@ We now show that by augmenting Theorem \ref{pro:homosked} with information on co
 
 \begin{thm}
   \label{thm:skew}
-  Under Assumptions \ref{assump:homosked}-\ref{assump:skew} and the conditions of Theorem \ref{pro:Lack}, the mis-classification rates $\alpha_0$ and $\alpha_1$ and the treatment effect $\beta$ are identified provided that $z$ takes on at least two values.
+  Under Assumptions \ref{assump:homosked}-\ref{assump:skew} and the conditions of Theorem \ref{pro:Lack}, the mis-classification rates $\alpha_0$ and $\alpha_1$ and the treatment effect $\beta$ are identified provided that $\alpha_0 \neq \alpha_1$ and $z$ takes on at least two values.
 \end{thm}
 
 \begin{proof}[Proof of Theorem \ref{thm:skew}]
@@ -109,14 +109,16 @@ The solutions are as follows
   \label{eq:quadsolutions}
 \end{equation}
 It can be shown that $3\mathcal{R}^2 - 2\mathcal{S} = \left[ \mathcal{R} + 2 \mathcal{W}(1-\alpha_1) \right]^2$ so the quantity under the radical is guaranteed to be positive, yielding two real solutions.
-One of these is $(1-\alpha_1)$, but what about the other root?
+One of these is $(1-\alpha_1)$.
 Using Equation \ref{eq:aDiff} we can re-express Equation \ref{eq:quadratic} as a quadratic in $\alpha_0$.
-Surprisingly, after simplifying, we obtain a quadratic with \emph{identical} coefficients.
-This implies that the second root of Equation \ref{eq:quadratic} identifies $\alpha_0$.
-Since we know the sign of the difference $\alpha_1 - \alpha_0$ from Theorem \ref{pro:homosked}, we know which mis-classification rate is larger and hence can correctly label the two roots.
-Finally, substituting into $\beta = \mathcal{W}(1-\alpha_0-\alpha_1)$, we identify the treatment effect.
+After simplifying, we obtain a quadratic with \emph{identical} coefficients, implying that the second root of Equation \ref{eq:quadratic} identifies $\alpha_0$.
+Provided that $\alpha_0 \neq \alpha_1$, we learn the sign of the difference $(\alpha_1 - \alpha_0)$ from Theorem \ref{pro:homosked}.
+This tells us which mis-classification rate is larger and hence allows us to correctly label the two roots.
+Substituting into $\beta = \mathcal{W}(1-\alpha_0-\alpha_1)$ identifies the treatment effect.
 \end{proof}
 
-Note that, in contrast to all other results in the literature \citep{KRS, BBS, FL, Mahajan, Lewbel}, our proof does \emph{not} require the assumption that $\alpha_0 + \alpha_1 <1$ to identify $\beta$.
-
-
+Note that, in contrast to other results in the literature \citep{KRS, BBS, FL, Mahajan, Lewbel}, this result does \emph{not} require the assumption that $\alpha_0 + \alpha_1 <1$ to identify $\beta$.
+However, it does require that $\alpha_0 \neq \alpha_1$.
+If, on the contrary, $\alpha_0 = \alpha_1 = \alpha$ the preceding result produces two candidates for $\alpha$, but we cannot tell which is the true mis-classification rate and which is its complement $1-\alpha$. 
+In this case, $\beta$ is only identified up to sign.
+Nevertheless, by imposing the additional assumption that $\alpha < 1/2$ we can distinguish the two solutions and hence identify the sign of the treatment effect. 
