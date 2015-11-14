@@ -56,7 +56,7 @@ est <- function(inData){
   BBS <- max(root1, root2) - min(root1, root2)
   b <- W * BBS
   out <- c("OLS" = OLS, "IV" = IV, "a1_a0" = a1_a0, "root1" = root1, 
-           "root2" = root2, "BBS" = BBS, "b" = b)
+           "root2" = root2, "BBS" = BBS, "bhat" = b)
   return(out)
 }
 
