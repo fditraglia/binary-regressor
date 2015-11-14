@@ -1,5 +1,6 @@
 library(mvtnorm)
 library(parallel)
+n_cores <- detectCores()
 setwd("~/binary-regressor/sims/")
 set.seed(382)
 
@@ -73,7 +74,8 @@ simDraw <- function(a0, a1, b = 1, n, d, rho = 0.5, nreps = 500){
 
 
 results <- mcMap(simDraw, a0 = params$a0, a1 = params$a1, b = params$b, 
-               n = params$n, d = params$d, rho = 0.5, nreps = 10000)
+               n = params$n, d = params$d, rho = 0.5, nreps = 10000, 
+               mc.cores = n_cores)
 
 bias <- do.call("rbind", lapply(results, function(x) x$bias))
 variance <- do.call("rbind", lapply(results, function(x) x$var))
