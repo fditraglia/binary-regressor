@@ -68,7 +68,7 @@ simDraw <- function(a0, a1, b, n, d, rho = 0.5, nreps = 500){
 
 
 results <- mcMap(simDraw, a0 = params$a0, a1 = params$a1, b = params$b, 
-               n = params$n, d = params$d, rho = 0.5, nreps = 100, 
+               n = params$n, d = params$d, rho = 0.5, nreps = 10000, 
                mc.cores = n_cores)
 
 Lower5 <- do.call("rbind", lapply(results, function(x) x$Lower5))
