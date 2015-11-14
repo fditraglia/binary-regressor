@@ -1,12 +1,30 @@
 library(mvtnorm)
+library(parallel)
+setwd("~/binary-regressor/sims/")
+set.seed(382)
 
-dgp <- function(a0, a1, b = 1, n = 1000, rho = 0.3){
+params <- expand.grid("n" = c(500, 1000, 5000),
+                      "b" = c(0.5, 1, 2),
+                      "d" = c(0.1, 0.2, 0.3), 
+                      "aSum" = c(0, 0.25, 0.5, 0.75),
+                      "aDiff" = c(0, 0.1, 0.2, 0.3))
+
+
+params$a0 <- with(params, (aSum - aDiff) / 2)
+params$a1 <- with(params, aDiff + a0)
+params <- subset(params, (0 <= a0) & (a0 <= 1))
+
+
+
+
+
+dgp <- function(a0, a1, b = 1, n = 1000, d = 0.15, rho = 0.5){
   n_treat <- ceiling(n/2)
   n_control <- n - n_treat
   z <- c(rep(0, n_control), rep(1, n_treat)) # offer of treatment
   errors <- rmvnorm(n, sigma = matrix(c(1, rho, rho, 1), 2, 2, byrow = TRUE))
-  g0 <- qnorm(0.15) # 15% of controls take up treatment
-  g1 <- qnorm(0.85) - qnorm(0.15) # 85% of treated take up treatment
+  g0 <- qnorm(d) 
+  g1 <- qnorm(1 - d) - qnorm(d) 
   xstar <- as.numeric(g0 + g1 * z + errors[,2] > 0) #select into treatment
   y <- b * xstar + errors[,1]
   #mis-classification
@@ -41,15 +59,46 @@ est <- function(inData){
   return(out)
 }
 
-set.seed(382)
-results <- t(replicate(5000, est(dgp(0.1, 0.15))))
-head(results)
-colMeans(results, na.rm = TRUE)
-results <- data.frame(results)
+simDraw <- function(a0, a1, b = 1, n, d, rho = 0.5, nreps = 500){
+  results <- t(replicate(nreps, est(dgp(a0, a1, b, n, d, rho))))
+  results <- as.data.frame(results)
+  results$root1 <- NULL
+  results$root2 <- NULL
+  truth <- c(b, b, a1 - a0, 1 - a0 - a1, b)
+  bias <- rowMeans(apply(results, 1, function(row) row - truth), na.rm = TRUE)
+  variance <- apply(results, 2, var, na.rm = TRUE)
+  nans <- apply(results, 2, function(col) mean(is.na(col)))
+  return(list("bias" = bias, "var" = variance, "nans" = nans))
+}
 
-hist(results$a1_a0)
-quantile(results$a1_a0, c(0.025, 0.975))
-hist(results$BBS)
-hist(results$b)
-quantile(results$b, c(0.025, 0.975), na.rm = TRUE)
+
+results <- mcMap(simDraw, a0 = params$a0, a1 = params$a1, b = params$b, 
+               n = params$n, d = params$d, rho = 0.5, nreps = 10000)
+
+bias <- do.call("rbind", lapply(results, function(x) x$bias))
+variance <- do.call("rbind", lapply(results, function(x) x$var))
+rmse <- sqrt(bias^2 + variance)
+nans <- do.call("rbind", lapply(results, function(x) x$nans))
+
+bias <- as.data.frame(cbind(params, bias))
+variance <- as.data.frame(cbind(params, variance))
+rmse <- as.data.frame(cbind(params, rmse))
+nans <- as.data.frame(cbind(params, nans))
+
+full_results <- list("bias" = bias, "var" = variance, 
+                     "rmse" = rmse, "nans" = nans)
+
+save(full_results, file = "prelim_sim_results.Rdata")
+
+rm(list = ls())
+# results <- t(replicate(5000, est(dgp(0, 0))))
+# #head(results)
+# colMeans(results, na.rm = TRUE)
+# results <- data.frame(results)
+# 
+# hist(results$a1_a0)
+# quantile(results$a1_a0, c(0.025, 0.975))
+# hist(results$BBS)
+# hist(results$b)
+# quantile(results$b, c(0.025, 0.975), na.rm = TRUE)
 
