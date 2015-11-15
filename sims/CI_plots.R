@@ -13,16 +13,27 @@ bhat <- data.frame("Lower5" = full_results$Lower5$bhat,
                    "Upper5" = full_results$Upper5$bhat)
 bhat <- cbind(params, bhat)
 
-b_pane <- function(b_val, n_val, d_val){
+b_pane <- function(b_val, n_val, d_val, title = TRUE, TeX = FALSE){
   foo <- subset(bhat, (b == b_val) & (n == n_val) & (d == d_val))
+  if(TeX){
+    my_xlab <- "$\\alpha_1$"
+    my_ylab <- "$\\widehat{\\beta}$"
+    my_main <- paste0("$N=", n_val, ", \\; d=", d_val, "$")
+    my_legend <- paste0("$\\beta=", b_val, "$")
+  }else{
+    my_xlab <- expression(alpha[1])
+    my_ylab <- expression(hat(beta))
+    my_main <- bquote(N==.(n_val) ~ "," ~ d==.(d_val))
+    my_legend <- bquote(beta==.(foo$b) * phantom(0.0))
+  }
   y_min <- min(foo$Lower5)
   y_max <- max(foo$Upper5)
   with(foo, plot(a1, Median, ylim = c(y_min, y_max), pch = 19, 
-                 col = "white",
-                 xlab = expression(alpha[1]), 
-                 ylab = expression(hat(beta)), cex.lab = 1.5))
-  legend(x = "topleft", bty = "n", legend = bquote(beta==.(foo$b) * phantom(0.0)), 
-         cex = 1.5, xjust = 0)
+                 col = "white", xlab = my_xlab, ylab = my_ylab, cex.lab = 1.5))
+  if(title){
+    title(main = my_main, cex.main = 1.5)
+  }
+  legend(x = "topleft", bty = "n", legend = my_legend, cex = 1.5, xjust = 0)
   abline(h = foo$b, lty = 5, col = "lightblue", lwd = 2)
   arrows(x0 = foo$a1, y0 = foo$Lower5, x1 = foo$a1, y1 = foo$Upper5, 
          angle = 90, code = 3, col = "indianred3", lwd = 2)
@@ -30,35 +41,42 @@ b_pane <- function(b_val, n_val, d_val){
                  col = "indianred3"))
 }
 
-b_pane(1.5, 500, 0.2)
 
-b_panel <- function(b_vals, n_val, d_val){
+b_panel <- function(b_vals, n_val, d_val, TeX = FALSE){
   par(mfrow = c(length(b_vals), 1),
       mar = c(4, 5, 3, 2) + 0.1)
-  b_pane(b_vals[1], n_val, d_val)
-  title(main = bquote(N==.(n_val) ~ "," ~ d==.(d_val)), cex.main = 1.5)
+  b_pane(b_vals[1], n_val, d_val, title = TRUE, TeX)
   for(i in 2:length(b_vals)){
-    b_pane(b_vals[i], n_val, d_val)
+    b_pane(b_vals[i], n_val, d_val, title = FALSE, TeX)
   }
   par(mfrow = c(1,1), mar = c(5, 4, 4, 2) + 0.1)
 }
 
-b_panel(c(1, 1.5, 2), 500, 0.1)
 
 
 
-a_pane <- function(a_val, n_val, d_val){
+a_pane <- function(a_val, n_val, d_val, title = TRUE, TeX = FALSE){
   foo <- subset(a1_a0, (a1 == a_val) & (n == n_val) & (d == d_val))
+  if(TeX){
+    my_xlab <- "$\\beta$"
+    my_ylab <- "$\\widehat{\\alpha}_1 - \\widehat{\\alpha}_2$"
+    my_main <- paste0("$N=", n_val, ", \\; d=", d_val, "$")
+    my_legend <- paste0("$\\alpha_1=", a_val, "$")
+  }else{
+   my_xlab <- expression(beta)
+   my_ylab <- expression(hat(alpha)[1] - hat(alpha)[0])
+   my_main <- bquote(N==.(n_val) ~ "," ~ d==.(d_val))
+   my_legend <- bquote(alpha[1]==.(foo$a1) * phantom(0.0))
+  }
   y_min <- min(foo$Lower5)
   y_max <- max(foo$Upper5)
   with(foo, plot(b, Median, ylim = c(y_min, y_max), pch = 19, 
-                 col = "white",
-                 xlab = expression(beta), 
-                 ylab = expression(hat(alpha)[1] - hat(alpha)[0]),
-                 cex.lab = 1.5))
-  legend(x = "topright", bty = "n",
-         legend = bquote(alpha[1]==.(foo$a1) * phantom(0.0)), 
-         cex = 1.5, xjust = 0)
+                 col = "white", cex.lab = 1.5,
+                 xlab = my_xlab, ylab = my_ylab))
+  if(title){
+    title(main = my_main, cex.main = 1.5)
+  }
+  legend(x = "topright", legend = my_legend, bty = "n", cex = 1.5, xjust = 0)
   abline(h = foo$a1, lty = 5, col = "lightblue", lwd = 2)
   abline(h = 0)
   arrows(x0 = foo$b, y0 = foo$Lower5, x1 = foo$b, y1 = foo$Upper5, 
@@ -66,16 +84,16 @@ a_pane <- function(a_val, n_val, d_val){
   with(foo, points(b, Median, ylim = c(y_min, y_max), pch = 19, 
                  col = "indianred3"))
 }
-
-a_panel <- function(a_vals, n_val, d_val){
+ 
+   
+a_panel <- function(a_vals, n_val, d_val, TeX = FALSE){
   par(mfrow = c(length(a_vals), 1),
       mar = c(4, 5, 3, 2) + 0.1)
-  a_pane(a_vals[1], n_val, d_val)
-  title(main = bquote(N==.(n_val) ~ "," ~ d==.(d_val)), cex.main = 1.5)
+  a_pane(a_vals[1], n_val, d_val, title = TRUE, TeX)
   for(i in 2:length(a_vals)){
-    a_pane(a_vals[i], n_val, d_val)
+    a_pane(a_vals[i], n_val, d_val, title = FALSE, TeX)
   }
   par(mfrow = c(1,1), mar = c(5, 4, 4, 2) + 0.1)
 }
 
-a_panel(c(0.1, 0.2, 0.3), 500, 0.1)
+
