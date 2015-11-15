@@ -1,4 +1,5 @@
 setwd("~/binary-regressor/sims/")
+library(tikzDevice)
 load("CI_sim_results.Rdata")
 
 params <- full_results$Lower5[,1:5]

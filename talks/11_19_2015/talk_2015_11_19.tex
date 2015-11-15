@@ -1,0 +1,283 @@
+\documentclass{beamer}  
+\usepackage{../slides}
+\usepackage{cancel}
+%\usepackage{appendixnumberbeamer}
+\setbeameroption{hide notes}
+\defbeamertemplate{description item}{align left}{\insertdescriptionitem\hfill}
+
+
+
+
+\title[Binary Regressors]{Estimating the Effect of a Mis-measured, Endogenous, Binary Treatment}
+\author[FJ DiTraglia]{Francis J.\ DiTraglia\\ Camilo Garcia-Jimeno}
+\institute{University of Pennsylvania}
+\date{November 19th, 2015}
+\begin{document} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+	\titlepage 
+\end{frame} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{What is the causal effect of $T^*$?}
+  \[ y_i = h(T^*_i, \mathbf{x}_i) + \varepsilon_i\]
+  \begin{itemize}
+    \item $y$ -- Outcome of interest
+    \item $h$ -- Unknown function that \emph{does not depend on} $i$
+    \item $T^*$ -- Unobserved, endogenous binary treatment
+    \item $T$ -- Observed, mis-measured surrogate for $T^*$
+    \item $\mathbf{x}$ -- Exogenous covariates
+    \item $\varepsilon$ -- Mean-zero error term
+    \item $z$ -- Discrete instrumental variable
+  \end{itemize}
+  %\begin{block}{Target of Inference:}
+  %  ATE function:  $\alert{\tau(\mathbf{x}) = h(1,\mathbf{x}) - h(0,\mathbf{x})}$
+  %\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Example 1: Smoking and Birthweight}
+\subtitle{Tappen et al. (2015, BMJ)}
+  RCT with 612 pregnant smokers in Glasgow, Scotland: 306 are offered financial incentives to quit smoking.
+\begin{itemize}
+  \item $y$ -- Birthweight 
+  \item $T^*$ -- True smoking behavior 
+  \item $T$ -- Self-reported smoking behavior
+  \item $\mathbf{x}$ -- Mother characteristics
+  \item $z$ -- Offer of financial incentive
+\end{itemize}
+   
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Example 2: Schooling and Test Scores}
+\subtitle{Burde \& Linden (2013, AEJ Applied Economics)}
+  RCT in Afghanistan: a school is built in 6 out of 11 villages.
+\begin{itemize}
+  \item $y$ -- Score on math and language test 
+  \item $T^*$ -- True school attendance
+  \item $T$ -- Self-reported school attendance
+  \item $\mathbf{x}$ -- Household characteristics
+  \item $z$ -- School built in village
+\end{itemize}
+   
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Non-classical Measurement Error: Binary $T^*$}
+  \begin{itemize}
+    \item Many applications of linear model have \emph{binary} treatment
+    \item Binary $T^* \implies \mathbb{E}[T^*w]\leq0$
+    \item Misclassification Probabilities:
+      \begin{eqnarray*}
+        \alpha_0 = \mathbb{P}(T=1|T^*=0)\\
+        \alpha_1 = \mathbb{P}(T=0|T^*=1)
+      \end{eqnarray*}
+    \item Non-Differential Measurement Error: $T\perp (z,u)|T^*$
+    \item  $\sigma_{T^*}^2 \nless \sigma_{T}^2$ so work with $\alpha_0, \alpha_1$ rather than $\kappa$ 
+    \item \emph{Four-dimensional} Problem\ldots
+  \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Results for a Mis-classified Binary Regressor}
+  \begin{block}{Aigner (1973), Bollinger (1996)\ldots}
+    \begin{itemize}
+      \item Even if $\rho_{T^*u}=0$, OLS is biased and inconsistent: typically attenuated towards zero \emph{but could flip signs!} 
+    \end{itemize}
+  \end{block}
+  \begin{block}{Kane et al.\ (1999), Black et al.\ (2000), Frazis et al.\ (2003)\ldots}
+    \begin{itemize}
+      \item $\rho_{zu}=0 \implies$ IV solves endogenous regressor problem if there is no mis-classification
+      \item $\rho_{T^*u}=0$ and $\rho_{zu}=0 \implies$ non-linear GMM estimator can solve the mis-classification problem
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{OLS and IV Probability Limits: Binary $T^*$}
+  \small
+  \begin{eqnarray*}
+    \mbox{plim}\left(\widehat{\beta}_{OLS} \right) &=& \frac{\sigma_{T^*}^2}{\sigma_T^2}\left[\beta \left( 1 - \alpha_0 - \alpha_1 \right) + \frac{\sigma_{T^*u}}{\sigma_{T^*}^2}\right]\\ \\
+    \mbox{plim}\left( \widehat{\beta}_{IV} \right) &=& \frac{\beta}{1 - \alpha_0 - \alpha_1} + \frac{\sigma_{zu}}{\sigma_{zT}}\\ \\ 
+    \sigma_{T^*}^2 &=& \frac{\left( p - \alpha_0\right)\left( 1 - p - \alpha_1 \right)}{\left(1 -\alpha_0 - \alpha_1\right)^2}
+  \end{eqnarray*}
+  Where $p = \mathbb{P}(T=1)$
+ 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{What About Endogenous, Mis-measured $T^*$, Valid $z$?}
+\begin{align*}
+ y &= \beta T^* + u\\
+u &= c + \varepsilon
+\end{align*}
+
+  \begin{itemize}
+    \item No results in the literature for this case
+    \item Important setting in applied work: e.g.\ RCTs
+    \item Discrete Instrument: $z \in \left\{ z_1, \cdots, z_K \right\}$
+    \item Non-parametric First Stage: $p_k^* = \mathbb{P}(T^*=1|z = z_k)$
+    \item What does $E[\varepsilon|z]=0$ buy us in this case?
+  \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Observable Moments:  $y = \beta T^* + u$}
+\begin{center}
+  \begin{tabular}{c|c|c|c|c|}
+    \multicolumn{1}{c}{}& \multicolumn{1}{c}{$z=1$} &\multicolumn{1}{c}{$z=1$} & \multicolumn{1}{c}{\dots} &\multicolumn{1}{c}{$z=K$}\\
+    \cline{2-5}
+    $T=0$ & \diagbox[dir=NE]{$\bar{y}_{01}$}{$p_{01}$} & \diagbox[dir=NE]{$\bar{y}_{02}$}{$p_{02}$} & \dots &\diagbox[dir=NE]{$\bar{y}_{0K}$}{$p_{0K}$}\\
+    \cline{2-5}
+    $T=1$ & \diagbox[dir=NE]{$\bar{y}_{11}$}{$p_{11}$} & \diagbox[dir=NE]{$\bar{y}_{12}$}{$p_{12}$} & \dots &\diagbox[dir=NE]{$\bar{y}_{1K}$}{$p_{1K}$}\\
+    \cline{2-5}
+  \end{tabular}
+\end{center}
+
+\vspace{1em}
+
+\[\bar{y}_{tk} = \mathbb{E}[y|T=t,z=z_k],
+\quad p_{tk} =q_k p_k\]
+\small
+\[q_k = \mathbb{P}(z = z_k), \quad
+p_k = \mathbb{P}(T=1|z=z_k)\]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Unobservable Moments: $y = \beta T^* + u$}
+\begin{center}
+  \begin{tabular}{c|c|c|c|c|}
+    \multicolumn{1}{c}{}& \multicolumn{1}{c}{$z=1$} &\multicolumn{1}{c}{$z=1$} & \multicolumn{1}{c}{\dots} &\multicolumn{1}{c}{$z=K$}\\
+    \cline{2-5}
+    $T^*=0$ & \diagbox[dir=NE]{$m^*_{01}$}{$p^*_{01}$} & \diagbox[dir=NE]{$m^*_{02}$}{$p^*_{02}$} & \dots &\diagbox[dir=NE]{$m^*_{0K}$}{$p^*_{0K}$}\\
+    \cline{2-5}
+    $T^*=1$ & \diagbox[dir=NE]{$m^*_{11}$}{$p^*_{11}$} & \diagbox[dir=NE]{$m^*_{12}$}{$p^*_{12}$} & \dots &\diagbox[dir=NE]{$m^*_{1K}$}{$p^*_{1K}$}\\
+    \cline{2-5}
+  \end{tabular}
+\end{center}
+
+\vspace{1em}
+
+\[m^*_{tk} = \mathbb{E}[u|T^*=t,z=z_k],
+\quad p^*_{tk}=q_k p^*_k\]
+\small
+\[p^*_k=\mathbb{P}(T^*=1|z=z_k) = \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Possible Assumptions On $m^*_{tk}$}
+  \begin{block}{Joint Exogeneity: $\mathbb{E}[\varepsilon|T^*,z]=0$}
+    $\implies m^*_{tk} =c \quad$ for all $t,k$
+  \end{block}
+  \begin{block}{Exogenous Treatment: $\mathbb{E}[\varepsilon|T^*]=0$}
+    $\implies \displaystyle \frac{1}{\mathbb{P}(T^*=t)}\sum_{k}p^*_{tk}m^*_{tk} = c\quad$  for all $t$
+  \end{block}
+  \begin{alertblock}{Exogenous Instrument: $\mathbb{E}[\varepsilon|z]=0$}
+    $\implies (1-p^*_k)m^*_{0k} + p^*_k m^*_{1k}=c \quad$ for all $k$
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Moment Conditions Imposing $\mathbb{E}[\varepsilon|z]=0$}
+  One pair of equations for each $k = 1, \dots, K$
+\begin{align*}
+  \hat{y}_{0k} &=\alpha_1(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + (1-\alpha_0)c - (p _k -  \alpha_0)m_{1k}^* \\[1.5ex]
+  \label{eq:MC1IV}
+  \hat{y}_{1k} &=(1-\alpha_1)(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + \alpha_0 c + (p _k -  \alpha_0)m_{1k}^*
+\end{align*}
+
+\vspace{0.5em}
+where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
+
+
+\vspace{2em} 
+
+\hfill \alert{\framebox{$2K$ Equations in $K+4$ Unknowns}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{\emph{Proposition}: $\beta$ is Undentified Regardless of $K$}
+  \begin{block}{Proof Sketch}
+    \begin{enumerate}[(1)]
+      \item Show that $\mathcal{W}= \beta/(1-\alpha_0 - \alpha_1)$ is identified. 
+      \item Show that $\mathcal{Q} = c + \beta(1-\alpha_0)/(1-\alpha_0-\alpha_1)$ is identified.
+      \item $(1) + (2) \implies (\mathcal{Q}, \mathcal{W})$ are \emph{fixed}
+      \item Use (3) to rewrite equations in terms of $(\mathcal{Q}, \mathcal{W})$.
+      \item Discover that there is only \emph{one} equation per $k$! Rearranging: 
+
+        \[m^*_{1k} = \frac{\mathcal{W}(\hat{y}_{0k}-\alpha_1 \mathcal{Q}) - \beta(\mathcal{Q}-\beta-\mathcal{W}\alpha_1) + \mathcal{W}^2(1-p_k)\alpha_1}{\mathcal{W}(1-p_k - \alpha_1) - \beta}\]
+    \end{enumerate}
+
+  \end{block} 
+    
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Identification by Conditional Variances?} 
+  \begin{block}{New Assumption}
+    Homoskedastic errors w.r.t.\ the \emph{instrument}: $E[\varepsilon^2|z]=E[\varepsilon^2]$
+  \end{block}
+  \begin{block}{Not Crazy!}
+    Holds in an RCT or a \emph{true} natural experiment.
+  \end{block}
+  \begin{alertblock}{New Moment Conditions}
+    For each pair $(k,\ell)$
+\begin{align*}
+  s^2_k - s^2_\ell = \mathcal{W}^2\left[p_k(1-p_k) - p_\ell(1-p_\ell) + (\alpha_0 - \alpha_1)(p_k - p_\ell)\right]\\  
+  + 2\mathcal{W}\left[(p_k - \alpha_0)(m^*_{1k}-c) - (p_\ell - \alpha_0)(m^*_{1\ell}-c)\right]
+\end{align*}
+
+\vspace{0.5em}
+Where $s^2_k = Var(y|z=z_k)$, and $\mathcal{W}$ is the Wald IV estimator. 
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{\emph{Proposition}: $(\alpha_0 - \alpha_1)$ is Identified}
+  Define
+\begin{equation*}
+  \widetilde{\mathcal{W}}_{k\ell} = \frac{\mathbb{E}[yT|z_k] - \mathbb{E}[yT|z_\ell]}{p_k - p_\ell}
+\end{equation*}
+Show that:
+\begin{align*}
+(p_k - \alpha_0)&(m^*_{1k}-c) - (p_\ell - \alpha_0)(m^*_{1\ell}-c) =\\
+& (p_k - p_\ell)\left[ \widetilde{W}_{k\ell} - \mathbb{E}[y] - \mathcal{W}\left\{ (1 - p) + (\alpha_0 - \alpha_1) \right\} \right]
+\end{align*}
+Substituting and rearranging: 
+\begin{equation*}
+  \alpha_0 - \alpha_1 = (2p - 1 - p_k - p_\ell) + \frac{2(\widetilde{W}_{k\ell} - \mathbb{E}[y])}{\mathcal{W}} - \frac{s_k^2 - s_\ell^2}{(p_k - p_\ell)\mathcal{W}^2}
+\end{equation*}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{What Good is $(\alpha_0 - \alpha_1)?$}
+    \begin{itemize}
+      \item Test a necessary condition for \emph{no mis-classification}:$\alpha_0 = \alpha_1$ 
+      \item Simple, tighter partial identification bounds for $\beta$
+      \item In some settings, one of the mis-classification probabilities is known to be zero $\implies \beta$ point identified 
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Conclusion}
+  \begin{enumerate}
+    \item First Part:
+  \begin{itemize}
+    \item Incorporate, discipline and interrogate researcher beliefs in linear model with classical measurement error, endogenous treatment, and invalid instrument. 
+    \item Implicit researcher beliefs can be very informative.
+  \end{itemize}
+\item Second Part:
+  \begin{itemize}
+    \item Binary treatment case is \emph{very different} 
+    \item Simple, transparent way to understand the problem
+    \item Partial Identification result, Non-identification result 
+  \end{itemize}
+  \alert{We hope both will be useful for applied researchers. Next step: incorporate second part into first.}
+  \end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
