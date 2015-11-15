@@ -77,7 +77,7 @@ a_pane <- function(a_val, n_val, d_val, title = TRUE, TeX = FALSE){
   if(title){
     title(main = my_main, cex.main = 1.5)
   }
-  legend(x = "top", legend = my_legend, bty = "n", cex = 1, xjust = 0)
+  legend(x = "topleft", legend = my_legend, bty = "n", cex = 1, xjust = 0)
   abline(h = foo$a1, lty = 5, col = "lightblue", lwd = 2)
   abline(h = 0)
   arrows(x0 = foo$b, y0 = foo$Lower5, x1 = foo$b, y1 = foo$Upper5, 
