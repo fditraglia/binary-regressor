@@ -18,34 +18,64 @@ b_pane <- function(b_val, n_val, d_val){
   y_min <- min(foo$Lower5)
   y_max <- max(foo$Upper5)
   with(foo, plot(a1, Median, ylim = c(y_min, y_max), pch = 19, 
-                 col = "indianred3",
+                 col = "white",
                  xlab = expression(alpha[1]), 
                  ylab = expression(hat(beta)), cex.lab = 1.5))
-  abline(h = foo$b, lty = 5, col = "lightblue")
+  legend(x = "topleft", bty = "n", legend = bquote(beta==.(foo$b) * phantom(0.0)), 
+         cex = 1.5, xjust = 0)
+  abline(h = foo$b, lty = 5, col = "lightblue", lwd = 2)
   arrows(x0 = foo$a1, y0 = foo$Lower5, x1 = foo$a1, y1 = foo$Upper5, 
          angle = 90, code = 3, col = "indianred3", lwd = 2)
-  legend(x = "topleft", legend = bquote(beta==.(foo$b)), 
-         cex = 1.5, xjust = 0)
+  with(foo, points(a1, Median, ylim = c(y_min, y_max), pch = 19, 
+                 col = "indianred3"))
 }
 
 b_pane(1.5, 500, 0.2)
+
+b_panel <- function(b_vals, n_val, d_val){
+  par(mfrow = c(length(b_vals), 1),
+      mar = c(4, 5, 3, 2) + 0.1)
+  b_pane(b_vals[1], n_val, d_val)
+  title(main = bquote(N==.(n_val) ~ "," ~ d==.(d_val)), cex.main = 1.5)
+  for(i in 2:length(b_vals)){
+    b_pane(b_vals[i], n_val, d_val)
+  }
+  par(mfrow = c(1,1), mar = c(5, 4, 4, 2) + 0.1)
+}
+
+b_panel(c(1, 1.5, 2), 500, 0.1)
+
+
 
 a_pane <- function(a_val, n_val, d_val){
   foo <- subset(a1_a0, (a1 == a_val) & (n == n_val) & (d == d_val))
   y_min <- min(foo$Lower5)
   y_max <- max(foo$Upper5)
   with(foo, plot(b, Median, ylim = c(y_min, y_max), pch = 19, 
-                 col = "indianred3",
+                 col = "white",
                  xlab = expression(beta), 
                  ylab = expression(hat(alpha)[1] - hat(alpha)[0]),
                  cex.lab = 1.5))
-  abline(h = foo$a1, lty = 5, col = "lightblue")
+  legend(x = "topright", bty = "n",
+         legend = bquote(alpha[1]==.(foo$a1) * phantom(0.0)), 
+         cex = 1.5, xjust = 0)
+  abline(h = foo$a1, lty = 5, col = "lightblue", lwd = 2)
+  abline(h = 0)
   arrows(x0 = foo$b, y0 = foo$Lower5, x1 = foo$b, y1 = foo$Upper5, 
          angle = 90, code = 3, col = "indianred3", lwd = 2)
-  abline(h = 0)
-  legend(x = "topright", legend = bquote(alpha[1]==.(foo$a1)), 
-         cex = 1.5, xjust = 0)
+  with(foo, points(b, Median, ylim = c(y_min, y_max), pch = 19, 
+                 col = "indianred3"))
 }
 
-a_pane(0.3, 500, 0.3)
+a_panel <- function(a_vals, n_val, d_val){
+  par(mfrow = c(length(a_vals), 1),
+      mar = c(4, 5, 3, 2) + 0.1)
+  a_pane(a_vals[1], n_val, d_val)
+  title(main = bquote(N==.(n_val) ~ "," ~ d==.(d_val)), cex.main = 1.5)
+  for(i in 2:length(a_vals)){
+    a_pane(a_vals[i], n_val, d_val)
+  }
+  par(mfrow = c(1,1), mar = c(5, 4, 4, 2) + 0.1)
+}
 
+a_panel(c(0.1, 0.2, 0.3), 500, 0.1)
