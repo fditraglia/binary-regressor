@@ -4,11 +4,11 @@ n_cores <- detectCores()
 setwd("~/binary-regressor/sims/")
 set.seed(382)
 
-params <- expand.grid("n" = c(500, 1000, 5000),
-                      "b" = c(0.5, 1, 1.5, 2, 2.5),
-                      "d" = c(0.1, 0.2, 0.3), 
+params <- expand.grid("n" = c(500, 1000, 2000, 5000),
+                      "b" = seq(0.5, 2.5, 0.25), 
+                      "d" = seq(0.1, 0.35, 0.05),
                       "a0" = 0,
-                      "a1" = c(0, 0.1, 0.2, 0.3, 0.4))
+                      "a1" = seq(0, 0.4, 0.05)) 
 
 
 
