@@ -30,14 +30,14 @@ b_pane <- function(b_val, n_val, d_val, title = TRUE, TeX = FALSE){
   y_min <- min(foo$Lower5)
   y_max <- max(foo$Upper5)
   with(foo, plot(a1, Median, ylim = c(y_min, y_max), pch = 19, 
-                 col = "white", xlab = my_xlab, ylab = my_ylab, cex.lab = 1.5))
+                 col = "white", xlab = my_xlab, ylab = my_ylab, cex.lab = 1))
   if(title){
     title(main = my_main, cex.main = 1.5)
   }
-  legend(x = "topleft", bty = "n", legend = my_legend, cex = 1.5, xjust = 0)
+  legend(x = "topleft", bty = "n", legend = my_legend, cex = 1, xjust = 0)
   abline(h = foo$b, lty = 5, col = "lightblue", lwd = 2)
   arrows(x0 = foo$a1, y0 = foo$Lower5, x1 = foo$a1, y1 = foo$Upper5, 
-         angle = 90, code = 3, col = "indianred3", lwd = 2)
+         angle = 90, length = 0.1, code = 3, col = "indianred3", lwd = 2)
   with(foo, points(a1, Median, ylim = c(y_min, y_max), pch = 19, 
                  col = "indianred3"))
 }
@@ -46,7 +46,7 @@ b_pane <- function(b_val, n_val, d_val, title = TRUE, TeX = FALSE){
 b_panel <- function(b_vals, n_val, d_val, TeX = FALSE){
   par(mfrow = c(length(b_vals), 1),
       mar = c(4, 5, 3, 2) + 0.1)
-  b_pane(b_vals[1], n_val, d_val, title = TRUE, TeX)
+  b_pane(b_vals[1], n_val, d_val, title = FALSE, TeX)
   for(i in 2:length(b_vals)){
     b_pane(b_vals[i], n_val, d_val, title = FALSE, TeX)
   }
@@ -72,16 +72,16 @@ a_pane <- function(a_val, n_val, d_val, title = TRUE, TeX = FALSE){
   y_min <- min(foo$Lower5)
   y_max <- max(foo$Upper5)
   with(foo, plot(b, Median, ylim = c(y_min, y_max), pch = 19, 
-                 col = "white", cex.lab = 1.5,
+                 col = "white", cex.lab = 1,
                  xlab = my_xlab, ylab = my_ylab))
   if(title){
     title(main = my_main, cex.main = 1.5)
   }
-  legend(x = "topright", legend = my_legend, bty = "n", cex = 1.5, xjust = 0)
+  legend(x = "top", legend = my_legend, bty = "n", cex = 1, xjust = 0)
   abline(h = foo$a1, lty = 5, col = "lightblue", lwd = 2)
   abline(h = 0)
   arrows(x0 = foo$b, y0 = foo$Lower5, x1 = foo$b, y1 = foo$Upper5, 
-         angle = 90, code = 3, col = "indianred3", lwd = 2)
+         angle = 90, code = 3, length = 0.1, col = "indianred3", lwd = 2)
   with(foo, points(b, Median, ylim = c(y_min, y_max), pch = 19, 
                  col = "indianred3"))
 }
@@ -90,11 +90,18 @@ a_pane <- function(a_val, n_val, d_val, title = TRUE, TeX = FALSE){
 a_panel <- function(a_vals, n_val, d_val, TeX = FALSE){
   par(mfrow = c(length(a_vals), 1),
       mar = c(4, 5, 3, 2) + 0.1)
-  a_pane(a_vals[1], n_val, d_val, title = TRUE, TeX)
+  a_pane(a_vals[1], n_val, d_val, title = FALSE, TeX)
   for(i in 2:length(a_vals)){
     a_pane(a_vals[i], n_val, d_val, title = FALSE, TeX)
   }
   par(mfrow = c(1,1), mar = c(5, 4, 4, 2) + 0.1)
 }
 
+setwd("~/binary-regressor/fig")
+tikz(file = "a_test.tex", width = 3, height = 6)
+a_panel(c(0.1, 0.3), 500, 0.1, TeX = TRUE)
+dev.off()
 
+tikz(file = "b_test.tex", width = 3, height = 6)
+b_panel(c(1, 2), 500, 0.1, TeX = TRUE)
+dev.off()

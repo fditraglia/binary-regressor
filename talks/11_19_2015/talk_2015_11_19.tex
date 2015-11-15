@@ -262,21 +262,59 @@ Substituting and rearranging:
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Conclusion}
-  \begin{enumerate}
-    \item First Part:
-  \begin{itemize}
-    \item Incorporate, discipline and interrogate researcher beliefs in linear model with classical measurement error, endogenous treatment, and invalid instrument. 
-    \item Implicit researcher beliefs can be very informative.
-  \end{itemize}
-\item Second Part:
-  \begin{itemize}
-    \item Binary treatment case is \emph{very different} 
-    \item Simple, transparent way to understand the problem
-    \item Partial Identification result, Non-identification result 
-  \end{itemize}
-  \alert{We hope both will be useful for applied researchers. Next step: incorporate second part into first.}
-  \end{enumerate}
+  \frametitle{Simulation Study}
+  $y = \beta T^* + \varepsilon$
+
+  $T^* = \mathbf{1}\left\{ \gamma_0 + \gamma_1 z + \eta > 0 \right\}$
+
+  $\gamma_0 = \Phi^{-1}(\delta)$, $\gamma_1 = \Phi^{-1}(1-\delta) - \Phi(\delta)$ so that $\delta$
+
+  E.g.\ if $\delta=0.1$ then 10\% of those \emph{not} offered treatment get it anyway, and 10\% of those offered treatment don't take it up.
+  
+  If $T^*=0$ then $T=0$ (E.g.\ Birthweight and smoking)
+  $T|T^*=1 \sim \mbox{Bernoulli}(?)$
+
+  \[ \left[
+  \begin{array}{c}
+  \varepsilon \\ \eta
+\end{array}
+\right] \sim N\left( \left[
+\begin{array}{c}
+0 \\ 0
+\end{array}
+\right], \left[
+\begin{array}{cc}
+1 & 0.3\\
+0.3 & 1 \\
+\end{array}
+\right]\right)\]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\begin{figure}[h]
+  \scriptsize
+
+  \begingroup
+  \tikzset{every picture/.style={scale=0.58}}%
+  \centering
+  \begin{subfigure}[b]{0.48\textwidth}
+  \input{../../fig/a_test.tex}
+%\caption{Caption here!}
+\label{fig:a_test}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.48\textwidth}
+  \input{../../fig/b_test.tex}
+%\caption{Positive $\beta$ in Blue}
+\label{fig:b_test}
+  \end{subfigure}
+\endgroup
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Empirical Illustration: Schooling and Test Scores}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
