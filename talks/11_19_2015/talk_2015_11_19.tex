@@ -29,7 +29,7 @@
     \item $y$ -- Outcome of interest
     \item $h$ -- Unknown function that \emph{does not depend on} $i$
     \item $T^*$ -- Unobserved, endogenous binary treatment
-    \item $T$ -- Observed, mis-measured surrogate for $T^*$
+    \item $T$ -- Observed, mis-measured binary surrogate for $T^*$
     \item $\mathbf{x}$ -- Exogenous covariates
     \item $\varepsilon$ -- Mean-zero error term
     \item $z$ -- Discrete instrumental variable
@@ -84,61 +84,59 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Non-classical Measurement Error: Binary $T^*$}
-  \begin{itemize}
-    \item Many applications of linear model have \emph{binary} treatment
-    \item Binary $T^* \implies \mathbb{E}[T^*w]\leq0$
-    \item Misclassification Probabilities:
-      \begin{eqnarray*}
-        \alpha_0 = \mathbb{P}(T=1|T^*=0)\\
-        \alpha_1 = \mathbb{P}(T=0|T^*=1)
-      \end{eqnarray*}
-    \item Non-Differential Measurement Error: $T\perp (z,u)|T^*$
-    \item  $\sigma_{T^*}^2 \nless \sigma_{T}^2$ so work with $\alpha_0, \alpha_1$ rather than $\kappa$ 
-    \item \emph{Four-dimensional} Problem\ldots
-  \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Results for a Mis-classified Binary Regressor}
-  \begin{block}{Aigner (1973), Bollinger (1996)\ldots}
-    \begin{itemize}
-      \item Even if $\rho_{T^*u}=0$, OLS is biased and inconsistent: typically attenuated towards zero \emph{but could flip signs!} 
-    \end{itemize}
-  \end{block}
-  \begin{block}{Kane et al.\ (1999), Black et al.\ (2000), Frazis et al.\ (2003)\ldots}
-    \begin{itemize}
-      \item $\rho_{zu}=0 \implies$ IV solves endogenous regressor problem if there is no mis-classification
-      \item $\rho_{T^*u}=0$ and $\rho_{zu}=0 \implies$ non-linear GMM estimator can solve the mis-classification problem
-    \end{itemize}
-  \end{block}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{OLS and IV Probability Limits: Binary $T^*$}
-  \small
-  \begin{eqnarray*}
-    \mbox{plim}\left(\widehat{\beta}_{OLS} \right) &=& \frac{\sigma_{T^*}^2}{\sigma_T^2}\left[\beta \left( 1 - \alpha_0 - \alpha_1 \right) + \frac{\sigma_{T^*u}}{\sigma_{T^*}^2}\right]\\ \\
-    \mbox{plim}\left( \widehat{\beta}_{IV} \right) &=& \frac{\beta}{1 - \alpha_0 - \alpha_1} + \frac{\sigma_{zu}}{\sigma_{zT}}\\ \\ 
-    \sigma_{T^*}^2 &=& \frac{\left( p - \alpha_0\right)\left( 1 - p - \alpha_1 \right)}{\left(1 -\alpha_0 - \alpha_1\right)^2}
-  \end{eqnarray*}
-  Where $p = \mathbb{P}(T=1)$
+  \frametitle{Related Literature}
  
+  \begin{block}{Continuous Treatment}
+    \small
+  Lewbel (1997, 2012), Schennach (2004, 2007), Chen et al. (2005), Hu \& Schennach (2008)\dots 
+  \end{block}
+
+  \begin{block}{Binary, Exogenous Treatment}
+    \small
+   Aigner (1973), Bollinger (1996), Kane et al. (1999), Black et al. (2000), Frazis \& Loewenstein (2003), Mahajan (2006), Lewbel (2007) 
+  \end{block}
+
+  \begin{alertblock}{Binary, Endogenous Treatment}
+    Only existing result in Mahajan (2006)
+  \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{What About Endogenous, Mis-measured $T^*$, Valid $z$?}
-\begin{align*}
- y &= \beta T^* + u\\
-u &= c + \varepsilon
-\end{align*}
+  \frametitle{Model: $y = h(T^*, \mathbf{x}) + \varepsilon$}
+  \begin{block}{ATE Function}
+   $ \tau(\mathbf{x}) = h(1,\mathbf{x}) - h(0, \mathbf{x})$
+  \end{block}
+  \begin{block}{First-stage}
+    $p^*_k(\mathbf{x}) \equiv \mathbb{P}(T^*=1|z=z_k,\mathbf{x}) \neq \mathbb{P}(T^*=1|z=z_\ell)\equiv p_\ell^*(\mathbf{x}) $, $k\neq \ell$
+  \end{block}
+  \begin{block}{Measurement Error}
+    Non-differential, $\mathbb{E}[\varepsilon|T^*,T,z,\mathbf{x}] =  \mathbb{E}[\varepsilon|T^*,z,\mathbf{x}]$, and does not depend on $z$:
+\begin{eqnarray*}
+ \alpha_0(\mathbf{x})&=&  \mathbb{P}(T = 1| T^* = 0, z, \mathbf{x})  \\ 
+ \alpha_1(\mathbf{x})&=& 
+  \mathbb{P}(T = 0| T^* = 1, z, \mathbf{x}) 
+\end{eqnarray*}
+    
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Notation}
 
   \begin{itemize}
-    \item No results in the literature for this case
-    \item Important setting in applied work: e.g.\ RCTs
-    \item Discrete Instrument: $z \in \left\{ z_1, \cdots, z_K \right\}$
-    \item Non-parametric First Stage: $p_k^* = \mathbb{P}(T^*=1|z = z_k)$
-    \item What does $E[\varepsilon|z]=0$ buy us in this case?
+    \item Treat exog.\ covariates $\mathbf{x}$ non-parametrically: hold fixed at $\mathbf{x}_a$ throughout:
+      \vspace{-1em}
+      \begin{eqnarray*}
+        y &=&  \beta T^* + u\\
+        u &=&  \varepsilon + c
+      \end{eqnarray*}
+      where $\beta = \tau(\mathbf{x}_a)$ and $c = h(0,\mathbf{x}_a)$.
+    \item Similarly:
+      \begin{eqnarray*}
+        \alpha_0 &=&  \mathbb{P}(T=1|T^*=0)\\
+        \alpha_1 &=&  \mathbb{P}(T=0|T^*=1)\\
+        p_k^* &=&  \mathbb{P}(T^* = 1|z=z_k)
+      \end{eqnarray*}
   \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
