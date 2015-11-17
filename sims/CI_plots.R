@@ -27,9 +27,13 @@ b_pane <- function(b_val, n_val, d_val, title = TRUE, TeX = FALSE){
     my_main <- bquote(N==.(n_val) ~ "," ~ d==.(d_val))
     my_legend <- bquote(beta==.(foo$b) * phantom(0.0))
   }
+  x_step <- max(diff(foo$a1))
+  x_min <- min(foo$a1) - 0.2 * x_step
+  x_max <- max(foo$a1) + 0.2 * x_step
   y_min <- min(foo$Lower5)
   y_max <- max(foo$Upper5)
-  with(foo, plot(a1, Median, ylim = c(y_min, y_max), pch = 19, 
+  with(foo, plot(a1, Median, ylim = c(y_min, y_max), 
+                 xlim = c(x_min, x_max), pch = 19, 
                  col = "white", xlab = my_xlab, ylab = my_ylab, cex.lab = 1))
   if(title){
     title(main = my_main, cex.main = 1.5)
@@ -69,9 +73,13 @@ a_pane <- function(a_val, n_val, d_val, title = TRUE, TeX = FALSE){
    my_main <- bquote(N==.(n_val) ~ "," ~ d==.(d_val))
    my_legend <- bquote(alpha[1]==.(foo$a1) * phantom(0.0))
   }
+  x_step <- max(diff(foo$b))
+  x_min <- min(foo$b) - 0.2 * x_step
+  x_max <- max(foo$b) + 0.2 * x_step
   y_min <- min(foo$Lower5)
   y_max <- max(foo$Upper5)
-  with(foo, plot(b, Median, ylim = c(y_min, y_max), pch = 19, 
+  with(foo, plot(b, Median, ylim = c(y_min, y_max), 
+                 xlim = c(x_min, x_max), pch = 19, 
                  col = "white", cex.lab = 1,
                  xlab = my_xlab, ylab = my_ylab))
   if(title){
@@ -98,10 +106,84 @@ a_panel <- function(a_vals, n_val, d_val, TeX = FALSE){
 }
 
 setwd("~/binary-regressor/fig")
-tikz(file = "a_test.tex", width = 3, height = 6)
+
+#------------------------
+
+tikz(file = "a_talk_N500_d10.tex", width = 3, height = 6)
 a_panel(c(0.1, 0.3), 500, 0.1, TeX = TRUE)
 dev.off()
 
-tikz(file = "b_test.tex", width = 3, height = 6)
+tikz(file = "a_talk_N1000_d10.tex", width = 3, height = 6)
+a_panel(c(0.1, 0.3), 1000, 0.1, TeX = TRUE)
+dev.off()
+
+tikz(file = "a_talk_N5000_d10.tex", width = 3, height = 6)
+a_panel(c(0.1, 0.3), 5000, 0.1, TeX = TRUE)
+dev.off()
+
+#------------------------
+
+tikz(file = "a_talk_N500_d20.tex", width = 3, height = 6)
+a_panel(c(0.1, 0.3), 500, 0.2, TeX = TRUE)
+dev.off()
+
+tikz(file = "a_talk_N1000_d20.tex", width = 3, height = 6)
+a_panel(c(0.1, 0.3), 1000, 0.2, TeX = TRUE)
+dev.off()
+
+tikz(file = "a_talk_N5000_d20.tex", width = 3, height = 6)
+a_panel(c(0.1, 0.3), 5000, 0.2, TeX = TRUE)
+dev.off()
+
+#------------------------
+
+tikz(file = "a_talk_N500_d30.tex", width = 3, height = 6)
+a_panel(c(0.1, 0.3), 500, 0.3, TeX = TRUE)
+dev.off()
+
+tikz(file = "a_talk_N1000_d30.tex", width = 3, height = 6)
+a_panel(c(0.1, 0.3), 1000, 0.3, TeX = TRUE)
+dev.off()
+
+tikz(file = "a_talk_N5000_d30.tex", width = 3, height = 6)
+a_panel(c(0.1, 0.3), 5000, 0.3, TeX = TRUE)
+dev.off()
+
+#------------------------
+
+tikz(file = "b_talk_N500_d10.tex", width = 3, height = 6)
 b_panel(c(1, 2), 500, 0.1, TeX = TRUE)
 dev.off()
+
+tikz(file = "b_talk_N1000_d10.tex", width = 3, height = 6)
+b_panel(c(1, 2), 1000, 0.1, TeX = TRUE)
+dev.off()
+
+tikz(file = "b_talk_N5000_d10.tex", width = 3, height = 6)
+b_panel(c(1, 2), 5000, 0.1, TeX = TRUE)
+
+#------------------------
+
+tikz(file = "b_talk_N500_d20.tex", width = 3, height = 6)
+b_panel(c(1, 2), 500, 0.2, TeX = TRUE)
+dev.off()
+
+tikz(file = "b_talk_N1000_d20.tex", width = 3, height = 6)
+b_panel(c(1, 2), 1000, 0.2, TeX = TRUE)
+dev.off()
+
+tikz(file = "b_talk_N5000_d20.tex", width = 3, height = 6)
+b_panel(c(1, 2), 5000, 0.2, TeX = TRUE)
+
+#------------------------
+
+tikz(file = "b_talk_N500_d30.tex", width = 3, height = 6)
+b_panel(c(1, 2), 500, 0.3, TeX = TRUE)
+dev.off()
+
+tikz(file = "b_talk_N1000_d30.tex", width = 3, height = 6)
+b_panel(c(1, 2), 1000, 0.3, TeX = TRUE)
+dev.off()
+
+tikz(file = "b_talk_N5000_d30.tex", width = 3, height = 6)
+b_panel(c(1, 2), 5000, 0.3, TeX = TRUE)
