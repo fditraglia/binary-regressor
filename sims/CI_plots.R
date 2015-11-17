@@ -163,6 +163,7 @@ dev.off()
 
 tikz(file = "b_talk_N5000_d10.tex", width = 3, height = 6)
 b_panel(c(1, 2), 5000, 0.1, TeX = TRUE)
+dev.off()
 
 #------------------------
 
@@ -176,6 +177,7 @@ dev.off()
 
 tikz(file = "b_talk_N5000_d20.tex", width = 3, height = 6)
 b_panel(c(1, 2), 5000, 0.2, TeX = TRUE)
+dev.off()
 
 #------------------------
 
@@ -189,3 +191,4 @@ dev.off()
 
 tikz(file = "b_talk_N5000_d30.tex", width = 3, height = 6)
 b_panel(c(1, 2), 5000, 0.3, TeX = TRUE)
+dev.off()
