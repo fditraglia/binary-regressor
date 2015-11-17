@@ -81,9 +81,9 @@ a_pane <- function(a_val, n_val, d_val, title = TRUE, TeX = FALSE){
   #y_min <- min(foo$Lower5)
   #y_max <- max(foo$Upper5)
   with(foo, plot(b, Median, ylim = c(y_min, y_max), 
-                 xlim = c(x_min, x_max), pch = 19, 
-                 col = "white", cex.lab = 1,
+                 xlim = c(x_min, x_max), type = "n", yaxt = "n", cex.lab = 1,
                  xlab = my_xlab, ylab = my_ylab))
+  axis(side = 2, at = c(-1, -0.5, 0, 0.5, 1), labels = c("-1", "", "0", "", "1"))
   if(title){
     title(main = my_main, cex.main = 1.5)
   }
