@@ -30,11 +30,15 @@ b_pane <- function(b_val, n_val, d_val, title = TRUE, TeX = FALSE){
   x_step <- max(diff(foo$a1))
   x_min <- min(foo$a1) - 0.2 * x_step
   x_max <- max(foo$a1) + 0.2 * x_step
-  y_min <- min(foo$Lower5)
-  y_max <- max(foo$Upper5)
+  y_min <- b_val - 1
+  y_max <- b_val + 1
+  #y_min <- min(foo$Lower5)
+  #y_max <- max(foo$Upper5)
   with(foo, plot(a1, Median, ylim = c(y_min, y_max), 
-                 xlim = c(x_min, x_max), pch = 19, 
-                 col = "white", xlab = my_xlab, ylab = my_ylab, cex.lab = 1))
+                 xlim = c(x_min, x_max),  type = "n", yaxt = "n",
+                 xlab = my_xlab, ylab = my_ylab, cex.lab = 1))
+  axis(side = 2, at = c(y_min, y_min + 0.5, b_val, y_max - 0.5, y_max), 
+       labels = c(y_min, "", b_val, "", y_max))
   if(title){
     title(main = my_main, cex.main = 1.5)
   }
