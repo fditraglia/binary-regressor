@@ -288,8 +288,8 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Moment Conditions Imposing $\mathbb{E}[\varepsilon|z]=0$}
-  One pair of equations for each $k = 1, \dots, K$
+  \frametitle{What about increasing the support of $z$?}
+  \alert{\framebox{$\mathbb{E}[\varepsilon|z]=0 \implies$ \emph{pair} of equations for each $k = 1, \dots, K$}}
 \begin{align*}
   \hat{y}_{0k} &=\alpha_1(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + (1-\alpha_0)c - (p _k -  \alpha_0)m_{1k}^* \\[1.5ex]
   \label{eq:MC1IV}
@@ -306,28 +306,40 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{\emph{Proposition}: $\beta$ is Undentified Regardless of $K$}
-  \begin{block}{Proof Sketch}
-    \begin{enumerate}[(1)]
-      \item Show that $\mathcal{W}= \beta/(1-\alpha_0 - \alpha_1)$ is identified. 
-      \item Show that $\mathcal{Q} = c + \beta(1-\alpha_0)/(1-\alpha_0-\alpha_1)$ is identified.
-      \item $(1) + (2) \implies (\mathcal{Q}, \mathcal{W})$ are \emph{fixed}
-      \item Use (3) to rewrite equations in terms of $(\mathcal{Q}, \mathcal{W})$.
-      \item Discover that there is only \emph{one} equation per $k$! Rearranging: 
+  \frametitle{\emph{Theorem}: $\beta$ is undentified regardless of $K$.}
+  \framesubtitle{(For general case, see paper.)}
+  \begin{block}{Proof of special case: $\alpha_0 = 0$ }
+    \begin{enumerate}
+      \item System of equations simplifies to 
+    \vspace{0.5em}
+\begin{align*}
+  \hat{y}_{0k} &=c + p_k \beta \left(\frac{\alpha_1}{1 -  \alpha_1}\right) - p _k m_{1k}^* \\
+  \hat{y}_{1k} &=p_k \beta + p _k m_{1k}^*
+\end{align*}
+  \item $\beta/(1-\alpha_1) \equiv \mathcal{W}$ is identified and imposing this, algebra gives $\beta\alpha_1/(1-\alpha_1) = \mathcal{W} - \beta$. 
 
-        \[m^*_{1k} = \frac{\mathcal{W}(\hat{y}_{0k}-\alpha_1 \mathcal{Q}) - \beta(\mathcal{Q}-\beta-\mathcal{W}\alpha_1) + \mathcal{W}^2(1-p_k)\alpha_1}{\mathcal{W}(1-p_k - \alpha_1) - \beta}\]
     \end{enumerate}
-
   \end{block} 
     
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Special Case of Prev Proof: $\alpha_0 = 0$}
+  \frametitle{\emph{Theorem}: $\beta$ is undentified regardless of $K$.}
+  \framesubtitle{(For general case, see paper.)}
+  \begin{block}{Proof of special case: $\alpha_0 = 0$ continued\dots }
+    \begin{enumerate}
+      \item[3.] Substituting: 
+    \vspace{0.5em}
 \begin{align*}
-  \hat{y}_{0k} &=c + p_k \beta \left(\frac{\alpha_1}{1 -  \alpha_1}\right) - p _k m_{1k}^* \\[1.5ex]
-  \hat{y}_{1k} &=p_k \beta + p _k m_{1k}^*
+  (c + p_k \mathcal{W} - \hat{y}_{0k})/p_k &=\beta + m_{1k}^* \\
+  \hat{y}_{1k}/p_k &= \beta + m_{1k}^*
 \end{align*}
+\item[4.] Linear system in $(\beta, m_{1k}^*)$ -- no solution or $\infty$ of solutions.
+\item[5.] Sum original pair of equations $\implies c + p_k \mathcal{W} - \hat{y}_{0k} = \hat{y}_{1k}$ thus $\infty$ of solutions.
+  The model is unidentified.
+    \end{enumerate}
+  \end{block} 
+    
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
