@@ -343,7 +343,7 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Identification by Conditional Variances?} 
+  \frametitle{Conditional \emph{Second} Moment Independence.} 
   \begin{block}{New Assumption}
     Homoskedastic errors w.r.t.\ the \emph{instrument}: $E[\varepsilon^2|z]=E[\varepsilon^2]$
   \end{block}
@@ -351,45 +351,73 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
     Holds in an RCT or a \emph{true} natural experiment.
   \end{block}
   \begin{alertblock}{New Moment Conditions}
-    For each pair $(k,\ell)$
-\begin{align*}
-  s^2_k - s^2_\ell = \mathcal{W}^2\left[p_k(1-p_k) - p_\ell(1-p_\ell) + (\alpha_0 - \alpha_1)(p_k - p_\ell)\right]\\  
-  + 2\mathcal{W}\left[(p_k - \alpha_0)(m^*_{1k}-c) - (p_\ell - \alpha_0)(m^*_{1\ell}-c)\right]
-\end{align*}
-
-\vspace{0.5em}
-Where $s^2_k = Var(y|z=z_k)$, and $\mathcal{W}$ is the Wald IV estimator. 
+  Defining
+    $\mu_{k\ell}^* =  (p_k - \alpha_0) m_{1k}^* - (p_{\ell}-\alpha_0)m_{k\ell}^*$, 
+  \begin{align*}
+    \mathbb{E}(y^2|z_k) - \mathbb{E}(y^2|z_\ell) \equiv \alert{\Delta\overline{y^2}} &\alert{=}  \alert{\beta \mathcal{W} (p_k - p_\ell)  + 2 \mathcal{W} \mu_{k\ell}^*}\\
+    \mathbb{E}(yT|z_k) - \mathbb{E}(yT|z_\ell) \equiv \alert{ \Delta\overline{yT}} &\alert{=} \alert{(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + \mu_{k\ell}^*}
+  \end{align*}
   \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{\emph{Proposition}: $(\alpha_0 - \alpha_1)$ is Identified}
-  Define
-\begin{equation*}
-  \widetilde{\mathcal{W}}_{k\ell} = \frac{\mathbb{E}[yT|z_k] - \mathbb{E}[yT|z_\ell]}{p_k - p_\ell}
-\end{equation*}
-Show that:
-\begin{align*}
-(p_k - \alpha_0)&(m^*_{1k}-c) - (p_\ell - \alpha_0)(m^*_{1\ell}-c) =\\
-& (p_k - p_\ell)\left[ \widetilde{W}_{k\ell} - \mathbb{E}[y] - \mathcal{W}\left\{ (1 - p) + (\alpha_0 - \alpha_1) \right\} \right]
-\end{align*}
-Substituting and rearranging: 
-\begin{equation*}
-  \alpha_0 - \alpha_1 = (2p - 1 - p_k - p_\ell) + \frac{2(\widetilde{W}_{k\ell} - \mathbb{E}[y])}{\mathcal{W}} - \frac{s_k^2 - s_\ell^2}{(p_k - p_\ell)\mathcal{W}^2}
-\end{equation*}
+  \frametitle{\emph{Theorem}: $(\alpha_1 - \alpha_0)$ is Identified.}
+  \framesubtitle{(Requires only binary $z$)}
+  \begin{block}{Proof}
+  \vspace{-1.5em}
+  \begin{eqnarray*}
+    \Delta\overline{y^2} &=& \beta \mathcal{W} (p_k - p_\ell)  + 2 \mathcal{W} \mu_{k\ell}^* \\
+    \Delta\overline{yT} &=& (1-\alpha_1)\mathcal{W}(p_k - p_\ell) + \mu_{k\ell}^* 
+  \end{eqnarray*}
+
+  Solve for $\mu_{k\ell}^*$, substitute and rearrange:
+
+  \begin{equation*}
+    \mathcal{R} \equiv \beta - 2(1-\alpha_1)\mathcal{W} = \frac{\Delta\overline{y^2} - 2 \mathcal{W}\Delta\overline{yT}}{\mathcal{W}(p_k - p_\ell)}.
+  \end{equation*}
+
+  \vspace{0.4em}
+  Rearrange and substitute $\beta=\mathcal{W}(1-\alpha_0 -\alpha_1)$ to find 
+
+  \begin{equation*}
+    \alpha_1 - \alpha_0 = 1 + \mathcal{R}/\mathcal{W}.
+  \end{equation*}
+\end{block}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{What Good is $(\alpha_0 - \alpha_1)?$}
+  \frametitle{What Good is $(\alpha_1 - \alpha_0)?$}
     \begin{itemize}
-      \item Test a necessary condition for \emph{no mis-classification}:$\alpha_0 = \alpha_1$ 
+      \item Test a necessary condition for \emph{no mis-classification}: $\alpha_0 = \alpha_1$ 
       \item Simple, tighter partial identification bounds for $\beta$
       \item In some settings, one of the mis-classification probabilities is known to be zero $\implies \beta$ point identified 
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Identification from Third Moments}
+  \frametitle{Conditional \emph{Third} Moment Independence}
+  \begin{block}{New Assumption}
+    Third moment independence w.r.t\ instrument: $E[\varepsilon^3|z]=E[\varepsilon^3]$
+  \end{block}
+  \begin{alertblock}{New Moment Conditions}
+    Define $\lambda_{k\ell}^* = (p_k - \alpha_0) v_{1k}^* - (p_\ell - \alpha_0) v_{1\ell}^*$\\ where 
+  $v^*_{tk} =  \mathbb{E}(u^2|T^*=t, z_k)$. Then
+  \begin{eqnarray*}
+    \mathbb{E}(y^3|z_k) &-& \mathbb{E}(y^3|z_\ell)  \equiv \\ \alert{\Delta\overline{y^3}} &\alert{=}& \alert{\beta^2 \mathcal{W} (p_k - p_\ell)  + 3 \beta \mathcal{W} \mu_{k\ell}^* + 3 \mathcal{W} \lambda^*_{k\ell}}\\
+    \mathbb{E}(y^2T|z_k) &-& \mathbb{E}(y^2T|z_\ell) \equiv \\ \alert{\Delta\overline{y^2T}} &\alert{=}&  \alert{\beta(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + 2(1-\alpha_1)\mathcal{W}\mu_{k\ell}^* + \lambda_{k\ell}^*}
+  \end{eqnarray*}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{\emph{Theorem}: $\beta$, $\alpha_0$ and $\alpha_1$ are identified.}
+  \framesubtitle{Requires $\alpha_0 + \alpha_1 < 1$, but $z$ need only be binary.}
+
+  \begin{eqnarray*}
+    \Delta\overline{y^3} &=& \beta^2 \mathcal{W} (p_k - p_\ell)  + 3 \beta \mathcal{W} \mu_{k\ell}^* + 3 \mathcal{W} \lambda^*_{k\ell}\\
+    \Delta\overline{y^2T} &=& \beta(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + 2(1-\alpha_1)\mathcal{W}\mu_{k\ell}^* + \lambda_{k\ell}^* 
+  \end{eqnarray*}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
