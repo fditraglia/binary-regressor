@@ -413,11 +413,55 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \begin{frame}
   \frametitle{\emph{Theorem}: $\beta$, $\alpha_0$ and $\alpha_1$ are identified.}
   \framesubtitle{Requires $\alpha_0 + \alpha_1 < 1$, but $z$ need only be binary.}
-
+  \begin{block}{Proof}
+    \vspace{-1em}
   \begin{eqnarray*}
     \Delta\overline{y^3} &=& \beta^2 \mathcal{W} (p_k - p_\ell)  + 3 \beta \mathcal{W} \mu_{k\ell}^* + 3 \mathcal{W} \lambda^*_{k\ell}\\
     \Delta\overline{y^2T} &=& \beta(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + 2(1-\alpha_1)\mathcal{W}\mu_{k\ell}^* + \lambda_{k\ell}^* 
   \end{eqnarray*}
+
+  \vspace{1em}
+
+    Solve for $\lambda^*_{k\ell}$, substitute and rearrange: 
+
+  \begin{equation*}
+    \mathcal{S} \equiv \beta^2 - 3\mathcal{W}(1-\alpha_1) (\beta + \mathcal{R}) = \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}.
+  \end{equation*}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{\emph{Theorem}: $\beta$, $\alpha_0$ and $\alpha_1$ are identified.}
+  \framesubtitle{Requires $\alpha_0 + \alpha_1 < 1$, but $z$ need only be binary.}
+  \begin{block}{Proof continued\dots}
+    \vspace{-1em}
+  \begin{equation*}
+    \mathcal{S} \equiv \beta^2 - 3\mathcal{W}(1-\alpha_1) (\beta + \mathcal{R}) = \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}
+  \end{equation*}
+  \vspace{1em}
+
+  Use the fact that $\mathcal{R}=\beta - 2(1-\alpha_1)\mathcal{W}$ to eliminate $\beta$ from $\mathcal{S}$:
+
+  \begin{equation*}
+    2\mathcal{W}^2 (1-\alpha_1)^2 + 2 \mathcal{R}\mathcal{W} (1-\alpha_1) + (\mathcal{S} -\mathcal{R}^2) = 0
+    \label{eq:quadratic}
+  \end{equation*}
+
+  which is a quadratic in $(1-\alpha_1)$ and observables only! Can show that there are always two real roots: one is $(1-\alpha_1)$ and the other is $\alpha_0$. To tell which is which, need $\alpha_0 + \alpha_1 < 1$.
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Recap of Results}
+  \begin{enumerate}
+    \item Using first-moment information alone, $\beta$ is unidentified regardless of how many values the instrument takes on.
+     \item Using second moment information $\alpha_1 - \alpha_0$ is identified
+       \begin{itemize}
+         \item Partial identification bound for $\beta$
+          \item Identifies $\beta$ if $\alpha_0$ is known (e.g.\ smoking/birthweight example)
+       \end{itemize}
+    \item Using third moment information $\beta$, $\alpha_0$ and $\alpha_1$ are identified so long as $\alpha_0 + \alpha_1 < 1$.
+  \end{enumerate}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
