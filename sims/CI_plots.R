@@ -64,7 +64,7 @@ a_pane <- function(a_val, n_val, d_val, title = TRUE, TeX = FALSE){
   foo <- subset(a1_a0, (a1 == a_val) & (n == n_val) & (d == d_val))
   if(TeX){
     my_xlab <- "$\\beta$"
-    my_ylab <- "$\\widehat{\\alpha}_1 - \\widehat{\\alpha}_2$"
+    my_ylab <- "$\\widehat{\\alpha}_1 - \\widehat{\\alpha}_0$"
     my_main <- paste0("$N=", n_val, ", \\; d=", d_val, "$")
     my_legend <- paste0("$\\alpha_1=", a_val, "$")
   }else{
@@ -76,8 +76,10 @@ a_pane <- function(a_val, n_val, d_val, title = TRUE, TeX = FALSE){
   x_step <- max(diff(foo$b))
   x_min <- min(foo$b) - 0.2 * x_step
   x_max <- max(foo$b) + 0.2 * x_step
-  y_min <- min(foo$Lower5)
-  y_max <- max(foo$Upper5)
+  y_min <- -1
+  y_max <- 1
+  #y_min <- min(foo$Lower5)
+  #y_max <- max(foo$Upper5)
   with(foo, plot(b, Median, ylim = c(y_min, y_max), 
                  xlim = c(x_min, x_max), pch = 19, 
                  col = "white", cex.lab = 1,
@@ -85,7 +87,7 @@ a_pane <- function(a_val, n_val, d_val, title = TRUE, TeX = FALSE){
   if(title){
     title(main = my_main, cex.main = 1.5)
   }
-  legend(x = "topleft", legend = my_legend, bty = "n", cex = 1, xjust = 0)
+  legend(x = "top", legend = my_legend, bty = "n", cex = 1, xjust = 0)
   abline(h = foo$a1, lty = 5, col = "lightblue", lwd = 2)
   abline(h = 0)
   arrows(x0 = foo$b, y0 = foo$Lower5, x1 = foo$b, y1 = foo$Upper5, 
