@@ -40,29 +40,45 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Example 1: Smoking and Birthweight}
-\subtitle{Tappen et al. (2015, BMJ)}
-  RCT with 612 pregnant smokers in Glasgow, Scotland: 306 are offered financial incentives to attend smoking cessation program.
+  \frametitle{Example 1: Smoking and Birthweight (SNAP Trial)}
+\framesubtitle{Coleman et al.\ (N Engl J Med, 2012)}
+  RCT with 1050 pregnant smokers in England: 521 given nicotine patches, the rest given placebo patches.
 \begin{itemize}
   \item $y$ -- Birthweight 
   \item $T^*$ -- True smoking behavior 
   \item $T$ -- Self-reported smoking behavior
   \item $\mathbf{x}$ -- Mother characteristics
-  \item $z$ -- Offer of financial incentive
+  \item $z$ -- Indicator of nicotine patch
 \end{itemize}
    
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Example 2: Schooling and Test Scores}
-\subtitle{Burde \& Linden (2013, AEJ Applied Economics)}
-  RCT in Afghanistan: a school is built in 6 out of 11 villages.
+\framesubtitle{Burde \& Linden (2013, AEJ Applied )}
+  RCT in Afghanistan: 32 villages divided into 11 clusters. Randomly choose 6 and build a school in each village of these clusters. 
+
 \begin{itemize}
   \item $y$ -- Score on math and language test 
   \item $T^*$ -- True school attendance
   \item $T$ -- Self-reported school attendance
   \item $\mathbf{x}$ -- Household characteristics
   \item $z$ -- School built in village
+\end{itemize}
+   
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Example 3: Job Training Partnership Act (JPTA)}
+\framesubtitle{Heckman et al.\ (2000, QJE)}
+Randomized offer of job training, but about $30\%$ of those \emph{not} offered also obtain training and about $40\%$ of those offered training don't attend. Estimate causal effect of \emph{training} rather than \emph{offer} of training.
+
+\begin{itemize}
+  \item $y$ -- Log wage 
+  \item $T^*$ -- True training attendence
+  \item $T$ -- Self-reported training attendance
+  \item $\mathbf{x}$ -- Individual characteristics
+  \item $z$ -- Offer of job training
 \end{itemize}
    
 \end{frame}
@@ -184,6 +200,94 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+  \frametitle{Mahajan (2006, Econometrica)}
+    \begin{columns}[c]
+    \column{.45\textwidth} 
+    \begin{exampleblock}{Regression Model}
+      $y = \mathbb{E}[y|T^*] + \nu$\\
+      {\small $\mathbb{E}[\nu|T^*]=0$ by construction}
+    \end{exampleblock}
+    \column{.45\textwidth}
+    \begin{exampleblock}{Causal Model}
+     $y = c + \beta T^* + \varepsilon$\\
+     {\small$\mathbb{E}[\varepsilon|T^*]\neq 0$}
+    \end{exampleblock}
+    \end{columns}
+
+    \vspace{1.5em}
+  
+  \begin{block}{Main Result (Correct) -- Exogenous Treatment}
+   Relevant binary instrument $z$ ($p^*_1 \neq p^*_2$) identifies $\alpha_0, \alpha_1$ and $\mathbb{E}[y|T^*]$ provided that $\mathbb{E}[\nu|T^*,T,z]=0$. 
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Mahajan (2006, Econometrica)}
+    \begin{columns}[c]
+    \column{.45\textwidth} 
+    \begin{exampleblock}{Regression Model}
+      $y = \mathbb{E}[y|T^*] + \nu$\\
+      {\small $\mathbb{E}[\nu|T^*]=0$ by construction}
+    \end{exampleblock}
+    \column{.45\textwidth}
+    \begin{exampleblock}{Causal Model}
+     $y = c + \beta T^* + \varepsilon$\\
+     {\small$\mathbb{E}[\varepsilon|T^*]\neq 0$}
+    \end{exampleblock}
+    \end{columns}
+
+    \vspace{1.5em}
+
+  \begin{alertblock}{Additional Result (Incorrect) -- Endogenous Treatment}
+    $\mathbb{E}[\varepsilon|z]=0$, $p^*_1 \neq p^*_2$, $\mathbb{E}[\varepsilon|T,T^*,z]=\mathbb{E}[\varepsilon|T^*] \implies$ $\beta$ identified.
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Mahajan's Argument}
+    \begin{columns}[c]
+    \column{.45\textwidth} 
+    \begin{exampleblock}{Regression Model}
+      $y = \mathbb{E}[y|T^*] + \nu$\\
+      {\small $\mathbb{E}[\nu|T^*]=0$ by construction}
+    \end{exampleblock}
+    \column{.45\textwidth}
+    \begin{exampleblock}{Causal Model}
+     $y = c + \beta T^* + \varepsilon$\\
+     {\small$\mathbb{E}[\varepsilon|T^*]\neq 0$}
+    \end{exampleblock}
+    \end{columns}
+
+    \vspace{0.7em}
+
+    \begin{block}{Ingredients}
+      
+  \begin{enumerate}
+    \item If $p^*_1 \neq p^*_2$, $\mathbb{E}[\varepsilon|z]=0$ then, since $\beta_{IV} = \beta/(1-\alpha_0-\alpha_1)$, knowledge of $\alpha_0,\alpha_1$ is sufficient to recover $\beta$. \textcolor{blue}{(Correct)}
+    \item If $p^*_1 \neq p^*_2$, $\mathbb{E}[\nu|T^*,T,z]=0$, $\alpha_0, \alpha_1$ are identified. \textcolor{blue}{(Correct)}
+    \item[] \alert{\framebox{How to satisfy both 1 and 2 while allowing $\mathbb{E}[\varepsilon|T^*]\neq 0$?}}
+    \item[3.] Assume that $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ \\ {\small (i.e.\ $m_{01}^* = m_{02}^*$ and $m_{11}^*=m_{12}^*$)}
+  \end{enumerate}
+    \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Mahajan's Argument}
+  \begin{block}{Proposition}
+    If $\mathbb{E}[\varepsilon|T^*]\neq 0$ then  $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ combined with $\mathbb{E}[\varepsilon|z]=0$ implies $p^*_1 = p^*_2$, i.e.\ $z$ is irrelevant for $T^*$.
+  \end{block}
+  \begin{block}{Proof}
+    Recall that $\mathbb{E}[\varepsilon|z]=0$ implies
+  \begin{align*}
+     (1-p_1^*) m^*_{01} + p^*_1 m^*_{11}&=c\\
+     (1-p_2^*) m^*_{02} + p^*_2 m^*_{12}&=c
+  \end{align*}
+  while Mahajan's assumption implies $m_{01}^* = m_{02}^*$ and $m_{11}^*=m_{12}^*$.
+  Therefore either $m_{01}^*=m_{02}^* = m_{11}^* =m_{12}^*=c$, which is ruled out by $E[\varepsilon|T^*]=0$, or $p^*_1 = p^*_2$.
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
   \frametitle{Moment Conditions Imposing $\mathbb{E}[\varepsilon|z]=0$}
   One pair of equations for each $k = 1, \dots, K$
 \begin{align*}
@@ -199,10 +303,6 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \vspace{2em} 
 
 \hfill \alert{\framebox{$2K$ Equations in $K+4$ Unknowns}}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Mahajan}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -339,29 +439,29 @@ Substituting and rearranging:
 \end{figure}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\begin{figure}[h]
-  \scriptsize
-  \begingroup
-  \tikzset{every picture/.style={scale=0.53}}
-  \centering
-  \begin{subfigure}[b]{0.31\textwidth}
-\caption{\footnotesize $N=500, \delta = 0.2$}
-  \input{../../fig/a_talk_N500_d20.tex}
-  \end{subfigure}
-  ~
-  \begin{subfigure}[b]{0.31\textwidth}
-    \caption{\footnotesize $N=1000, \delta = 0.2$} 
-  \input{../../fig/a_talk_N1000_d20.tex}
-  \end{subfigure}
-  ~
-  \begin{subfigure}[b]{0.31\textwidth}
-\caption{\footnotesize $N=5000, \delta = 0.2$}
-  \input{../../fig/a_talk_N5000_d20.tex}
-  \end{subfigure}
-\endgroup
-\end{figure}
-\end{frame}
+%\begin{frame}
+%\begin{figure}[h]
+%  \scriptsize
+%  \begingroup
+%  \tikzset{every picture/.style={scale=0.53}}
+%  \centering
+%  \begin{subfigure}[b]{0.31\textwidth}
+%\caption{\footnotesize $N=500, \delta = 0.2$}
+%  \input{../../fig/a_talk_N500_d20.tex}
+%  \end{subfigure}
+%  ~
+%  \begin{subfigure}[b]{0.31\textwidth}
+%    \caption{\footnotesize $N=1000, \delta = 0.2$} 
+%  \input{../../fig/a_talk_N1000_d20.tex}
+%  \end{subfigure}
+%  ~
+%  \begin{subfigure}[b]{0.31\textwidth}
+%\caption{\footnotesize $N=5000, \delta = 0.2$}
+%  \input{../../fig/a_talk_N5000_d20.tex}
+%  \end{subfigure}
+%\endgroup
+%\end{figure}
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \begin{figure}[h]
@@ -418,29 +518,29 @@ Substituting and rearranging:
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\begin{figure}[h]
-  \scriptsize
-  \begingroup
-  \tikzset{every picture/.style={scale=0.53}}
-  \centering
-  \begin{subfigure}[b]{0.31\textwidth}
-\caption{\footnotesize $N=500, \delta = 0.2$}
-  \input{../../fig/b_talk_N500_d20.tex}
-  \end{subfigure}
-  ~
-  \begin{subfigure}[b]{0.31\textwidth}
-    \caption{\footnotesize $N=1000, \delta = 0.2$} 
-  \input{../../fig/b_talk_N1000_d20.tex}
-  \end{subfigure}
- ~ 
-  \begin{subfigure}[b]{0.31\textwidth}
-\caption{\footnotesize $N=5000, \delta = 0.2$}
-  \input{../../fig/b_talk_N5000_d20.tex}
-  \end{subfigure}
-\endgroup
-\end{figure}
-\end{frame}
+%\begin{frame}
+%\begin{figure}[h]
+%  \scriptsize
+%  \begingroup
+%  \tikzset{every picture/.style={scale=0.53}}
+%  \centering
+%  \begin{subfigure}[b]{0.31\textwidth}
+%\caption{\footnotesize $N=500, \delta = 0.2$}
+%  \input{../../fig/b_talk_N500_d20.tex}
+%  \end{subfigure}
+%  ~
+%  \begin{subfigure}[b]{0.31\textwidth}
+%    \caption{\footnotesize $N=1000, \delta = 0.2$} 
+%  \input{../../fig/b_talk_N1000_d20.tex}
+%  \end{subfigure}
+% ~ 
+%  \begin{subfigure}[b]{0.31\textwidth}
+%\caption{\footnotesize $N=5000, \delta = 0.2$}
+%  \input{../../fig/b_talk_N5000_d20.tex}
+%  \end{subfigure}
+%\endgroup
+%\end{figure}
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \begin{figure}[h]
