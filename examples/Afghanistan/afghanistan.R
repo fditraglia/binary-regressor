@@ -203,8 +203,16 @@ set.seed(11)
 goodbootdraws <- as.data.frame(t(replicate(5000, goodboot())))
 head(goodbootdraws)
 adiff <- goodbootdraws$a1_a0
-hist(adiff)
-quantile(adiff, c(0.05, 0.95))
+
+library(MASS)
+library(tikzDevice)
+tikz(file = "AfghanBoot.tex", width = 6, height = 4)
+setwd("~/binary-regressor/fig")
+truehist(adiff, main = "Cluster Bootstrap Distribution of $\\hat{\\alpha}_1 - \\hat{\\alpha}_0$", col = "lightskyblue1", xlab = "", yaxt = "n")
+legend(x = 0.3, y = 3.5, bty = "n", "$p = 0.13$")
+dev.off()
+
+quantile(adiff, c(0.066, 0.934))
 mean(adiff)
 
 with(dat, table(x,z))
