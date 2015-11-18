@@ -132,6 +132,31 @@ datCovariates$y_adjust <- y_adjust
 dat2 <- with(datCovariates, data.frame("x" = x, "y" = y_adjust, "z" = z))
 est(dat2)
 
+library(MASS)
+library(tikzDevice)
+setwd("~/binary-regressor/fig/")
+tikz(file = "AfghanHist.tex", width = 6, height = 6)
+par(mfrow = c(2,2))
+with(subset(dat2, (z == 0) & (x == 0)), 
+     truehist(y, ylab = "$T = 0$", main = "$z = 0$", xlab = "", col = "lightskyblue1", yaxt = "n"))
+legend(x = "top", legend = "$N=526$", bty = "n")
+
+with(subset(dat2, (z == 1) & (x == 0)), 
+     truehist(y, ylab = "", main = "$z = 1$", xlab = "", col = "lightskyblue1", 
+              yaxt = "n"))
+legend(x = 0.5, y = 0.6, legend = "$N=223$", bty = "n")
+
+with(subset(dat2, (z == 0) & (x == 1)), 
+     truehist(y, ylab = "$T = 1$", main = "", xlab = "", col = "lightskyblue1",
+              yaxt = "n"))
+legend(x = "topleft", legend = "$N=171$", bty = "n")
+
+with(subset(dat2, (z == 1) & (x == 1)), 
+     truehist(y, ylab = "", main = "", xlab = "", col = "lightskyblue1", yaxt = "n"))
+legend(x = "topleft", legend = "$N=548$", bty = "n")
+par(mfrow = c(1,1))
+dev.off()
+
 # Try bootstraps that impose the cluster structure
 
 
@@ -175,12 +200,14 @@ goodboot <- function(){
 
 
 set.seed(11)
-goodbootdraws <- as.data.frame(t(replicate(2000, goodboot())))
+goodbootdraws <- as.data.frame(t(replicate(5000, goodboot())))
 head(goodbootdraws)
 adiff <- goodbootdraws$a1_a0
 hist(adiff)
 quantile(adiff, c(0.05, 0.95))
 mean(adiff)
+
+with(dat, table(x,z))
 
 
 

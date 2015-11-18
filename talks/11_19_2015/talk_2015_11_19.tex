@@ -55,17 +55,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Example 2: Schooling and Test Scores}
-\framesubtitle{Burde \& Linden (2013, AEJ Applied )}
-  RCT in Afghanistan: 32 villages divided into 11 clusters. Randomly choose 6 and build a school in each village of these clusters. 
+  RCT in Afghanistan: 32 villages divided into 11 clusters. Randomly choose 6 and build a school in each village of these clusters.
 
 \begin{itemize}
-  \item $y$ -- Score on math and language test 
-  \item $T^*$ -- True school attendance
-  \item $T$ -- Self-reported school attendance
-  \item $\mathbf{x}$ -- Household characteristics
+  \item $y$ -- Child's score on math and language test 
+  \item $T^*$ -- Child's true school attendance
+  \item $T$ -- Parent's report of child's school attendance
+  \item $\mathbf{x}$ -- Child and household characteristics
   \item $z$ -- School built in village
 \end{itemize}
-   
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -463,32 +461,25 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Simulation Study}
-  $y = \beta T^* + \varepsilon$
+  \frametitle{Simulation Study: $y = \beta T^* + \varepsilon$}
+  \begin{itemize}
+    \item $(\varepsilon, \eta) \sim $ jointly normal, mean 0, variance 1, corr.\ 0.3.
+    \item First stage: $T^* = \mathbf{1}\left\{ \gamma_0 + \gamma_1 z + \eta > 0 \right\}$
+      \begin{itemize}
+        \item Half of subjects have $z=1$, the rest have $z=0$.
+        \item $\gamma_0 = \Phi^{-1}(\delta)$
+        \item $\gamma_1 = \Phi^{-1}(1-\delta) - \Phi(\delta)$   
+        \item $\delta$ equals fraction of those offered treatment who fail to take it up \emph{and} fraction of those not offered treatment who do.
+      \end{itemize}
+    \item Generate $T$ as follows:
+      \begin{itemize}
+        \item $T^* = 0 \implies T=0$, i.e.\ $\alpha_0 = 0$
+        \item $T|T^*=1 \sim \mbox{Bernoulli}(1-\alpha_1)$
+        \item $\alpha_0, \alpha_1$ unknown to econometrician.
+      \end{itemize}
+  \end{itemize}
 
-  $T^* = \mathbf{1}\left\{ \gamma_0 + \gamma_1 z + \eta > 0 \right\}$
-
-  $\gamma_0 = \Phi^{-1}(\delta)$, $\gamma_1 = \Phi^{-1}(1-\delta) - \Phi(\delta)$ so that $\delta$
-
-  E.g.\ if $\delta=0.1$ then 10\% of those \emph{not} offered treatment get it anyway, and 10\% of those offered treatment don't take it up.
   
-  If $T^*=0$ then $T=0$ (E.g.\ Birthweight and smoking)
-  $T|T^*=1 \sim \mbox{Bernoulli}(?)$
-
-  \[ \left[
-  \begin{array}{c}
-  \varepsilon \\ \eta
-\end{array}
-\right] \sim N\left( \left[
-\begin{array}{c}
-0 \\ 0
-\end{array}
-\right], \left[
-\begin{array}{cc}
-1 & 0.3\\
-0.3 & 1 \\
-\end{array}
-\right]\right)\]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -650,6 +641,34 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Empirical Illustration: Schooling and Test Scores}
+\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
+  RCT in Afghanistan: 32 villages divided into 11 clusters. Randomly choose 6 and build a school in each village of these clusters ($N = 1468$).
+
+\begin{itemize}
+  \item $y$ -- Child's score on math and language test 
+  \item $T^*$ -- Child's true school attendance
+  \item $T$ -- Parent's report of child's school attendance
+  \item $\mathbf{x}$ -- Child and household characteristics
+  \item $z$ -- School built in village
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Empirical Illustration: Schooling and Test Scores}
+\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
+\begin{figure}[h]
+  \scriptsize
+  \begingroup
+  \tikzset{every picture/.style={scale=0.53}}
+  \centering
+  \input{../../fig/AfghanHist.tex}
+  \endgroup
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Empirical Illustration: Schooling and Test Scores}
+\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
