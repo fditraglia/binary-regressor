@@ -37,3 +37,12 @@ We now show that by augmenting Theorem \ref{pro:homosked} with information on co
 
 Note that, unlike Theorem \ref{pro:homosked}, Theorem \ref{thm:skew} requires the assumption that $\alpha_0 + \alpha_1 < 1$.
 Without this assumption, we identify $\beta$ only up to sign.
+
+\subsection{Estimation}
+We now briefly describe how the identification results from above can be applied in practice.
+In our arguments above we suppressed dependence on the covariates $\mathbf{x}$. 
+We now make this dependence explicit to illustrate how one can estimate the ATE $\tau(\mathbf{x})$ and the mis-classification rates $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ non-parametrically as a function of $\mathbf{x}$.
+Our proofs, which appear below in the appendix, provide closed-form expressions for each of these quantities in terms of three objects: $\mathcal{W}(\mathbf{x})$, defined in Equation \ref{eq:wald}, $\mathcal{R}(\mathbf{x})$, defined in Equation \ref{eq:Rdef} and $\mathcal{S}(\mathbf{x})$, defined in Equation \ref{eq:Sdef}.
+Provided that $p_k(\mathbf{x}) \neq p_\ell(\mathbf{x})$ for all $k\neq \ell$, which follows from Assumption \ref{assump:A1}(ii) by Equation \ref{eq:pkstar},  $\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})$ and $\tau(\mathbf{x})$ are smooth functions of $\left(\mathcal{W}(\mathbf{x}), \mathcal{R}(\mathbf{x}), \mathcal{S}(\mathbf{x})\right)$.
+Under the same condition, these in turn are smooth functions of  the underlying conditional expectation functions $ \mathbb{E}\left[ T|z,\mathbf{x} \right], \mathbb{E}\left[y| z,\mathbf{x} \right]$, $\mathbb{E}\left[y^2| z,\mathbf{x} \right]$, $\mathbb{E}\left[y^3| z,\mathbf{x} \right]$, $\mathbb{E}\left[yT| z,\mathbf{x} \right]$, and  $\mathbb{E}\left[y^2T| z,\mathbf{x} \right]$.
+One could employ any number of existing nonparametric estimation techniques to estimate these conditional expectation functions, at which point one is left with a standard, two-step method of moments estimation problem.\footnote{For more details of the implementation of such a procedure see, e.g., \cite{Mahajan} Section 4 or \cite{Lewbel} Section 4.}
