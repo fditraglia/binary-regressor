@@ -29,7 +29,8 @@ In particular, we assume that
   \label{eq:a1}
   \mathbb{P}(T = 0| T^* = 1, z, \mathbf{x})  &=&  \alpha_1(\mathbf{x})
 \end{eqnarray}
-where the mis-classification error rates $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ can depend on $\mathbf{x}$ but not $z$, and additionally that, conditional on true treatment status, observed treatment status provides no additional information about the error term, in other words
+where the mis-classification error rates $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ can depend on $\mathbf{x}$ but not $z$, and additionally that, conditional on true treatment status, observed treatment status provides no additional information about the error term.
+In other words, we assume that
 \begin{equation}
   \mathbb{E}[\varepsilon|T^*,T,z,\mathbf{x}] =  \mathbb{E}[\varepsilon|T^*,z,\mathbf{x}].
   \label{eq:nondiff}

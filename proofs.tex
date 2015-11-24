@@ -26,9 +26,6 @@ A unique solution exists if and only if $p_1 \neq p_2$.
 by Assumption \ref{assump:Eq11}, since $\mathbb{E}[\varepsilon|T^*]$ is $(T^*,T,z)$--measurable.
 \end{proof}
 
-\begin{proof}[Proof of Lemma \ref{lem:eq1}]
-  The result follows by combining Equation \ref{eq:pkstar} with Bayes' rule and the Law of Iterated Expectations applied to Equation \ref{eq:linear}.
-\end{proof}
 \begin{proof}[Proof of Proposition \ref{pro:FirstStage}]
   By the Law of Iterated Expectations,
   \begin{equation}
@@ -101,6 +98,37 @@ Equation \ref{eq:mSolve} is a manifold parameterized by $(\beta,\alpha_1)$ that 
 Thus, by adjusting $\left\{ m^*_{1k} \right\}_{k=1}^K$ according to Equation \ref{eq:mSolve} we are free to vary $\beta$ while holding all observable moments fixed. 
 \end{proof}
 
+\begin{proof}[Proof of Theorem \ref{pro:homosked}]
+  First define
+  \begin{eqnarray}
+    \label{eq:mustar}
+    \mu_{k\ell}^* &=&  (p_k - \alpha_0) m_{1k}^* - (p_{\ell}-\alpha_0)m_{k\ell}^* \\
+    \label{eq:y2def}
+    \Delta\overline{y^2} &=&  \mathbb{E}(y^2|z_k) - \mathbb{E}(y^2|z_\ell)\\
+    \label{eq:yTdef}
+    \Delta\overline{yT} &=&  \mathbb{E}(yT|z_k) - \mathbb{E}(yT|z_\ell)
+  \end{eqnarray}
+  By iterated expectations it follows, after some algebra, that
+  \begin{eqnarray}
+    \label{eq:y2}
+    \Delta\overline{y^2} &=& \beta \mathcal{W} (p_k - p_\ell)  + 2 \mathcal{W} \mu_{k\ell}^* \\
+    \label{eq:yT}
+    \Delta\overline{yT} &=& (1-\alpha_1)\mathcal{W}(p_k - p_\ell) + \mu_{k\ell}^* 
+  \end{eqnarray}
+  Now, solving Equation \ref{eq:yT} for $\mu_{k\ell}^*$, substituting the result into Equation \ref{eq:y2} and rearranging,
+  \begin{equation}
+    \mathcal{R} \equiv \beta - 2(1-\alpha_1)\mathcal{W} = \frac{\Delta\overline{y^2} - 2 \mathcal{W}\Delta\overline{yT}}{\mathcal{W}(p_k - p_\ell)}.
+    \label{eq:Rdef}
+  \end{equation}
+  Since $\mathcal{W}$ is identified it follows that $\mathcal{R}$ is identified.
+  Rearranging the preceding equality and substituting $\beta=\mathcal{W}(1-\alpha_0 -\alpha_1)$ to eliminate $\beta$, we find that
+  \begin{equation}
+    \alpha_1 - \alpha_0 = 1 + \mathcal{R}/\mathcal{W}.
+   \label{eq:aDiff}
+  \end{equation}
+  Because both $\mathcal{R}$ and $\mathcal{W}$ are identified, it follows that the difference of error rates is also identified.
+\end{proof}
+
 \begin{proof}[Proof of Theorem \ref{thm:skew}]
   First define 
   \begin{eqnarray}
@@ -157,34 +185,4 @@ Then $r_{max} = \alpha_0$ and $r_{min}=1 - \alpha_1$ and accordingly
 \[1 - \alpha_0 - \alpha_1 = r_{min} - r_{max} < 0\]
 which violates the assumption $\alpha_0 + \alpha_1 < 1$.
 Therefore $\alpha_0$ and $\alpha_1$ are identified and multiplying the Wald estimator $\mathcal{W}$ by $(1 - \alpha_0 - \alpha_1)$ identifies $\beta$.
-\end{proof}
-\begin{proof}[Proof of Theorem \ref{pro:homosked}]
-  First define
-  \begin{eqnarray}
-    \label{eq:mustar}
-    \mu_{k\ell}^* &=&  (p_k - \alpha_0) m_{1k}^* - (p_{\ell}-\alpha_0)m_{k\ell}^* \\
-    \label{eq:y2def}
-    \Delta\overline{y^2} &=&  \mathbb{E}(y^2|z_k) - \mathbb{E}(y^2|z_\ell)\\
-    \label{eq:yTdef}
-    \Delta\overline{yT} &=&  \mathbb{E}(yT|z_k) - \mathbb{E}(yT|z_\ell)
-  \end{eqnarray}
-  By iterated expectations it follows, after some algebra, that
-  \begin{eqnarray}
-    \label{eq:y2}
-    \Delta\overline{y^2} &=& \beta \mathcal{W} (p_k - p_\ell)  + 2 \mathcal{W} \mu_{k\ell}^* \\
-    \label{eq:yT}
-    \Delta\overline{yT} &=& (1-\alpha_1)\mathcal{W}(p_k - p_\ell) + \mu_{k\ell}^* 
-  \end{eqnarray}
-  Now, solving Equation \ref{eq:yT} for $\mu_{k\ell}^*$, substituting the result into Equation \ref{eq:y2} and rearranging,
-  \begin{equation}
-    \mathcal{R} \equiv \beta - 2(1-\alpha_1)\mathcal{W} = \frac{\Delta\overline{y^2} - 2 \mathcal{W}\Delta\overline{yT}}{\mathcal{W}(p_k - p_\ell)}.
-    \label{eq:Rdef}
-  \end{equation}
-  Since $\mathcal{W}$ is identified it follows that $\mathcal{R}$ is identified.
-  Rearranging the preceding equality and substituting $\beta=\mathcal{W}(1-\alpha_0 -\alpha_1)$ to eliminate $\beta$, we find that
-  \begin{equation}
-    \alpha_1 - \alpha_0 = 1 + \mathcal{R}/\mathcal{W}.
-   \label{eq:aDiff}
-  \end{equation}
-  Because both $\mathcal{R}$ and $\mathcal{W}$ are identified, it follows that the difference of error rates is also identified.
 \end{proof}
