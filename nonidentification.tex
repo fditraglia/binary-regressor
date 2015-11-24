@@ -18,9 +18,6 @@ In contrast, there are only $2K$ available moment conditions.
 \end{align}
 where $\hat{y}_{0k} = (1-p_k)\bar{y}_{0k}$ and $\hat{y}_{1k}= p_k \bar{y}_{1k}$.
 \end{lem}
-\begin{proof}[Proof of Lemma \ref{lem:eq1}]
-  The result follows by combining Equation \ref{eq:pkstar} with Bayes' rule and the Law of Iterated Expectations applied to Equation \ref{eq:linear}.
-\end{proof}
 Notice that the observable ``weighted'' cell mean $\hat{y}_{tk}$ defined in the preceding lemma depends on both $m^*_{tk}$ \emph{and} $m^*_{1-t,k}$ since the cell in which $T=t$ from Table \ref{tab:observables} is in fact a mixture of both the cells $T^*=0$ and $T^*=1$ from Table \ref{tab:unobservables}, for a particular column $k$.
 Clearly we have fewer equations than unknowns.
 What additional restrictions could we consider imposing on the system? 
@@ -43,13 +40,6 @@ Unlike \cite{Lewbel} we, along with \cite{Mahajan} and others, assume that $\mat
 \end{align}
 where $\hat{y}_{0k} = (1-p_k)\bar{y}_{0k}$ and $\hat{y}_{1k}= p_k \bar{y}_{1k}$.
 \end{cor}
-\begin{proof}[Proof of Corollary \ref{cor:eq2}]
-Using Equation \ref{eq:pkstar} and rearranging, 
-\begin{equation*}
-  \frac{(1 - p_k - \alpha_1) m_{0k}^*}{1 - \alpha_0 - \alpha_1} = c - \frac{(p_k - \alpha_0)m_{1k^*}}{1 - \alpha_0 - \alpha_1}.
-\end{equation*}
-The result follows by substituting into Equations \ref{eq:MC0}--\ref{eq:MC1} from Lemma \ref{lem:eq1}.
-\end{proof}
 Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} also make it clear why the IV estimator is inconsistent in the face of non-differential measurement error, and that this inconsistency does not depend on the endogeneity of the treatment, as noted by \cite{FL}.
 Adding together Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} yields
 \begin{equation*}
@@ -111,51 +101,6 @@ Unfortunately this approach fails as well, as we now show.
   Suppose that Assumption \ref{assump:A2} holds and additionally that $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*,z]$ (non-differential measurement error).  
   Then regardless of how many values $z$ takes on, generically $\beta$ is unidentified based on the observables contained in Table \ref{tab:observables}.
 \end{thm}
-\begin{proof}[Proof of Theorem \ref{pro:Lack}]
-
-  Recall from the discussion preceding Equation \ref{eq:wald} that the Wald estimator $\mathcal{W} = \beta/(1-\alpha_0-\alpha_1)$ is identified in this model so long as $K$ is at least 2. 
-  Rearranging, we find that:
-  \begin{align*}
-    \alpha_0 &= (1-\alpha_1) - \beta/\mathcal{W} \\
-    (p_k - \alpha_0) &= p_k - (1-\alpha_1) + \beta/\mathcal{W}\\
-    1 - \alpha_0 &= \alpha_1 + \beta/\mathcal{W}
-  \end{align*}
-Substituting these into Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} and summing the two, we find, after some algebra, that
-\[\hat{y}_{0k} + \hat{y}_{1k} + \mathcal{W}(1-p_k) = c + \beta + \mathcal{W} \alpha_1.\]
-Since the left-hand side of this expression depends only on observables and the identified quantity $\mathcal{W}$, this shows that the right-hand side is itself identified in this model.
-For simplicity, we define $\mathcal{Q} = c + \beta + \mathcal{W}\alpha_1$.
-Since $\mathcal{W}$ and $\mathcal{Q}$ are both identified, varying either \emph{necessarily} changes the observables, so we must hold both of them constant. 
-We now show that Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} can be expressed in terms of $\mathcal{W}$ and $\mathcal{Q}$.
-Conveniently, this eliminates $\alpha_0$ from the system.
-After some algebra, 
-\begin{align}
-  \label{eq:OtherSameEquation}
-  \hat{y}_{0k} &= \alpha_1 (\mathcal{Q} - m^*_{1k}) + \beta(c-m^*_{1k})/\mathcal{W} + (1-p_k)\left[m^*_{1k} - \mathcal{W}\alpha_1\right]\\
-  \hat{y}_{1k} &= (1-\alpha_1) \mathcal{Q} + \beta(m^*_{1k} - c)/\mathcal{W} - (1-p_k)\left[m^*_{1k} + \mathcal{W}(1-\alpha_1)\right]
-  \label{eq:SimplifyMe}
-\end{align}
-Now, rearranging Equation \ref{eq:SimplifyMe} we see that
-\begin{equation}
-  \mathcal{Q} - \hat{y}_{1k} - \mathcal{W}(1-p_k) = \alpha_1 (\mathcal{Q} - m^*_{1k}) + \beta(c-m^*_{1k})/\mathcal{W} + (1-p_k)\left[m^*_{1k} - \mathcal{W}\alpha_1\right]
-  \label{eq:SameEquation}
-\end{equation}
-Notice that the right-hand side of Equation \ref{eq:SameEquation} is the \emph{same} as that of Equation \ref{eq:OtherSameEquation} and that $\mathcal{Q} - \hat{y}_{1k} - \mathcal{W}(1-p_k)$ is precisely $\hat{y}_{0k}$.
-In other words, given the constraint that $\mathcal{W}$ and $\mathcal{Q}$ must be held fixed, we only have \emph{one} equation for each value that the instrument takes on.
-Finally, we can solve this equation for $m^*_{1k}$ as
-\begin{equation}
-  m^*_{1k} = \frac{\mathcal{W}(\hat{y}_{0k}-\alpha_1 \mathcal{Q}) - \beta(\mathcal{Q}-\beta-\mathcal{W}\alpha_1) + \mathcal{W}^2(1-p_k)\alpha_1}{\mathcal{W}(1-p_k - \alpha_1) - \beta}
-  \label{eq:mSolve}
-\end{equation}
-using the fact that $c = \mathcal{Q} - \beta - \mathcal{W}\alpha_1$.
-Equation \ref{eq:mSolve} is a manifold parameterized by $(\beta,\alpha_1)$ that is \emph{unique} to each value that the instrument takes on. 
-Thus, by adjusting $\left\{ m^*_{1k} \right\}_{k=1}^K$ according to Equation \ref{eq:mSolve} we are free to vary $\beta$ while holding all observable moments fixed. 
-\end{proof}
 The preceding argument establishes lack of identification by deriving a parametric relationship between $\beta$ and $\alpha_0, \alpha_1, \{m^*_{1k}\}_{k=1}^K$.
 So long as we adjust the other parameters according to this relationship, we are free to vary $\beta$ while leaving all observable moments unchanged.
 This holds regardless of the number of values, $K$, that the instrument takes on.
-
-
-
-%Notice that Equation 20 breaks if $p_k = \alpha_0$. This is because it would reduce the pair of equations to an expression  kill the $m^*_{1k}$ term in the pair of equations for this particular value of $k$. This seems to be related to \cite{Hausman}
-
-%Add some discussion of what this proof means, why there is a lack of identification intuitively, why adding more values for the instrument doesn't help, etc.

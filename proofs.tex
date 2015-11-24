@@ -1,0 +1,190 @@
+%!TEX root = ./main.tex
+\section{Proofs}
+
+\begin{proof}[Proof of Lemma \ref{res:A2}]
+Since $z$ is a valid instrument that does not influence the mis-classification probabilities
+\[\mathbb{E}[y|z_k] = c + \beta \mathbb{E}[T^*|z_k] + \mathbb{E}[\varepsilon|z_k] = c + \beta p_k^* = c + \beta \left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)\]
+by Equation \ref{eq:pkstar}.
+Since $p_k$ is observed, and $z$ takes on two values, this is a system of two linear equations in $c,\beta$ provided that $\alpha_0,\alpha_1$ are known.
+A unique solution exists if and only if $p_1 \neq p_2$.
+\end{proof}
+
+\begin{proof}[Proof of Lemma \ref{thm:1}]
+  See \cite{Mahajan} Appendix A.1. 
+\end{proof}
+
+\begin{proof}[Proof of Lemma \ref{res:Eq11}]
+  Taking conditional expectations of the causal model,
+  \[\mathbb{E}[y|T^*] = c + \beta T^* + \mathbb{E}[\varepsilon|T^*]\]
+  which implies that 
+  \[\nu = y - c - \beta T^* - \mathbb{E}[\varepsilon|T^*] = \varepsilon - \mathbb{E}[\varepsilon|T^*].\]
+  Now, taking conditional expectations of both sides given $T^*,T,z$, we see that 
+  \begin{align*}
+  \mathbb{E}[\nu|T^*,T,z]&= \mathbb{E}[\varepsilon|T^*,T,z] - \mathbb{E}\left[ \mathbb{E}\left( \left.\varepsilon\right|T^* \right)\left. \right| T,T^*,z \right]\\
+  &= \mathbb{E}[\varepsilon|T^*,T,z] - \mathbb{E}\left[ \left.\varepsilon\right|T^* \right] = 0
+\end{align*}
+by Assumption \ref{assump:Eq11}, since $\mathbb{E}[\varepsilon|T^*]$ is $(T^*,T,z)$--measurable.
+\end{proof}
+
+\begin{proof}[Proof of Lemma \ref{lem:eq1}]
+  The result follows by combining Equation \ref{eq:pkstar} with Bayes' rule and the Law of Iterated Expectations applied to Equation \ref{eq:linear}.
+\end{proof}
+\begin{proof}[Proof of Proposition \ref{pro:FirstStage}]
+  By the Law of Iterated Expectations,
+  \begin{equation}
+    \label{eq:NoSelection}
+    \mathbb{E}[\varepsilon|T^*,z] = \mathbb{E}_{T|T^*,z}\left[\mathbb{E}\left(\varepsilon|T^*,T,z \right)  \right] = \mathbb{E}_{T|T^*,z}\left[\mathbb{E}\left(\varepsilon|T^* \right)  \right]
+    = \mathbb{E}\left[ \varepsilon|T^* \right]
+  \end{equation}
+    where the second equality follows from Assumption \ref{assump:Eq11} and the final equality comes from the fact that $\mathbb{E}[\varepsilon|T^*]$ is $(T^*,z)$--measurable. 
+  Using our notation from above let $u = c + \varepsilon$ and define $m^*_{tk}=\mathbb{E}[u|T^*=t,z=z_k]$.
+  Since $c$ is a constant, by Equation \ref{eq:NoSelection} we see that $m^*_{01}=m^*_{02}$ and $m^*_{11}=m^*_{12}$.
+  Now, by Assumption \ref{assump:A2}(i) we have $\mathbb{E}[\varepsilon|z]=0$ so that $\mathbb{E}[u|z_1]= \mathbb{E}[u|z_2] =c$.
+  Again using iterated expectations, 
+  \begin{align*}
+    \mathbb{E}\left[u|z_1 \right] &= \mathbb{E}_{T^*|z_1}\left[\mathbb{E}\left( u|T^*,z_1 \right)  \right] = (1-p_1^*) m^*_{01} + p^*_1 m^*_{11}=c\\
+    \mathbb{E}\left[u|z_2 \right] &= \mathbb{E}_{T^*|z_2}\left[\mathbb{E}\left( u|T^*,z_2 \right)  \right] = (1-p_2^*) m^*_{02} + p^*_2 m^*_{12}=c
+  \end{align*}
+  The preceding two equations, combined with $m^*_{01}=m^*_{02}$ and $m^*_{11}=m^*_{12}$ imply that $p_1^* = p_2^*$ unless $m^*_{01} = m^*_{11} = m^*_{02} = m^*_{12} = c$.
+  But this four-way equality is ruled out by the assumption that $\mathbb{E}[\varepsilon|T^*]\neq0$. 
+\end{proof}
+
+\begin{proof}[Proof of Lemma \ref{lem:eq1}]
+  The result follows by combining Equation \ref{eq:pkstar} with Bayes' rule and the Law of Iterated Expectations applied to Equation \ref{eq:linear}.
+\end{proof}
+
+\begin{proof}[Proof of Corollary \ref{cor:eq2}]
+Using Equation \ref{eq:pkstar} and rearranging, 
+\begin{equation*}
+  \frac{(1 - p_k - \alpha_1) m_{0k}^*}{1 - \alpha_0 - \alpha_1} = c - \frac{(p_k - \alpha_0)m_{1k^*}}{1 - \alpha_0 - \alpha_1}.
+\end{equation*}
+The result follows by substituting into Equations \ref{eq:MC0}--\ref{eq:MC1} from Lemma \ref{lem:eq1}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{pro:Lack}]
+
+  Recall from the discussion preceding Equation \ref{eq:wald} that the Wald estimator $\mathcal{W} = \beta/(1-\alpha_0-\alpha_1)$ is identified in this model so long as $K$ is at least 2. 
+  Rearranging, we find that:
+  \begin{align*}
+    \alpha_0 &= (1-\alpha_1) - \beta/\mathcal{W} \\
+    (p_k - \alpha_0) &= p_k - (1-\alpha_1) + \beta/\mathcal{W}\\
+    1 - \alpha_0 &= \alpha_1 + \beta/\mathcal{W}
+  \end{align*}
+Substituting these into Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} and summing the two, we find, after some algebra, that
+\[\hat{y}_{0k} + \hat{y}_{1k} + \mathcal{W}(1-p_k) = c + \beta + \mathcal{W} \alpha_1.\]
+Since the left-hand side of this expression depends only on observables and the identified quantity $\mathcal{W}$, this shows that the right-hand side is itself identified in this model.
+For simplicity, we define $\mathcal{Q} = c + \beta + \mathcal{W}\alpha_1$.
+Since $\mathcal{W}$ and $\mathcal{Q}$ are both identified, varying either \emph{necessarily} changes the observables, so we must hold both of them constant. 
+We now show that Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} can be expressed in terms of $\mathcal{W}$ and $\mathcal{Q}$.
+Conveniently, this eliminates $\alpha_0$ from the system.
+After some algebra, 
+\begin{align}
+  \label{eq:OtherSameEquation}
+  \hat{y}_{0k} &= \alpha_1 (\mathcal{Q} - m^*_{1k}) + \beta(c-m^*_{1k})/\mathcal{W} + (1-p_k)\left[m^*_{1k} - \mathcal{W}\alpha_1\right]\\
+  \hat{y}_{1k} &= (1-\alpha_1) \mathcal{Q} + \beta(m^*_{1k} - c)/\mathcal{W} - (1-p_k)\left[m^*_{1k} + \mathcal{W}(1-\alpha_1)\right]
+  \label{eq:SimplifyMe}
+\end{align}
+Now, rearranging Equation \ref{eq:SimplifyMe} we see that
+\begin{equation}
+  \mathcal{Q} - \hat{y}_{1k} - \mathcal{W}(1-p_k) = \alpha_1 (\mathcal{Q} - m^*_{1k}) + \beta(c-m^*_{1k})/\mathcal{W} + (1-p_k)\left[m^*_{1k} - \mathcal{W}\alpha_1\right]
+  \label{eq:SameEquation}
+\end{equation}
+Notice that the right-hand side of Equation \ref{eq:SameEquation} is the \emph{same} as that of Equation \ref{eq:OtherSameEquation} and that $\mathcal{Q} - \hat{y}_{1k} - \mathcal{W}(1-p_k)$ is precisely $\hat{y}_{0k}$.
+In other words, given the constraint that $\mathcal{W}$ and $\mathcal{Q}$ must be held fixed, we only have \emph{one} equation for each value that the instrument takes on.
+Finally, we can solve this equation for $m^*_{1k}$ as
+\begin{equation}
+  m^*_{1k} = \frac{\mathcal{W}(\hat{y}_{0k}-\alpha_1 \mathcal{Q}) - \beta(\mathcal{Q}-\beta-\mathcal{W}\alpha_1) + \mathcal{W}^2(1-p_k)\alpha_1}{\mathcal{W}(1-p_k - \alpha_1) - \beta}
+  \label{eq:mSolve}
+\end{equation}
+using the fact that $c = \mathcal{Q} - \beta - \mathcal{W}\alpha_1$.
+Equation \ref{eq:mSolve} is a manifold parameterized by $(\beta,\alpha_1)$ that is \emph{unique} to each value that the instrument takes on. 
+Thus, by adjusting $\left\{ m^*_{1k} \right\}_{k=1}^K$ according to Equation \ref{eq:mSolve} we are free to vary $\beta$ while holding all observable moments fixed. 
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:skew}]
+  First define 
+  \begin{eqnarray}
+    \label{eq:vstar}
+  v^*_{tk} &=&  \mathbb{E}(u^2|T^*=t, z = z_k)\\
+    \label{eq:lambda}
+  \lambda_{k\ell}^* &=& (p_k - \alpha_0) v_{1k}^* - (p_\ell - \alpha_0) v_{1\ell}^*\\
+    \label{eq:y3def}
+    \Delta\overline{y^3} &=&  \mathbb{E}(y^3|z_k) - \mathbb{E}(y^3|z_\ell)\\
+    \label{eq:y2Tdef}
+    \Delta\overline{y^2T} &=&  \mathbb{E}(y^2T|z_k) - \mathbb{E}(y^2T|z_\ell)
+  \end{eqnarray}
+  where $u$, as above, is defined as $\varepsilon + c$.
+  By iterated expectations it follows, after some algebra, that
+  \begin{eqnarray}
+    \label{eq:y3}
+    \Delta\overline{y^3} &=& \beta^2 \mathcal{W} (p_k - p_\ell)  + 3 \beta \mathcal{W} \mu_{k\ell}^* + 3 \mathcal{W} \lambda^*_{k\ell}\\
+    \label{eq:y2T}
+    \Delta\overline{y^2T} &=& \beta(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + 2(1-\alpha_1)\mathcal{W}\mu_{k\ell}^* + \lambda_{k\ell}^* 
+  \end{eqnarray}
+  where, as above, the identified quantity $\mathcal{W}$ equals $\beta/(1 - \alpha_0 - \alpha_1)$ and $\mu_{k\ell}^*$ is as defined in Equation \ref{eq:mustar}.
+  Now, substituting for $\lambda^*_{k\ell}$ in Equation \ref{eq:y3} using Equation \ref{eq:y2T} and rearranging, we find that
+  \begin{equation}
+    \Delta \overline{y^3} - 3 \mathcal{W} \Delta\overline{y^2T} = \beta \mathcal{W} (p_k - p_\ell)\left[ \beta - 3 \mathcal{W} (1-\alpha_1) \right]+ 3\mathcal{W}\mathcal{R}\mu^*_{k\ell}
+    \label{eq:diffy3}
+  \end{equation}
+  where $\mathcal{R}$ is as defined in Equation \ref{eq:Rdef}.
+  Now, using Equation \ref{eq:yT} to eliminate $\mu_{k\ell}^*$ from the preceding equation, we find after some algebra that 
+  \begin{equation}
+    \mathcal{S} \equiv \beta^2 - 3\mathcal{W}(1-\alpha_1) (\beta + \mathcal{R}) = \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}.
+    \label{eq:Sdef}
+  \end{equation}
+  Notice that $\mathcal{S}$ is identified.
+  Finally, by eliminating $\beta$ from the preceding expression using Equation \ref{eq:Rdef}, we obtain a quadratic equation in $(1-\alpha_1)$, namely 
+  \begin{equation}
+    2\mathcal{W}^2 (1-\alpha_1)^2 + 2 \mathcal{R}\mathcal{W} (1-\alpha_1) + (\mathcal{S} -\mathcal{R}^2) = 0.
+    \label{eq:quadratic}
+  \end{equation}
+  Note that, since, $\mathcal{W}, \mathcal{R}$ and $\mathcal{S}$ are all identified, we can solve Equation \ref{eq:quadratic} for $(1-\alpha_1)$.
+The solutions are as follows
+\begin{equation}
+  (1 - \alpha_1) = \frac{1}{2} \left( -\frac{\mathcal{R}}{\mathcal{W}} \pm  \frac{1}{\mathcal{W}}\sqrt{3\mathcal{R}^2 - 2 \mathcal{S}}\right)
+  \label{eq:quadsolutions}
+\end{equation}
+It can be shown that $3\mathcal{R}^2 - 2\mathcal{S} = \left[ \mathcal{R} + 2 \mathcal{W}(1-\alpha_1) \right]^2$ so the quantity under the radical is guaranteed to be positive, yielding two real solutions.
+One of these is $(1-\alpha_1)$.
+Using Equation \ref{eq:aDiff} we can re-express Equation \ref{eq:quadratic} as a quadratic in $\alpha_0$.
+After simplifying, we obtain a quadratic with \emph{identical} coefficients, implying that the other root of Equation \ref{eq:quadratic} identifies $\alpha_0$.
+Now, let $r_{max}$ denote the larger of the two roots of Equation \ref{eq:quadratic} and $r_{min}$ the smaller.
+(By assumption $\alpha_0 + \alpha_1 \neq 1$ which implies $r_{max} \neq r_{min}$.)
+We claim that $r_{max} = 1 - \alpha_1$ and hence that $r_{min} = \alpha_0$.
+Suppose that this were not the case.
+Then $r_{max} = \alpha_0$ and $r_{min}=1 - \alpha_1$ and accordingly
+\[1 - \alpha_0 - \alpha_1 = r_{min} - r_{max} < 0\]
+which violates the assumption $\alpha_0 + \alpha_1 < 1$.
+Therefore $\alpha_0$ and $\alpha_1$ are identified and multiplying the Wald estimator $\mathcal{W}$ by $(1 - \alpha_0 - \alpha_1)$ identifies $\beta$.
+\end{proof}
+\begin{proof}[Proof of Theorem \ref{pro:homosked}]
+  First define
+  \begin{eqnarray}
+    \label{eq:mustar}
+    \mu_{k\ell}^* &=&  (p_k - \alpha_0) m_{1k}^* - (p_{\ell}-\alpha_0)m_{k\ell}^* \\
+    \label{eq:y2def}
+    \Delta\overline{y^2} &=&  \mathbb{E}(y^2|z_k) - \mathbb{E}(y^2|z_\ell)\\
+    \label{eq:yTdef}
+    \Delta\overline{yT} &=&  \mathbb{E}(yT|z_k) - \mathbb{E}(yT|z_\ell)
+  \end{eqnarray}
+  By iterated expectations it follows, after some algebra, that
+  \begin{eqnarray}
+    \label{eq:y2}
+    \Delta\overline{y^2} &=& \beta \mathcal{W} (p_k - p_\ell)  + 2 \mathcal{W} \mu_{k\ell}^* \\
+    \label{eq:yT}
+    \Delta\overline{yT} &=& (1-\alpha_1)\mathcal{W}(p_k - p_\ell) + \mu_{k\ell}^* 
+  \end{eqnarray}
+  Now, solving Equation \ref{eq:yT} for $\mu_{k\ell}^*$, substituting the result into Equation \ref{eq:y2} and rearranging,
+  \begin{equation}
+    \mathcal{R} \equiv \beta - 2(1-\alpha_1)\mathcal{W} = \frac{\Delta\overline{y^2} - 2 \mathcal{W}\Delta\overline{yT}}{\mathcal{W}(p_k - p_\ell)}.
+    \label{eq:Rdef}
+  \end{equation}
+  Since $\mathcal{W}$ is identified it follows that $\mathcal{R}$ is identified.
+  Rearranging the preceding equality and substituting $\beta=\mathcal{W}(1-\alpha_0 -\alpha_1)$ to eliminate $\beta$, we find that
+  \begin{equation}
+    \alpha_1 - \alpha_0 = 1 + \mathcal{R}/\mathcal{W}.
+   \label{eq:aDiff}
+  \end{equation}
+  Because both $\mathcal{R}$ and $\mathcal{W}$ are identified, it follows that the difference of error rates is also identified.
+\end{proof}

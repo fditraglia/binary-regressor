@@ -18,36 +18,6 @@ When $z$ is not merely mean-independent but in fact \emph{statistically} indepen
   \label{pro:homosked}
   Under Assumption \ref{assump:homosked} and the conditions of Theorem \ref{pro:Lack} the difference of mis-classification rates, $(\alpha_1 - \alpha_0)$ is identified provided that $z$ takes on at least two values.
 \end{thm}
-\begin{proof}[Proof of Theorem \ref{pro:homosked}]
-  First define
-  \begin{eqnarray}
-    \label{eq:mustar}
-    \mu_{k\ell}^* &=&  (p_k - \alpha_0) m_{1k}^* - (p_{\ell}-\alpha_0)m_{k\ell}^* \\
-    \label{eq:y2def}
-    \Delta\overline{y^2} &=&  \mathbb{E}(y^2|z_k) - \mathbb{E}(y^2|z_\ell)\\
-    \label{eq:yTdef}
-    \Delta\overline{yT} &=&  \mathbb{E}(yT|z_k) - \mathbb{E}(yT|z_\ell)
-  \end{eqnarray}
-  By iterated expectations it follows, after some algebra, that
-  \begin{eqnarray}
-    \label{eq:y2}
-    \Delta\overline{y^2} &=& \beta \mathcal{W} (p_k - p_\ell)  + 2 \mathcal{W} \mu_{k\ell}^* \\
-    \label{eq:yT}
-    \Delta\overline{yT} &=& (1-\alpha_1)\mathcal{W}(p_k - p_\ell) + \mu_{k\ell}^* 
-  \end{eqnarray}
-  Now, solving Equation \ref{eq:yT} for $\mu_{k\ell}^*$, substituting the result into Equation \ref{eq:y2} and rearranging,
-  \begin{equation}
-    \mathcal{R} \equiv \beta - 2(1-\alpha_1)\mathcal{W} = \frac{\Delta\overline{y^2} - 2 \mathcal{W}\Delta\overline{yT}}{\mathcal{W}(p_k - p_\ell)}.
-    \label{eq:Rdef}
-  \end{equation}
-  Since $\mathcal{W}$ is identified it follows that $\mathcal{R}$ is identified.
-  Rearranging the preceding equality and substituting $\beta=\mathcal{W}(1-\alpha_0 -\alpha_1)$ to eliminate $\beta$, we find that
-  \begin{equation}
-    \alpha_1 - \alpha_0 = 1 + \mathcal{R}/\mathcal{W}.
-   \label{eq:aDiff}
-  \end{equation}
-  Because both $\mathcal{R}$ and $\mathcal{W}$ are identified, it follows that the difference of error rates is also identified.
-\end{proof}
 
 The preceding result can be used in several ways.
 One possibility is to test for the presence of mis-classification error.
@@ -64,63 +34,6 @@ We now show that by augmenting Theorem \ref{pro:homosked} with information on co
   Under Assumptions \ref{assump:homosked}-\ref{assump:skew} and the conditions of Theorem \ref{pro:Lack}, the mis-classification rates $\alpha_0$ and $\alpha_1$ and the treatment effect $\beta$ are identified provided that $\alpha_0 + \alpha_1 < 1$ and $z$ takes on at least two values.
 \end{thm}
 
-\begin{proof}[Proof of Theorem \ref{thm:skew}]
-  First define 
-  \begin{eqnarray}
-    \label{eq:vstar}
-  v^*_{tk} &=&  \mathbb{E}(u^2|T^*=t, z = z_k)\\
-    \label{eq:lambda}
-  \lambda_{k\ell}^* &=& (p_k - \alpha_0) v_{1k}^* - (p_\ell - \alpha_0) v_{1\ell}^*\\
-    \label{eq:y3def}
-    \Delta\overline{y^3} &=&  \mathbb{E}(y^3|z_k) - \mathbb{E}(y^3|z_\ell)\\
-    \label{eq:y2Tdef}
-    \Delta\overline{y^2T} &=&  \mathbb{E}(y^2T|z_k) - \mathbb{E}(y^2T|z_\ell)
-  \end{eqnarray}
-  where $u$, as above, is defined as $\varepsilon + c$.
-  By iterated expectations it follows, after some algebra, that
-  \begin{eqnarray}
-    \label{eq:y3}
-    \Delta\overline{y^3} &=& \beta^2 \mathcal{W} (p_k - p_\ell)  + 3 \beta \mathcal{W} \mu_{k\ell}^* + 3 \mathcal{W} \lambda^*_{k\ell}\\
-    \label{eq:y2T}
-    \Delta\overline{y^2T} &=& \beta(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + 2(1-\alpha_1)\mathcal{W}\mu_{k\ell}^* + \lambda_{k\ell}^* 
-  \end{eqnarray}
-  where, as above, the identified quantity $\mathcal{W}$ equals $\beta/(1 - \alpha_0 - \alpha_1)$ and $\mu_{k\ell}^*$ is as defined in Equation \ref{eq:mustar}.
-  Now, substituting for $\lambda^*_{k\ell}$ in Equation \ref{eq:y3} using Equation \ref{eq:y2T} and rearranging, we find that
-  \begin{equation}
-    \Delta \overline{y^3} - 3 \mathcal{W} \Delta\overline{y^2T} = \beta \mathcal{W} (p_k - p_\ell)\left[ \beta - 3 \mathcal{W} (1-\alpha_1) \right]+ 3\mathcal{W}\mathcal{R}\mu^*_{k\ell}
-    \label{eq:diffy3}
-  \end{equation}
-  where $\mathcal{R}$ is as defined in Equation \ref{eq:Rdef}.
-  Now, using Equation \ref{eq:yT} to eliminate $\mu_{k\ell}^*$ from the preceding equation, we find after some algebra that 
-  \begin{equation}
-    \mathcal{S} \equiv \beta^2 - 3\mathcal{W}(1-\alpha_1) (\beta + \mathcal{R}) = \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}.
-    \label{eq:Sdef}
-  \end{equation}
-  Notice that $\mathcal{S}$ is identified.
-  Finally, by eliminating $\beta$ from the preceding expression using Equation \ref{eq:Rdef}, we obtain a quadratic equation in $(1-\alpha_1)$, namely 
-  \begin{equation}
-    2\mathcal{W}^2 (1-\alpha_1)^2 + 2 \mathcal{R}\mathcal{W} (1-\alpha_1) + (\mathcal{S} -\mathcal{R}^2) = 0.
-    \label{eq:quadratic}
-  \end{equation}
-  Note that, since, $\mathcal{W}, \mathcal{R}$ and $\mathcal{S}$ are all identified, we can solve Equation \ref{eq:quadratic} for $(1-\alpha_1)$.
-The solutions are as follows
-\begin{equation}
-  (1 - \alpha_1) = \frac{1}{2} \left( -\frac{\mathcal{R}}{\mathcal{W}} \pm  \frac{1}{\mathcal{W}}\sqrt{3\mathcal{R}^2 - 2 \mathcal{S}}\right)
-  \label{eq:quadsolutions}
-\end{equation}
-It can be shown that $3\mathcal{R}^2 - 2\mathcal{S} = \left[ \mathcal{R} + 2 \mathcal{W}(1-\alpha_1) \right]^2$ so the quantity under the radical is guaranteed to be positive, yielding two real solutions.
-One of these is $(1-\alpha_1)$.
-Using Equation \ref{eq:aDiff} we can re-express Equation \ref{eq:quadratic} as a quadratic in $\alpha_0$.
-After simplifying, we obtain a quadratic with \emph{identical} coefficients, implying that the other root of Equation \ref{eq:quadratic} identifies $\alpha_0$.
-Now, let $r_{max}$ denote the larger of the two roots of Equation \ref{eq:quadratic} and $r_{min}$ the smaller.
-(By assumption $\alpha_0 + \alpha_1 \neq 1$ which implies $r_{max} \neq r_{min}$.)
-We claim that $r_{max} = 1 - \alpha_1$ and hence that $r_{min} = \alpha_0$.
-Suppose that this were not the case.
-Then $r_{max} = \alpha_0$ and $r_{min}=1 - \alpha_1$ and accordingly
-\[1 - \alpha_0 - \alpha_1 = r_{min} - r_{max} < 0\]
-which violates the assumption $\alpha_0 + \alpha_1 < 1$.
-Therefore $\alpha_0$ and $\alpha_1$ are identified and multiplying the Wald estimator $\mathcal{W}$ by $(1 - \alpha_0 - \alpha_1)$ identifies $\beta$.
-\end{proof}
 
 Note that, unlike Theorem \ref{pro:homosked}, Theorem \ref{thm:skew} requires the assumption that $\alpha_0 + \alpha_1 < 1$.
 Without this assumption, we identify $\beta$ only up to sign.
