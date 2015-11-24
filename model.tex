@@ -13,7 +13,8 @@ Using this notation, Equation \ref{eq:model} can be re-expressed as a simple lin
 \end{equation}
 where we define $u = c + \varepsilon$, an error term that need not be mean zero.
 We maintain throughout that $\beta \neq 0$.
-If it were zero, this would imply that $T^*$ is irrelevant for $y$ which can be directly tested regardless of whether any mis-classification is present and regardless of whether $T^*$ is endogenous.\footnote{This is because, as we will see below, the Wald Estimator is identified and is proportional to the treatment effect. This estimator exists provided that we have a valid and relevant instrument that takes on at least two values.} 
+If $\beta = 0$ then there is no meaningful sense in which there is ``mis-classification'' since $T^*$ is irrelevant for $y$.
+Because the probability limit of the usual Wald IV estimator in this model is proportional to $\beta$, as we will discuss below, this condition can be directly assessed from the data.
 
 From the perspective of non-parametric identification, the observables in this problem are the conditional distribution of $y$ given $(T,z)$, the conditional probabilities of $T$ given $z$, and the marginal probabilities of $z$.
 For now, following the existing literature, we will restrict attention to the conditional mean of $y$.
