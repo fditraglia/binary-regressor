@@ -1,9 +1,8 @@
 %!TEX root = ./main.tex
 
 \subsection{Lack of Identification From Conditional Means}
-We have seen that \cite{Mahajan}'s approach cannot identify $\beta$ when the treatment is endogenous: Assumption \ref{assump:Eq11} in fact implies that the instrument is \emph{irrelevant}. 
-But this alone does not establish that a valid instrument is insufficient to identify $\beta$ when the treatment is endogenous.
-We now show that conditional mean information is in fact insufficient for identification, regardless of how many values the instrument takes on.
+We have seen that \cite{Mahajan}'s approach based on a binary instrument cannot identify $\beta$ when the treatment is endogenous: Assumption \ref{assump:Eq11} in fact implies that the instrument is \emph{irrelevant}. 
+We now show that, regardless of how many values the instrument takes on, conditional mean information is insufficient for identification.
 
 To begin, consider the model in Equation \ref{eq:linear} without any restrictions on the $m^*_{tk}$, that is \emph{without} imposing the IV restriction given in Equation \ref{eq:IV}.
 In this fully general case, the $2K + 3$ unknown parameters are $\beta, \alpha_0, \alpha_1$ and the conditional means of $u$, namely $m^*_{tk}$.
@@ -57,7 +56,7 @@ Adding together Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} yields
   \hat{y}_{0k} + \hat{y}_{1k} = c + (p_k - \alpha_0)\left( \frac{\beta}{1 - \alpha_0 - \alpha_1} \right) 
 \end{equation*}
 completely eliminating the $m^*_{1k}$ from the system.
-Taking the difference of the preceding expression expression evaluated at two different values of the instrument, $z_{k}$ and $z_{\ell}$, and rearranging
+Taking the difference of the preceding expression evaluated at two different values of the instrument, $z_{k}$ and $z_{\ell}$, and rearranging
 \begin{equation}
   \mathcal{W} = \frac{(\hat{y}_{0k} + \hat{y}_{1k}) - (\hat{y}_{0\ell} + \hat{y}_{1\ell})}{p_k - p_\ell} =  \frac{\beta}{1 - \alpha_0 - \alpha_1}
   \label{eq:wald}

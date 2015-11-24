@@ -18,7 +18,7 @@ If it were zero, this would imply that $T^*$ is irrelevant for $y$ which can be 
 From the perspective of non-parametric identification, the observables in this problem are the conditional distribution of $y$ given $(T,z)$, the conditional probabilities of $T$ given $z$, and the marginal probabilities of $z$.
 For now, following the existing literature, we will restrict attention to the conditional mean of $y$.
 Below we consider using higher moments of $y$.
-Let $\bar{y}_{t,k}$ denote $\mathbb{E}[y|T=t,z=z_k]$, let $p_k$ denote $\mathbb{P}(T=1|z=z_k)$ and let $q_k = \mathbb{P}(z=z_k)$.
+Let $\bar{y}_{t,k}$ denote $\mathbb{E}[y|T=t,z=z_k]$, let $p_k$ denote $\mathbb{P}(T=1|z=z_k)$ and let $q_k$ denote $\mathbb{P}(z=z_k)$.
 Table \ref{tab:observables} depicts the observable first moments for this problem.
 
 \begin{table}
@@ -52,7 +52,7 @@ Rearranging,
   \label{eq:pkstar}
 \end{equation}
 Equation \ref{eq:pkstar} implies that $p_k^*$ is observable given knowledge of $\alpha_0$ and $\alpha_1$, since $p_k$ is observable.
-Note that for these equations to be meaningful, we require that $\alpha_0 + \alpha_1 \neq 0$.
+Note that for these equations to be meaningful, we require that $\alpha_0 + \alpha_1 \neq 1$.
 Indeed, the existing literature \citep{Mahajan,Lewbel,FL,BBS,KRS} imposes the stronger condition that $\alpha_0 + \alpha_1 < 1$, namely that the measurement error is not so severe that $1-T$ is a better predictor of $T^*$ than $T$ is, and vice-versa.
 In the absence of this assumption the treatment effect would only be identified up to sign.
 Our identification result, presented below, will require that $\alpha_0 + \alpha_1 < 1$ whereas our partial identification result will not.
