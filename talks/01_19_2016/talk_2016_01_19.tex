@@ -290,7 +290,7 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Mahajan's Argument}
+  \frametitle{The Flaw in Mahajan's Argument}
   \begin{block}{Proposition}
     If $\mathbb{E}[\varepsilon|T^*]\neq 0$ then  $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ combined with $\mathbb{E}[\varepsilon|z]=0$ implies $p^*_1 = p^*_2$, i.e.\ $z$ is irrelevant for $T^*$.
   \end{block}
@@ -305,23 +305,23 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{What about increasing the support of $z$?}
-  \alert{\framebox{$\mathbb{E}[\varepsilon|z]=0 \implies$ \emph{pair} of equations for each $k = 1, \dots, K$}}
-\begin{align*}
-  \hat{y}_{0k} &=\alpha_1(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + (1-\alpha_0)c - (p _k -  \alpha_0)m_{1k}^* \\[1.5ex]
-  \label{eq:MC1IV}
-  \hat{y}_{1k} &=(1-\alpha_1)(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + \alpha_0 c + (p _k -  \alpha_0)m_{1k}^*
-\end{align*}
-
-\vspace{0.5em}
-where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
-
-
-\vspace{2em} 
-
-\hfill \alert{\framebox{$2K$ Equations in $K+4$ Unknowns}}
-\end{frame}
+%\begin{frame}
+%  \frametitle{What about increasing the support of $z$?}
+%  \alert{\framebox{$\mathbb{E}[\varepsilon|z]=0 \implies$ \emph{pair} of equations for each $k = 1, \dots, K$}}
+%\begin{align*}
+%  \hat{y}_{0k} &=\alpha_1(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + (1-\alpha_0)c - (p _k -  \alpha_0)m_{1k}^* \\[1.5ex]
+%  \label{eq:MC1IV}
+%  \hat{y}_{1k} &=(1-\alpha_1)(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + \alpha_0 c + (p _k -  \alpha_0)m_{1k}^*
+%\end{align*}
+%
+%\vspace{0.5em}
+%where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
+%
+%
+%\vspace{2em} 
+%
+%\hfill \alert{\framebox{$2K$ Equations in $K+4$ Unknowns}}
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{\emph{Theorem}: $\beta$ is undentified regardless of $K$.}
@@ -365,8 +365,8 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
   \begin{block}{New Assumption}
     Homoskedastic errors w.r.t.\ the \emph{instrument}: $E[\varepsilon^2|z]=E[\varepsilon^2]$
   \end{block}
-  \begin{block}{Not Crazy!}
-    Holds in an RCT or a \emph{true} natural experiment.
+  \begin{block}{Reasonable?}
+    Makes sense in an RCT or a \emph{true} natural experiment.
   \end{block}
   \begin{alertblock}{New Moment Conditions}
   Defining
@@ -378,39 +378,59 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
   \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{\emph{Theorem}: $(\alpha_1 - \alpha_0)$ is Identified.}
-  \framesubtitle{(Requires only binary $z$)}
-  \begin{block}{Proof}
-  \vspace{-1.5em}
-  \begin{eqnarray*}
-    \Delta\overline{y^2} &=& \beta \mathcal{W} (p_k - p_\ell)  + 2 \mathcal{W} \mu_{k\ell}^* \\
-    \Delta\overline{yT} &=& (1-\alpha_1)\mathcal{W}(p_k - p_\ell) + \mu_{k\ell}^* 
-  \end{eqnarray*}
-
-  Solve for $\mu_{k\ell}^*$, substitute and rearrange:
-
-  \begin{equation*}
-    \mathcal{R} \equiv \beta - 2(1-\alpha_1)\mathcal{W} = \frac{\Delta\overline{y^2} - 2 \mathcal{W}\Delta\overline{yT}}{\mathcal{W}(p_k - p_\ell)}.
-  \end{equation*}
-
-  \vspace{0.4em}
-  Rearrange and substitute $\beta=\mathcal{W}(1-\alpha_0 -\alpha_1)$ to find 
-
-  \begin{equation*}
-    \alpha_1 - \alpha_0 = 1 + \mathcal{R}/\mathcal{W}.
-  \end{equation*}
-\end{block}
-
-\end{frame}
+%\begin{frame}
+%  \frametitle{\emph{Theorem}: $(\alpha_1 - \alpha_0)$ is Identified.}
+%  \framesubtitle{(Requires only binary $z$)}
+%  \begin{block}{Proof}
+%  \vspace{-1.5em}
+%  \begin{eqnarray*}
+%    \Delta\overline{y^2} &=& \beta \mathcal{W} (p_k - p_\ell)  + 2 \mathcal{W} \mu_{k\ell}^* \\
+%    \Delta\overline{yT} &=& (1-\alpha_1)\mathcal{W}(p_k - p_\ell) + \mu_{k\ell}^* 
+%  \end{eqnarray*}
+%
+%  Solve for $\mu_{k\ell}^*$, substitute and rearrange:
+%
+%  \begin{equation*}
+%    \mathcal{R} \equiv \beta - 2(1-\alpha_1)\mathcal{W} = \frac{\Delta\overline{y^2} - 2 \mathcal{W}\Delta\overline{yT}}{\mathcal{W}(p_k - p_\ell)}.
+%  \end{equation*}
+%
+%  \vspace{0.4em}
+%  Rearrange and substitute $\beta=\mathcal{W}(1-\alpha_0 -\alpha_1)$ to find 
+%
+%  \begin{equation*}
+%    \alpha_1 - \alpha_0 = 1 + \mathcal{R}/\mathcal{W}.
+%  \end{equation*}
+%\end{block}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{What Good is $(\alpha_1 - \alpha_0)?$}
+%    \begin{itemize}
+%      \item Test a necessary condition for \emph{no mis-classification}: $\alpha_0 = \alpha_1$ 
+%      \item Simple, tighter partial identification bounds for $\beta$
+%      \item In some settings, one of the mis-classification probabilities is known to be zero $\implies \beta$ point identified 
+%    \end{itemize}
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{What Good is $(\alpha_1 - \alpha_0)?$}
+  \frametitle{\emph{Theorem}: $(\alpha_1 - \alpha_0)$ is Identified if $E[\varepsilon^2|z] = E[\varepsilon^2]$}
+  \framesubtitle{Requires only binary $z$}
+
+    Solve for $\mu_{k\ell}^*$, substitute $\beta = \mathcal{W} (1 - \alpha_0 - \alpha_1)$, rearrange to find
+  \begin{equation*}
+    \alpha_1 - \alpha_0 = 1 + \mathcal{R}/\mathcal{W}, \quad \mbox{where} \quad
+    \mathcal{R} \equiv \frac{\Delta\overline{y^2} - 2 \mathcal{W}\Delta\overline{yT}}{\mathcal{W}(p_k - p_\ell)}.
+  \end{equation*}
+
+  \begin{block}{What good is $\left( \alpha_1 - \alpha_0 \right)$?}
     \begin{itemize}
-      \item Test a necessary condition for \emph{no mis-classification}: $\alpha_0 = \alpha_1$ 
+      \item Test necessary condition for \emph{no mis-classification}: $\alpha_0 = \alpha_1$ 
       \item Simple, tighter partial identification bounds for $\beta$
-      \item In some settings, one of the mis-classification probabilities is known to be zero $\implies \beta$ point identified 
+      \item If $\alpha_0$ known, e.g. zero $\implies \beta$ point identified 
     \end{itemize}
+  \end{block}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -427,46 +447,68 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
   \end{eqnarray*}
   \end{alertblock}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame} \frametitle{\emph{Theorem}: $\beta$, $\alpha_0$ and $\alpha_1$ are identified.}
+%  \framesubtitle{Requires $\alpha_0 + \alpha_1 < 1$, but $z$ need only be binary.}
+%  \begin{block}{Proof}
+%    \vspace{-1em}
+%  \begin{eqnarray*}
+%    \Delta\overline{y^3} &=& \beta^2 \mathcal{W} (p_k - p_\ell)  + 3 \beta \mathcal{W} \mu_{k\ell}^* + 3 \mathcal{W} \lambda^*_{k\ell}\\
+%    \Delta\overline{y^2T} &=& \beta(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + 2(1-\alpha_1)\mathcal{W}\mu_{k\ell}^* + \lambda_{k\ell}^* 
+%  \end{eqnarray*}
+%
+%  \vspace{1em}
+%
+%    Solve for $\lambda^*_{k\ell}$, substitute and rearrange: 
+%
+%  \begin{equation*}
+%    \mathcal{S} \equiv \beta^2 - 3\mathcal{W}(1-\alpha_1) (\beta + \mathcal{R}) = \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}.
+%  \end{equation*}
+%  \end{block}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{\emph{Theorem}: $\beta$, $\alpha_0$ and $\alpha_1$ are identified.}
+%  \framesubtitle{Requires $\alpha_0 + \alpha_1 < 1$, but $z$ need only be binary.}
+%  \begin{block}{Proof continued\dots}
+%    \vspace{-1em}
+%  \begin{equation*}
+%    \mathcal{S} \equiv \beta^2 - 3\mathcal{W}(1-\alpha_1) (\beta + \mathcal{R}) = \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}
+%  \end{equation*}
+%  \vspace{1em}
+%
+%  Use the fact that $\mathcal{R}=\beta - 2(1-\alpha_1)\mathcal{W}$ to eliminate $\beta$ from $\mathcal{S}$:
+%
+%  \begin{equation*}
+%    2\mathcal{W}^2 (1-\alpha_1)^2 + 2 \mathcal{R}\mathcal{W} (1-\alpha_1) + (\mathcal{S} -\mathcal{R}^2) = 0
+%    \label{eq:quadratic}
+%  \end{equation*}
+%
+%  which is a quadratic in $(1-\alpha_1)$ and observables only! Can show that there are always two real roots: one is $(1-\alpha_1)$ and the other is $\alpha_0$. To tell which is which, need $\alpha_0 + \alpha_1 < 1$.
+%  \end{block}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{\emph{Theorem}: $\beta$, $\alpha_0$ and $\alpha_1$ are identified.}
-  \framesubtitle{Requires $\alpha_0 + \alpha_1 < 1$, but $z$ need only be binary.}
-  \begin{block}{Proof}
-    \vspace{-1em}
-  \begin{eqnarray*}
-    \Delta\overline{y^3} &=& \beta^2 \mathcal{W} (p_k - p_\ell)  + 3 \beta \mathcal{W} \mu_{k\ell}^* + 3 \mathcal{W} \lambda^*_{k\ell}\\
-    \Delta\overline{y^2T} &=& \beta(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + 2(1-\alpha_1)\mathcal{W}\mu_{k\ell}^* + \lambda_{k\ell}^* 
-  \end{eqnarray*}
+  \frametitle{\emph{Theorem}: $\beta$, $\alpha_0$ and $\alpha_1$ identified}
+  \framesubtitle{Adding $E[\varepsilon^3|z] = E[\varepsilon^3]$, $z$ need only be binary.}
 
-  \vspace{1em}
-
-    Solve for $\lambda^*_{k\ell}$, substitute and rearrange: 
-
-  \begin{equation*}
-    \mathcal{S} \equiv \beta^2 - 3\mathcal{W}(1-\alpha_1) (\beta + \mathcal{R}) = \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}.
-  \end{equation*}
-  \end{block}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{\emph{Theorem}: $\beta$, $\alpha_0$ and $\alpha_1$ are identified.}
-  \framesubtitle{Requires $\alpha_0 + \alpha_1 < 1$, but $z$ need only be binary.}
-  \begin{block}{Proof continued\dots}
-    \vspace{-1em}
-  \begin{equation*}
-    \mathcal{S} \equiv \beta^2 - 3\mathcal{W}(1-\alpha_1) (\beta + \mathcal{R}) = \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}
-  \end{equation*}
-  \vspace{1em}
-
-  Use the fact that $\mathcal{R}=\beta - 2(1-\alpha_1)\mathcal{W}$ to eliminate $\beta$ from $\mathcal{S}$:
-
+    Solve for $\lambda^*_{k\ell}$, substitute and rearrange.
+    After further substitutions:
   \begin{equation*}
     2\mathcal{W}^2 (1-\alpha_1)^2 + 2 \mathcal{R}\mathcal{W} (1-\alpha_1) + (\mathcal{S} -\mathcal{R}^2) = 0
-    \label{eq:quadratic}
+  \end{equation*}
+  where
+  \begin{equation*}
+    \mathcal{S} \equiv \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}
   \end{equation*}
 
-  which is a quadratic in $(1-\alpha_1)$ and observables only! Can show that there are always two real roots: one is $(1-\alpha_1)$ and the other is $\alpha_0$. To tell which is which, need $\alpha_0 + \alpha_1 < 1$.
-  \end{block}
+  \begin{itemize}
+    \item Quadratic in $(1-\alpha_1)$ and observables only
+    \item Always two real roots: one is $(1-\alpha_1)$ and the other is $\alpha_0$.
+    \item To tell which is which, need $\alpha_0 + \alpha_1 < 1$.
+  \end{itemize}
+
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
