@@ -750,15 +750,44 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+  \frametitle{(Bayesian) Inference via Transparent Parameterization}
+  \begin{block}{Reduced Form Parameters: $(\mathbf{p}, \mathbf{q}, \mathbf{\bar{y}}, \boldsymbol{\sigma}^2)$}
+    \begin{itemize}
+      \item Draw reduced form parameters from Bayesian posterior constructed to match usual large-sample frequentist inference.
+    \end{itemize}
+  \end{block}
+  \begin{block}{Structural Parameters $(\delta_{T^*}, \delta_z, \alpha_0, \alpha_1)$}
+    \begin{itemize}
+      \item Updated by data only \emph{through} reduced from parameters. 
+      \item Impose prior beliefs on structural parameters
+      \item E.g.\ $\alpha_0, \alpha_1 \sim \mbox{ iid } U(0, 0.25)$, $\delta_{T^*}|(\alpha_0, \alpha_1) \sim U(\ell, u)$
+    \end{itemize}
+  \end{block}
+  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{``Blue Bar'' Picture} 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Implications for Beta} 
+  Bayes histogram next to Frequentist histogram (picture of lower bound)
+
+  Probability that frequentist identified sets include zero? Something like that
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
   \frametitle{Conclusion}
   \begin{itemize}
-    \item Effect of endogenous, mis-measured, binary treatment.
-    \item Important in applied work but no solution in the literature.
-    \item New partial and point identification results by exploiting higher moments of outcome variable.
-    \item Test necessary condition for absence of measurement error.
+    \item
+    %\item Effect of endogenous, mis-measured, binary treatment.
+    %\item Important in applied work but no solution in the literature.
+    %\item New partial and point identification results by exploiting higher moments of outcome variable.
+    %\item Test necessary condition for absence of measurement error.
     %\item Explore sampling distribution of our simple closed-form method of moments estimator in a simulation experiment.
     %\item Detect evidence of measurement error in real-world example. 
-    \item Next steps: use full independence of $z \rightarrow$ optimal estimator
+    %\item Next steps: use full independence of $z \rightarrow$ optimal estimator
   \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
