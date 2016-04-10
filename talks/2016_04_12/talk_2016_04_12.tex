@@ -14,7 +14,7 @@
 \title[Binary Regressors]{Estimating the Effect of a Mis-measured, Endogenous, Binary Treatment}
 \author[FJ DiTraglia]{Francis J.\ DiTraglia\\ Camilo Garcia-Jimeno}
 \institute{University of Pennsylvania}
-\date{March 5th, 2016}
+\date{April 12th, 2016}
 \begin{document} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -638,8 +638,8 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
   \]
   \end{block}
   \begin{block}{Second Moment Information}
-    \[\sigma^2_{tk} = Var(y|T = t,z = k) > 0\]  \[\implies
-      \left[\sigma^2_{tk} - Q_{tk}(\delta_{T^*}, \delta_z,\alpha_0, \alpha_1|\mathbf{p}, \mathbf{q}, \mathbf{\bar{y}})\right] > 0\]
+    \[Var(u|T = t,z = k) > 0\]  \[\implies
+      \left[Var(y|T=t, z=k) - Q_{tk}(\delta_{T^*}, \delta_z,\alpha_0, \alpha_1|\mathbf{p}, \mathbf{q}, \mathbf{\bar{y}})\right] > 0\]
 
   \end{block}
 \end{frame}
@@ -658,7 +658,7 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
   \begin{block}{Partial Identification}
     \begin{itemize}
       \item Frazis \& Loewenstein (2003): $\delta_z = 0$, $(\alpha_0 + \alpha_1) \in [\ell, u]$ 
-    \item Conley et al.\ (2012): $\delta_z \in [\underline{\delta}_z, \bar{\delta}_z]$, $\alpha_0, = \alpha_1 = 0$
+    \item Conley et al.\ (2012): $\delta_z \in [\underline{\delta}_z, \bar{\delta}_z]$, $\alpha_0 = \alpha_1 = 0$
     \item Nevo \& Rosen (2012): $\delta_T^* > \delta_z$, $\delta_T^* \delta_z > 0$, $\alpha_0 = \alpha_1 = 0$
     \end{itemize}
   \end{block}
@@ -666,9 +666,51 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \Huge Angrist Example
+  \frametitle{Our Proposed Approach}
+  \begin{block}{Elicit Beliefs}
+    Ask researcher for bounds on $\alpha_0, \alpha_1, \delta_{T^*}, \delta_z$ 
+  \end{block}
+
+  \begin{block}{Discipline Beliefs}
+    Are these beliefs mutually consistent? Explore joint constraints implied by identified set.
+    
+  \end{block}
+  \begin{block}{Incorporate Beliefs}
+    Carry out (Bayesian) inference for $\beta$ using beliefs, constraints, and accounting for sampling uncertainty.
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Example: Vouchers for Private Schooling (PACES)}
+  \framesubtitle{Angrist et al.\ (2002, AER)}
+
+  Data from Colombia: vouchers to attend private school awarded by lottery to poor, primary school-aged children (N = 1577). 
+  
+
+\begin{itemize}
+  \item $y$ -- \# of grades repeated after lottery
+  \item $T^*$ -- Scholarship use 
+  \item $T$ -- Self-reported Scholarship use
+  \item $\mathbf{x}$ -- Demographic controls
+  \item $z$ -- Offered scholarship through lottery 
+\end{itemize}
+
+\alert{Authors raise concerns about the lottery in one of the two cities\ldots}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Example: Vouchers for Private Schooling (PACES)}
+  \framesubtitle{Overall: Mean = 0.19, SD = 0.45}
+\begin{figure}[h]
+  \scriptsize
+  \begingroup
+  \tikzset{every picture/.style={scale=0.53}}
+  \centering
+  \input{../../../sick-instruments/fig/AngristBettinger/AngristBettingerHist.tex}
+  \endgroup
+\end{figure}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Conclusion}
