@@ -937,65 +937,70 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{``Blue Bar'' Picture} 
+  \frametitle{Relationship between $\delta_{z}$ and $\delta_{T^*}$}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale = 0.6]{../../../sick-instruments/fig/AngristBettinger/BlueBar.pdf}
+\end{figure}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Implications for Beta} 
-  Bayes histogram next to Frequentist histogram (picture of lower bound)
-
-  Probability that frequentist identified sets include zero? Something like that
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale = 0.42]{../../../sick-instruments/fig/AngristBettinger/TwoHistograms.pdf}
+\end{figure}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Conclusion}
-  \begin{itemize}
-    \item
-    %\item Effect of endogenous, mis-measured, binary treatment.
-    %\item Important in applied work but no solution in the literature.
-    %\item New partial and point identification results by exploiting higher moments of outcome variable.
-    %\item Test necessary condition for absence of measurement error.
-    %\item Explore sampling distribution of our simple closed-form method of moments estimator in a simulation experiment.
-    %\item Detect evidence of measurement error in real-world example. 
-    %\item Next steps: use full independence of $z \rightarrow$ optimal estimator
-  \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\appendix
+%\begin{frame}
+%  \frametitle{Conclusion}
+%  \begin{itemize}
+%    \item
+%    %\item Effect of endogenous, mis-measured, binary treatment.
+%    %\item Important in applied work but no solution in the literature.
+%    %\item New partial and point identification results by exploiting higher moments of outcome variable.
+%    %\item Test necessary condition for absence of measurement error.
+%    %\item Explore sampling distribution of our simple closed-form method of moments estimator in a simulation experiment.
+%    %\item Detect evidence of measurement error in real-world example. 
+%    %\item Next steps: use full independence of $z \rightarrow$ optimal estimator
+%  \end{itemize}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\appendix
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \begin{center}
-    \Huge Simulation Study
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Simulation Study: $y = \beta T^* + \varepsilon$}
-  \begin{itemize}
-    \item $(\varepsilon, \eta) \sim $ jointly normal, mean 0, variance 1, corr.\ 0.3.
-    \item First stage: $T^* = \mathbf{1}\left\{ \gamma_0 + \gamma_1 z + \eta > 0 \right\}$
-      \begin{itemize}
-        \item Half of subjects have $z=1$, the rest have $z=0$.
-        \item $\gamma_0 = \Phi^{-1}(\delta)$
-        \item $\gamma_1 = \Phi^{-1}(1-\delta) - \Phi(\delta)$   
-        \item $\delta$ equals fraction of those offered treatment who fail to take it up \emph{and} fraction of those not offered treatment who do.
-      \end{itemize}
-    \item Generate $T$ as follows:
-      \begin{itemize}
-        \item $T^* = 0 \implies T=0$, i.e.\ $\alpha_0 = 0$
-        \item $T|T^*=1 \sim \mbox{Bernoulli}(1-\alpha_1)$
-        \item $\alpha_0, \alpha_1$ unknown to econometrician.
-      \end{itemize}
-  \end{itemize}
-
-  
-\end{frame}
+%\begin{frame}
+%  \begin{center}
+%    \Huge Simulation Study
+%  \end{center}
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \begin{center}
-    {\framebox{\Large Sampling Distribution of $\widehat{\alpha}_1 - \widehat{\alpha}_0$}}
-  \end{center}
-\end{frame}
+%\begin{frame}
+%  \frametitle{Simulation Study: $y = \beta T^* + \varepsilon$}
+%  \begin{itemize}
+%    \item $(\varepsilon, \eta) \sim $ jointly normal, mean 0, variance 1, corr.\ 0.3.
+%    \item First stage: $T^* = \mathbf{1}\left\{ \gamma_0 + \gamma_1 z + \eta > 0 \right\}$
+%      \begin{itemize}
+%        \item Half of subjects have $z=1$, the rest have $z=0$.
+%        \item $\gamma_0 = \Phi^{-1}(\delta)$
+%        \item $\gamma_1 = \Phi^{-1}(1-\delta) - \Phi(\delta)$   
+%        \item $\delta$ equals fraction of those offered treatment who fail to take it up \emph{and} fraction of those not offered treatment who do.
+%      \end{itemize}
+%    \item Generate $T$ as follows:
+%      \begin{itemize}
+%        \item $T^* = 0 \implies T=0$, i.e.\ $\alpha_0 = 0$
+%        \item $T|T^*=1 \sim \mbox{Bernoulli}(1-\alpha_1)$
+%        \item $\alpha_0, \alpha_1$ unknown to econometrician.
+%      \end{itemize}
+%  \end{itemize}
+%
+%  
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \begin{center}
+%    {\framebox{\Large Sampling Distribution of $\widehat{\alpha}_1 - \widehat{\alpha}_0$}}
+%  \end{center}
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}
 %\begin{figure}[h]
