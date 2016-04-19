@@ -1,0 +1,55 @@
+\documentclass[12pt]{article}
+\usepackage{../frankstyle}
+
+\begin{document}
+
+Recall that
+\begin{eqnarray*}
+p^*_{jk} &=& P(T^*=t, Z=k)\\
+p_{jk} &=& P(T=t, Z=k)\\
+p^*_k &=& P(T^* = 1|Z = k)\\
+p_k &=& P(T = 1|Z = k)\\
+q &=& P(Z = 1)
+\end{eqnarray*}
+Thus,
+\begin{eqnarray*}
+  p^*_{00} &=& P(T^* = 0|Z=0)P(Z=0) = (1 - p_0^*)(1 - q)\\
+  &=&  \left( \frac{1 - p_0 - \alpha_1}{1 - \alpha_0 - \alpha_1} \right)(1 - q)\\ \\
+  p^*_{10} &=& P(T^* = 1|Z=0)P(Z=0) = p_0^*(1 - q) \\
+  &=&  \left( \frac{p_0 - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)(1 - q)\\\\
+  p^*_{01} &=& P(T^* = 0|Z=1)P(Z=1) = (1 - p_1^*)q\\
+  &=&  \left( \frac{1 - p_1 - \alpha_1}{1 - \alpha_0 - \alpha_1} \right) q\\\\
+  p^*_{11} &=& P(T^* = 1|Z=1)P(Z=1) = p_1^*(1 - q) \\
+  &=&  \left( \frac{p_1 - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)q
+\end{eqnarray*}
+Define
+\begin{eqnarray*}
+F_{tk}^*(\tau) &=&  P(Y \leq \tau|T^* = t, Z = k) \\
+F_{tk}(\tau) &=&  P(Y \leq \tau|T = t, Z = k)\\
+F_k(\tau) &=& P(Y \leq \tau | Z=k) 
+\end{eqnarray*}
+for $t, Z \in \left\{ 0,1 \right\}$.
+By Bayes' rule, we have
+\begin{eqnarray*}
+  F_{0k}(\tau) &=& \frac{1 - \alpha_0}{1 - p_k} (1 - p^*_k)F_{0k}^*(\tau) + \frac{\alpha_1}{1 - p_k}p_k^* F_{1k}^*(\tau)\\ \\
+  F_{1k}(\tau) &=& \frac{ \alpha_0}{p_k}(1 - p_k^*) F_{0k}^*(\tau) + \frac{1 - \alpha_1}{p_k}p_k^* F_{1k}^*(\tau)
+\end{eqnarray*}
+Now, the model is $Y = \beta T^* + U$ and
+\[ F_{U}(\tau) = P(U \leq\tau) = P(Y - \beta T^* \leq \tau)\]
+but if $Z$ is independent of $U$ then it follows that
+\begin{eqnarray*}
+F_U(\tau) &=&  F_{U|Z=k}(\tau) = P(U\leq \tau |Z=k) = P(Y \leq \tau + \beta T^*|Z=k)\\
+&=&  P(Y \leq \tau |T^* = 0, Z = k)(1 - p_k^*) + P(Y\leq \tau + \beta| T^* = 1, Z = k)p_k^* \\
+&=& (1 - p_k^*) F^*_{0k}(\tau) + p_k^* F^*_{1k}(\tau)
+\end{eqnarray*} 
+for all $k$ by the Law of Total Probability.
+Similarly, 
+\[ F_k(\tau) = (1 - p_k^*) F_{0k}^*(\tau)  + p_k^* F_{1k}^*(\tau)\]
+and rearranging
+\[  (1 - p_k^*) F_{0k}^*(\tau)  = F_k(\tau) - p_k^* F_{1k}^*(\tau)\]
+Substituting this expression into the equation for $F_U(\tau)$ from above, we have
+\[F_U(\tau) = \]
+
+
+
+\end{document}
