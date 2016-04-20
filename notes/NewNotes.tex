@@ -51,6 +51,7 @@ Evaluating at two values $k$ and $\ell$ in the support of $Z$ and equating
 or equivalently
 \begin{equation}
  F_k(\tau) - F_\ell(\tau) =  p_\ell^* \left[ F_{1\ell}^*(\tau+ \beta) - F_{1\ell}^*(\tau)\right] - p_k^* \left[ F_{1k}^*(\tau+ \beta) - F_{1k}^*(\tau)\right] 
+ \label{eq:CDFs1}
 \end{equation}
 for all $\tau$.
 Now we simply need to re-express all of the ``star'' quantities, namely $p_k^*, p_\ell^*$ and $F_{1k}^*, F_{1\ell}^*$ in terms of $\alpha_0, \alpha_1$ and the \emph{observable} probability distributions $F_{1k}$ and $F_{1\ell}$ and observable probabilities $p_k, p_\ell$.
@@ -60,6 +61,43 @@ To do this, we use the fact that
   F_{1k}(\tau) &=& \frac{ \alpha_0}{p_k}(1 - p_k^*) F_{0k}^*(\tau) + \frac{1 - \alpha_1}{p_k}p_k^* F_{1k}^*(\tau)
 \end{eqnarray*}
 for all $k$ by Bayes' rule.
-Solving these equations 
+Solving these equations,
+\begin{equation*}
+  p_k^* F_{1k}^*(\tau) = \frac{1 - \alpha_0}{1 - \alpha_0 - \alpha_1} p_k F_{1k}(\tau) - \frac{\alpha_0}{1 - \alpha_0 - \alpha_1} (1 - p_k) F_{0k}(\tau) 
+\end{equation*}
+for all $k$.
+Combining this with Equation \ref{eq:CDFs1}, we find that
+\begin{align*}
+  (1 - \alpha_0 - \alpha_1) \left[ F_k(\tau) - F_\ell(\tau) \right] &= \alpha_0 \left\{ (1 - p_{k})\left[F_{0k}(\tau + \beta) - F_{0k}(\tau)  \right] - (1 - p_\ell)\left[ F_{0\ell}(\tau + \beta) - F_{0\ell}(\tau)  \right] \right\}\\
+  &- (1 - \alpha_0)\left\{ p_k\left[ F_{1k}(\tau + \beta) - F_{1k}(\tau) \right] - p_\ell \left[ F_{1\ell}(\tau+ \beta) - F_{1\ell}(\tau) \right] \right\}
+\end{align*}
+Now, define
+\[
+  \Delta^\tau_{tk}(\beta) = F_{tk}(\tau + \beta) - F_{tk}(\tau) = E\left[ \frac{\mathbf{1}\left\{ T = t, Z = k \right\}}{p_{tk}}\left( \mathbf{1}\left\{ Y \leq \tau + \beta \right\} - \mathbf{1}\left\{ Y \leq \tau \right\} \right) \right]
+\]
+and note that we can express $F_k(\tau) - F_\ell(\tau)$ similarly as 
+\[
+  F_k(\tau)  - F_{\ell}(\tau) = E\left[ \mathbf{1}\left\{ Y \leq \tau \right\} \left( \frac{\mathbf{1}\left\{ Z = k \right\}}{q_k} - \frac{\mathbf{1}\left\{ Z = \ell \right\}}{q_\ell} \right) \right]
+\]
+Using this notation, we can write the preceding as
+\begin{equation*}
+  (1 - \alpha_0 - \alpha_1) \left[ F_k(\tau) - F_{\ell}(\tau) \right] = \alpha_0\left[ (1 - p_k) \Delta^\tau_{0k}(\beta) - (1 - p_\ell) \Delta^\tau_{0\ell}(\beta) \right] - (1 - \alpha_0)\left[ p_k \Delta^\tau_{1k}(\beta) - p_\ell \Delta^\tau_{1\ell}(\beta) \right]
+\end{equation*}
+or in moment-condition form
+\begin{align*}
+   E\Bigg[ &(1 - \alpha_0 - \alpha_1) \mathbf{1}\left\{ Y \leq \tau \right\} \left( \frac{\mathbf{1}\left\{ Z = k \right\}}{q_k} - \frac{\mathbf{1}\left\{ Z = \ell \right\}}{q_\ell} \right)  - 
+   \left( \mathbf{1}\left\{ Y \leq \tau + \beta \right\} - \mathbf{1}\left\{ Y \leq \tau \right\} \right)\Bigg\{ \\
+   &\alpha_0 \bigg((1 - p_k)\frac{\mathbf{1}\left\{ T = 0, Z = k \right\}}{p_{0k}} - 
+    (1 - p_\ell)\frac{\mathbf{1}\left\{ T = 0, Z = \ell \right\}}{p_{0\ell}}\bigg)\\
+   &-(1 - \alpha_0) \bigg( p_k\frac{\mathbf{1}\left\{ T = 1, Z = k \right\}}{p_{1k}} - 
+ p_\ell \frac{\mathbf{1}\left\{ T = 1, Z = \ell \right\}}{p_{1\ell}}\bigg) \Bigg\}\Bigg] = 0
+\end{align*}
+Each value of $\tau$ yields a moment condition.
 
+\section{Special Case: $\alpha_0 = 0$}
+In this case the expressions from above simplify to
+\begin{align*}
+  (1 - \alpha_1) \left[ F_k(\tau) - F_\ell(\tau) \right]  + \left\{ p_k\left[ F_{1k}(\tau + \beta) - F_{1k}(\tau) \right] - p_\ell \left[ F_{1\ell}(\tau+ \beta) - F_{1\ell}(\tau) \right] \right\} = 0
+\end{align*}
+for all $\tau$.
 \end{document}
