@@ -1,10 +1,15 @@
 \documentclass[12pt]{article}
 \usepackage{../frankstyle}
 
+\title{Notes for Paper on Mis-measured, Binary, Endogenous Regressors}
+\author{ Francis J.\ DiTraglia \& Camilo Garc\'{i}a-Jimeno}
+
 \begin{document}
 
-\section{CDFs}
-Recall that
+\maketitle
+
+\section{Model and Notation}
+\todo[inline]{Fill in material from earlier notes so we have everything in one document!}
 \begin{eqnarray*}
 p^*_{jk} &=& P(T^*=t, Z=k)\\
 p_{jk} &=& P(T=t, Z=k)\\
@@ -23,14 +28,28 @@ Thus,
   p^*_{11} &=& P(T^* = 1|Z=1)P(Z=1) = p_1^*(1 - q) \\
   &=&  \left( \frac{p_1 - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)q
 \end{eqnarray*}
-Define
+
+\section{CDF Conditions}
+
+
+\subsection{Notation}
+For $t, Z \in \left\{ 0,1 \right\}$ define
 \begin{eqnarray*}
 F_{tk}^*(\tau) &=&  P(Y \leq \tau|T^* = t, Z = k) \\
 F_{tk}(\tau) &=&  P(Y \leq \tau|T = t, Z = k)\\
 F_k(\tau) &=& P(Y \leq \tau | Z=k) 
 \end{eqnarray*}
-for $t, Z \in \left\{ 0,1 \right\}$.
-Now, the model is $Y = \beta T^* + U$ and
+Note that the second two are observed for all $t,k$ while the first is never observed since it depends on the unobserved RV $T^*$.
+
+\subsection{Bounds on $\alpha_0, \alpha_1$}
+
+\paragraph{Case I: No Assumptions on $Z$}
+We begin by considering the bounds that we can derive for the mis-classification error rates without imposing any conditions on $Z$.
+In other words we use only the assumption that the measurement error is non-differential and the structure of the model, namely $Y = \beta T^* + U$.
+
+\subsection{Independent Instrument}
+Assume that $Z \perp U$.  
+The model is $Y = \beta T^* + U$ and
 \[ F_{U}(\tau) = P(U \leq\tau) = P(Y - \beta T^* \leq \tau)\]
 but if $Z$ is independent of $U$ then it follows that
 \begin{eqnarray*}
