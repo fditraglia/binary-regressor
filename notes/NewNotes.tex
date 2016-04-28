@@ -9,30 +9,24 @@
 \maketitle
 
 \section{Model and Notation}
-\todo[inline]{Fill in material from earlier notes so we have everything in one document!}
+
+\paragraph{Probabilities}
 \begin{eqnarray*}
-p^*_{jk} &=& P(T^*=t, Z=k)\\
-p_{jk} &=& P(T=t, Z=k)\\
+p^*_{tk} &=& P(T^*=t, Z=k)\\
+p_{tk} &=& P(T=t, Z=k)\\
 p^*_k &=& P(T^* = 1|Z = k)\\
 p_k &=& P(T = 1|Z = k)\\
 q &=& P(Z = 1)
 \end{eqnarray*}
-Thus,
+
 \begin{eqnarray*}
-  p^*_{00} &=& P(T^* = 0|Z=0)P(Z=0) = (1 - p_0^*)(1 - q)\\
-  &=&  \left( \frac{1 - p_0 - \alpha_1}{1 - \alpha_0 - \alpha_1} \right)(1 - q)\\ \\
-  p^*_{10} &=& P(T^* = 1|Z=0)P(Z=0) = p_0^*(1 - q) \\
-  &=&  \left( \frac{p_0 - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)(1 - q)\\\\
-  p^*_{01} &=& P(T^* = 0|Z=1)P(Z=1) = (1 - p_1^*)q\\
-  &=&  \left( \frac{1 - p_1 - \alpha_1}{1 - \alpha_0 - \alpha_1} \right) q\\\\
-  p^*_{11} &=& P(T^* = 1|Z=1)P(Z=1) = p_1^*(1 - q) \\
-  &=&  \left( \frac{p_1 - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)q
+  p^*_{00} &=& P(T^* = 0|Z=0)P(Z=0) = (1 - p_0^*)(1 - q) =  \left( \frac{1 - p_0 - \alpha_1}{1 - \alpha_0 - \alpha_1} \right)(1 - q)\\
+  p^*_{10} &=& P(T^* = 1|Z=0)P(Z=0) = p_0^*(1 - q) =  \left( \frac{p_0 - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)(1 - q)\\
+  p^*_{01} &=& P(T^* = 0|Z=1)P(Z=1) = (1 - p_1^*)q =  \left( \frac{1 - p_1 - \alpha_1}{1 - \alpha_0 - \alpha_1} \right) q\\
+  p^*_{11} &=& P(T^* = 1|Z=1)P(Z=1) = p_1^*(1 - q)  =  \left( \frac{p_1 - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)q
 \end{eqnarray*}
 
-\section{CDF Conditions}
-
-
-\subsection{Notation}
+\paragraph{CDFs}
 For $t, Z \in \left\{ 0,1 \right\}$ define
 \begin{eqnarray*}
 F_{tk}^*(\tau) &=&  P(Y \leq \tau|T^* = t, Z = k) \\
@@ -41,18 +35,63 @@ F_k(\tau) &=& P(Y \leq \tau | Z=k)
 \end{eqnarray*}
 Note that the second two are observed for all $t,k$ while the first is never observed since it depends on the unobserved RV $T^*$.
 
-\subsection{Bounds on $\alpha_0, \alpha_1$}
 
-\paragraph{Case I: No Assumptions on $Z$}
-We begin by considering the bounds that we can derive for the mis-classification error rates without imposing any conditions on $Z$.
-In other words we use only the assumption that the measurement error is non-differential.
-The bounds we obtain in this way will be applicable even if the instrument is invalid.
-To begin, note that we can express the observable CDFs $F_{tk}$ in terms of the unobservable CDFs $F^*_{tk}$ according to 
+\section{Weakest Bounds on $\alpha_0, \alpha_1$}
+Assume that $\alpha_0 + \alpha_1 < 1$ that $T$ is independent of $Z$ conditional on $T^*$.
+These standard assumptions turn out to yield informative bounds on $\alpha_0$ and $\alpha_1$ without \emph{any further restrictions of any kind}.
+In particular, we assume nothing about the validity of the instrument $Z$ and nothing about the relationship between the mis-classification error and the outcome $Y$: we impose only that the mis-classification error rates do not depend on $z$ and that the mis-classification is not so bad that $1 - T$ is a better measure of $T^*$ than $T$. 
+
+By the Law of Total Probability and the assumption that $T$ is conditionally independent of $Z$ given $T^*$,
+\begin{eqnarray*}
+  p_k &=& P(T=1|Z=k,T^*=0) (1 - p_k^*) + P(T=1|Z=k,T^*=1)p_k^*\\
+  &=& P(T=1|T^*=0)(1 - p_k^*) + P(T=1|T^*=1)p_k^*\\
+  &=& \alpha_0 (1 - p_k^*) + (1 - \alpha_1) p_k^*\\
+  &=& \alpha_0 +(1 - \alpha_0 - \alpha_1) p_k^* 
+\end{eqnarray*}
+and similarly 
+\begin{eqnarray*}
+  1 - p_k &=& P(T=0|Z=k,T^*=0) (1 - p_k^*) + P(T=0|Z=k,T^*=1)p_k^*\\
+  &=& P(T=0|T^*=0)(1 - p_k^*) + P(T=0|T^*=1)p_k^*\\
+  &=& (1 - \alpha_0)(1 - p_k^*) + \alpha_1 p_k^*\\
+  &=& \alpha_1 + (1 - p_k^*)(1 - \alpha_0 - \alpha_1)
+\end{eqnarray*}
+and hence
+\begin{eqnarray*}
+  p_k - \alpha_0 &=& (1 - \alpha_0 - \alpha_1)p_k^*\\
+  (1 - p_k) - \alpha_1 &=& (1 - \alpha_0 - \alpha_1)(1 - p_k^*)
+\end{eqnarray*}
+Now, since $p_k^*$ and $(1 - p_k^*)$ are probabilities they are between zero and one which means that the sign of $p_k - \alpha_0$ as well as that of $(1 - p_k) - \alpha_1$ are both determined by that of $1 - \alpha_0 - \alpha_1$.
+Accordingly, provided that $1 - \alpha_0 - \alpha_1 < 1$, we have
+\begin{eqnarray*}
+  \alpha_0 &<& p_k\\
+  \alpha_1 &<& (1 - p_k)
+\end{eqnarray*}
+so long as $p_k^*$ does not equal zero or one, which is not a realistic case for any example that we consider.
+Since these bounds hold for all $k$, we can take the tightest bound over all values of $Z$.
+
+\section{Stronger Bounds for $\alpha_0, \alpha_1$}
+Now suppose we add the assumption that $T$ is conditionally independent of $Y$ given $T^*$. 
+This is essentially the non-differential measurement error assumption although it is slightly stronger than the version used by Mahajan (2006) who assumes only conditional mean independence.
+This assumption allows us to considerably strengthen the bounds from the preceding section by exploiting information contained in the conditional distribution of $Y$ given $T$ and $Z$.
+The key ingredient is a relationship that we can derive between the unobservable distributions $F_{tk}^*$ and the observable distributions $F_{tk}$ using this new conditional independence assumption.
+To begin, note that by Bayes' rule we have
+\begin{eqnarray*}
+  P(T^*=1|T=1, Z=k) &=& P(T=1 | T^*=1) \left(\frac{p_k^*}{p_k}\right) = (1 - \alpha_1)\left( \frac{p_k^*}{p_k} \right)\\
+  P(T^*=1|T=0, Z=k) &=& P(T=0 | T^*=1) \left(\frac{p_k^*}{1 - p_k}\right) = \alpha_1 \left( \frac{p_k^*}{1 - p_k} \right)\\
+  P(T^*=0|T=1, Z=k) &=& P(T=1 | T^*=0) \left(\frac{1 - p_k^*}{p_k}\right) = \alpha_0 \left( \frac{1 - p_k^*}{p_k} \right)\\
+  P(T^*=0|T=0, Z=k) &=& P(T=0 | T^*=0) \left(\frac{1 - p_k^*}{1 - p_k}\right) = (1 - \alpha_0)\left( \frac{1 - p_k^*}{1 - p_k} \right)
+\end{eqnarray*}
+Now, by the conditional independence assumption
+\begin{eqnarray*}
+  P(Y\leq \tau|T^* = 0, T=t , Z = k) = P(Y \leq \tau|T^*=0, Z =k) = F_{0k}^*(\tau)\\
+  P(Y\leq \tau|T^* = 1, T=t , Z = k) = P(Y \leq \tau|T^*=1, Z =k) = F_{1k}^*(\tau)
+\end{eqnarray*}
+Finally, putting everything together using the Law of Total Probability, we find that
 \begin{eqnarray*}
   (1 - p_k) F_{0k}(\tau) = (1 - \alpha_0) (1 - p^*_k)F_{0k}^*(\tau) + \alpha_1 p_k^* F_{1k}^*(\tau)\\ 
   p_k F_{1k}(\tau) = \alpha_0 (1 - p_k^*) F_{0k}^*(\tau) + (1 - \alpha_1)p_k^* F_{1k}^*(\tau)
 \end{eqnarray*}
-for all $k$ by Bayes' rule.
+for all $k$.
 Defining the shorthand 
 \begin{eqnarray*}
   \widetilde{F}_{0k}(\tau)&\equiv& (1 - p_k) F_{0k}(\tau) \\
@@ -173,8 +212,10 @@ Therefore
   \label{eq:Alpha0_Bound2}
 \end{equation}
 
+\section{Even Stronger Bounds on $\alpha_0, \alpha_1$}
+Try applying the stochastic dominance conditions from our simulation study.
 
-\subsection{Independent Instrument}
+\section{Independent Instrument}
 Assume that $Z \perp U$.  
 The model is $Y = \beta T^* + U$ and
 \[ F_{U}(\tau) = P(U \leq\tau) = P(Y - \beta T^* \leq \tau)\]
