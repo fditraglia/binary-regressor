@@ -58,7 +58,12 @@ It can also be used to construct simple and informative partial identification b
 When one of the mis-classification rates is known, this identifies the treatment effect.
 More generally, however, this is not the case.
 We go on to show that a conditional third moment independence assumption on the instrument point identifies both $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ and hence the ATE function $\tau(\mathbf{x})$. 
-Both our point identification and partial identification results require only a binary instrument, and lead to simple, closed-form method of moments estimators that should be straightforward to apply in practice.
+Both our point identification and partial identification results require only a binary instrument, and lead to simple, closed-form method of moments estimators.
+
+This project is still in progress. 
+The present draft focuses on establishing identification in the simplest possible way: by directly solving a set of equations implied by conditional moment restrictions on $\varepsilon$.
+Additional results regarding efficient estimation and sharp bounds for $\alpha_0, \alpha_1$ under weaker conditions on the instrumental variable are currently in progress.
+For some additional discussion of these results, see our conclusion below in Section 4.
 
 The remainder of this paper is organized as follows. 
 In section 2 we discuss the literature in relation to the problem considered here. 
