@@ -141,7 +141,7 @@ Rearranging Equation \ref{eq:F1ktilde_F0kTilde_leq_a1}
 \end{eqnarray*}
 since $\alpha_1 \in [0,1]$ and therefore
 \begin{equation}
-  \alpha_1  \leq \frac{\widetilde{F}_{0k}(\tau)}{\widetilde{F}_{0k}(\tau) + \widetilde{F}_{1k}(\tau)}
+  \alpha_1  \leq \frac{\widetilde{F}_{0k}(\tau)}{\widetilde{F}_{0k}(\tau) + \widetilde{F}_{1k}(\tau)} = (1 - p_k) \left[\frac{F_{0k}(\tau)}{F_k(\tau)}\right]
   \label{eq:Alpha1_Bound1}
 \end{equation}
 since $\widetilde{F}_{1k}(\tau) + \widetilde{F}_{1k}(\tau) \geq 0$.
@@ -154,7 +154,7 @@ Proceeding similarly for Equation \ref{eq:F1ktilde_F0kTilde_geq_a1},
 \end{eqnarray*}
 Now since $\widetilde{F}_{1k}(\tau) = p_k F_{1k}(\tau) \leq p_k$ and $\widetilde{F}_{0k}(\tau) = (1 - p_k) F_{0k}(\tau) \leq (1 - p_k)$ it follows that $1 - \widetilde{F}_{1k}(\tau) - \widetilde{F}_{0k}(\tau) \geq 0$ and hence
 \begin{equation}
-  \alpha_1 \leq \frac{1 - \widetilde{F}_{0k}(\tau) - p_k}{1 - \widetilde{F}_{1k}(\tau) - \widetilde{F}_{0k}(\tau)}
+  \alpha_1 \leq \frac{1 - \widetilde{F}_{0k}(\tau) - p_k}{1 - \widetilde{F}_{1k}(\tau) - \widetilde{F}_{0k}(\tau)} = (1 - p_k) \left[\frac{1 - F_{0k}(\tau)}{1 - F_k(\tau)}\right]
   \label{eq:Alpha1_Bound2}
 \end{equation}
 The bounds given in Equations \ref{eq:Alpha1_Bound1} and \ref{eq:Alpha1_Bound2} relate $\alpha_1$ to observable quantities \emph{only} and hold for all values of $\tau$ for which their respective denominators are non-zero.
@@ -195,7 +195,7 @@ Now, rearranging Equation \ref{eq:F1ktilde_F0kTilde_geq_a0},
 since $1 - \alpha_0 \geq 0$.
 Therefore,
 \begin{equation}
-  \alpha_0 \leq \frac{\widetilde{F}_{1k}(\tau)}{\widetilde{F}_{0k}(\tau) + \widetilde{F}_{1k}(\tau)}
+  \alpha_0 \leq \frac{\widetilde{F}_{1k}(\tau)}{\widetilde{F}_{0k}(\tau) + \widetilde{F}_{1k}(\tau)} = p_k\left[\frac{F_{1k}(\tau)}{F_{k}(\tau)}\right]
   \label{eq:Alpha0_Bound1}
 \end{equation}
 since $\left[\widetilde{F}_{0k}(\tau) + \widetilde{F}_{1k}(\tau)\right] \geq 0$.
@@ -208,9 +208,31 @@ Similarly, rearranging Equation \ref{eq:F1ktilde_F0kTilde_leq_a0}
 \end{eqnarray*}
 Therefore
 \begin{equation}
-  \alpha_0 \leq \frac{1 - \widetilde{F}_{1k}(\tau) - ( 1 - p_k)}{1 - \widetilde{F}_{0k}(\tau)  - \widetilde{F}_{1k}(\tau)}
+\alpha_0 \leq \frac{1 - \widetilde{F}_{1k}(\tau) - ( 1 - p_k)}{1 - \widetilde{F}_{0k}(\tau)  - \widetilde{F}_{1k}(\tau)} = p_k\left[\frac{1 - F_{1k}(\tau)}{1 - F_k(\tau)}\right]
   \label{eq:Alpha0_Bound2}
 \end{equation}
+
+\paragraph{Putting Everything Together} 
+For all $k$ we have
+\begin{equation}
+  \alpha_0 \leq p_k \min_\tau\left\{\left[\frac{F_{1k}(\tau)}{F_k(\tau)}\right] \wedge \left[\frac{1-F_{1k}(\tau)}{1 - F_k(\tau)} \right]\right\} \leq p_k 
+\end{equation}
+\begin{equation}
+  \alpha_1 \leq (1 - p_k) \min_\tau \left\{\left[\frac{F_{0k}(\tau)}{F_k(\tau)}\right] \wedge \left[\frac{1-F_{0k}(\tau)}{1 - F_k(\tau)} \right]\right\} \leq (1 - p_k) 
+\end{equation}
+Note that these bounds can only improve upon those derived in the previous section since the ratio of CDFs tends to one as $\tau \rightarrow \infty$.
+To derive these tighter bounds we have made no assumption regarding the relationship between $Z$ and the error term $\varepsilon$.
+These bounds use only the assumption that $\alpha_0 - \alpha_1 < 1$, and the assumption that $T$ is conditionally independent of $Z,Y$ given $T^*$.
+Notice that that the bounds are related.
+In particular,
+\[
+  p_k \left[\frac{F_{1k}(\tau)}{F_k(\tau)}\right] = 1 - (1-p_k)\left[\frac{F_{0k}(\tau)}{F_k(\tau)}\right]
+\]
+and 
+\[
+p_k \left[\frac{1 - F_{1k}(\tau)}{1 - F_k(\tau)}\right] = 1 - (1-p_k)\left[\frac{1 - F_{0k}(\tau)}{1 - F_k(\tau)}\right]
+\]
+
 
 \section{Even Stronger Bounds on $\alpha_0, \alpha_1$}
 Try applying the stochastic dominance conditions from our simulation study.
