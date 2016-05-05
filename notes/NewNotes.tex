@@ -222,7 +222,7 @@ For all $k$ we have
 \end{equation}
 Note that these bounds can only improve upon those derived in the previous section since the ratio of CDFs tends to one as $\tau \rightarrow \infty$.
 To derive these tighter bounds we have made no assumption regarding the relationship between $Z$ and the error term $\varepsilon$.
-These bounds use only the assumption that $\alpha_0 - \alpha_1 < 1$, and the assumption that $T$ is conditionally independent of $Z,Y$ given $T^*$.
+These bounds use only the assumption that $\alpha_0 + \alpha_1 < 1$, and the assumption that $T$ is conditionally independent of $Z,Y$ given $T^*$.
 Notice that that the bounds are related.
 In particular,
 \[
@@ -309,4 +309,14 @@ In this case the expressions from above simplify to
   (1 - \alpha_1) \left[ F_k(\tau) - F_\ell(\tau) \right]  + \left\{ p_k\left[ F_{1k}(\tau + \beta) - F_{1k}(\tau) \right] - p_\ell \left[ F_{1\ell}(\tau+ \beta) - F_{1\ell}(\tau) \right] \right\} = 0
 \end{align*}
 for all $\tau$.
+Rearranging,
+\[
+  \frac{p_k\left[ F_{1k}(\tau + \beta) - F_{1k}(\tau) \right] - p_\ell \left[ F_{1\ell}(\tau+ \beta) - F_{1\ell}(\tau) \right]}{F_k(\tau) - F_\ell(\tau)}  = 1 - \alpha_1
+\]
+Evaluating at two value of $\tau$, $\tau_1$ and $\tau_2$, and equating, we find
+  \footnotesize
+\[
+  \frac{p_k\left[ F_{1k}(\tau_1 + \beta) - F_{1k}(\tau_1) \right] - p_\ell \left[ F_{1\ell}(\tau_1+ \beta) - F_{1\ell}(\tau_1) \right]}{F_k(\tau_1) - F_\ell(\tau_1)}  = \frac{p_k\left[ F_{1k}(\tau_2 + \beta) - F_{1k}(\tau_2) \right] - p_\ell \left[ F_{1\ell}(\tau_2+ \beta) - F_{1\ell}(\tau_2) \right]}{F_k(\tau_2) - F_\ell(\tau_2)} 
+\]
+\normalsize
 \end{document}
