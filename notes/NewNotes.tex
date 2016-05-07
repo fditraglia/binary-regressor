@@ -287,4 +287,34 @@ In this case the expressions from above simplify to
   (1 - \alpha_1) \left[ F_k(\tau) - F_\ell(\tau) \right]  + \left\{ p_k\left[ F_{1k}(\tau + \beta) - F_{1k}(\tau) \right] - p_\ell \left[ F_{1\ell}(\tau+ \beta) - F_{1\ell}(\tau) \right] \right\} = 0
 \end{align*}
 for all $\tau$.
+Rearranging, 
+\begin{align*}
+  (1 - \alpha_1)\left[ F_k(\tau) - F_\ell(\tau)\right] = \left[ p_\ell F_{1\ell}(\tau + \beta) 
+ - p_k  F_{1k}(\tau+ \beta) 
+ - p_\ell F_{1\ell}(\tau) 
+ + p_k F_{1k}(\tau) \right]
+\end{align*}
+Now, provided that all of the CDFs are differentiable we have\footnote{There must be a way to generalize this using Lebesgue.}
+\begin{align*}
+  e^{-i\omega \tau}(1 - \alpha_1)\left[f_k(\tau) - f_\ell(\tau)\right] = e^{-i\omega \tau}\left[ p_\ell f_{1\ell}(\tau + \beta) - p_k  f_{1k}(\tau+ \beta) - p_\ell f_{1\ell}(\tau) + p_k f_{1k}(\tau) \right]
+\end{align*}
+where we have pre-multiplied both sides by $e^{-i\omega \tau}$.
+Finally, integrating both sides with respect to $\tau$ over $(-\infty, \infty)$, we have
+\begin{align*}
+  (1 - \alpha_1)\left[\varphi_k(\omega) - \varphi_\ell(\omega)\right] = \left\{  \int_{-\infty}^{\infty} e^{-i\omega \tau} \left[p_\ell f_{1\ell}(\tau + \beta) - p_k f_{1k}(\tau+ \beta)\right] \; d\tau - p_\ell \varphi_{1\ell}(\omega) + p_k \varphi_{1k}(\omega) \right\}
+\end{align*}
+where $\varphi_k$ is the conditional characteristic function of $Y$ given $Z=k$ and $\varphi_{1k}$ is the conditional characteristic function of $Y$ given $T=1, Z=k$.
+Finally, 
+\begin{align*}
+  \int_{-\infty}^{\infty} e^{-i\omega \tau} p_\ell f_{1\ell}(\tau + \beta) \; d\tau &=  e^{ i\omega \beta } p_\ell \int_{u = -\infty + \beta}^{u = \infty + \beta} e^{ -i\omega u }f_{1\ell}(u)\; du \\
+  &= e^{ i\omega \beta } p_\ell \varphi_{1\ell}(\omega)
+\end{align*}
+and similarly for $k$ so we have
+\begin{align*}
+  (1 - \alpha_1)\left[\varphi_k(\omega) - \varphi_\ell(\omega)\right] =  e^{i\omega \beta}\left[ p_\ell \varphi_{1\ell}(\omega) - p_k \varphi_{1k}(\omega) \right] +  \left[p_k \varphi_{1k}(\omega) -  p_\ell \varphi_{1\ell}(\omega)\right]
+\end{align*}
+which simplifies to
+\begin{align*}
+  (1 - \alpha_1)\left[\varphi_k(\omega) - \varphi_\ell(\omega)\right] =  \left(e^{i\omega \beta} - 1\right)\left[ p_\ell \varphi_{1\ell}(\omega) - p_k \varphi_{1k}(\omega) \right] 
+\end{align*}
 \end{document}
