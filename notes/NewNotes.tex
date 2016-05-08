@@ -340,13 +340,51 @@ which, after collecting terms, simplifies to
 \end{align}
 for all $\omega$.  
 Equation \ref{eq:CharacteristicSpecial} contains exactly the same information as Equation \ref{eq:specialCDF} but gives us a more convenient way to prove identification since $\beta$ enters in a simpler way.
-
-Recall that if $\varphi(\omega)$ is the characteristic function of $Y$ then $\varphi^{(r)}(0) = i^r E[Y^r]$ provided that the expectation exists where $\varphi^{(r)}$ denotes the $r$th derivative of $\varphi$.
-Hence, $E[Y^r]=(-i)^r \varphi^{(r)}(0)$.
-Now, Leibniz's formula for the $r$th derivate of a product of two functions $f$ and $g$ is:
+Leibniz's formula for the $r$th derivative of a product of two functions $f$ and $g$ is:
 \begin{align*}
-  (fg)^{(r)} = \sum_{s=0}^r {r \choose s} f^{(r)}g^{r-s}
+  (fg)^{(r)} = \sum_{s=0}^r {r \choose s} f^{(s)}g^{(r-s)}
 \end{align*}
-which follows by induction from the product rule.
-Applying this to Equation \ref{eq:CharacteristicSpecial} after pre-multiplying each side by $(-i)^r$ gives
+where $f^{(r)}$ denotes the $r$th derivative of the function $f$ and $g^{(r-s)}$ denotes the $(r-s)$th derivative of the function $g$.
+Applying this to the RHS of Equation \ref{eq:CharacteristicSpecial} gives
+\begin{align*}
+  \frac{d}{d\omega^r}\left[RHS(\omega)\right] 
+  &=  \sum_{s=0}^r {r \choose s} \frac{d}{d\omega^s}\left( e^{-i\omega\beta} - 1\right)\frac{d}{d\omega^{r - s}}\left[ p_\ell \varphi_{1\ell}(\omega) - p_k \varphi_{1k}(\omega) \right] \\
+  &= e^{-i\omega\beta} \sum_{s=0}^r {r \choose s} (-i\beta)^{s}\left[ p_\ell \varphi^{(r-s)}_{1\ell}(\omega) - p_k \varphi^{(r-s)}_{1k}(\omega) \right] 
+\end{align*}
+Evaluating at zero:
+\begin{align*}
+  \frac{d}{d\omega^r}\left[RHS(0)\right] 
+  &= \sum_{s=0}^r {r \choose s} (-i\beta)^{s}\left[ p_\ell \varphi^{(r-s)}_{1\ell}(0) - p_k \varphi^{(r-s)}_{1k}(0) \right] 
+\end{align*}
+Combining this with the LHS of Equation \ref{eq:CharacteristicSpecial}, also differentiated $r$ times and evaluated at zero, we have
+\begin{align*}
+  (1 - \alpha_1) \left[ \varphi_{k}^{(r)}(0) - \varphi_{\ell}^{(r)}(0) \right] 
+  &= \sum_{s=0}^r {r \choose s} (-i\beta)^{s}\left[ p_\ell \varphi^{(r-s)}_{1\ell}(0) - p_k \varphi^{(r-s)}_{1k}(0) \right] 
+\end{align*}
+Now, recall that if $\varphi(\omega)$ is the characteristic function of $Y$ then $\varphi^{(r)}(0) = i^r E[Y^r]$ provided that the expectation exists where $\varphi^{(r)}$ denotes the $r$th derivative of $\varphi$.
+The same applies for the conditional characteristic functions we consider here.
+Hence, provided that the $r$th moments exist, 
+\footnotesize
+\begin{align*}
+  i^r(1 - \alpha_1)\left\{ E[Y^r|Z=k] - E[Y^r|Z=\ell]\right\} = \sum_{s=0}^r {r \choose s} (-i\beta)^s i^{r-s}\left( p_{\ell} E\left[ Y^{r-s}|T=1, Z=\ell \right] - p_k E\left[ Y^{r-s}|T=1,Z=k \right] \right)
+\end{align*}
+\normalsize
+After simplifying the terms involving $i$ and cancelling them from both sides, 
+\small
+\begin{align*}
+  (1 - \alpha_1)\left(E[Y^r|Z=k] - E[Y^r|Z=\ell]\right) = \sum_{s=0}^r {r \choose s} (-\beta)^s \left( p_{\ell} E\left[ Y^{r-s}|T=1, Z=\ell \right] - p_k E\left[ Y^{r-s}|T=1,Z=k \right] \right)
+\end{align*}
+\normalsize
+again provided that the moments exist.
+Abbreviating the conditional expectations according to $E[Y^r|Z=k] = E_k[Y^r]$ and $E[Y^r|T=t,Z=k] = E_{tk}[Y^r]$, this becomes
+\begin{equation}
+  (1 - \alpha_1)\left(E_k[Y^r] - E_\ell[Y^r]\right) = \sum_{s=0}^r {r \choose s} (-\beta)^s \left( p_{\ell} E_{1\ell}\left[ Y^{r-s}\right] - p_k E_{1k}\left[ Y^{r-s}\right] \right)
+  \label{eq:MomentsSpecial}
+\end{equation}
+Equation \ref{eq:MomentsSpecial} can be used to generate moment equations that are implied by the Equation \ref{eq:CharacteristicSpecial} and the equivalent representation in terms of CDFs: Equation \ref{eq:specialCDF}.
+Assuming that the conditional first moments exist, we can evaluate Equation \ref{eq:MomentsSpecial} at $r=1$, yielding
+\begin{align*}
+  (1 - \alpha_1)\left(E_k[Y] - E_\ell[Y]\right) &= \sum_{s=0}^1 {1 \choose s} (-\beta)^s \left( p_{\ell} E_{1\ell}\left[ Y^{1-s}\right] - p_k E_{1k}\left[ Y^{1-s}\right] \right)\\
+  &= \left\{ \left( p_{\ell}E_{1\ell}[Y] - p_k E_{1k}[Y] \right) - \beta\left( p_\ell - p_k \right) \right\}
+\end{align*}
 \end{document}
