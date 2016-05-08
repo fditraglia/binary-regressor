@@ -408,15 +408,26 @@ Substituting Equation \ref{eq:WaldSpecial}, we can replace $\beta/(1-\alpha_1)$ 
 Solving, we find that 
 \begin{align}
   \beta &= \frac{2\left( p_k E_{1k}[Y] - p_\ell E_{1\ell}[Y] \right)}{p_k - p_\ell} - \frac{E_{k}[Y^2] - E_{\ell}[Y^2]}{E_k[Y] - E_\ell[Y]} 
+  \label{eq:BetaSpecial}
 \end{align}
 This allows us to state low-level sufficient conditions for identification:
 \begin{enumerate}[(a)]
   \item $\alpha_1 < 1$
   \item $p_k \neq p_\ell$ 
   \item $E_k[Y] \neq E_\ell[Y]$ 
-  \item $E_k[|Y^2|], E_\ell[|Y^2|] < \infty$.
+  \item $E_{1k}[|Y|], E_{1\ell}[|Y|], E_k[|Y^2|], E_\ell[|Y^2|] < \infty$.
 \end{enumerate}
 Note that, although $\beta = 0$ is always a solution of Equation \ref{eq:specialCDF} this solution is ruled out by the assumption that $E_k[Y] \neq E_\ell[Y]$ via Equation \ref{eq:WaldSpecial}.
-The mis-classification error rate $\alpha_1$ is likewise uniquely identified under these assumptions, as we see by substituting
+The mis-classification error rate $\alpha_1$ is likewise uniquely identified under these assumptions.
+Substituting $\beta/\mathcal{W} = 1-\alpha_1$ into Equation \ref{eq:BetaSpecial}
+\begin{align*}
+  (1 - \alpha_1) &= \left\{ \frac{p_k - p_\ell}{E_k[Y] - E_\ell[Y]} \right\}\left\{\frac{2\left( p_k E_{1k}[Y] - p_\ell E_{1\ell}[Y] \right)}{p_k - p_\ell} - \frac{E_{k}[Y^2] - E_{\ell}[Y^2]}{E_k[Y] - E_\ell[Y]} \right\}\\
+  &= \frac{2\left( p_k E_{1k}[Y] - p_\ell E_{1\ell}[Y] \right)}{E_k[Y] - E_{\ell}[Y]} - (p_k - p_\ell)\left\{\frac{E_{k}[Y^2] - E_{\ell}[Y^2]}{\left(E_k[Y] - E_\ell[Y]\right)^2} \right\}
+\end{align*}
+and thus
+\begin{align*}
+  \alpha_1
+  &= 1 + (p_k - p_\ell)\left\{\frac{E_{k}[Y^2] - E_{\ell}[Y^2]}{\left(E_k[Y] - E_\ell[Y]\right)^2} \right\} - \frac{2\left( p_k E_{1k}[Y] - p_\ell E_{1\ell}[Y] \right)}{E_k[Y] - E_{\ell}[Y]} 
+\end{align*}
 
 \end{document}
