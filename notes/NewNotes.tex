@@ -461,6 +461,35 @@ Simplifying,
   \mathcal{W} \equiv \frac{E_k[Y] - E_{\ell}[Y]}{p_k - p_\ell} = \frac{\beta}{1 - \alpha_0 - \alpha_1}
   \label{eq:Wald}
 \end{equation}
-
-
+Now, taking $r = 2$ gives
+\begin{align*}
+  (1 - \alpha_0 - \alpha_1) \left( E_{k}[Y^2] - E_{\ell}[Y^2] \right) &=
+  \alpha_0\left\{ \left[ (1 - p_k) E_{0k}[Y] - (1 - p_\ell) E_{0\ell} \right] - \beta^2\left( p_k - p_\ell \right) \right\}\\
+  &\quad  -(1 - \alpha_0)\left\{ -2\beta\left( p_k E_{1k}[Y] - p_{\ell}E_{1\ell}[Y] \right) + \beta^2\left( p_k - p_\ell \right) \right\}\\
+  &= -2\beta \alpha_0\left\{ (1 - p_k)E_{0k}[Y] - (1 - p_\ell) E_{0\ell}[Y] p_k E_{1k}[Y] + p_{\ell}E_{1\ell}[Y]\right\} \\ 
+  &\quad +2\beta \left( p_k E_{1k}[Y] - p_\ell E_{1\ell}[Y] \right) 
+  - (p_k - p_\ell)\beta^2\left( \alpha_0 + 1 - \alpha_0 \right)\\
+  &= -2\beta\left\{ \alpha_0 \left( E_k[Y] - E_\ell[Y] \right) - \left( p_k E_{1k}[Y] - p_\ell E_{1\ell}[Y] \right) \right\} - \beta^2(p_k - p_\ell)
+\end{align*}
+Now, simplifying
+\begin{align*}
+  (1 - \alpha_0 - \alpha_1)\left(\frac{E_k[Y^2] - E_{\ell}[Y^2]}{p_k - p_\ell} \right)&= -2\beta \alpha_0 \left(\frac{E_k[Y]-E_k[Y]}{p_k - p_\ell}\right) + 2\beta \left( \frac{p_{1k}E_{1k}[Y] - p_\ell E_{1\ell}[Y]}{p_k - p_\ell} \right) - \beta^2
+\end{align*}
+and substituting Equation \ref{eq:Wald} to eliminate $\beta$, this becomes
+\small
+\begin{align*}
+  (1 - \alpha_0 - \alpha_1)\left(\frac{E_k[Y^2] - E_{\ell}[Y^2]}{p_k - p_\ell} \right)&= -2\alpha_0 (1 - \alpha_0 - \alpha_1)\mathcal{W}^2 + 2\mathcal{W}(1 - \alpha_0 - \alpha_1) \left( \frac{p_{1k}E_{1k}[Y] - p_\ell E_{1\ell}[Y]}{p_k - p_\ell} \right) \\
+  &\quad \quad - (1 - \alpha_0 - \alpha_1)^2 \mathcal{W}^2\\
+  \left(\frac{E_k[Y^2] - E_{\ell}[Y^2]}{p_k - p_\ell} \right)&= -2\alpha_0 \mathcal{W}^2 + 2\mathcal{W} \left( \frac{p_{1k}E_{1k}[Y] - p_\ell E_{1\ell}[Y]}{p_k - p_\ell} \right)  - (1 - \alpha_0 - \alpha_1) \mathcal{W}^2
+\end{align*}
+\normalsize
+And thus, simplifying
+\begin{align*}
+  -2\alpha_0 \mathcal{W}^2 - (1 - \alpha_0 - \alpha_1) \mathcal{W}^2 &= \left(\frac{E_k[Y^2] - E_{\ell}[Y^2]}{p_k - p_\ell} \right)- 2\mathcal{W} \left( \frac{p_{1k}E_{1k}[Y] - p_\ell E_{1\ell}[Y]}{p_k - p_\ell} \right)  \\
+  \alpha_1  - \alpha_0   &= 1 +  \left[\frac{E_k[Y^2] - E_{\ell}[Y^2]}{\mathcal{W}^2(p_k - p_\ell)} \right]-2  \left[\frac{p_{1k}E_{1k}[Y] - p_\ell E_{1\ell}[Y]}{\mathcal{W}(p_k - p_\ell)} \right] 
+\end{align*}
+and therefore
+\begin{equation}
+  \alpha_1  - \alpha_0  = 1 +  (p_k - p_\ell)\left[\frac{E_k[Y^2] - E_{\ell}[Y^2]}{\left( E_k[Y] - E_\ell[Y] \right)^2} \right]-2  \left[\frac{p_{1k}E_{1k}[Y] - p_\ell E_{1\ell}[Y]}{E_k[Y] - E_\ell[Y]} \right] 
+\end{equation}
 \end{document}
