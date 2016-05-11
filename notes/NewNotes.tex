@@ -431,6 +431,8 @@ and thus
 \end{align*}
 
 \section{Identification in the General Case}
+
+\section{Characteristic Functions}
 Recall from above that in the general case an independent instrument combined with non-differential measurement error implies that
 \begin{align*}
   (1 - \alpha_0 - \alpha_1) \left[ F_k(\tau) - F_\ell(\tau) \right] &= \alpha_0 \left\{ (1 - p_{k})\left[F_{0k}(\tau + \beta) - F_{0k}(\tau)  \right] - (1 - p_\ell)\left[ F_{0\ell}(\tau + \beta) - F_{0\ell}(\tau)  \right] \right\}\\
@@ -452,6 +454,8 @@ Steps nearly identical to those given above yield
   &= \alpha_0 \sum_{s=1}^r {r \choose s} (-\beta)^s \left\{ (1 - p_k) E_{0k}[Y^{r-s}] - (1 - p_\ell) E_{0\ell}[Y^{r-s}] \right\}\\
   &\quad - (1 - \alpha_0) \sum_{s=1}^r {r \choose s} (-\beta)^s \left\{p_k E_{1k}[Y^{r-s}] - p_\ell E_{1\ell}[Y^{r-s}] \right\}
 \end{align*}
+
+\paragraph{First Moments}
 Taking $r = 1$ gives
 \begin{align*}
   (1 - \alpha_0 - \alpha_1)\left( E_k[Y] - E_{\ell}[Y] \right) = \beta (p_k - p_\ell)
@@ -461,6 +465,8 @@ Simplifying,
   \mathcal{W} \equiv \frac{E_k[Y] - E_{\ell}[Y]}{p_k - p_\ell} = \frac{\beta}{1 - \alpha_0 - \alpha_1}
   \label{eq:Wald}
 \end{equation}
+
+\paragraph{Second Moments}
 Now, taking $r = 2$ gives
 \begin{align*}
   (1 - \alpha_0 - \alpha_1) \left( E_{k}[Y^2] - E_{\ell}[Y^2] \right) &=
@@ -492,4 +498,74 @@ and therefore
 \begin{equation}
   \alpha_1  - \alpha_0  = 1 +  (p_k - p_\ell)\left[\frac{E_k[Y^2] - E_{\ell}[Y^2]}{\left( E_k[Y] - E_\ell[Y] \right)^2} \right]-2  \left[\frac{p_{1k}E_{1k}[Y] - p_\ell E_{1\ell}[Y]}{E_k[Y] - E_\ell[Y]} \right] 
 \end{equation}
+
+\paragraph{``Product'' Moments}
+Recall that in our initial draft of the paper we worked with moments such as $E[TY|Z=k], E[TY|Z=\ell]$ and $E[TY^2|Z=k], E[TY^2|Z=\ell]$.
+In the notation of this document, we can express these quantities as follows:
+\begin{align*}
+  E[TY^r|z=k] &= E[TY^r|T=1,z=k]p_k + E[TY^r|T=0,z=k](1 - p_k)\\
+  &= p_k E[Y^r|T=1,z=k] + 0\\
+  &= p_k E_{1k}[Y^r]
+\end{align*}
+for any $r$. 
+We will use this relationship to motivate some shorthand notation below.
+
+\paragraph{Some Shorthand}
+The notation above is becoming very cumbersome and we haven't even looked at the third moments yet! 
+To make life easier, define the following: 
+\begin{align*}
+  \widetilde{y^r_{1k}} &= p_k E_{1k}[Y^r] \\
+  \widetilde{y^r_{0k}} &= (1 - p_k) E_{1k}[Y^r] \\
+  \Delta \overline{y^r} &= E_k[Y^r] - E_\ell[Y^r]\\
+  \Delta \overline{Ty^r} &= p_k E_{1k}[Y^r] - p_\ell E_{1\ell}[Y^r] = \widetilde{y^r_{1k}} - \widetilde{y^r_{1k}}\\
+  \mathcal{W} &= (E_k[Y] - E_\ell[Y]) / (p_k - p_\ell)
+\end{align*}
+for all $r$.
+When no $r$ superscript is given this means $r=1$.
+Note, moreover, that when $r =0$ we have $\widetilde{y_{1k}^0} = p_k$ and $\widetilde{y_{0k}^0} = (1 - p_k)$.
+Thus $\Delta \overline{Ty^0} = p_k - p_\ell$.
+In contrast, $\Delta y^0 = 0$.
+
+Among other things, this notation will make it easier for us to link the derivations here to our earlier derivations from the first draft of the paper that used slightly different notation and did not work explicitly with the independence of the instrument.
+
+\paragraph{Simplifying the Moment Equalities}
+Using the final two pieces of notation defined in the preceding section, we can re-rewrite the collection of moment equalities arising from the characteristic function equations as
+\begin{align*}
+  (1 - \alpha_0 - \alpha_1) \Delta \overline{y^r} 
+  &= \sum_{s=1}^r {r \choose s} (-\beta)^s \left[\alpha_0 \left( \widetilde{y^{r-s}_{0k}} - \widetilde{y^{r-s}_{0\ell}} \right) - (1 - \alpha_0) \left( \widetilde{y^{r-s}_{1k}} - \widetilde{y^{r-s}_{1\ell}} \right) \right]
+\end{align*}
+Now, simplifying the terms in the square brackets,
+\begin{align*}
+  \alpha_0 \left( \widetilde{y^{r-s}_{0k}} - \widetilde{y^{r-s}_{0\ell}} \right) - (1 - \alpha_0) \left( \widetilde{y^{r-s}_{1k}} - \widetilde{y^{r-s}_{1\ell}} \right)
+  &= \alpha_0\left[ \left( \widetilde{y_{0k}^{r-s}} + \widetilde{y_{1k}^{r-s}} \right) - \left( \widetilde{y_{0\ell}^{r-s}} + \widetilde{y_{1\ell}^{r-s}} \right)  \right] - \left( \widetilde{y^{r-s}_{1k}} - \widetilde{y^{r-s}_{1\ell}} \right)\\
+  &= \alpha_0\left( E_k[Y^{r-s}] - E_\ell[Y^{r-s}] \right) - \Delta \overline{Ty^{r-s}}\\
+  &= \alpha_0 \Delta \overline{y^{r-s}} - \Delta\overline{Ty^{r-s}}
+\end{align*}
+and hence
+\begin{align}
+  (1 - \alpha_0 - \alpha_1) \Delta \overline{y^r} 
+  &= \sum_{s=1}^r {r \choose s} (-\beta)^s \left( \alpha_0 \Delta\overline{y^{r-s}} - \Delta\overline{Ty^{r-s}} \right) 
+  \label{eq:MomentEqualitiesSimplified}
+\end{align}
+
+\paragraph{Third Moments}
+Evaluating Equation \ref{eq:MomentEqualitiesSimplified} at $r=3$ 
+\begin{align*}
+  (1 - \alpha_0 - \alpha_1) \Delta \overline{y^3} 
+  &= \sum_{s=1}^3 {3 \choose s} (-\beta)^s \left( \alpha_0 \Delta\overline{y^{3-s}} - \Delta\overline{Ty^{3-s}} \right) \\
+  &= -3\beta\left( \alpha_0 \Delta\overline{y^2} - \Delta\overline{Ty^2} \right) + 3\beta^2\left( \alpha_0 \Delta\overline{y} - \Delta\overline{Ty} \right) + \beta^3 (p_k - p_\ell)
+\end{align*}
+
+\paragraph{Solving the System}
+Using $\mathcal{W} = \beta/(1 - \alpha_0 - \alpha_1)$ we can re-write the third moment expression as follows
+\begin{align*}
+  \Delta \overline{y^3} &= -3\mathcal{W}\left( \alpha_0 \Delta\overline{y^2} - \Delta\overline{Ty^2} \right) + 3\beta \mathcal{W}\left( \alpha_0 \Delta\overline{y} - \Delta\overline{Ty} \right) + \beta^2 \mathcal{W} (p_k - p_\ell)\\
+  \frac{\Delta \overline{y^3}}{\mathcal{W} (p_k - p_\ell)} 
+  &= \beta^2 + 3\beta \left(\frac{ \alpha_0 \Delta\overline{y} - \Delta\overline{Ty} }{p_k - p_\ell}\right) -3\left(\frac{ \alpha_0 \Delta\overline{y^2} - \Delta\overline{Ty^2} }{p_k - p_\ell}\right) \\
+  \frac{\Delta \overline{y^3} - 3\mathcal{W}\Delta\overline{y^2T}}{\mathcal{W}(p_k - p_\ell)}
+  &= \beta^2 + 3\beta \left(\frac{ \alpha_0 \Delta\overline{y} - \Delta\overline{Ty} }{p_k - p_\ell}\right) -3\left(\frac{ \alpha_0 \Delta\overline{y^2}  }{p_k - p_\ell}\right) 
+\end{align*}
+Now, translating the second moment equation into the shorthand notation defined above, we have
+
+
 \end{document}
