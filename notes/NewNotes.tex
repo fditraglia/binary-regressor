@@ -569,30 +569,50 @@ Now, translating the second moment equation into the shorthand notation defined 
 \section{Frank's New Stuff from September}
 
 \subsection{Is the Treatment Effect Identified when $Y$ is Binary?}
-Let $\pi_{tz} = P(Y=1|T=t, Z=z)$ and $\pi^*_{tz} = P(Y|T^*=t, Z=z)$.
+Suppose that $Y$ is discrete with arbitrary support.
 Using our standard argument,
 \begin{align*}
-  \pi_{0k}^* &= \pi_{0k} + \left( \frac{\alpha_1 p_k}{1 - p_k - \alpha_1} \right)\left( \pi_{0k} - \pi_{1k} \right) \\
-  \pi_{1k}^* &= \pi_{1k} + \left( \frac{\alpha_0(1 - p_k)}{p_k - \alpha_0} \right)\left( \pi_{1k} - \pi_{0k} \right)
+  P(Y|T^*=0, z_k) &= P(Y|T=0, z_k) + \left( \frac{\alpha_1 p_k}{1 - p_k - \alpha_1} \right)\left[ P(Y|T=0,z_k) - P(Y|T=1,z_k) \right] \\
+  P(Y|T^*=1, z_k) &= P(Y|T=1, z_k) + \left( \frac{\alpha_0 (1-p_k)}{ p_k - \alpha_0} \right)\left[ P(Y|T=1,z_k) - P(Y|T=0,z_k) \right]
 \end{align*}
+under non-differential measurement error.
 Now, if we assume that $Z$ is conditionally independent of $Y$ given $T^*$, then we have $P(Y,Z|T^*) = P(Z|T^*)P(Y|T^*)$ or equivalently $P(Y|T^*,Z) = P(Y|T^*)$.
 I originally derived this in terms of the first condition, but here I'll present both ways.
-For the first, let $q^*_t = P(Z=1|T^*=t)$. 
-We have $q_0^* = q(1 - p_1 - \alpha_1)/(1 - p - \alpha_1)$ and $q_1^* - q(p_1 - \alpha_0)/(p - \alpha_0)$.
-And by our usual argument,
+For the first, we have
+\begin{align*}
+  P(Z|T^*=1) = P(Z)\left[ \frac{P(T=1|Z) - \alpha_0}{P(T=1) - \alpha_0} \right]\\
+  P(Z|T^*=0) = P(Z)\left[ \frac{P(T=0|Z) - \alpha_1}{P(T=0) - \alpha_1} \right]
+\end{align*}
+Now, by our usual argument
 \begin{align*}
   P(Y,Z|T^*=0) = P(Y,Z|T=0) + \left( \frac{\alpha_1 p}{1 - p - \alpha_1} \right)\left[ P(Y,Z|T=0) - P(Y,Z|T=1) \right]\\ 
   P(Y,Z|T^*=1) = P(Y,Z|T=1) + \left( \frac{\alpha_0 (1-p)}{p - \alpha_0} \right)\left[ P(Y,Z|T=1) - P(Y,Z|T=0) \right]\
 \end{align*}
-These expressions simplify to
+which simplifies to
 \begin{align*}
-  P(Y,Z|T^*=1) = 
+  P(Y,Z|T^*=1) &= \frac{P(Y,Z,T=1) - \alpha_0 P(Y,Z)}{P(T=1) - \alpha_0}\\
+  P(Y,Z|T^*=0) &= \frac{P(Y,Z,T=0) - \alpha_1 P(Y,Z)}{P(T=0) - \alpha_1}
 \end{align*}
-and similarly
+Similarly
 \begin{align*}
-  P(Y|T^*=1) &= \left( \frac{1 - \alpha_0}{p-\alpha_0} \right) p P(Y|T=1) - \frac{\alpha_0}{p - \alpha_0}(1 - p) P(Y|T=0)\\
-  P(Y|T^*=0) &= \left( \frac{1 - \alpha_0}{p-\alpha_0} \right) p P(Y|T=1) - \frac{\alpha_0}{p - \alpha_0}(1 - p) P(Y|T=0)
+  P(Y|T^*=1) &= \left( \frac{1 - \alpha_0}{p-\alpha_0} \right) p P(Y|T=1) - \left(\frac{\alpha_0}{p - \alpha_0}\right)(1 - p) P(Y|T=0)\\
+  P(Y|T^*=0) &= \left( \frac{-\alpha_1}{1 - p-\alpha_1} \right) p P(Y|T=1) - \left(\frac{1 - \alpha_1}{1 - p - \alpha_1}\right)(1 - p) P(Y|T=0)
 \end{align*}
+which simplifies to
+\begin{align*}
+  P(Y|T^*=1) &= \frac{P(Y,T=1) - \alpha_0 P(Y)}{P(T=1) - \alpha_0}\\
+  P(Y|T^*=0) &= \frac{P(Y,T=0) - \alpha_1 P(Y)}{P(T=0) - \alpha_1}
+\end{align*}
+Thus, imposing $P(Y,Z|T^*) = P(Z|T^*)P(Y|T^*)$ we have two restrictions for every pair $(y,z)$ in the joint support of $(Y,Z)$: one corresponding to $T^*=0$ and the other to $T^*=1$, namely
+\begin{align*}
+  \left[ P(T=1) - \alpha_0 \right]\left[ P(Y,Z,T=1) - \alpha_0 P(Y,Z) \right] &= P(Z)\left[ P(T=1|Z)- \alpha_0 \right]\left[ P(Y,T=1) - \alpha_0 P(Y) \right]\\
+  \left[ P(T=0) - \alpha_1 \right]\left[ P(Y,Z,T=0) - \alpha_1 P(Y,Z) \right] &= P(Z)\left[ P(T=0|Z)- \alpha_1 \right]\left[ P(Y,T=0) - \alpha_1 P(Y) \right]
+\end{align*}
+The first of these gives a quadratic in $\alpha_0$ and observables only while the second gives a quadratic in $\alpha_1$ and observables only.
+Both quadratices have the same coefficient on the squared variable: $P(Y,Z) - P(Y)P(Z)$.
+This means that the quadratic term vanishes when $Y$ and $Z$ are independent.
+
+\todo[inline]{Re-derive using more familiar expressions via the alternative definition of independence $P(Y|T^*,Z) = P(Y|T^*)$, work through the algebra to actually solve the quadratics, and express in a more general form that allows for continuous $Y$.}
 
 \subsection{Is there a LATE interpretation of our earlier results?}
 Let $J \in \left\{ a, c, d, n \right\}$ index an individual's \emph{type}: always-taker, complier, defier, or never-taker.
