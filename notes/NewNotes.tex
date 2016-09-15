@@ -566,6 +566,86 @@ Using $\mathcal{W} = \beta/(1 - \alpha_0 - \alpha_1)$ we can re-write the third 
   &= \beta^2 + 3\beta \left(\frac{ \alpha_0 \Delta\overline{y} - \Delta\overline{Ty} }{p_k - p_\ell}\right) -3\left(\frac{ \alpha_0 \Delta\overline{y^2}  }{p_k - p_\ell}\right) 
 \end{align*}
 Now, translating the second moment equation into the shorthand notation defined above, we have
+\section{Frank's New Stuff from September}
 
+\subsection{Is the Treatment Effect Identified when $Y$ is Binary?}
+Let $\pi_{tz} = P(Y=1|T=t, Z=z)$ and $\pi^*_{tz} = P(Y|T^*=t, Z=z)$.
+Using our standard argument,
+\begin{align*}
+  \pi_{0k}^* &= \pi_{0k} + \left( \frac{\alpha_1 p_k}{1 - p_k - \alpha_1} \right)\left( \pi_{0k} - \pi_{1k} \right) \\
+  \pi_{1k}^* &= \pi_{1k} + \left( \frac{\alpha_0(1 - p_k)}{p_k - \alpha_0} \right)\left( \pi_{1k} - \pi_{0k} \right)
+\end{align*}
+Now, if we assume that $Z$ is conditionally independent of $Y$ given $T^*$, then we have $P(Y,Z|T^*) = P(Z|T^*)P(Y|T^*)$ or equivalently $P(Y|T^*,Z) = P(Y|T^*)$.
+I originally derived this in terms of the first condition, but here I'll present both ways.
+For the first, let $q^*_t = P(Z=1|T^*=t)$. 
+We have $q_0^* = q(1 - p_1 - \alpha_1)/(1 - p - \alpha_1)$ and $q_1^* - q(p_1 - \alpha_0)/(p - \alpha_0)$.
+And by our usual argument,
+\begin{align*}
+  P(Y,Z|T^*=0) = P(Y,Z|T=0) + \left( \frac{\alpha_1 p}{1 - p - \alpha_1} \right)\left[ P(Y,Z|T=0) - P(Y,Z|T=1) \right]\\ 
+  P(Y,Z|T^*=1) = P(Y,Z|T=1) + \left( \frac{\alpha_0 (1-p)}{p - \alpha_0} \right)\left[ P(Y,Z|T=1) - P(Y,Z|T=0) \right]\
+\end{align*}
+These expressions simplify to
+\begin{align*}
+  P(Y,Z|T^*=1) = 
+\end{align*}
+and similarly
+\begin{align*}
+  P(Y|T^*=1) &= \left( \frac{1 - \alpha_0}{p-\alpha_0} \right) p P(Y|T=1) - \frac{\alpha_0}{p - \alpha_0}(1 - p) P(Y|T=0)\\
+  P(Y|T^*=0) &= \left( \frac{1 - \alpha_0}{p-\alpha_0} \right) p P(Y|T=1) - \frac{\alpha_0}{p - \alpha_0}(1 - p) P(Y|T=0)
+\end{align*}
+
+\subsection{Is there a LATE interpretation of our earlier results?}
+Let $J \in \left\{ a, c, d, n \right\}$ index an individual's \emph{type}: always-taker, complier, defier, or never-taker.
+Let $Y(1)$ indicate the potential outcome when $T^*=1$ and $Y(0)$ indicate the potential outcome when $T^*=0$.
+The standard LATE assumptions (no defiers, mean exclusion, unconfounded type) imply
+\begin{align*}
+  \mathbb{E}\left( Y| T^* = 1, z = 1 \right) &= \left( \frac{p_0^*}{p_1^*} \right) \mathbb{E}\left[ Y(1)|J=a \right] + \left( \frac{p_1^* - p_0^*}{p_1^*} \right)\mathbb{E}\left[ Y(1)|J=c \right] \\
+  \mathbb{E}\left( Y| T^* = 0, z = 0 \right) &= \left( \frac{p_1^* - p_0^*}{1 - p_0^*} \right)\mathbb{E}\left[ Y(0)|J=c \right] + \left( \frac{1 - p_1^*}{1 - p_0^*} \right)\mathbb{E}\left[ Y(0)|J=n \right]\\
+  \mathbb{E}\left( Y| T^* = 1, z = 1 \right) &= \mathbb{E}\left[ Y(1)|J=a \right]\\
+  \mathbb{E}\left( Y| T^* = 0, z = 0 \right) &= \mathbb{E}\left[ Y(0)|J=n \right]
+\end{align*}
+
+\paragraph{LATE Version of Theorem 2 from the Draft}
+\begin{align*}
+  \Delta\overline{yT} &= \mathbb{E}\left( yT|z=1 \right) - \mathbb{E}\left( yT|z=0 \right) \\
+  &= (1 - \alpha_1) \left[ p_1^* \mathbb{E}\left( y|T^*=1, z=1 \right) - p_0^* \mathbb{E}\left(y|T^*=1, z=0\right) \right] \\
+  & \; \; \quad \quad + \alpha_0 \left[ (1 - p_1^*)\mathbb{E}\left( y|T^*=0, z=1\right) - (1 - p_0^*)\mathbb{E}\left(y|T^*,z=0 \right) \right]
+\end{align*}
+So we find that
+\begin{align*}
+  \Delta\overline{yT} &= (p_1^* - p_0^*)\left\{ (1 - \alpha_1) \mathbb{E}\left[ Y(1)|J=c \right] - \alpha_0\mathbb{E}\left[ Y(0)|J=c \right] \right\}\\
+  &= (1 - \alpha_1) \left\{ \frac{\mathbb{E}\left[ Y(1) - Y(0)|J=c \right](p_1 - p_0)}{1 - \alpha_0 - \alpha_1} (p_1 - p_0) \right\} + (p_1  - p_0) \mathbb{E}\left[ Y(0)|J=c \right]
+\end{align*}
+Recall that the analogous expression in the homogenous treatment effect case is
+\begin{align*}
+  \Delta\overline{yT} &= (1 - \alpha_1) \mathcal{W} (p_1 - p_0) + \mu_{10}^*\\
+  &= (1 - \alpha_1) \left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) (p_1 - p_0) + (p_1 - \alpha_0)m_{11}^* - (p_0 - \alpha_0)m_{10}^*
+\end{align*}
+while the expression for the difference of variances is 
+\begin{align*}
+  \Delta\overline{y^2} &= \beta \mathcal{W}(p_1 - p_0) + 2\mathcal{W} \mu_{10}^*
+\end{align*}
+From above we see that the analogue of $\mu_{10}^*$ in the heterogeneous treatment effects setting is $(p_1 - p_0)E\left[ Y(0)|J=c \right]$ and since the LATE is $\mathbb{E}\left[ Y(1) - Y(0) |J=c\right]$, the analogue of $\mathcal{W}$ is
+\[
+  \frac{\mathbb{E}\left[ Y(1) - Y(0)|J=c \right]}{1 - \alpha_0 - \alpha_1}
+\]
+so \emph{if} we could establish that 
+\[
+  \Delta\overline{y^2} =  \left( \frac{p_1 - p_0}{1 - \alpha_0 - \alpha_1} \right)\mathbb{E}\left[ Y(1) - Y(0)|J=c \right]\cdot \mathbb{E}\left[ Y(1) + Y(0) |J=c \right]
+\]
+in the heterogeneous treatment effects case, the proof of Theorem 2 would go through immediately.
+Now, if we assume an exclusion restriction on the \emph{second} moment of $y$ an argument almost identical to the standard LATE derivation gives
+\[
+  \Delta\overline{y^2} = \frac{\mathbb{E}\left[ Y^2(1) - Y^2(0) |J=c \right]}{p_1^* - p_0^*} = \left( \frac{p_1 - p_0}{1 - \alpha_0 - \alpha_1} \right)\mathbb{E}\left[ Y^2(1) - Y^2(0) |J=c \right] 
+\]
+so we see that the necessary and sufficient condition for our proof to go through is 
+\[
+  \mathbb{E}\left[ Y^2(1) - Y^2(0)|J=c \right] = \mathbb{E}\left[ Y(1) - Y(0)|J=c \right]\cdot \mathbb{E}\left[ Y(1) + Y(0)|J=c \right]
+\]
+Rearranging, this in turn is equvalient to
+\[
+  \mbox{Var}\left[ Y(1)|J=c \right] = \mbox{Var}\left[ Y(0)|J=c \right]
+\]
+which is a fairly strong restriction, even though it does not technically rule out heterogeneous treatment effects.
 
 \end{document}
