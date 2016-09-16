@@ -566,6 +566,9 @@ Using $\mathcal{W} = \beta/(1 - \alpha_0 - \alpha_1)$ we can re-write the third 
   &= \beta^2 + 3\beta \left(\frac{ \alpha_0 \Delta\overline{y} - \Delta\overline{Ty} }{p_k - p_\ell}\right) -3\left(\frac{ \alpha_0 \Delta\overline{y^2}  }{p_k - p_\ell}\right) 
 \end{align*}
 Now, translating the second moment equation into the shorthand notation defined above, we have
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Frank's New Stuff from September}
 
 \subsection{Is the Treatment Effect Identified when $Y$ is Binary?}
@@ -612,7 +615,37 @@ The first of these gives a quadratic in $\alpha_0$ and observables only while th
 Both quadratices have the same coefficient on the squared variable: $P(Y,Z) - P(Y)P(Z)$.
 This means that the quadratic term vanishes when $Y$ and $Z$ are independent.
 
+The first equation can be re-written in polynomial form:
+\begin{align*}
+\alpha_0^2 \left[ P(Y) - P(Y|Z) \right] - \alpha_0 \left[ P(Y,T=1) - P(Y,T=1|Z) + P(T=1|Z)P(Y) - P(T=1)P(Y|Z) \right] \\
++ \left[ P(T=1|Z)P(Y,T=1) - P(T=1)P(Y,T=1|Z) \right] = 0
+\end{align*}
+
+The second equation can be re-written in polynomial form:
+\begin{align*}
+\alpha_1^2 \left[ P(Y) - P(Y|Z) \right] - \alpha_1 \left[ P(Y,T=0) - P(Y,T=0|Z) + P(T=0|Z)P(Y) - P(T=0)P(Y|Z) \right] \\
++ \left[ P(T=0|Z)P(Y,T=0) - P(T=0)P(Y,T=0|Z) \right] = 0
+\end{align*}
+
+In both cases we make use of the fact that
+\begin{align*}
+\frac{ P(Y,Z,T)}{P(Z)} = P(Y,T|Z)
+\end{align*}
+
+After some algebra, the discriminant ($D = b^2 - 4ac$) for the $\alpha_0$ roots can be written as:
+\begin{align*}
+\left( P(Y,T=1) - P(Y)P(T=1|Z) \right)^2 + \left( P(Y,T=1|Z) - P(T=1)P(Y|Z) \right)^2 \\
++ 4P(Y|Z)P(T=1|Z)P(Y,T=1) - 2P(Y|Z)P(T=1|Z)P(Y)P(T=1)\\
++ 4P(Y,T=1|Z)P(Y)P(T=1) - 2P(Y,T=1|Z)P(Y)P(T=1|Z)\\
+ - 2P(Y,T=1)P(Y,T=1|Z) - 2P(Y,T=1)P(Y|Z)P(T=1)
+\end{align*}
+
+The question is whether the last six terms can be factored in a way that shows that the whole discriminant is always positive. 
+
+
 \todo[inline]{Re-derive using more familiar expressions via the alternative definition of independence $P(Y|T^*,Z) = P(Y|T^*)$, work through the algebra to actually solve the quadratics, and express in a more general form that allows for continuous $Y$.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Is there a LATE interpretation of our earlier results?}
 Let $J \in \left\{ a, c, d, n \right\}$ index an individual's \emph{type}: always-taker, complier, defier, or never-taker.
