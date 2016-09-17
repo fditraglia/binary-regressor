@@ -651,18 +651,43 @@ The question is whether the last six terms can be factored in a way that shows t
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Is there a LATE interpretation of our earlier results?}
+\subsection{Is there a LATE interpretation of our results?}
 Let $J \in \left\{ a, c, d, n \right\}$ index an individual's \emph{type}: always-taker, complier, defier, or never-taker.
-Let $Y(1)$ indicate the potential outcome when $T^*=1$ and $Y(0)$ indicate the potential outcome when $T^*=0$.
+Let $\pi_a, \pi_c, \pi_d, \pi_n$ denote the population proportions of always-takers, compliers, defiers, and never-takers.
+The unconfounded type assumption is $P(J=j|z=1) = P(J=j|z=0)$.
+Combined with the law of total probability, this gives
+\begin{align*}
+  p^*_1 &= P(T^*=1|z=1) = \pi_a + \pi_c \\
+  1 - p^*_1 &= P(T^*=0|z=1) = \pi_d + \pi_n \\
+  p^*_0 &= P(T^*=1|z=0) = \pi_d + \pi_a \\
+  1-p^*_0 &= P(T^*=0|z=0) = \pi_n + \pi_c 
+\end{align*}
+Imposing no-defiers, $\pi_d = 0$, these expressions simplify to
+\begin{align*}
+  p^*_1 &=  \pi_a + \pi_c \\
+  1 - p^*_1 &=  \pi_n \\
+  p^*_0 &=  \pi_a \\
+  1-p^*_0 &=  \pi_n + \pi_c 
+\end{align*}
+Solving for $\pi_c$, we see that
+\begin{align*}
+  \pi_c &= p_1^* - p_0^*\\
+  \pi_a &= p_0^*\\
+  \pi_n &= 1 - p_1^*
+\end{align*}
+
+Now, let $Y(1)$ indicate the potential outcome when $T^*=1$ and $Y(0)$ indicate the potential outcome when $T^*=0$.
 The standard LATE assumptions (no defiers, mean exclusion, unconfounded type) imply
 \begin{align*}
   \mathbb{E}\left( Y| T^* = 1, z = 1 \right) &= \left( \frac{p_0^*}{p_1^*} \right) \mathbb{E}\left[ Y(1)|J=a \right] + \left( \frac{p_1^* - p_0^*}{p_1^*} \right)\mathbb{E}\left[ Y(1)|J=c \right] \\
   \mathbb{E}\left( Y| T^* = 0, z = 0 \right) &= \left( \frac{p_1^* - p_0^*}{1 - p_0^*} \right)\mathbb{E}\left[ Y(0)|J=c \right] + \left( \frac{1 - p_1^*}{1 - p_0^*} \right)\mathbb{E}\left[ Y(0)|J=n \right]\\
-  \mathbb{E}\left( Y| T^* = 1, z = 1 \right) &= \mathbb{E}\left[ Y(1)|J=a \right]\\
-  \mathbb{E}\left( Y| T^* = 0, z = 0 \right) &= \mathbb{E}\left[ Y(0)|J=n \right]
+  \mathbb{E}\left( Y| T^* = 1, z = 0 \right) &= \mathbb{E}\left[ Y(1)|J=a \right]\\
+  \mathbb{E}\left( Y| T^* = 0, z = 1 \right) &= \mathbb{E}\left[ Y(0)|J=n \right]
 \end{align*}
 
-\paragraph{LATE Version of Theorem 2 from the Draft}
+
+
+\subsubsection{LATE Version of Theorem 2 from the Draft}
 \begin{align*}
   \Delta\overline{yT} &= \mathbb{E}\left( yT|z=1 \right) - \mathbb{E}\left( yT|z=0 \right) \\
   &= (1 - \alpha_1) \left[ p_1^* \mathbb{E}\left( y|T^*=1, z=1 \right) - p_0^* \mathbb{E}\left(y|T^*=1, z=0\right) \right] \\
@@ -699,10 +724,46 @@ so we see that the necessary and sufficient condition for our proof to go throug
 \[
   \mathbb{E}\left[ Y^2(1) - Y^2(0)|J=c \right] = \mathbb{E}\left[ Y(1) - Y(0)|J=c \right]\cdot \mathbb{E}\left[ Y(1) + Y(0)|J=c \right]
 \]
-Rearranging, this in turn is equvalient to
+Rearranging, this in turn is equivalent to
 \[
   \mbox{Var}\left[ Y(1)|J=c \right] = \mbox{Var}\left[ Y(0)|J=c \right]
 \]
-which is a fairly strong restriction, even though it does not technically rule out heterogeneous treatment effects.
+
+\subsubsection{Independence Restriction}
+If we strengthen the exclusion restriction from $E[Y(T^*,z)] = E[Y(T^*)]$ to $Y(T^*,z) = Y(T^*)$, we obtain 
+\begin{align*}
+  \mathbb{P}\left( Y| T^* = 1, z = 1 \right) &= \left( \frac{p_0^*}{p_1^*} \right) \mathbb{P}\left[ Y(1)|J=a \right] + \left( \frac{p_1^* - p_0^*}{p_1^*} \right)\mathbb{P}\left[ Y(1)|J=c \right] \\
+  \mathbb{P}\left( Y| T^* = 0, z = 0 \right) &= \left( \frac{p_1^* - p_0^*}{1 - p_0^*} \right)\mathbb{P}\left[ Y(0)|J=c \right] + \left( \frac{1 - p_1^*}{1 - p_0^*} \right)\mathbb{P}\left[ Y(0)|J=n \right]\\
+  \mathbb{P}\left( Y| T^* = 1, z = 0 \right) &= \mathbb{P}\left[ Y(1)|J=a \right]\\
+  \mathbb{P}\left( Y| T^* = 0, z = 1 \right) &= \mathbb{P}\left[ Y(0)|J=n \right].
+\end{align*}
+Now suppose impose $P(Y|T^*,z) = P(Y|T^*)$ to identify $\alpha_0$ and $\alpha_1$.
+What would this require us to assume about the potential outcomes?
+Evaluating at each combination of $(T^*,z)$, the assumption is equivalent to
+\begin{align*}
+  P(Y|T^*=1,z=1) &= P(Y|T^*=1,z=0) = P(Y|T^*=1)\\
+  P(Y|T^*=0,z=1) &= P(Y|T^*=0,z=0) = P(Y|T^*=0)
+\end{align*}
+Since
+\[
+  P(Y|T^*) = P(Y|T^*,z=1)P(z=1|T^*) + P(Y|T^*,z=0)\left[ 1 - P(z=1|T^*) \right]
+\]
+it suffices to establish that
+\begin{align*}
+  P(Y|T^*=1,z=0) &= P(Y|T^*=1,z=1) \\
+  P(Y|T^*=0,z=1) &= P(Y|T^*=0,z=0)  
+\end{align*}
+From the expressions given at the beginning of this section, these are equivalent to 
+\begin{align*}
+  \mathbb{P}\left[ Y(1)|J=a \right] &=\left( \frac{p_0^*}{p_1^*} \right) \mathbb{P}\left[ Y(1)|J=a \right] + \left( \frac{p_1^* - p_0^*}{p_1^*} \right)\mathbb{P}\left[ Y(1)|J=c \right] \\ 
+  \mathbb{P}\left[ Y(0)|J=n \right] &= \left( \frac{p_1^* - p_0^*}{1 - p_0^*} \right)\mathbb{P}\left[ Y(0)|J=c \right] + \left( \frac{1 - p_1^*}{1 - p_0^*} \right)\mathbb{P}\left[ Y(0)|J=n \right]
+\end{align*}
+which are in turn equivalent to
+\begin{align*}
+  \mathbb{P}\left[ Y(1)|J=a \right] &= \mathbb{P}\left[ Y(1)|J=c \right] \\
+  \mathbb{P}\left[ Y(0)|J=n \right] &=  \mathbb{P}\left[ Y(0)|J=c \right] 
+\end{align*}
+Thus, under the LATE assumptions from Kitagawa etc.\, $P(Y|T^*,z)=P(Y|T^*)$ is equivalent to assuming that the distribution of $Y(1)$ is the same for always-takers and compliers, and that the distribution of $Y(0)$ is the same for never-takers and compliers.
+If we are prepared to assume this, then $\alpha_0$ and $\alpha_1$ are identified and can be used to identify a LATE. 
 
 \end{document}
