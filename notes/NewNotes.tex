@@ -569,10 +569,11 @@ Now, translating the second moment equation into the shorthand notation defined 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Frank's New Stuff from September}
+\section{New Results from September 2016}
 
-\subsection{Is the Treatment Effect Identified when $Y$ is Binary?}
+\subsection{Is the Treatment Effect Identified when $Y$ is Discrete?}
 Suppose that $Y$ is discrete with arbitrary support.
+This allows for the possibility that $Y$ is binary.
 Using our standard argument,
 \begin{align*}
   P(Y|T^*=0, z_k) &= P(Y|T=0, z_k) + \left( \frac{\alpha_1 p_k}{1 - p_k - \alpha_1} \right)\left[ P(Y|T=0,z_k) - P(Y|T=1,z_k) \right] \\
@@ -581,7 +582,9 @@ Using our standard argument,
 under non-differential measurement error.
 Now, if we assume that $Z$ is conditionally independent of $Y$ given $T^*$, then we have $P(Y,Z|T^*) = P(Z|T^*)P(Y|T^*)$ or equivalently $P(Y|T^*,Z) = P(Y|T^*)$.
 I originally derived this in terms of the first condition, but here I'll present both ways.
-For the first, we have
+
+\subsubsection{Derivation Using $P(Y,Z|T^*) = P(Y|T^*)P(Z|T^*)$}
+We have
 \begin{align*}
   P(Z|T^*=1) = P(Z)\left[ \frac{P(T=1|Z) - \alpha_0}{P(T=1) - \alpha_0} \right]\\
   P(Z|T^*=0) = P(Z)\left[ \frac{P(T=0|Z) - \alpha_1}{P(T=0) - \alpha_1} \right]
@@ -642,8 +645,9 @@ After some algebra, the discriminant ($D = b^2 - 4ac$) for the $\alpha_0$ roots 
 
 The question is whether the last six terms can be factored in a way that shows that the whole discriminant is always positive. 
 
+\subsubsection{Derivation Using $P(Y|T^*,Z) = P(Y|T^*)$}
 
-\todo[inline]{Re-derive using more familiar expressions via the alternative definition of independence $P(Y|T^*,Z) = P(Y|T^*)$, work through the algebra to actually solve the quadratics, and express in a more general form that allows for continuous $Y$.}
+\todo[inline]{Express in a more general form that allows for continuous $Y$.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
