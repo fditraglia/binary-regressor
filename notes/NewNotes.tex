@@ -649,7 +649,36 @@ The question is whether the last six terms can be factored in a way that shows t
 
 \todo[inline]{Express in a more general form that allows for continuous $Y$.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Can we relax the measurement error assumptions?}
+Suppose that we continue to assume that $P(Y|T^*,T,z) = P(Y|T^*,z)$ but relax the assumption that $P(T|T^*,z) = P(T|T^*)$.
+Define:
+\begin{align*}
+  \alpha_{0k} &= P\left( T=1|T^*=1, z_k \right)\\
+  \alpha_{1k} &= P\left( T=1|T^*=0, z_k \right)
+\end{align*}
+As before, the Wald estimator converges in probability to
+\[
+  \mathcal{W} = \frac{E[Y|z_k]-E[Y|z_\ell]}{p_k - p_\ell}
+\]
+but the relationship between $p_1 - p_0$ and the unobserved $p^*_1 - p^*_0$ changes.
+By the law of total probability
+\begin{align*}
+  p_k &= P(T=1|z_k) = P(T=1|T^*=1,z_k)P(T^*=1|z_k) + P(T=1|T^*=0,z_k)P(T^*=0|z_k)\\
+  &= (1 - \alpha_{1k})p_k^* + \alpha_{0k}(1 - p^*_k) = p_k^*(1 - \alpha_{0k} - \alpha_{1k}) + \alpha_{0k}
+\end{align*}
+and thus
+\[
+  p_k^* = \frac{p_k - \alpha_{0k}}{1 - \alpha_{0k} - \alpha_{1k}},
+  \quad
+  1 - p_k^* = \frac{1 - p_k - \alpha_{1k}}{1 - \alpha_{0k} - \alpha_{1k}}.
+\]
+Thus, we have
+\begin{align*}
+  p^*_k - p^*_\ell &= \left( \frac{p_k - \alpha_{0k}}{1 - \alpha_{0k} - \alpha_{1k}} \right) - \left( \frac{p_0 - \alpha_{0\ell}}{1 - \alpha_{0\ell} - \alpha_{1\ell}} \right)\\
+  &= \frac{\left( p_k - \alpha_{0k} \right)\left( 1 - \alpha_{0\ell} - \alpha_{1\ell} \right) - \left( p_0 - \alpha_{0\ell} \right)\left( 1 - \alpha_{0k} - \alpha_{1k} \right)}{\left( 1 - \alpha_{0k} - \alpha_{1k} \right)\left( 1 - \alpha_{0\ell} - \alpha_{1\ell} \right)}
+\end{align*}
+
+
 
 \subsection{Is there a LATE interpretation of our results?}
 Let $J \in \left\{ a, c, d, n \right\}$ index an individual's \emph{type}: always-taker, complier, defier, or never-taker.
@@ -698,7 +727,7 @@ So we find that
   \Delta\overline{yT} &= (p_1^* - p_0^*)\left\{ (1 - \alpha_1) \mathbb{E}\left[ Y(1)|J=c \right] - \alpha_0\mathbb{E}\left[ Y(0)|J=c \right] \right\}\\
   &= (1 - \alpha_1) \left\{ \frac{\mathbb{E}\left[ Y(1) - Y(0)|J=c \right]}{1 - \alpha_0 - \alpha_1} (p_1 - p_0) \right\} + (p_1  - p_0) \mathbb{E}\left[ Y(0)|J=c \right]
 \end{align*}
-Recall that the analogous expression in the homogenous treatment effect case is
+Recall that the analogous expression in the homogeneous treatment effect case is
 \begin{align*}
   \Delta\overline{yT} &= (1 - \alpha_1) \mathcal{W} (p_1 - p_0) + \mu_{10}^*\\
   &= (1 - \alpha_1) \left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) (p_1 - p_0) + (p_1 - \alpha_0)m_{11}^* - (p_0 - \alpha_0)m_{10}^*
@@ -730,7 +759,7 @@ Rearranging, this in turn is equivalent to
 \]
 
 \subsubsection{Independence Restriction}
-If we strengthen the exclusion restriction from $E[Y(T^*,z)] = E[Y(T^*)]$ to $Y(T^*,z) = Y(T^*)$, we obtain 
+If we strengthen the exclusion restriction from $E[Y(T^*,z)] = E[Y(T^*)]$ to $Y(T^*,z) = Y(T^*)$, 
 \begin{align*}
   \mathbb{P}\left( Y| T^* = 1, z = 1 \right) &= \left( \frac{p_0^*}{p_1^*} \right) \mathbb{P}\left[ Y(1)|J=a \right] + \left( \frac{p_1^* - p_0^*}{p_1^*} \right)\mathbb{P}\left[ Y(1)|J=c \right] \\
   \mathbb{P}\left( Y| T^* = 0, z = 0 \right) &= \left( \frac{p_1^* - p_0^*}{1 - p_0^*} \right)\mathbb{P}\left[ Y(0)|J=c \right] + \left( \frac{1 - p_1^*}{1 - p_0^*} \right)\mathbb{P}\left[ Y(0)|J=n \right]\\
@@ -767,3 +796,4 @@ Thus, under the LATE assumptions from Kitagawa etc.\, $P(Y|T^*,z)=P(Y|T^*)$ is e
 If we are prepared to assume this, then $\alpha_0$ and $\alpha_1$ are identified and can be used to identify a LATE. 
 
 \end{document}
+
