@@ -825,19 +825,19 @@ Thus, under the LATE assumptions from Kitagawa etc.\, $P(Y|T^*,z)=P(Y|T^*)$ is e
 If we are prepared to assume this, then $\alpha_0$ and $\alpha_1$ are identified and can be used to identify a LATE. 
 
 \subsection{Partial Identification Under Weak Independence Assumption}
-Suppose we only make the LATE independence assumption $Y(T^*,z) = Y(T^*)$ rather than the conditional independence assumption $P(Y|T^*,z) = P(Y|T^*)$.
+Suppose we only make the LATE independence assumption $Y(T^*,z) = Y(T^*)$ rather than the conditional independence assumption $P(Y<\tau|T^*,z_k) = P(Y<\tau|T^*,z_\ell)$.
 Then we still obtain
 \begin{align*}
   \mathbb{P}\left( Y| T^* = 1, z = 1 \right) &= \left( \frac{p_0^*}{p_1^*} \right) \mathbb{P}\left[ Y(1)|J=a \right] + \left( \frac{p_1^* - p_0^*}{p_1^*} \right)\mathbb{P}\left[ Y(1)|J=c \right] \\
   \mathbb{P}\left( Y| T^* = 0, z = 0 \right) &= \left( \frac{p_1^* - p_0^*}{1 - p_0^*} \right)\mathbb{P}\left[ Y(0)|J=c \right] + \left( \frac{1 - p_1^*}{1 - p_0^*} \right)\mathbb{P}\left[ Y(0)|J=n \right]\\
   \mathbb{P}\left( Y| T^* = 1, z = 0 \right) &= \mathbb{P}\left[ Y(1)|J=a \right]\\
-  \mathbb{P}\left( Y| T^* = 0, z = 1 \right) &= \mathbb{P}\left[ Y(0)|J=n \right].
+  \mathbb{P}\left( Y| T^* = 0, z = 1 \right) &= \mathbb{P}\left[ Y(0)|J=n \right]
 \end{align*}
 From above, we also know that
 \begin{align*}
   P(Y|T^*=0,z_k) &= P(Y|T=0, z_k) + \left( \frac{\alpha_1 p_k}{1 - p_k - \alpha_1} \right)\left[ P(Y|T=0,z_k) - P(Y|T=1,z_k) \right]\\
   P(Y|T^*=1,z_k) &= P(Y|T=1, z_k) + \left( \frac{\alpha_0 (1-p_k)}{p_k - \alpha_0} \right)\left[ P(Y|T=1,z_k) - P(Y|T=0,z_k) \right]
 \end{align*}
-Thus, combining
+Thus, combining and simplifying
 
 \end{document}
