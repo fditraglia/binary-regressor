@@ -838,6 +838,22 @@ From above, we also know that
   P(Y|T^*=0,z_k) &= P(Y|T=0, z_k) + \left( \frac{\alpha_1 p_k}{1 - p_k - \alpha_1} \right)\left[ P(Y|T=0,z_k) - P(Y|T=1,z_k) \right]\\
   P(Y|T^*=1,z_k) &= P(Y|T=1, z_k) + \left( \frac{\alpha_0 (1-p_k)}{p_k - \alpha_0} \right)\left[ P(Y|T=1,z_k) - P(Y|T=0,z_k) \right]
 \end{align*}
-Thus, combining and simplifying
+The notation is getting a bit unwieldy so let $\pi^*_{tk}(y)= P(Y=y|T^*=t,z_k)$ and similarly define $\pi_{tk}(y) = P(Y=y|T=t,z_k)$.
+Using this new notation, we have
+\begin{align*}
+  (1 - p_k - \alpha_1) \pi^*_{0k}(y) &= (1 - p_k - \alpha_1) \pi_{0k}(y) + \alpha_1 p_k \left[ \pi_{0k}(y) - \pi_{1k}(y) \right]\\
+  (p_k - \alpha_0) \pi_{1k}^*(y) &= (p_k - \alpha_0) \pi_{1k}(y) + \alpha_0 (1 - p_k)\left[ \pi_{1k}(y) - \pi_{0k}(y) \right]
+\end{align*}
+and, using the fact that $p_k^* = (p_k - \alpha_0)/(1 - \alpha_0 - \alpha_1)$,  
+\begin{align*}
+  \pi^*_{11}(y) &= \left( \frac{p_0 - \alpha_0}{p_1 - \alpha_0} \right) P\left[ Y(1)|J=a \right] + \left( \frac{p_1 - p_0}{p_1 - \alpha_0} \right) P\left[ Y(1)|J=c \right]\\
+  \pi^*_{00}(y) &= \\
+  \pi^*_{10}(y) &= P\left[ Y(1)|J=a \right]\\
+  \pi^*_{01}(y) &= P\left[ Y(0)|J=n \right] 
+\end{align*}
+Substituting the preceding expressions into those for $\pi^*_{11}(y)$ and $\pi^*_{00}(y)$ and 
+
+
+\todo[inline]{Do the expressions for the always and never-takers yield an additional bound?}
 
 \end{document}
