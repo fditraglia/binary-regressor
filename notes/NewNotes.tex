@@ -647,7 +647,36 @@ The question is whether the last six terms can be factored in a way that shows t
 
 \subsubsection{Derivation Using $P(Y|T^*,Z) = P(Y|T^*)$}
 
-\todo[inline]{Express in a more general form that allows for continuous $Y$.}
+Let's write this in a way that allows for $Y$ to follow an arbitrary distribution.
+Let
+\begin{align*}
+F^*_{tk}(\tau) &= P(Y \leq \tau|T^*=t, z_k)\\
+F_{tk}(\tau) &= P(Y \leq \tau|T=t, z_k)
+\end{align*}
+Now, by the assumption of non-differential measurement error,
+\begin{align*}
+  p_k F_{1k}(\tau) &= (1 - \alpha_1) p_k^* F_{1k}^*(\tau) + \alpha_0 (1 - p_k^*)F_{0k}^*(\tau)\\
+  (1 - p_k) F_{0k}(\tau) &= \alpha_1 p_k^* F_{1k}^*(\tau) + (1 - \alpha_0) (1 - p_k^*)F_{0k}^*(\tau)
+\end{align*}
+Solving the linear system as above, we find that
+\begin{align*}
+  F_{0k}^*(\tau) &= F_{0k}(\tau) + \left( \frac{\alpha_1 p_k}{1 - p_k - \alpha_1} \right)\left[ F_{0k}(\tau) - F_{1k}(\tau) \right]\\
+  F_{1k}^*(\tau) &= F_{1k}(\tau) + \left( \frac{\alpha_0 (1-p_k)}{p_k - \alpha_0} \right)\left[ F_{1k}(\tau) - F_{0k}(\tau) \right]\\
+\end{align*}
+The conditional independence assumption is equivalent to
+\begin{align*}
+  F^*_{0k}(\tau) &= F^*_{0\ell}(\tau)\\
+  F^*_{1k}(\tau) &= F^*_{1\ell}(\tau)
+\end{align*}
+for all $\tau$.
+(If $Y$ is discrete, it's simpler to work with the analogous statement for probability mass functions.)
+Imposing this on the solutions for $F_{0k}^*$ and $F_{1k}^*$ gives,
+\begin{align*}
+  F_{0k}(\tau) + \left( \frac{\alpha_1 p_k}{1 - p_k - \alpha_1} \right)\left[ F_{0k}(\tau) - F_{1k}(\tau) \right] &= F_{0\ell}(\tau) + \left( \frac{\alpha_1 p_\ell}{1 - p_\ell - \alpha_1} \right)\left[ F_{0\ell}(\tau) - F_{1\ell}(\tau) \right] \\
+  F_{1k}(\tau) + \left( \frac{\alpha_0(1 - p_k)}{p_k - \alpha_0}\right)\left[ F_{1k}(\tau) - F_{0k}(\tau) \right]  &= F_{1\ell}(\tau) + \left( \frac{\alpha_0(1 - p_\ell)}{p_\ell - \alpha_0}\right)\left[ F_{1\ell}(\tau) - F_{0\ell}(\tau) \right] 
+\end{align*}
+Simplifying these should give quadratics in $\alpha_0$ and $\alpha_1$ with the same solutions as those from above derived under the alternative version of the independence condition.
+
 
 \subsection{Can we relax the measurement error assumptions?}
 Suppose that we continue to assume that $P(Y|T^*,T,z) = P(Y|T^*,z)$ but relax the assumption that $P(T|T^*,z) = P(T|T^*)$.
@@ -795,5 +824,20 @@ which are in turn equivalent to
 Thus, under the LATE assumptions from Kitagawa etc.\, $P(Y|T^*,z)=P(Y|T^*)$ is equivalent to assuming that the distribution of $Y(1)$ is the same for always-takers and compliers, and that the distribution of $Y(0)$ is the same for never-takers and compliers.
 If we are prepared to assume this, then $\alpha_0$ and $\alpha_1$ are identified and can be used to identify a LATE. 
 
-\end{document}
+\subsection{Partial Identification Under Weak Independence Assumption}
+Suppose we only make the LATE independence assumption $Y(T^*,z) = Y(T^*)$ rather than the conditional independence assumption $P(Y|T^*,z) = P(Y|T^*)$.
+Then we still obtain
+\begin{align*}
+  \mathbb{P}\left( Y| T^* = 1, z = 1 \right) &= \left( \frac{p_0^*}{p_1^*} \right) \mathbb{P}\left[ Y(1)|J=a \right] + \left( \frac{p_1^* - p_0^*}{p_1^*} \right)\mathbb{P}\left[ Y(1)|J=c \right] \\
+  \mathbb{P}\left( Y| T^* = 0, z = 0 \right) &= \left( \frac{p_1^* - p_0^*}{1 - p_0^*} \right)\mathbb{P}\left[ Y(0)|J=c \right] + \left( \frac{1 - p_1^*}{1 - p_0^*} \right)\mathbb{P}\left[ Y(0)|J=n \right]\\
+  \mathbb{P}\left( Y| T^* = 1, z = 0 \right) &= \mathbb{P}\left[ Y(1)|J=a \right]\\
+  \mathbb{P}\left( Y| T^* = 0, z = 1 \right) &= \mathbb{P}\left[ Y(0)|J=n \right].
+\end{align*}
+From above, we also know that
+\begin{align*}
+  P(Y|T^*=0,z_k) &= P(Y|T=0, z_k) + \left( \frac{\alpha_1 p_k}{1 - p_k - \alpha_1} \right)\left[ P(Y|T=0,z_k) - P(Y|T=1,z_k) \right]\\
+  P(Y|T^*=1,z_k) &= P(Y|T=1, z_k) + \left( \frac{\alpha_0 (1-p_k)}{p_k - \alpha_0} \right)\left[ P(Y|T=1,z_k) - P(Y|T=0,z_k) \right]
+\end{align*}
+Thus, combining
 
+\end{document}
