@@ -2,7 +2,7 @@
 \usepackage{../frankstyle}
 
 \title{Notes for Paper on Mis-measured, Binary, Endogenous Regressors}
-\author{ Francis J.\ DiTraglia \& Camilo Garc\'{i}a-Jimeno}
+\author{Francis J.\ DiTraglia \& Camilo Garc\'{i}a-Jimeno}
 
 \begin{document}
 
@@ -844,16 +844,98 @@ Using this new notation, we have
   (1 - p_k - \alpha_1) \pi^*_{0k}(y) &= (1 - p_k - \alpha_1) \pi_{0k}(y) + \alpha_1 p_k \left[ \pi_{0k}(y) - \pi_{1k}(y) \right]\\
   (p_k - \alpha_0) \pi_{1k}^*(y) &= (p_k - \alpha_0) \pi_{1k}(y) + \alpha_0 (1 - p_k)\left[ \pi_{1k}(y) - \pi_{0k}(y) \right]
 \end{align*}
-and, using the fact that $p_k^* = (p_k - \alpha_0)/(1 - \alpha_0 - \alpha_1)$,  
+Writing these out for all values of $k$,
+\begin{align*}
+  (p_1 - \alpha_0) \pi_{11}^*(y) &= (p_1 - \alpha_0) \pi_{11}(y) + \alpha_0 (1 - p_1)\left[ \pi_{11}(y) - \pi_{01}(y) \right]\\
+  (1 - p_0 - \alpha_1) \pi^*_{00}(y) &= (1 - p_0 - \alpha_1) \pi_{00}(y) + \alpha_1 p_0 \left[ \pi_{00}(y) - \pi_{10}(y) \right]\\
+  (p_0 - \alpha_0) \pi_{10}^*(y) &= (p_0 - \alpha_0) \pi_{10}(y) + \alpha_0 (1 - p_0)\left[ \pi_{10}(y) - \pi_{00}(y) \right]\\
+  (1 - p_1 - \alpha_1) \pi^*_{01}(y) &= (1 - p_1 - \alpha_1) \pi_{01}(y) + \alpha_1 p_1 \left[ \pi_{01}(y) - \pi_{11}(y) \right]
+\end{align*}
+Similarly, using the fact that $p_k^* = (p_k - \alpha_0)/(1 - \alpha_0 - \alpha_1)$,  
 \begin{align*}
   \pi^*_{11}(y) &= \left( \frac{p_0 - \alpha_0}{p_1 - \alpha_0} \right) P\left[ Y(1)|J=a \right] + \left( \frac{p_1 - p_0}{p_1 - \alpha_0} \right) P\left[ Y(1)|J=c \right]\\
-  \pi^*_{00}(y) &= \\
+  \pi^*_{00}(y) &= \left( \frac{p_1 - p_0}{1 - p_0 - \alpha_1} \right) P\left[ Y(0)|J=c \right] + \left( \frac{1 - p_1 - \alpha_1}{1 - p_0 - \alpha_1} \right) P\left[ Y(0)|J=n \right]\\
   \pi^*_{10}(y) &= P\left[ Y(1)|J=a \right]\\
   \pi^*_{01}(y) &= P\left[ Y(0)|J=n \right] 
 \end{align*}
-Substituting the preceding expressions into those for $\pi^*_{11}(y)$ and $\pi^*_{00}(y)$ and 
+or equivalently,
+\begin{align*}
+  (p_1 - \alpha_0)\pi^*_{11}(y) &= \left( p_0 - \alpha_0\right) P\left[ Y(1)|J=a \right] + \left( p_1 - p_0 \right) P\left[ Y(1)|J=c \right]\\
+  (1 - p_0 - \alpha_1)\pi^*_{00}(y) &=\left( p_1 - p_0 \right) P\left[ Y(0)|J=c \right] + \left( 1 - p_1 - \alpha_1 \right) P\left[ Y(0)|J=n \right]\\
+  (p_0 - \alpha_0)\pi^*_{10}(y) &= (p_0 - \alpha_0)P\left[ Y(1)|J=a \right]\\
+  (1 - p_1 - \alpha_1)\pi^*_{01}(y) &= (1 - p_1 - \alpha_1) P\left[ Y(0)|J=n \right] 
+\end{align*}
+Equating,
+\begin{align*}
+  \left( p_0 - \alpha_0\right) P\left[ Y(1)|J=a \right] + \left( p_1 - p_0 \right) P\left[ Y(1)|J=c \right] &=  (p_1 - \alpha_0) \pi_{11}(y) + \alpha_0 (1 - p_1)\left[ \pi_{11}(y) - \pi_{01}(y) \right]\\
+  \left( p_1 - p_0 \right) P\left[ Y(0)|J=c \right] + \left( 1 - p_1 - \alpha_1 \right) P\left[ Y(0)|J=n \right] &=  (1 - p_0 - \alpha_1) \pi_{00}(y) + \alpha_1 p_0 \left[ \pi_{00}(y) - \pi_{10}(y) \right]\\
+  (p_0 - \alpha_0)P\left[ Y(1)|J=a \right] &= (p_0 - \alpha_0) \pi_{10}(y) + \alpha_0 (1 - p_0)\left[ \pi_{10}(y) - \pi_{00}(y) \right]\\
+  (1 - p_1 - \alpha_1) P\left[ Y(0)|J=n \right] &= (1 - p_1 - \alpha_1) \pi_{01}(y) + \alpha_1 p_1 \left[ \pi_{01}(y) - \pi_{11}(y) \right]
+\end{align*}
+and substituting the third and fourth equalities into the first and second we obtain
+\footnotesize
+\begin{align*}
+   (p_0 - \alpha_0) \pi_{10}(y) + \alpha_0 (1 - p_0)\left[ \pi_{10}(y) - \pi_{00}(y) \right] + \left( p_1 - p_0 \right) P\left[ Y(1)|J=c \right] &=  (p_1 - \alpha_0) \pi_{11}(y) + \alpha_0 (1 - p_1)\left[ \pi_{11}(y) - \pi_{01}(y) \right]\\
+  \left( p_1 - p_0 \right) P\left[ Y(0)|J=c \right] + (1 - p_1 - \alpha_1) \pi_{01}(y) + \alpha_1 p_1 \left[ \pi_{01}(y) - \pi_{11}(y) \right] &=  (1 - p_0 - \alpha_1) \pi_{00}(y) + \alpha_1 p_0 \left[ \pi_{00}(y) - \pi_{10}(y) \right]\\
+  (p_0 - \alpha_0)P\left[ Y(1)|J=a \right] &= (p_0 - \alpha_0) \pi_{10}(y) + \alpha_0 (1 - p_0)\left[ \pi_{10}(y) - \pi_{00}(y) \right]\\
+  (1 - p_1 - \alpha_1) P\left[ Y(0)|J=n \right] &= (1 - p_1 - \alpha_1) \pi_{01}(y) + \alpha_1 p_1 \left[ \pi_{01}(y) - \pi_{11}(y) \right]
+\end{align*}
+\normalsize
+Simplifying and re-arranging,
+\footnotesize
+\begin{align*}
+  P\left[ Y(1) = y|J=c \right] &= \left[ \frac{p_1 \pi_{11}(y) - p_0 \pi_{10}(y)}{p_1 - p_0} \right] - \alpha_0 \left[ \frac{p_1 \pi_{11}(y) - p_0 \pi_{10}(y) + (1 - p_1)\pi_{01}(y) - (1 - p_0) \pi_{00}(y) }{p_1 - p_0} \right] \\ 
+  P\left[Y(0) =y|J=c \right] &= \left[ \frac{(1 - p_0)\pi_{00}(y) - (1 - p_1)\pi_{01}(y)}{p_1 - p_0} \right] - \alpha_1 \left[ \frac{(1 - p_0) \pi_{00}(y) - (1 - p_1)\pi_{01}(y) + p_0 \pi_{10}(y) - p_1 \pi_{11}(y)}{p_1 - p_0} \right] \\
+  P\left[Y(1) = y|J=a \right] &=  \pi_{10}(y) + \left[\frac{\alpha_0 (1 - p_0)}{p_0 - \alpha_0}\right]\left[ \pi_{10}(y) - \pi_{00}(y) \right]\\
+  P\left[ Y(0) = y|J=n \right] &=  \pi_{01}(y) + \left[\frac{\alpha_1 p_1}{1 - p_1 - \alpha_1} \right] \left[ \pi_{01}(y) - \pi_{11}(y) \right]
+\end{align*}
+\normalsize
+Notice that the first two equations can be simplified as follows
+\footnotesize
+\begin{align*}
+  P\left[ Y(1) = y|J=c \right] &= \left[ \frac{P(Y = y,T=1|z=1) - P(Y,T=1|z=0)}{p_1 - p_0} \right] - \alpha_0 \left[ \frac{P(Y = y|z=1) - P(Y =y|z=0)}{p_1 - p_0} \right] \\ 
+  P\left[Y(0) = y|J=c \right] &= \left[ \frac{P(Y = y,T=0|z=1) - P(Y = y,T=0|z=1)}{p_1 - p_0} \right] - \alpha_1 \left[ \frac{P(Y=y|z=0) - P(Y=y|z=1)}{p_1 - p_0} \right] 
+\end{align*}
+\normalsize
+Now, since probabilities must be between zero and one, we obtain the bounds
+\begin{align*}
+  0 &\leq \left[ \frac{P(Y = y,T=1|z=1) - P(Y = y,T=1|z=0)}{p_1 - p_0} \right] - \alpha_0 \left[ \frac{P(Y = y|z=1) - P(Y = y|z=0)}{p_1 - p_0} \right] \leq 1\\ 
+  0 &\leq \left[ \frac{P(Y = y,T=0|z=1) - P(Y = y,T=0|z=1)}{p_1 - p_0} \right] - \alpha_1 \left[ \frac{P(Y=y|z=0) - P(Y=y|z=1)}{p_1 - p_0} \right] \leq 1 
+\end{align*}
+\normalsize
+which we abbreviate 
+\begin{align*}
+  0 &\leq \left[ \frac{\Delta P(Y=y,T=1)}{p_1 - p_0} \right] - \alpha_0 \left[ \frac{\Delta P(Y=y)}{p_1 - p_0} \right] \leq 1\\ 
+  0 &\leq \alpha_1 \left[ \frac{\Delta P(Y=y)}{p_1 - p_0} \right] - \left[\frac{ \Delta P(Y=y,T=0)}{p_1 - p_0} \right] \leq 1 
+\end{align*}
+where
+\begin{align*}
+  \Delta P(Y=y) &= P(Y=y|z=1) - P(Y=y|z=0)\\
+  \Delta P(Y=y, T=t) &= P(Y=y, T=t|z=1) - P(Y=y,T=t|z=0).
+\end{align*}
+To manipulate these bounds, we need to know the sign of $R = \Delta P(Y=y)/(p_1 - p_0)
+$. 
+Presumably this will be positive for most values of $y$, but it could be negative.
+\paragraph{Case I: $R$ is positive.}
+\begin{align*}
+  \frac{\Delta P(Y=y,T=1) - (p_1 - p_0)}{\Delta P(Y=y)} &\leq \alpha_0 \leq \frac{\Delta P(Y=y,T=1)}{\Delta P(Y=y)}\\
+  \frac{\Delta P(Y=y,T=0)}{\Delta P(Y=y)} &\leq \alpha_1 \leq \frac{\Delta P(Y=y,T=0) + (p_1 - p_0)}{\Delta P(Y=y)}
+\end{align*}
 
+\paragraph{Case II: $R$ is negative.}
+\begin{align*}
+  \frac{\Delta P(Y=y,T=1)}{\Delta P(Y=y)} &\leq \alpha_0 \leq \frac{\Delta P(Y=y,T=1) - (p_1 - p_0)}{\Delta P(Y=y)} \\
+  \frac{\Delta P(Y=y,T=0) + (p_1 - p_0)}{\Delta P(Y=y)} &\leq \alpha_1 \leq \frac{\Delta P(Y=y,T=0)}{\Delta P(Y=y)}
+\end{align*}
+Note that we \emph{two-sided} bounds for the misclassification probabilities.
+These may be trivial in some cases, but I don't think it's obvious that they always will be.
+\todo[inline]{Do these bounds have anything to do with the testability of the LATE assumptions? That is, do we get a lower bound for measurement error \emph{precisely when} we would otherwise violate a testable LATE assumption?}
 
-\todo[inline]{Do the expressions for the always and never-takers yield an additional bound?}
+Note that we also obtain bounds from the potential outcome distributions of always-takers and never-takers, namely 
+\begin{align*}
+  0 &\leq  \pi_{10}(y) + \left[\frac{\alpha_0 (1 - p_0)}{p_0 - \alpha_0}\right]\left[ \pi_{10}(y) - \pi_{00}(y) \right] \leq 1\\
+  0&\leq  \pi_{01}(y) + \left[\frac{\alpha_1 p_1}{1 - p_1 - \alpha_1} \right] \left[ \pi_{01}(y) - \pi_{11}(y) \right] \leq 1
+\end{align*}
+\todo[inline]{These appear to be redundant: I think they're the same as the ``CDF bounds'' from above that don't require a valid instrument.}
 
 \end{document}
