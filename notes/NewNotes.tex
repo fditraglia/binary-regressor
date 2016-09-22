@@ -936,6 +936,66 @@ Note that we also obtain bounds from the potential outcome distributions of alwa
   0 &\leq  \pi_{10}(y) + \left[\frac{\alpha_0 (1 - p_0)}{p_0 - \alpha_0}\right]\left[ \pi_{10}(y) - \pi_{00}(y) \right] \leq 1\\
   0&\leq  \pi_{01}(y) + \left[\frac{\alpha_1 p_1}{1 - p_1 - \alpha_1} \right] \left[ \pi_{01}(y) - \pi_{11}(y) \right] \leq 1
 \end{align*}
-\todo[inline]{These appear to be redundant: I think they're the same as the ``CDF bounds'' from above that don't require a valid instrument.}
+but these are redundant.
+From the assumption of non-differential measurement error, we already have 
+\begin{align*}
+  \pi_{0k}^* &= \pi_{0k} + \left( \frac{\alpha_1 p_k}{1 - p_k - \alpha_1} \right) \left( \pi_{0k} - \pi_{1k} \right) \\
+  \pi_{1k}^* &= \pi_{1k} + \left( \frac{\alpha_0 (1 - p_k)}{p_k - \alpha_0} \right) \left( \pi_{1k} - \pi_{0k} \right) 
+\end{align*}
+for all $k$ as given at the beginning of this section.
+These expressions imply
+\begin{align*}
+ 0 &\leq \pi_{0k} + \left( \frac{\alpha_1 p_k}{1 - p_k - \alpha_1} \right) \left( \pi_{0k} - \pi_{1k} \right) \leq 1 \\
+  0 &\leq \pi_{1k} + \left( \frac{\alpha_0 (1 - p_k)}{p_k - \alpha_0} \right) \left( \pi_{1k} - \pi_{0k} \right) \leq 1
+\end{align*}
+Re-arranging, we have
+\begin{align*}
+  0 &\leq (1 - p_k)\pi_{0k} - \alpha_1 \pi_{0k} + \alpha_1 p_k \left( \pi_{0k} - \pi_{1k} \right) \leq 1 - p_k - \alpha_1 \\
+ 0 &\leq p_k \pi_{1k}- \alpha_0\pi_{1k} + \alpha_0 (1 - p_k) \left( \pi_{1k} - \pi_{0k} \right) \leq p_k - \alpha_0
+\end{align*}
+and thus
+\begin{align*}
+  0 &\leq (1 - p_k)\pi_{0k} - \alpha_1 \left[(1 - p_k)\pi_{0k} + p_k \pi_{1k} \right] \leq 1 - p_k - \alpha_1 \\
+  0 &\leq p_k \pi_{1k} - \alpha_0\left[p_k\pi_{1k} + (1 - p_k)\pi_{0k}\right] \leq p_k - \alpha_0
+\end{align*}
+Now consider the first inequality.
+Re-arranging the right-hand side we obtain
+\begin{align*}
+  \alpha_1 \leq \frac{(1 - p_k)(1 - \pi_{0k})}{1 - \left[ (1 - p_k)\pi_{0k} + p_k \pi_{1k} \right]} = (1 - p_k) \left[ \frac{P(Y=0|T=0, z=k)}{P(Y=0|z=k)} \right]
+\end{align*}
+and re-arranging the left-hand side we find
+\begin{align*}
+  \alpha_1 \leq \frac{(1 - p_k)\pi_{0k}}{(1 - p_k)\pi_{0k} + p_k \pi_{1k}} = (1 - p_k) \left[ \frac{P(Y=1|T=0,z=k)}{P(Y=1|z=k)} \right]
+\end{align*}
+For the second inequality, the left-hand side gives
+\begin{align*}
+  \alpha_0 \leq \frac{p_k \pi_{1k}}{p_k \pi_{1k} + (1 - p_k)\pi_{0k}} = p_k \left[ \frac{P(Y=1|T=1,z=k)}{P(Y=1|z_k)} \right] 
+\end{align*}
+while the right-hand side gives
+\begin{align*}
+  \alpha_0 \leq \frac{p_k (1 - \pi_{1k})}{1 - \left[ p_k \pi_{1k} + (1 - p_k) \pi_{0k} \right]} = p_k \left[ \frac{P(Y=0|T=0,z=k)}{P(Y=0|z=k)} \right]
+\end{align*}
+These are analogous to our CDF bounds from above although they may not be tighter than the bounds 
+\[
+  \alpha_0 \leq p_k, \quad \alpha_1 \leq (1 - p_k)
+\]
+because we cannot argue, as we did above, about a limit in which the ratio of CDFs approaches one.
+As before, however, we can take the tightest bound over $k = 0, 1$.
+
+\subsection{Bounding the LATE}
+Even if we didn't know anything about $\alpha_0$ and $\alpha_1$ beyond the fact that they are probabilities, it looks like we could still bound the LATE.
+I think we can do this without using the independence of the instrument, that is only using the mean exclusion restriction.
+Write out the LATE expressions with the $\alpha_0$ and $\alpha_1$ in them and them just plug in zero and one.
+Could then tighten the bounds by imposing additional assumptions to get bounds for $\alpha_0$ and $\alpha_1$, from weakest to strongest.
+If you have an independent instrument, you also get bounds for the outcome distributions.
+Need to think some more about this\ldots
+
+
+\subsection{Stochastic Dominance Conditions}
+What if we imposed a stochastic ordering, e.g.\ $Y(1) > Y(0)$ for compliers?
+Presumably this would give joint bounds for $\alpha_0$ and $\alpha_1$ from the LATE expressions from above.
+Alternatively, perhaps one would choose to impose an ordering on the $Y(0)$ distributions for compliers versus never-takers or the $Y(1)$ distributions for the compliers versus always-takers.
+This might be interesting in situations where one is concerned that the assumption we need for identification does not in fact hold and should give additional bounds.
+
 
 \end{document}
