@@ -46,4 +46,25 @@ DyTobs0 / Dy
 cov(y, z) / cov(Tstar, z)
 ((DyTobs1 - a0 * Dy) - (a1 * Dy - DyTobs0)) / (p1 - p0)
 
-# What about looking at y == 0?
+# The other bounds for a0 and a1
+p_y_T0_z0 <- mean(y[Tobs == 0 & z == 0])
+p_y_T1_z0 <- mean(y[Tobs == 1 & z == 0])
+p_y_T0_z1 <- mean(y[Tobs == 0 & z == 1])
+p_y_T1_z1 <- mean(y[Tobs == 1 & z == 1])
+
+# "Weak" and "CDF" upper bound for a0
+min(p0, p1)
+min(p0 * p_y_T1_z0 / p_y_z0, 
+    p1 * p_y_T1_z1 / p_y_z1, 
+    p0 * (1 - p_y_T1_z0) / (1 - p_y_z0),
+    p1 * (1 - p_y_T1_z1) / (1 - p_y_z1))
+
+# "Weak" and "CDF" Upper bound for a1
+min((1 - p0), (1 - p1))
+min((1 - p0) * p_y_T0_z0 / p_y_z0, 
+    (1 - p1) * p_y_T0_z1 / p_y_z1, 
+    (1 - p0) * (1 - p_y_T0_z0) / (1 - p_y_z0),
+    (1 - p1) * (1 - p_y_T0_z1) / (1 - p_y_z1))
+
+# So the "CDF" bounds do seem to tighten things up considerably. Presumably 
+# things are even better when we increase the support of Y...
