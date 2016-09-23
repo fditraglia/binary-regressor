@@ -669,13 +669,26 @@ The conditional independence assumption is equivalent to
   F^*_{1k}(\tau) &= F^*_{1\ell}(\tau)
 \end{align*}
 for all $\tau$.
-(If $Y$ is discrete, it's simpler to work with the analogous statement for probability mass functions.)
 Imposing this on the solutions for $F_{0k}^*$ and $F_{1k}^*$ gives,
 \begin{align*}
   F_{0k}(\tau) + \left( \frac{\alpha_1 p_k}{1 - p_k - \alpha_1} \right)\left[ F_{0k}(\tau) - F_{1k}(\tau) \right] &= F_{0\ell}(\tau) + \left( \frac{\alpha_1 p_\ell}{1 - p_\ell - \alpha_1} \right)\left[ F_{0\ell}(\tau) - F_{1\ell}(\tau) \right] \\
   F_{1k}(\tau) + \left( \frac{\alpha_0(1 - p_k)}{p_k - \alpha_0}\right)\left[ F_{1k}(\tau) - F_{0k}(\tau) \right]  &= F_{1\ell}(\tau) + \left( \frac{\alpha_0(1 - p_\ell)}{p_\ell - \alpha_0}\right)\left[ F_{1\ell}(\tau) - F_{0\ell}(\tau) \right] 
 \end{align*}
-Simplifying these should give quadratics in $\alpha_0$ and $\alpha_1$ with the same solutions as those from above derived under the alternative version of the independence condition.
+Cross-multiplying we obtain
+\begin{align*}
+  \left[ (1 - p_k) F_{0k}(\tau) - \alpha_1 F_k(\tau)\right]\left[ (1 - p_\ell) - \alpha_1 \right] &= \left[ (1 - p_\ell)F_{0\ell}(\tau) - \alpha_1 F_{\ell}(\tau) \right]\left[ (1 - p_k) - \alpha_1 \right]\\
+  \left[ p_k F_{1k}(\tau) - \alpha_0 F_{k}(\tau) \right] \left( p_\ell - \alpha_0 \right) &= \left[ p_\ell F_{1\ell}(\tau) - \alpha_0 F_{\ell}(\tau)  \right]\left( p_k - \alpha_0 \right)
+\end{align*}
+which simplify to
+\scriptsize
+\begin{align*}
+  \left[ F_k(\tau) - F_{\ell}(\tau) \right] \alpha_1^2 + \left\{ \left[ (1 - p_k)F_{\ell}(\tau) + (1 - p_\ell)F_{0\ell}(\tau) \right] - \left[ (1 - p_\ell)F_k(\tau) + (1 - p_k) F_{0\ell}(\tau) \right] \right\}\alpha_1 + (1 - p_\ell)(1 - p_k)\left[ F_{0k}(\tau) - F_{0\ell}(\tau) \right] &= 0\\
+  \left[ F_k(\tau) - F_\ell(\tau) \right]\alpha_0^2 + \left\{ \left[ p_k F_\ell(\tau) + p_\ell F_{1\ell}(\tau) \right] - \left[ p_\ell F_k(\tau) + p_k F_{1k}(\tau) \right] \right\}\alpha_0 + p_k p_\ell \left[ F_{1k}(\tau) - F_{1\ell}(\tau) \right] &= 0
+\end{align*}
+\normalsize
+These are quadratics unless $F_k(\tau) = F_\ell(\tau)$.
+Need to figure out when the roots are real and how to discriminate between them.
+Presumably our condition $\alpha_0 + \alpha_1 < 1$ determine which roots are extraneous.
 
 
 \subsection{Can we relax the measurement error assumptions?}
