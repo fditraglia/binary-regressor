@@ -998,4 +998,71 @@ Alternatively, perhaps one would choose to impose an ordering on the $Y(0)$ dist
 This might be interesting in situations where one is concerned that the assumption we need for identification does not in fact hold and should give additional bounds.
 
 
+\section{Outline For New Draft}
+\begin{enumerate}
+  \item Introduction / Literature Review
+  \item Mahajan/Lewbell-style Assumptions 
+    \begin{enumerate}
+      \item Setup and Assumptions:
+        \begin{itemize}
+          \item Homogenous treatment effect model (additively separable)
+          \item Conditional mean version of non-differential measurement error assumption.
+          \item Conditional mean independence for IV.
+        \end{itemize}
+      \item Show that the model is not identified, regardless of (discrete) support of IV.
+      \item Derive sharp bounds for $\alpha_0, \alpha_1$ and treatment effect.
+      \item Show that second and third-moment independence for IV identifies this model? Maybe this isn't interesting in and of itself?
+    \end{enumerate}
+  \item Independence Assumptions
+    \begin{enumerate}
+      \item Motivation
+    \begin{itemize}
+      \item Showed above that stronger assumptions are needed for identification, but the additional moment restrictions seem a bit artificial.
+      \item When instruments are derived from economic theory that yields conditional mean independence only, we wouldn't want to use them.
+      \item They would make sense, however, in an an RCT or natural experiment.
+      \item The whole point in these settings is \emph{not} to rely on functional form assumptions. It would be strange to say that $z$ is an instrument for $y$ but not $\log y$.
+      \item This points towards an \emph{independence} assumption for the instrument.
+      \item Can make a similar argument for measurement error: seems strange to assume that $T$ is non-differential for $y$ but not $\log y$.
+    \end{itemize}
+      \item Sharp Bounds for $\alpha_0$ and $\alpha_1$ without valid instrument  
+        \begin{itemize}
+          \item Assume ``independence'' version of non-differential measurement error.
+          \item Derive CDF bounds.
+        \end{itemize}
+      \item Conditional Independence for Instrument
+        \begin{itemize}
+          \item Exactly what assumptions do we need here? Just conditional independence for instrument, or are we using ``independence'' form of non-differential measurement error?
+          \item Show how this gives us a nice clean way to identify $\alpha_0$ and $\alpha_1$.
+          \item Overidentifying restrictions? Test model?
+        \end{itemize}
+    \end{enumerate}
+  \item LATE Model
+    \begin{enumerate}
+      \item Introduction
+        \begin{itemize}
+          \item Most of the existing mis-classification literature focuses on a homogeneous treatment effects model.
+          \item What if we don't have an additively separable model?
+          \item These results complement Ura because we work under the assumption of non-differential measurement error while he asks what can be learned when one is unwilling to make any assumptions about the form of the mis-classification.
+        \end{itemize}
+      \item Mahajan/Lewbel Setup
+        \begin{itemize}
+          \item Presumably the partial identification results go through for a LATE.
+          \item The second and third moment conditions would require restrictions on form of heterogeneity.
+        \end{itemize}
+      \item Independence Assumptions
+        \begin{itemize}
+          \item Presumably the CDF bounds go through as before but need to state exact form of independence assumption in terms of potential outcomes.
+          \item Kitagawa-style independence assumption for IV: $Y(T^*,z) = Y(T^*)$. This gives bounds for all quantile treatment effects.
+          \item Stochastic dominance conditions?
+          \item If we assume $Y(0)$ is the same for never-takers and compliers and $Y(1)$ is the same for always-takers and compliers, then the independence condition identifies the model
+        \end{itemize}
+    \end{enumerate}
+  \item Estimation / Inference
+  \item Simulation Study
+  \item Empirical Examples
+    \begin{itemize}
+      \item Try to look at a number of examples under different assumptions to illustrate both point and partial identification results. Don't forget about Oreopoulous: the sample size is so huge that inference isn't a major concern.
+    \end{itemize}
+\end{enumerate}
+
 \end{document}
