@@ -1,0 +1,821 @@
+\documentclass{beamer}  
+\usepackage{../slides}
+\usepackage{cancel}
+%\usepackage{appendixnumberbeamer}
+\setbeameroption{hide notes}
+\defbeamertemplate{description item}{align left}{\insertdescriptionitem\hfill}
+
+%%%%%%%%%%%%%%%%%%%% Not needed at home!
+\usepackage[compatibility=false]{caption}
+\usepackage{subcaption}
+%%%%%%%%%%%%%%%%%%%% Not needed at home!
+
+
+\title[Binary Regressors]{Estimating the Effect of a Mis-measured, Endogenous, Binary Treatment}
+\author[FJ DiTraglia]{Francis J.\ DiTraglia\\ Camilo Garcia-Jimeno}
+\institute{University of Pennsylvania}
+\date{October 17th, 2016}
+\begin{document} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+	\titlepage 
+\end{frame} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{What is the causal effect of $T^*$?}
+  \vspace{-1em}
+  \[ y_i = h(T^*_i, \mathbf{x}_i) + \varepsilon_i\]
+  \vspace{-1.5em}
+  \begin{itemize}
+    \item $y$ -- Outcome of interest
+    \item $h$ -- Unknown function that \emph{does not depend on} $i$
+    \item $T^*$ -- Unobserved, endogenous binary treatment
+    \item $T$ -- Observed, mis-measured binary surrogate for $T^*$
+    \item $\mathbf{x}$ -- Exogenous covariates
+    \item $\varepsilon$ -- Mean-zero error term
+    \item $z$ -- Discrete instrumental variable
+  \end{itemize}
+
+ \begin{block}{Target of Inference:}
+   ATE function:  $\alert{\tau(\mathbf{x}) = h(1,\mathbf{x}) - h(0,\mathbf{x})}$
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Example: Smoking and Birthweight (SNAP Trial)}
+\framesubtitle{Coleman et al.\ (N Engl J Med, 2012)}
+  RCT with 1050 pregnant smokers in England: 521 given nicotine patches, the rest given placebo patches.
+\begin{itemize}
+  \item $y$ -- Birthweight 
+  \item $T^*$ -- True smoking behavior 
+  \item $T$ -- Self-reported smoking behavior
+  \item $\mathbf{x}$ -- Mother characteristics
+  \item $z$ -- Indicator of nicotine patch
+\end{itemize}
+   
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Example: Schooling and Test Scores}
+\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
+  RCT in Afghanistan: 32 villages divided into 11 clusters. Randomly choose 6 and build a school in each village of these clusters.
+
+\begin{itemize}
+  \item $y$ -- Child's score on math and language test 
+  \item $T^*$ -- Child's true school attendance
+  \item $T$ -- Parent's report of child's school attendance
+  \item $\mathbf{x}$ -- Child and household characteristics
+  \item $z$ -- School built in village
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Example: Job Training Partnership Act (JPTA)}
+\framesubtitle{Heckman et al.\ (2000, QJE)}
+Randomized offer of job training, but about $30\%$ of those \emph{not} offered also obtain training and about $40\%$ of those offered training don't attend. Estimate causal effect of \emph{training} rather than \emph{offer} of training.
+
+\begin{itemize}
+  \item $y$ -- Log wage 
+  \item $T^*$ -- True training attendence
+  \item $T$ -- Self-reported training attendance
+  \item $\mathbf{x}$ -- Individual characteristics
+  \item $z$ -- Offer of job training
+\end{itemize}
+   
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Example: Returns to Schooling} 
+\framesubtitle{Oreopoulos (2006, AER)}
+Fuzzy RD: minimum school-leaving age in UK increased from 14 to 15 in 01947 but some already stayed until 15 before the law and others failed to comply after it.
+\begin{itemize}
+  \item $y$ -- Log wage 
+  \item $T^*$ -- School attendance at age 15
+  \item $T$ -- Self-report of school attendance at age 15
+  \item $\mathbf{x}$ -- Individual characteristics
+  \item $z$ -- Indicator: born in or after 1933
+\end{itemize}
+   
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Related Literature}
+ 
+  \begin{block}{Continuous Treatment}
+    \small
+  Lewbel (1997, 2012), Schennach (2004, 2007), Chen et al. (2005), Hu \& Schennach (2008), Song (2015), Hu et al.\ (2015)\ldots 
+  \end{block}
+
+  \begin{block}{Binary, Exogenous Treatment}
+    \small
+   Aigner (1973), Bollinger (1996), Kane et al. (1999), Black et al. (2000), Frazis \& Loewenstein (2003), Mahajan (2006), Lewbel (2007) 
+  \end{block}
+
+  \begin{block}{Binary, Endogenous Treatment}
+    \alert{Mahajan (2006)}, \small Shiu (2015), Ura (2015) 
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Model: $y = h(T^*, \mathbf{x}) + \varepsilon$}
+%  \begin{block}{ATE Function}
+%   $ \tau(\mathbf{x}) = h(1,\mathbf{x}) - h(0, \mathbf{x})$
+%  \end{block}
+%  \begin{block}{First-stage}
+%    $p^*_k(\mathbf{x}) \equiv \mathbb{P}(T^*=1|z=z_k,\mathbf{x}) \neq \mathbb{P}(T^*=1|z=z_\ell, \mathbf{x})\equiv p_\ell^*(\mathbf{x}) $, $k\neq \ell$
+%  \end{block}
+%  \begin{block}{Measurement Error}
+%    Non-differential, $\mathbb{E}[\varepsilon|T^*,T,z,\mathbf{x}] =  \mathbb{E}[\varepsilon|T^*,z,\mathbf{x}]$, and does not depend on $z$:
+%\begin{eqnarray*}
+% \alpha_0(\mathbf{x})&=&  \mathbb{P}(T = 1| T^* = 0, z, \mathbf{x})  \\ 
+% \alpha_1(\mathbf{x})&=& 
+%  \mathbb{P}(T = 0| T^* = 1, z, \mathbf{x}) 
+%\end{eqnarray*}
+%    
+%  \end{block}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Notation}
+%
+%  \begin{itemize}
+%    \item Treat exog.\ covariates $\mathbf{x}$ non-parametrically: hold fixed at $\mathbf{x}_a$ throughout:
+%      \vspace{-1em}
+%      \begin{eqnarray*}
+%        y &=&  \beta T^* + u\\
+%        u &=&  \varepsilon + c
+%      \end{eqnarray*}
+%      where $\beta = \tau(\mathbf{x}_a)$ and $c = h(0,\mathbf{x}_a)$.
+%    \item Similarly:
+%      \begin{eqnarray*}
+%        \alpha_0 &=&  \mathbb{P}(T=1|T^*=0)\\
+%        \alpha_1 &=&  \mathbb{P}(T=0|T^*=1)\\
+%        p_k^* &=&  \mathbb{P}(T^* = 1|z=z_k)
+%      \end{eqnarray*}
+%  \end{itemize}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Model: $y = c + \beta T^* + \varepsilon$}
+  \begin{block}{First-stage}
+    $p^*_k \equiv \mathbb{P}(T^*=1|z=z_k) \neq \mathbb{P}(T^*=1|z=z_\ell)\equiv p_\ell^*$, $k\neq \ell$
+  \end{block}
+  \begin{block}{Measurement Error}
+    \begin{itemize}
+      \item Non-differential: $\mathbb{E}[\varepsilon|T^*,T,z] =  \mathbb{E}[\varepsilon|T^*,z]$
+      \item Does not depend on $z$:
+\begin{eqnarray*}
+ \alpha_0&=&  \mathbb{P}(T = 1| T^* = 0, z)  \\ 
+ \alpha_1&=& \mathbb{P}(T = 0| T^* = 1, z) 
+\end{eqnarray*}
+    \end{itemize}
+  \end{block}
+
+  \begin{alertblock}{Notation}
+  Define error term that absorbs constant: $u = c + \varepsilon$ 
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Observable Moments:  $y = \beta T^* + u$}
+\begin{center}
+  \begin{tabular}{c|c|c|c|c|}
+    \multicolumn{1}{c}{}& \multicolumn{1}{c}{$z=1$} &\multicolumn{1}{c}{$z=2$} & \multicolumn{1}{c}{\dots} &\multicolumn{1}{c}{$z=K$}\\
+    \cline{2-5}
+    $T=0$ & \diagbox[dir=NE]{$\bar{y}_{01}$}{$p_{01}$} & \diagbox[dir=NE]{$\bar{y}_{02}$}{$p_{02}$} & \dots &\diagbox[dir=NE]{$\bar{y}_{0K}$}{$p_{0K}$}\\
+    \cline{2-5}
+    $T=1$ & \diagbox[dir=NE]{$\bar{y}_{11}$}{$p_{11}$} & \diagbox[dir=NE]{$\bar{y}_{12}$}{$p_{12}$} & \dots &\diagbox[dir=NE]{$\bar{y}_{1K}$}{$p_{1K}$}\\
+    \cline{2-5}
+  \end{tabular}
+\end{center}
+
+\vspace{1em}
+
+\[\bar{y}_{tk} = \mathbb{E}[y|T=t,z=z_k],
+\quad p_{tk} =q_k p_k\]
+\small
+\[q_k = \mathbb{P}(z = z_k), \quad
+p_k = \mathbb{P}(T=1|z=z_k)\]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Unobservable Moments: $y = \beta T^* + u$}
+\begin{center}
+  \begin{tabular}{c|c|c|c|c|}
+    \multicolumn{1}{c}{}& \multicolumn{1}{c}{$z=1$} &\multicolumn{1}{c}{$z=2$} & \multicolumn{1}{c}{\dots} &\multicolumn{1}{c}{$z=K$}\\
+    \cline{2-5}
+    $T^*=0$ & \diagbox[dir=NE]{$m^*_{01}$}{$p^*_{01}$} & \diagbox[dir=NE]{$m^*_{02}$}{$p^*_{02}$} & \dots &\diagbox[dir=NE]{$m^*_{0K}$}{$p^*_{0K}$}\\
+    \cline{2-5}
+    $T^*=1$ & \diagbox[dir=NE]{$m^*_{11}$}{$p^*_{11}$} & \diagbox[dir=NE]{$m^*_{12}$}{$p^*_{12}$} & \dots &\diagbox[dir=NE]{$m^*_{1K}$}{$p^*_{1K}$}\\
+    \cline{2-5}
+  \end{tabular}
+\end{center}
+
+\vspace{1em}
+
+\[m^*_{tk} = \mathbb{E}[u|T^*=t,z=z_k],
+\quad p^*_{tk}=q_k p^*_k\]
+\small
+\[q_k = \mathbb{P}(z = z_k),\quad p^*_k=\mathbb{P}(T^*=1|z=z_k)\]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Unrestricted System of Equations} 
+  \begin{eqnarray*}
+   (1 - p_k) \bar{y}_{0k} &\equiv& \alert{\widetilde{y}_{0k}= (\beta + m_{1k}^*) \alpha_1 p_k^*  + (1 -\alpha_0)(1 - p^*_k)m_{0k}^* } \\
+    p_k \bar{y}_{1k} &\equiv&  \alert{\widetilde{y}_{1k}=(\beta + m_{1k}^*) (1 - \alpha_1)p_k^* + \alpha_0 (1 - p_k^*) m_{0k}^*} 
+  \end{eqnarray*}
+  \small
+  \[p^*_k =  \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \]
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Possible Restrictions On $m^*_{tk}$}
+  \begin{block}{Joint Exogeneity: $\mathbb{E}[\varepsilon|T^*,z]=0$}
+    $\implies m^*_{tk} =c \quad$ for all $t,k$
+  \end{block}
+  \begin{block}{Exogenous Treatment: $\mathbb{E}[\varepsilon|T^*]=0$}
+    $\implies \displaystyle \frac{1}{\mathbb{P}(T^*=t)}\sum_{k}p^*_{tk}m^*_{tk} = c\quad$  for all $t$
+  \end{block}
+  \begin{alertblock}{Exogenous Instrument: $\mathbb{E}[\varepsilon|z]=0$}
+    $\implies (1-p^*_k)m^*_{0k} + p^*_k m^*_{1k}=c \quad$ for all $k$
+  \end{alertblock}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Mahajan (2006, ECTA)}
+
+  \vspace{-1em}
+
+    \begin{columns}[c]
+    \column{.45\textwidth} 
+    \begin{exampleblock}{Regression Model}
+      $y = \mathbb{E}[y|T^*] + \nu$\\
+      {\small $\mathbb{E}[\nu|T^*]=0$ by construction}
+    \end{exampleblock}
+    \column{.45\textwidth}
+    \begin{exampleblock}{Causal Model}
+     $y = c + \beta T^* + \varepsilon$\\
+     {\small$\mathbb{E}[\varepsilon|T^*]\neq 0$}
+    \end{exampleblock}
+    \end{columns}
+
+    \vspace{1.5em}
+  
+  \begin{block}{Main Result (Correct) -- Exogenous Treatment}
+   Relevant binary instrument $z$ ($p^*_1 \neq p^*_2$) identifies $\alpha_0, \alpha_1$ and $\mathbb{E}[y|T^*]$ provided that $\mathbb{E}[\nu|T^*,T,z]=0$. 
+  \end{block}
+
+  \begin{alertblock}{Additional Result (Incorrect) -- Endogenous Treatment}
+    $\mathbb{E}[\varepsilon|z]=0$, $p^*_1 \neq p^*_2$, $\mathbb{E}[\varepsilon|T,T^*,z]=\mathbb{E}[\varepsilon|T^*] \implies$ $\beta$ identified.
+  \end{alertblock}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Mahajan's Argument}
+    \begin{columns}[c]
+    \column{.45\textwidth} 
+    \begin{exampleblock}{Regression Model}
+      $y = \mathbb{E}[y|T^*] + \nu$\\
+      {\small $\mathbb{E}[\nu|T^*]=0$ by construction}
+    \end{exampleblock}
+    \column{.45\textwidth}
+    \begin{exampleblock}{Causal Model}
+     $y = c + \beta T^* + \varepsilon$\\
+     {\small$\mathbb{E}[\varepsilon|T^*]\neq 0$}
+    \end{exampleblock}
+    \end{columns}
+
+    \vspace{0.7em}
+
+    \begin{block}{Ingredients}
+      
+  \begin{enumerate}
+    \item If $p^*_1 \neq p^*_2$, $\mathbb{E}[\varepsilon|z]=0$ then, since $\beta_{IV} = \beta/(1-\alpha_0-\alpha_1)$, knowledge of $\alpha_0,\alpha_1$ is sufficient to recover $\beta$. \textcolor{blue}{(Correct)}
+    \item If $p^*_1 \neq p^*_2$, $\mathbb{E}[\nu|T^*,T,z]=0$, $\alpha_0, \alpha_1$ are identified. \textcolor{blue}{(Correct)}
+    \item[] \alert{\framebox{How to satisfy both 1 and 2 while allowing $\mathbb{E}[\varepsilon|T^*]\neq 0$?}}
+    \item[3.] Assume that $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ \\ {\small (i.e.\ $m_{01}^* = m_{02}^*$ and $m_{11}^*=m_{12}^*$)}
+  \end{enumerate}
+    \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{The Flaw in Mahajan's Argument}
+  \begin{block}{Proposition}
+    If $\mathbb{E}[\varepsilon|T^*]\neq 0$ then  $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ combined with $\mathbb{E}[\varepsilon|z]=0$ implies $p^*_1 = p^*_2$, i.e.\ $z$ is irrelevant for $T^*$.
+  \end{block}
+  \begin{block}{Proof}
+    Recall that $\mathbb{E}[\varepsilon|z]=0$ implies
+  \begin{align*}
+     (1-p_1^*) m^*_{01} + p^*_1 m^*_{11}&=c\\
+     (1-p_2^*) m^*_{02} + p^*_2 m^*_{12}&=c
+  \end{align*}
+  while Mahajan's assumption implies $m_{01}^* = m_{02}^*$ and $m_{11}^*=m_{12}^*$.
+  Therefore either $m_{01}^*=m_{02}^* = m_{11}^* =m_{12}^*=c$, which is ruled out by $E[\varepsilon|T^*]=0$, or $p^*_1 = p^*_2$.
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{What about increasing the support of $z$?}
+  \alert{\framebox{$\mathbb{E}[\varepsilon|z]=0 \implies$ \emph{pair} of equations for each $k = 1, \dots, K$}}
+\begin{align*}
+  \hat{y}_{0k} &=\alpha_1(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + (1-\alpha_0)c - (p _k -  \alpha_0)m_{1k}^* \\[1.5ex]
+  \label{eq:MC1IV}
+  \hat{y}_{1k} &=(1-\alpha_1)(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + \alpha_0 c + (p _k -  \alpha_0)m_{1k}^*
+\end{align*}
+
+\vspace{0.5em}
+where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
+
+
+\vspace{2em} 
+
+\hfill \alert{\framebox{$2K$ Equations in $K+4$ Unknowns}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{\emph{Theorem}: $\beta$ is undentified regardless of $K$.}
+  \framesubtitle{(For general case, see paper.)}
+  \begin{block}{Proof of special case: $\alpha_0 = 0$ }
+    \begin{enumerate}
+      \item System of equations: 
+    \vspace{0.5em}
+\begin{align*}
+  \widetilde{y}_{0k} &=c + p_k \beta \left(\frac{\alpha_1}{1 -  \alpha_1}\right) - p _k m_{1k}^* \\
+  \widetilde{y}_{1k} &=p_k \beta + p _k m_{1k}^*
+\end{align*}
+  \item $\beta/(1-\alpha_1) \equiv \mathcal{W}$ is identified and imposing this, algebra gives $\beta\alpha_1/(1-\alpha_1) = \mathcal{W} - \beta$. 
+
+    \end{enumerate}
+  \end{block} 
+    
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{\emph{Theorem}: $\beta$ is undentified regardless of $K$.}
+  \framesubtitle{(For general case, see paper.)}
+  \begin{block}{Proof of special case: $\alpha_0 = 0$ continued\dots }
+    \begin{enumerate}
+      \item[3.] Substituting: 
+    \vspace{0.5em}
+\begin{align*}
+  (c + p_k \mathcal{W} - \widetilde{y}_{0k})/p_k &=\beta + m_{1k}^* \\
+  \widetilde{y}_{1k}/p_k &= \beta + m_{1k}^*
+\end{align*}
+\item[4.] Linear system in $(\beta, m_{1k}^*)$ -- no solution or $\infty$ of solutions.
+\item[5.] Sum original pair of equations $\implies c + p_k \mathcal{W} - \widetilde{y}_{0k} = \widetilde{y}_{1k}$ thus $\infty$ of solutions.
+  The model is unidentified.
+    \end{enumerate}
+  \end{block} 
+    
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Conditional \emph{Second} Moment Independence.} 
+  \begin{block}{New Assumption}
+    Homoskedastic errors w.r.t.\ the \emph{instrument}: $E[\varepsilon^2|z]=E[\varepsilon^2]$
+  \end{block}
+  \begin{block}{Reasonable?}
+    Makes sense in an RCT or a true natural experiment.
+  \end{block}
+  \begin{alertblock}{New Moment Conditions}
+  Defining
+    $\mu_{k\ell}^* =  (p_k - \alpha_0) m_{1k}^* - (p_{\ell}-\alpha_0)m_{k\ell}^*$, 
+  \begin{align*}
+    \mathbb{E}(y^2|z_k) - \mathbb{E}(y^2|z_\ell) \equiv \alert{\Delta\overline{y^2}} &\alert{=}  \alert{\beta \mathcal{W} (p_k - p_\ell)  + 2 \mathcal{W} \mu_{k\ell}^*}\\
+    \mathbb{E}(yT|z_k) - \mathbb{E}(yT|z_\ell) \equiv \alert{ \Delta\overline{yT}} &\alert{=} \alert{(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + \mu_{k\ell}^*}
+  \end{align*}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{\emph{Theorem}: $(\alpha_1 - \alpha_0)$ is Identified.}
+%  \framesubtitle{(Requires only binary $z$)}
+%  \begin{block}{Proof}
+%  \vspace{-1.5em}
+%  \begin{eqnarray*}
+%    \Delta\overline{y^2} &=& \beta \mathcal{W} (p_k - p_\ell)  + 2 \mathcal{W} \mu_{k\ell}^* \\
+%    \Delta\overline{yT} &=& (1-\alpha_1)\mathcal{W}(p_k - p_\ell) + \mu_{k\ell}^* 
+%  \end{eqnarray*}
+%
+%  Solve for $\mu_{k\ell}^*$, substitute and rearrange:
+%
+%  \begin{equation*}
+%    \mathcal{R} \equiv \beta - 2(1-\alpha_1)\mathcal{W} = \frac{\Delta\overline{y^2} - 2 \mathcal{W}\Delta\overline{yT}}{\mathcal{W}(p_k - p_\ell)}.
+%  \end{equation*}
+%
+%  \vspace{0.4em}
+%  Rearrange and substitute $\beta=\mathcal{W}(1-\alpha_0 -\alpha_1)$ to find 
+%
+%  \begin{equation*}
+%    \alpha_1 - \alpha_0 = 1 + \mathcal{R}/\mathcal{W}.
+%  \end{equation*}
+%\end{block}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{What Good is $(\alpha_1 - \alpha_0)?$}
+%    \begin{itemize}
+%      \item Test a necessary condition for \emph{no mis-classification}: $\alpha_0 = \alpha_1$ 
+%      \item Simple, tighter partial identification bounds for $\beta$
+%      \item In some settings, one of the mis-classification probabilities is known to be zero $\implies \beta$ point identified 
+%    \end{itemize}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{\emph{Theorem}: $(\alpha_1 - \alpha_0)$ is Identified if $E[\varepsilon^2|z] = E[\varepsilon^2]$}
+  \framesubtitle{Requires only binary $z$}
+
+    Solve for $\mu_{k\ell}^*$, substitute $\beta = \mathcal{W} (1 - \alpha_0 - \alpha_1)$, rearrange to find
+  \begin{equation*}
+    \alpha_1 - \alpha_0 = 1 + \mathcal{R}/\mathcal{W}, \quad \mbox{where} \quad
+    \mathcal{R} \equiv \frac{\Delta\overline{y^2} - 2 \mathcal{W}\Delta\overline{yT}}{\mathcal{W}(p_k - p_\ell)}.
+  \end{equation*}
+
+  \begin{block}{What good is $\left( \alpha_1 - \alpha_0 \right)$?}
+    \begin{itemize}
+      \item Test necessary condition for \emph{no mis-classification}: $\alpha_0 = \alpha_1$ 
+      \item Simple, tighter partial identification bounds for $\beta$
+      \item If $\alpha_0$ known, e.g. zero $\implies \beta$ point identified 
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Conditional \emph{Third} Moment Independence}
+  \begin{block}{New Assumption}
+    Third moment independence w.r.t\ instrument: $E[\varepsilon^3|z]=E[\varepsilon^3]$
+  \end{block}
+  \begin{alertblock}{New Moment Conditions}
+    Define $\lambda_{k\ell}^* = (p_k - \alpha_0) v_{1k}^* - (p_\ell - \alpha_0) v_{1\ell}^*$\\ where 
+  $v^*_{tk} =  \mathbb{E}(u^2|T^*=t, z_k)$. Then
+  \begin{eqnarray*}
+    \mathbb{E}(y^3|z_k) &-& \mathbb{E}(y^3|z_\ell)  \equiv \\ \alert{\Delta\overline{y^3}} &\alert{=}& \alert{\beta^2 \mathcal{W} (p_k - p_\ell)  + 3 \beta \mathcal{W} \mu_{k\ell}^* + 3 \mathcal{W} \lambda^*_{k\ell}}\\
+    \mathbb{E}(y^2T|z_k) &-& \mathbb{E}(y^2T|z_\ell) \equiv \\ \alert{\Delta\overline{y^2T}} &\alert{=}&  \alert{\beta(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + 2(1-\alpha_1)\mathcal{W}\mu_{k\ell}^* + \lambda_{k\ell}^*}
+  \end{eqnarray*}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame} \frametitle{\emph{Theorem}: $\beta$, $\alpha_0$ and $\alpha_1$ are identified.}
+%  \framesubtitle{Requires $\alpha_0 + \alpha_1 < 1$, but $z$ need only be binary.}
+%  \begin{block}{Proof}
+%    \vspace{-1em}
+%  \begin{eqnarray*}
+%    \Delta\overline{y^3} &=& \beta^2 \mathcal{W} (p_k - p_\ell)  + 3 \beta \mathcal{W} \mu_{k\ell}^* + 3 \mathcal{W} \lambda^*_{k\ell}\\
+%    \Delta\overline{y^2T} &=& \beta(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + 2(1-\alpha_1)\mathcal{W}\mu_{k\ell}^* + \lambda_{k\ell}^* 
+%  \end{eqnarray*}
+%
+%  \vspace{1em}
+%
+%    Solve for $\lambda^*_{k\ell}$, substitute and rearrange: 
+%
+%  \begin{equation*}
+%    \mathcal{S} \equiv \beta^2 - 3\mathcal{W}(1-\alpha_1) (\beta + \mathcal{R}) = \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}.
+%  \end{equation*}
+%  \end{block}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{\emph{Theorem}: $\beta$, $\alpha_0$ and $\alpha_1$ are identified.}
+%  \framesubtitle{Requires $\alpha_0 + \alpha_1 < 1$, but $z$ need only be binary.}
+%  \begin{block}{Proof continued\dots}
+%    \vspace{-1em}
+%  \begin{equation*}
+%    \mathcal{S} \equiv \beta^2 - 3\mathcal{W}(1-\alpha_1) (\beta + \mathcal{R}) = \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}
+%  \end{equation*}
+%  \vspace{1em}
+%
+%  Use the fact that $\mathcal{R}=\beta - 2(1-\alpha_1)\mathcal{W}$ to eliminate $\beta$ from $\mathcal{S}$:
+%
+%  \begin{equation*}
+%    2\mathcal{W}^2 (1-\alpha_1)^2 + 2 \mathcal{R}\mathcal{W} (1-\alpha_1) + (\mathcal{S} -\mathcal{R}^2) = 0
+%    \label{eq:quadratic}
+%  \end{equation*}
+%
+%  which is a quadratic in $(1-\alpha_1)$ and observables only! Can show that there are always two real roots: one is $(1-\alpha_1)$ and the other is $\alpha_0$. To tell which is which, need $\alpha_0 + \alpha_1 < 1$.
+%  \end{block}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{\emph{Theorem}: $\beta$, $\alpha_0$ and $\alpha_1$ identified}
+  \framesubtitle{Adding $E[\varepsilon^3|z] = E[\varepsilon^3]$, $z$ need only be binary.}
+
+    Solve for $\lambda^*_{k\ell}$, substitute and rearrange.
+    After further substitutions:
+  \begin{equation*}
+    2\mathcal{W}^2 (1-\alpha_1)^2 + 2 \mathcal{R}\mathcal{W} (1-\alpha_1) + (\mathcal{S} -\mathcal{R}^2) = 0
+  \end{equation*}
+  where
+  \begin{equation*}
+    \mathcal{S} \equiv \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}
+  \end{equation*}
+
+  \begin{itemize}
+    \item Quadratic in $(1-\alpha_1)$ and observables only
+    \item Always two real roots: one is $(1-\alpha_1)$ and the other is $\alpha_0$.
+    \item To tell which is which, need $\alpha_0 + \alpha_1 < 1$.
+  \end{itemize}
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Empirical Illustration: Schooling and Test Scores}
+\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
+  RCT in Afghanistan: 32 villages divided into 11 clusters. Randomly choose 6 and build a school in each village of these clusters ($N = 1468$).
+
+\begin{itemize}
+  \item $y$ -- Child's score on math and language test 
+  \item $T^*$ -- Child's true school attendance
+  \item $T$ -- Parent's report of child's school attendance
+  \item $\mathbf{x}$ -- Child and household characteristics
+  \item $z$ -- School built in village
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Empirical Illustration: Schooling and Test Scores}
+\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
+\begin{figure}[h]
+  \scriptsize
+  \begingroup
+  \tikzset{every picture/.style={scale=0.53}}
+  \centering
+  \input{../../fig/AfghanHist.tex}
+  \endgroup
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Empirical Illustration: Schooling and Test Scores}
+\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
+    \begin{columns}[c]
+    \column{.26\textwidth} 
+    $\widehat{\beta}_{OLS} = 0.88$
+
+    $\widehat{\beta}_{IV} = 1.27$
+
+    $\widehat{\alpha}_1 - \widehat{\alpha}_0 = 0.18$
+    \column{.73\textwidth}
+        \begin{figure}[h]
+          \scriptsize
+          \begingroup
+          \tikzset{every picture/.style={scale=0.53}}
+          \centering
+          \input{../../fig/AfghanBoot.tex}
+          \endgroup
+        \end{figure}
+    \end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Example: Vouchers for Private Schooling (PACES)}
+  \framesubtitle{Angrist et al.\ (2002, AER)}
+
+  Data from Colombia: vouchers to attend private school awarded by lottery to poor, primary school-aged children (N = 1577). 
+  
+
+\begin{itemize}
+  \item $y$ -- \# of grades repeated after lottery
+  \item $T^*$ -- Scholarship use 
+  \item $T$ -- Self-reported Scholarship use
+  \item $\mathbf{x}$ -- Demographic controls
+  \item $z$ -- Offered scholarship through lottery 
+\end{itemize}
+
+\alert{Authors raise concerns about the lottery in one of the two cities\ldots}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Example: Vouchers for Private Schooling (PACES)}
+  \framesubtitle{Overall: Mean = 0.19, SD = 0.45}
+\begin{figure}[h]
+  \scriptsize
+  \begingroup
+  \tikzset{every picture/.style={scale=0.53}}
+  \centering
+  \input{../../../sick-instruments/fig/AngristBettinger/hist.tex}
+  \endgroup
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \begin{center}
+    \Huge Simulation Study
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Simulation Study: $y = \beta T^* + \varepsilon$}
+  \begin{itemize}
+    \item $(\varepsilon, \eta) \sim $ jointly normal, mean 0, variance 1, corr.\ 0.3.
+    \item First stage: $T^* = \mathbf{1}\left\{ \gamma_0 + \gamma_1 z + \eta > 0 \right\}$
+      \begin{itemize}
+        \item Half of subjects have $z=1$, the rest have $z=0$.
+        \item $\gamma_0 = \Phi^{-1}(\delta)$
+        \item $\gamma_1 = \Phi^{-1}(1-\delta) - \Phi(\delta)$   
+        \item $\delta$ equals fraction of those offered treatment who fail to take it up \emph{and} fraction of those not offered treatment who do.
+      \end{itemize}
+    \item Generate $T$ as follows:
+      \begin{itemize}
+        \item $T^* = 0 \implies T=0$, i.e.\ $\alpha_0 = 0$
+        \item $T|T^*=1 \sim \mbox{Bernoulli}(1-\alpha_1)$
+        \item $\alpha_0, \alpha_1$ unknown to econometrician.
+      \end{itemize}
+  \end{itemize}
+
+  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \begin{center}
+    {\framebox{\Large Sampling Distribution of $\widehat{\alpha}_1 - \widehat{\alpha}_0$}}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+  \scriptsize
+  \begingroup
+  \tikzset{every picture/.style={scale=0.53}}
+  \centering
+  \begin{subfigure}[b]{0.31\textwidth}
+\caption{\footnotesize $N=500, \delta = 0.1$}
+  \input{../../fig/a_talk_N500_d10.tex}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.31\textwidth}
+    \caption{\footnotesize $N=1000, \delta = 0.1$} 
+  \input{../../fig/a_talk_N1000_d10.tex}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.31\textwidth}
+\caption{\footnotesize $N=5000, \delta = 0.1$}
+  \input{../../fig/a_talk_N5000_d10.tex}
+  \end{subfigure}
+\endgroup
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+  \scriptsize
+  \begingroup
+  \tikzset{every picture/.style={scale=0.53}}
+  \centering
+  \begin{subfigure}[b]{0.31\textwidth}
+\caption{\footnotesize $N=500, \delta = 0.2$}
+  \input{../../fig/a_talk_N500_d20.tex}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.31\textwidth}
+    \caption{\footnotesize $N=1000, \delta = 0.2$} 
+  \input{../../fig/a_talk_N1000_d20.tex}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.31\textwidth}
+\caption{\footnotesize $N=5000, \delta = 0.2$}
+  \input{../../fig/a_talk_N5000_d20.tex}
+  \end{subfigure}
+\endgroup
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+  \scriptsize
+  \begingroup
+  \tikzset{every picture/.style={scale=0.53}}
+  \centering
+  \begin{subfigure}[b]{0.31\textwidth}
+\caption{\footnotesize $N=500, \delta = 0.3$}
+  \input{../../fig/a_talk_N500_d30.tex}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.31\textwidth}
+    \caption{\footnotesize $N=1000, \delta = 0.3$} 
+  \input{../../fig/a_talk_N1000_d30.tex}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.31\textwidth}
+\caption{\footnotesize $N=5000, \delta = 0.3$}
+  \input{../../fig/a_talk_N5000_d30.tex}
+  \end{subfigure}
+\endgroup
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \begin{center}
+    {\framebox{\Large Sampling Distribution of $\widehat{\beta} = (1 - \widehat{\alpha}_0 - \widehat{\alpha}_1)\widehat{\beta}_{IV}$}}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+  \scriptsize
+  \begingroup
+  \tikzset{every picture/.style={scale=0.53}}
+  \centering
+  \begin{subfigure}[b]{0.31\textwidth}
+\caption{\footnotesize $N=500, \delta = 0.1$}
+  \input{../../fig/b_talk_N500_d10.tex}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.31\textwidth}
+    \caption{\footnotesize $N=1000, \delta = 0.1$} 
+  \input{../../fig/b_talk_N1000_d10.tex}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.31\textwidth}
+\caption{\footnotesize $N=5000, \delta = 0.1$}
+  \input{../../fig/b_talk_N5000_d10.tex}
+  \end{subfigure}
+\endgroup
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+  \scriptsize
+  \begingroup
+  \tikzset{every picture/.style={scale=0.53}}
+  \centering
+  \begin{subfigure}[b]{0.31\textwidth}
+\caption{\footnotesize $N=500, \delta = 0.2$}
+  \input{../../fig/b_talk_N500_d20.tex}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.31\textwidth}
+    \caption{\footnotesize $N=1000, \delta = 0.2$} 
+  \input{../../fig/b_talk_N1000_d20.tex}
+  \end{subfigure}
+ ~ 
+  \begin{subfigure}[b]{0.31\textwidth}
+\caption{\footnotesize $N=5000, \delta = 0.2$}
+  \input{../../fig/b_talk_N5000_d20.tex}
+  \end{subfigure}
+\endgroup
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+  \scriptsize
+  \begingroup
+  \tikzset{every picture/.style={scale=0.53}}
+  \centering
+  \begin{subfigure}[b]{0.31\textwidth}
+\caption{\footnotesize $N=500, \delta = 0.3$}
+  \input{../../fig/b_talk_N500_d30.tex}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.31\textwidth}
+    \caption{\footnotesize $N=1000, \delta = 0.3$} 
+  \input{../../fig/b_talk_N1000_d30.tex}
+  \end{subfigure}
+ ~ 
+  \begin{subfigure}[b]{0.31\textwidth}
+\caption{\footnotesize $N=5000, \delta = 0.3$}
+  \input{../../fig/b_talk_N5000_d30.tex}
+  \end{subfigure}
+\endgroup
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Conclusion}
+  \singlespacing
+  \small
+  \begin{itemize}
+    \item Endogenous, mis-measured binary treatment.
+    \item Important in applied work but no solution in the literature.
+    %\item Effect of endogenous, mis-measured, binary treatment.
+    %\item New partial and point identification results by exploiting higher moments of outcome variable.
+    %\item Test necessary condition for absence of measurement error.
+    %\item Explore sampling distribution of our simple closed-form method of moments estimator in a simulation experiment.
+    %\item Detect evidence of measurement error in real-world example. 
+    %\item Next steps: use full independence of $z \rightarrow$ optimal estimator
+  \end{itemize}
+  \begin{block}{Valid Instrument}
+    \begin{itemize}
+      \item Usual (1st moment) IV assumption fails to identify $\beta$
+      \item 2nd moment assumption identifies $\alpha_1 - \alpha_0$
+      \item 3rd moment assumption identifies $\beta$ 
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
