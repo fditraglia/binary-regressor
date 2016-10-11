@@ -902,7 +902,7 @@ This might be interesting in situations where one is concerned that the assumpti
       \item Derive sharp bounds for $\alpha_0, \alpha_1$ and treatment effect.
       \item Show that second and third-moment independence for IV identifies this model? Maybe this isn't interesting in and of itself?
     \end{enumerate}
-  \item Independence Assumptions
+  \item Independence Assumption
     \begin{enumerate}
       \item Motivation
     \begin{itemize}
@@ -920,8 +920,9 @@ This might be interesting in situations where one is concerned that the assumpti
         \end{itemize}
       \item Conditional Independence for Instrument
         \begin{itemize}
-          \item Exactly what assumptions do we need here? Just conditional independence for instrument, or are we using ``independence'' form of non-differential measurement error?
-          \item Show how this gives us a nice clean way to identify $\alpha_0$ and $\alpha_1$.
+          \item Exactly what assumptions do we need here? 
+          \item Characteristic functions.
+          \item Identification conditions?
           \item Overidentifying restrictions? Test model?
         \end{itemize}
     \end{enumerate}
@@ -937,13 +938,13 @@ This might be interesting in situations where one is concerned that the assumpti
         \begin{itemize}
           \item Presumably the partial identification results go through for a LATE.
           \item The second and third moment conditions would require restrictions on form of heterogeneity.
+            These would seem to be satisfied by a generalized Roy model.
         \end{itemize}
       \item Independence Assumptions
         \begin{itemize}
           \item Presumably the CDF bounds go through as before but need to state exact form of independence assumption in terms of potential outcomes.
           \item Kitagawa-style independence assumption for IV: $Y(T^*,z) = Y(T^*)$. This gives bounds for all quantile treatment effects.
           \item Stochastic dominance conditions?
-          \item If we assume $Y(0)$ is the same for never-takers and compliers and $Y(1)$ is the same for always-takers and compliers, then the independence condition identifies the model
         \end{itemize}
     \end{enumerate}
   \item Estimation / Inference
