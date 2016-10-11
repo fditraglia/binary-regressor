@@ -445,7 +445,7 @@ Using the same steps as in the preceding section, we can convert this expression
 \end{align*}
 which simplifies to
 \begin{align*}
-  \varphi_k(\omega) - \varphi_{\ell}(\omega) &= \left( e^{-i\omega\beta} - 1 \right)\left(\frac{\alpha_0\left[ (1 - p_k)\varphi_{0k}(\omega) - (1-p_\ell)\varphi_{0\ell}(\omega) \right]  - (1 - \alpha_0)\left[ p_k \varphi_{1k}(\omega) - p_\ell \varphi_{1\ell}(\omega) \right]}{1 - \alpha_0 - \alpha_1}\right)
+  \varphi_k(\omega) - \varphi_{\ell}(\omega) &= \left( e^{-i\omega\beta} - 1 \right)\left(\frac{\alpha_0\left[ (1 - p_k)\varphi_{0k}(\omega) - (1-p_\ell)\varphi_{0\ell}(\omega) \right]  - (1 - \alpha_0)\left[ p_k \varphi_{1k}(\omega) - p_\ell \varphi_{1\ell}(\omega) \right]}{1 - \alpha_0 - \alpha_1}\right).
 \end{align*}
 As above, we will differentiate both sides of this expression $r$ times and evaluate at $\omega = 0$.
 Steps nearly identical to those given above yield
@@ -566,6 +566,97 @@ Using $\mathcal{W} = \beta/(1 - \alpha_0 - \alpha_1)$ we can re-write the third 
   &= \beta^2 + 3\beta \left(\frac{ \alpha_0 \Delta\overline{y} - \Delta\overline{Ty} }{p_k - p_\ell}\right) -3\left(\frac{ \alpha_0 \Delta\overline{y^2}  }{p_k - p_\ell}\right) 
 \end{align*}
 Now, translating the second moment equation into the shorthand notation defined above, we have
+
+
+\paragraph{Simplifying the Characteristic Function Equation}
+From above, we have
+\begin{align*}
+  \varphi_k(\omega) - \varphi_{\ell}(\omega) &= \left( e^{-i\omega\beta} - 1 \right)\left(\frac{\alpha_0\left[ (1 - p_k)\varphi_{0k}(\omega) - (1-p_\ell)\varphi_{0\ell}(\omega) \right]  - (1 - \alpha_0)\left[ p_k \varphi_{1k}(\omega) - p_\ell \varphi_{1\ell}(\omega) \right]}{1 - \alpha_0 - \alpha_1}\right).
+\end{align*}
+Using the fact that $\varphi_{k} = p_k \varphi_{1k} + (1 - p_k) \varphi_{0k}$, we can simplify this further, yielding
+\[
+(1 - \alpha_0 - \alpha_1) = \left( e^{-i\omega \beta} - 1 \right)\left[ \alpha_0 - \xi(\omega)\right] 
+\]
+where we define
+\[
+  \xi(\omega) \equiv \frac{\varphi_k(\omega) - \varphi_\ell(\omega)}{p_k \varphi_{1k}(\omega) - p_\ell\varphi_{1\ell}(\omega)}
+\]
+Now, re-arranging
+\[
+  (1 - \alpha_1) - \xi(\omega) = e^{-i\omega\beta}\left[ \alpha_0 - \xi(\omega) \right]  
+\]
+or equivalently
+\[
+  e^{i\omega\beta}\left[(1 - \alpha_1) - \xi(\omega)\right] =  \alpha_0 - \xi(\omega) 
+\]
+or
+\[
+  e^{i\omega \beta} = \frac{\alpha_0 - \xi(\omega)}{(1 - \alpha_1) - \xi(\omega)}
+\]
+provided the denominator does not vanish.
+By taking differences or ratios evaluated at $\omega_1$ and $\omega_2$ we can eliminate $\beta$, $\alpha_0$ or $\alpha_1$ but it's not clear how or if we can prove identification in terms of a restriction on the characteristic functions.
+
+Suppose we consider three values $\omega_1, \omega_2$ and $\omega_3$ for which that yield to distinct, non-zero values $\xi_1, \xi_2$ and $\xi_3$ of $\xi(\omega)$.
+\begin{align*}
+  e^{i\omega_1\beta}\left[ (1 - \alpha_1) - \xi_1 \right] - e^{i\omega_2\beta}\left[ (1 - \alpha_1) - \xi_2 \right] = \xi_2 - \xi_1
+\end{align*}
+
+\paragraph{Simplifying the Characteristic CDF Equation}
+Recall from above that
+\begin{align*}
+  (1 - \alpha_0 - \alpha_1) \left[ F_k(\tau) - F_\ell(\tau) \right] &= \alpha_0 \left\{ (1 - p_{k})\left[F_{0k}(\tau + \beta) - F_{0k}(\tau)  \right] - (1 - p_\ell)\left[ F_{0\ell}(\tau + \beta) - F_{0\ell}(\tau)  \right] \right\}\\
+  &- (1 - \alpha_0)\left\{ p_k\left[ F_{1k}(\tau + \beta) - F_{1k}(\tau) \right] - p_\ell \left[ F_{1\ell}(\tau+ \beta) - F_{1\ell}(\tau) \right] \right\}
+\end{align*}
+We can simplify the RHS as follows
+\begin{align*}
+  \mbox{RHS} &= \alpha_0 \left\{ \left[ F_k(\tau + \beta) - F_\ell(\tau + \beta) \right] - \left[ F_k(\tau) - F_\ell(\tau) \right] \right\}\\
+  &- \left\{ \left[ p_k F_{1k}(\tau + \beta) - p_\ell F_{1\ell}(\tau + \beta) \right]  - \left[ p_k F_{1k}(\tau) - p_\ell F_{1\ell}(\tau) \right]\right\}
+\end{align*}
+Now, define
+\begin{align*}
+  \Delta(\tau) &= F_k(\tau) - F_\ell(\tau)\\
+  \widetilde{\Delta}_1(\tau) &= p_k F_{1k}(\tau) - p_\ell F_{1\ell}(\tau)
+\end{align*}
+Using this notation, our equation becomes
+\[
+  (1 - \alpha_0 - \alpha_1) \Delta(\tau) = \alpha_0 \left[ \Delta(\tau + \beta) - \Delta(\tau)\right] - \left[ \widetilde{\Delta}_1(\tau+\beta) - \widetilde{\Delta}_1(\tau)\right]
+\]
+which simplifies to
+\[
+    \widetilde{\Delta}_1(\tau+\beta) - \widetilde{\Delta}_1(\tau) = \alpha_0 \Delta(\tau + \beta) - (1 - \alpha_1) \Delta(\tau)
+\]
+Now, since $\Delta$ is a difference of CDFs, its limit as $\tau\rightarrow -\infty$ is zero as is its limit as $\tau\rightarrow \infty$.
+Thus, if $Y$ is continuous, we will always be able to find at least two values of $\tau$ that for which $\Delta(\tau) = d$ for any $d$ in the range of $\Delta$.
+Now, suppose we evaluate this expression at two such points $\tau$ and $\tau'$ and take their difference.
+We obtain,
+\[
+  \widetilde{\Delta}_1(\tau + \beta) - \widetilde{\Delta}_1(\tau' + \beta) =  \alpha_0\left[ \Delta(\tau + \beta) - \Delta(\tau' + \beta)  \right]
+\]
+since $\Delta(\tau) = \Delta(\tau')$.
+Solving for $\alpha_0$,
+\[
+  \alpha_0 = \frac{\widetilde{\Delta}_1(\tau + \beta) - \widetilde{\Delta}_1(\tau' + \beta)}{  \Delta(\tau + \beta) - \Delta(\tau' + \beta)}
+\]
+If we equate this expression for \emph{two} such pairs, we can eliminate $\alpha_0$, yielding an implicit equation for $\beta$ alone.
+Note that the denominator vanishes if $\beta=0$ since we are evaluating at pairs for which $\Delta(\tau) = \Delta(\tau')$.
+Suppose that $(\tau, \tau')$ is the first pair and $(\nu, \nu')$ is the second pair.
+We have
+\[
+  \frac{\widetilde{\Delta}_1(\tau + \beta) - \widetilde{\Delta}_1(\tau' + \beta)}{  \Delta(\tau + \beta) - \Delta(\tau' + \beta)} = 
+  \frac{\widetilde{\Delta}_1(\nu + \beta) - \widetilde{\Delta}_1(\nu' + \beta)}{  \Delta(\nu + \beta) - \Delta(\nu' + \beta)}
+\]
+or cross-multiplying,
+\small
+\[
+  \left[\widetilde{\Delta}_1(\tau + \beta) - \widetilde{\Delta}_1(\tau' + \beta)\right]
+  \left[  \Delta(\nu + \beta) - \Delta(\nu' + \beta)\right]
+  - 
+  \left[\widetilde{\Delta}_1(\nu + \beta) - \widetilde{\Delta}_1(\nu' + \beta)\right]
+\left[\Delta(\tau + \beta) - \Delta(\tau' + \beta)\right] = 0
+\]
+\normalsize
+And one obtains the same condition for any ``pair of pairs'' so presumably there is over-identifying information to be exploited.
+It's not obvious which pairs one would like to use, but my guess is that we don't want $|\tau - \tau'|$ and $|\nu - \nu'|$ to be too small and that we also don't want $\tau, \tau', \nu, \nu'$ to be far in the tails of the distribution. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
