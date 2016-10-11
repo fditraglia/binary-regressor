@@ -571,83 +571,7 @@ Now, translating the second moment equation into the shorthand notation defined 
 
 \section{New Results from September 2016}
 
-\subsection{Is the Treatment Effect Identified when $Y$ is Discrete?}
-Suppose that $Y$ is discrete with arbitrary support.
-This allows for the possibility that $Y$ is binary.
-Using our standard argument,
-\begin{align*}
-  P(Y|T^*=0, z_k) &= P(Y|T=0, z_k) + \left( \frac{\alpha_1 p_k}{1 - p_k - \alpha_1} \right)\left[ P(Y|T=0,z_k) - P(Y|T=1,z_k) \right] \\
-  P(Y|T^*=1, z_k) &= P(Y|T=1, z_k) + \left( \frac{\alpha_0 (1-p_k)}{ p_k - \alpha_0} \right)\left[ P(Y|T=1,z_k) - P(Y|T=0,z_k) \right]
-\end{align*}
-under non-differential measurement error.
-Now, if we assume that $Z$ is conditionally independent of $Y$ given $T^*$, then we have $P(Y,Z|T^*) = P(Z|T^*)P(Y|T^*)$ or equivalently $P(Y|T^*,Z) = P(Y|T^*)$.
-I originally derived this in terms of the first condition, but here I'll present both ways.
-
-\subsubsection{Derivation Using $P(Y,Z|T^*) = P(Y|T^*)P(Z|T^*)$}
-We have
-\begin{align*}
-  P(Z|T^*=1) = P(Z)\left[ \frac{P(T=1|Z) - \alpha_0}{P(T=1) - \alpha_0} \right]\\
-  P(Z|T^*=0) = P(Z)\left[ \frac{P(T=0|Z) - \alpha_1}{P(T=0) - \alpha_1} \right]
-\end{align*}
-Now, by our usual argument
-\begin{align*}
-  P(Y,Z|T^*=0) = P(Y,Z|T=0) + \left( \frac{\alpha_1 p}{1 - p - \alpha_1} \right)\left[ P(Y,Z|T=0) - P(Y,Z|T=1) \right]\\ 
-  P(Y,Z|T^*=1) = P(Y,Z|T=1) + \left( \frac{\alpha_0 (1-p)}{p - \alpha_0} \right)\left[ P(Y,Z|T=1) - P(Y,Z|T=0) \right]\
-\end{align*}
-which simplifies to
-\begin{align*}
-  P(Y,Z|T^*=1) &= \frac{P(Y,Z,T=1) - \alpha_0 P(Y,Z)}{P(T=1) - \alpha_0}\\
-  P(Y,Z|T^*=0) &= \frac{P(Y,Z,T=0) - \alpha_1 P(Y,Z)}{P(T=0) - \alpha_1}
-\end{align*}
-Similarly
-\begin{align*}
-  P(Y|T^*=1) &= \left( \frac{1 - \alpha_0}{p-\alpha_0} \right) p P(Y|T=1) - \left(\frac{\alpha_0}{p - \alpha_0}\right)(1 - p) P(Y|T=0)\\
-  P(Y|T^*=0) &= \left( \frac{-\alpha_1}{1 - p-\alpha_1} \right) p P(Y|T=1) - \left(\frac{1 - \alpha_1}{1 - p - \alpha_1}\right)(1 - p) P(Y|T=0)
-\end{align*}
-which simplifies to
-\begin{align*}
-  P(Y|T^*=1) &= \frac{P(Y,T=1) - \alpha_0 P(Y)}{P(T=1) - \alpha_0}\\
-  P(Y|T^*=0) &= \frac{P(Y,T=0) - \alpha_1 P(Y)}{P(T=0) - \alpha_1}
-\end{align*}
-Thus, imposing $P(Y,Z|T^*) = P(Z|T^*)P(Y|T^*)$ we have two restrictions for every pair $(y,z)$ in the joint support of $(Y,Z)$: one corresponding to $T^*=0$ and the other to $T^*=1$, namely
-\begin{align*}
-  \left[ P(T=1) - \alpha_0 \right]\left[ P(Y,Z,T=1) - \alpha_0 P(Y,Z) \right] &= P(Z)\left[ P(T=1|Z)- \alpha_0 \right]\left[ P(Y,T=1) - \alpha_0 P(Y) \right]\\
-  \left[ P(T=0) - \alpha_1 \right]\left[ P(Y,Z,T=0) - \alpha_1 P(Y,Z) \right] &= P(Z)\left[ P(T=0|Z)- \alpha_1 \right]\left[ P(Y,T=0) - \alpha_1 P(Y) \right]
-\end{align*}
-The first of these gives a quadratic in $\alpha_0$ and observables only while the second gives a quadratic in $\alpha_1$ and observables only.
-Both quadratices have the same coefficient on the squared variable: $P(Y,Z) - P(Y)P(Z)$.
-This means that the quadratic term vanishes when $Y$ and $Z$ are independent.
-
-The first equation can be re-written in polynomial form:
-\begin{align*}
-\alpha_0^2 \left[ P(Y) - P(Y|Z) \right] - \alpha_0 \left[ P(Y,T=1) - P(Y,T=1|Z) + P(T=1|Z)P(Y) - P(T=1)P(Y|Z) \right] \\
-+ \left[ P(T=1|Z)P(Y,T=1) - P(T=1)P(Y,T=1|Z) \right] = 0
-\end{align*}
-
-The second equation can be re-written in polynomial form:
-\begin{align*}
-\alpha_1^2 \left[ P(Y) - P(Y|Z) \right] - \alpha_1 \left[ P(Y,T=0) - P(Y,T=0|Z) + P(T=0|Z)P(Y) - P(T=0)P(Y|Z) \right] \\
-+ \left[ P(T=0|Z)P(Y,T=0) - P(T=0)P(Y,T=0|Z) \right] = 0
-\end{align*}
-
-In both cases we make use of the fact that
-\begin{align*}
-\frac{ P(Y,Z,T)}{P(Z)} = P(Y,T|Z)
-\end{align*}
-
-After some algebra, the discriminant ($D = b^2 - 4ac$) for the $\alpha_0$ roots can be written as:
-\begin{align*}
-\left( P(Y,T=1) - P(Y)P(T=1|Z) \right)^2 + \left( P(Y,T=1|Z) - P(T=1)P(Y|Z) \right)^2 \\
-+ 4P(Y|Z)P(T=1|Z)P(Y,T=1) - 2P(Y|Z)P(T=1|Z)P(Y)P(T=1)\\
-+ 4P(Y,T=1|Z)P(Y)P(T=1) - 2P(Y,T=1|Z)P(Y)P(T=1|Z)\\
- - 2P(Y,T=1)P(Y,T=1|Z) - 2P(Y,T=1)P(Y|Z)P(T=1)
-\end{align*}
-
-The question is whether the last six terms can be factored in a way that shows that the whole discriminant is always positive. 
-
-\subsubsection{Derivation Using $P(Y|T^*,Z) = P(Y|T^*)$}
-
-Let's write this in a way that allows for $Y$ to follow an arbitrary distribution.
+\subsubsection{Relationship between observed and unobserved CDFs}
 Let
 \begin{align*}
 F^*_{tk}(\tau) &= P(Y \leq \tau|T^*=t, z_k)\\
@@ -663,33 +587,6 @@ Solving the linear system as above, we find that
   F_{0k}^*(\tau) &= F_{0k}(\tau) + \left( \frac{\alpha_1 p_k}{1 - p_k - \alpha_1} \right)\left[ F_{0k}(\tau) - F_{1k}(\tau) \right]\\
   F_{1k}^*(\tau) &= F_{1k}(\tau) + \left( \frac{\alpha_0 (1-p_k)}{p_k - \alpha_0} \right)\left[ F_{1k}(\tau) - F_{0k}(\tau) \right]\\
 \end{align*}
-The conditional independence assumption is equivalent to
-\begin{align*}
-  F^*_{0k}(\tau) &= F^*_{0\ell}(\tau)\\
-  F^*_{1k}(\tau) &= F^*_{1\ell}(\tau)
-\end{align*}
-for all $\tau$.
-Imposing this on the solutions for $F_{0k}^*$ and $F_{1k}^*$ gives,
-\begin{align*}
-  F_{0k}(\tau) + \left( \frac{\alpha_1 p_k}{1 - p_k - \alpha_1} \right)\left[ F_{0k}(\tau) - F_{1k}(\tau) \right] &= F_{0\ell}(\tau) + \left( \frac{\alpha_1 p_\ell}{1 - p_\ell - \alpha_1} \right)\left[ F_{0\ell}(\tau) - F_{1\ell}(\tau) \right] \\
-  F_{1k}(\tau) + \left( \frac{\alpha_0(1 - p_k)}{p_k - \alpha_0}\right)\left[ F_{1k}(\tau) - F_{0k}(\tau) \right]  &= F_{1\ell}(\tau) + \left( \frac{\alpha_0(1 - p_\ell)}{p_\ell - \alpha_0}\right)\left[ F_{1\ell}(\tau) - F_{0\ell}(\tau) \right] 
-\end{align*}
-Cross-multiplying we obtain
-\begin{align*}
-  \left[ (1 - p_k) F_{0k}(\tau) - \alpha_1 F_k(\tau)\right]\left[ (1 - p_\ell) - \alpha_1 \right] &= \left[ (1 - p_\ell)F_{0\ell}(\tau) - \alpha_1 F_{\ell}(\tau) \right]\left[ (1 - p_k) - \alpha_1 \right]\\
-  \left[ p_k F_{1k}(\tau) - \alpha_0 F_{k}(\tau) \right] \left( p_\ell - \alpha_0 \right) &= \left[ p_\ell F_{1\ell}(\tau) - \alpha_0 F_{\ell}(\tau)  \right]\left( p_k - \alpha_0 \right)
-\end{align*}
-which simplify to
-\scriptsize
-\begin{align*}
-  \left[ F_k(\tau) - F_{\ell}(\tau) \right] \alpha_1^2 + \left\{ \left[ (1 - p_k)F_{\ell}(\tau) + (1 - p_\ell)F_{0\ell}(\tau) \right] - \left[ (1 - p_\ell)F_k(\tau) + (1 - p_k) F_{0\ell}(\tau) \right] \right\}\alpha_1 + (1 - p_\ell)(1 - p_k)\left[ F_{0k}(\tau) - F_{0\ell}(\tau) \right] &= 0\\
-  \left[ F_k(\tau) - F_\ell(\tau) \right]\alpha_0^2 + \left\{ \left[ p_k F_\ell(\tau) + p_\ell F_{1\ell}(\tau) \right] - \left[ p_\ell F_k(\tau) + p_k F_{1k}(\tau) \right] \right\}\alpha_0 + p_k p_\ell \left[ F_{1k}(\tau) - F_{1\ell}(\tau) \right] &= 0
-\end{align*}
-\normalsize
-These are quadratics unless $F_k(\tau) = F_\ell(\tau)$.
-Need to figure out when the roots are real and how to discriminate between them.
-Presumably our condition $\alpha_0 + \alpha_1 < 1$ determine which roots are extraneous.
-
 
 \subsection{Can we relax the measurement error assumptions?}
 Suppose that we continue to assume that $P(Y|T^*,T,z) = P(Y|T^*,z)$ but relax the assumption that $P(T|T^*,z) = P(T|T^*)$.
@@ -800,44 +697,8 @@ Rearranging, this in turn is equivalent to
   \mbox{Var}\left[ Y(1)|J=c \right] = \mbox{Var}\left[ Y(0)|J=c \right]
 \]
 
-\subsubsection{Independence Restriction}
-If we strengthen the exclusion restriction from $E[Y(T^*,z)] = E[Y(T^*)]$ to $Y(T^*,z) = Y(T^*)$, 
-\begin{align*}
-  \mathbb{P}\left( Y| T^* = 1, z = 1 \right) &= \left( \frac{p_0^*}{p_1^*} \right) \mathbb{P}\left[ Y(1)|J=a \right] + \left( \frac{p_1^* - p_0^*}{p_1^*} \right)\mathbb{P}\left[ Y(1)|J=c \right] \\
-  \mathbb{P}\left( Y| T^* = 0, z = 0 \right) &= \left( \frac{p_1^* - p_0^*}{1 - p_0^*} \right)\mathbb{P}\left[ Y(0)|J=c \right] + \left( \frac{1 - p_1^*}{1 - p_0^*} \right)\mathbb{P}\left[ Y(0)|J=n \right]\\
-  \mathbb{P}\left( Y| T^* = 1, z = 0 \right) &= \mathbb{P}\left[ Y(1)|J=a \right]\\
-  \mathbb{P}\left( Y| T^* = 0, z = 1 \right) &= \mathbb{P}\left[ Y(0)|J=n \right].
-\end{align*}
-Now suppose impose $P(Y|T^*,z) = P(Y|T^*)$ to identify $\alpha_0$ and $\alpha_1$.
-What would this require us to assume about the potential outcomes?
-Evaluating at each combination of $(T^*,z)$, the assumption is equivalent to
-\begin{align*}
-  P(Y|T^*=1,z=1) &= P(Y|T^*=1,z=0) = P(Y|T^*=1)\\
-  P(Y|T^*=0,z=1) &= P(Y|T^*=0,z=0) = P(Y|T^*=0)
-\end{align*}
-Since
-\[
-  P(Y|T^*) = P(Y|T^*,z=1)P(z=1|T^*) + P(Y|T^*,z=0)\left[ 1 - P(z=1|T^*) \right]
-\]
-it suffices to establish that
-\begin{align*}
-  P(Y|T^*=1,z=0) &= P(Y|T^*=1,z=1) \\
-  P(Y|T^*=0,z=1) &= P(Y|T^*=0,z=0)  
-\end{align*}
-From the expressions given at the beginning of this section, these are equivalent to 
-\begin{align*}
-  \mathbb{P}\left[ Y(1)|J=a \right] &=\left( \frac{p_0^*}{p_1^*} \right) \mathbb{P}\left[ Y(1)|J=a \right] + \left( \frac{p_1^* - p_0^*}{p_1^*} \right)\mathbb{P}\left[ Y(1)|J=c \right] \\ 
-  \mathbb{P}\left[ Y(0)|J=n \right] &= \left( \frac{p_1^* - p_0^*}{1 - p_0^*} \right)\mathbb{P}\left[ Y(0)|J=c \right] + \left( \frac{1 - p_1^*}{1 - p_0^*} \right)\mathbb{P}\left[ Y(0)|J=n \right]
-\end{align*}
-which are in turn equivalent to
-\begin{align*}
-  \mathbb{P}\left[ Y(1)|J=a \right] &= \mathbb{P}\left[ Y(1)|J=c \right] \\
-  \mathbb{P}\left[ Y(0)|J=n \right] &=  \mathbb{P}\left[ Y(0)|J=c \right] 
-\end{align*}
-Thus, under the LATE assumptions from Kitagawa etc.\, $P(Y|T^*,z)=P(Y|T^*)$ is equivalent to assuming that the distribution of $Y(1)$ is the same for always-takers and compliers, and that the distribution of $Y(0)$ is the same for never-takers and compliers.
-If we are prepared to assume this, then $\alpha_0$ and $\alpha_1$ are identified and can be used to identify a LATE. 
 
-\subsection{Partial Identification Under Weak Independence Assumption}
+\subsection{Partial Identification Under Independence Assumption}
 Suppose we only make the LATE independence assumption $Y(T^*,z) = Y(T^*)$ rather than the conditional independence assumption $P(Y<\tau|T^*,z_k) = P(Y<\tau|T^*,z_\ell)$.
 Then we still obtain
 \begin{align*}
