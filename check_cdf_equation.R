@@ -19,7 +19,7 @@ a0_true <- 0.1
 a1_true <- 0.2
 b_true <- 1
 
-dat <- binDGP(a0_true, a1_true, n = 1000000, b = b_true)
+dat <- binDGP(a0_true, a1_true, n = 10000000, b = b_true)
 F0 <- ecdf(with(dat, y[z == 0]))
 F1 <- ecdf(with(dat, y[z == 1]))
 F10 <- ecdf(with(dat, y[Tobs == 1 & z == 0]))
@@ -83,8 +83,8 @@ manipulate(plot_a1_known(q1, q2), q1 = slider(0.1, 0.9, 0.25, step = 0.05),
            q2 = slider(0.1, 0.9, 0.75, step = 0.05))
 
 # Now try the case where a0 and a1 are both unknown
-q_tau <- 0.35
-q_nu <- 0.45
+q_tau <- 0.2
+q_nu <- 0.4
 tau <- quantile(dat$y, q_tau)
 tau_prime <- uniroot(function(x) D(x) - D(tau), c(tau + 0.01, max(dat$y)))$root
 nu <- quantile(dat$y, q_nu)
@@ -104,37 +104,21 @@ abline(v = tau, col = 'red')
 abline(v = tau_prime, col = 'red')
 
 MC <- function(b){
-  term1 <- (D1(tau + b) - D1(tau_prime + b)) / (D(tau + b) - D(tau_prime + b))
-  term2 <- (D1(nu + b) - D1(nu_prime + b)) / (D(nu + b) - D(nu_prime + b))
+  term1_num <- (D1(tau + b) - D1(tau)) - (D1(tau_prime + b) - D1(tau_prime)) 
+  term1_denom <- D(tau + b) - D(tau_prime + b)
+  term2_num <- (D1(nu + b) - D1(nu)) - (D1(nu_prime + b) - D1(nu_prime)) 
+  term2_denom <- D(nu + b) - D(nu_prime + b)
+  term1 <- term1_num / term1_denom
+  term2 <- term2_num / term2_denom
   return(term1 - term2)
 }
 
 # Something is wrong here: this function asymptotes to zero...
-b_seq <- seq(0.5, 2, 0.001)
+b_seq <- seq(ITT, Wald, 0.001)
 MC_b <- MC(b_seq)
 plot(b_seq, MC_b, type = 'l')
-
-# What about a "brute force" approach?
-f <- function(theta){
-  b <- theta[1]
-  a0 <- theta[2]
-  a1 <- theta[3]
-  tau <- quantile(dat$y, seq(0.4, 0.8, 0.05))
-  LHS <- D1(tau + b) - D1(tau)
-  RHS <- a0 * D(tau + b) - (1 - a1) * D(tau) 
-  return(sum((LHS - RHS)^2))
-}
-
-# Sanity check
-f(c(b_true, a0_true, a1_true))
-
-a0_max <- min(p0, p1)
-a1_max <- min(1 - p0, 1 - p1)
-b_min <- ITT
-b_max <- Wald
-
-nlminb(start = c(0.5 * b_min + 0.5 * b_max, a0_max / 2, a1_max / 2),
-       objective = f, lower = c(b_min, 0, 0), upper = c(b_max, a0_max, a1_max))
+abline(v = b_true, col = 'blue')
+abline(h = 0, lty = 2, col = 'red')
 
 est <- function(inData){
   OLS <- with(inData, cov(Tobs,y)/var(Tobs))
