@@ -69,6 +69,8 @@ Accordingly, provided that $1 - \alpha_0 - \alpha_1 < 1$, we have
 so long as $p_k^*$ does not equal zero or one, which is not a realistic case for any example that we consider.
 Since these bounds hold for all $k$, we can take the tightest bound over all values of $Z$.
 
+\todo[inline]{Important: using these to bound $\beta$ gives $\beta \in [\mbox{ITT}, \mbox{Wald}]$.}
+
 \section{Stronger Bounds for $\alpha_0, \alpha_1$}
 Now suppose we add the assumption that $T$ is conditionally independent of $Y$ given $T^*$. 
 This is essentially the non-differential measurement error assumption although it is slightly stronger than the version used by Mahajan (2006) who assumes only conditional mean independence.
@@ -601,7 +603,7 @@ Suppose we consider three values $\omega_1, \omega_2$ and $\omega_3$ for which t
   e^{i\omega_1\beta}\left[ (1 - \alpha_1) - \xi_1 \right] - e^{i\omega_2\beta}\left[ (1 - \alpha_1) - \xi_2 \right] = \xi_2 - \xi_1
 \end{align*}
 
-\paragraph{Simplifying the Characteristic CDF Equation}
+\subsection{Simplifying the Characteristic CDF Equation}
 Recall from above that
 \begin{align*}
   (1 - \alpha_0 - \alpha_1) \left[ F_k(\tau) - F_\ell(\tau) \right] &= \alpha_0 \left\{ (1 - p_{k})\left[F_{0k}(\tau + \beta) - F_{0k}(\tau)  \right] - (1 - p_\ell)\left[ F_{0\ell}(\tau + \beta) - F_{0\ell}(\tau)  \right] \right\}\\
@@ -625,38 +627,55 @@ which simplifies to
 \[
     \widetilde{\Delta}_1(\tau+\beta) - \widetilde{\Delta}_1(\tau) = \alpha_0 \Delta(\tau + \beta) - (1 - \alpha_1) \Delta(\tau)
 \]
-Now, since $\Delta$ is a difference of CDFs, its limit as $\tau\rightarrow -\infty$ is zero as is its limit as $\tau\rightarrow \infty$.
-Thus, if $Y$ is continuous, we will always be able to find at least two values of $\tau$ that for which $\Delta(\tau) = d$ for any $d$ in the range of $\Delta$.
-Now, suppose we evaluate this expression at two such points $\tau$ and $\tau'$ and take their difference.
-We obtain,
+
+\paragraph{Suppose $\alpha_0 = 0$:}
+In this case we obtain
 \[
-  \widetilde{\Delta}_1(\tau + \beta) - \widetilde{\Delta}_1(\tau' + \beta) =  \alpha_0\left[ \Delta(\tau + \beta) - \Delta(\tau' + \beta)  \right]
+  (1 - \alpha_1)  = \frac{ \widetilde{\Delta}_1(\tau) - \widetilde{\Delta}_1(\tau + \beta)}{\Delta(\tau)}
 \]
-since $\Delta(\tau) = \Delta(\tau')$.
-Solving for $\alpha_0$,
+Now, evaluating at two values of $\tau$ and taking differences, we find
 \[
-  \alpha_0 = \frac{\widetilde{\Delta}_1(\tau + \beta) - \widetilde{\Delta}_1(\tau' + \beta)}{  \Delta(\tau + \beta) - \Delta(\tau' + \beta)}
+  \frac{ \widetilde{\Delta}_1(\tau) - \widetilde{\Delta}_1(\tau + \beta)}{\Delta(\tau)} - 
+  \frac{ \widetilde{\Delta}_1(\tau') - \widetilde{\Delta}_1(\tau' + \beta)}{\Delta(\tau')} = 0
 \]
-If we equate this expression for \emph{two} such pairs, we can eliminate $\alpha_0$, yielding an implicit equation for $\beta$ alone.
-Note that the denominator vanishes if $\beta=0$ since we are evaluating at pairs for which $\Delta(\tau) = \Delta(\tau')$.
-Suppose that $(\tau, \tau')$ is the first pair and $(\nu, \nu')$ is the second pair.
-We have
+
+\paragraph{Suppose $\alpha_1 = 0$:}
+In this case we obtain
 \[
-  \frac{\widetilde{\Delta}_1(\tau + \beta) - \widetilde{\Delta}_1(\tau' + \beta)}{  \Delta(\tau + \beta) - \Delta(\tau' + \beta)} = 
-  \frac{\widetilde{\Delta}_1(\nu + \beta) - \widetilde{\Delta}_1(\nu' + \beta)}{  \Delta(\nu + \beta) - \Delta(\nu' + \beta)}
+  \alpha_0 = \frac{\widetilde{\Delta}_1(\tau + \beta) - \widetilde{\Delta}_1(\tau) + \Delta(\tau)}{\Delta(\tau + \beta)}
 \]
-or cross-multiplying,
-\small
+Again, taking differences evaluated at two values of $\tau$,
 \[
-  \left[\widetilde{\Delta}_1(\tau + \beta) - \widetilde{\Delta}_1(\tau' + \beta)\right]
-  \left[  \Delta(\nu + \beta) - \Delta(\nu' + \beta)\right]
-  - 
-  \left[\widetilde{\Delta}_1(\nu + \beta) - \widetilde{\Delta}_1(\nu' + \beta)\right]
-\left[\Delta(\tau + \beta) - \Delta(\tau' + \beta)\right] = 0
+  \frac{\widetilde{\Delta}_1(\tau + \beta) - \widetilde{\Delta}_1(\tau) + \Delta(\tau)}{\Delta(\tau + \beta)} = 
+  \frac{\widetilde{\Delta}_1(\tau' + \beta) - \widetilde{\Delta}_1(\tau') + \Delta(\tau')}{\Delta(\tau' + \beta)} = 0
 \]
-\normalsize
-And one obtains the same condition for any ``pair of pairs'' so presumably there is over-identifying information to be exploited.
-It's not obvious which pairs one would like to use, but my guess is that we don't want $|\tau - \tau'|$ and $|\nu - \nu'|$ to be too small and that we also don't want $\tau, \tau', \nu, \nu'$ to be far in the tails of the distribution. 
+
+\paragraph{Some Equations to Check Numerically}
+We can use the same basic idea when either $\alpha_0$ or $\alpha_1$ is know but nonzero.
+This isn't realistic in practice, but can be used to check our equations:
+\begin{align*}
+  \alpha_0 &= \frac{\widetilde{\Delta}_1(\tau + \beta) - \widetilde{\Delta}_1(\tau) + (1 - \alpha_1) \Delta(\tau)}{\Delta(\tau + \beta)}\\ \\
+  (1 - \alpha_1) &= \frac{\alpha_0 \Delta(\tau + \beta) + \widetilde{\Delta}_1(\tau) - \widetilde{\Delta}_1(\tau + \beta)}{\Delta(\tau)}
+\end{align*}
+As above, after substituting the true value of either $\alpha_1$ or $\alpha_0$, we can eliminate the remaining mis-classification probability by evaluating at two quantiles $\tau$, $\tau'$ and taking differences.
+\todo[inline]{These appear to work just fine!}
+
+\paragraph{What if $\alpha_0$ and $\alpha_1$ are both unknown?}
+Suppose we take differences to eliminate $\alpha_1$ and define:
+\begin{align*}
+  G(\alpha_0, \beta; \tau, \tau') &= 
+  \left[\frac{\alpha_0 \Delta(\tau + \beta) + \widetilde{\Delta}_1(\tau) - \widetilde{\Delta}_1(\tau + \beta)}{\Delta(\tau)}\right]
+  - \left[\frac{\alpha_0 \Delta(\tau' + \beta) + \widetilde{\Delta}_1(\tau') - \widetilde{\Delta}_1(\tau' + \beta)}{\Delta(\tau')}\right] \\
+  &= \alpha_0 \left[ \frac{\Delta(\tau+ \beta)}{\Delta(\tau)} - \frac{\Delta(\tau' + \beta)}{\Delta(\tau')} \right] - \left[ \frac{\widetilde{\Delta}_1(\tau) - \widetilde{\Delta}_1(\tau+ \beta)}{\Delta(\tau)} - \frac{\widetilde{\Delta}_1(\tau') - \widetilde{\Delta}_1(\tau'+ \beta)}{\Delta(\tau')}\right]
+ \end{align*}
+
+ where $\alpha_0$ and $\beta$ are \emph{arbitrary} values, i.e.\ not necessarily equal to the true values $\alpha_0^o$ and $\beta^o$.
+
+
+\paragraph{How to solve numerically?}
+One possibility is brute force: just solve for a root in three dimensions.
+But there may be a better approach that uses some properties of the functions $\Delta$ and $\widetilde{\Delta}_1$.
+Maybe an iterative approach?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
