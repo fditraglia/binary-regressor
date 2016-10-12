@@ -661,21 +661,22 @@ As above, after substituting the true value of either $\alpha_1$ or $\alpha_0$, 
 \todo[inline]{These appear to work just fine!}
 
 \paragraph{What if $\alpha_0$ and $\alpha_1$ are both unknown?}
-Suppose we take differences to eliminate $\alpha_1$ and define:
+Suppose we take differences at two quantiles $\tau$ and $\nu$ to eliminate $\alpha_1$:
 \begin{align*}
-  G(\alpha_0, \beta; \tau, \tau') &= 
   \left[\frac{\alpha_0 \Delta(\tau + \beta) + \widetilde{\Delta}_1(\tau) - \widetilde{\Delta}_1(\tau + \beta)}{\Delta(\tau)}\right]
-  - \left[\frac{\alpha_0 \Delta(\tau' + \beta) + \widetilde{\Delta}_1(\tau') - \widetilde{\Delta}_1(\tau' + \beta)}{\Delta(\tau')}\right] \\
-  &= \alpha_0 \left[ \frac{\Delta(\tau+ \beta)}{\Delta(\tau)} - \frac{\Delta(\tau' + \beta)}{\Delta(\tau')} \right] - \left[ \frac{\widetilde{\Delta}_1(\tau) - \widetilde{\Delta}_1(\tau+ \beta)}{\Delta(\tau)} - \frac{\widetilde{\Delta}_1(\tau') - \widetilde{\Delta}_1(\tau'+ \beta)}{\Delta(\tau')}\right]
+  - \left[\frac{\alpha_0 \Delta(\nu + \beta) + \widetilde{\Delta}_1(\nu) - \widetilde{\Delta}_1(\nu + \beta)}{\Delta(\nu)}\right] &= 0 \\ 
+  \alpha_0 \left[ \frac{\Delta(\tau+ \beta)}{\Delta(\tau)} - \frac{\Delta(\nu + \beta)}{\Delta(\nu)} \right] - \left[ \frac{\widetilde{\Delta}_1(\tau) - \widetilde{\Delta}_1(\tau+ \beta)}{\Delta(\tau)} - \frac{\widetilde{\Delta}_1(\nu) - \widetilde{\Delta}_1(\nu + \beta)}{\Delta(\nu)}\right] &= 0
  \end{align*}
 
- where $\alpha_0$ and $\beta$ are \emph{arbitrary} values, i.e.\ not necessarily equal to the true values $\alpha_0^o$ and $\beta^o$.
-
-
-\paragraph{How to solve numerically?}
-One possibility is brute force: just solve for a root in three dimensions.
-But there may be a better approach that uses some properties of the functions $\Delta$ and $\widetilde{\Delta}_1$.
-Maybe an iterative approach?
+%Now, recall that $\Delta(\tau)$ is a difference of CDFs. 
+%This means that it its limits as $\tau \rightarrow +\infty$ and as $\tau \rightarrow -\infty$ both equal zero.
+%If $Y$ is continuous, then it follows that for any $\tau$ we can always find a $\tau' \neq \tau$ such that $\Delta(\tau) = \Delta(\tau')$.
+%Now if we take \emph{another} difference, between pairs  $(\tau, \nu)$ and $(\tau', \nu')$ such that $\Delta(\tau) = \Delta(\tau')$ and $\Delta(\nu) = \Delta(\nu')$, the $\alpha_0$ term disappears:
+%\begin{align*}
+%  \left[ \frac{\widetilde{\Delta}_1(\tau) - \widetilde{\Delta}_1(\tau+ \beta)}{\Delta(\tau)} - \frac{\widetilde{\Delta}_1(\nu) - \widetilde{\Delta}_1(\nu + \beta)}{\Delta(\nu)}\right] &= 0
+% \end{align*}
+%But so long as $\widetilde{\Delta}_1(\tau) \neq \widetilde{\Delta}_1(\tau')$ and  $\widetilde{\Delta}_1(\nu) \neq \widetilde{\Delta}_1(\nu')$ the equation itself does not vanish and can be used to solve for $\beta$.
+%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

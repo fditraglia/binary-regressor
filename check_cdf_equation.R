@@ -19,7 +19,7 @@ a0_true <- 0.1
 a1_true <- 0.2
 b_true <- 1
 
-dat <- binDGP(a0_true, a1_true, n = 10000000, b = b_true)
+dat <- binDGP(a0_true, a1_true, n = 1000000, b = b_true)
 F0 <- ecdf(with(dat, y[z == 0]))
 F1 <- ecdf(with(dat, y[z == 1]))
 F10 <- ecdf(with(dat, y[Tobs == 1 & z == 0]))
@@ -113,6 +113,28 @@ MC <- function(b){
 b_seq <- seq(0.5, 2, 0.001)
 MC_b <- MC(b_seq)
 plot(b_seq, MC_b, type = 'l')
+
+# What about a "brute force" approach?
+f <- function(theta){
+  b <- theta[1]
+  a0 <- theta[2]
+  a1 <- theta[3]
+  tau <- quantile(dat$y, seq(0.4, 0.8, 0.05))
+  LHS <- D1(tau + b) - D1(tau)
+  RHS <- a0 * D(tau + b) - (1 - a1) * D(tau) 
+  return(sum((LHS - RHS)^2))
+}
+
+# Sanity check
+f(c(b_true, a0_true, a1_true))
+
+a0_max <- min(p0, p1)
+a1_max <- min(1 - p0, 1 - p1)
+b_min <- ITT
+b_max <- Wald
+
+nlminb(start = c(0.5 * b_min + 0.5 * b_max, a0_max / 2, a1_max / 2),
+       objective = f, lower = c(b_min, 0, 0), upper = c(b_max, a0_max, a1_max))
 
 est <- function(inData){
   OLS <- with(inData, cov(Tobs,y)/var(Tobs))
