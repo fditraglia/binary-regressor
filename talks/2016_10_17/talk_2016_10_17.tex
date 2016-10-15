@@ -56,20 +56,20 @@
    
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Example: Schooling and Test Scores}
-\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
-  RCT in Afghanistan: 32 villages divided into 11 clusters. Randomly choose 6 and build a school in each village of these clusters.
-
-\begin{itemize}
-  \item $y$ -- Child's score on math and language test 
-  \item $T^*$ -- Child's true school attendance
-  \item $T$ -- Parent's report of child's school attendance
-  \item $\mathbf{x}$ -- Child and household characteristics
-  \item $z$ -- School built in village
-\end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Example: Schooling and Test Scores}
+%\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
+%  RCT in Afghanistan: 32 villages divided into 11 clusters. Randomly choose 6 and build a school in each village of these clusters.
+%
+%\begin{itemize}
+%  \item $y$ -- Child's score on math and language test 
+%  \item $T^*$ -- Child's true school attendance
+%  \item $T$ -- Parent's report of child's school attendance
+%  \item $\mathbf{x}$ -- Child and household characteristics
+%  \item $z$ -- School built in village
+%\end{itemize}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Example: Job Training Partnership Act (JPTA)}
 \framesubtitle{Heckman et al.\ (2000, QJE)}
@@ -526,89 +526,89 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 
 
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Empirical Illustration: Schooling and Test Scores}
-\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
-  RCT in Afghanistan: 32 villages divided into 11 clusters. Randomly choose 6 and build a school in each village of these clusters ($N = 1468$).
-
-\begin{itemize}
-  \item $y$ -- Child's score on math and language test 
-  \item $T^*$ -- Child's true school attendance
-  \item $T$ -- Parent's report of child's school attendance
-  \item $\mathbf{x}$ -- Child and household characteristics
-  \item $z$ -- School built in village
-\end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Empirical Illustration: Schooling and Test Scores}
-\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
-\begin{figure}[h]
-  \scriptsize
-  \begingroup
-  \tikzset{every picture/.style={scale=0.53}}
-  \centering
-  \input{../../fig/AfghanHist.tex}
-  \endgroup
-\end{figure}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Empirical Illustration: Schooling and Test Scores}
-\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
-    \begin{columns}[c]
-    \column{.26\textwidth} 
-    $\widehat{\beta}_{OLS} = 0.88$
-
-    $\widehat{\beta}_{IV} = 1.27$
-
-    $\widehat{\alpha}_1 - \widehat{\alpha}_0 = 0.18$
-    \column{.73\textwidth}
-        \begin{figure}[h]
-          \scriptsize
-          \begingroup
-          \tikzset{every picture/.style={scale=0.53}}
-          \centering
-          \input{../../fig/AfghanBoot.tex}
-          \endgroup
-        \end{figure}
-    \end{columns}
-\end{frame}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Example: Vouchers for Private Schooling (PACES)}
-  \framesubtitle{Angrist et al.\ (2002, AER)}
-
-  Data from Colombia: vouchers to attend private school awarded by lottery to poor, primary school-aged children (N = 1577). 
-  
-
-\begin{itemize}
-  \item $y$ -- \# of grades repeated after lottery
-  \item $T^*$ -- Scholarship use 
-  \item $T$ -- Self-reported Scholarship use
-  \item $\mathbf{x}$ -- Demographic controls
-  \item $z$ -- Offered scholarship through lottery 
-\end{itemize}
-
-\alert{Authors raise concerns about the lottery in one of the two cities\ldots}
-\end{frame}
-
+%\begin{frame}
+%  \frametitle{Empirical Illustration: Schooling and Test Scores}
+%\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
+%  RCT in Afghanistan: 32 villages divided into 11 clusters. Randomly choose 6 and build a school in each village of these clusters ($N = 1468$).
+%
+%\begin{itemize}
+%  \item $y$ -- Child's score on math and language test 
+%  \item $T^*$ -- Child's true school attendance
+%  \item $T$ -- Parent's report of child's school attendance
+%  \item $\mathbf{x}$ -- Child and household characteristics
+%  \item $z$ -- School built in village
+%\end{itemize}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Empirical Illustration: Schooling and Test Scores}
+%\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
+%\begin{figure}[h]
+%  \scriptsize
+%  \begingroup
+%  \tikzset{every picture/.style={scale=0.53}}
+%  \centering
+%  \input{../../fig/AfghanHist.tex}
+%  \endgroup
+%\end{figure}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Empirical Illustration: Schooling and Test Scores}
+%\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
+%    \begin{columns}[c]
+%    \column{.26\textwidth} 
+%    $\widehat{\beta}_{OLS} = 0.88$
+%
+%    $\widehat{\beta}_{IV} = 1.27$
+%
+%    $\widehat{\alpha}_1 - \widehat{\alpha}_0 = 0.18$
+%    \column{.73\textwidth}
+%        \begin{figure}[h]
+%          \scriptsize
+%          \begingroup
+%          \tikzset{every picture/.style={scale=0.53}}
+%          \centering
+%          \input{../../fig/AfghanBoot.tex}
+%          \endgroup
+%        \end{figure}
+%    \end{columns}
+%\end{frame}
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Example: Vouchers for Private Schooling (PACES)}
-  \framesubtitle{Overall: Mean = 0.19, SD = 0.45}
-\begin{figure}[h]
-  \scriptsize
-  \begingroup
-  \tikzset{every picture/.style={scale=0.53}}
-  \centering
-  \input{../../../sick-instruments/fig/AngristBettinger/hist.tex}
-  \endgroup
-\end{figure}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Example: Vouchers for Private Schooling (PACES)}
+%  \framesubtitle{Angrist et al.\ (2002, AER)}
+%
+%  Data from Colombia: vouchers to attend private school awarded by lottery to poor, primary school-aged children (N = 1577). 
+%  
+%
+%\begin{itemize}
+%  \item $y$ -- \# of grades repeated after lottery
+%  \item $T^*$ -- Scholarship use 
+%  \item $T$ -- Self-reported Scholarship use
+%  \item $\mathbf{x}$ -- Demographic controls
+%  \item $z$ -- Offered scholarship through lottery 
+%\end{itemize}
+%
+%\alert{Authors raise concerns about the lottery in one of the two cities\ldots}
+%\end{frame}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Example: Vouchers for Private Schooling (PACES)}
+%  \framesubtitle{Overall: Mean = 0.19, SD = 0.45}
+%\begin{figure}[h]
+%  \scriptsize
+%  \begingroup
+%  \tikzset{every picture/.style={scale=0.53}}
+%  \centering
+%  \input{../../../sick-instruments/fig/AngristBettinger/hist.tex}
+%  \endgroup
+%\end{figure}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \begin{center}
@@ -797,25 +797,25 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Conclusion}
-  \singlespacing
-  \small
+  %\singlespacing
+  %\small
   \begin{itemize}
     \item Endogenous, mis-measured binary treatment.
     \item Important in applied work but no solution in the literature.
+      \item Usual (1st moment) IV assumption fails to identify $\beta$
+      \item 2nd moment assumption identifies $\alpha_1 - \alpha_0$
+      \item 3rd moment assumption identifies $\beta$ 
     %\item Effect of endogenous, mis-measured, binary treatment.
     %\item New partial and point identification results by exploiting higher moments of outcome variable.
     %\item Test necessary condition for absence of measurement error.
     %\item Explore sampling distribution of our simple closed-form method of moments estimator in a simulation experiment.
     %\item Detect evidence of measurement error in real-world example. 
     %\item Next steps: use full independence of $z \rightarrow$ optimal estimator
-  \end{itemize}
-  \begin{block}{Valid Instrument}
-    \begin{itemize}
-      \item Usual (1st moment) IV assumption fails to identify $\beta$
-      \item 2nd moment assumption identifies $\alpha_1 - \alpha_0$
-      \item 3rd moment assumption identifies $\beta$ 
-    \end{itemize}
-  \end{block}
+ % \end{itemize}
+ % \begin{block}{Valid Instrument}
+ %   \begin{itemize}
+   \end{itemize}
+ % \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
