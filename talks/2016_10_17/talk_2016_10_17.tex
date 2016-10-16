@@ -172,17 +172,18 @@ Fuzzy RD: minimum school-leaving age in UK increased from 14 to 15 in 1947 but s
       \item $\mathbb{E}[\varepsilon|T^*,T,z] =  \mathbb{E}[\varepsilon|T^*,z]$
       \item $\alpha_0 = \mathbb{P}(T = 1| T^* = 0, z)$ 
       \item  $\alpha_1 = \mathbb{P}(T = 0| T^* = 1, z)$ 
+      \item $\alpha_0 + \alpha_1 < 1$ 
     \end{itemize}
   \end{block}
 
 
-  \begin{alertblock}{Notation}
-  Define error term that absorbs constant: $u = c + \varepsilon$ 
-  \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Observable Moments:  $y = \beta T^* + u$}
+  \frametitle{Observable Moments:  $y = c + \beta T^* + \varepsilon$}
+
+\phantom{Define error term that absorbs constant: $u = c + \varepsilon$}
+
 \begin{center}
   \begin{tabular}{c|c|c|c|c|}
     \multicolumn{1}{c}{}& \multicolumn{1}{c}{$z=1$} &\multicolumn{1}{c}{$z=2$} & \multicolumn{1}{c}{\dots} &\multicolumn{1}{c}{$z=K$}\\
@@ -201,11 +202,15 @@ Fuzzy RD: minimum school-leaving age in UK increased from 14 to 15 in 1947 but s
 \small
 \[q_k = \mathbb{P}(z = z_k), \quad
 p_k = \mathbb{P}(T=1|z=z_k)\]
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Unobservable Moments: $y = \beta T^* + u$}
+
+\alert{Define error term that absorbs constant: $u = c + \varepsilon$}
+
 \begin{center}
   \begin{tabular}{c|c|c|c|c|}
     \multicolumn{1}{c}{}& \multicolumn{1}{c}{$z=1$} &\multicolumn{1}{c}{$z=2$} & \multicolumn{1}{c}{\dots} &\multicolumn{1}{c}{$z=K$}\\
@@ -223,6 +228,7 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 \quad p^*_{tk}=q_k p^*_k\]
 \small
 \[q_k = \mathbb{P}(z = z_k),\quad p^*_k=\mathbb{P}(T^*=1|z=z_k)\]
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}
@@ -257,7 +263,7 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
     \vspace{1.5em}
   
   \begin{block}{Main Result (Correct) -- Exogenous Treatment}
-   Relevant binary instrument $z$ ($p^*_1 \neq p^*_2$) identifies $\alpha_0, \alpha_1$ and $\mathbb{E}[y|T^*]$ provided that $\mathbb{E}[\nu|T^*,T,z]=0$ and $\alpha_0 + \alpha_1 < 1$. 
+   Relevant binary instrument $z$ ($p^*_k \neq p^*_\ell$) identifies $\alpha_0, \alpha_1$ and $\mathbb{E}[y|T^*]$ provided that $\mathbb{E}[\nu|T^*,T,z]=0$ and $\alpha_0 + \alpha_1 < 1$. 
   \end{block}
 
   \begin{alertblock}{Extension (Incorrect) -- Endogenous Treatment}
@@ -333,7 +339,7 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
   \vspace{1em}
 
 \normalsize
-\begin{block}{If $\alpha_0 + \alpha_1 > 0$, then:}
+\begin{block}{If $\alpha_0 + \alpha_1 < 1$, then:}
   \begin{itemize}
     \item $Cor(T, T^*) > 0 \iff \alpha_0 + \alpha_1 < 1$
     \item $\beta$ has same sign as $\mathcal{W}$
@@ -352,7 +358,6 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
     \item $\alpha_0 = \mathbb{P}(T=1|T^*=0, z)$
     \item $\alpha_1 = \mathbb{P}(T=0|T^*=1, z)$
     \item $\alpha_0 + \alpha_1 < 1$
-    \item 
   \end{itemize}
 
   \begin{block}{Weaker}
@@ -385,62 +390,59 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Theorem: Identification Result}
+  \frametitle{Sufficient Conditions To Identify $\alpha_0, \alpha_1$, and $\beta$}
+  \small
+
+  \begin{block}{Baseline Assumptions}
+  \vspace{-1em}
+    \begin{itemize}
+      \item $\mathbb{E}[\varepsilon|z] =0$
+      \item $\mathbb{E}[\varepsilon|T^*,T,z] = \mathbb{E}[\varepsilon|T^*,z]$
+      \item $\alpha_0 = \mathbb{P}(T=1|T^*=0,z), \; \alpha_1 =\mathbb{P}(T=0|T^*=1, z), \; \alpha_0 + \alpha_1 < 1$
+    \end{itemize}
+  \end{block}
+
+  \vspace{-1em}
   
+  \begin{alertblock}{Strengthen IV Assumption}
+  \vspace{-1em}
+    \begin{itemize}
+      \item $\mathbb{E}[\varepsilon^2|z] = \mathbb{E}[\varepsilon^2]$  
+      \item $\mathbb{E}[\varepsilon^3|z] = \mathbb{E}[\varepsilon^3]$  
+    \end{itemize}
+  \end{alertblock}
+
+  \vspace{-1em}
+  \begin{alertblock}{Strengthen Measurement Error Assumption}
+  \vspace{-1em}
+    \begin{itemize}
+      \item $\mathbb{E}[\varepsilon^2|T^*,T,z] = \mathbb{E}[\varepsilon^2|T^*,z]$  
+      \item $\mathbb{E}[\varepsilon^3|T^*,T,z] = \mathbb{E}[\varepsilon^3|T^*,z]$  
+    \end{itemize}
+
+  \end{alertblock}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Conditional \emph{Second} Moment Independence.} 
-  \begin{block}{New Assumption}
-    Homoskedastic errors w.r.t.\ the \emph{instrument}: $E[\varepsilon^2|z]=E[\varepsilon^2]$
+  \frametitle{Identification Argument: Step I} 
+  \begin{block}{Impose 2nd Moment Restrictions}
+    $\mathbb{E}[\varepsilon^2|z]=\mathbb{E}[\varepsilon^2]$ and $\mathbb{E}[\varepsilon^2|T^*,T,z] = \mathbb{E}[\varepsilon^2|T^*,z]$
   \end{block}
-  \begin{block}{Reasonable?}
-    Makes sense in an RCT or a true natural experiment.
-  \end{block}
-  \begin{alertblock}{New Moment Conditions}
-  Defining
-    $\mu_{k\ell}^* =  (p_k - \alpha_0) m_{1k}^* - (p_{\ell}-\alpha_0)m_{k\ell}^*$, 
+  \begin{block}{Obtain New Moment Conditions}
+    \vspace{-1em}
   \begin{align*}
     \mathbb{E}(y^2|z_k) - \mathbb{E}(y^2|z_\ell) \equiv \alert{\Delta\overline{y^2}} &\alert{=}  \alert{\beta \mathcal{W} (p_k - p_\ell)  + 2 \mathcal{W} \mu_{k\ell}^*}\\
-    \mathbb{E}(yT|z_k) - \mathbb{E}(yT|z_\ell) \equiv \alert{ \Delta\overline{yT}} &\alert{=} \alert{(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + \mu_{k\ell}^*}
+    \mathbb{E}(yT|z_k) - \mathbb{E}(yT|z_\ell) \equiv \alert{ \Delta\overline{yT}} &\alert{=} \alert{(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + \mu_{k\ell}^*}\\
+    \mu_{k\ell}^* &=  (p_k - \alpha_0) m_{1k}^* - (p_{\ell}-\alpha_0)m_{k\ell}^*
   \end{align*}
+  \end{block}
+  \begin{alertblock}{Identify ($\alpha_1 - \alpha_0$)}
+    \vspace{-1em}
+    \[\alpha_1 - \alpha_0 = 1 + \mathcal{R}/\mathcal{W}, \quad \mbox{where} \quad
+    \mathcal{R} \equiv \frac{\Delta\overline{y^2} - 2 \mathcal{W}\Delta\overline{yT}}{\mathcal{W}(p_k - p_\ell)}\]
   \end{alertblock}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%  \frametitle{\emph{Theorem}: $(\alpha_1 - \alpha_0)$ is Identified.}
-%  \framesubtitle{(Requires only binary $z$)}
-%  \begin{block}{Proof}
-%  \vspace{-1.5em}
-%  \begin{eqnarray*}
-%    \Delta\overline{y^2} &=& \beta \mathcal{W} (p_k - p_\ell)  + 2 \mathcal{W} \mu_{k\ell}^* \\
-%    \Delta\overline{yT} &=& (1-\alpha_1)\mathcal{W}(p_k - p_\ell) + \mu_{k\ell}^* 
-%  \end{eqnarray*}
-%
-%  Solve for $\mu_{k\ell}^*$, substitute and rearrange:
-%
-%  \begin{equation*}
-%    \mathcal{R} \equiv \beta - 2(1-\alpha_1)\mathcal{W} = \frac{\Delta\overline{y^2} - 2 \mathcal{W}\Delta\overline{yT}}{\mathcal{W}(p_k - p_\ell)}.
-%  \end{equation*}
-%
-%  \vspace{0.4em}
-%  Rearrange and substitute $\beta=\mathcal{W}(1-\alpha_0 -\alpha_1)$ to find 
-%
-%  \begin{equation*}
-%    \alpha_1 - \alpha_0 = 1 + \mathcal{R}/\mathcal{W}.
-%  \end{equation*}
-%\end{block}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%  \frametitle{What Good is $(\alpha_1 - \alpha_0)?$}
-%    \begin{itemize}
-%      \item Test a necessary condition for \emph{no mis-classification}: $\alpha_0 = \alpha_1$ 
-%      \item Simple, tighter partial identification bounds for $\beta$
-%      \item In some settings, one of the mis-classification probabilities is known to be zero $\implies \beta$ point identified 
-%    \end{itemize}
-%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{\emph{Theorem}: $(\alpha_1 - \alpha_0)$ is Identified if $E[\varepsilon^2|z] = E[\varepsilon^2]$}
