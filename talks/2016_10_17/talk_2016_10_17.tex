@@ -1,7 +1,7 @@
 \documentclass{beamer}  
 \usepackage{../slides}
 \usepackage{cancel}
-%\usepackage{appendixnumberbeamer}
+\usepackage{appendixnumberbeamer}
 \setbeameroption{hide notes}
 \defbeamertemplate{description item}{align left}{\insertdescriptionitem\hfill}
 
@@ -42,19 +42,19 @@
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Example: Smoking and Birthweight (SNAP Trial)}
-\framesubtitle{Coleman et al.\ (N Engl J Med, 2012)}
-  RCT with 1050 pregnant smokers in England: 521 given nicotine patches, the rest given placebo patches.
-\begin{itemize}
-  \item $y$ -- Birthweight 
-  \item $T^*$ -- True smoking behavior 
-  \item $T$ -- Self-reported smoking behavior
-  \item $\mathbf{x}$ -- Mother characteristics
-  \item $z$ -- Indicator of nicotine patch
-\end{itemize}
-   
-\end{frame}
+%\begin{frame}
+%  \frametitle{Example: Smoking and Birthweight (SNAP Trial)}
+%\framesubtitle{Coleman et al.\ (N Engl J Med, 2012)}
+%  RCT with 1050 pregnant smokers in England: 521 given nicotine patches, the rest given placebo patches.
+%\begin{itemize}
+%  \item $y$ -- Birthweight 
+%  \item $T^*$ -- True smoking behavior 
+%  \item $T$ -- Self-reported smoking behavior
+%  \item $\mathbf{x}$ -- Mother characteristics
+%  \item $z$ -- Indicator of nicotine patch
+%\end{itemize}
+%   
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}
 %  \frametitle{Example: Schooling and Test Scores}
@@ -246,7 +246,7 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[label=MAHAJAN_BODY]
   \frametitle{Mahajan (2006, ECTA)}
 
   \vspace{-1em}
@@ -267,59 +267,18 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
     \vspace{1.5em}
   
   \begin{block}{Main Result (Correct) -- Exogenous Treatment}
-   Relevant binary instrument $z$ ($p^*_1 \neq p^*_2$) identifies $\alpha_0, \alpha_1$ and $\mathbb{E}[y|T^*]$ provided that $\mathbb{E}[\nu|T^*,T,z]=0$. 
+   Relevant binary instrument $z$ ($p^*_1 \neq p^*_2$) identifies $\alpha_0, \alpha_1$ and $\mathbb{E}[y|T^*]$ provided that $\mathbb{E}[\nu|T^*,T,z]=0$ and $\alpha_0 + \alpha_1 < 1$. 
   \end{block}
 
-  \begin{alertblock}{Additional Result (Incorrect) -- Endogenous Treatment}
+  \begin{alertblock}{Extension (Incorrect) -- Endogenous Treatment}
     $\mathbb{E}[\varepsilon|z]=0$, $p^*_1 \neq p^*_2$, $\mathbb{E}[\varepsilon|T,T^*,z]=\mathbb{E}[\varepsilon|T^*] \implies$ $\beta$ identified.
   \end{alertblock}
+
+    \hyperlink{MAHAJAN_APPEND}{\beamergotobutton{Details}}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}
-  \frametitle{Mahajan's Argument}
-    \begin{columns}[c]
-    \column{.45\textwidth} 
-    \begin{exampleblock}{Regression Model}
-      $y = \mathbb{E}[y|T^*] + \nu$\\
-      {\small $\mathbb{E}[\nu|T^*]=0$ by construction}
-    \end{exampleblock}
-    \column{.45\textwidth}
-    \begin{exampleblock}{Causal Model}
-     $y = c + \beta T^* + \varepsilon$\\
-     {\small$\mathbb{E}[\varepsilon|T^*]\neq 0$}
-    \end{exampleblock}
-    \end{columns}
-
-    \vspace{0.7em}
-
-    \begin{block}{Ingredients}
-      
-  \begin{enumerate}
-    \item If $p^*_1 \neq p^*_2$, $\mathbb{E}[\varepsilon|z]=0$ then, since $\beta_{IV} = \beta/(1-\alpha_0-\alpha_1)$, knowledge of $\alpha_0,\alpha_1$ is sufficient to recover $\beta$. \textcolor{blue}{(Correct)}
-    \item If $p^*_1 \neq p^*_2$, $\mathbb{E}[\nu|T^*,T,z]=0$, $\alpha_0, \alpha_1$ are identified. \textcolor{blue}{(Correct)}
-    \item[] \alert{\framebox{How to satisfy both 1 and 2 while allowing $\mathbb{E}[\varepsilon|T^*]\neq 0$?}}
-    \item[3.] Assume that $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ \\ {\small (i.e.\ $m_{01}^* = m_{02}^*$ and $m_{11}^*=m_{12}^*$)}
-  \end{enumerate}
-    \end{block}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{The Flaw in Mahajan's Argument}
-  \begin{block}{Proposition}
-    If $\mathbb{E}[\varepsilon|T^*]\neq 0$ then  $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ combined with $\mathbb{E}[\varepsilon|z]=0$ implies $p^*_1 = p^*_2$, i.e.\ $z$ is irrelevant for $T^*$.
-  \end{block}
-  \begin{block}{Proof}
-    Recall that $\mathbb{E}[\varepsilon|z]=0$ implies
-  \begin{align*}
-     (1-p_1^*) m^*_{01} + p^*_1 m^*_{11}&=c\\
-     (1-p_2^*) m^*_{02} + p^*_2 m^*_{12}&=c
-  \end{align*}
-  while Mahajan's assumption implies $m_{01}^* = m_{02}^*$ and $m_{11}^*=m_{12}^*$.
-  Therefore either $m_{01}^*=m_{02}^* = m_{11}^* =m_{12}^*=c$, which is ruled out by $E[\varepsilon|T^*]=0$, or $p^*_1 = p^*_2$.
-  \end{block}
-\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{What about increasing the support of $z$?}
@@ -341,38 +300,22 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{\emph{Theorem}: $\beta$ is undentified regardless of $K$.}
-  \framesubtitle{(For general case, see paper.)}
-  \begin{block}{Proof of special case: $\alpha_0 = 0$ }
+  \framesubtitle{Proof of special case: $\alpha_0 = 0$}
     \begin{enumerate}
       \item System of equations: 
-    \vspace{0.5em}
+        \vspace{-0.5em}
 \begin{align*}
-  \widetilde{y}_{0k} &=c + p_k \beta \left(\frac{\alpha_1}{1 -  \alpha_1}\right) - p _k m_{1k}^* \\
+  \widetilde{y}_{0k} &=c + p_k \alert{\beta \left(\frac{\alpha_1}{1 -  \alpha_1}\right)} - p _k m_{1k}^* \\
   \widetilde{y}_{1k} &=p_k \beta + p _k m_{1k}^*
 \end{align*}
-  \item $\beta/(1-\alpha_1) \equiv \mathcal{W}$ is identified and imposing this, algebra gives $\beta\alpha_1/(1-\alpha_1) = \mathcal{W} - \beta$. 
-
-    \end{enumerate}
-  \end{block} 
-    
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{\emph{Theorem}: $\beta$ is undentified regardless of $K$.}
-  \framesubtitle{(For general case, see paper.)}
-  \begin{block}{Proof of special case: $\alpha_0 = 0$ continued\dots }
-    \begin{enumerate}
-      \item[3.] Substituting: 
-    \vspace{0.5em}
+  \item $\beta/(1-\alpha_1) \equiv \mathcal{W}$ identified,  $\beta\alpha_1/(1-\alpha_1) = \alert{\mathcal{W} - \beta} \implies$ 
+        \vspace{-0.5em}
 \begin{align*}
-  (c + p_k \mathcal{W} - \widetilde{y}_{0k})/p_k &=\beta + m_{1k}^* \\
+\textcolor{blue}{(c + p_k \mathcal{W} - \widetilde{y}_{0k})}/p_k &=\beta + m_{1k}^* \\
   \widetilde{y}_{1k}/p_k &= \beta + m_{1k}^*
 \end{align*}
-\item[4.] Linear system in $(\beta, m_{1k}^*)$ -- no solution or $\infty$ of solutions.
-\item[5.] Sum original pair of equations $\implies c + p_k \mathcal{W} - \widetilde{y}_{0k} = \widetilde{y}_{1k}$ thus $\infty$ of solutions.
-  The model is unidentified.
+\item Sum equations from 1 $\implies (c + p_k \mathcal{W} - \widetilde{y}_{0k}) = \textcolor{blue}{\widetilde{y}_{1k}}$
     \end{enumerate}
-  \end{block} 
     
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -816,6 +759,53 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
  %   \begin{itemize}
    \end{itemize}
  % \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+
+\begin{frame}[label=MAHAJAN_APPEND]
+  \frametitle{Mahajan's Argument}
+    \begin{columns}[c]
+    \column{.45\textwidth} 
+    \begin{exampleblock}{Regression Model}
+      $y = \mathbb{E}[y|T^*] + \nu$\\
+      {\small $\mathbb{E}[\nu|T^*]=0$ by construction}
+    \end{exampleblock}
+    \column{.45\textwidth}
+    \begin{exampleblock}{Causal Model}
+     $y = c + \beta T^* + \varepsilon$\\
+     {\small$\mathbb{E}[\varepsilon|T^*]\neq 0$}
+    \end{exampleblock}
+    \end{columns}
+
+    \vspace{0.7em}
+
+    \begin{block}{Ingredients}
+      
+  \begin{enumerate}
+    \item If $p^*_1 \neq p^*_2$, $\mathbb{E}[\varepsilon|z]=0$ then, since $\beta_{IV} = \beta/(1-\alpha_0-\alpha_1)$, knowledge of $\alpha_0,\alpha_1$ is sufficient to recover $\beta$. \textcolor{blue}{(Correct)}
+    \item If $p^*_1 \neq p^*_2$, $\mathbb{E}[\nu|T^*,T,z]=0$, $\alpha_0, \alpha_1$ are identified. \textcolor{blue}{(Correct)}
+    \item[] \alert{\framebox{How to satisfy both 1 and 2 while allowing $\mathbb{E}[\varepsilon|T^*]\neq 0$?}}
+    \item[3.] Assume that $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ \\ {\small (i.e.\ $m_{01}^* = m_{02}^*$ and $m_{11}^*=m_{12}^*$)}
+  \end{enumerate}
+    \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{The Flaw in Mahajan's Argument}
+  \begin{block}{Proposition}
+    If $\mathbb{E}[\varepsilon|T^*]\neq 0$ then  $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ combined with $\mathbb{E}[\varepsilon|z]=0$ implies $p^*_1 = p^*_2$, i.e.\ $z$ is irrelevant for $T^*$.
+  \end{block}
+  \begin{block}{Proof}
+    Recall that $\mathbb{E}[\varepsilon|z]=0$ implies
+  \begin{align*}
+     (1-p_1^*) m^*_{01} + p^*_1 m^*_{11}&=c\\
+     (1-p_2^*) m^*_{02} + p^*_2 m^*_{12}&=c
+  \end{align*}
+  while Mahajan's assumption implies $m_{01}^* = m_{02}^*$ and $m_{11}^*=m_{12}^*$.
+  Therefore either $m_{01}^*=m_{02}^* = m_{11}^* =m_{12}^*=c$, which is ruled out by $E[\varepsilon|T^*]=0$, or $p^*_1 = p^*_2$.
+  \end{block}
+    \hyperlink{MAHAJAN_BODY}{\beamergotobutton{Back}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
