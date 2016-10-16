@@ -34,7 +34,7 @@
     \item $T$ -- Observed, mis-measured binary surrogate for $T^*$
     \item $\mathbf{x}$ -- Exogenous covariates
     \item $\varepsilon$ -- Mean-zero error term
-    \item $z$ -- Discrete instrumental variable
+    \item $z$ -- Discrete (typically binary) instrumental variable
   \end{itemize}
 
  \begin{block}{Target of Inference:}
@@ -386,7 +386,8 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  Put diagram for Oreopoulous here and maybe Burde and Linden too.
+  Diagram for Oreopoulous?
+  Burde \& Linden?
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -425,7 +426,7 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Identification Argument: Step I} 
+  \frametitle{Identification Argument: Part I} 
   \begin{block}{Impose 2nd Moment Restrictions}
     $\mathbb{E}[\varepsilon^2|z]=\mathbb{E}[\varepsilon^2]$ and $\mathbb{E}[\varepsilon^2|T^*,T,z] = \mathbb{E}[\varepsilon^2|T^*,z]$
   \end{block}
@@ -445,102 +446,43 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{\emph{Theorem}: $(\alpha_1 - \alpha_0)$ is Identified if $E[\varepsilon^2|z] = E[\varepsilon^2]$}
-  \framesubtitle{Requires only binary $z$}
-
-    Solve for $\mu_{k\ell}^*$, substitute $\beta = \mathcal{W} (1 - \alpha_0 - \alpha_1)$, rearrange to find
-  \begin{equation*}
-    \alpha_1 - \alpha_0 = 1 + \mathcal{R}/\mathcal{W}, \quad \mbox{where} \quad
-    \mathcal{R} \equiv \frac{\Delta\overline{y^2} - 2 \mathcal{W}\Delta\overline{yT}}{\mathcal{W}(p_k - p_\ell)}.
-  \end{equation*}
-
-  \begin{block}{What good is $\left( \alpha_1 - \alpha_0 \right)$?}
-    \begin{itemize}
-      \item Test necessary condition for \emph{no mis-classification}: $\alpha_0 = \alpha_1$ 
-      \item Simple, tighter partial identification bounds for $\beta$
-      \item If $\alpha_0$ known, e.g. zero $\implies \beta$ point identified 
-    \end{itemize}
+  \frametitle{Identification Argument: Part II} 
+  \begin{block}{Impose 3rd Moment Restrictions}
+    $\mathbb{E}[\varepsilon^3|z]=\mathbb{E}[\varepsilon^3]$ and $\mathbb{E}[\varepsilon^3|T^*,T,z] = \mathbb{E}[\varepsilon^3|T^*,z]$
   \end{block}
-
+  \begin{alertblock}{New Moment Conditions}
+    \vspace{-1em}
+    \footnotesize
+  \begin{align*}
+    \mathbb{E}(y^3|z_k) - \mathbb{E}(y^3|z_\ell)  \equiv  \alert{\Delta\overline{y^3}} &\alert{=} \alert{\beta^2 \mathcal{W} (p_k - p_\ell)  + 3 \beta \mathcal{W} \mu_{k\ell}^* + 3 \mathcal{W} \lambda^*_{k\ell}}\\
+    \mathbb{E}(y^2T|z_k) - \mathbb{E}(y^2T|z_\ell) \equiv  \alert{\Delta\overline{y^2T}} &\alert{=}  \alert{\beta(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + 2(1-\alpha_1)\mathcal{W}\mu_{k\ell}^* + \lambda_{k\ell}^*}\\
+    \lambda_{k\ell}^* &= (p_k - \alpha_0) v_{1k}^* - (p_\ell - \alpha_0) v_{1\ell}^*\\
+  v^*_{tk} &= \mathbb{E}(u^2|T^*=t, z_k)
+  \end{align*}
+  \end{alertblock}
+\normalsize
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Conditional \emph{Third} Moment Independence}
-  \begin{block}{New Assumption}
-    Third moment independence w.r.t\ instrument: $E[\varepsilon^3|z]=E[\varepsilon^3]$
-  \end{block}
-  \begin{alertblock}{New Moment Conditions}
-    Define $\lambda_{k\ell}^* = (p_k - \alpha_0) v_{1k}^* - (p_\ell - \alpha_0) v_{1\ell}^*$\\ where 
-  $v^*_{tk} =  \mathbb{E}(u^2|T^*=t, z_k)$. Then
-  \begin{eqnarray*}
-    \mathbb{E}(y^3|z_k) &-& \mathbb{E}(y^3|z_\ell)  \equiv \\ \alert{\Delta\overline{y^3}} &\alert{=}& \alert{\beta^2 \mathcal{W} (p_k - p_\ell)  + 3 \beta \mathcal{W} \mu_{k\ell}^* + 3 \mathcal{W} \lambda^*_{k\ell}}\\
-    \mathbb{E}(y^2T|z_k) &-& \mathbb{E}(y^2T|z_\ell) \equiv \\ \alert{\Delta\overline{y^2T}} &\alert{=}&  \alert{\beta(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + 2(1-\alpha_1)\mathcal{W}\mu_{k\ell}^* + \lambda_{k\ell}^*}
-  \end{eqnarray*}
-  \end{alertblock}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame} \frametitle{\emph{Theorem}: $\beta$, $\alpha_0$ and $\alpha_1$ are identified.}
-%  \framesubtitle{Requires $\alpha_0 + \alpha_1 < 1$, but $z$ need only be binary.}
-%  \begin{block}{Proof}
-%    \vspace{-1em}
-%  \begin{eqnarray*}
-%    \Delta\overline{y^3} &=& \beta^2 \mathcal{W} (p_k - p_\ell)  + 3 \beta \mathcal{W} \mu_{k\ell}^* + 3 \mathcal{W} \lambda^*_{k\ell}\\
-%    \Delta\overline{y^2T} &=& \beta(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + 2(1-\alpha_1)\mathcal{W}\mu_{k\ell}^* + \lambda_{k\ell}^* 
-%  \end{eqnarray*}
-%
-%  \vspace{1em}
-%
-%    Solve for $\lambda^*_{k\ell}$, substitute and rearrange: 
-%
-%  \begin{equation*}
-%    \mathcal{S} \equiv \beta^2 - 3\mathcal{W}(1-\alpha_1) (\beta + \mathcal{R}) = \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}.
-%  \end{equation*}
-%  \end{block}
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%  \frametitle{\emph{Theorem}: $\beta$, $\alpha_0$ and $\alpha_1$ are identified.}
-%  \framesubtitle{Requires $\alpha_0 + \alpha_1 < 1$, but $z$ need only be binary.}
-%  \begin{block}{Proof continued\dots}
-%    \vspace{-1em}
-%  \begin{equation*}
-%    \mathcal{S} \equiv \beta^2 - 3\mathcal{W}(1-\alpha_1) (\beta + \mathcal{R}) = \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}
-%  \end{equation*}
-%  \vspace{1em}
-%
-%  Use the fact that $\mathcal{R}=\beta - 2(1-\alpha_1)\mathcal{W}$ to eliminate $\beta$ from $\mathcal{S}$:
-%
-%  \begin{equation*}
-%    2\mathcal{W}^2 (1-\alpha_1)^2 + 2 \mathcal{R}\mathcal{W} (1-\alpha_1) + (\mathcal{S} -\mathcal{R}^2) = 0
-%    \label{eq:quadratic}
-%  \end{equation*}
-%
-%  which is a quadratic in $(1-\alpha_1)$ and observables only! Can show that there are always two real roots: one is $(1-\alpha_1)$ and the other is $\alpha_0$. To tell which is which, need $\alpha_0 + \alpha_1 < 1$.
-%  \end{block}
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{\emph{Theorem}: $\beta$, $\alpha_0$ and $\alpha_1$ identified}
-  \framesubtitle{Adding $E[\varepsilon^3|z] = E[\varepsilon^3]$, $z$ need only be binary.}
-
-    Solve for $\lambda^*_{k\ell}$, substitute and rearrange.
-    After further substitutions:
-  \begin{equation*}
-    2\mathcal{W}^2 (1-\alpha_1)^2 + 2 \mathcal{R}\mathcal{W} (1-\alpha_1) + (\mathcal{S} -\mathcal{R}^2) = 0
-  \end{equation*}
+  \frametitle{Identification Argument: Part III}
+  \begin{block}{Tedious Algebra}
+    \vspace{-1em}
+    \[2\mathcal{W}^2 (1-\alpha_1)^2 + 2 \mathcal{R}\mathcal{W} (1-\alpha_1) + (\mathcal{S} -\mathcal{R}^2) = 0\]
   where
   \begin{equation*}
     \mathcal{S} \equiv \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}
   \end{equation*}
+  \end{block}
 
+  \begin{block}{Solve Quadratic}
   \begin{itemize}
-    \item Quadratic in $(1-\alpha_1)$ and observables only
+    \item Depends on $(1-\alpha_1)$ and observables only
     \item Always two real roots: one is $(1-\alpha_1)$ and the other is $\alpha_0$.
     \item To tell which is which, need $\alpha_0 + \alpha_1 < 1$.
   \end{itemize}
-
-
+  \end{block}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}
 %  \frametitle{Empirical Illustration: Schooling and Test Scores}
@@ -818,22 +760,40 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+  \frametitle{$(z \perp \varepsilon)$ and $(T\perp \varepsilon|T^*,z) \Rightarrow$ Continuum of MCs}
+
+  \begin{block}{Distribution Functions}
+    \vspace{-1em}
+\[
+    \widetilde{\Delta}_1(\tau+\beta) - \widetilde{\Delta}_1(\tau) = \alpha_0 \Delta(\tau + \beta) - (1 - \alpha_1) \Delta(\tau)
+\]
+\small
 \begin{align*}
   \Delta(\tau) &= F_k(\tau) - F_\ell(\tau)\\
   \widetilde{\Delta}_1(\tau) &= p_k F_{1k}(\tau) - p_\ell F_{1\ell}(\tau)
 \end{align*}
 
-\[
-    \widetilde{\Delta}_1(\tau+\beta) - \widetilde{\Delta}_1(\tau) = \alpha_0 \Delta(\tau + \beta) - (1 - \alpha_1) \Delta(\tau)
-\]
+  \end{block}
 
+  \normalsize
+  \begin{block}{Characteristic Functions}
+    \vspace{-1em}
 \[
 (1 - \alpha_0 - \alpha_1) = \left( e^{-i\omega \beta} - 1 \right)\left[ \alpha_0 - \xi(\omega)\right] 
 \]
-where we define
+\small
 \[
   \xi(\omega) \equiv \frac{\varphi_k(\omega) - \varphi_\ell(\omega)}{p_k \varphi_{1k}(\omega) - p_\ell\varphi_{1\ell}(\omega)}
 \]
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  Picture / example of using CDF conditions?
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  Picture / example of using CDFs to get identification?
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -841,23 +801,25 @@ where we define
   \frametitle{Conclusion}
   %\singlespacing
   %\small
+
+  \begin{block}{Summary}
   \begin{itemize}
     \item Endogenous, mis-measured binary treatment.
     \item Important in applied work but no solution in the literature.
       \item Usual (1st moment) IV assumption fails to identify $\beta$
-      \item 2nd moment assumption identifies $\alpha_1 - \alpha_0$
-      \item 3rd moment assumption identifies $\beta$ 
-    %\item Effect of endogenous, mis-measured, binary treatment.
-    %\item New partial and point identification results by exploiting higher moments of outcome variable.
-    %\item Test necessary condition for absence of measurement error.
-    %\item Explore sampling distribution of our simple closed-form method of moments estimator in a simulation experiment.
-    %\item Detect evidence of measurement error in real-world example. 
-    %\item Next steps: use full independence of $z \rightarrow$ optimal estimator
- % \end{itemize}
- % \begin{block}{Valid Instrument}
- %   \begin{itemize}
+      \item Bounds for mis-classification probabilities and $\beta$.
+      \item Higher moment / independence restrictions identify $\beta$
    \end{itemize}
- % \end{block}
+  \end{block}
+
+  \begin{block}{Extensions / Work in Progress}
+    \begin{itemize}
+      \item Efficient estimation w/ continuum of MCs
+        \item Inference / Specification Testing
+      \item LATE interpretation
+      \item Empirical Examples
+    \end{itemize}
+  \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix
