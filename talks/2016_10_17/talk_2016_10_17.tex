@@ -221,30 +221,16 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 \[q_k = \mathbb{P}(z = z_k),\quad p^*_k=\mathbb{P}(T^*=1|z=z_k)\]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Unrestricted System of Equations} 
-  \begin{eqnarray*}
-   (1 - p_k) \bar{y}_{0k} &\equiv& \alert{\widetilde{y}_{0k}= (\beta + m_{1k}^*) \alpha_1 p_k^*  + (1 -\alpha_0)(1 - p^*_k)m_{0k}^* } \\
-    p_k \bar{y}_{1k} &\equiv&  \alert{\widetilde{y}_{1k}=(\beta + m_{1k}^*) (1 - \alpha_1)p_k^* + \alpha_0 (1 - p_k^*) m_{0k}^*} 
-  \end{eqnarray*}
-  \small
-  \[p^*_k =  \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \]
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Possible Restrictions On $m^*_{tk}$}
-  \begin{block}{Joint Exogeneity: $\mathbb{E}[\varepsilon|T^*,z]=0$}
-    $\implies m^*_{tk} =c \quad$ for all $t,k$
-  \end{block}
-  \begin{block}{Exogenous Treatment: $\mathbb{E}[\varepsilon|T^*]=0$}
-    $\implies \displaystyle \frac{1}{\mathbb{P}(T^*=t)}\sum_{k}p^*_{tk}m^*_{tk} = c\quad$  for all $t$
-  \end{block}
-  \begin{alertblock}{Exogenous Instrument: $\mathbb{E}[\varepsilon|z]=0$}
-    $\implies (1-p^*_k)m^*_{0k} + p^*_k m^*_{1k}=c \quad$ for all $k$
-  \end{alertblock}
-
-\end{frame}
+%\begin{frame}
+%  \frametitle{Unrestricted System of Equations} 
+%  \begin{eqnarray*}
+%   (1 - p_k) \bar{y}_{0k} &\equiv& \alert{\widetilde{y}_{0k}= (\beta + m_{1k}^*) \alpha_1 p_k^*  + (1 -\alpha_0)(1 - p^*_k)m_{0k}^* } \\
+%    p_k \bar{y}_{1k} &\equiv&  \alert{\widetilde{y}_{1k}=(\beta + m_{1k}^*) (1 - \alpha_1)p_k^* + \alpha_0 (1 - p_k^*) m_{0k}^*} 
+%  \end{eqnarray*}
+%  \small
+%  \[p^*_k =  \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \]
+%
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[label=MAHAJAN_BODY]
   \frametitle{Mahajan (2006, ECTA)}
@@ -279,9 +265,8 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{What about increasing the support of $z$?}
+  \frametitle{What if $z$ takes on more than two values?}
   \alert{\framebox{$\mathbb{E}[\varepsilon|z]=0 \implies$ \emph{pair} of equations for each $k = 1, \dots, K$}}
 \begin{align*}
   \hat{y}_{0k} &=\alpha_1(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + (1-\alpha_0)c - (p _k -  \alpha_0)m_{1k}^* \\[1.5ex]
@@ -298,6 +283,21 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \hfill \alert{\framebox{$2K$ Equations in $K+4$ Unknowns}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Possible Restrictions On $m^*_{tk}$}
+%  \begin{block}{Joint Exogeneity: $\mathbb{E}[\varepsilon|T^*,z]=0$}
+%    $\implies m^*_{tk} =c \quad$ for all $t,k$
+%  \end{block}
+%  \begin{block}{Exogenous Treatment: $\mathbb{E}[\varepsilon|T^*]=0$}
+%    $\implies \displaystyle \frac{1}{\mathbb{P}(T^*=t)}\sum_{k}p^*_{tk}m^*_{tk} = c\quad$  for all $t$
+%  \end{block}
+%  \begin{alertblock}{Exogenous Instrument: $\mathbb{E}[\varepsilon|z]=0$}
+%    $\implies (1-p^*_k)m^*_{0k} + p^*_k m^*_{1k}=c \quad$ for all $k$
+%  \end{alertblock}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{\emph{Theorem}: $\beta$ is undentified regardless of $K$.}
   \framesubtitle{Proof of special case: $\alpha_0 = 0$}
@@ -305,7 +305,7 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
       \item System of equations: 
         \vspace{-0.5em}
 \begin{align*}
-  \widetilde{y}_{0k} &=c + p_k \alert{\beta \left(\frac{\alpha_1}{1 -  \alpha_1}\right)} - p _k m_{1k}^* \\
+  \widetilde{y}_{0k} &=c + p_k \alert{ \left(\frac{\beta\alpha_1}{1 -  \alpha_1}\right)} - p _k m_{1k}^* \\
   \widetilde{y}_{1k} &=p_k \beta + p _k m_{1k}^*
 \end{align*}
   \item $\beta/(1-\alpha_1) \equiv \mathcal{W}$ identified,  $\beta\alpha_1/(1-\alpha_1) = \alert{\mathcal{W} - \beta} \implies$ 
@@ -317,6 +317,31 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \item Sum equations from 1 $\implies (c + p_k \mathcal{W} - \widetilde{y}_{0k}) = \textcolor{blue}{\widetilde{y}_{1k}}$
     \end{enumerate}
     
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{What about $\alpha_0 + \alpha_1 < 1$?}
+  \small
+  \[\mathcal{W} =  \frac{\beta}{1 - \alpha_0 - \alpha_1},
+    \quad p_k^* = \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1}, \quad
+  1 - p_k^* = \frac{1 - p_k - \alpha_1}{1 - \alpha_0 - \alpha_1} \]
+
+  \vspace{1em}
+
+\normalsize
+  \begin{itemize}
+    \item $Cor(T, T^*) > 0 \iff \alpha_0 + \alpha_1 < 1$
+    \item If $\alpha_0 + \alpha_1 < 1$ then: 
+      \begin{itemize}
+        \item $\beta$ has same sign as $\mathcal{W}$
+      \item $\alpha_0 < \min_k \{p_k\}$
+        \item $\alpha_1 < \min_k \{1 - p_k\}$
+        \item Two-sided bounds for treatment effect.
+      \end{itemize}
+
+  \end{itemize}
+  
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -553,26 +578,28 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 %\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \begin{center}
-    \Huge Simulation Study
-  \end{center}
-\end{frame}
+%\begin{frame}
+%  \begin{center}
+%    \Huge Simulation Study
+%  \end{center}
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Simulation Study: $y = \beta T^* + \varepsilon$}
   \begin{itemize}
-    \item $(\varepsilon, \eta) \sim $ jointly normal, mean 0, variance 1, corr.\ 0.3.
+    \item $(\varepsilon, \eta) \sim $ jointly normal, mean 0, variance 1, correlation 0.3.
     \item First stage: $T^* = \mathbf{1}\left\{ \gamma_0 + \gamma_1 z + \eta > 0 \right\}$
       \begin{itemize}
         \item Half of subjects have $z=1$, the rest have $z=0$.
-        \item $\gamma_0 = \Phi^{-1}(\delta)$
-        \item $\gamma_1 = \Phi^{-1}(1-\delta) - \Phi(\delta)$   
-        \item $\delta$ equals fraction of those offered treatment who fail to take it up \emph{and} fraction of those not offered treatment who do.
+        \item $\delta = \mathbb{P}(T^* = 0|z =1) = \mathbb{P}(T^*=1|z=0)$
+          %\begin{itemize}
+        %\item $\gamma_0 = \Phi^{-1}(\delta)$
+        %\item $\gamma_1 = \Phi^{-1}(1-\delta) - \Phi(\delta)$   
+      %\end{itemize}
       \end{itemize}
     \item Generate $T$ as follows:
       \begin{itemize}
-        \item $T^* = 0 \implies T=0$, i.e.\ $\alpha_0 = 0$
+        \item Set $\alpha_0 = 0$ so $T^* = 0 \implies T=0$
         \item $T|T^*=1 \sim \mbox{Bernoulli}(1-\alpha_1)$
         \item $\alpha_0, \alpha_1$ unknown to econometrician.
       \end{itemize}
@@ -797,7 +824,7 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
     If $\mathbb{E}[\varepsilon|T^*]\neq 0$ then  $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ combined with $\mathbb{E}[\varepsilon|z]=0$ implies $p^*_1 = p^*_2$, i.e.\ $z$ is irrelevant for $T^*$.
   \end{block}
   \begin{block}{Proof}
-    Recall that $\mathbb{E}[\varepsilon|z]=0$ implies
+    $\mathbb{E}[\varepsilon|z]=0$ implies
   \begin{align*}
      (1-p_1^*) m^*_{01} + p^*_1 m^*_{11}&=c\\
      (1-p_2^*) m^*_{02} + p^*_2 m^*_{12}&=c
