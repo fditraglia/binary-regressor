@@ -88,7 +88,7 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 \begin{frame}
   \frametitle{Example: Returns to Schooling} 
 \framesubtitle{Oreopoulos (2006, AER)}
-Fuzzy RD: minimum school-leaving age in UK increased from 14 to 15 in 01947 but some already stayed until 15 before the law and others failed to comply after it.
+Fuzzy RD: minimum school-leaving age in UK increased from 14 to 15 in 1947 but some already stayed until 15 before the law and others failed to comply after it.
 \begin{itemize}
   \item $y$ -- Log wage 
   \item $T^*$ -- School attendance at age 15
@@ -158,19 +158,23 @@ Fuzzy RD: minimum school-leaving age in UK increased from 14 to 15 in 01947 but 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Model: $y = c + \beta T^* + \varepsilon$}
+
+  \begin{block}{Valid Instrument}
+    $\mathbb{E}[\varepsilon|z] =0$. 
+  \end{block}
+
   \begin{block}{First-stage}
     $p^*_k \equiv \mathbb{P}(T^*=1|z=z_k) \neq \mathbb{P}(T^*=1|z=z_\ell)\equiv p_\ell^*$, $k\neq \ell$
   \end{block}
-  \begin{block}{Measurement Error}
+
+  \begin{block}{Non-differential Measurement Error}
     \begin{itemize}
-      \item Non-differential: $\mathbb{E}[\varepsilon|T^*,T,z] =  \mathbb{E}[\varepsilon|T^*,z]$
-      \item Does not depend on $z$:
-\begin{eqnarray*}
- \alpha_0&=&  \mathbb{P}(T = 1| T^* = 0, z)  \\ 
- \alpha_1&=& \mathbb{P}(T = 0| T^* = 1, z) 
-\end{eqnarray*}
+      \item $\mathbb{E}[\varepsilon|T^*,T,z] =  \mathbb{E}[\varepsilon|T^*,z]$
+      \item $\alpha_0 = \mathbb{P}(T = 1| T^* = 0, z)$ 
+      \item  $\alpha_1 = \mathbb{P}(T = 0| T^* = 1, z)$ 
     \end{itemize}
   \end{block}
+
 
   \begin{alertblock}{Notation}
   Define error term that absorbs constant: $u = c + \varepsilon$ 
@@ -257,7 +261,7 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
   \end{block}
 
   \begin{alertblock}{Extension (Incorrect) -- Endogenous Treatment}
-    $\mathbb{E}[\varepsilon|z]=0$, $p^*_1 \neq p^*_2$, $\mathbb{E}[\varepsilon|T,T^*,z]=\mathbb{E}[\varepsilon|T^*] \implies$ $\beta$ identified.
+    $\mathbb{E}[\varepsilon|z]=0$, $p^*_k \neq p^*_\ell$, $\mathbb{E}[\varepsilon|T,T^*,z]=\mathbb{E}[\varepsilon|T^*] \implies$ $\beta$ identified.
   \end{alertblock}
 
     \hyperlink{MAHAJAN_APPEND}{\beamergotobutton{Details}}
@@ -314,7 +318,7 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \textcolor{blue}{(c + p_k \mathcal{W} - \widetilde{y}_{0k})}/p_k &=\beta + m_{1k}^* \\
   \widetilde{y}_{1k}/p_k &= \beta + m_{1k}^*
 \end{align*}
-\item Sum equations from 1 $\implies (c + p_k \mathcal{W} - \widetilde{y}_{0k}) = \textcolor{blue}{\widetilde{y}_{1k}}$
+\item Sum equations from 1.\ $\implies (c + p_k \mathcal{W} - \widetilde{y}_{0k}) = \textcolor{blue}{\widetilde{y}_{1k}}$
     \end{enumerate}
     
 \end{frame}
@@ -329,19 +333,60 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
   \vspace{1em}
 
 \normalsize
+\begin{block}{If $\alpha_0 + \alpha_1 > 0$, then:}
   \begin{itemize}
     \item $Cor(T, T^*) > 0 \iff \alpha_0 + \alpha_1 < 1$
-    \item If $\alpha_0 + \alpha_1 < 1$ then: 
-      \begin{itemize}
-        \item $\beta$ has same sign as $\mathcal{W}$
-      \item $\alpha_0 < \min_k \{p_k\}$
-        \item $\alpha_1 < \min_k \{1 - p_k\}$
-        \item Two-sided bounds for treatment effect.
-      \end{itemize}
-
+    \item $\beta$ has same sign as $\mathcal{W}$
+    \item $\alpha_0 < \min_k \{p_k\}$
+    \item $\alpha_1 < \min_k \{1 - p_k\}$
+    \item Two-sided bound for $\beta$
   \end{itemize}
+\end{block}
   
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Non-differential Measurement Error Assumption}
 
+  \begin{itemize}
+    \item $\alpha_0 = \mathbb{P}(T=1|T^*=0, z)$
+    \item $\alpha_1 = \mathbb{P}(T=0|T^*=1, z)$
+    \item $\alpha_0 + \alpha_1 < 1$
+    \item 
+  \end{itemize}
+
+  \begin{block}{Weaker}
+      $\mathbb{E}[\varepsilon|T^*,T,z] = \mathbb{E}[\varepsilon|T^*,z]$
+  \end{block}
+
+
+  \begin{alertblock}{Stronger}
+      $\varepsilon$ conditionally independent of $T$ given $T^*$ and $z$.
+  \end{alertblock}
+
+  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Bounds From Stronger Measurement Error Assumption}
+  Define $F_{tk}(\tau) = \mathbb{P}(Y \leq \tau|T=t, z_k)$ and $F_k(\tau) = \mathbb{P}(Y \leq \tau|z_k)$
+
+\begin{align*}
+  \alpha_0 &\leq p_k \inf_\tau\left\{\left[\frac{F_{1k}(\tau)}{F_k(\tau)}\right] \wedge \left[\frac{1-F_{1k}(\tau)}{1 - F_k(\tau)} \right]\right\} \leq p_k \\ \\
+  \alpha_1 &\leq (1 - p_k) \inf_\tau \left\{\left[\frac{F_{0k}(\tau)}{F_k(\tau)}\right] \wedge \left[\frac{1-F_{0k}(\tau)}{1 - F_k(\tau)} \right]\right\} \leq (1 - p_k) 
+\end{align*}
+
+\vspace{1em}
+\alert{Bounds for $(\alpha_0, \alpha_1)$ do \emph{not} require $z$ to be a valid instrument!}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  Put diagram for Oreopoulous here and maybe Burde and Linden too.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Theorem: Identification Result}
+  
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -586,25 +631,30 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Simulation Study: $y = \beta T^* + \varepsilon$}
-  \begin{itemize}
-    \item $(\varepsilon, \eta) \sim $ jointly normal, mean 0, variance 1, correlation 0.3.
-    \item First stage: $T^* = \mathbf{1}\left\{ \gamma_0 + \gamma_1 z + \eta > 0 \right\}$
+  \begin{block}{Errors}
+      $(\varepsilon, \eta) \sim $ jointly normal, mean 0, variance 1, correlation 0.3.
+  \end{block}
+  \begin{block}{First-Stage}
       \begin{itemize}
         \item Half of subjects have $z=1$, the rest have $z=0$.
+        \item $T^* = \mathbf{1}\left\{ \gamma_0 + \gamma_1 z + \eta > 0 \right\}$
         \item $\delta = \mathbb{P}(T^* = 0|z =1) = \mathbb{P}(T^*=1|z=0)$
           %\begin{itemize}
         %\item $\gamma_0 = \Phi^{-1}(\delta)$
         %\item $\gamma_1 = \Phi^{-1}(1-\delta) - \Phi(\delta)$   
       %\end{itemize}
       \end{itemize}
-    \item Generate $T$ as follows:
+  \end{block}
+  \vspace{-1em}
+
+
+  \begin{block}{Mis-classification}
       \begin{itemize}
         \item Set $\alpha_0 = 0$ so $T^* = 0 \implies T=0$
         \item $T|T^*=1 \sim \mbox{Bernoulli}(1-\alpha_1)$
         \item $\alpha_0, \alpha_1$ unknown to econometrician.
       \end{itemize}
-  \end{itemize}
-
+  \end{block}
   
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -765,6 +815,26 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \end{figure}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{align*}
+  \Delta(\tau) &= F_k(\tau) - F_\ell(\tau)\\
+  \widetilde{\Delta}_1(\tau) &= p_k F_{1k}(\tau) - p_\ell F_{1\ell}(\tau)
+\end{align*}
+
+\[
+    \widetilde{\Delta}_1(\tau+\beta) - \widetilde{\Delta}_1(\tau) = \alpha_0 \Delta(\tau + \beta) - (1 - \alpha_1) \Delta(\tau)
+\]
+
+\[
+(1 - \alpha_0 - \alpha_1) = \left( e^{-i\omega \beta} - 1 \right)\left[ \alpha_0 - \xi(\omega)\right] 
+\]
+where we define
+\[
+  \xi(\omega) \equiv \frac{\varphi_k(\omega) - \varphi_\ell(\omega)}{p_k \varphi_{1k}(\omega) - p_\ell\varphi_{1\ell}(\omega)}
+\]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}
   \frametitle{Conclusion}
   %\singlespacing
