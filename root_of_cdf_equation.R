@@ -29,12 +29,12 @@ p1 <- with(dat, mean(Tobs[z == 1]))
 
 
 par(mfrow = c(1,2))
-D <- function(x) F1(x) - F0(x)
-curve(D, min(dat$y), max(dat$y), n = 1001, xlab = expression(tau), ylab = '',
-      main = expression(Delta(tau)))
 D1 <- function(x) p1 * F11(x) - p0 * F10(x)
 curve(D1, min(dat$y), max(dat$y), n = 1001, xlab = expression(tau), ylab = '',
       main = expression(tilde(Delta)[1](tau)))
+D <- function(x) F1(x) - F0(x)
+curve(D, min(dat$y), max(dat$y), n = 1001, xlab = expression(tau), ylab = '',
+      main = expression(Delta(tau)))
 par(mfrow = c(1, 1))
 
 
