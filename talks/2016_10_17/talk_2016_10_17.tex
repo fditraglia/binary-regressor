@@ -318,13 +318,13 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
   \widetilde{y}_{0k} &=c + p_k \alert{ \left(\frac{\beta\alpha_1}{1 -  \alpha_1}\right)} - p _k m_{1k}^* \\
   \widetilde{y}_{1k} &=p_k \beta + p _k m_{1k}^*
 \end{align*}
-  \item $\beta/(1-\alpha_1) \equiv \mathcal{W}$ identified,  $\beta\alpha_1/(1-\alpha_1) = \alert{\mathcal{W} - \beta} \implies$ 
+  \item $\beta/(1-\alpha_1) \equiv \beta_{IV}$ identified,  $\beta\alpha_1/(1-\alpha_1) = \alert{\beta_{IV} - \beta} \implies$ 
         \vspace{-0.5em}
 \begin{align*}
-\textcolor{blue}{(c + p_k \mathcal{W} - \widetilde{y}_{0k})}/p_k &=\beta + m_{1k}^* \\
+  \textcolor{blue}{(c + p_k \beta_{IV} - \widetilde{y}_{0k})}/p_k &=\beta + m_{1k}^* \\
   \widetilde{y}_{1k}/p_k &= \beta + m_{1k}^*
 \end{align*}
-\item Sum equations from 1.\ $\implies (c + p_k \mathcal{W} - \widetilde{y}_{0k}) = \textcolor{blue}{\widetilde{y}_{1k}}$
+\item Sum equations from 1.\ $\implies (c + p_k \beta_{IV} - \widetilde{y}_{0k}) = \textcolor{blue}{\widetilde{y}_{1k}}$
     \end{enumerate}
     
 \end{frame}
@@ -332,7 +332,7 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \begin{frame}
   \frametitle{What about $\alpha_0 + \alpha_1 < 1$?}
   \small
-  \[\mathcal{W} =  \frac{\beta}{1 - \alpha_0 - \alpha_1},
+  \[\beta_{IV} =  \frac{\beta}{1 - \alpha_0 - \alpha_1},
     \quad p_k^* = \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1}, \quad
   1 - p_k^* = \frac{1 - p_k - \alpha_1}{1 - \alpha_0 - \alpha_1} \]
 
@@ -342,7 +342,7 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \begin{block}{If $\alpha_0 + \alpha_1 < 1$, then:}
   \begin{itemize}
     \item $Cor(T, T^*) > 0 \iff \alpha_0 + \alpha_1 < 1$
-    \item $\beta$ has same sign as $\mathcal{W}$
+    \item $\beta$ has same sign as $\beta_{IV}$
     \item $\alpha_0 < \min_k \{p_k\}$
     \item $\alpha_1 < \min_k \{1 - p_k\}$
     \item Two-sided bound for $\beta$
@@ -433,15 +433,15 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
   \begin{block}{Obtain New Moment Conditions}
     \vspace{-1em}
   \begin{align*}
-    \mathbb{E}(y^2|z_k) - \mathbb{E}(y^2|z_\ell) \equiv \alert{\Delta\overline{y^2}} &\alert{=}  \alert{\beta \mathcal{W} (p_k - p_\ell)  + 2 \mathcal{W} \mu_{k\ell}^*}\\
-    \mathbb{E}(yT|z_k) - \mathbb{E}(yT|z_\ell) \equiv \alert{ \Delta\overline{yT}} &\alert{=} \alert{(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + \mu_{k\ell}^*}\\
+    \mathbb{E}(y^2|z_k) - \mathbb{E}(y^2|z_\ell) \equiv \alert{\Delta\overline{y^2}} &\alert{=}  \alert{\beta [\beta_{IV} (p_k - p_\ell)]  + 2 \beta_{IV} \mu_{k\ell}^*}\\
+    \mathbb{E}(yT|z_k) - \mathbb{E}(yT|z_\ell) \equiv \alert{ \Delta\overline{yT}} &\alert{=} \alert{(1-\alpha_1)\beta_{IV}(p_k - p_\ell) + \mu_{k\ell}^*}\\
     \mu_{k\ell}^* &=  (p_k - \alpha_0) m_{1k}^* - (p_{\ell}-\alpha_0)m_{k\ell}^*
   \end{align*}
   \end{block}
   \begin{alertblock}{Identify ($\alpha_1 - \alpha_0$)}
     \vspace{-1em}
-    \[\alpha_1 - \alpha_0 = 1 + \mathcal{R}/\mathcal{W}, \quad \mbox{where} \quad
-    \mathcal{R} \equiv \frac{\Delta\overline{y^2} - 2 \mathcal{W}\Delta\overline{yT}}{\mathcal{W}(p_k - p_\ell)}\]
+    \[\alpha_1 - \alpha_0 = 1 + \mathcal{R}/\beta_{IV}, \quad \mbox{where} \quad
+    \mathcal{R} \equiv \frac{\Delta\overline{y^2} - 2\beta_{IV}\Delta\overline{yT}}{\beta_{IV}(p_k - p_\ell)}\]
   \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -454,8 +454,8 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
     \vspace{-1em}
     \footnotesize
   \begin{align*}
-    \mathbb{E}(y^3|z_k) - \mathbb{E}(y^3|z_\ell)  \equiv  \alert{\Delta\overline{y^3}} &\alert{=} \alert{\beta^2 \mathcal{W} (p_k - p_\ell)  + 3 \beta \mathcal{W} \mu_{k\ell}^* + 3 \mathcal{W} \lambda^*_{k\ell}}\\
-    \mathbb{E}(y^2T|z_k) - \mathbb{E}(y^2T|z_\ell) \equiv  \alert{\Delta\overline{y^2T}} &\alert{=}  \alert{\beta(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + 2(1-\alpha_1)\mathcal{W}\mu_{k\ell}^* + \lambda_{k\ell}^*}\\
+    \mathbb{E}(y^3|z_k) - \mathbb{E}(y^3|z_\ell)  \equiv  \alert{\Delta\overline{y^3}} &\alert{=} \alert{\beta^2 [\beta_{IV} (p_k - p_\ell)]  + 3 \beta [\beta_{IV} \mu_{k\ell}^*] + 3 \beta_{IV} \lambda^*_{k\ell}}\\
+    \mathbb{E}(y^2T|z_k) - \mathbb{E}(y^2T|z_\ell) \equiv  \alert{\Delta\overline{y^2T}} &\alert{=}  \alert{\beta(1-\alpha_1)\beta_{IV}(p_k - p_\ell) + 2(1-\alpha_1)\beta_{IV}\mu_{k\ell}^* + \lambda_{k\ell}^*}\\
     \lambda_{k\ell}^* &= (p_k - \alpha_0) v_{1k}^* - (p_\ell - \alpha_0) v_{1\ell}^*\\
   v^*_{tk} &= \mathbb{E}(u^2|T^*=t, z_k)
   \end{align*}
@@ -467,10 +467,10 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
   \frametitle{Identification Argument: Part III}
   \begin{block}{Tedious Algebra}
     \vspace{-1em}
-    \[2\mathcal{W}^2 (1-\alpha_1)^2 + 2 \mathcal{R}\mathcal{W} (1-\alpha_1) + (\mathcal{S} -\mathcal{R}^2) = 0\]
+    \[2\beta_{IV}^2 (1-\alpha_1)^2 + 2 \beta_{IV} \mathcal{R}(1-\alpha_1) + (\mathcal{S} -\mathcal{R}^2) = 0\]
   where
   \begin{equation*}
-    \mathcal{S} \equiv \frac{\Delta\overline{y^3} - 3 \mathcal{W}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\mathcal{W}(p_k - p_\ell)}
+    \mathcal{S} \equiv \frac{\Delta\overline{y^3} - 3 \beta_{IV}\left[ \Delta\overline{y^2T}+\mathcal{R}\Delta\overline{yT} \right]}{\beta_{IV}(p_k - p_\ell)}
   \end{equation*}
   \end{block}
 
@@ -574,7 +574,7 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 %\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Simulation Study: $y = \beta T^* + \varepsilon$}
+  \frametitle{Simulation Example: $y = \beta T^* + \varepsilon$}
   \begin{block}{Errors}
       $(\varepsilon, \eta) \sim $ jointly normal, mean 0, variance 1, correlation 0.3.
   \end{block}
@@ -762,6 +762,17 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \begin{frame}
   \frametitle{$(z \perp \varepsilon)$ and $(T\perp \varepsilon|T^*,z) \Rightarrow$ Continuum of MCs}
 
+  \begin{block}{Characteristic Functions}
+    \vspace{-1em}
+\[
+  e^{i\omega\beta}\left[(1 - \alpha_1) - \xi(\omega)\right] =  \alpha_0 - \xi(\omega) 
+\]
+\small
+\[
+  \xi(\omega) \equiv \frac{\varphi_k(\omega) - \varphi_\ell(\omega)}{p_k \varphi_{1k}(\omega) - p_\ell\varphi_{1\ell}(\omega)}
+\]
+\end{block}
+\normalsize
   \begin{block}{Distribution Functions}
     \vspace{-1em}
 \[
@@ -776,24 +787,10 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
   \end{block}
 
   \normalsize
-  \begin{block}{Characteristic Functions}
-    \vspace{-1em}
-\[
-(1 - \alpha_0 - \alpha_1) = \left( e^{-i\omega \beta} - 1 \right)\left[ \alpha_0 - \xi(\omega)\right] 
-\]
-\small
-\[
-  \xi(\omega) \equiv \frac{\varphi_k(\omega) - \varphi_\ell(\omega)}{p_k \varphi_{1k}(\omega) - p_\ell\varphi_{1\ell}(\omega)}
-\]
-\end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   Picture / example of using CDF conditions?
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  Picture / example of using CDFs to get identification?
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -844,27 +841,27 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
     \begin{block}{Ingredients}
       
   \begin{enumerate}
-    \item If $p^*_1 \neq p^*_2$, $\mathbb{E}[\varepsilon|z]=0$ then, since $\beta_{IV} = \beta/(1-\alpha_0-\alpha_1)$, knowledge of $\alpha_0,\alpha_1$ is sufficient to recover $\beta$. \textcolor{blue}{(Correct)}
-    \item If $p^*_1 \neq p^*_2$, $\mathbb{E}[\nu|T^*,T,z]=0$, $\alpha_0, \alpha_1$ are identified. \textcolor{blue}{(Correct)}
+    \item If $p^*_k \neq p^*_\ell$, $\mathbb{E}[\varepsilon|z]=0$ then, since $\beta_{IV} = \beta/(1-\alpha_0-\alpha_1)$, knowledge of $\alpha_0,\alpha_1$ is sufficient to recover $\beta$. \textcolor{blue}{(Correct)}
+    \item If $p^*_k \neq p^*_\ell$, $\mathbb{E}[\nu|T^*,T,z]=0$, $\alpha_0, \alpha_1$ are identified. \textcolor{blue}{(Correct)}
     \item[] \alert{\framebox{How to satisfy both 1 and 2 while allowing $\mathbb{E}[\varepsilon|T^*]\neq 0$?}}
-    \item[3.] Assume that $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ \\ {\small (i.e.\ $m_{01}^* = m_{02}^*$ and $m_{11}^*=m_{12}^*$)}
+    \item[3.] Assume that $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ \\ {\small (i.e.\ $m_{0k}^* = m_{0\ell}^*$ and $m_{1k}^*=m_{1\ell}^*$)}
   \end{enumerate}
     \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{The Flaw in Mahajan's Argument}
+  \frametitle{Flaw in the Argument}
   \begin{block}{Proposition}
-    If $\mathbb{E}[\varepsilon|T^*]\neq 0$ then  $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ combined with $\mathbb{E}[\varepsilon|z]=0$ implies $p^*_1 = p^*_2$, i.e.\ $z$ is irrelevant for $T^*$.
+    If $\mathbb{E}[\varepsilon|T^*]\neq 0$ then  $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ combined with $\mathbb{E}[\varepsilon|z]=0$ implies $p^*_k = p^*_\ell$, i.e.\ $z$ is irrelevant for $T^*$.
   \end{block}
   \begin{block}{Proof}
     $\mathbb{E}[\varepsilon|z]=0$ implies
   \begin{align*}
-     (1-p_1^*) m^*_{01} + p^*_1 m^*_{11}&=c\\
-     (1-p_2^*) m^*_{02} + p^*_2 m^*_{12}&=c
+    (1-p_1^*) \textcolor{red}{m^*_{0k}} + p^*_1 \textcolor{blue}{m^*_{1k}}&=c\\
+    (1-p_2^*) \textcolor{red}{m^*_{0\ell}} + p^*_2 \textcolor{blue}{m^*_{1\ell}}&=c
   \end{align*}
-  while Mahajan's assumption implies $m_{01}^* = m_{02}^*$ and $m_{11}^*=m_{12}^*$.
-  Therefore either $m_{01}^*=m_{02}^* = m_{11}^* =m_{12}^*=c$, which is ruled out by $E[\varepsilon|T^*]=0$, or $p^*_1 = p^*_2$.
+  while Mahajan's assumption implies $m_{0k}^* = m_{0\ell}^*$ and $m_{1k}^*=m_{1\ell}^*$.
+  Therefore either $m_{0k}^*=m_{0\ell}^* = m_{1k}^* =m_{1\ell}^*=c$, which is ruled out by $E[\varepsilon|T^*]=0$, or $p^*_k = p^*_\ell$.
   \end{block}
     \hyperlink{MAHAJAN_BODY}{\beamergotobutton{Back}}
 \end{frame}
