@@ -17,9 +17,9 @@ set.seed(102794)
 
 a0_true <- 0.1
 a1_true <- 0.2
-b_true <- 1
+b_true <- 2
 
-dat <- binDGP(a0_true, a1_true, n = 1000000, b = b_true)
+dat <- binDGP(a0_true, a1_true, n = 50000, b = b_true)
 F0 <- ecdf(with(dat, y[z == 0]))
 F1 <- ecdf(with(dat, y[z == 1]))
 F10 <- ecdf(with(dat, y[Tobs == 1 & z == 0]))
@@ -27,10 +27,15 @@ F11 <- ecdf(with(dat, y[Tobs == 1 & z == 1]))
 p0 <- with(dat, mean(Tobs[z == 0]))
 p1 <- with(dat, mean(Tobs[z == 1]))
 
+
+par(mfrow = c(1,2))
 D <- function(x) F1(x) - F0(x)
-curve(D, min(dat$y), max(dat$y))
+curve(D, min(dat$y), max(dat$y), n = 1001, xlab = expression(tau), ylab = '',
+      main = expression(Delta(tau)))
 D1 <- function(x) p1 * F11(x) - p0 * F10(x)
-curve(D1, min(dat$y), max(dat$y))
+curve(D1, min(dat$y), max(dat$y), n = 1001, xlab = expression(tau), ylab = '',
+      main = expression(tilde(Delta)[1](tau)))
+par(mfrow = c(1, 1))
 
 
 # Only consider values for beta between the ITT and the Wald
