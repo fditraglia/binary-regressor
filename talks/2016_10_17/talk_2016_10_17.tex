@@ -42,19 +42,19 @@
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%  \frametitle{Example: Smoking and Birthweight (SNAP Trial)}
-%\framesubtitle{Coleman et al.\ (N Engl J Med, 2012)}
-%  RCT with 1050 pregnant smokers in England: 521 given nicotine patches, the rest given placebo patches.
-%\begin{itemize}
-%  \item $y$ -- Birthweight 
-%  \item $T^*$ -- True smoking behavior 
-%  \item $T$ -- Self-reported smoking behavior
-%  \item $\mathbf{x}$ -- Mother characteristics
-%  \item $z$ -- Indicator of nicotine patch
-%\end{itemize}
-%   
-%\end{frame}
+\begin{frame}
+  \frametitle{Example: Smoking and Birthweight (SNAP Trial)}
+\framesubtitle{Coleman et al.\ (N Engl J Med, 2012)}
+  RCT with 1050 pregnant smokers in England: 521 given nicotine patches, the rest given placebo patches.
+\begin{itemize}
+  \item $y$ -- Birthweight 
+  \item $T^*$ -- True smoking behavior 
+  \item $T$ -- Self-reported smoking behavior
+  \item $\mathbf{x}$ -- Mother characteristics
+  \item $z$ -- Indicator of nicotine patch
+\end{itemize}
+   
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}
 %  \frametitle{Example: Schooling and Test Scores}
@@ -392,6 +392,23 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
     \centering
     \includegraphics[width=\textwidth]{Oreo_CDFbounds}
   \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Variances Only: DiTraglia \& Garcia-Jimeno (2016b)}
+  \framesubtitle{Afghan Girls RCT (Burde \& Linden 2013; AEJ Applied)}
+  \vspace{-2em}
+\[\alpha_0 \leq 0.10, \alpha_1 \leq 0.12; \quad
+  \min_k p_k = 0.15,\; \min_k (1 - p_k)= 0.3
+\]
+
+  \vspace{-4em}
+\begin{figure}[htbp]
+  \footnotesize
+  \centering
+  \input{../../../sick-instruments/fig/Afghanistan/Afghan_a0_a1_bounds.tex}
+\end{figure}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -833,7 +850,7 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \appendix
 
 \begin{frame}[label=MAHAJAN_APPEND]
-  \frametitle{Mahajan's Argument}
+  \frametitle{Mahajan (2006, ECTA)}
     \begin{columns}[c]
     \column{.45\textwidth} 
     \begin{exampleblock}{Regression Model}
