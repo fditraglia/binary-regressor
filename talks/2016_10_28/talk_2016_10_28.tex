@@ -14,7 +14,7 @@
 \title[Binary Regressors]{Estimating the Effect of a Mis-measured, Endogenous, Binary Treatment}
 \author[FJ DiTraglia]{Francis J.\ DiTraglia\\ Camilo Garcia-Jimeno}
 \institute{University of Pennsylvania}
-\date{October 20th, 2016}
+\date{October 28th, 2016}
 \begin{document} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -99,7 +99,7 @@ Fuzzy RD: minimum school-leaving age in UK increased from 14 to 15 in 1947 but s
    
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[label=MAHAJAN_BODY]
   \frametitle{Related Literature}
  
   \begin{block}{Continuous Treatment}
@@ -115,6 +115,7 @@ Fuzzy RD: minimum school-leaving age in UK increased from 14 to 15 in 1947 but s
   \begin{block}{Binary, Endogenous Treatment}
     \alert{Mahajan (2006)}, \small Shiu (2015), Ura (2015) 
   \end{block}
+    \hyperlink{MAHAJAN_APPEND}{\beamergotobutton{Mahajan Details}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}
@@ -242,41 +243,22 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 %
 %\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[label=MAHAJAN_BODY]
-  \frametitle{Mahajan (2006, ECTA)}
-
-  \vspace{-1em}
-
-    \begin{columns}[c]
-    \column{.45\textwidth} 
-    \begin{exampleblock}{Regression Model}
-      $y = \mathbb{E}[y|T^*] + \nu$\\
-      {\small $\mathbb{E}[\nu|T^*]=0$ by construction}
-    \end{exampleblock}
-    \column{.45\textwidth}
-    \begin{exampleblock}{Causal Model}
-     $y = c + \beta T^* + \varepsilon$\\
-     {\small$\mathbb{E}[\varepsilon|T^*]\neq 0$}
-    \end{exampleblock}
-    \end{columns}
-
-    \vspace{1.5em}
-  
-  \begin{block}{Main Result (Correct) -- Exogenous Treatment}
-   Relevant binary instrument $z$ ($p^*_k \neq p^*_\ell$) identifies $\alpha_0, \alpha_1$ and $\mathbb{E}[y|T^*]$ provided that $\mathbb{E}[\nu|T^*,T,z]=0$ and $\alpha_0 + \alpha_1 < 1$. 
+\begin{frame}
+  \frametitle{Possible Restrictions On $m^*_{tk}$}
+  \begin{block}{Joint Exogeneity: $\mathbb{E}[\varepsilon|T^*,z]=0$}
+    $\implies m^*_{tk} =c \quad$ for all $t,k$
   \end{block}
-
-  \begin{alertblock}{Extension (Incorrect) -- Endogenous Treatment}
-    $\mathbb{E}[\varepsilon|z]=0$, $p^*_k \neq p^*_\ell$, $\mathbb{E}[\varepsilon|T,T^*,z]=\mathbb{E}[\varepsilon|T^*] \implies$ $\beta$ identified.
+  \begin{block}{Exogenous Treatment: $\mathbb{E}[\varepsilon|T^*]=0$}
+    $\implies \displaystyle \frac{1}{\mathbb{P}(T^*=t)}\sum_{k}p^*_{tk}m^*_{tk} = c\quad$  for all $t$
+  \end{block}
+  \begin{alertblock}{Exogenous Instrument: $\mathbb{E}[\varepsilon|z]=0$}
+    $\implies (1-p^*_k)m^*_{0k} + p^*_k m^*_{1k}=c \quad$ for all $k$
   \end{alertblock}
 
-    \hyperlink{MAHAJAN_APPEND}{\beamergotobutton{Details}}
 \end{frame}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}
-  \frametitle{What if $z$ takes on more than two values?}
+  \frametitle{System of Equations given $E[\varepsilon|z]=0$}
   \alert{\framebox{$\mathbb{E}[\varepsilon|z]=0 \implies$ \emph{pair} of equations for each $k = 1, \dots, K$}}
 \begin{align*}
   \hat{y}_{0k} &=\alpha_1(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + (1-\alpha_0)c - (p _k -  \alpha_0)m_{1k}^* \\[1.5ex]
@@ -293,23 +275,8 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \hfill \alert{\framebox{$2K$ Equations in $K+4$ Unknowns}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%  \frametitle{Possible Restrictions On $m^*_{tk}$}
-%  \begin{block}{Joint Exogeneity: $\mathbb{E}[\varepsilon|T^*,z]=0$}
-%    $\implies m^*_{tk} =c \quad$ for all $t,k$
-%  \end{block}
-%  \begin{block}{Exogenous Treatment: $\mathbb{E}[\varepsilon|T^*]=0$}
-%    $\implies \displaystyle \frac{1}{\mathbb{P}(T^*=t)}\sum_{k}p^*_{tk}m^*_{tk} = c\quad$  for all $t$
-%  \end{block}
-%  \begin{alertblock}{Exogenous Instrument: $\mathbb{E}[\varepsilon|z]=0$}
-%    $\implies (1-p^*_k)m^*_{0k} + p^*_k m^*_{1k}=c \quad$ for all $k$
-%  \end{alertblock}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{\emph{Theorem}: $\beta$ is undentified regardless of $K$.}
+  \frametitle{$\beta$ is undentified regardless of $K$.}
   \framesubtitle{Proof of special case: $\alpha_0 = 0$}
     \begin{enumerate}
       \item System of equations: 
@@ -330,7 +297,7 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{What about $\alpha_0 + \alpha_1 < 1$?}
+  \frametitle{Partial Identification Bounds}
   \small
   \[\beta_{IV} =  \frac{\beta}{1 - \alpha_0 - \alpha_1},
     \quad p_k^* = \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1}, \quad
@@ -339,7 +306,7 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
   \vspace{1em}
 
 \normalsize
-\begin{block}{If $\alpha_0 + \alpha_1 < 1$, then:}
+\begin{block}{Implications of $\alpha_0 + \alpha_1 < 1$}
   \begin{itemize}
     \item $Cor(T, T^*) > 0 \iff \alpha_0 + \alpha_1 < 1$
     \item $\beta$ has same sign as $\beta_{IV}$
@@ -850,6 +817,38 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \appendix
 
 \begin{frame}[label=MAHAJAN_APPEND]
+  \frametitle{Mahajan (2006, ECTA)}
+
+  \vspace{-1em}
+
+    \begin{columns}[c]
+    \column{.45\textwidth} 
+    \begin{exampleblock}{Regression Model}
+      $y = \mathbb{E}[y|T^*] + \nu$\\
+      {\small $\mathbb{E}[\nu|T^*]=0$ by construction}
+    \end{exampleblock}
+    \column{.45\textwidth}
+    \begin{exampleblock}{Causal Model}
+     $y = c + \beta T^* + \varepsilon$\\
+     {\small$\mathbb{E}[\varepsilon|T^*]\neq 0$}
+    \end{exampleblock}
+    \end{columns}
+
+    \vspace{1.5em}
+  
+  \begin{block}{Main Result (Correct) -- Exogenous Treatment}
+   Relevant binary instrument $z$ ($p^*_k \neq p^*_\ell$) identifies $\alpha_0, \alpha_1$ and $\mathbb{E}[y|T^*]$ provided that $\mathbb{E}[\nu|T^*,T,z]=0$ and $\alpha_0 + \alpha_1 < 1$. 
+  \end{block}
+
+  \begin{alertblock}{Extension (Incorrect) -- Endogenous Treatment}
+    $\mathbb{E}[\varepsilon|z]=0$, $p^*_k \neq p^*_\ell$, $\mathbb{E}[\varepsilon|T,T^*,z]=\mathbb{E}[\varepsilon|T^*] \implies$ $\beta$ identified.
+  \end{alertblock}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
   \frametitle{Mahajan (2006, ECTA)}
     \begin{columns}[c]
     \column{.45\textwidth} 
