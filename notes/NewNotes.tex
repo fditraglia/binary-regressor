@@ -1072,4 +1072,50 @@ This might be interesting in situations where one is concerned that the assumpti
     \end{itemize}
 \end{enumerate}
 
+\section{Weak Identification}
+\todo[inline]{Need to show what happens if $\beta = 0$ and what happens if $\alpha_0 + \alpha_1 = 1$. 
+  This second case may not be particularly relevant, though, since we obtain bounds for $\alpha_0$ and $\alpha_1$ that rule out this case.
+  Something with moment inequality conditions as well?
+  What happens to the variance bounds etc.\ if $\beta=0$?
+Presumably they vanish as well?}
+Consider the just-identified system of moment equations that we obtain from first, second and third moments of $y$.
+First define 
+\begin{align*}
+  \Delta \overline{y} &= E\left( y|z_k \right) - E\left( y|z_\ell \right)\\
+  \Delta \overline{T} &= E\left(T|z_k \right) - E\left(T|z_\ell \right) = p_k - p_\ell\\
+  \Delta \overline{yT} &= E\left( yT|z_k \right) - E\left( yT|z_\ell \right)\\
+  \Delta \overline{y^2} &= E\left( y^2|z_k \right) - E\left( y^2|z_\ell \right)\\
+  \Delta \overline{y^2T} &= E\left( y^2T|z_k \right) - E\left( y^2T|z_\ell \right)\\
+  \Delta \overline{y^3} &= E\left( y^3|z_k \right) - E\left( y^3|z_\ell \right)
+\end{align*}
+
+\todo[inline]{Probably better to express these as covariances for the purpose of putting things in a more familiar GMM form.}
+
+\paragraph{First Moments:}
+The moment condition that arises from first moments of $y$ is
+\[
+  (1 - \alpha_0 - \alpha_1) \Delta \overline{y} - \beta \Delta \overline{T} = 0
+\]
+
+\paragraph{Second Moments:}
+The moment condition that arises from the second moments of $y$ is more complicated.
+The relevant expressions are
+  \begin{align*}
+    \Delta\overline{y^2} &=  \beta \Delta \overline{y}  + 2 \mu_{k\ell}^* \Delta \overline{y} / \Delta \overline{T}\\
+    \mu_{k\ell}^* &= \Delta\overline{yT} - (1-\alpha_1)\Delta \overline{y}
+  \end{align*}
+Combining to eliminate $\mu^*_{k\ell}$ and re-arranging
+\[
+  \Delta \overline{T}\left[\Delta\overline{y^2} - \beta \Delta \overline{y}\right] - 2 \Delta\overline{y}\left[ \Delta\overline{yT} - (1-\alpha_1)\Delta \overline{y}\right] = 0
+\]
+or equivalently
+\[
+  \left[\Delta \overline{T} \Delta \overline{y^2} - 2 \Delta\overline{y} \Delta\overline{yT}\right] + 2(1 - \alpha_1) \left(\Delta \overline{y} \right)^2 - \beta \Delta\overline{y}\Delta\overline{T} = 0
+\]
+
+  \paragraph{Third Moments:}
+  \begin{align*}
+     \Delta\overline{y^3} &= \beta^2 [\beta_{IV} (p_k - p_\ell)]  + 3 \beta [\beta_{IV} \mu_{k\ell}^*] + 3 \beta_{IV} \lambda^*_{k\ell}\\
+     \Delta\overline{y^2T} &=  \beta(1-\alpha_1)\beta_{IV}(p_k - p_\ell) + 2(1-\alpha_1)\beta_{IV}\mu_{k\ell}^* + \lambda_{k\ell}^*
+  \end{align*}
 \end{document}
