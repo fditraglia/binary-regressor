@@ -1073,53 +1073,69 @@ This might be interesting in situations where one is concerned that the assumpti
 \end{enumerate}
 
 \section{Weak Identification}
-\todo[inline]{Need to show what happens if $\beta = 0$ and what happens if $\alpha_0 + \alpha_1 = 1$. 
-  This second case may not be particularly relevant, though, since we obtain bounds for $\alpha_0$ and $\alpha_1$ that rule out this case.
-  Something with moment inequality conditions as well?
-  What happens to the variance bounds etc.\ if $\beta=0$?
-Presumably they vanish as well?}
-Consider the just-identified system of moment equations that we obtain from first, second and third moments of $y$.
-First define 
+
+\subsection{Moment Equations}
+First we write the moment equations in a more familiar GMM-style form.
+\paragraph{First Moment Condition:}
+This is simply the IV moment condition: 
+\[
+  \mbox{Cov}(y,z)/ \mbox{Cov}(T,z) = \beta/(1 - \alpha_0 - \alpha_1)
+\]
+Rearranging gives a more ``canonical'' GMM form:
+\[
+  \mbox{Cov}(y,z) - \left( \frac{\beta}{1 - \alpha_0 - \alpha_1} \right) \mbox{Cov}(T,z) = 0
+\]
+
+\paragraph{Second Moment Condition:}
+The equations used to identify $(\alpha_0 - \alpha_1)$ in the paper are 
 \begin{align*}
-  \Delta \overline{y} &= E\left( y|z_k \right) - E\left( y|z_\ell \right)\\
-  \Delta \overline{T} &= E\left(T|z_k \right) - E\left(T|z_\ell \right) = p_k - p_\ell\\
-  \Delta \overline{yT} &= E\left( yT|z_k \right) - E\left( yT|z_\ell \right)\\
-  \Delta \overline{y^2} &= E\left( y^2|z_k \right) - E\left( y^2|z_\ell \right)\\
-  \Delta \overline{y^2T} &= E\left( y^2T|z_k \right) - E\left( y^2T|z_\ell \right)\\
-  \Delta \overline{y^3} &= E\left( y^3|z_k \right) - E\left( y^3|z_\ell \right)
+  \mu_{k\ell}^* &= (p_k - \alpha_0) m_{1k}^* - (p_\ell - \alpha_0) m_{1\ell}^* \\
+  \Delta \overline{y^2} &= \beta \mathcal{W} (p_k - p_\ell) + 2 \mathcal{W} \mu_{k\ell}^*\\
+  \Delta \overline{yT} &= (1 - \alpha_1) \mathcal{W} (p_k - p_\ell) + \mu_{k\ell}^*
 \end{align*}
-
-\todo[inline]{Probably better to express these as covariances for the purpose of putting things in a more familiar GMM form.}
-
-\paragraph{First Moments:}
-The moment condition that arises from first moments of $y$ is
+Re-arranging the third equation,
+$\mu_{k\ell}^* = \Delta \overline{yT} - (1 - \alpha_1) \mathcal{W} (p_k - p_\ell)$.
+Substituting into the second equation, 
+\begin{align*}
+  \Delta\overline{y^2} &= \mathcal{W}\left[ \beta(p_k - p_\ell) + 2 \mu_{k\ell}^* \right]\\
+  &= \mathcal{W}\left\{ \beta(p_k - p_\ell) + 2\left[ \Delta\overline{yT} - (1 - \alpha_1)\mathcal{W}(p_k - p_\ell) \right]  \right\}\\
+  &= \mathcal{W} \left\{ (p_k - p_\ell)\left[ \beta - 2(1 - \alpha_1)\mathcal{W} \right] + 2\Delta\overline{yT} \right\}
+\end{align*}
+Now, substituting $\mathcal{W} = \beta/(1 - \alpha_0 - \alpha_1)$
+\begin{align*}
+  \Delta\overline{y^2}&= \frac{\beta}{1 - \alpha_0 - \alpha_1}\left\{\beta (p_k - p_\ell)\left[ 1 - \frac{2(1 - \alpha_1)}{1 - \alpha_0 - \alpha_1} \right] + 2 \Delta\overline{yT} \right\}\\
+  &= \frac{\beta}{1 - \alpha_0 - \alpha_1}\left\{2\Delta\overline{yT} - \beta(p_k - p_\ell)\left( \frac{1 + \alpha_0 - \alpha_1}{1 - \alpha_0 - \alpha_1} \right)  \right\}
+\end{align*}
+We now write this in a more standard form.
+Let $w$ be any random variable. 
+Then,
+\begin{align*}
+  \mbox{Cov}(w,z) &= E(wz) - E(w)E(z) = \left[ 1 \times E(w|z=1)q + 0 \times E(w|z=0)(1 - q) \right] - E(w)q\\
+  &= q E(w|z=1) - qE(w) = q E(w|z=1) - q\left[ E(w|z=1)q + E(w|z=0)(1 - q) \right]\\
+  &= q\left[ E(w|z=1)(1 - q) + E(w|z=0)(1 - q)\right]\\
+  &= q(1-q)\left[ E(w|z=1) - E(w|z=0) \right]
+\end{align*}
+Using this fact, we can express the quantities that appear in the second moment equality in terms of covariances as follows
 \[
-  (1 - \alpha_0 - \alpha_1) \Delta \overline{y} - \beta \Delta \overline{T} = 0
+  \Delta\overline{y^2} = \frac{\mbox{Cov}(y^2,z)}{q(1 - q)}, \quad
+  \Delta\overline{yT} = \frac{\mbox{Cov}(yT,z)}{q(1 - q)}, \quad
+  (p_k - p_\ell) = \frac{\mbox{Cov}(T,z)}{q(1 - q)}
+\]
+leading to
+\[\frac{\mbox{Cov}(y^2,z)}{q(1-q)}= \frac{\beta}{1 - \alpha_0 - \alpha_1}\left\{\frac{2\mbox{Cov}(yT,z)}{q(1-q)} - \beta \frac{\mbox{Cov}(T,z)}{q(1-q)}\left( \frac{1 + \alpha_0 - \alpha_1}{1 - \alpha_0 - \alpha_1} \right)  \right\}
+\]
+Or, multiplying through by $q(1-q)$ and re-arranging,
+\[\mbox{Cov}(y^2,z) - \frac{\beta}{1 - \alpha_0 - \alpha_1}\left\{2\mbox{Cov}(yT,z)- \beta \mbox{Cov}(T,z)\left( \frac{1 + \alpha_0 - \alpha_1}{1 - \alpha_0 - \alpha_1} \right)  \right\} = 0
 \]
 
-\paragraph{Second Moments:}
-The moment condition that arises from the second moments of $y$ is more complicated.
-The relevant expressions are
+\paragraph{Third Moment Condition:}
   \begin{align*}
-    \Delta\overline{y^2} &=  \beta \Delta \overline{y}  + 2 \mu_{k\ell}^* \Delta \overline{y} / \Delta \overline{T}\\
-    \mu_{k\ell}^* &= \Delta\overline{yT} - (1-\alpha_1)\Delta \overline{y}
+    \Delta\overline{y^3} &= \beta^2 [\mathcal{W} (p_k - p_\ell)]  + 3 \beta [\mathcal{W} \mu_{k\ell}^*] + 3 \mathcal{W} \lambda^*_{k\ell}\\
+    \Delta\overline{y^2T} &=  \beta(1-\alpha_1)\mathcal{W}(p_k - p_\ell) + 2(1-\alpha_1)\mathcal{W}\mu_{k\ell}^* + \lambda_{k\ell}^*
   \end{align*}
-Combining to eliminate $\mu^*_{k\ell}$ and re-arranging
-\[
-  \Delta \overline{T}\left[\Delta\overline{y^2} - \beta \Delta \overline{y}\right] - 2 \Delta\overline{y}\left[ \Delta\overline{yT} - (1-\alpha_1)\Delta \overline{y}\right] = 0
-\]
-or equivalently
-\[
-  \left[\Delta \overline{T} \Delta \overline{y^2} - 2 \Delta\overline{y} \Delta\overline{yT}\right] + 2(1 - \alpha_1) \left(\Delta \overline{y} \right)^2 - \beta \Delta\overline{y}\Delta\overline{T} = 0
-\]
+Combine with $\mu_{k\ell}^* = \Delta \overline{yT} - (1 - \alpha_1) \mathcal{W} (p_k - p_\ell)$ from the derivation of the second moment equation from above.
 
-  \paragraph{Third Moments:}
-  \begin{align*}
-     \Delta\overline{y^3} &= \beta^2 [\beta_{IV} (p_k - p_\ell)]  + 3 \beta [\beta_{IV} \mu_{k\ell}^*] + 3 \beta_{IV} \lambda^*_{k\ell}\\
-     \Delta\overline{y^2T} &=  \beta(1-\alpha_1)\beta_{IV}(p_k - p_\ell) + 2(1-\alpha_1)\beta_{IV}\mu_{k\ell}^* + \lambda_{k\ell}^*
-  \end{align*}
-
-  \section{Under Normality}
+\section{Under Normality}
   In our simulation for the CDF bounds on $\alpha_0$ and $\alpha_1$, we found that the upper bounds were in fact equal to the true parameter values.
   This is very surprising and is very likely comes from the specific parametric model from which we simulated.
   This happens to have been a model with normally distributed errors.
