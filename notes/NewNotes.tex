@@ -1143,6 +1143,10 @@ Then the model is identified using the first and second moment equalities, which
   \mbox{Cov}(y^2,z) - \left(\frac{\beta}{1 - \alpha_1}\right)\left[2\mbox{Cov}(yT,z)- \beta \mbox{Cov}(T,z) \right] &= 0
 \end{align*}
 
+\todo[inline]{If $\beta=0$ then neither moment equality is informative about $\alpha_1$.}
+
+\todo[inline]{Need to add the second-moment bounds for $\alpha_1$.}
+
 \todo[inline]{To express this system in the standard GMM form $E[f(\mathbf{w},\theta)]=0$ we need to agument these moment equalities with expressions for the means of $z, y, y^2, T,$ and $yT$.
 But these shouldn't affect anything: if we write out the full system and compute the Jacobean it should show us that treating these means as known and plugging in consistent estimators won't make any difference.}
 
