@@ -1142,6 +1142,13 @@ Then the model is identified using the first and second moment equalities, which
   \mbox{Cov}(y,z) - \left( \frac{\beta}{1 -\alpha_1} \right) \mbox{Cov}(T,z) &= 0\\
   \mbox{Cov}(y^2,z) - \left(\frac{\beta}{1 - \alpha_1}\right)\left[2\mbox{Cov}(yT,z)- \beta \mbox{Cov}(T,z) \right] &= 0
 \end{align*}
+In this simple special case, it is easy to solve for $\beta$ by substituting the first moment condition into the second:
+\[
+  \beta = \frac{2 \mbox{Cov}(yT,z)}{\mbox{Cov}(T,z)} - \frac{\mbox{Cov}(y^2,z)}{\mbox{Cov}(y,z)}
+\]
+\todo[inline]{I checked this in our simulation just to be completely sure: it is indeed correct.}
+
+\paragraph{Standard GMM form:}
 To express this system in the standard GMM form $E[f(\mathbf{w},\theta)]=0$ we need to agument these moment equalities with expressions for the means of $z, y, y^2, T,$ and $yT$ as follows:
 \begin{align*}
   \mathbb{E}\left[z - q  \right] &= 0\\
@@ -1151,8 +1158,8 @@ To express this system in the standard GMM form $E[f(\mathbf{w},\theta)]=0$ we n
   \mathbb{E}\left[\left( zy - q\mu \right) - \left( \frac{\beta}{1 -\alpha_1} \right)\left( zT - qp \right)\right] &= 0\\
   \mathbb{E}\left[\left( zy^2 - qs \right) - \left(\frac{\beta}{1 - \alpha_1}\right)\left\{2\left(zyT - qr \right)- \beta \left( zT - qp \right) \right\}\right] &= 0
 \end{align*}
-Adding these variables makes the system somewhat more ungainly.
-But it turns out to be equivalent to pretend that $\mu, q, p, r$ and $s$ are known and substitute the usual consistent estimators, as we now show.
+%Adding these variables makes the system somewhat more ungainly.
+%But it turns out to be equivalent to pretend that $\mu, q, p, r$ and $s$ are known and substitute the usual consistent estimators, as we now show.
 
 Let $\mathbf{w} = (y, T, z)'$, $\varphi = (\beta, \alpha_1)'$, $\gamma = (q, \mu, s, r)'$ and $\theta = (\varphi', \gamma')'$ 
 Similarly, let $g$ denote the moment conditions that involve $\beta$ and $\alpha_1$, let $h$ denote those that involve only $q, \mu, s$ and $r$ and let $f = (g', h')'$ denote the full set of moment conditions.
@@ -1166,13 +1173,13 @@ Then we have
   \end{array}
 \right] = 0
 \]
-Now, let $F = \nabla'_\theta f(\mathbf{w};\theta)$.
+Now, let $F = \mathbb{E}\left[\nabla'_\theta f(\mathbf{w};\theta)\right]$.
 Since $h$ does not involve $\varphi$ and $\nabla'_{\gamma}h = -\mathbf{I}$, we have
 \[
   F =
   \left[
   \begin{array}{cc}
-    \nabla'_{\varphi} g(\mathbf{w};\varphi,\gamma) & \nabla'_{\gamma}g(\mathbf{w};\varphi,\gamma)\\
+    \mathbb{E}\left\{\nabla'_{\varphi} g(\mathbf{w};\varphi,\gamma)\right\} & \mathbb{E}\left\{\nabla'_{\gamma}g(\mathbf{w};\varphi,\gamma)\right\}\\
     \mathbf{0} & -\mathbf{I}\\
   \end{array}
 \right]
@@ -1193,8 +1200,71 @@ The present example, however, is just-identified which means that $F$ is square 
 \[
   -(F'WF)^{-1}F'W = F^{-1}W^{-1}(F')^{-1}F'W = -F^{-1}
 \]
+Now, using the special structure of $F$ from above,
+\[
+  -F^{-1} = 
+  \left[
+  \begin{array}{cc}
+    -G_\varphi & -G_\gamma \\
+    \mathbf{0} & \mathbf{I}
+  \end{array}
+\right]^{-1} =
+\left[
+\begin{array}{cc}
+  -G_{\varphi}^{-1} & -G_{\varphi}^{-1}G_{\gamma}\\
+  \mathbf{0} & \mathbf{I}
+\end{array}
+\right]
+\]
+To proceed further we'll need to calculate $G_\varphi$ and $G_\gamma$.
+First, we re-write the $g$-block of moment conditions as
+\begin{align*}
+  \mathbb{E}\left[zy - \left( \frac{\beta}{1 -\alpha_1} \right) zT + qp \left( \frac{\beta}{1 - \alpha_1} \right) - q\mu\right] &= 0\\
+  \mathbb{E}\left[zy^2 - 2\left(\frac{\beta}{1 - \alpha_1}\right)zyT + \left( \frac{\beta^2}{1 - \alpha_1} \right) zT + 2qr\left( \frac{\beta}{1 - \alpha_1} \right) - qp\left( \frac{\beta^2}{1 - \alpha_1} \right) - qs\right] &= 0
+\end{align*}
+Now, we have
+\[ 
+  \left[
+  \begin{array}{cc}
+    \nabla g_\beta & \nabla g_{\alpha_1}
+  \end{array}
+\right] = 
+  \left[
+  \begin{array}{cc}
+    \displaystyle -\left(\frac{zT - qp}{1 - \alpha_1}\right) & \displaystyle \frac{\beta(zT - qp)}{(1 - \alpha_1)^2} \\ \\
+    \displaystyle 2\left\{ \frac{\beta(zT - qp) - (zyT - qr)}{1 - \alpha_1}\right\} & \displaystyle \frac{\beta^2(zT - qp) - 2\beta (zyT - qr)}{(1 - \alpha_1)^2}
+  \end{array}
+\right]
+\]
+and thus
+\[
+  G_{\varphi} = 
+  \left[
+  \begin{array}{cc}
+    \displaystyle \frac{-\mbox{Cov}(z,T)}{1 - \alpha_1} & \displaystyle  \frac{\beta \mbox{Cov}(z,T)}{(1 - \alpha_1)^2} \\ \\
+    \displaystyle -2\left\{ \frac{\mbox{Cov}(yT,z) - \beta\mbox{Cov}(z,T)}{1 - \alpha_1} \right\} & \displaystyle \frac{ \beta^2\mbox{Cov}(z,T) - 2\beta \mbox{Cov}(yT,z)}{(1 - \alpha_1)^2} 
+  \end{array}
+\right]
+\]
+Now, for $G_\gamma$ we have
+\begin{align*}
+  G_\gamma &= \mathbb{E}
+  \left[
+  \begin{array}{ccccc}
+    \nabla_q g & \nabla_\mu g & \nabla_s g & \nabla_r g
+  \end{array}
+\right] \\
+&=
+\left[
+\begin{array}{cccc}
+    \displaystyle \left( \frac{\beta}{1 - \alpha_1}  - \mu \right)  & -q & 0 & 0 \\
+    \displaystyle\left( \frac{\beta}{1 - \alpha_1} \right)(2r - \beta p) - s & 0 & -q & \displaystyle \frac{2\beta q}{1 - \alpha_1}
+\end{array}
+\right]
+\end{align*}
+\todo[inline]{Now all that remains is to check the preceding derivatives and then calculate $-G_\varphi^{-1}$ and $-G_{\varphi}^{-1}G_\gamma$.}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Auxiliary Moment Inequalities}
 Notice that if $\beta=0$, then the preceding moment equalities do \emph{not} identify $\alpha_1$.
