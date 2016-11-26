@@ -1142,13 +1142,76 @@ Then the model is identified using the first and second moment equalities, which
   \mbox{Cov}(y,z) - \left( \frac{\beta}{1 -\alpha_1} \right) \mbox{Cov}(T,z) &= 0\\
   \mbox{Cov}(y^2,z) - \left(\frac{\beta}{1 - \alpha_1}\right)\left[2\mbox{Cov}(yT,z)- \beta \mbox{Cov}(T,z) \right] &= 0
 \end{align*}
+To express this system in the standard GMM form $E[f(\mathbf{w},\theta)]=0$ we need to agument these moment equalities with expressions for the means of $z, y, y^2, T,$ and $yT$ as follows:
+\begin{align*}
+  \mathbb{E}\left[z - q  \right] &= 0\\
+  \mathbb{E}\left[y - \mu  \right] &= 0\\
+  \mathbb{E}\left[y^2 - s  \right] &= 0\\
+  \mathbb{E}\left[yT - r  \right] &= 0\\
+  \mathbb{E}\left[\left( zy - q\mu \right) - \left( \frac{\beta}{1 -\alpha_1} \right)\left( zT - qp \right)\right] &= 0\\
+  \mathbb{E}\left[\left( zy^2 - qs \right) - \left(\frac{\beta}{1 - \alpha_1}\right)\left\{2\left(zyT - qr \right)- \beta \left( zT - qp \right) \right\}\right] &= 0
+\end{align*}
+Adding these variables makes the system somewhat more ungainly.
+But it turns out to be equivalent to pretend that $\mu, q, p, r$ and $s$ are known and substitute the usual consistent estimators, as we now show.
 
-\todo[inline]{If $\beta=0$ then neither moment equality is informative about $\alpha_1$.}
+Let $\mathbf{w} = (y, T, z)'$, $\varphi = (\beta, \alpha_1)'$, $\gamma = (q, \mu, s, r)'$ and $\theta = (\varphi', \gamma')'$ 
+Similarly, let $g$ denote the moment conditions that involve $\beta$ and $\alpha_1$, let $h$ denote those that involve only $q, \mu, s$ and $r$ and let $f = (g', h')'$ denote the full set of moment conditions.
+Then we have
+\[
+  \mathbb{E}[f(\mathbf{w};\theta)] = 
+  \mathbb{E}\left[
+  \begin{array}{l}
+    g(\mathbf{w};\varphi, \gamma)\\
+    h(\mathbf{w};\gamma)
+  \end{array}
+\right] = 0
+\]
+Now, let $F = \nabla'_\theta f(\mathbf{w};\theta)$.
+Since $h$ does not involve $\varphi$ and $\nabla'_{\gamma}h = -\mathbf{I}$, we have
+\[
+  F =
+  \left[
+  \begin{array}{cc}
+    \nabla'_{\varphi} g(\mathbf{w};\varphi,\gamma) & \nabla'_{\gamma}g(\mathbf{w};\varphi,\gamma)\\
+    \mathbf{0} & -\mathbf{I}\\
+  \end{array}
+\right]
+\equiv
+\left[
+\begin{array}{cc}
+  G_\varphi & G_{\gamma}\\
+  \mathbf{0} & -\mathbf{I}
+\end{array}
+\right]
+\]
+Now, under the standard regularity conditions, a GMM estimator based on the sample analogue $f_n(\theta)$ of $\mathbb{E}[f(\mathbf{w};\theta)]=0$ based on a weighting matrix $\widehat{W}\rightarrow_p W$ converges in distribution to
+\[
+  -(F'WF)^{-1}F'W M, \quad M\sim N(0, \Omega) 
+\]
+where $\sqrt{n}f_n(\theta_0) \rightarrow_d M$.
+The present example, however, is just-identified which means that $F$ is square and hence
+\[
+  -(F'WF)^{-1}F'W = F^{-1}W^{-1}(F')^{-1}F'W = -F^{-1}
+\]
 
-\todo[inline]{Need to add the second-moment bounds for $\alpha_1$.}
 
-\todo[inline]{To express this system in the standard GMM form $E[f(\mathbf{w},\theta)]=0$ we need to agument these moment equalities with expressions for the means of $z, y, y^2, T,$ and $yT$.
-But these shouldn't affect anything: if we write out the full system and compute the Jacobean it should show us that treating these means as known and plugging in consistent estimators won't make any difference.}
+
+\paragraph{Auxiliary Moment Inequalities}
+Notice that if $\beta=0$, then the preceding moment equalities do \emph{not} identify $\alpha_1$.
+However, we do have auxiliary moment \emph{inequalities} that partially identify $\alpha_1$ regardless of the value of $\beta$.
+The simplest of these comes from the relationship  
+\[
+  p_k^* = \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1}, \quad
+  1 - p_k^* = \frac{1 - p_k - \alpha_1}{1 - \alpha_0 - \alpha_1}
+\]
+where $p_k = P(T=1|z_k)$ and $p_k^* = P(T^*=1|z_k)$.
+(This follows from the Law of Total Probability and our assumption that the mis-classification probabilities rates depend only on $T^*$, not $z$.)
+Under our assumption that $\alpha_0 + \alpha_1 < 1$, we obtain $\alpha_0 < \min_k p_k$ and $\alpha_1 < \min_k (1 - p_k)$.
+If $\alpha_0 = 0$, as we assume in the present special case, then without any assumption on the true value of $\alpha_1$ we have 
+\[0 \leq \alpha_1 < \min_k (1 - p_k) = 1 - \max_k p_k.\] 
+
+
+
 
 \section{Under Normality}
   In our simulation for the CDF bounds on $\alpha_0$ and $\alpha_1$, we found that the upper bounds were in fact equal to the true parameter values.
