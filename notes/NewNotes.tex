@@ -1146,7 +1146,8 @@ In this simple special case, it is easy to solve for $\beta$ by substituting the
 \[
   \beta = \frac{2 \mbox{Cov}(yT,z)}{\mbox{Cov}(T,z)} - \frac{\mbox{Cov}(y^2,z)}{\mbox{Cov}(y,z)}
 \]
-\todo[inline]{I checked this in our simulation just to be completely sure: it is indeed correct.}
+\todo[inline]{I checked this equation in our simulation experiment and it is indeed correct} 
+Notice that if $\beta \approx 0$ then both $\mbox{Cov}(y^2,z)$ and $\mbox{Cov}(y,z)$ are close to zero so their ratio becomes extremely noisy.
 
 \paragraph{Standard GMM form:}
 To express this system in the standard GMM form $E[f(\mathbf{w},\theta)]=0$ we need to agument these moment equalities with expressions for the means of $z, y, y^2, T,$ and $yT$ as follows:
