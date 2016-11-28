@@ -1153,6 +1153,7 @@ Notice that if $\beta \approx 0$ then both $\mbox{Cov}(y^2,z)$ and $\mbox{Cov}(y
 To express this system in the standard GMM form $E[f(\mathbf{w},\theta)]=0$ we need to agument these moment equalities with expressions for the means of $z, y, y^2, T,$ and $yT$ as follows:
 \begin{align*}
   \mathbb{E}\left[z - q  \right] &= 0\\
+  \mathbb{E}\left[T - p  \right] &= 0\\
   \mathbb{E}\left[y - \mu  \right] &= 0\\
   \mathbb{E}\left[y^2 - s  \right] &= 0\\
   \mathbb{E}\left[yT - r  \right] &= 0\\
@@ -1162,7 +1163,7 @@ To express this system in the standard GMM form $E[f(\mathbf{w},\theta)]=0$ we n
 %Adding these variables makes the system somewhat more ungainly.
 %But it turns out to be equivalent to pretend that $\mu, q, p, r$ and $s$ are known and substitute the usual consistent estimators, as we now show.
 
-Let $\mathbf{w} = (y, T, z)'$, $\varphi = (\beta, \alpha_1)'$, $\gamma = (q, \mu, s, r)'$ and $\theta = (\varphi', \gamma')'$ 
+Let $\mathbf{w} = (y, T, z)'$, $\varphi = (\beta, \alpha_1)'$, $\gamma = (q, p, \mu, s, r)'$ and $\theta = (\varphi', \gamma')'$ 
 Similarly, let $g$ denote the moment conditions that involve $\beta$ and $\alpha_1$, let $h$ denote those that involve only $q, \mu, s$ and $r$ and let $f = (g', h')'$ denote the full set of moment conditions.
 Then we have
 \[
