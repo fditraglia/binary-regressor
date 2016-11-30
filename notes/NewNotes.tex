@@ -1316,8 +1316,7 @@ If $\mathbf{w}_i$ is an iid sequence of RVs, then
 \end{align*}
 And assuming that our model is correctly specified, so that $\mathbb{E}\left[ f(\mathbf{w}_i;\theta_0, \gamma_0) \right]=0$,
 \begin{align*}
-  \mbox{Var}\left[ f(\mathbf{w}_i; \theta_0, \gamma_0) \right] &= 
-  \mathbb{E}\left[ f(\mathbf{w}_i;\theta_0, \gamma_0)f(\mathbf{w}_i;\theta_0, \gamma_0)' \right]\\
+  \mbox{Var}\left[ f(\mathbf{w}_i; \theta_0, \gamma_0) \right] 
   &=\mathbb{E}
   \left[
   \begin{array}{cc}
@@ -1326,9 +1325,52 @@ And assuming that our model is correctly specified, so that $\mathbb{E}\left[ f(
     h(\mathbf{w}_i;\theta_0, \gamma_0)g(\mathbf{w}_i;\theta_0, \gamma_0)' &
     h(\mathbf{w}_i;\theta_0, \gamma_0)h(\mathbf{w}_i;\theta_0, \gamma_0)'
   \end{array}
+\right]\\ &\equiv
+\left[
+\begin{array}{cc}
+  \Omega_{gg} & \Omega_{gh}\\
+  \Omega_{gh} & \Omega_{hh}
+\end{array}
 \right]
 \end{align*}
+We now calculate each block.
+\todo[inline]{I don't think this is actually going to give us anything interpretable. The expressions are quite involved and it seems unlikely that they'll cancel in a useful way. This doesn't matter for implementation, of course, since it's easy to calculate the estimate of $\widehat{\Omega}$ by plugging the GMM estimates into the sample moment conditions, taking the outer product, and averaging.}
 
+We are only interested in the asymptotic variance matrix $V_\theta$ of our parameters of interest $\theta = (\beta, \alpha_1)$.
+We calculate this as follows:
+\begin{align*}
+  V_\theta &= \left[
+  \begin{array}{cc}
+    G_\theta^{-1} & G_{\theta}^{-1}G_\gamma
+  \end{array}
+\right]
+\left[
+\begin{array}{cc}
+  \Omega_{gg} & \Omega_{gh}\\
+  \Omega_{hg} & \Omega_{hh}\\
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+  \left( G_\theta^{-1} \right)'\\
+  \left( G_\theta^{-1}G_{\gamma} \right)'\\
+\end{array}
+\right] \\
+&= 
+  \left[\begin{array}{cc}
+      G_\theta^{-1}\left(\Omega_{gg} + G_\gamma \Omega_{gh}  \right) & 
+      G_{\theta}^{-1}\left( \Omega_{gh} + G_\gamma \Omega_{hh} \right)
+  \end{array}
+\right]
+\left[
+\begin{array}{c}
+  \left( G_\theta^{-1} \right)'\\
+  G_{\gamma}' \left( G_\theta^{-1}\right)'\\
+\end{array}
+\right]\\
+&= G_\theta^{-1}\left(\Omega_{gg} + G_\gamma \Omega_{hg}  \right)\left( G_{\theta}^{-1} \right)' + G_\theta^{-1}\left( \Omega_{gh} + G_\gamma \Omega_{hh}\right)G_\gamma' \left( G_\theta^{-1} \right)'\\
+&= G_\theta^{-1}\left(\Omega_{gg} + G_\gamma \Omega_{hg} + \Omega_{gh}G_\gamma' + G_\gamma \Omega_{hh} G_\gamma'\right)\left( G_\theta^{-1} \right)'
+\end{align*}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
