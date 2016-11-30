@@ -1285,8 +1285,50 @@ First we calculate the determinant.
 For the purposes of this calculation, use the shorthand $C = \mbox{Cov}(z,T)$ and $D \mbox{Cov}(yT,z)$.
 We have:
 \begin{align*}
-  |G_\theta| &= \left[ \frac{-C}{1 - \alpha_1} \right]\left[ \frac{\beta^2 C - 2\beta D}{(1 - \alpha_1)^2} \right] - \left[ \frac{-\beta C}{(1 - \alpha_1)^2} \right]\left[ \frac{2\beta C - 2D}{1 - \alpha_1} \right]
+  |G_\theta| &= \left[ \frac{-C}{1 - \alpha_1} \right]\left[ \frac{\beta^2 C - 2\beta D}{(1 - \alpha_1)^2} \right] - \left[ \frac{-\beta C}{(1 - \alpha_1)^2} \right]\left[ \frac{2\beta C - 2D}{1 - \alpha_1} \right]\\
+  &= \left( \frac{1}{1 - \alpha_1} \right)^3 \left[ 2\beta C D - \beta^2 C^2 + 2\beta C^2 - 2\beta CD  \right]\\
+  &= \frac{\beta^2 \mbox{Cov}(z,T)}{(1 - \alpha_1)^3} = \left( \frac{\beta}{1 - \alpha_1} \right)^2 \left[\frac{\mbox{Cov}(z,T)}{1 - \alpha_1}\right]
 \end{align*}
+Thus,
+\begin{align*}
+  G_\theta^{-1} &= \frac{(1 - \alpha_1)^3}{\beta^2 \mbox{Cov}(z,T)} 
+  \left[
+  \begin{array}{cc}
+    \displaystyle \frac{ \beta^2\mbox{Cov}(z,T) - 2\beta \mbox{Cov}(yT,z)}{(1 - \alpha_1)^2}  & \displaystyle  \frac{\beta \mbox{Cov}(z,T)}{(1 - \alpha_1)^2} \\ \\
+    \displaystyle -2\left\{ \frac{\beta\mbox{Cov}(z,T) - \mbox{Cov}(yT,z) }{1 - \alpha_1} \right\} & \displaystyle\frac{-\mbox{Cov}(z,T)}{1 - \alpha_1}
+  \end{array}
+\right] \\ \\
+  &=\left[
+  \begin{array}{cc}
+    \displaystyle (1 - \alpha_1)\left\{ 1 - \frac{2\mbox{Cov}(yT,z)}{\mbox{Cov}(z,T)} \right\}& \displaystyle  \frac{1 - \alpha_1}{\beta} \\ \\
+    \displaystyle \frac{2(1 - \alpha_1)^2}{\beta}\left\{ \frac{\mbox{Cov}(yT,z)}{\beta\mbox{Cov}(z,T)} - 1 \right\} & \displaystyle -\left( \frac{1 - \alpha_1}{\beta} \right)^2
+  \end{array}
+\right] \\
+\end{align*}
+The next step is to calculate $\Omega$:
+\begin{align*}
+  \Omega = \lim_{n\rightarrow \infty}\mbox{Var}\left[\sqrt{n}f_n(\theta_0, \gamma_0)\right] 
+  = \lim_{n\rightarrow \infty}\mbox{Var}\left[\frac{1}{\sqrt{n}} \sum_{i=1}^n f(\mathbf{w}_i; \theta_0, \gamma_0)  \right]
+\end{align*}
+If $\mathbf{w}_i$ is an iid sequence of RVs, then
+\begin{align*}
+  \Omega = \lim_{n\rightarrow \infty}\frac{1}{n}\mbox{Var}\left[ \sum_{i=1}^n f(\mathbf{w}_i; \theta_0, \gamma_0)\right] = \lim_{n\rightarrow \infty} \frac{1}{n}\sum_{i=1}^n \mbox{Var}\left[ f(\mathbf{w}_i;\theta_0, \gamma_0) \right] = \mbox{Var}\left[ f(\mathbf{w}_i;\theta_0, \gamma_0) \right]  
+\end{align*}
+And assuming that our model is correctly specified, so that $\mathbb{E}\left[ f(\mathbf{w}_i;\theta_0, \gamma_0) \right]=0$,
+\begin{align*}
+  \mbox{Var}\left[ f(\mathbf{w}_i; \theta_0, \gamma_0) \right] &= 
+  \mathbb{E}\left[ f(\mathbf{w}_i;\theta_0, \gamma_0)f(\mathbf{w}_i;\theta_0, \gamma_0)' \right]\\
+  &=\mathbb{E}
+  \left[
+  \begin{array}{cc}
+    g(\mathbf{w}_i;\theta_0, \gamma_0)g(\mathbf{w}_i;\theta_0, \gamma_0)' &
+    g(\mathbf{w}_i;\theta_0, \gamma_0)h(\mathbf{w}_i;\theta_0, \gamma_0)' \\
+    h(\mathbf{w}_i;\theta_0, \gamma_0)g(\mathbf{w}_i;\theta_0, \gamma_0)' &
+    h(\mathbf{w}_i;\theta_0, \gamma_0)h(\mathbf{w}_i;\theta_0, \gamma_0)'
+  \end{array}
+\right]
+\end{align*}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
