@@ -1150,81 +1150,97 @@ In this simple special case, it is easy to solve for $\beta$ by substituting the
 Notice that if $\beta \approx 0$ then both $\mbox{Cov}(y^2,z)$ and $\mbox{Cov}(y,z)$ are close to zero so their ratio becomes extremely noisy.
 
 \paragraph{Standard GMM form:}
-To express this system in the standard GMM form $E[f(\mathbf{w},\theta)]=0$ we need to agument these moment equalities with expressions for the means of $z, y, y^2, T,$ and $yT$ as follows:
+To express this system in the standard GMM form, we need to agument these moment equalities with expressions for the means of $z, y, y^2, T,$ and $yT$ as follows.
+Let $\mathbf{w}_i = (y_i, z_i, T_i)'$, $\theta = (\beta, \alpha_1)'$ and $\gamma = (q, p, \mu, s, r)'$ where
 \begin{align*}
-  \mathbb{E}\left[z - q  \right] &= 0\\
-  \mathbb{E}\left[T - p  \right] &= 0\\
-  \mathbb{E}\left[y - \mu  \right] &= 0\\
-  \mathbb{E}\left[y^2 - s  \right] &= 0\\
-  \mathbb{E}\left[yT - r  \right] &= 0\\
-  \mathbb{E}\left[\left( zy - q\mu \right) - \left( \frac{\beta}{1 -\alpha_1} \right)\left( zT - qp \right)\right] &= 0\\
-  \mathbb{E}\left[\left( zy^2 - qs \right) - \left(\frac{\beta}{1 - \alpha_1}\right)\left\{2\left(zyT - qr \right)- \beta \left( zT - qp \right) \right\}\right] &= 0
+  q &= \mathbb{E}\left[z \right] \\
+  p &= \mathbb{E}\left[T \right] \\
+  \mu &= \mathbb{E}\left[y \right] \\
+  s &= \mathbb{E}\left[y^2 \right] \\
+  r &= \mathbb{E}\left[yT \right].
 \end{align*}
-%Adding these variables makes the system somewhat more ungainly.
-%But it turns out to be equivalent to pretend that $\mu, q, p, r$ and $s$ are known and substitute the usual consistent estimators, as we now show.
-
-Let $\mathbf{w} = (y, T, z)'$, $\varphi = (\beta, \alpha_1)'$, $\gamma = (q, p, \mu, s, r)'$ and $\theta = (\varphi', \gamma')'$ 
-Similarly, let $g$ denote the moment conditions that involve $\beta$ and $\alpha_1$, let $h$ denote those that involve only $q, \mu, s$ and $r$ and let $f = (g', h')'$ denote the full set of moment conditions.
-Then we have
+We can express our problem in terms of two blocks of moment conditions, namely
 \[
-  \mathbb{E}[f(\mathbf{w};\theta)] = 
-  \mathbb{E}\left[
-  \begin{array}{l}
-    g(\mathbf{w};\varphi, \gamma)\\
-    h(\mathbf{w};\gamma)
+  f(\mathbf{w}; \theta, \gamma) = \left[
+  \begin{array}{c}
+    g(\mathbf{w}; \theta, \gamma)\\
+    h(\mathbf{w}; \gamma)
   \end{array}
-\right] = 0
+\right]
 \]
-Now, let $F = \mathbb{E}\left[\nabla'_\theta f(\mathbf{w};\theta)\right]$.
-Since $h$ does not involve $\varphi$ and $\nabla'_{\gamma}h = -\mathbf{I}$, we have
+where
 \[
-  F =
+  g(\mathbf{w}; \theta, \gamma) = \left[
+  \begin{array}{c}
+    (zy - q\mu) - \displaystyle\left( \frac{\beta}{1 - \alpha_1} \right)(zT - qp) \\
+    (zy^2 - qs) - 2\displaystyle\left( \frac{\beta}{1 -\alpha_1}\right) (zyT - qr) + \left(\frac{\beta^2}{1 - \alpha_1}\right)(zT - qp)  
+  \end{array}
+\right]
+\]
+and
+\[
+  h(\mathbf{w}; \gamma) = 
   \left[
-  \begin{array}{cc}
-    \mathbb{E}\left\{\nabla'_{\varphi} g(\mathbf{w};\varphi,\gamma)\right\} & \mathbb{E}\left\{\nabla'_{\gamma}g(\mathbf{w};\varphi,\gamma)\right\}\\
-    \mathbf{0} & -\mathbf{I}\\
+  \begin{array}{c}
+    z - q \\ T - p \\ y - \mu \\ y^2 - s \\ yT - r
   \end{array}
 \right]
-\equiv
-\left[
-\begin{array}{cc}
-  G_\varphi & G_{\gamma}\\
-  \mathbf{0} & -\mathbf{I}
-\end{array}
-\right]
 \]
-Now, under the standard regularity conditions, a GMM estimator based on the sample analogue $f_n(\theta)$ of $\mathbb{E}[f(\mathbf{w};\theta)]=0$ based on a weighting matrix $\widehat{W}\rightarrow_p W$ converges in distribution to
+We can view this as a two-step or ``plug-in'' GMM estimation problem where $\widehat{\gamma}$ solves the sample moment condition
+\[
+  \frac{1}{n}\sum_{i=1}^n h(\mathbf{w}_i; \gamma) = 0
+\]
+and $\widehat{\theta}$ solves
+\[
+  \frac{1}{n}\sum_{i=1}^n g(\mathbf{w}_i; \theta, \widehat{\gamma}) = 0.
+\]
+Unfortunately, in our example the first-step estimation affects the asymptotic variance of the second since an inconsistent estimator of $\gamma$ yields an inconsistent estimator of $\theta$.\footnote{See Newey \& McFadden (1994), Section 6.}
+This means that we will have to proceed ``the hard way.''
+
+Under standard regularity conditions, a GMM estimator based on the sample analogue $f_n(\theta, \gamma)$ of $\mathbb{E}[f(\mathbf{w};\theta,\gamma)]=0$ using a weighting matrix $\widehat{W}\rightarrow_p W$ converges in distribution to
 \[
   -(F'WF)^{-1}F'W M, \quad M\sim N(0, \Omega) 
 \]
-where $\sqrt{n}f_n(\theta_0) \rightarrow_d M$.
+where $\sqrt{n}f_n(\theta_0, \gamma_0) \rightarrow_d M$ and $F = \mathbb{E}[\nabla_\theta' f(\mathbf{w};\theta_0, \gamma_0), \nabla_\gamma' f(\mathbf{w}; \theta_0, \gamma_0)]$.
 The present example, however, is just-identified which means that $F$ is square and hence
 \[
   -(F'WF)^{-1}F'W = F^{-1}W^{-1}(F')^{-1}F'W = -F^{-1}
 \]
-Now, using the special structure of $F$ from above,
+Now, given the special structure of our example,
+\begin{align*}
+  F &= \left[
+    \begin{array}{cc}
+      \mathbb{E}\left\{\nabla'_\theta g(\mathbf{w};\theta_0, \gamma_0)\right\} & 
+      \mathbb{E}\left\{\nabla'_\gamma g(\mathbf{w};\theta_0, \gamma_0)\right\}\\
+\mathbf{0}& -\mathbf{I}
+    \end{array}
+  \right] \equiv
+  \left[
+  \begin{array}{cc}
+    G_\theta & G_\gamma\\
+    \mathbf{0} & - \mathbf{I}
+  \end{array}
+\right]
+\end{align*}
+becuase $h$ does not involve $\theta$ and $\nabla_\gamma' h(\mathbf{w},\gamma) = -\mathbf{I}$.
+Inverting, we have
 \[
   -F^{-1} = 
   \left[
   \begin{array}{cc}
-    -G_\varphi & -G_\gamma \\
+    -G_\theta & -G_\gamma \\
     \mathbf{0} & \mathbf{I}
   \end{array}
 \right]^{-1} =
 \left[
 \begin{array}{cc}
-  -G_{\varphi}^{-1} & -G_{\varphi}^{-1}G_{\gamma}\\
+  -G_{\theta}^{-1} & -G_{\theta}^{-1}G_{\gamma}\\
   \mathbf{0} & \mathbf{I}
 \end{array}
 \right]
 \]
-To proceed further we'll need to calculate $G_\varphi$ and $G_\gamma$.
-First, we re-write the $g$-block of moment conditions as
-\begin{align*}
-  \mathbb{E}\left[zy - \left( \frac{\beta}{1 -\alpha_1} \right) zT + qp \left( \frac{\beta}{1 - \alpha_1} \right) - q\mu\right] &= 0\\
-  \mathbb{E}\left[zy^2 - 2\left(\frac{\beta}{1 - \alpha_1}\right)zyT + \left( \frac{\beta^2}{1 - \alpha_1} \right) zT + 2qr\left( \frac{\beta}{1 - \alpha_1} \right) - qp\left( \frac{\beta^2}{1 - \alpha_1} \right) - qs\right] &= 0
-\end{align*}
-Now, we have
+We see from this expression that if $G_\gamma$ were zero, the first step-estimation would not affect the limit distribution of $\widehat{\theta}$.
+Differentiating,
 \[ 
   \left[
   \begin{array}{cc}
@@ -1233,18 +1249,18 @@ Now, we have
 \right] = 
   \left[
   \begin{array}{cc}
-    \displaystyle -\left(\frac{zT - qp}{1 - \alpha_1}\right) & \displaystyle \frac{\beta(zT - qp)}{(1 - \alpha_1)^2} \\ \\
+    \displaystyle -\left(\frac{zT - qp}{1 - \alpha_1}\right) & \displaystyle -\left\{\frac{\beta(zT - qp)}{(1 - \alpha_1)^2}\right\} \\ \\
     \displaystyle 2\left\{ \frac{\beta(zT - qp) - (zyT - qr)}{1 - \alpha_1}\right\} & \displaystyle \frac{\beta^2(zT - qp) - 2\beta (zyT - qr)}{(1 - \alpha_1)^2}
   \end{array}
 \right]
 \]
-and thus
+and thus, taking expectations,
 \[
-  G_{\varphi} = 
+  G_{\theta} = 
   \left[
   \begin{array}{cc}
-    \displaystyle \frac{-\mbox{Cov}(z,T)}{1 - \alpha_1} & \displaystyle  \frac{\beta \mbox{Cov}(z,T)}{(1 - \alpha_1)^2} \\ \\
-    \displaystyle -2\left\{ \frac{\mbox{Cov}(yT,z) - \beta\mbox{Cov}(z,T)}{1 - \alpha_1} \right\} & \displaystyle \frac{ \beta^2\mbox{Cov}(z,T) - 2\beta \mbox{Cov}(yT,z)}{(1 - \alpha_1)^2} 
+    \displaystyle \frac{-\mbox{Cov}(z,T)}{1 - \alpha_1} & \displaystyle  \frac{-\beta \mbox{Cov}(z,T)}{(1 - \alpha_1)^2} \\ \\
+    \displaystyle 2\left\{ \frac{\beta\mbox{Cov}(z,T) - \mbox{Cov}(yT,z) }{1 - \alpha_1} \right\} & \displaystyle \frac{ \beta^2\mbox{Cov}(z,T) - 2\beta \mbox{Cov}(yT,z)}{(1 - \alpha_1)^2} 
   \end{array}
 \right]
 \]
@@ -1253,18 +1269,25 @@ Now, for $G_\gamma$ we have
   G_\gamma &= \mathbb{E}
   \left[
   \begin{array}{ccccc}
-    \nabla_q g & \nabla_\mu g & \nabla_s g & \nabla_r g
+    \nabla_q g & \nabla_p \mu & \nabla_\mu g & \nabla_s g & \nabla_r g
   \end{array}
 \right] \\
 &=
 \left[
-\begin{array}{cccc}
-    \displaystyle \left( \frac{\beta}{1 - \alpha_1}  - \mu \right)  & -q & 0 & 0 \\
-    \displaystyle\left( \frac{\beta}{1 - \alpha_1} \right)(2r - \beta p) - s & 0 & -q & \displaystyle \frac{2\beta q}{1 - \alpha_1}
+\begin{array}{ccccc}
+  \displaystyle \left( \frac{p\beta}{1 - \alpha_1}  - \mu \right)  & \displaystyle\left(\frac{q\beta}{1 - \alpha_1}\right)& -q & 0 & 0 \\ \\
+  \displaystyle\left( \frac{\beta}{1 - \alpha_1} \right)(2r - \beta p) - s &\displaystyle \frac{-q\beta^2}{1 - \alpha_1} & 0 & -q & \displaystyle \frac{2\beta q}{1 - \alpha_1}
 \end{array}
 \right]
 \end{align*}
-\todo[inline]{Now all that remains is to check the preceding derivatives and then calculate $-G_\varphi^{-1}$ and $-G_{\varphi}^{-1}G_\gamma$.}
+The next step is to invert $G_\theta$.
+First we calculate the determinant.
+For the purposes of this calculation, use the shorthand $C = \mbox{Cov}(z,T)$ and $D \mbox{Cov}(yT,z)$.
+We have:
+\begin{align*}
+  |G_\theta| &= \left[ \frac{-C}{1 - \alpha_1} \right]\left[ \frac{\beta^2 C - 2\beta D}{(1 - \alpha_1)^2} \right] - \left[ \frac{-\beta C}{(1 - \alpha_1)^2} \right]\left[ \frac{2\beta C - 2D}{1 - \alpha_1} \right]
+\end{align*}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
