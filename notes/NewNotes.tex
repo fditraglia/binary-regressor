@@ -1373,6 +1373,44 @@ We calculate this as follows:
 \end{align*}
 
 
+\subsection{Other Stuff\ldots}
+
+\paragraph{Exogenous Covariates in a Linear Model:} These should be very easy to handle because we can just stack the GMM moment conditions to include an IV estimator for the parameter on the exogenous covariates in the main equation.
+Recall that the usual IV estimator for these parameters is unaffected by measurement error.
+We should write this out since it's the case that many people will use in practice given the extreme sample size demands of fully non-parametric estimation!
+
+\paragraph{More About Weak Identification:}
+Sophocles pointed out in an email exchange that I had been assuming (incorrectly) that $\mbox{Cov}(y,z)$ is always well-behaved.
+This is not the case if $z$ is a weak instrument.
+I don't think we can simply assume we have a strong instrument and consider the weak identification that arises from $\beta \approx 0$ in isolation.
+I think the two problems of $\beta \approx 0$ and weak $z$ interact in an important way since, as we saw from above, the determinant $|G_\theta|$ that measures the strength of identification depends on the \emph{product} of $\beta$ and $Cov(z,T)$.
+I think it the correct interpretation of this is that the magnitude of $\beta$ that gives strong identification should is always relative to the strength of $z$.
+If $z$ is very strong, then $\beta$ can be smaller without causing problems.
+But if $z$ is weak then I think $\beta$ needs to be really large to get strong identification.
+If I recall correctly, we uncovered something in our simulations that appears to agree with this intuition but I need to go back and check.
+
+To see why $\mbox{Cov}(y,z)$ is badly behaved when $z$ is weak, write out an explicit first-stage equation for our model as follows:
+\[
+T^* = \pi_0 + \pi_1 z + v
+\]
+where
+\begin{align*}
+\pi_0 &= \mathbb{E}[T^*|z=0] = p^*_0\\
+\pi_1 &= \mathbb{E}[T^*=1|z=1] - \mathbb{E}[T^*|z=0] = p^*_1 - p^*_0
+\end{align*}
+and $\mathbb{E}[zv]=0$ by construction.
+Now,
+\begin{align*}
+  \mbox{Cov}(z,y) &= \mathbb{E}(zy) - \mathbb{E}(z)\mathbb{E}(y)\\
+  &=\mathbb{E}\left[z\left( c + \beta T^* + \varepsilon \right) \right] - q \mathbb{E}\left( c + \beta T^* + \varepsilon \right)\\
+  &=\mathbb{E}\left[z\left\{ c + \beta \left( \pi_0 + \pi_1 z + v \right) + \varepsilon \right\} \right] - q \mathbb{E}\left[ c + \beta \left( \pi_0 + \pi_1 z + v \right) + \varepsilon \right]\\
+  &= q (c + \beta \pi_0) + \beta \pi_1 \mathbb{E}(z^2) - q\left( c + \beta \pi_0 + \beta \pi_1 \mathbb{E}[z] \right) \\
+  &= q (c + \beta \pi_0 + \beta \pi_1)  - q\left( c + \beta \pi_0 + \beta \pi_1 q \right) \\
+  &= q(\beta \pi_1  - \beta \pi_1 q) = \beta \pi_1 q(1 - q)\\
+  &= \beta (p^*_1 - p^*_0) q(1-q)
+\end{align*}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Auxiliary Moment Inequalities}
@@ -1388,17 +1426,17 @@ where $p_k = P(T=1|z_k)$ and $p_k^* = P(T^*=1|z_k)$.
 Under our assumption that $\alpha_0 + \alpha_1 < 1$, we obtain $\alpha_0 < \min_k p_k$ and $\alpha_1 < \min_k (1 - p_k)$.
 If $\alpha_0 = 0$, as we assume in the present special case, then without any assumption on the true value of $\alpha_1$ we have 
 \[0 \leq \alpha_1 < \min_k (1 - p_k) = 1 - \max_k p_k.\] 
+Is there some way to use these moment inequalities in estimation?
 
 
 
-
-\section{Under Normality}
+\paragraph{Under Normality}
   In our simulation for the CDF bounds on $\alpha_0$ and $\alpha_1$, we found that the upper bounds were in fact equal to the true parameter values.
   This is very surprising and is very likely comes from the specific parametric model from which we simulated.
   This happens to have been a model with normally distributed errors.
   Can we say anything about such a model theoretically?
   Perhaps try to write down the likelihood function?
-  This seems important to figure out\ldots
+  This could also be a useful way to look at the weak identification problem.
 
 \end{document}
 
