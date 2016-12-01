@@ -1286,12 +1286,12 @@ For the purposes of this calculation, use the shorthand $C = \mbox{Cov}(z,T)$ an
 We have:
 \begin{align*}
   |G_\theta| &= \left[ \frac{-C}{1 - \alpha_1} \right]\left[ \frac{\beta^2 C - 2\beta D}{(1 - \alpha_1)^2} \right] - \left[ \frac{-\beta C}{(1 - \alpha_1)^2} \right]\left[ \frac{2\beta C - 2D}{1 - \alpha_1} \right]\\
-  &= \left( \frac{1}{1 - \alpha_1} \right)^3 \left[ 2\beta C D - \beta^2 C^2 + 2\beta C^2 - 2\beta CD  \right]\\
-  &= \frac{\beta^2 \mbox{Cov}(z,T)}{(1 - \alpha_1)^3} = \left( \frac{\beta}{1 - \alpha_1} \right)^2 \left[\frac{\mbox{Cov}(z,T)}{1 - \alpha_1}\right]
+  &= \left( \frac{1}{1 - \alpha_1} \right)^3 \left[ 2\beta C D - \beta^2 C^2 + 2\beta^2 C^2 - 2\beta CD  \right]\\
+  &= \frac{\beta^2 \mbox{Cov}(z,T)^2}{(1 - \alpha_1)^3} 
 \end{align*}
 Thus,
 \begin{align*}
-  G_\theta^{-1} &= \frac{(1 - \alpha_1)^3}{\beta^2 \mbox{Cov}(z,T)} 
+  G_\theta^{-1} &= \frac{(1 - \alpha_1)^3}{\beta^2 \mbox{Cov}(z,T)^2} 
   \left[
   \begin{array}{cc}
     \displaystyle \frac{ \beta^2\mbox{Cov}(z,T) - 2\beta \mbox{Cov}(yT,z)}{(1 - \alpha_1)^2}  & \displaystyle  \frac{\beta \mbox{Cov}(z,T)}{(1 - \alpha_1)^2} \\ \\
@@ -1300,8 +1300,8 @@ Thus,
 \right] \\ \\
   &=\left[
   \begin{array}{cc}
-    \displaystyle (1 - \alpha_1)\left\{ 1 - \frac{2\mbox{Cov}(yT,z)}{\mbox{Cov}(z,T)} \right\}& \displaystyle  \frac{1 - \alpha_1}{\beta} \\ \\
-    \displaystyle \frac{2(1 - \alpha_1)^2}{\beta}\left\{ \frac{\mbox{Cov}(yT,z)}{\beta\mbox{Cov}(z,T)} - 1 \right\} & \displaystyle -\left( \frac{1 - \alpha_1}{\beta} \right)^2
+    \displaystyle \left\{\frac{1 - \alpha_1}{\mbox{Cov}(z,T)}\right\}\left\{ 1 - \frac{2\mbox{Cov}(yT,z)}{\mbox{Cov}(z,T)} \right\}& \displaystyle  \frac{1 - \alpha_1}{\beta \mbox{Cov}(z,T)} \\ \\
+    \displaystyle \frac{2(1 - \alpha_1)^2}{\beta \mbox{Cov}(z,T)}\left\{ \frac{\mbox{Cov}(yT,z)}{\beta\mbox{Cov}(z,T)} - 1 \right\} & \displaystyle \frac{-(1 - \alpha_1)^2}{\beta^2 \mbox{Cov}(z,T)} 
   \end{array}
 \right] \\
 \end{align*}
