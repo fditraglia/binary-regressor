@@ -133,11 +133,17 @@ plot_dist <- function(a1, b, n, d = 0.15, rho = 0.5){
   par(mfrow = c(1, 2))
   par(oma = c(0, 0, 2, 0))
   MASS::truehist(sim_draws$b, col = 'lightskyblue', xlab = 'b')
+  b_bias_text <- paste0('Bias = ', round(mean(sim_draws$b) - b, 3))
+  b_SD_text <- paste0('SD = ', round(sd(sim_draws$b), 3))
+  title(paste(b_bias_text, ',', b_SD_text), font.main = 1, cex.main = 1)
   b_seq <- seq(from = min(sim_draws$b), to = max(sim_draws$b), length.out = 1000)
   b_true_density <- dnorm(b_seq, mean = b, sd = b_SE_true)
   points(b_seq, b_true_density, type = 'l', lwd = 3, lty = 1)
   abline(v = b, lty = 1, lwd = 3, col = 'firebrick')
   MASS::truehist(sim_draws$a1, col = 'lightskyblue', xlab = 'a1')
+  a1_bias_text <- paste0('Bias = ', round(mean(sim_draws$a1) - a1, 3))
+  a1_SD_text <- paste0('SD = ', round(sd(sim_draws$a1), 3))
+  title(paste(a1_bias_text, ',', a1_SD_text), font.main = 1, cex.main = 1)
   a1_seq <- seq(from = min(sim_draws$a1), to = max(sim_draws$a1), length.out = 1000)
   a1_true_density <- dnorm(a1_seq, mean = a1, sd = a1_SE_true)
   points(a1_seq, a1_true_density, type = 'l', lwd = 3, lty = 1)
@@ -146,8 +152,18 @@ plot_dist <- function(a1, b, n, d = 0.15, rho = 0.5){
   title(main = mytitle, outer = T)
   par(mfrow = c(1, 1))
   par(oma = c(0, 0, 0, 0))
-
 }
+
+set.seed(1983)
+plot_dist(a1 = 0.1, b = 2, n = 1000, d = 0.15)
+plot_dist(a1 = 0.1, b = 1.75, n = 1000, d = 0.15)
+plot_dist(a1 = 0.1, b = 1.5, n = 1000, d = 0.15)
+plot_dist(a1 = 0.1, b = 1.25, n = 1000, d = 0.15)
+plot_dist(a1 = 0.1, b = 1, n = 1000, d = 0.15)
+plot_dist(a1 = 0.1, b = 0.75, n = 1000, d = 0.15)
+plot_dist(a1 = 0.1, b = 0.5, n = 1000, d = 0.15)
+plot_dist(a1 = 0.1, b = 0.25, n = 1000, d = 0.15)
+
 b_true <- 4
 a1_true <- 0.1
 
