@@ -365,7 +365,7 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Strenthening the Measurement Error Assumptions}
+  \frametitle{Strengthening the Measurement Error Assumptions}
 
   \begin{itemize}
     \item $\alpha_0 = \mathbb{P}(T=1|T^*=0, z)$
@@ -390,25 +390,64 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
   
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}
-  \frametitle{Schooling and Test Scores (Afghan RCT)}
-  \framesubtitle{Burde \& Linden (2013, AEJ Applied)}
-  \vspace{-2em}
-\[\alpha_0 \leq 0.10, \alpha_1 \leq 0.12; \quad
-  \min_k p_k = 0.15,\; \min_k (1 - p_k)= 0.3
-\]
+  \frametitle{Tighter Bounds for $\alpha_0, \alpha_1$ from Conditional Variances}
+  \begin{block}{Assume}
+    $\mathbb{E}[\varepsilon^2|T^*,T,z] = \mathbb{E}[\varepsilon^2|T^*,z]$
+  \end{block}
 
-  \vspace{-4em}
-\begin{figure}[htbp]
-  \footnotesize
-  \centering
-  \input{../../../sick-instruments/fig/Afghanistan/Afghan_a0_a1_bounds.tex}
-\end{figure}
+  \begin{block}{Observables}
+    $\sigma^2_{tk} = \mbox{Var}(y|T=t,z=k)$ 
+  \end{block}
+
+  \begin{block}{Constrain Unobservables}
+    $s^{*2}_{tk} = Var(u|T^*=t, z_k) > 0$ 
+
+    \footnotesize
+\begin{align*}
+  (p_k - \alpha_0) \left[ (1 - \alpha_0)p_k \sigma^2_{1k} - \alpha_0 (1 - p_k)\sigma_{0k}^2 \right] &> \alpha_0 (1 - \alpha_0)p_k (1 - p_k)(\bar{y}_{1k} - \bar{y}_{0k})^2\\
+  (1 - p_k - \alpha_1) \left[ (1 - \alpha_1)(1 - p_k) \sigma^2_{0k} - \alpha_1 p_k\sigma_{1k}^2 \right] &> \alpha_1 (1 - \alpha_1)p_k (1 - p_k)(\bar{y}_{1k} - \bar{y}_{0k})^2
+\end{align*}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[c]
+  \frametitle{Schooling and Test Scores -- Afghan RCT}
+  \framesubtitle{Burde \& Linden (2013, AEJ Applied)}
+\begin{columns}[c]
+  \begin{column}{0.4\textwidth}
+    \begin{block}{``Weak'' Bounds}
+      $\beta \in [0.65 \times\beta_{IV},\; \beta_{IV}]$
+    \end{block}
+    \vspace{1em}
+    \begin{alertblock}{Add 2nd Moments}
+      $\beta \in [0.78 \times \beta_{IV},\;\beta_{IV}]$
+    \end{alertblock}
+  \end{column}
+  \begin{column}{0.6\textwidth}
+      \begin{figure}[h]
+        \centering
+        \begin{tikzpicture}[scale=16]
+          \draw [fill = lightgray] (0,0) rectangle (0.15, 0.3);
+          \draw [fill = cyan] (0,0) rectangle (0.10, 0.12);
+          \draw [thick, <->] (0,0.35)
+          node[above] {$\alpha_1$} -- (0,0) 
+          node [below left] {$(0,0)$} -- (0.25,0) 
+          node [right] {$\alpha_0$};
+          \draw [thick] (0.15,0.01) -- (0.15,-0.01) node [below right] {$0.15$}; 
+          \draw [thick] (0.1,0.01) -- (0.1,-0.01) node [below] {$0.10$}; 
+          \draw [thick] (0.01,0.3) -- (-0.01,0.3) node [left] {0.30}; 
+          \draw [thick] (0.01,0.12) -- (-0.01,0.12) node [left] {0.12}; 
+          \end{tikzpicture}
+      \end{figure}
+  \end{column}
+\end{columns}
+ 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Bounds From Stronger Measurement Error Assumption}
+  \frametitle{Independence Assumption: $\varepsilon \perp T |(T^*,z)$}
   Define $F_{tk}(\tau) = \mathbb{P}(Y \leq \tau|T=t, z_k)$ and $F_k(\tau) = \mathbb{P}(Y \leq \tau|z_k)$
 
 \begin{align*}
