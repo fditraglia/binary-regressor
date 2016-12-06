@@ -113,7 +113,7 @@ Fuzzy RD: minimum school-leaving age in UK increased from 14 to 15 in 1947 but s
   \end{block}
 
   \begin{block}{Binary, Endogenous Treatment}
-    \alert{Mahajan (2006)}, \small Shiu (2015), Ura (2015) 
+    \alert{Mahajan (2006)}, \small Shiu (2015), Ura (2015), Denteh et al.\ (2016)  
   \end{block}
     \hyperlink{MAHAJAN_APPEND}{\beamergotobutton{Mahajan Details}}
 \end{frame}
@@ -536,6 +536,31 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
   \end{block}
 
   \alert{Given MC \#1, MC \#2 identifies $(\alpha_1 - \alpha_0)$}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[plain, c]
+  \frametitle{$\alpha_1 - \alpha_0 = K$}
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[scale=5]
+    \draw [fill = lightgray] (0.66,0.75) rectangle (1,1);
+    \draw [fill = cyan] (0,0) rectangle (0.25, 0.34);
+    \draw [thick, <->] (0,1.1)
+    node[above] {$\alpha_1$} -- (0,0) 
+    node [below left] {$(0,0)$} -- (1.1,0) 
+    node [right] {$\alpha_0$};
+    \draw [thick] (0.25,0.02) -- (0.25,-0.02) node [below] {$p_\ell$}; 
+    \draw [thick] (0.02,0.75) -- (-0.02,0.75) node [left] {$1 - p_\ell$}; 
+    \draw [thick] (0.66,0.02) -- (0.66,-0.02) node [below] {$p_k$}; 
+    \draw [thick] (0.02,0.34) -- (-0.02,0.34) node [left] {$1 - p_k$}; 
+    %\draw [thick, red] (0,1) to (1,0); 
+    %\node [right, red] at (0.06,0.95) {$\alpha_0 + \alpha_1 = 1$};
+    \draw [thick] (0,1) -- (1,1) -- (1,0);
+    \node [above right] at (1,1) {$(1,1)$};
+    \draw [thick, red] (0,0.13) to (0.87,1); 
+    \draw [thick] (0.02,0.13) -- (-0.02,0.13) node [left] {$K$}; 
+    \end{tikzpicture}
+\end{figure}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
