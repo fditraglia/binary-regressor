@@ -71,6 +71,11 @@ get_V_true <- function(a1, b, d = 0.15, n_sims = 1000000){
 
 
 est <- function(dat){
+  #reg_RF <- lm(y ~ z, dat)
+  #summary_RF <- summary(RF)
+  #RF <- summary_RF$coefficients[2, 1]
+  #RF_SE <- summary_RF$coefficients[2, 2]
+
   n <- nrow(dat)
   q <- with(dat, mean(z))
   p <- with(dat, mean(Tobs))
@@ -128,10 +133,12 @@ plot_dist <- function(a1, b, n, d = 0.15, rho = 0.5){
   V_true <- get_V_true(a1, b, d)
   b_SE_true <- sqrt(V_true[1, 1] / n)
   a1_SE_true <- sqrt(V_true[2, 2] / n)
+  RF_SE_true <- sqrt(4 / n)
   sim_draws <- as.data.frame(t(replicate(10000, est(dgp(a1, b, n, d)))))
   par(mfrow = c(1, 2))
   par(oma = c(0, 0, 2, 0))
-  MASS::truehist(sim_draws$b, col = 'lightskyblue', xlab = 'b')
+
+  MASS::truehist(sim_draws$b, col = 'lightskyblue', xlab = expression(beta))
   b_bias_text <- paste0('Bias = ', round(mean(sim_draws$b) - b, 3))
   b_SD_text <- paste0('SD = ', round(sd(sim_draws$b), 3))
   title(paste(b_bias_text, ',', b_SD_text), font.main = 1, cex.main = 1)
@@ -139,7 +146,8 @@ plot_dist <- function(a1, b, n, d = 0.15, rho = 0.5){
   b_true_density <- dnorm(b_seq, mean = b, sd = b_SE_true)
   points(b_seq, b_true_density, type = 'l', lwd = 3, lty = 1)
   abline(v = b, lty = 1, lwd = 3, col = 'firebrick')
-  MASS::truehist(sim_draws$a1, col = 'lightskyblue', xlab = 'a1')
+
+  MASS::truehist(sim_draws$a1, col = 'lightskyblue', xlab = expression(alpha[1]))
   a1_bias_text <- paste0('Bias = ', round(mean(sim_draws$a1) - a1, 3))
   a1_SD_text <- paste0('SD = ', round(sd(sim_draws$a1), 3))
   title(paste(a1_bias_text, ',', a1_SD_text), font.main = 1, cex.main = 1)
@@ -147,33 +155,26 @@ plot_dist <- function(a1, b, n, d = 0.15, rho = 0.5){
   a1_true_density <- dnorm(a1_seq, mean = a1, sd = a1_SE_true)
   points(a1_seq, a1_true_density, type = 'l', lwd = 3, lty = 1)
   abline(v = a1, lty = 1, lwd = 3, col = 'firebrick')
-  mytitle <- paste0('b = ', b, ', a1 = ', a1, ', n = ', n, ', d = ', d)
+  mytitle <- substitute(paste(beta, ' = ', my_beta, ', ', alpha[1],
+                               ' = ', my_alpha1, ', ',
+                              delta, ' = ', my_delta,
+                              ', ', n, ' = ', my_n),
+                        list(my_beta = b, my_alpha1 = a1, my_n = n,
+                             my_delta = d))
   title(main = mytitle, outer = T)
   par(mfrow = c(1, 1))
   par(oma = c(0, 0, 0, 0))
 }
 
 set.seed(1983)
+plot_dist(a1 = 0.1, b = 3, n = 1000, d = 0.15)
 plot_dist(a1 = 0.1, b = 2, n = 1000, d = 0.15)
-plot_dist(a1 = 0.1, b = 1.75, n = 1000, d = 0.15)
-plot_dist(a1 = 0.1, b = 1.5, n = 1000, d = 0.15)
-plot_dist(a1 = 0.1, b = 1.25, n = 1000, d = 0.15)
 plot_dist(a1 = 0.1, b = 1, n = 1000, d = 0.15)
-plot_dist(a1 = 0.1, b = 0.75, n = 1000, d = 0.15)
+plot_dist(a1 = 0.1, b = 0.9, n = 1000, d = 0.15)
+plot_dist(a1 = 0.1, b = 0.8, n = 1000, d = 0.15)
+plot_dist(a1 = 0.1, b = 0.7, n = 1000, d = 0.15)
+plot_dist(a1 = 0.1, b = 0.6, n = 1000, d = 0.15)
 plot_dist(a1 = 0.1, b = 0.5, n = 1000, d = 0.15)
-plot_dist(a1 = 0.1, b = 0.25, n = 1000, d = 0.15)
+plot_dist(a1 = 0.1, b = 0.4, n = 1000, d = 0.15)
+plot_dist(a1 = 0.1, b = 0.3, n = 1000, d = 0.15)
 
-b_true <- 4
-a1_true <- 0.1
-
-set.seed(1983)
-sample_size <- 1000
-
-sim_draws <- t(replicate(10000, est(dgp(a1_true, b_true, sample_size))))
-qqnorm(sim_draws[,1])
-sd(sim_draws[,1])
-sqrt(V_theta[1, 1] / sample_size)
-
-qqnorm(sim_draws[,2])
-sd(sim_draws[,2])
-sqrt(V_theta[2, 2] / sample_size)
