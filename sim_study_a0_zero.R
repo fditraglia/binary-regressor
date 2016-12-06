@@ -1,4 +1,3 @@
-# Check the simpler just-identified moment conditions that arise when a0 = 0
 library(mvtnorm)
 dgp <- function(a1, b = 1, n = 1000, d = 0.15, rho = 0.5){
   a0 <- 0
