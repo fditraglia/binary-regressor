@@ -796,43 +796,36 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{$(z \perp \varepsilon)$ and $(T\perp \varepsilon|T^*,z) \Rightarrow$ Continuum of MCs}
+  \framesubtitle{Figure depicts simulation DGP}
 
-  \begin{block}{Characteristic Functions}
-    \vspace{-1em}
-\[
-  e^{i\omega\beta}\left[(1 - \alpha_1) - \xi(\omega)\right] =  \alpha_0 - \xi(\omega) 
-\]
-\small
-\[
-  \xi(\omega) \equiv \frac{\varphi_k(\omega) - \varphi_\ell(\omega)}{p_k \varphi_{1k}(\omega) - p_\ell\varphi_{1\ell}(\omega)}
-\]
-\end{block}
-\normalsize
-  \begin{block}{Distribution Functions}
-    \vspace{-1em}
-\[
-    \widetilde{\Delta}_1(\tau+\beta) - \widetilde{\Delta}_1(\tau) = \alpha_0 \Delta(\tau + \beta) - (1 - \alpha_1) \Delta(\tau)
-\]
-\small
-\begin{align*}
-  \Delta(\tau) &= F_k(\tau) - F_\ell(\tau)\\
-  \widetilde{\Delta}_1(\tau) &= p_k F_{1k}(\tau) - p_\ell F_{1\ell}(\tau)
-\end{align*}
-
-  \end{block}
-
-  \normalsize
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{CDF Conditions for Simulation DGP}
+%  \begin{block}{Characteristic Functions}
+%    \vspace{-1em}
+%\[
+%  e^{i\omega\beta}\left[(1 - \alpha_1) - \xi(\omega)\right] =  \alpha_0 - \xi(\omega) 
+%\]
+%\small
+%\[
+%  \xi(\omega) \equiv \frac{\varphi_k(\omega) - \varphi_\ell(\omega)}{p_k \varphi_{1k}(\omega) - p_\ell\varphi_{1\ell}(\omega)}
+%\]
+%\end{block}
+%\normalsize
+%  \begin{block}{Distribution Functions}
+    \vspace{-0.7em}
   \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{Delta_sim}
   \end{figure}
-\[
-    \widetilde{\Delta}_1(\tau+\beta) - \widetilde{\Delta}_1(\tau) = \alpha_0 \Delta(\tau + \beta) - (1 - \alpha_1) \Delta(\tau)
-\]
+    
+    \vspace{-4em}
+\begin{align*}
+    \widetilde{\Delta}_1(\tau+\beta) - \widetilde{\Delta}_1(\tau) &= \alpha_0 \Delta(\tau + \beta) - (1 - \alpha_1) \Delta(\tau)\\
+  \Delta(\tau) &= F_k(\tau) - F_\ell(\tau)\\
+  \widetilde{\Delta}_1(\tau) &= p_k F_{1k}(\tau) - p_\ell F_{1\ell}(\tau)
+\end{align*}
+
+%  \end{block}
+
+  \normalsize
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -853,9 +846,8 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 
   \begin{block}{Extensions / Work in Progress}
     \begin{itemize}
-      \item Efficient estimation w/ continuum of MCs
-        \item Inference / Specification Testing
-      \item LATE interpretation
+      \item Weak Identification: Two-step Inference?
+      \item Heterogeneous Treatment Effects 
       \item Empirical Examples
     \end{itemize}
   \end{block}
