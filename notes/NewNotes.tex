@@ -1439,8 +1439,123 @@ We calculate this as follows:
 &= G_\theta^{-1}\left(\Omega_{gg} + G_\gamma \Omega_{hg} + \Omega_{gh}G_\gamma' + G_\gamma \Omega_{hh} G_\gamma'\right)\left( G_\theta^{-1} \right)'
 \end{align*}
 
+\subsection{Two-Step Inference Idea}
+If $\beta$ is small, then confidence intervals based on the GMM limit distribution from above will perform badly.
+But even in this case, inference for the \emph{identified set} $\left[ \beta_{RF}, \beta_{IV} \right]$ should still be well-behaved, so long as the instrument is strong.
+The idea of this section is to explore a two-step procedure that chooses between reporting the GMM confidence interval or inference for the identified set based on a pre-test of $\beta_{RF}$.
+Presumably conducting valid inference based on such a procedure will require a Bonferroni correction.
+The first step, however, is to determine the joint limiting behavior of the reduced form, IV, and GMM estimators.
+
+\paragraph{Reduced Form Estimator}
+The reduced form is given by
+\begin{align*}
+  y &= \gamma_0 + \gamma_1 + \eta \\
+  \gamma_0 &= \mathbb{E}[y|z=0]\\
+  \gamma_1 &= \mathbb{E}[y|z=0] - \mathbb{E}[y|z=1]
+\end{align*}
+Now, we need to write $\eta$ in terms of the ``primitives'' of our model.
+The first stage and main equation are
+\begin{align*}
+  y &= c + \beta T^* + \varepsilon\\
+  T^* &= \pi_0 + \pi_1 T^* + v\\
+  \pi_1 &= p_1^* - p_0^*
+\end{align*}
+which implies
+\[
+  y = (c + \beta \pi_0) + (\beta \pi_1) z + (\varepsilon + \beta v)
+\]
+so that
+\begin{align*}
+\gamma_1 &= \beta(p_1^* - p_0^*)\\
+\eta &= \varepsilon + \beta v
+\end{align*}
+Now, define $W = (\mathbf{1}, \mathbf{z})$ and $\boldsymbol{\gamma} = (\gamma_0, \gamma_1)'$.
+Then the reduced form estimator is 
+\[
+  \widehat{\boldsymbol{\gamma}} = \left(W'W\right)^{-1}  W'\mathbf{y} 
+  = \left( W'W \right)^{-1}W'\left( W\boldsymbol{\gamma} + \boldsymbol{\eta} \right) = \boldsymbol{\gamma} + \left( W'W \right)^{-1}W'\boldsymbol{\eta}
+\]
+and hence
+\[
+  \sqrt{n}\left( \widehat{\boldsymbol{\gamma}} - \boldsymbol{\gamma}\right) = \left( \frac{W'W}{n} \right)^{-1}\frac{W'\boldsymbol{\eta}}{\sqrt{n}}
+\]
+Now,
+\[
+  \left(\frac{W'W}{n}\right)^{-1} = \left[
+  \begin{array}{cc}
+    1 & \bar{\mathbf{z}} \\
+    \bar{\mathbf{z}} & \mathbf{z}'\mathbf{z}/n
+  \end{array}
+\right]^{-1} \rightarrow_p 
+\left[
+\begin{array}{cc}
+  1 & q \\
+  q & q
+\end{array}
+\right]^{-1}
+= \frac{1}{q(1-q)}\left[
+\begin{array}{cc}
+  q & -q \\
+  -q & 1
+\end{array}
+\right]
+\]
+and by the Central Limit Theorem,
+\[
+  \frac{W'\boldsymbol{\eta}}{\sqrt{n}} = \frac{1}{\sqrt{n}}\sum_{i=1}^n \eta_i\left[
+  \begin{array}{c}
+    1 \\ z_i 
+  \end{array}
+\right] 
+= \frac{1}{\sqrt{n}}\sum_{i=1}^n (\varepsilon_i + \beta v_i)\left[
+  \begin{array}{c}
+    1 \\ z_i 
+  \end{array}
+\right] \rightarrow_d N\left(\mathbf{0}, \Sigma \right)
+\]
+where
+\[
+  \Sigma = 
+  \mathbb{E}\left[
+  \begin{array}{cc}
+   \eta_i^2 & z_i \eta_i\\
+   z_i \eta_i & z_i^2 \eta_i^2
+  \end{array}
+\right]
+=
+  \mathbb{E}\left[
+  \begin{array}{cc}
+   \left( \varepsilon_i + \beta v_i  \right)^2 & 
+   z_i \left( \varepsilon_i + \beta v_i  \right)\\ 
+   z_i \left( \varepsilon_i + \beta v_i  \right) &
+   z_i^2\left( \varepsilon_i + \beta v_i  \right)^2  
+  \end{array}
+\right]
+\]
+The next step is to work out the joint distribution of $v$ and the other primitives of our model:
+\begin{align*}
+  T^*=0, z = 0 &\implies 0 = \pi_0 + v \implies v = -\pi_0 = -p_0^*\\
+  T^*=1, z = 0 &\implies 1 = \pi_0 + v \implies v = 1-\pi_0 = 1-p_0^*\\
+  T^*=0, z = 1 &\implies 0 = \pi_0 + \pi_1 + v \implies v = -(\pi_0 + \pi_1) = -p_1^*\\
+  T^*=1, z = 1 &\implies 1 = \pi_0 + \pi_1 + v \implies v = 1-(\pi_0 + \pi_1) = 1-p_1^*
+\end{align*}
+Thus,
+\begin{align*}
+  \mathbb{P}(T^*=0, z = 0) &= \mathbb{P}(v = -p_0^*) = (1-p_0)(1-q)\\
+  \mathbb{P}(T^*=1, z = 0) &= \mathbb{P}(v = 1-p_0^*) = p_0^*(1-q)\\
+  \mathbb{P}(T^*=0, z = 1) &= \mathbb{P}(v = -p_1^*) = (1-p_1^*)q\\
+  \mathbb{P}(T^*=1, z = 1) &= \mathbb{P}(v = 1-p_1^*) = p_1^* q 
+\end{align*}
+
 
 \subsection{Other Stuff\ldots}
+
+\begin{itemize}
+  \item Manski was interested in a heterogenous treatment effect model and whether we could bound \emph{ATE} rather than \emph{LATE}.
+  \item Would it help in the performance of the GMM estimator if we enforced the bounds on $\alpha_0$ and $\alpha_1$?
+\end{itemize}
+
+
 
 \paragraph{Exogenous Covariates in a Linear Model:} These should be very easy to handle because we can just stack the GMM moment conditions to include an IV estimator for the parameter on the exogenous covariates in the main equation.
 Recall that the usual IV estimator for these parameters is unaffected by measurement error.
