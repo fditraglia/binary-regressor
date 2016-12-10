@@ -1644,15 +1644,18 @@ Now, using the fact that $\mathbb{E}[z^2\eta] = \mathbb{E}[z\eta]$, the asymptot
 \end{array}
 \right] \\ 
 &= 
+\frac{1}{q^2(1-q)^2}
 \left[
 \begin{array}{cc}
   q^2 \left\{ \mathbb{E}(\eta^2) - \mathbb{E}(z\eta^2) \right\} & 
   -q^2 \left\{ \mathbb{E}(\eta^2) - \mathbb{E}(z\eta^2) \right\} \\
   -q^2 \left\{ \mathbb{E}(\eta^2) - \mathbb{E}(z\eta^2) \right\} &
-  hi hi hi
+  q^2 \mathbb{E}(\eta^2) + (1-2q) \mathbb{E}(z\eta^2)
 \end{array}
 \right]
 \end{align*}
+
+\todo[inline]{All that remains is to plug in. There appears to be a major simplification of the AVAR for the slope coefficient when $q = 1/2$ since the second term vanishes in that case. Or maybe I made a mistake in the algebra!}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{Values of $m^*_{tk}$ in the Simulation}
