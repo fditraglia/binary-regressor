@@ -1514,8 +1514,8 @@ and by the Central Limit Theorem,
 \right] \rightarrow_d N\left(\mathbf{0}, \Sigma \right)
 \]
 where
-\[
-  \Sigma = 
+\begin{align*}
+  \Sigma &= 
   \mathbb{E}\left[
   \begin{array}{cc}
    \eta_i^2 & z_i \eta_i\\
@@ -1530,8 +1530,17 @@ where
    z_i \left( \varepsilon_i + \beta v_i  \right) &
    z_i^2\left( \varepsilon_i + \beta v_i  \right)^2  
   \end{array}
+\right]\\
+&=
+  \mathbb{E}\left[
+  \begin{array}{cc}
+   \varepsilon_i^2 + 2\beta \varepsilon_i v_i + v_i^2  & 
+   z_i \varepsilon_i + \beta z_i v_i  \\ 
+   z_i \varepsilon_i + \beta z_i v_i   &
+   z_i^2\varepsilon_i^2 + 2\beta z_i^2 \varepsilon_i v_i + z_i^2 v_i^2  
+  \end{array}
 \right]
-\]
+\end{align*}
 The next step is to work out the joint distribution of $v$ and the other primitives of our model:
 \begin{align*}
   T^*=0, z = 0 &\implies 0 = \pi_0 + v \implies v = -\pi_0 = -p_0^*\\
@@ -1541,19 +1550,49 @@ The next step is to work out the joint distribution of $v$ and the other primiti
 \end{align*}
 Thus,
 \begin{align*}
-  \mathbb{P}(T^*=0, z = 0) &= \mathbb{P}(v = -p_0^*) = (1-p_0)(1-q)\\
+  \mathbb{P}(T^*=0, z = 0) &= \mathbb{P}(v = -p_0^*) = (1-p_0^*)(1-q)\\
   \mathbb{P}(T^*=1, z = 0) &= \mathbb{P}(v = 1-p_0^*) = p_0^*(1-q)\\
   \mathbb{P}(T^*=0, z = 1) &= \mathbb{P}(v = -p_1^*) = (1-p_1^*)q\\
   \mathbb{P}(T^*=1, z = 1) &= \mathbb{P}(v = 1-p_1^*) = p_1^* q 
 \end{align*}
-Notice that, as should be the case, 
-\[
-  \mathbb{E}[v] = 
-\]
-and
-\[
-  \mathbb{E}[zv] = 
-\]
+Notice that, as must be true \emph{by construction}, $v$ is mean zero:
+\begin{align*}
+  \mathbb{E}[v] &= -p_0^*(1-p_0^*)(1 - q) + (1 - p_0^*)p_0^*(1-q) - p_1^*(1-p_1^*)q + (1-p_1^*)p_1^*q  \\
+  &= (1-q)(1 - p_0^*) (p_0^* - p_0^*) + q(1-p_1^*)(p_1^* - p_1^*) = 0
+\end{align*}
+and uncorrelated with $v$:
+\begin{align*}
+  \mathbb{E}[zv] &= q\mathbb{E}[v|z=1] = q\left\{ p_1^*  \mathbb{E}[v|T^*=1,z=1] + (1 - p_1^*)\mathbb{E}[v|T^*=0,z=1]\right\} \\
+  &= q \left[ p_1^* (1 - p_1^*) - p_1^* (1 - p_1^*)  \right] = 0
+\end{align*}
+Now, to calculate $\Sigma$, we need $\mathbb{E}[v^2], \mathbb{E}[\varepsilon v], \mathbb{E}[z^2\varepsilon v]$, and $\mathbb{E}[z^2v^2]$:
+\begin{align*}
+  \mathbb{E}[v^2] &=p_0^{*2}(1-p_0^*)(1 - q) + (1 - p_0^*)^2 p_0^*(1-q) + p_1^{*2}(1-p_1^*)q + (1-p_1^*)^2p_1^*q  \\ 
+  &= (1-q)p_0^*(1 - p_0^*)\left[p_0^* + (1 - p_0^*)  \right] + qp_1^*(1 - p_1^*)\left[ p_1^* + (1 - p_1^*) \right]\\
+  &= (1-q)p_0^*(1 - p_0^*) + qp_1^*(1 - p_1^*)
+\end{align*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{align*}
+  \mathbb{E}[\varepsilon v] &= \mathbb{E}\left[ v \mathbb{E}\left( \varepsilon|v \right) \right]\\
+  &= -p_0^*\mathbb{P}(v = -p_0^*)\mathbb{E}(\varepsilon|v = -p_0^* ) - p_1^* \mathbb{P}(v = -p_1^* )\mathbb{E}(\varepsilon|v = -p_1^*) \\
+  & \qquad {} + (1 - p_0^*)\mathbb{P}(v = 1-p_0^*)\mathbb{E}(\varepsilon|v = 1-p_0^*) + (1 -p_1^*)\mathbb{P}(v = 1- p_1^*)\mathbb{E}(\varepsilon|v = 1-p_1^*) \\
+   &= -p_0^*(1-p_0^*)(1-q)\mathbb{E}[\varepsilon|T^*=0,z=0] - p_1^* (1-p_1^*)q\mathbb{E}[\varepsilon|T^*=0,z=1]\\
+   &\qquad {} + (1 - p_0^*) p_0^*(1-q)\mathbb{E}[\varepsilon|T^*=1,z=0] + (1 - p_1^*)p_1^*q \mathbb{E}[\varepsilon|T^*=1,z=1]\\
+   &= -p_0^*(1-p_0^*)(1-q)(m^*_{00}-c) -p_1^* (1-p_1^*)q(m^*_{01} - c)\\
+   &\qquad {} + (1-p_0^*)p_0^*(1-q)(m^*_{10}-c) + (1 - p_1^*)p_1^*q (m^*_{11}-c)\\
+   &= (1-q)p_0^*(1-p_0^*)(m_{10}^* - m_{00}^*) + qp_1^*(1-p_1^*)(m_{11}^* - m_{01}^*)
+\end{align*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{align*}
+  \mathbb{E}[z^2\varepsilon v] &=
+\end{align*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{align*}
+  \mathbb{E}[z^2 v^2] &=
+\end{align*}
+
+\paragraph{Values of $m^*_{tk}$ in the Simulation}
+To calculate $\Sigma$ in our simulation design, we'll need to know the values of $m_{tk}^*$ in the threshold-crossing model with bivariate normal errors:
 
 
 \subsection{Other Stuff\ldots}
