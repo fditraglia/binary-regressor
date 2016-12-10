@@ -1593,6 +1593,51 @@ Now, to calculate $\Sigma$, we need $\mathbb{E}[v^2], \mathbb{E}[\varepsilon v],
 
 \paragraph{Values of $m^*_{tk}$ in the Simulation}
 To calculate $\Sigma$ in our simulation design, we'll need to know the values of $m_{tk}^*$ in the threshold-crossing model with bivariate normal errors:
+\begin{align*}
+  \left[
+  \begin{array}{c}
+    \varepsilon \\ \xi
+  \end{array}
+  \right] &\sim N\left( \left[
+  \begin{array}{c}
+    0 \\ 0
+  \end{array}
+\right], \left[
+\begin{array}{cc}
+  1 & \rho \\
+  \rho & 1
+\end{array}
+\right]\right)\\ \\
+  T^* &= \mathbf{1}\left\{ \gamma_0 + \gamma_1 z + \xi > 0 \right\}\\
+  \gamma_0 &= \Phi^{-1}(\delta)\\
+  \gamma_1 &= \Phi^{-1}(1-\delta) - \Phi^{-1}(\delta)
+\end{align*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{align*}
+  m_{00}^* - c &= \mathbb{E}[\varepsilon|T^*=0,z=0] = \mathbb{E}[\varepsilon|\xi \leq -\gamma_0]\\
+  m_{01}^* - c &= \mathbb{E}[\varepsilon|T^*=0,z=1] = \mathbb{E}[\varepsilon|\xi\leq -(\gamma_0 + \gamma_1)]\\
+  m_{10}^* - c &= \mathbb{E}[\varepsilon|T^*=1,z=0] = \mathbb[\varepsilon|\xi > -\gamma_0]\\
+  m_{11}^* - c &= \mathbb{E}[\varepsilon|T^*=1,z=1] = \mathbb{E}[\varepsilon|\xi > -(\gamma_0 + \gamma_1)]
+\end{align*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\[
+  \xi|\varepsilon \sim N(\rho \varepsilon, 1 - \rho^2)
+\]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{align*}
+\mathbb{P}(\varepsilon \leq x|\xi \leq a) &= \frac{\mathbb{P}(\varepsilon \leq x,\xi \leq a)}{\mathbb{P}(\xi \leq a)} = \frac{\int_{-\infty}^x \int_{-\infty}^a f(\xi|\varepsilon)f(\varepsilon) d \xi \, d \varepsilon }{\Phi(a)}\\
+&=\frac{\int_{-\infty}^x F_{\xi|\varepsilon}(a)f(\varepsilon) d\varepsilon}{\Phi(a)} = \frac{\displaystyle\int_{-\infty}^x \varphi(\varepsilon)\Phi\left( \frac{a - \rho \varepsilon}{\sqrt{1 - \rho^2}} \right)d\varepsilon }{\Phi(a)} \\ \\
+  f(\varepsilon|\xi\leq a) &= \frac{\varphi(\varepsilon)}{\Phi(a)}\Phi\left( \frac{a - \rho \varepsilon}{\sqrt{1 - \rho^2}} \right) \\ \\
+  \mathbb{E}\left[ \varepsilon|\xi \leq a \right] & = \frac{1}{\Phi(a)} \int_{-\infty}^\infty \varepsilon \varphi(\varepsilon) \Phi\left( \frac{a - \rho \varepsilon}{\sqrt{1 - \rho^2}} \right) d\varepsilon
+\end{align*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{align*}
+\mathbb{P}(\varepsilon \leq x|\xi > a) &= \frac{\mathbb{P}(\varepsilon \leq x,\xi > a)}{\mathbb{P}(\xi > a)} = \frac{\int_{-\infty}^x \int_a^\infty f(\xi|\varepsilon)f(\varepsilon) d \xi \, d \varepsilon }{1 - \Phi(a)}\\
+&=\frac{\int_{-\infty}^x [1 - F_{\xi|\varepsilon}(a)]f(\varepsilon) d\varepsilon}{1- \Phi(a)} = \frac{\displaystyle\int_{-\infty}^x \varphi(\varepsilon)\left[1 - \Phi\left( \frac{a - \rho \varepsilon}{\sqrt{1 - \rho^2}} \right)\right]d\varepsilon }{1 - \Phi(a)} \\ \\
+f(\varepsilon|\xi > a) &= \frac{\varphi(\varepsilon)}{1-\Phi(a)}\left[1 - \Phi\left( \frac{a - \rho \varepsilon}{\sqrt{1 - \rho^2}} \right)\right] \\ \\
+\mathbb{E}\left[ \varepsilon|\xi > a \right] & = \frac{1}{1-\Phi(a)} \int_{-\infty}^\infty \varepsilon \varphi(\varepsilon)\left[ \Phi\left( \frac{a - \rho \varepsilon}{\sqrt{1 - \rho^2}} \right)\right] d\varepsilon
+\end{align*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \subsection{Other Stuff\ldots}
