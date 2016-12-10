@@ -1526,18 +1526,18 @@ where
   \mathbb{E}\left[
   \begin{array}{cc}
    \left( \varepsilon_i + \beta v_i  \right)^2 & 
-   z_i \left( \varepsilon_i + \beta v_i  \right)\\ 
-   z_i \left( \varepsilon_i + \beta v_i  \right) &
+   z_i \left( \varepsilon_i + \beta v_i  \right)^2\\ 
+   z_i \left( \varepsilon_i + \beta v_i  \right)^2 &
    z_i^2\left( \varepsilon_i + \beta v_i  \right)^2  
   \end{array}
 \right]\\
 &=
   \mathbb{E}\left[
   \begin{array}{cc}
-   \varepsilon_i^2 + 2\beta \varepsilon_i v_i + v_i^2  & 
-   z_i \varepsilon_i + \beta z_i v_i  \\ 
-   z_i \varepsilon_i + \beta z_i v_i   &
-   z_i^2\varepsilon_i^2 + 2\beta z_i^2 \varepsilon_i v_i + z_i^2 v_i^2  
+   \varepsilon_i^2 + 2\beta \varepsilon_i v_i + \beta^2 v_i^2  & 
+ z_i^2\varepsilon_i + 2\beta z_i \varepsilon_i v_i + \beta^2 z_i v_i^2 \\
+   z_i^2\varepsilon_i + 2\beta z_i \varepsilon_i v_i + \beta^2 z_i v_i^2 &
+   z_i^2\varepsilon_i^2 + 2\beta z_i^2 \varepsilon_i v_i + \beta^2 z_i^2 v_i^2  
   \end{array}
 \right]
 \end{align*}
@@ -1565,7 +1565,8 @@ and uncorrelated with $v$:
   \mathbb{E}[zv] &= q\mathbb{E}[v|z=1] = q\left\{ p_1^*  \mathbb{E}[v|T^*=1,z=1] + (1 - p_1^*)\mathbb{E}[v|T^*=0,z=1]\right\} \\
   &= q \left[ p_1^* (1 - p_1^*) - p_1^* (1 - p_1^*)  \right] = 0
 \end{align*}
-Now, to calculate $\Sigma$, we need $\mathbb{E}[v^2], \mathbb{E}[\varepsilon v], \mathbb{E}[z^2\varepsilon v]$, and $\mathbb{E}[z^2v^2]$:
+Now, to calculate $\Sigma$, we need $\mathbb{E}[v^2], \mathbb{E}[\varepsilon v], \mathbb{E}[z\varepsilon v], \mathbb{E}[z^2\varepsilon v], \mathbb{E}[zv^2]$, and $\mathbb{E}[z^2v^2]$:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{align*}
   \mathbb{E}[v^2] &=p_0^{*2}(1-p_0^*)(1 - q) + (1 - p_0^*)^2 p_0^*(1-q) + p_1^{*2}(1-p_1^*)q + (1-p_1^*)^2p_1^*q  \\ 
   &= (1-q)p_0^*(1 - p_0^*)\left[p_0^* + (1 - p_0^*)  \right] + qp_1^*(1 - p_1^*)\left[ p_1^* + (1 - p_1^*) \right]\\
@@ -1584,13 +1585,32 @@ Now, to calculate $\Sigma$, we need $\mathbb{E}[v^2], \mathbb{E}[\varepsilon v],
 \end{align*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{align*}
-  \mathbb{E}[z^2\varepsilon v] &=
+  \mathbb{E}[z\varepsilon v] &= \mathbb{E}[z^2\varepsilon v] = \mathbb{E}\left[ z^2 \mathbb{E}\left[ \varepsilon v|z \right] \right] = q \mathbb{E}\left[ \varepsilon v|z=1 \right] = q \mathbb{E}_{T^*|z=1}\left[ \mathbb{E}\left[ \varepsilon v |T^*=1,z=1 \right] \right]\\
+  &= q\left\{p_1^* \mathbb{E}\left[ \varepsilon v \right|T^*=1,z=1] + (1 - p_1^*)\mathbb{E}[\varepsilon v|T^*=0,z=1]\right\}\\
+  &= q\left\{p_1^*(1 - p_1^*) \mathbb{E}\left[ \varepsilon  \right|T^*=1,z=1] - p_1^* (1 - p_1^*)\mathbb{E}[\varepsilon |T^*=0,z=1]\right\}\\
+  &= q p_1^*(1-p_1^*)\left[m^*_{11} - m^*_{01} \right]
 \end{align*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{align*}
-  \mathbb{E}[z^2 v^2] &=
+  \mathbb{E}[z v^2] &= \mathbb{E}[z^2v^2] =  \mathbb{E}\left[ z^2 \mathbb{E}\left[ v^2|z \right]  \right] = q\mathbb{E}[v^2|z=1] = q \mathbb{E}_{T^*|z=1}\left[ \mathbb{E}\left[ v^2|T^*,z=1 \right] \right]\\
+  &= q\left\{ p_1^* \mathbb{E}[v^2|T^*=1,z=1] + (1 - p_1^*) \mathbb{E}\left[ v^2|T^*=0,z=1 \right] \right\}\\
+  &= q\left\{ p_1^*(1-p_1^*)^2 + p_1^{*2} (1 - p_1^*) \right\}\\
+  &= qp_1^*(1 - p_1^*)\left[ (1-p_1^*)+ p_1^* \right]\\
+  &= qp_1^*(1 - p_1^*)
+\end{align*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using these calculations, we find the elements of $\Sigma$ as follows:
+\begin{align*}
+  \mathbb{E}[\eta^2] &= \mathbb{E}[\varepsilon^2 + 2\beta \varepsilon v + \beta^2 v^2]  \\
+  &= \sigma_\varepsilon^2 + 2 \beta \left[ (1-q)p_0^*(1-p_0^*)(m_{10}^* - m_{00}^*) + qp_1^*(1-p_1^*)(m_{11}^* - m_{01}^*)\right]\\
+  &\qquad {} + \beta^2\left[(1-q)p_0^*(1 - p_0^*) + qp_1^*(1 - p_1^*)\right]\\
+  &= \sigma_\varepsilon^2 + (1-q)p_0^*(1-p_0^*)\beta\left[ \beta + 2 \left( m_{10}^* - m_{00}^* \right) \right] + q p_1^*(1 - p_1^*)\beta\left[ \beta + 2\left( m_{11}^* - m_{01}^* \right) \right]\\
+  \mathbb{E}[z^2 \eta^2] =  \mathbb{E}[z \eta^2] &= \mathbb{E}[ z \varepsilon^2 + 2\beta z \varepsilon v + \beta^2 z v^2 ] = \sigma_\varepsilon^2 + 2\beta \mathbb{E}[z \varepsilon v] + \beta^2 \mathbb{E}[zv^2]\\
+  &= 2\beta q p_1^*(1-p_1^*)\left( m_{11}^* - m_{01}^* \right) + \beta^2 q p_1^*(1-p_1^*) \\
+  &= \sigma_\varepsilon^2 + qp_1^*(1-p_1^*)\beta\left[ \beta + 2 \left( m_{11}^* - m_{01}^* \right) \right]
 \end{align*}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{Values of $m^*_{tk}$ in the Simulation}
 To calculate $\Sigma$ in our simulation design, we'll need to know the values of $m_{tk}^*$ in the threshold-crossing model with bivariate normal errors:
 \begin{align*}
