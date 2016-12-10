@@ -1635,7 +1635,7 @@ To calculate $\Sigma$ in our simulation design, we'll need to know the values of
 \mathbb{P}(\varepsilon \leq x|\xi > a) &= \frac{\mathbb{P}(\varepsilon \leq x,\xi > a)}{\mathbb{P}(\xi > a)} = \frac{\int_{-\infty}^x \int_a^\infty f(\xi|\varepsilon)f(\varepsilon) d \xi \, d \varepsilon }{1 - \Phi(a)}\\
 &=\frac{\int_{-\infty}^x [1 - F_{\xi|\varepsilon}(a)]f(\varepsilon) d\varepsilon}{1- \Phi(a)} = \frac{\displaystyle\int_{-\infty}^x \varphi(\varepsilon)\left[1 - \Phi\left( \frac{a - \rho \varepsilon}{\sqrt{1 - \rho^2}} \right)\right]d\varepsilon }{1 - \Phi(a)} \\ \\
 f(\varepsilon|\xi > a) &= \frac{\varphi(\varepsilon)}{1-\Phi(a)}\left[1 - \Phi\left( \frac{a - \rho \varepsilon}{\sqrt{1 - \rho^2}} \right)\right] \\ \\
-\mathbb{E}\left[ \varepsilon|\xi > a \right] & = \frac{1}{1-\Phi(a)} \int_{-\infty}^\infty \varepsilon \varphi(\varepsilon)\left[ \Phi\left( \frac{a - \rho \varepsilon}{\sqrt{1 - \rho^2}} \right)\right] d\varepsilon
+\mathbb{E}\left[ \varepsilon|\xi > a \right] & = \frac{1}{1-\Phi(a)} \int_{-\infty}^\infty \varepsilon \varphi(\varepsilon)\left[1 -  \Phi\left( \frac{a - \rho \varepsilon}{\sqrt{1 - \rho^2}} \right)\right] d\varepsilon
 \end{align*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
