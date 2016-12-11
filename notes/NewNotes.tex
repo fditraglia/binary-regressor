@@ -1457,7 +1457,7 @@ Now, we need to write $\eta$ in terms of the ``primitives'' of our model.
 The first stage and main equation are
 \begin{align*}
   y &= c + \beta T^* + \varepsilon\\
-  T^* &= \pi_0 + \pi_1 T^* + v\\
+  T^* &= \pi_0 + \pi_1 z + v\\
   \pi_1 &= p_1^* - p_0^*
 \end{align*}
 which implies
@@ -1518,8 +1518,8 @@ where
   \Sigma &= 
   \mathbb{E}\left[
   \begin{array}{cc}
-   \eta_i^2 & z_i \eta_i\\
-   z_i \eta_i & z_i^2 \eta_i^2
+   \eta_i^2 & z_i \eta_i^2\\
+   z_i \eta_i^2 & z_i^2 \eta_i^2
   \end{array}
 \right]
 =
@@ -1606,8 +1606,8 @@ Using these calculations, we find the elements of $\Sigma$ as follows:
   &\qquad {} + \beta^2\left[(1-q)p_0^*(1 - p_0^*) + qp_1^*(1 - p_1^*)\right]\\
   &= \sigma_\varepsilon^2 + (1-q)p_0^*(1-p_0^*)\beta\left[ \beta + 2 \left( m_{10}^* - m_{00}^* \right) \right] + q p_1^*(1 - p_1^*)\beta\left[ \beta + 2\left( m_{11}^* - m_{01}^* \right) \right]\\
   \mathbb{E}[z^2 \eta^2] =  \mathbb{E}[z \eta^2] &= \mathbb{E}[ z \varepsilon^2 + 2\beta z \varepsilon v + \beta^2 z v^2 ] = \sigma_\varepsilon^2 + 2\beta \mathbb{E}[z \varepsilon v] + \beta^2 \mathbb{E}[zv^2]\\
-  &= \sigma_\varepsilon^2 + 2\beta q p_1^*(1-p_1^*)\left( m_{11}^* - m_{01}^* \right) + \beta^2 q p_1^*(1-p_1^*) \\
-  &= \sigma_\varepsilon^2 + qp_1^*(1-p_1^*)\beta\left[ \beta + 2 \left( m_{11}^* - m_{01}^* \right) \right]
+  &= q\sigma_\varepsilon^2 + 2\beta q p_1^*(1-p_1^*)\left( m_{11}^* - m_{01}^* \right) + \beta^2 q p_1^*(1-p_1^*) \\
+  &= q\left\{\sigma_\varepsilon^2 + p_1^*(1-p_1^*)\beta\left[ \beta + 2 \left( m_{11}^* - m_{01}^* \right) \right]\right\}
 \end{align*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Now, using the fact that $\mathbb{E}[z^2\eta] = \mathbb{E}[z\eta]$, the asymptotic variance of the reduced form estimator can be written as:
@@ -1654,8 +1654,52 @@ Now, using the fact that $\mathbb{E}[z^2\eta] = \mathbb{E}[z\eta]$, the asymptot
 \end{array}
 \right]
 \end{align*}
+Now, we are only interested in the reduced form slope coefficient $\gamma_1$.
+The asymptotic variance of its OLS estimator is:
+\begin{align*}
+  \mbox{AVAR}\left[ \sqrt{n}(\widehat{\gamma}_1 - \gamma_1) \right] &= 
+  \frac{1}{q^2(1-q)^2}\left[q^2 \mathbb{E}(\eta^2) + (1-2q) \mathbb{E}(z\eta^2)\right]\\
+  &= \frac{\mathbb{E}(\eta^2)}{(1-q)^2} + \left[ \frac{1-2q}{q^2(1-q)^2} \right]\mathbb{E}(z\eta^2)
+\end{align*}
+In general, this will lead to quite a complicated expression.
+In our simulation design, however, 
+\begin{align*}
+  q &= 1/2\\ 
+  p^*_0(1-p^*_0) &= \delta(1-\delta)\\
+  p^*_1(1-p^*_1) &= (1 -\delta) \delta\\
+  (m^*_{10} - m^*_{00}) &= (m^*_{11} - m_{01}^*) > 0 
+\end{align*}
+leading to the following simplifications:
+\small
+\begin{align*}
+  \mbox{AVAR}\left[ \sqrt{n}(\widehat{\gamma}_1 - \gamma_1) \right] &= 
+  4 \mathbb{E}(\eta^2)\\
+  &= 4\left\{ \sigma_\varepsilon^2 + 1/2 \times \delta(1 - \delta)\beta\left[ \beta + 2 \left( m_{10}^* - m_{00}^* \right) \right] + 1/2 \times \delta(1 - \delta)\beta\left[ \beta + 2\left( m_{11}^* - m_{01}^* \right) \right]\right\}\\
+  &= 4\left\{ \sigma_\varepsilon^2 + \delta(1 - \delta)\beta\left[ \beta + 2\left( m_{11}^* - m_{01}^* \right) \right]\right\}
+\end{align*}
+\normalsize
+Notice that, since $(m_{11}^* - m_{01}^*)$ is positive, as in the simulation design, the asymptotic variance is \emph{smallest} when $\beta = 0$ so that there is no treatment effect.
 
-\todo[inline]{All that remains is to plug in. There appears to be a major simplification of the AVAR for the slope coefficient when $q = 1/2$ since the second term vanishes in that case. Or maybe I made a mistake in the algebra!}
+\paragraph{Robust Standard Errors} 
+When implementing the reduced form estimator in practice we base our inference on sample residuals:
+\[
+  \widehat{\eta}_i = y_i - \widehat{\gamma}_0 - \widehat{\gamma}_1 z_i
+\]
+As we saw above, however, the errors $\eta$ are heteroskedastic: $\mathbb{E}(z\eta^2) \neq \mathbb{E}(z)\mathbb{E}(\eta^2)$ etc.
+For this reason, we must use robust standard errors:
+\[
+  \widehat{\Sigma} = \frac{1}{n} \sum_{i=1}^n \left[
+  \begin{array}{cc}
+    \widehat{\eta}_i^2 & z_i \widehat{\eta}_i^2\\
+    z_i \widehat{\eta}_i^2 & z_i^2 \widehat{\eta}_i^2\\
+  \end{array}
+\right]
+\]
+leading to
+\[
+  \widehat{\mbox{AVAR}}\left[ \sqrt{n}(\widehat{\gamma}_1 - \gamma_1) \right] = \frac{\widehat{\mathbb{E}}(\eta^2)}{(1-\widehat{q})^2} + \left[ \frac{1-2\widehat{q}}{\widehat{q}^2(1-\widehat{q})^2} \right]\widehat{\mathbb{E}}(z\eta^2)
+\]
+Note that $\widehat{q}$ is fixed and equal to $1/2$ in our simulation design, so this becomes $4 \widehat{\sigma}^2_{\eta}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{Values of $m^*_{tk}$ in the Simulation}
@@ -1704,6 +1748,8 @@ To calculate $\Sigma$ in our simulation design, we'll need to know the values of
 f(\varepsilon|\xi > a) &= \frac{\varphi(\varepsilon)}{1-\Phi(a)}\left[1 - \Phi\left( \frac{a - \rho \varepsilon}{\sqrt{1 - \rho^2}} \right)\right] \\ \\
 \mathbb{E}\left[ \varepsilon|\xi > a \right] & = \frac{1}{1-\Phi(a)} \int_{-\infty}^\infty \varepsilon \varphi(\varepsilon)\left[1 -  \Phi\left( \frac{a - \rho \varepsilon}{\sqrt{1 - \rho^2}} \right)\right] d\varepsilon
 \end{align*}
+
+\todo[inline]{I've checked all of these integrals in R and they're definitely correct.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
