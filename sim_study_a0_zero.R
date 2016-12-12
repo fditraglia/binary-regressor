@@ -17,24 +17,24 @@ dgp <- function(a1, b = 1, n = 1000, d = 0.15, rho = 0.5){
 get_m_star <- function(d = 0.15, r = 0.5, c = 0){
   g0 <- qnorm(d)
   g1 <- qnorm(1 - d) - qnorm(d)
-  
+
   f_U <- function(x, a) x * dnorm(x) * pnorm((a - r * x) / sqrt(1 - r^2))
-  mstar00 <- c + integrate(function(x) f_U(x, -g0), -Inf, Inf)$value / 
+  mstar00 <- c + integrate(function(x) f_U(x, -g0), -Inf, Inf)$value /
     pnorm(-g0)
-  mstar01 <- c + integrate(function(x) f_U(x, -(g0 + g1)), -Inf, Inf)$value / 
+  mstar01 <- c + integrate(function(x) f_U(x, -(g0 + g1)), -Inf, Inf)$value /
     pnorm(-(g0 + g1))
-  
+
   f_L <- function(x, a) x * dnorm(x) * (1 - pnorm((a - r * x) / sqrt(1 - r^2)))
-  mstar10 <- c + integrate(function(x) f_L(x, -g0), -Inf, Inf)$value / 
+  mstar10 <- c + integrate(function(x) f_L(x, -g0), -Inf, Inf)$value /
     (1 - pnorm(-g0))
-  mstar11 <- c + integrate(function(x) f_L(x, -(g0 + g1)), -Inf, Inf)$value / 
+  mstar11 <- c + integrate(function(x) f_L(x, -(g0 + g1)), -Inf, Inf)$value /
     (1 - pnorm(-(g0 + g1)))
-  out <- c(mstar00, mstar01, mstar10, mstar11) 
+  out <- c(mstar00, mstar01, mstar10, mstar11)
   names(out) <- c('mstar00', 'mstar01', 'mstar10', 'mstar11')
   return(out)
 }
 
-# This is just a Monte Carlo version used to check the preceding function 
+# This is just a Monte Carlo version used to check the preceding function
 get_m_star_sim <- function(d = 0.15, r = 0.5, c = 0, n_sims = 1000000){
   g0 <- qnorm(d)
   g1 <- qnorm(1 - d) - qnorm(d)
@@ -46,7 +46,7 @@ get_m_star_sim <- function(d = 0.15, r = 0.5, c = 0, n_sims = 1000000){
   mstar01 <- c + mean(epsilon[xi <= -(g0 + g1)])
   mstar10 <- c + mean(epsilon[xi > -g0])
   mstar11 <- c + mean(epsilon[xi > -(g0 + g1)])
-  out <- c(mstar00, mstar01, mstar10, mstar11) 
+  out <- c(mstar00, mstar01, mstar10, mstar11)
   names(out) <- c('mstar00', 'mstar01', 'mstar10', 'mstar11')
   return(out)
 }
@@ -67,7 +67,7 @@ get_AVAR_rf_sim <- function(b, d = 0.15, r = 0.5){
   eta <- c(y_z0 - mean(y_z0), y_z1 - mean(y_z1))
   return(4 * var(eta))
 }
-  
+
 
 get_V_true <- function(a1, b, d = 0.15, n_sims = 1000000){
 
@@ -131,15 +131,22 @@ est <- function(dat){
   mu <- with(dat, mean(y))
   s <- with(dat, mean(y^2))
   r <- with(dat, mean(y * Tobs))
- 
+
   # Inference for Reduced Form slope coefficient
   RF <- with(dat, mean(y[z == 1]) - mean(y[z == 0]))
-  eta <- with(dat, y - z * mean(y[z == 1]) - (1 - z) * mean(y[z == 0])) 
+  eta <- with(dat, y - z * mean(y[z == 1]) - (1 - z) * mean(y[z == 0]))
   s2_eta <- var(eta)
   E_z_eta2 <- mean(dat$z * eta^2)
   RF_AVAR <- s2_eta / (1 - q)^2 + ((1 - 2 * q) / (q^2 * (1 - q^2))) * E_z_eta2
   RF_SE <- sqrt(RF_AVAR / n)
-  
+
+  # Bounds for a1
+  p0 <- with(dat, mean(Tobs[z == 0]))
+  p1 <- with(dat, mean(Tobs[z == 1]))
+  a1_upper <- min(1 - p0, 1 - p1)
+
+  # Inference for IV slope
+
   s_T_z <- with(dat, cov(Tobs, z))
   s_y_z <- with(dat, cov(y, z))
   s_y2_z <- with(dat, cov(y^2, z))
@@ -183,8 +190,8 @@ est <- function(dat){
   V_theta <- V[1:2, 1:2]
   b_SE <- sqrt(V_theta[1, 1] / n)
   a1_SE <- sqrt(V_theta[2, 2] / n)
-  return(c('b' = b, 'b_SE' = b_SE, 'a1' = a1, 'a1_SE' = a1_SE, 
-           'RF' = RF, 'RF_SE' = RF_SE))
+  return(c('b' = b, 'b_SE' = b_SE, 'a1' = a1, 'a1_SE' = a1_SE,
+           'RF' = RF, 'RF_SE' = RF_SE, 'a1_upper' = a1_upper))
 }
 
 plot_dist <- function(a1, b, n, d = 0.15, rho = 0.5){
@@ -213,8 +220,8 @@ plot_dist <- function(a1, b, n, d = 0.15, rho = 0.5){
   a1_true_density <- dnorm(a1_seq, mean = a1, sd = a1_SE_true)
   points(a1_seq, a1_true_density, type = 'l', lwd = 3, lty = 1)
   abline(v = a1, lty = 1, lwd = 3, col = 'firebrick')
-  
-  MASS::truehist(sim_draws$RF, col = 'lightskyblue', 
+
+  MASS::truehist(sim_draws$RF, col = 'lightskyblue',
                  xlab = expression(beta * (1 - 2 * delta)))
   RF_bias_text <- paste0('Bias = ', round(mean(sim_draws$RF) - b * (1 - 2 * d), 3))
   RF_SD_text <- paste0('SD = ', round(sd(sim_draws$RF), 3))
@@ -223,29 +230,52 @@ plot_dist <- function(a1, b, n, d = 0.15, rho = 0.5){
   RF_true_density <- dnorm(RF_seq, mean = b * (1 - 2 * d), sd = RF_SE_true)
   points(RF_seq, RF_true_density, type = 'l', lwd = 3, lty = 1)
   abline(v = b * (1 - 2 * d), lty = 1, lwd = 3, col = 'firebrick')
-  
+
   mytitle <- substitute(paste(beta, ' = ', my_beta, ', ', alpha[1],
                                ' = ', my_alpha1, ', ',
                               delta, ' = ', my_delta,
                               ', ', n, ' = ', my_n),
                         list(my_beta = b, my_alpha1 = a1, my_n = n,
                              my_delta = d))
-  
-  
+
+
   title(main = mytitle, outer = T)
   par(mfrow = c(1, 1))
   par(oma = c(0, 0, 0, 0))
 }
 
-set.seed(1983)
-plot_dist(a1 = 0.1, b = 3, n = 1000, d = 0.15)
-plot_dist(a1 = 0.1, b = 2, n = 1000, d = 0.15)
-plot_dist(a1 = 0.1, b = 1, n = 1000, d = 0.15)
-plot_dist(a1 = 0.1, b = 0.9, n = 1000, d = 0.15)
-plot_dist(a1 = 0.1, b = 0.8, n = 1000, d = 0.15)
-plot_dist(a1 = 0.1, b = 0.7, n = 1000, d = 0.15)
-plot_dist(a1 = 0.1, b = 0.6, n = 1000, d = 0.15)
-plot_dist(a1 = 0.1, b = 0.5, n = 1000, d = 0.15)
-plot_dist(a1 = 0.1, b = 0.4, n = 1000, d = 0.15)
-plot_dist(a1 = 0.1, b = 0.3, n = 1000, d = 0.15)
+#set.seed(1983)
+#plot_dist(a1 = 0.1, b = 3, n = 1000, d = 0.15)
+#plot_dist(a1 = 0.1, b = 2, n = 1000, d = 0.15)
+#plot_dist(a1 = 0.1, b = 1, n = 1000, d = 0.15)
+#plot_dist(a1 = 0.1, b = 0.9, n = 1000, d = 0.15)
+#plot_dist(a1 = 0.1, b = 0.8, n = 1000, d = 0.15)
+#plot_dist(a1 = 0.1, b = 0.7, n = 1000, d = 0.15)
+#plot_dist(a1 = 0.1, b = 0.6, n = 1000, d = 0.15)
+#plot_dist(a1 = 0.1, b = 0.5, n = 1000, d = 0.15)
+#plot_dist(a1 = 0.1, b = 0.4, n = 1000, d = 0.15)
+#plot_dist(a1 = 0.1, b = 0.3, n = 1000, d = 0.15)
 
+a1_true <- 0.1
+b_true <- 1
+set.seed(7362)
+foo <- as.data.frame(t(replicate(50000, est(dgp(a1 = a1_true, b = b_true)))))
+plot(foo$b, foo$a1, xlab = 'b', ylab = 'a1')
+abline(v = b_true, lwd = 2, col = 'red', lty = 2)
+abline(h = a1_true, lwd = 2, col = 'red', lty = 2)
+abline(h = 0, lwd = 2, lty = 2)
+abline(h = 1, lwd = 2, lty = 2)
+
+# Construct an estimator that respects the bounds for the probabilities
+within_bounds <- with(foo, (a1 >= 0) & (a1 <= a1_upper))
+negative <- with(foo, a1 < 0)
+too_large <- with(foo, a1 > a1_upper)
+foo$a1_bounded <- with(foo, a1 * within_bounds +
+                         0 * negative + a1_upper * too_large)
+plot(foo$b[within_bounds], foo$a1[within_bounds])
+abline(v = b_true, lwd = 2, col = 'red', lty = 2)
+abline(h = a1_true, lwd = 2, col = 'red', lty = 2)
+abline(h = 0, lwd = 2, lty = 2)
+abline(h = 1, lwd = 2, lty = 2)
+hist(foo$b[within_bounds])
+summary(foo$b[within_bounds])
