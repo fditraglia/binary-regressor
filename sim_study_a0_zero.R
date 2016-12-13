@@ -244,7 +244,42 @@ plot_dist <- function(a1, b, n, d = 0.15, rho = 0.5){
   par(oma = c(0, 0, 0, 0))
 }
 
-#set.seed(1983)
+CI_sim <- function(a1, b, n, d, rho = 0.5, n_sims = 5000){
+  sims <- replicate(n_sims, est(dgp(a1, b, n, d, rho)))
+  sims <- as.data.frame(t(sims))
+  
+  RF_lower <- with(sims, RF - qnorm(0.975) * RF_SE)
+  RF_upper <- with(sims, RF + qnorm(0.975) * RF_SE)
+  RF_true <- b * (1 - 2 * d)
+  RF_bias <- with(sims, mean(RF - RF_true))
+  RF_cover <- mean((RF_lower <= RF_true) & (RF_upper >= RF_true))
+  RF_width <- median(RF_upper - RF_lower)
+  
+  # Check coverage of CIs
+  #   GMM
+  b_lower <- with(sims, b - qnorm(0.975) * b_SE)
+  b_upper <- with(sims, b + qnorm(0.975) * b_SE)
+  b_bias <- median(sims$b - b)
+  GMM_cover <- mean((b_lower <= b) & (b_upper >= b))
+  GMM_width <- median(b_upper - b)
+  return(c('RF_cover' = RF_cover, 'GMM_cover' = GMM_cover, 
+           'RF_width' = RF_width, 'GMM_width' = GMM_width,
+           'RF_bias' = RF_bias, 'b_bias' = b_bias))
+}
+
+
+set.seed(1983)
+CI_sim(0.1, 2, 1000, 0.15)
+CI_sim(0.1, 1.5, 1000, 0.15)
+CI_sim(0.1, 1, 1000, 0.15)
+CI_sim(0.1, 0.5, 1000, 0.15)
+CI_sim(0.1, 0.25, 1000, 0.15)
+CI_sim(0.1, 0.2, 1000, 0.15)
+CI_sim(0.1, 0.15, 1000, 0.15)
+CI_sim(0.1, 0.1, 1000, 0.15)
+CI_sim(0.1, 0.05, 1000, 0.15)
+CI_sim(0.1, 0, 1000, 0.15)
+
 #plot_dist(a1 = 0.1, b = 3, n = 1000, d = 0.15)
 #plot_dist(a1 = 0.1, b = 2, n = 1000, d = 0.15)
 #plot_dist(a1 = 0.1, b = 1, n = 1000, d = 0.15)
@@ -256,26 +291,60 @@ plot_dist <- function(a1, b, n, d = 0.15, rho = 0.5){
 #plot_dist(a1 = 0.1, b = 0.4, n = 1000, d = 0.15)
 #plot_dist(a1 = 0.1, b = 0.3, n = 1000, d = 0.15)
 
-a1_true <- 0.1
-b_true <- 1
-set.seed(7362)
-foo <- as.data.frame(t(replicate(50000, est(dgp(a1 = a1_true, b = b_true)))))
-plot(foo$b, foo$a1, xlab = 'b', ylab = 'a1')
-abline(v = b_true, lwd = 2, col = 'red', lty = 2)
-abline(h = a1_true, lwd = 2, col = 'red', lty = 2)
-abline(h = 0, lwd = 2, lty = 2)
-abline(h = 1, lwd = 2, lty = 2)
+# a1_true <- 0.3
+# b_true <- 2
+# d_true <- 0.3
+# n_true <- 1000
+# set.seed(7362)
+# foo <- as.data.frame(t(replicate(5000, 
+#                                  est(dgp(a1 = a1_true, b = b_true, 
+#                                          n = n_true, d = d_true)))))
 
-# Construct an estimator that respects the bounds for the probabilities
-within_bounds <- with(foo, (a1 >= 0) & (a1 <= a1_upper))
-negative <- with(foo, a1 < 0)
-too_large <- with(foo, a1 > a1_upper)
-foo$a1_bounded <- with(foo, a1 * within_bounds +
-                         0 * negative + a1_upper * too_large)
-plot(foo$b[within_bounds], foo$a1[within_bounds])
-abline(v = b_true, lwd = 2, col = 'red', lty = 2)
-abline(h = a1_true, lwd = 2, col = 'red', lty = 2)
-abline(h = 0, lwd = 2, lty = 2)
-abline(h = 1, lwd = 2, lty = 2)
-hist(foo$b[within_bounds])
-summary(foo$b[within_bounds])
+# V_true <- get_V_true(a1_true, b_true)
+# sqrt(V_true[1, 1] / 1000)
+# 
+# plot(foo$b, foo$a1, xlab = 'b', ylab = 'a1')
+# abline(v = b_true, lwd = 2, col = 'red', lty = 2)
+# abline(h = a1_true, lwd = 2, col = 'red', lty = 2)
+# abline(h = 0, lwd = 2, lty = 2)
+# abline(h = 1, lwd = 2, lty = 2)
+# 
+# # Construct an estimator that respects the bounds for the probabilities
+# within_bounds <- with(foo, (a1 >= 0) & (a1 <= a1_upper))
+# negative <- with(foo, a1 < 0)
+# too_large <- with(foo, a1 > a1_upper)
+# foo$a1_bounded <- with(foo, a1 * within_bounds +
+#                          0 * negative + a1_upper * too_large)
+# plot(foo$b[within_bounds], foo$a1[within_bounds])
+# abline(v = b_true, lwd = 2, col = 'red', lty = 2)
+# abline(h = a1_true, lwd = 2, col = 'red', lty = 2)
+# abline(h = 0, lwd = 2, lty = 2)
+# abline(h = 1, lwd = 2, lty = 2)
+# hist(foo$b[within_bounds])
+# summary(foo$b[within_bounds])
+# 
+# # Try out a two-step idea:
+# #    - If within the bounds, report GMM inference
+# #    - If outside the bounds, report CI one-sided CI for lower bound (RF)
+# 
+# # Check coverage of CIs
+# #   Reduced Form
+
+# RF_lower <- with(foo, RF - qnorm(0.975) * RF_SE)
+# RF_upper <- with(foo, RF + qnorm(0.975) * RF_SE)
+# RF_true <- b_true * (1 - 2 * d_true)
+# mean((RF_lower <= RF_true) & (RF_upper >= RF_true))
+# 
+# # Check coverage of CIs
+# #   GMM
+# b_lower <- with(foo, b - qnorm(0.975) * b_SE)
+# b_upper <- with(foo, b + qnorm(0.975) * b_SE)
+# mean((b_lower <= b_true) & (b_upper >= b_true))
+# 
+# summary(b_lower)
+# summary(RF_lower)
+  
+  
+  
+  
+  
