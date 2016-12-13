@@ -1439,6 +1439,100 @@ We calculate this as follows:
 &= G_\theta^{-1}\left(\Omega_{gg} + G_\gamma \Omega_{hg} + \Omega_{gh}G_\gamma' + G_\gamma \Omega_{hh} G_\gamma'\right)\left( G_\theta^{-1} \right)'
 \end{align*}
 
+\subsection{Easier(?) Derivation of Simple Special Case: $\alpha_0 = 0$}
+Recall that we could eliminate $\alpha_1$ from the moment conditions, yielding,
+\[
+  \beta = \frac{2 \mbox{Cov}(yT,z)}{\mbox{Cov}(T,z)} - \frac{\mbox{Cov}(y^2,z)}{\mbox{Cov}(y,z)}
+\]
+We can treat this as our $g$ block of moment conditions with a parameter vector $\theta$ that is simply $\beta$.
+This gives
+\[
+  g(\mathbf{w}; \beta, \gamma) = \left[ 2\left(\frac{zTy - qr}{zT - qp}\right) - \frac{zy^2 - qs}{zy - q\mu} - \beta \right]
+\]
+The $h$ block of moment conditions is unchanged.
+Now, we have
+\begin{align*}
+  F &= \left[
+    \begin{array}{cc}
+      \mathbb{E}\left\{\nabla'_\beta g(\mathbf{w};\beta_0, \gamma_0)\right\} & 
+      \mathbb{E}\left\{\nabla'_\gamma g(\mathbf{w};\beta_0, \gamma_0)\right\}\\
+\mathbf{0}& -\mathbf{I}
+    \end{array}
+  \right] \equiv
+  \left[
+  \begin{array}{cc}
+    G_\beta & G_\gamma\\
+    \mathbf{0} & - \mathbf{I}
+  \end{array}
+\right] = \left[
+\begin{array}{cc}
+  -1 & G_\gamma \\
+    \mathbf{0} & - \mathbf{I}
+\end{array}
+\right]
+\end{align*}
+since the derivative of $g$ with respect to $\beta$ is -1 and that of $h$ with respect to $\gamma$ is $-\mathbf{I}$.
+Inverting, 
+\[
+  -F^{-1} = 
+  \left[
+  \begin{array}{cc}
+    -G_\beta & -G_\gamma \\
+    \mathbf{0} & \mathbf{I}
+  \end{array}
+\right]^{-1} =
+\left[
+\begin{array}{cc}
+  -G_{\beta}^{-1} & -G_{\beta}^{-1}G_{\gamma}\\
+  \mathbf{0} & \mathbf{I}
+\end{array}
+\right] = \left[
+\begin{array}{cc}
+  1 & G_\gamma \\
+  \mathbf{0} & \mathbf{I}
+\end{array}
+\right]
+\]
+We calculate $G_\gamma$ as follows: 
+\begin{align*}
+  G_\gamma &= \mathbb{E}
+  \left[
+  \begin{array}{ccccc}
+    \nabla_q g & \nabla_p g & \nabla_\mu g & \nabla_s g & \nabla_r g
+  \end{array}
+\right] \\ \\
+  \nabla_q g(\mathbf{w};\beta_0, \gamma_0) &= \nabla_q \left[ 2\left(\frac{zTy - qr}{zT - qp}\right) - \frac{zy^2 - qs}{zy - q\mu} - \beta \right]\\
+  &= 2\left[ \frac{-r(zT - qp) + p(zTy - qr)}{(zT - qp)^2} \right] - \frac{-s(zy - q\mu) + \mu (zy^2 - qs)}{(zy - q\mu)^2}\\
+  &=  \frac{2zT(py - r)}{(zT - qp)^2}  - \frac{zy (\mu y - s)  }{(zy - q\mu)^2}\\ \\
+  \nabla_p g(\mathbf{w};\beta_0, \gamma_0) &= \frac{2q(zTy - qr)}{(zT - qp)^2} \\ \\
+  \nabla_\mu g(\mathbf{w};\beta_0, \gamma_0) &= \frac{-q(zy^2 - qs)}{(zy - q\mu)^2}\\ \\
+  \nabla_s g(\mathbf{w};\beta_0, \gamma_0) &= \frac{q}{zy - q\mu} \\ \\
+  \nabla_r g(\mathbf{w};\beta_0, \gamma_0) &= \frac{-2q}{zT - qp}
+\end{align*}
+
+The next step is to calculate $\Omega$:
+\begin{align*}
+  \Omega &= \mbox{Var}\left[ f(\mathbf{w}_i; \theta_0, \gamma_0) \right] 
+  =\mathbb{E}
+  \left[
+  \begin{array}{cc}
+    g(\mathbf{w}_i;\theta_0, \gamma_0)g(\mathbf{w}_i;\theta_0, \gamma_0)' &
+    g(\mathbf{w}_i;\theta_0, \gamma_0)h(\mathbf{w}_i;\theta_0, \gamma_0)' \\
+    h(\mathbf{w}_i;\theta_0, \gamma_0)g(\mathbf{w}_i;\theta_0, \gamma_0)' &
+    h(\mathbf{w}_i;\theta_0, \gamma_0)h(\mathbf{w}_i;\theta_0, \gamma_0)'
+  \end{array}
+\right]\\ &\equiv
+\left[
+\begin{array}{cc}
+  \Omega_{gg} & \Omega_{gh}\\
+  \Omega_{gh} & \Omega_{hh}
+\end{array}
+\right]
+\end{align*}
+We now calculate each block.
+\todo[inline]{Still need to do this!}
+
+
 \subsection{Two-Step Inference Idea}
 If $\beta$ is small, then confidence intervals based on the GMM limit distribution from above will perform badly.
 But even in this case, inference for the \emph{identified set} $\left[ \beta_{RF}, \beta_{IV} \right]$ should still be well-behaved, so long as the instrument is strong.
@@ -1752,7 +1846,56 @@ f(\varepsilon|\xi > a) &= \frac{\varphi(\varepsilon)}{1-\Phi(a)}\left[1 - \Phi\l
 \todo[inline]{I've checked all of these integrals in R and they're definitely correct.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+\paragraph{IV Estimator}
+\begin{align*}
+  \widehat{\beta}_{IV} &= \left( \widetilde{Z}\widetilde{T}/n \right)^{-1}\left(\widetilde{Z}'\mathbf{y}/n\right) =  \left( \widetilde{Z}\widetilde{T}/n \right)^{-1}\widetilde{Z}' \left( \widetilde{T}^* \widetilde{\beta} + \boldsymbol{\varepsilon} \right)/n\\
+  &= \left( \widetilde{Z}'\widetilde{T}/n \right)^{-1}\left( \widetilde{Z}'\widetilde{T}^*/n + \widetilde{Z}'\boldsymbol{\varepsilon}/n \right) \\ \\
+  \widetilde{Z}'\boldsymbol{\varepsilon}/n &\rightarrow_p \mathbb{E}\left[
+  \begin{array}{c}
+    \varepsilon \\ z \varepsilon
+  \end{array}
+\right] = \mathbf{0}\\ \\ 
+\left(\widetilde{Z}'\widetilde{T}/n\right)^{-1} &= \left[
+\begin{array}{cc}
+  1 & \bar{T} \\ \bar{z} & \mathbf{z}'\mathbf{T}/n
+\end{array}
+\right] \rightarrow_p \left[
+\begin{array}{cc}
+  1 & p \\ q & p_1 q
+\end{array}
+\right] = \frac{1}{q(p_1 - p)}\left[
+\begin{array}{cc}
+  p_1 q & -p \\ -q & 1
+\end{array}
+\right] \\ \\ 
+\widetilde{Z}'\widetilde{T}^*/n &= \left[
+\begin{array}{cc}
+  1 & \bar{T^*} \\ \bar{z} & \mathbf{z}'\mathbf{T}^*/n
+\end{array}
+\right] \rightarrow_p \left[
+\begin{array}{cc}
+  1 & p^* \\ q & p_1^* q
+\end{array}
+\right] \\ \\ 
+\left( \widetilde{Z}'\widetilde{T}/n \right)^{-1}\left( \widetilde{Z}'\widetilde{T}^*/n \right) &\rightarrow_p \frac{1}{q(p_1 -p)}\left[
+\begin{array}{cc}
+  qp_1 & - p\\
+  -q & 1 
+\end{array}
+\right]
+\left[
+\begin{array}{cc}
+  1 & p^*\\
+  q & qp_1^*
+\end{array}
+\right]= \left[
+\begin{array}{cc}
+  1 & (p_1 p^* - p_1^* p)/(p_1 - p)\\
+  0 & (p_1^* - p^*) / (p_1 - p)
+\end{array}
+\right]
+\end{align*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Other Stuff\ldots}
 
 \begin{itemize}
