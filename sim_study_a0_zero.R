@@ -267,18 +267,31 @@ CI_sim <- function(a1, b, n, d, rho = 0.5, n_sims = 5000){
            'RF_bias' = RF_bias, 'b_bias' = b_bias))
 }
 
-
+# Try out the two-step idea
 set.seed(1983)
-CI_sim(0.1, 2, 1000, 0.15)
-CI_sim(0.1, 1.5, 1000, 0.15)
-CI_sim(0.1, 1, 1000, 0.15)
-CI_sim(0.1, 0.5, 1000, 0.15)
-CI_sim(0.1, 0.25, 1000, 0.15)
-CI_sim(0.1, 0.2, 1000, 0.15)
-CI_sim(0.1, 0.15, 1000, 0.15)
-CI_sim(0.1, 0.1, 1000, 0.15)
-CI_sim(0.1, 0.05, 1000, 0.15)
-CI_sim(0.1, 0, 1000, 0.15)
+a1_true <- 0.1
+b_true <- 0
+d_true <- 0.25
+sims <- as.data.frame(t(replicate(5000, est(dgp(a1_true, b_true, n = 1000, d_true)))))
+sims$RF_lower <- with(sims, RF - qnorm(0.95) * RF_SE)
+good <- with(sims, RF_lower > 0)
+sims$b_lower <- with(sims, b - qnorm(0.95) * b_SE)
+bad <- with(sims, b_lower < RF_lower)
+MASS::truehist(sims$b[!bad])
+mean(sims$b[!bad])
+
+
+# set.seed(1983)
+# CI_sim(0.1, 2, 1000, 0.15)
+# CI_sim(0.1, 1.5, 1000, 0.15)
+# CI_sim(0.1, 1, 1000, 0.15)
+# CI_sim(0.1, 0.5, 1000, 0.15)
+# CI_sim(0.1, 0.25, 1000, 0.15)
+# CI_sim(0.1, 0.2, 1000, 0.15)
+# CI_sim(0.1, 0.15, 1000, 0.15)
+# CI_sim(0.1, 0.1, 1000, 0.15)
+# CI_sim(0.1, 0.05, 1000, 0.15)
+# CI_sim(0.1, 0, 1000, 0.15)
 
 #plot_dist(a1 = 0.1, b = 3, n = 1000, d = 0.15)
 #plot_dist(a1 = 0.1, b = 2, n = 1000, d = 0.15)
