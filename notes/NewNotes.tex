@@ -1847,6 +1847,8 @@ f(\varepsilon|\xi > a) &= \frac{\varphi(\varepsilon)}{1-\Phi(a)}\left[1 - \Phi\l
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{IV Estimator}
+First we calculate the probability limits of the IV estimators of $\beta$ and $c$.
+Notice that \emph{both} are inconsistent:
 \begin{align*}
   \widehat{\beta}_{IV} &= \left( \widetilde{Z}\widetilde{T}/n \right)^{-1}\left(\widetilde{Z}'\mathbf{y}/n\right) =  \left( \widetilde{Z}\widetilde{T}/n \right)^{-1}\widetilde{Z}' \left( \widetilde{T}^* \widetilde{\beta} + \boldsymbol{\varepsilon} \right)/n\\
 &= \left( \widetilde{Z}'\widetilde{T}/n \right)^{-1}\left( \left[\widetilde{Z}'\widetilde{T}^*/n \right] \widetilde{\beta} + \widetilde{Z}'\boldsymbol{\varepsilon}/n \right) \\ \\
@@ -1888,13 +1890,72 @@ f(\varepsilon|\xi > a) &= \frac{\varphi(\varepsilon)}{1-\Phi(a)}\left[1 - \Phi\l
   1 & p^*\\
   q & qp_1^*
 \end{array}
-\right]= \left[
+\right]= 
+\left[
 \begin{array}{cc}
   1 & (p_1 p^* - p_1^* p)/(p_1 - p)\\
   0 & (p_1^* - p^*) / (p_1 - p)
 \end{array}
+\right] \\ \\ 
+\frac{p_1^* - p^*}{p_1 - p} &= \frac{1}{p_1 - p}\left( \frac{p_1 - \alpha_0}{1 - \alpha_0 - \alpha_1} - \frac{p - \alpha_0}{1 - \alpha_0 - \alpha_1} \right) = \frac{1}{1 - \alpha_0 - \alpha_1}\\ \\
+\frac{p_1 p^* - p_1^*p}{p_1 - p} &= \frac{1}{p_1 - p}\left[ \frac{p_1(p - \alpha_0)}{1 - \alpha_0 - \alpha_1} -  \frac{p(p_1 - \alpha_0)}{1 - \alpha_0 - \alpha_1} \right] = \frac{-\alpha_0}{1 - \alpha_0 - \alpha_1}\\ \\
+\boldsymbol{\beta}_{IV} &\rightarrow_p 
+\left[
+\begin{array}{cc}
+  1 & (p_1 p^* - p_1^* p)/(p_1 - p)\\
+  0 & (p_1^* - p^*) / (p_1 - p)
+\end{array}
+\right]\left[
+\begin{array}{c}
+  c \\ \beta
+\end{array}
+\right] = \frac{1}{1 - \alpha_0 - \alpha_1}\left[
+\begin{array}{c} 
+  c - \alpha_0 \beta \\
+  \beta
+\end{array}
+\right] \equiv
+\left[
+\begin{array}{c}
+  c_{IV}\\ \beta_{IV}
+\end{array}
 \right]
 \end{align*}
+Now that we have the probability limit of the IV estimator, we can work out the error term $\omega$ that corresponds to it as a function of the ``primitives'' of our model.
+We have:
+\begin{align*}
+  \zeta &= y - (c_{IV} + \beta_{IV} T) = (c + \beta T^* + \varepsilon) - \frac{1}{1 - \alpha_0 - \alpha_1}\left[ \left(c - \alpha_0 \beta\right) + \beta T \right] \\
+  &= \varepsilon + c - \left(\frac{c - \alpha_0 \beta}{1 - \alpha_0 - \alpha_1} \right) + \beta\left( T^* - \frac{T}{1 - \alpha_0 - \alpha_1} \right)\\
+  &= \varepsilon + \left[\frac{\alpha_0 (\beta - c) - \alpha_1 c}{1 - \alpha_0 - \alpha_1} \right] + \beta\left[ \frac{(T^* - T) - (\alpha_0 + \alpha_1)T^*}{1 - \alpha_0 - \alpha_1} \right]\\
+  &= \varepsilon + \left[\frac{\alpha_0 (\beta - c) - \alpha_1 c}{1 - \alpha_0 - \alpha_1} \right] + \beta\left[ \frac{w - (\alpha_0 + \alpha_1)(\pi_0 + \pi_1 z + v)}{1 - \alpha_0 - \alpha_1} \right]
+\end{align*}
+\todo[inline]{This looks pretty complicated. I'm also not sure we need to work this out analytically. All we really need is to write out the joint limit distribution of the IV and RF\ldots}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Joint Distribution of IV and RF}
+To carry out inference for the identified set, we need to work out the joint distribution of the reduced form and IV estimators:
+\begin{align*}
+  \widehat{\boldsymbol{\beta}}_{IV} &= \left( \widetilde{Z}'\widetilde{T}/n \right)^{-1}\left( \widetilde{Z}'\mathbf{y}/n \right)\\
+  \widehat{\boldsymbol{\gamma}} &= \left( \widetilde{Z}'\widetilde{Z} \right)^{-1}\left( \widetilde{Z}'\boldsymbol{y}/n \right)
+\end{align*}
+The probability limits of each estimator define an associated error term, each of which depends in a complicated way on our ``primitive'' model parameters:
+\begin{align*}
+  y &= c_{IV} + \beta_{IV} T + \zeta \\
+  y &= \gamma_0 + \gamma_1 z + \eta 
+\end{align*}
+But because these two estimators depend only on observable quantities, we can use their residuals to work out the covariance matrix of $(\zeta, \eta)$. 
+Accordingly, we proceed as follows:
+\begin{align*}
+  \widehat{\boldsymbol{\beta}}_{IV} &= \left( \widetilde{Z}'\widetilde{T}/n \right)^{-1}\left( \widetilde{Z}'\left[ \widetilde{T}\boldsymbol{\beta}_{IV} + \boldsymbol{\zeta} \right]/n \right) = \boldsymbol{\beta}_{IV} +\left( \widetilde{Z}'\widetilde{T}/n \right)^{-1}\left( \widetilde{Z}'\boldsymbol{\zeta}/n\right) \\
+  \widehat{\boldsymbol{\gamma}} &= \left( \widetilde{Z}'\widetilde{Z} \right)^{-1}\left( \widetilde{Z}'\left[ \widetilde{Z}\boldsymbol{\gamma} + \boldsymbol{\eta} \right]/n \right) = \boldsymbol{\gamma} + \left( \widetilde{Z}'\widetilde{Z}/n \right)^{-1}\left( \widetilde{Z}\boldsymbol{\eta}/n \right)
+\end{align*}
+yielding
+\begin{align*}
+  \sqrt{n}\left(\widehat{\boldsymbol{\beta}}_{IV} - \boldsymbol{\beta}_{IV}\right) &= \left( \widetilde{Z}'\widetilde{T}/n \right)^{-1}\left( \widetilde{Z}'\boldsymbol{\zeta}/\sqrt{n}\right) \\
+  \sqrt{n}\left(\widehat{\boldsymbol{\gamma}} - \boldsymbol{\gamma}\right) &=  \left( \widetilde{Z}'\widetilde{Z}/n \right)^{-1}\left( \widetilde{Z}'\boldsymbol{\eta}/\sqrt{n} \right)
+\end{align*}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Other Stuff\ldots}
 
