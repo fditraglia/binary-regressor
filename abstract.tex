@@ -1,8 +1,11 @@
 %!TEX root = ./main.tex
-This paper studies the use of a discrete instrumental variable to identify the causal effect of an endogenous, mis-measured, binary treatment.
-We begin by showing that the only existing identification result for this case, which appears in \cite{Mahajan}, is incorrect.
+This paper studies the use of a discrete instrumental variable to identify the effect of a binary, endogenous regressor that is subject to non-differential measurement error.
+We begin by showing that the only existing identification result for this case is incorrect.
 As such, identification in this model remains an open question.
-We first prove that the treatment effect is unidentified based on conditional first-moment information, regardless of the number of values that the instrument may take.
-We go on to derive a novel partial identification result based on conditional second moments that can be used to test for the presence of mis-classification and to construct simple and informative bounds for the treatment effect.
-In certain special cases, we can in fact obtain point identification of the treatment effect based on second moment information alone.
-When this is not possible, we show that adding conditional third moment information point identifies the treatment effect and the measurement error process.
+We then show that the model is unidentified under the usual mean independence assumption for the instrument and measurement error.
+This motivates us to consider alternative and slightly stronger forms of independence.
+Our main result shows that adding second and third moment independence assumptions suffices to identify the model.
+We also derive a number of partial identification results under different forms of independence. 
+Our identification result leads to an explicit method of moments estimator. 
+Like a number of related estimators from the literature, however, it suffers from a weak identification problem when the regressor has only a small effect on the outcome of interest. 
+To address this difficulty, we propose a two-step inference procedure that combines our moment equalities with partially-identifying moment inequalities.
