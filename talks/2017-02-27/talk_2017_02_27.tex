@@ -85,19 +85,19 @@
 %   
 %\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Example: Returns to Schooling} 
-\framesubtitle{Oreopoulos (2006, AER)}
-Fuzzy RD: minimum school-leaving age in UK increased from 14 to 15 in 1947 but some already stayed until 15 before the law and others failed to comply after it.
-\begin{itemize}
-  \item $y$ -- Log wage 
-  \item $T^*$ -- School attendance at age 15
-  \item $T$ -- Self-report of school attendance at age 15
-  \item $\mathbf{x}$ -- Individual characteristics
-  \item $z$ -- Indicator: born in or after 1933
-\end{itemize}
-   
-\end{frame}
+%\begin{frame}
+%  \frametitle{Example: Returns to Schooling} 
+%\framesubtitle{Oreopoulos (2006, AER)}
+%Fuzzy RD: minimum school-leaving age in UK increased from 14 to 15 in 1947 but some already stayed until 15 before the law and others failed to comply after it.
+%\begin{itemize}
+%  \item $y$ -- Log wage 
+%  \item $T^*$ -- School attendance at age 15
+%  \item $T$ -- Self-report of school attendance at age 15
+%  \item $\mathbf{x}$ -- Individual characteristics
+%  \item $z$ -- Indicator: born in or after 1933
+%\end{itemize}
+%   
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[label=MAHAJAN_BODY]
   \frametitle{Related Literature}
@@ -243,58 +243,59 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 %
 %\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Possible Restrictions On $m^*_{tk}$}
-  \begin{block}{Joint Exogeneity: $\mathbb{E}[\varepsilon|T^*,z]=0$}
-    $\implies m^*_{tk} =c \quad$ for all $t,k$
-  \end{block}
-  \begin{block}{Exogenous Treatment: $\mathbb{E}[\varepsilon|T^*]=0$}
-    $\implies \displaystyle \frac{1}{\mathbb{P}(T^*=t)}\sum_{k}p^*_{tk}m^*_{tk} = c\quad$  for all $t$
-  \end{block}
-  \begin{alertblock}{Exogenous Instrument: $\mathbb{E}[\varepsilon|z]=0$}
-    $\implies (1-p^*_k)m^*_{0k} + p^*_k m^*_{1k}=c \quad$ for all $k$
-  \end{alertblock}
-
-\end{frame}
+%\begin{frame}
+%  \frametitle{Possible Restrictions On $m^*_{tk}$}
+%  \begin{block}{Joint Exogeneity: $\mathbb{E}[\varepsilon|T^*,z]=0$}
+%    $\implies m^*_{tk} =c \quad$ for all $t,k$
+%  \end{block}
+%  \begin{block}{Exogenous Treatment: $\mathbb{E}[\varepsilon|T^*]=0$}
+%    $\implies \displaystyle \frac{1}{\mathbb{P}(T^*=t)}\sum_{k}p^*_{tk}m^*_{tk} = c\quad$  for all $t$
+%  \end{block}
+%  \begin{alertblock}{Exogenous Instrument: $\mathbb{E}[\varepsilon|z]=0$}
+%    $\implies (1-p^*_k)m^*_{0k} + p^*_k m^*_{1k}=c \quad$ for all $k$
+%  \end{alertblock}
+%
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{System of Equations given $E[\varepsilon|z]=0$}
+  \small
   \alert{\framebox{$\mathbb{E}[\varepsilon|z]=0 \implies$ \emph{pair} of equations for each $k = 1, \dots, K$}}
 \begin{align*}
-  \hat{y}_{0k} &=\alpha_1(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + (1-\alpha_0)c - (p _k -  \alpha_0)m_{1k}^* \\[1.5ex]
-  \label{eq:MC1IV}
-  \hat{y}_{1k} &=(1-\alpha_1)(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + \alpha_0 c + (p _k -  \alpha_0)m_{1k}^*
+  (1 - p_k)\bar{y}_{0k} &=\alpha_1(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + (1-\alpha_0)c - (p _k -  \alpha_0)m_{1k}^* \\[1.5ex]
+  p_k\bar{y}_{1k} &=(1-\alpha_1)(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + \alpha_0 c + (p _k -  \alpha_0)m_{1k}^*
 \end{align*}
 
-\vspace{0.5em}
-where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
+\begin{alertblock}{Theorem}
+  $2K$ equations in $K+4$ unknowns, but $\beta$ is unidentified \emph{regardless} of $K$.
+\end{alertblock}
 
+\begin{block}{Intuition}
+  Using $E[\varepsilon|z]=0$ to eliminate $m_{0k}^*$ from the system ``entangles'' the equations such that each pair only provides one restriction.
+\end{block}
 
-\vspace{2em} 
-
-\hfill \alert{\framebox{$2K$ Equations in $K+4$ Unknowns}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{$\beta$ is undentified regardless of $K$.}
-  \framesubtitle{Proof of special case: $\alpha_0 = 0$}
-    \begin{enumerate}
-      \item System of equations: 
-        \vspace{-0.5em}
-\begin{align*}
-  \widetilde{y}_{0k} &=c + p_k \alert{ \left(\frac{\beta\alpha_1}{1 -  \alpha_1}\right)} - p _k m_{1k}^* \\
-  \widetilde{y}_{1k} &=p_k \beta + p _k m_{1k}^*
-\end{align*}
-  \item $\beta/(1-\alpha_1) \equiv \beta_{IV}$ identified,  $\beta\alpha_1/(1-\alpha_1) = \alert{\beta_{IV} - \beta} \implies$ 
-        \vspace{-0.5em}
-\begin{align*}
-  \textcolor{blue}{(c + p_k \beta_{IV} - \widetilde{y}_{0k})}/p_k &=\beta + m_{1k}^* \\
-  \widetilde{y}_{1k}/p_k &= \beta + m_{1k}^*
-\end{align*}
-\item Sum equations from 1.\ $\implies (c + p_k \beta_{IV} - \widetilde{y}_{0k}) = \textcolor{blue}{\widetilde{y}_{1k}}$
-    \end{enumerate}
-    
-\end{frame}
+%\begin{frame}
+%  \frametitle{$\beta$ is undentified regardless of $K$.}
+%  \framesubtitle{Proof of special case: $\alpha_0 = 0$}
+%    \begin{enumerate}
+%      \item System of equations: 
+%        \vspace{-0.5em}
+%\begin{align*}
+%  \widetilde{y}_{0k} &=c + p_k \alert{ \left(\frac{\beta\alpha_1}{1 -  \alpha_1}\right)} - p _k m_{1k}^* \\
+%  \widetilde{y}_{1k} &=p_k \beta + p _k m_{1k}^*
+%\end{align*}
+%  \item $\beta/(1-\alpha_1) \equiv \beta_{IV}$ identified,  $\beta\alpha_1/(1-\alpha_1) = \alert{\beta_{IV} - \beta} \implies$ 
+%        \vspace{-0.5em}
+%\begin{align*}
+%  \textcolor{blue}{(c + p_k \beta_{IV} - \widetilde{y}_{0k})}/p_k &=\beta + m_{1k}^* \\
+%  \widetilde{y}_{1k}/p_k &= \beta + m_{1k}^*
+%\end{align*}
+%\item Sum equations from 1.\ $\implies (c + p_k \beta_{IV} - \widetilde{y}_{0k}) = \textcolor{blue}{\widetilde{y}_{1k}}$
+%    \end{enumerate}
+%    
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Bounds for Mis-classification Probabilities}
@@ -459,14 +460,14 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \alert{Bounds for $(\alpha_0, \alpha_1)$ do \emph{not} require $z$ to be a valid instrument!}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Upper Bounds for Mis-Classification Rates}
-  \framesubtitle{Returns to Schooling Example: Oreopoulos (2006)}
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{Oreo_CDFbounds}
-  \end{figure}
-\end{frame}
+%\begin{frame}
+%  \frametitle{Upper Bounds for Mis-Classification Rates}
+%  \framesubtitle{Returns to Schooling Example: Oreopoulos (2006)}
+%  \begin{figure}[h]
+%    \centering
+%    \includegraphics[width=\textwidth]{Oreo_CDFbounds}
+%  \end{figure}
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Sufficient Conditions To Identify $\alpha_0, \alpha_1$, and $\beta$}
@@ -578,26 +579,29 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \end{align*}
 \end{block}
 \normalsize
+\begin{alertblock}{Theorem}
+  Third moment suffice to identify the model provided that $\beta \neq 0$. If $\beta = 0$, the reduced form identifies $\beta$.
+\end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Sketch of Identification Argument}
-  \alert{Very tedious algebra\ldots}
-  \begin{enumerate}
-    \item Use 1st MC to eliminate $\beta/(1 - \alpha_0 - \alpha_1)$ from others
-    \item Use 2nd MC to solve for $\alpha_1$ in terms of $\alpha_0$ 
-    \item 3rd MC becomes a quadratic in $(1-\alpha_1)$ and observables only.
-    \item The quadratic always has two real roots: $(1 - \alpha_1)$ and $\alpha_0$.
-    \item To tell which root is which, use $\alpha_0 + \alpha_1 < 1$.
-    \item Calculate $\alpha_0 + \alpha_1$ and substitute into 1st MC to obtain $\beta$.
-  \end{enumerate}
-
-  \vspace{1em}
-  \alert{Unfortunately, identification of $\alpha_0, \alpha_1$ fails if $\beta = 0$\ldots}
-\end{frame}
+%\begin{frame}
+%  \frametitle{Sketch of Identification Argument}
+%  \alert{Very tedious algebra\ldots}
+%  \begin{enumerate}
+%    \item Use 1st MC to eliminate $\beta/(1 - \alpha_0 - \alpha_1)$ from others
+%    \item Use 2nd MC to solve for $\alpha_1$ in terms of $\alpha_0$ 
+%    \item 3rd MC becomes a quadratic in $(1-\alpha_1)$ and observables only.
+%    \item The quadratic always has two real roots: $(1 - \alpha_1)$ and $\alpha_0$.
+%    \item To tell which root is which, use $\alpha_0 + \alpha_1 < 1$.
+%    \item Calculate $\alpha_0 + \alpha_1$ and substitute into 1st MC to obtain $\beta$.
+%  \end{enumerate}
+%
+%  \vspace{1em}
+%  \alert{Unfortunately, identification of $\alpha_0, \alpha_1$ fails if $\beta = 0$\ldots}
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Simple Special Case: $\alpha_0 = 0$}
+  \frametitle{Weak Identification in Simple Special Case: $\alpha_0 = 0$}
   \begin{align*}
     \mbox{Cov}(y,z) - \left( \frac{\beta}{1 - \alpha_1} \right) \mbox{Cov}(T,z) &= 0\\
   \mbox{Cov}(y^2,z) - \frac{\beta}{1 - \alpha_1}\left\{2\mbox{Cov}(yT,z)- \beta \mbox{Cov}(T,z)\right\} &= 0
@@ -702,7 +706,7 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 %\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Simulation Example: $y = \beta T^* + \varepsilon$}
+  \frametitle{Simulation DGP: $y = \beta T^* + \varepsilon$}
   \begin{block}{Errors}
       $(\varepsilon, \eta) \sim $ jointly normal, mean 0, variance 1, correlation 0.5.
   \end{block}
@@ -722,21 +726,21 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 
   \begin{block}{Mis-classification}
       \begin{itemize}
-        \item Set $\alpha_0 = 0$ so $T^* = 0 \implies T=0$
+        \item Set $\alpha_0 = 0$ 
         \item $T|T^*=1 \sim \mbox{Bernoulli}(1-\alpha_1)$
       \end{itemize}
   \end{block}
   
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[plain,c]
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{Rplot1}
-  \end{figure}
-
-\end{frame}
+%\begin{frame}[plain,c]
+%
+%  \begin{figure}[h]
+%    \centering
+%    \includegraphics[width=\textwidth]{Rplot1}
+%  \end{figure}
+%
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[plain,c]
 
@@ -756,42 +760,42 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[plain,c]
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{Rplot5}
-  \end{figure}
-
-\end{frame}
+%\begin{frame}[plain,c]
+%
+%  \begin{figure}[h]
+%    \centering
+%    \includegraphics[width=\textwidth]{Rplot5}
+%  \end{figure}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[plain,c]
+%
+%  \begin{figure}[h]
+%    \centering
+%    \includegraphics[width=\textwidth]{Rplot6}
+%  \end{figure}
+%
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[plain,c]
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{Rplot6}
-  \end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[plain,c]
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{Rplot7}
-  \end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[plain,c]
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{Rplot8}
-  \end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[plain,c]
+%
+%  \begin{figure}[h]
+%    \centering
+%    \includegraphics[width=\textwidth]{Rplot7}
+%  \end{figure}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[plain,c]
+%
+%  \begin{figure}[h]
+%    \centering
+%    \includegraphics[width=\textwidth]{Rplot8}
+%  \end{figure}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[plain,c]
 
   \begin{figure}[h]
@@ -820,38 +824,64 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{$(z \perp \varepsilon)$ and $(T\perp \varepsilon|T^*,z) \Rightarrow$ Continuum of MCs}
-  \framesubtitle{Figure depicts simulation DGP}
-
-%  \begin{block}{Characteristic Functions}
-%    \vspace{-1em}
-%\[
-%  e^{i\omega\beta}\left[(1 - \alpha_1) - \xi(\omega)\right] =  \alpha_0 - \xi(\omega) 
-%\]
-%\small
-%\[
-%  \xi(\omega) \equiv \frac{\varphi_k(\omega) - \varphi_\ell(\omega)}{p_k \varphi_{1k}(\omega) - p_\ell\varphi_{1\ell}(\omega)}
-%\]
-%\end{block}
-%\normalsize
-%  \begin{block}{Distribution Functions}
-    \vspace{-0.7em}
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{Delta_sim}
-  \end{figure}
-    
-    \vspace{-4em}
-\begin{align*}
-    \widetilde{\Delta}_1(\tau+\beta) - \widetilde{\Delta}_1(\tau) &= \alpha_0 \Delta(\tau + \beta) - (1 - \alpha_1) \Delta(\tau)\\
-  \Delta(\tau) &= F_k(\tau) - F_\ell(\tau)\\
-  \widetilde{\Delta}_1(\tau) &= p_k F_{1k}(\tau) - p_\ell F_{1\ell}(\tau)
-\end{align*}
-
-%  \end{block}
-
-  \normalsize
+  \frametitle{Coverage and Width of Nominal 95\% CIs}
+  \framesubtitle{$\alpha_1 = 0.1, \delta = 0.15, n = 1000, \rho = 0.5$}
+\begin{table}[!tbp]
+  \small
+\centering
+\begin{tabular}{rrrrrr}
+\hline\hline
+&& \multicolumn{2}{c}{Coverage} & \multicolumn{2}{c}{Width}\\
+\multicolumn{1}{c}{$\beta$}&\multicolumn{1}{c}{RF}&\multicolumn{1}{c}{RF}&\multicolumn{1}{c}{GMM}&\multicolumn{1}{c}{RF}&\multicolumn{1}{c}{GMM}\tabularnewline
+\hline
+$2.00$&$1.400$&$0.95$&$0.95$&$0.35$&$0.23$\tabularnewline
+$1.50$&$1.050$&$0.95$&$0.95$&$0.32$&$0.26$\tabularnewline
+$1.00$&$0.700$&$0.95$&$0.95$&$0.29$&$0.32$\tabularnewline
+$0.50$&$0.350$&$0.95$&$0.96$&$0.27$&$0.55$\tabularnewline
+$0.25$&$0.175$&$0.95$&$0.98$&$0.26$&$1.08$\tabularnewline
+$0.20$&$0.140$&$0.95$&$0.99$&$0.25$&$1.40$\tabularnewline
+$0.15$&$0.105$&$0.95$&$0.99$&$0.25$&$1.86$\tabularnewline
+$0.10$&$0.070$&$0.95$&$1.00$&$0.25$&$3.04$\tabularnewline
+$0.05$&$0.035$&$0.95$&$1.00$&$0.25$&$4.76$\tabularnewline
+$0.01$&$0.007$&$0.95$&$1.00$&$0.25$&$5.92$\tabularnewline
+\hline
+\end{tabular}
+\end{table}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{$(z \perp \varepsilon)$ and $(T\perp \varepsilon|T^*,z) \Rightarrow$ Continuum of MCs}
+%  \framesubtitle{Figure depicts simulation DGP}
+%
+%%  \begin{block}{Characteristic Functions}
+%%    \vspace{-1em}
+%%\[
+%%  e^{i\omega\beta}\left[(1 - \alpha_1) - \xi(\omega)\right] =  \alpha_0 - \xi(\omega) 
+%%\]
+%%\small
+%%\[
+%%  \xi(\omega) \equiv \frac{\varphi_k(\omega) - \varphi_\ell(\omega)}{p_k \varphi_{1k}(\omega) - p_\ell\varphi_{1\ell}(\omega)}
+%%\]
+%%\end{block}
+%%\normalsize
+%%  \begin{block}{Distribution Functions}
+%    \vspace{-0.7em}
+%  \begin{figure}[h]
+%    \centering
+%    \includegraphics[width=\textwidth]{Delta_sim}
+%  \end{figure}
+%    
+%    \vspace{-4em}
+%\begin{align*}
+%    \widetilde{\Delta}_1(\tau+\beta) - \widetilde{\Delta}_1(\tau) &= \alpha_0 \Delta(\tau + \beta) - (1 - \alpha_1) \Delta(\tau)\\
+%  \Delta(\tau) &= F_k(\tau) - F_\ell(\tau)\\
+%  \widetilde{\Delta}_1(\tau) &= p_k F_{1k}(\tau) - p_\ell F_{1\ell}(\tau)
+%\end{align*}
+%
+%%  \end{block}
+%
+%  \normalsize
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
@@ -873,7 +903,7 @@ where $\hat{y}_{0k}=(1-p_k)\bar{y}_{0k}$ and $\hat{y}_{0k}=p_k\bar{y}_{1k}$
     \begin{itemize}
       \item Weak Identification: Two-step Inference?
       \item Heterogeneous Treatment Effects 
-      \item Empirical Examples
+      %\item Empirical Examples
     \end{itemize}
   \end{block}
 \end{frame}
