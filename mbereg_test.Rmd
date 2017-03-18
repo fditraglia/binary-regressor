@@ -1,0 +1,182 @@
+---
+title: "Results for Constrained GMM Estimator"
+author: "Frank DiTraglia"
+date: "March 18, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The true value of $\alpha_1$ in this simulation was 0.1.
+I tried three different values for $\beta$: 0.5, 0.3, and 0.1.
+All other parameters were fixed at the defaults we've been using thus far, namely $n = 1000$, $\delta = 0.15$ and $\rho = 0.5$.
+Results are based on 1000 simulation replications
+```{r cars}
+load('~/binary-regressor/mbereg_test.Rd')
+sim_b_equals_0_point_5 <- sim_results$`b=0.5`
+sim_b_equals_0_point_3 <- sim_results$`b=0.3`
+sim_b_equals_0_point_1 <- sim_results$`b=0.1`
+```
+
+## First Experiment: $\beta = 0.5$
+### Results for $\alpha_1$
+The sampling distribution of the constrained estimator for $\alpha_1$ is highly non-normal:
+```{r}
+par(mfrow = c(1, 2))
+MASS::truehist(sim_b_equals_0_point_5$a1_naive,
+               xlab = expression(alpha[1]), 
+               main = "Naive, b=0.5, a1=0.1")
+abline(v = 0.1, lwd = 3, lty = 2, col = 'red')
+MASS::truehist(sim_b_equals_0_point_5$a1_constr,
+               xlab = expression(alpha[1]), 
+               main = "Constrained, b=0.5, a1=0.1")
+abline(v = 0.1, lwd = 3, lty = 2, col = 'red')
+par(mfrow = c(1, 1))
+```
+
+but the constrained estimator is much less variable:
+```{r}
+c(naive = sd(sim_b_equals_0_point_5$a1_naive),
+  constr = sd(sim_b_equals_0_point_5$a1_constr))
+```
+and approximately unbiased:
+```{r}
+c(naive = mean(sim_b_equals_0_point_5$a1_naive) - 0.1,
+  constr = mean(sim_b_equals_0_point_5$a1_constr) - 0.1)
+```
+
+### Results for $\beta$
+```{r}
+par(mfrow = c(1, 2))
+MASS::truehist(sim_b_equals_0_point_5$b_naive,
+               xlab = expression(alpha[1]), 
+               main = "Naive, b=0.5, a1=0.1")
+abline(v = 0.5, lwd = 3, lty = 2, col = 'red')
+MASS::truehist(sim_b_equals_0_point_5$b_constr,
+               xlab = expression(alpha[1]), 
+               main = "Constrained, b=0.5, a1=0.1")
+abline(v = 0.5, lwd = 3, lty = 2, col = 'red')
+par(mfrow = c(1, 1))
+```
+
+Again, the constrained estimator is much less variable:
+```{r}
+c(naive = sd(sim_b_equals_0_point_5$b_naive),
+  constr = sd(sim_b_equals_0_point_5$b_constr))
+```
+
+and also shows a smaller bias:
+```{r}
+c(naive = mean(sim_b_equals_0_point_5$b_naive) - 0.5,
+  constr = mean(sim_b_equals_0_point_5$b_constr) - 0.5)
+```
+
+
+
+## Second Experiment: $\beta = 0.3$
+### Results for $\alpha_1$
+The sampling distribution of the constrained estimator for $\alpha_1$ is highly non-normal:
+```{r}
+par(mfrow = c(1, 2))
+MASS::truehist(sim_b_equals_0_point_3$a1_naive,
+               xlab = expression(alpha[1]), 
+               main = "Naive, b=0.3, a1=0.1")
+abline(v = 0.1, lwd = 3, lty = 2, col = 'red')
+MASS::truehist(sim_b_equals_0_point_3$a1_constr,
+               xlab = expression(alpha[1]), 
+               main = "Constrained, b=0.3, a1=0.1")
+abline(v = 0.1, lwd = 3, lty = 2, col = 'red')
+par(mfrow = c(1, 1))
+```
+
+but the constrained estimator is much less variable:
+```{r}
+c(naive = sd(sim_b_equals_0_point_3$a1_naive),
+  constr = sd(sim_b_equals_0_point_3$a1_constr))
+```
+and approximately unbiased:
+```{r}
+c(naive = mean(sim_b_equals_0_point_3$a1_naive) - 0.1,
+  constr = mean(sim_b_equals_0_point_3$a1_constr) - 0.1)
+```
+
+### Results for $\beta$
+```{r}
+par(mfrow = c(1, 2))
+MASS::truehist(sim_b_equals_0_point_3$b_naive,
+               xlab = expression(alpha[1]), 
+               main = "Naive, b=0.3, a1=0.1")
+abline(v = 0.3, lwd = 3, lty = 2, col = 'red')
+MASS::truehist(sim_b_equals_0_point_3$b_constr,
+               xlab = expression(alpha[1]), 
+               main = "Constrained, b=0.3, a1=0.1")
+abline(v = 0.3, lwd = 3, lty = 2, col = 'red')
+par(mfrow = c(1, 1))
+```
+
+Again, the constrained estimator is much less variable:
+```{r}
+c(naive = sd(sim_b_equals_0_point_3$b_naive),
+  constr = sd(sim_b_equals_0_point_3$b_constr))
+```
+
+and also shows a smaller bias:
+```{r}
+c(naive = mean(sim_b_equals_0_point_3$b_naive) - 0.3,
+  constr = mean(sim_b_equals_0_point_3$b_constr) - 0.3)
+```
+
+## Third Experiment: $\beta = 0.1$
+### Results for $\alpha_1$
+The sampling distribution of the constrained estimator for $\alpha_1$ is highly non-normal:
+```{r}
+par(mfrow = c(1, 2))
+MASS::truehist(sim_b_equals_0_point_1$a1_naive,
+               xlab = expression(alpha[1]), 
+               main = "Naive, b=0.1, a1=0.1")
+abline(v = 0.1, lwd = 3, lty = 2, col = 'red')
+MASS::truehist(sim_b_equals_0_point_1$a1_constr,
+               xlab = expression(alpha[1]), 
+               main = "Constrained, b=0.1, a1=0.1")
+abline(v = 0.1, lwd = 3, lty = 2, col = 'red')
+par(mfrow = c(1, 1))
+```
+
+but the constrained estimator is much less variable:
+```{r}
+c(naive = sd(sim_b_equals_0_point_1$a1_naive),
+  constr = sd(sim_b_equals_0_point_1$a1_constr))
+```
+and approximately unbiased:
+```{r}
+c(naive = mean(sim_b_equals_0_point_1$a1_naive) - 0.1,
+  constr = mean(sim_b_equals_0_point_1$a1_constr) - 0.1)
+```
+
+### Results for $\beta$
+```{r}
+par(mfrow = c(1, 2))
+MASS::truehist(sim_b_equals_0_point_1$b_naive,
+               xlab = expression(alpha[1]), 
+               main = "Naive, b=0.1, a1=0.1")
+abline(v = 0.1, lwd = 3, lty = 2, col = 'red')
+MASS::truehist(sim_b_equals_0_point_1$b_constr,
+               xlab = expression(alpha[1]), 
+               main = "Constrained, b=0.1, a1=0.1")
+abline(v = 0.1, lwd = 3, lty = 2, col = 'red')
+par(mfrow = c(1, 1))
+```
+
+Again, the constrained estimator is much less variable:
+```{r}
+c(naive = sd(sim_b_equals_0_point_1$b_naive),
+  constr = sd(sim_b_equals_0_point_1$b_constr))
+```
+
+and also shows a smaller bias:
+```{r}
+c(naive = mean(sim_b_equals_0_point_1$b_naive) - 0.1,
+  constr = mean(sim_b_equals_0_point_1$b_constr) - 0.1)
+```
