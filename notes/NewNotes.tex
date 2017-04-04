@@ -2029,5 +2029,122 @@ Is there some way to use these moment inequalities in estimation?
   Perhaps try to write down the likelihood function?
   This could also be a useful way to look at the weak identification problem.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \section{April 2017 -- New GMM Formulation}
+  Consider the special case in which $\alpha_0 = 0$ so the model is identified from
+\begin{align*}
+  \mbox{Cov}(y,z) - \left( \frac{\beta}{1 -\alpha_1} \right) \mbox{Cov}(T,z) &= 0\\
+  \mbox{Cov}(y^2,z) - \left(\frac{\beta}{1 - \alpha_1}\right)\left[2\mbox{Cov}(yT,z)- \beta \mbox{Cov}(T,z) \right] &= 0
+\end{align*}
+Above we wrote this in a standard GMM form by adding auxiliary moment equations to identify $\mathbb{E}[y^2]$, $\mathbb{E}[yT]$, etc.\
+But there's a simpler and more transparent way to do this.
+Under our assumptions and $\alpha_0 = 0$, some algebra shows that 
+\todo[inline]{Add the algebra from the whiteboard notes later}
+\[
+  \mathbb{E}\left[ y - \frac{\beta}{1 - \alpha_1}T \right] = c
+\]
+and that
+\[
+  \mathbb{E}\left[ y^2 - \frac{\beta}{1 - \alpha_1} 2yT + \frac{\beta^2}{1 - \alpha} T \right] = \sigma_{\varepsilon\varepsilon} + c^2
+\]
+where $c$ is the intercept from the regression model and $\sigma_{\varepsilon\varepsilon} = \mbox{Var}(\varepsilon)$.
+Now, re-writing the first covariance equation using the linearity of expectation,
+\begin{align*}
+  \mathbb{E}\left[ yz - \frac{\beta}{1 - \alpha_1} Tz \right] - \mathbb{E}[z]\mathbb{E}\left[ y - \frac{\beta}{1 - \alpha} T\right] &=  0\\
+  \mathbb{E}\left[ yz - \frac{\beta}{1 - \alpha_1} Tz \right] - \mathbb{E}[z] c&=  0\\
+  \mathbb{E}\left[ \left\{y - c -  \frac{\beta}{1 - \alpha_1} T\right\}z \right] &=  0
+\end{align*}
+and proceeding similarly for the second covariance equation
+\begin{align*}
+  \mathbb{E}\left[ y^2z - \frac{\beta}{1 - \alpha_1} 2yTz + \frac{\beta^2}{1 - \alpha_1} Tz \right] - \mathbb{E}[z]\mathbb{E}\left[ y - \frac{\beta}{1 - \alpha_1}yT + \frac{\beta^2}{1 - \alpha_1} T \right] &= 0\\
+  \mathbb{E}\left[ y^2z - \frac{\beta}{1 - \alpha_1} 2yTz + \frac{\beta^2}{1 - \alpha_1} Tz \right] - \mathbb{E}[z]\left( \sigma_{\varepsilon\varepsilon} + c^2 \right) &= 0\\
+  \mathbb{E}\left[ \left\{y^2 - \sigma_{\varepsilon\varepsilon} - c^2 -\frac{\beta}{1 - \alpha_1} 2yT + \frac{\beta^2}{1 - \alpha_1} T\right\}z \right] = 0 
+\end{align*}
+Thus, we can express our estimator in terms of the following four moment equations:
+\begin{align*}
+  \mathbb{E}\left[ y - c -  \frac{\beta}{1 - \alpha_1} T \right] &= 0\\
+  \mathbb{E}\left[ y^2z - \sigma_{\varepsilon\varepsilon} - c^2 -\frac{\beta}{1 - \alpha_1} 2yTz + \frac{\beta^2}{1 - \alpha_1} T\right] &= 0 \\
+  \mathbb{E}\left[ \left\{y - c -  \frac{\beta}{1 - \alpha_1} T\right\}z \right] &= 0\\
+  \mathbb{E}\left[ \left\{y^2z - \sigma_{\varepsilon\varepsilon} - c^2 -\frac{\beta}{1 - \alpha_1} 2yTz + \frac{\beta^2}{1 - \alpha_1} T\right\}z \right] &= 0 
+\end{align*}
+To simplify the notation, let $\boldsymbol{\theta} = (\alpha_1, \beta, c, \sigma_{\varepsilon\varepsilon})'$ and define
+\begin{align*}
+  u(\boldsymbol{\theta}) &= y - c - \frac{\beta}{1 - \alpha_1} T\\
+  v(\boldsymbol{\theta}) &= y^2 - \sigma_{\varepsilon\varepsilon} - c^2 - \frac{\beta}{1 - \alpha_1} 2yT + \frac{\beta^2}{1 - \alpha_1}
+\end{align*}
+Then we can express the four moment equalities as 
+\[
+  \mathbb{E}\left[ g_1(\mathbf{x}, \boldsymbol{\theta}) \right] = \mathbb{E}
+  \left[
+  \begin{array}{c}
+    u(\boldsymbol{\theta})\\ v(\boldsymbol{\theta})
+  \end{array}
+\right] = \mathbf{0}, \quad
+\mathbb{E}\left[ g_2(\mathbf{x}, \boldsymbol{\theta}) \right] = \mathbb{E}
+  \left[
+  \begin{array}{c}
+    u(\boldsymbol{\theta}) z\\ v(\boldsymbol{\theta}) z
+  \end{array}
+\right] = \mathbf{0}
+\]
+We also have two moment inequalities, namely $\alpha_1 \leq p_1$ and $\alpha_1 \leq p_0$.
+After some algebra (see the whiteboard), we can show that these are equivalent to
+\[
+  \mathbb{E}\left[ h(\mathbf{x},\theta) \right] = \mathbb{E}
+  \left[
+  \begin{array}{c}
+    (1 - \alpha_1) - T(1 - z)/(1 - q)\\
+    (1 - \alpha_1) - Tz/q
+  \end{array}
+\right] \geq \mathbf{0}
+\]
+where $q = \mathbb{E}[z]$.
+We will \emph{condition} on $z$, i.e.\ hold it fixed in repeated samples, so we will not add an extra moment condition for $q$.
+Instead we will simply substitute the sample analogue.
+
+To formulate the GMM estimator with moment inequalities as in Moon and Schorfheide (2009), we introduce some further notation.
+Let $\boldsymbol{\lambda}$ denote the slack in $h(\mathbf{x}, \theta)$, so that
+\[
+  \mathbb{E}[h(\mathbf{x},\theta)] = \boldsymbol{\lambda} \geq \mathbf{0} \iff \mathbb{E}[h(\mathbf{x}, \theta) - \boldsymbol{\lambda}] = \mathbf{0}
+\]
+Further define
+\[
+  f(\mathbf{x}) = \left[
+  \begin{array}{c}
+    g(\mathbf{x},\theta) \\ h(\mathbf{x},\boldsymbol{\theta})
+  \end{array}
+\right], \quad
+\psi(\mathbf{x}, \boldsymbol{\theta}, \boldsymbol{\lambda}) = 
+\left[
+\begin{array}{c}
+  g(\mathbf{x}, \boldsymbol{\theta})\\
+  h(\mathbf{x}, \boldsymbol{\theta}) - \boldsymbol{\lambda}
+\end{array}
+\right]
+\]
+and let $\Theta = \left\{ \boldsymbol{\theta}\colon \alpha_1 \geq 0, \sigma_{\varepsilon\varepsilon}\geq 0 \right\}$.
+Then, the GMM estimator based on our moment equalities and inequalities is
+\[
+  (\widehat{\boldsymbol{\theta}}, \widehat{\boldsymbol{\lambda}}) = \underset{\boldsymbol{\theta} \in \Theta, \boldsymbol{\lambda} \geq \mathbf{0}}{\arg\min} \quad Q_n(\boldsymbol{\theta}, \boldsymbol{\lambda})
+\]
+where
+\[ 
+  Q_n(\boldsymbol{\theta}, \boldsymbol{\lambda}) = \frac{1}{2}\bar{\psi}_n(\mathbf{x},\boldsymbol{\theta}, \boldsymbol{\lambda})' \mathbf{W}_n \bar{\psi}_n(\mathbf{x}, \boldsymbol{\theta}, \boldsymbol{\lambda})
+\]
+\[
+  \bar{\psi}_n(\boldsymbol{\theta}, \boldsymbol{\lambda}) = \frac{1}{n}\sum_{i=1}^n \psi(\mathbf{x}_i, \boldsymbol{\theta}, \boldsymbol{\lambda}) 
+\]
+and $\mathbf{W}_n$ is a weighting matrix that should be irrelevant in our case because we're just identified.
+We scale the criterion by $1/2$ so that the derivative looks nice.
+\todo[inline]{Is this still the case with the moment inequalities? Mechanically we have introduced two new parameters to match the two extra conditions.}
+
+At various points we will need the derivatives of the moment equations.
+Let
+\[
+  \mathbf{G}(\boldsymbol{\theta}) = \mathbb{E}[\nabla_{\boldsymbol{\theta}'} g(\mathbf{x},\boldsymbol{\theta})], \quad \mathbf{H}(\boldsymbol{\theta}) = \mathbb{E}[\nabla_{\boldsymbol{\theta}'} h(\mathbf{x},\boldsymbol{\theta})]
+\]
+
+
 \end{document}
 
