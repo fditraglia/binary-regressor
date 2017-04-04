@@ -2064,9 +2064,9 @@ and proceeding similarly for the second covariance equation
 Thus, we can express our estimator in terms of the following four moment equations:
 \begin{align*}
   \mathbb{E}\left[ y - c -  \frac{\beta}{1 - \alpha_1} T \right] &= 0\\
-  \mathbb{E}\left[ y^2z - \sigma_{\varepsilon\varepsilon} - c^2 -\frac{\beta}{1 - \alpha_1} 2yTz + \frac{\beta^2}{1 - \alpha_1} T\right] &= 0 \\
+  \mathbb{E}\left[ y^2 - \sigma_{\varepsilon\varepsilon} - c^2 -\frac{\beta}{1 - \alpha_1} 2yT + \frac{\beta^2}{1 - \alpha_1} T\right] &= 0 \\
   \mathbb{E}\left[ \left\{y - c -  \frac{\beta}{1 - \alpha_1} T\right\}z \right] &= 0\\
-  \mathbb{E}\left[ \left\{y^2z - \sigma_{\varepsilon\varepsilon} - c^2 -\frac{\beta}{1 - \alpha_1} 2yTz + \frac{\beta^2}{1 - \alpha_1} T\right\}z \right] &= 0 
+  \mathbb{E}\left[ \left\{y^2 - \sigma_{\varepsilon\varepsilon} - c^2 -\frac{\beta}{1 - \alpha_1} 2yT + \frac{\beta^2}{1 - \alpha_1} T\right\}z \right] &= 0 
 \end{align*}
 To simplify the notation, let $\boldsymbol{\theta} = (\alpha_1, \beta, c, \sigma_{\varepsilon\varepsilon})'$ and define
 \begin{align*}
@@ -2155,12 +2155,164 @@ and define
 \right]\\
 &= \mathbb{E}\left[
 \begin{array}{cc}
- hi & hi \\
- there & there
+ fill & this \\
+ in & later
 \end{array}
 \right]
 \end{align*}
 
+\section{April 2017 -- Andrews \& Soares (2010)}
+Our moment equalities from above do not identify $\alpha$ when $\beta=0$.
+More generally, the estimator based on them performs poorly when $\beta$ is relatively small compared to the error variance.
+Continue to assume that $\alpha_0 = 0$ so the moment conditions simplify.
+
+We now consider an inference procedure following Andrews \& Soares.
+The basic idea is to ``isolate'' the problematic parameters, in our case $\alpha$ and $\beta$, and carry out joint inference for these using the Anderson-Rubin test statistic.
+This is constructed by substituting a null hypothesis $H_0\colon \theta = \theta_0$ into the sample analogue of the GMM moment conditions and relying on the fact that this sample analogue remains ``well-behaved'' even in situations where inference for the GMM \emph{parameter estimator} breaks down.
+Examples include parameters on the boundary, and parameters that may not be identified, e.g.\ $\alpha_1$ if $\beta = 0$
+
+\subsection{Simple Example: $\alpha_0 = 0$, $c=0$, and $\sigma_{\varepsilon\varepsilon}=1$}
+In our problem $c$ and $\sigma_{\varepsilon\varepsilon}$ are essentially nuisance parameters.
+Fortunately, they are \emph{always identified} from our moment conditions regardless of the values of $\beta$ and $\alpha$, as we will discuss further below.
+For the moment, we will suppose that $c$ is known to equal zero and $\varepsilon_{\varepsilon\varepsilon}$ is known to equal one as is the case in our baseline simulation.
+Later we will estimate them which requires only a small modification of the procedure we know outline.
+With the simplifications $\alpha_0, c=0, \sigma_{\varepsilon\varepsilon}=1$ the equality moment conditions become
+\begin{align*}
+  \mathbb{E}\left[ \left\{y - \frac{\beta}{1 - \alpha_1} T\right\}z \right] &= 0\\
+  \mathbb{E}\left[ \left\{y^2 - 1 - \frac{\beta}{1 - \alpha_1} 2yT + \frac{\beta^2}{1 - \alpha_1} T\right\}z \right] &= 0 
+\end{align*}
+since we no longer need the $g_1$ block of moment conditions to identify the ``intercepts'' $c$ and $\sigma_{\varepsilon\varepsilon}$.
+For this simplified set of moment conditions, our parameter vector is $\boldsymbol{\theta} = (\alpha_1, \beta)'$ and the residuals are given by
+\begin{align*}
+  u(\boldsymbol{\theta}) &= y - \frac{\beta}{1 - \alpha_1} T\\
+  v(\boldsymbol{\theta}) &= y^2 - 1 - \frac{\beta}{1 - \alpha_1} 2yT + \frac{\beta^2}{1 - \alpha_1}
+\end{align*}
+and we can write the equality moment conditions as
+\[
+\mathbb{E}\left[ g(\mathbf{x}, \boldsymbol{\theta}) \right] = \mathbb{E}
+  \left[
+  \begin{array}{c}
+    u(\boldsymbol{\theta}) z\\ v(\boldsymbol{\theta}) z
+  \end{array}
+\right] = \mathbf{0}
+\]
+The inequality moment conditions are unchanged from above, namely
+\[
+  \mathbb{E}\left[ h(\mathbf{x},\theta) \right] = \mathbb{E}
+  \left[
+  \begin{array}{c}
+    (1 - \alpha_1) - T(1 - z)/(1 - q)\\
+    (1 - \alpha_1) - Tz/q
+  \end{array}
+\right] \geq \mathbf{0}
+\]
+where $q = \mathbb{E}[z]$.
+As above we will \emph{condition} on $z$, i.e.\ hold it fixed in repeated samples, so we will not add an extra moment condition for $q$.
+Instead we will simply substitute the sample analogue.
+Note that this means we should hold $q$ \emph{fixed} when bootstrapping below.
+We now introduce some notation from Andrews and Soares (2010).
+
+\paragraph{Population Moment Conditions}
+\[
+  \mathbb{E} \left[ m_j(\mathbf{w}_i,\theta_0) \right]
+  \left\{
+  \begin{array}{cc}
+    \geq 0 & \mbox{for } j = 1, \cdots, p\\
+    = 0 & \mbox{for } j = p + 1, \cdots,k \mbox{ where } k = p + v
+  \end{array}
+  \right.
+\]
+where $p$ is the number of inequality moment conditions (in our case $p = 2$), $v$ is the number of equality moment conditions (in our case $v = 2$), $\theta_0$ is the true parameter vector, and $\mathbf{w}_i$ is the vector of observations for individual $i$ (in our case $\mathbf{w}_i = (T_i, z_i, y_i)$).
+
+\paragraph{Sample Moment Functions, etc.}
+\[
+  \bar{m}_n(\theta) = \left[
+  \begin{array}{c}
+    \bar{m}_{n,1}(\theta)\\
+    \vdots \\
+    \bar{m}_{n,k}(\theta)\\
+  \end{array}
+\right], \quad
+\bar{m}_{n,j} = \frac{1}{n} \sum_{i=1}^{n} m_j(\mathbf{w}_i, \theta) \mbox{ for } j = 1, \cdots, k
+\]
+Now, let $\Sigma(\theta_0)$ denote the asymptotic variance of $\sqrt{n}\; \bar{m}_n(\theta)$.
+We estimate this quantity using $\widehat{\Sigma}_n(\theta)$.
+For iid observations, as in our example, the estimator is
+\[
+  \widehat{\Sigma}(\theta) = \frac{1}{n} \sum_{i=1}^n \left[ m(\mathbf{w}_i, \theta) - \bar{m}_n(\theta) \right]\left[ m(\mathbf{w}_i, \theta) - \bar{m}_n(\theta) \right]', \quad 
+  m(\mathbf{w}_i, \theta) = \left[
+  \begin{array}{c}
+    m_1(\mathbf{w}_i, \theta)\\
+    \vdots \\
+    m_k(\mathbf{w}_i, \theta)\\
+  \end{array}
+\right]
+\]
+
+\paragraph{Test Statistic}
+The test statistic takes the form $T_n(\theta) = S\left( \sqrt{n}\; \bar{m}_n(\theta), \widehat{\Sigma}(\theta) \right)$ for some real-valued function $S$.
+The example we will use is $S_1$, defined by
+\[
+  S_1(m, \Sigma) = \sum_{j=1}^p [m_j/\sigma_j]^2_- + \sum_{j=p+1}^{p+v} (m_j/\sigma_j)^2
+\]
+where $m = (m_1, \cdots, m_k)'$,
+\[
+  [x]_- = \left\{
+  \begin{array}{cc}
+    x, & \mbox{if } x <0\\
+    0, & \mbox{if } x \geq 0
+  \end{array}
+\right.
+\]
+and $\sigma_j^2$ is the $j$th diagonal element of $\Sigma$.
+Notice that $S_1$ only gives weight to inequality moment conditions that are \emph{violated}.
+
+\paragraph{Basic Idea of the Test}
+Let's return to our specific example for a moment.
+The idea is essentially to plug a null hypothesis $\theta^* = (\alpha_1^*, \beta^*)'$ into the sample analogue:
+\[
+  \sqrt{n}\; \bar{m}_n(\alpha_1^*, \beta^*) = \frac{1}{\sqrt{n}}\sum_{i=1}^n
+  \left[
+  \begin{array}{r}
+    (1 - \alpha_1^*) - T_i (1 - z_i)/(1-q)\\ \\
+    (1 - \alpha_1^*) - T_i z_i/q\\ \\
+    \left(y_i - \displaystyle\frac{\beta^*}{1 - \alpha_1^*}T_i\right) z_i \\ \\
+    \left( y_i^2 - 1 - \displaystyle \frac{\beta^*}{1 - \alpha_1^*} 2y_i T_i + \displaystyle\frac{\beta^{*2}}{1 - \alpha_1^*}T_i\right)z_i 
+  \end{array}
+\right]
+\]
+and see if the result is ``large'' after standardizing and squaring the individual elements.
+We only give weight to an inequality if it is violated.
+The variance matrix of the sample analogue is calculated \emph{under the null}, i.e.\ assuming that $\theta = \theta^*$.
+Note that we also use the \emph{centered variance matrix estimator}.
+
+We reject the null if the test statistic is too large.
+This gives us \emph{joint inference} for $\alpha$ and $\beta$ \emph{simultaneously}.
+To construct a joint confidence region, we need to test pairs $(\alpha_1, \beta)$.
+Of course, we restrict $\alpha_1$ to lie in $[0, 1)$.
+The resulting confidence region \emph{need not be convex}.
+In fact it could even be disconnected!
+However, in our particular example, it might be possible to prove that one gets a connected or even convex region.
+This is something we should think about since it would reduce the computational burden substantially.
+To get \emph{marginal} inference, say for $\beta$ only, one projects the joint confidence set.
+This is necessarily conservative, but may not be too bad in practice. 
+We'll have to see\ldots
+
+A particularly salient null hypothesis is $\beta = 0$.
+Imposing this yields
+\[
+  \sqrt{n}\; \bar{m}_n(\alpha_1^*, 0) = \frac{1}{\sqrt{n}}\sum_{i=1}^n
+  \left[
+  \begin{array}{r}
+    (1 - \alpha_1^*) - T_i (1 - z_i)/(1-q)\\ 
+    (1 - \alpha_1^*) - T_i z_i/q\\ 
+    y_i z_i \\ 
+    \left( y_i^2 - 1 \right)z_i 
+  \end{array}
+\right]
+\]
+We see that this function depends on $\alpha_1^*$ \emph{only via the moment inequalities}.
+What is more, the test statistic based on $S_1$ does \emph{not} depend on $\alpha_1^*$ unless the inequality constraints are violated.
 
 \end{document}
 
