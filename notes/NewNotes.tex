@@ -2088,7 +2088,7 @@ Then we can express the four moment equalities as
   \end{array}
 \right] = \mathbf{0}
 \]
-We also have two moment inequalities, namely $\alpha_1 \leq p_1$ and $\alpha_1 \leq p_0$.
+We also have two moment inequalities, namely $\alpha_1 \leq 1 - p_1$ and $\alpha_1 \leq 1 - p_0$.
 After some algebra (see the whiteboard), we can show that these are equivalent to
 \[
   \mathbb{E}\left[ h(\mathbf{x},\theta) \right] = \mathbb{E}
@@ -2313,6 +2313,51 @@ Imposing this yields
 \]
 We see that this function depends on $\alpha_1^*$ \emph{only via the moment inequalities}.
 What is more, the test statistic based on $S_1$ does \emph{not} depend on $\alpha_1^*$ unless the inequality constraints are violated.
+
+\paragraph{Calculating the Critical Value}
+The test statistic we will use to test $\theta = \theta^*$ is fairly simple to compute: we simply substitute into the GMM sample analogue.
+The critical value for the test, however, is much more complicated.
+Following Andrews \& Soares (2010), we use the following bootstrap procedure.
+First we define some additional notation.
+All of the test statistics considered in Andrews \& Soares (2010) satisfy
+\[
+  T_n = S\left( \sqrt{n}\; \bar{m}_n(\theta), \widehat{\Sigma}(\theta) \right) = S\left( \widehat{D}^{-1/2}(\theta) \sqrt{n}\; \bar{m}_n(\theta), \widehat{\Omega}_n(\theta) \right)
+\]
+where
+\[
+  \widehat{D}_n(\theta) = \mbox{diag}\left( \widehat{\Sigma}\left( \theta \right) \right), \quad \widehat{\Omega}_n(\theta) = \widehat{D}_n^{-1/2}(\theta)\, \widehat{\Sigma}(\theta)\, \widehat{D}_n^{-1/2}(\theta)
+\]
+Now, let $\left\{ \mathbf{w}_i^* \right\}_{i=1}^n$ denote a bootstrap sample and define the associated bootstrap quantities
+\begin{align*}
+  M_n^*(\theta) &=  \sqrt{n} \left( \widehat{D}^*\left(\theta\right) \right)^{-1/2} \left( \bar{m}^*_n\left( \theta \right) - \bar{m}_n\left( \theta) \right) \right)\\
+  \widehat{\Omega}^*(\theta) &= \left( \widehat{D}^*\left( \theta \right) \right)^{-1/2} \widehat{\Sigma}_n^*(\theta)\left( \widehat{D}^*\left( \theta \right) \right)^{-1/2} \\
+  \widehat{D}^*\left( \theta \right) &= \mbox{diag}\left( \widehat{\Sigma}_n^*\left( \theta \right) \right)\\
+  m_n^*(\theta) &= \frac{1}{n} \sum_{i=1}^n m(\mathbf{w}_i^*,\theta)
+\end{align*}
+Note that $M_n^*(\theta)$ is centered around the \emph{non-bootstrap}  sample analogue $\bar{m}_n(\theta)$: this is \emph{very important!}
+Now we describe the procedure for calculating the bootstrap critical value:
+\begin{enumerate}
+  \item Calculate $\sqrt{n}\; \bar{m}_n\left( \theta_0 \right)$ and $\widehat{\Sigma}(\theta_0)$ under the null hypothesis $H_0\colon \theta = \theta_0$.
+  \item Determine which inequality moment conditions are ``far from binding'' as follows:
+    \begin{itemize}
+      \item Let $j \in J = \{ 1, \cdots, p\}$ index the inequality moment conditions.
+      \item Let $\widehat{\sigma}_{n,j}(\theta_0)$ denote the $(j,j)$ element of $\widehat{\Sigma}(\theta_0)$
+      \item For each $j\in J$ calculate the ``t-statistic'' $ t_{n,j} = \sqrt{n}\; \bar{m}_j(\theta_0)/\widehat{\sigma}_{n,j}(\theta_0)$
+      \item Let $\mathcal{FB}$ denote the subset of $J$ for which $t_{n,j} >\sqrt{\log n}$.
+        These are the inequality moment conditions that are ``far from binding'' under $H_0\colon\theta = \theta_0$. 
+    \end{itemize}
+  \item Calculate the test statistic $T_n = S_1\left(\sqrt{n}\; \bar{m}_n\left( \theta_0 \right), \widehat{\Sigma}\left( \theta_0 \right)  \right)$.
+  \item Calculate the bootstrap critical value for the test as follows:
+    \begin{itemize}
+      \item Draw $R$ bootstrap samples -- each with sample size $n$. 
+      \item For each bootstrap sample, $r$, calculate $M^{**}_{n,r}(\theta_0)$ and $\widehat{\Omega}^{**}_{n,r}(\theta_0)$ -- the bootstrap versions of $M_n(\theta_0)$ and $\widehat{\Omega}(\theta_0)$, defined above but with a slight change: \emph{drop} any moment inequality $j \in \mathcal{FB}$.
+        That is, drop any inequality that we determined was far from binding \emph{on the basis of the real data} (i.e.\ \emph{not} this bootstrap sample!)
+      \item For each bootstrap sample $r$ calculate $T_{n,r}^{**} = S_1\left(M^{**}_{n,r}\left( \theta_0 \right), \widehat{\Omega}^{**}_{n,r}\left( \theta_0 \right)  \right)$.
+      \item Set $\widehat{c}_n(\theta_0, 1-\delta)$ equal to the $1-\delta$ sample quantile of the $\left\{ T_{n,r}^{**} \right\}_{r=1}^R$
+    \end{itemize}
+  \item Reject $H_0\colon \theta = \theta_0$ if $T_n > \widehat{c}_n(\theta_0, 1-\delta)$
+  \item To construct a $(1 - \delta)\times 100\%$ confidence set, invert the test of $H_0\colon \theta = \theta_0$ for $\theta_0 \in \Theta$.
+\end{enumerate}
 
 \end{document}
 
