@@ -2332,7 +2332,8 @@ Now, let $\left\{ \mathbf{w}_i^* \right\}_{i=1}^n$ denote a bootstrap sample and
   M_n^*(\theta) &=  \sqrt{n} \left( \widehat{D}^*\left(\theta\right) \right)^{-1/2} \left( \bar{m}^*_n\left( \theta \right) - \bar{m}_n\left( \theta) \right) \right)\\
   \widehat{\Omega}^*(\theta) &= \left( \widehat{D}^*\left( \theta \right) \right)^{-1/2} \widehat{\Sigma}_n^*(\theta)\left( \widehat{D}^*\left( \theta \right) \right)^{-1/2} \\
   \widehat{D}^*\left( \theta \right) &= \mbox{diag}\left( \widehat{\Sigma}_n^*\left( \theta \right) \right)\\
-  m_n^*(\theta) &= \frac{1}{n} \sum_{i=1}^n m(\mathbf{w}_i^*,\theta)
+  m_n^*(\theta) &= \frac{1}{n} \sum_{i=1}^n m(\mathbf{w}_i^*,\theta)\\
+  \widehat{\Sigma}(\theta)^* &= \frac{1}{n} \sum_{i=1}^n \left[ m(\mathbf{w}_i^*, \theta) - \bar{m}_n^*(\theta) \right]\left[ m(\mathbf{w}_i^*, \theta) - \bar{m}_n^*(\theta) \right]'
 \end{align*}
 Note that $M_n^*(\theta)$ is centered around the \emph{non-bootstrap}  sample analogue $\bar{m}_n(\theta)$: this is \emph{very important!}
 Now we describe the procedure for calculating the bootstrap critical value:
@@ -2341,7 +2342,7 @@ Now we describe the procedure for calculating the bootstrap critical value:
   \item Determine which inequality moment conditions are ``far from binding'' as follows:
     \begin{itemize}
       \item Let $j \in J = \{ 1, \cdots, p\}$ index the inequality moment conditions.
-      \item Let $\widehat{\sigma}_{n,j}(\theta_0)$ denote the $(j,j)$ element of $\widehat{\Sigma}(\theta_0)$
+      \item Let $\widehat{\sigma}_{n,j}(\theta_0)^2$ denote the $(j,j)$ element of $\widehat{\Sigma}(\theta_0)$
       \item For each $j\in J$ calculate the ``t-statistic'' $ t_{n,j} = \sqrt{n}\; \bar{m}_j(\theta_0)/\widehat{\sigma}_{n,j}(\theta_0)$
       \item Let $\mathcal{FB}$ denote the subset of $J$ for which $t_{n,j} >\sqrt{\log n}$.
         These are the inequality moment conditions that are ``far from binding'' under $H_0\colon\theta = \theta_0$. 
