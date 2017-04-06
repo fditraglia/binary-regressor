@@ -367,132 +367,37 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{GMM Estimator in Simple Special Case: $\alpha_0 = 0$}
-  \begin{align*}
-    \mbox{Cov}(y,z) - \left( \frac{\beta}{1 - \alpha_1} \right) \mbox{Cov}(T,z) &= 0\\
-  \mbox{Cov}(y^2,z) - \frac{\beta}{1 - \alpha_1}\left\{2\mbox{Cov}(yT,z)- \beta \mbox{Cov}(T,z)\right\} &= 0
-  \end{align*}
 
-  \vspace{1em}
+  \vspace{-2em}
+
+\begin{align*}
+  u(\boldsymbol{\theta}) &= y - c - \frac{\beta}{1 - \alpha_1} T\\
+  v(\boldsymbol{\theta}) &= y^2 - \sigma_{\varepsilon\varepsilon} - c^2 - \frac{\beta}{1 - \alpha_1} 2yT + \frac{\beta^2}{1 - \alpha_1}
+\end{align*}
+
+\vspace{-1em}
+
+\[
+  \mathbb{E}\left[ g_1(\mathbf{x}, \boldsymbol{\theta}) \right] = \mathbb{E}
+  \left[
+  \begin{array}{c}
+    u(\boldsymbol{\theta})\\ v(\boldsymbol{\theta})
+  \end{array}
+\right] = \mathbf{0}, \quad
+\mathbb{E}\left[ g_2(\mathbf{x}, \boldsymbol{\theta}) \right] = \mathbb{E}
+  \left[
+  \begin{array}{c}
+    u(\boldsymbol{\theta}) z\\ v(\boldsymbol{\theta}) z
+  \end{array}
+\right] = \mathbf{0}
+\]
+
   \[
     \alert{\beta = \frac{2\mbox{Cov}(yT,z)}{\mbox{Cov}(T,z)} - \frac{\mbox{Cov}(y^2,z)}{\mbox{Cov}(y,z)}}
   \]
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Bounds for Mis-classification Probabilities}
-
-
-  \begin{block}{$\alpha_0(z) = \alpha_0, \; \alpha_1(z) =\alpha_1$ }
-  \[
-    \implies \quad p_k^* = \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1}, \quad
-  1 - p_k^* = \frac{1 - p_k - \alpha_1}{1 - \alpha_0 - \alpha_1}\]
-  \end{block}
-
-  \begin{block}{$\alpha_0 + \alpha_1 < 1\iff \mbox{Cor}(T,T^*)>0 \iff (1 - \alpha_0 - \alpha_1) > 0$}
-  \end{block}
-
-  \begin{alertblock}{$\alpha_0 < \min_k \{p_k\}, \; \alpha_1 < \min_k \{1 - p_k\}$}
-  \end{alertblock}
-  
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[plain, c]
-  \frametitle{$\alpha_0 \leq \min_k \left\{p_k\right\}, \; \; \alpha_1 \leq \min_k \left\{1 - p_k\right\}$}
-\begin{figure}[h]
-  \centering
-  \begin{tikzpicture}[scale=5]
-    \draw [fill = lightgray] (0.66,0.75) rectangle (1,1);
-    \draw [fill = cyan] (0,0) rectangle (0.25, 0.34);
-    \draw [thick, <->] (0,1.1)
-    node[above] {$\alpha_1$} -- (0,0) 
-    node [below left] {$(0,0)$} -- (1.1,0) 
-    node [right] {$\alpha_0$};
-    \draw [thick] (0.25,0.02) -- (0.25,-0.02) node [below] {$p_\ell$}; 
-    \draw [thick] (0.02,0.75) -- (-0.02,0.75) node [left] {$1 - p_\ell$}; 
-    \draw [thick] (0.66,0.02) -- (0.66,-0.02) node [below] {$p_k$}; 
-    \draw [thick] (0.02,0.34) -- (-0.02,0.34) node [left] {$1 - p_k$}; 
-    \draw [thick, red] (0,1) to (1,0); 
-    \node [right, red] at (0.06,0.95) {$\alpha_0 + \alpha_1 = 1$};
-    \draw [thick] (0,1) -- (1,1) -- (1,0);
-    \node [above right] at (1,1) {$(1,1)$};
-    \end{tikzpicture}
-\end{figure}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Bounds for $\beta$}
-  \begin{block}{$\mathbb{E}[\varepsilon|z]=0$} 
-    $\implies \beta_{RF} = \mathbb{E}[y|z_k] - \mathbb{E}[y|z_\ell] =\beta (p_k^* - p_\ell^*)$
-  \end{block}
-
-  \begin{block}{Mis-classification} 
-  $\implies p_k^* - p_\ell^* = (p_k - p_\ell)/(1 - \alpha_0 - \alpha_1)$
-  \end{block}
-
-  \vspace{1em}
-
-  \begin{alertblock}{Combining: $\beta_{IV} = \beta / (1 - \alpha_0 - \alpha_1)$}
-  \end{alertblock}
-
-  \vspace{-1em}
-
-\begin{block}{$\alpha_0 + \alpha_1 < 1 \implies $}
-  \begin{itemize}
-    \item $\beta$ is between $\beta_{RF}$ and $\beta_{IV}$ 
-    \item $\beta_{IV}$ \emph{inflated} but has correct sign 
-    \item $\beta_{RF}$ bound equivalent to substituting $\alpha_0, \alpha_1$ bounds
-  \end{itemize}
-\end{block}
-  
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Strengthening the Measurement Error Assumptions}
-
-  \begin{itemize}
-    \item $\alpha_0 = \mathbb{P}(T=1|T^*=0, z)$
-    \item $\alpha_1 = \mathbb{P}(T=0|T^*=1, z)$
-    \item $\alpha_0 + \alpha_1 < 1$
-    \item \alert{$\mathbb{E}[\varepsilon|T^*,T,z] = \mathbb{E}[\varepsilon|T^*,z]$}
-  \end{itemize}
-
-
-  \begin{block}{Additional Assumption}
-    $\mathbb{E}[\varepsilon^2|T^*,T,z] = \mathbb{E}[\varepsilon^2|T^*,z]$
-  \end{block}
-
-  \vspace{1em}
-  \hfill\alert{Improve bounds for $\alpha_0, \alpha_1$ to tighten lower bound for $\beta$\ldots}
-
-
-%   \begin{alertblock}{Stronger}
- %     $\varepsilon$ conditionally independent of $T$ given $T^*$ and $z$.
- % \end{alertblock}
-
-  
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Tighter Bounds for $\alpha_0, \alpha_1$ from Conditional Variances}
-  \begin{block}{Assume}
-    $\mathbb{E}[\varepsilon^2|T^*,T,z] = \mathbb{E}[\varepsilon^2|T^*,z]$
-  \end{block}
-
-  \begin{block}{Observables}
-    $\sigma^2_{tk} = \mbox{Var}(y|T=t,z=k)$ 
-  \end{block}
-
-  \begin{block}{Constrain Unobservables}
-    $s^{*2}_{tk} = Var(u|T^*=t, z_k) > 0$ 
-
-    \footnotesize
-\begin{align*}
-  (p_k - \alpha_0) \left[ (1 - \alpha_0)p_k \sigma^2_{1k} - \alpha_0 (1 - p_k)\sigma_{0k}^2 \right] &> \alpha_0 (1 - \alpha_0)p_k (1 - p_k)(\bar{y}_{1k} - \bar{y}_{0k})^2\\
-  (1 - p_k - \alpha_1) \left[ (1 - \alpha_1)(1 - p_k) \sigma^2_{0k} - \alpha_1 p_k\sigma_{1k}^2 \right] &> \alpha_1 (1 - \alpha_1)p_k (1 - p_k)(\bar{y}_{1k} - \bar{y}_{0k})^2
-\end{align*}
-  \end{block}
-\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Simulation DGP: $y = \beta T^* + \varepsilon$}
@@ -522,14 +427,14 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
   
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}[plain,c]
-%
-%  \begin{figure}[h]
-%    \centering
-%    \includegraphics[width=\textwidth]{Rplot1}
-%  \end{figure}
-%
-%\end{frame}
+\begin{frame}[plain,c]
+
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{Rplot1}
+  \end{figure}
+
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[plain,c]
 
@@ -557,7 +462,7 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 %  \end{figure}
 %
 %\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}[plain,c]
 %
 %  \begin{figure}[h]
@@ -566,7 +471,7 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 %  \end{figure}
 %
 %\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}[plain,c]
 %
 %  \begin{figure}[h]
@@ -575,7 +480,7 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 %  \end{figure}
 %
 %\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}[plain,c]
 %
 %  \begin{figure}[h]
@@ -594,48 +499,183 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[plain,c]
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{Rplot10}
-  \end{figure}
-
-\end{frame}
+%\begin{frame}[plain,c]
+%
+%  \begin{figure}[h]
+%    \centering
+%    \includegraphics[width=\textwidth]{Rplot10}
+%  \end{figure}
+%
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[plain,c]
+%\begin{frame}[plain,c]
+%
+%  \begin{figure}[h]
+%    \centering
+%    \includegraphics[width=\textwidth]{Rplot11}
+%  \end{figure}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Coverage and Width of Nominal 95\% CIs}
+%  \framesubtitle{$\alpha_1 = 0.1, \delta = 0.15, n = 1000, \rho = 0.5$}
+%\begin{table}[!tbp]
+%  \small
+%\centering
+%\begin{tabular}{rrrrrr}
+%\hline\hline
+%&& \multicolumn{2}{c}{Coverage} & \multicolumn{2}{c}{Width}\\
+%\multicolumn{1}{c}{$\beta$}&\multicolumn{1}{c}{RF}&\multicolumn{1}{c}{RF}&\multicolumn{1}{c}{GMM}&\multicolumn{1}{c}{RF}&\multicolumn{1}{c}{GMM}\tabularnewline
+%\hline
+%$2.00$&$1.400$&$0.95$&$0.95$&$0.35$&$0.23$\tabularnewline
+%$1.50$&$1.050$&$0.95$&$0.95$&$0.32$&$0.26$\tabularnewline
+%$1.00$&$0.700$&$0.95$&$0.95$&$0.29$&$0.32$\tabularnewline
+%$0.50$&$0.350$&$0.95$&$0.96$&$0.27$&$0.55$\tabularnewline
+%$0.25$&$0.175$&$0.95$&$0.98$&$0.26$&$1.08$\tabularnewline
+%$0.20$&$0.140$&$0.95$&$0.99$&$0.25$&$1.40$\tabularnewline
+%$0.15$&$0.105$&$0.95$&$0.99$&$0.25$&$1.86$\tabularnewline
+%$0.10$&$0.070$&$0.95$&$1.00$&$0.25$&$3.04$\tabularnewline
+%$0.05$&$0.035$&$0.95$&$1.00$&$0.25$&$4.76$\tabularnewline
+%$0.01$&$0.007$&$0.95$&$1.00$&$0.25$&$5.92$\tabularnewline
+%\hline
+%\end{tabular}
+%\end{table}
+%\end{frame}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Identification Failure when $\beta= 0$}
+\framesubtitle{Simple Special Case: $\alpha_0 = 0$}
 
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{Rplot11}
-  \end{figure}
+  \vspace{-2em}
+
+\begin{align*}
+  u(\boldsymbol{\theta}) &= y - c - \alert{\frac{\beta}{1 - \alpha_1}} T\\
+  v(\boldsymbol{\theta}) &= y^2 - \sigma_{\varepsilon\varepsilon} - c^2 - \alert{\frac{\beta}{1 - \alpha_1}} 2yT + \alert{\frac{\beta^2}{1 - \alpha_1}}
+\end{align*}
+
+\vspace{-1em}
+
+\[
+  \mathbb{E}\left[ g_1(\mathbf{x}, \boldsymbol{\theta}) \right] = \mathbb{E}
+  \left[
+  \begin{array}{c}
+    u(\boldsymbol{\theta})\\ v(\boldsymbol{\theta})
+  \end{array}
+\right] = \mathbf{0}, \quad
+\mathbb{E}\left[ g_2(\mathbf{x}, \boldsymbol{\theta}) \right] = \mathbb{E}
+  \left[
+  \begin{array}{c}
+    u(\boldsymbol{\theta}) z\\ v(\boldsymbol{\theta}) z
+  \end{array}
+\right] = \mathbf{0}
+\]
+
+\begin{itemize}
+  \item $\beta$ small $\Rightarrow$ moment equalities uninformative about $\alpha_1$
+  \item $(c,\sigma_{\varepsilon\varepsilon})$ are identified at any hypothesized pair $(\alpha_1, \beta)$
+\end{itemize}
+
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Coverage and Width of Nominal 95\% CIs}
-  \framesubtitle{$\alpha_1 = 0.1, \delta = 0.15, n = 1000, \rho = 0.5$}
-\begin{table}[!tbp]
-  \small
-\centering
-\begin{tabular}{rrrrrr}
-\hline\hline
-&& \multicolumn{2}{c}{Coverage} & \multicolumn{2}{c}{Width}\\
-\multicolumn{1}{c}{$\beta$}&\multicolumn{1}{c}{RF}&\multicolumn{1}{c}{RF}&\multicolumn{1}{c}{GMM}&\multicolumn{1}{c}{RF}&\multicolumn{1}{c}{GMM}\tabularnewline
-\hline
-$2.00$&$1.400$&$0.95$&$0.95$&$0.35$&$0.23$\tabularnewline
-$1.50$&$1.050$&$0.95$&$0.95$&$0.32$&$0.26$\tabularnewline
-$1.00$&$0.700$&$0.95$&$0.95$&$0.29$&$0.32$\tabularnewline
-$0.50$&$0.350$&$0.95$&$0.96$&$0.27$&$0.55$\tabularnewline
-$0.25$&$0.175$&$0.95$&$0.98$&$0.26$&$1.08$\tabularnewline
-$0.20$&$0.140$&$0.95$&$0.99$&$0.25$&$1.40$\tabularnewline
-$0.15$&$0.105$&$0.95$&$0.99$&$0.25$&$1.86$\tabularnewline
-$0.10$&$0.070$&$0.95$&$1.00$&$0.25$&$3.04$\tabularnewline
-$0.05$&$0.035$&$0.95$&$1.00$&$0.25$&$4.76$\tabularnewline
-$0.01$&$0.007$&$0.95$&$1.00$&$0.25$&$5.92$\tabularnewline
-\hline
-\end{tabular}
-\end{table}
+  \frametitle{Auxiliary Moment Inequalities}
+  \framesubtitle{General Case $\alpha_0 \neq 0$}
+
+
+  \begin{block}{$\alpha_0(z) = \alpha_0, \; \alpha_1(z) =\alpha_1$ }
+  \[
+    \implies \quad p_k^* = \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1}, \quad
+  1 - p_k^* = \frac{1 - p_k - \alpha_1}{1 - \alpha_0 - \alpha_1}\]
+  \end{block}
+
+  \begin{block}{$\alpha_0 + \alpha_1 < 1\iff \mbox{Cor}(T,T^*)>0 \iff (1 - \alpha_0 - \alpha_1) > 0$}
+  \end{block}
+
+  \vspace{-1em}
+
+  \begin{alertblock}{Implications}
+    \vspace{-1em}
+    \begin{itemize}
+      \item $\alpha_0 < \min_k \{p_k\}, \quad \alpha_1 < \min_k \{1 - p_k\}$
+      \item $\beta$ is between $\beta_{RF}$ and $\beta_{IV}$ 
+      \item $\beta_{IV}$ \emph{inflated} but has correct sign 
+    \end{itemize}
+  \end{alertblock}
+  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[plain, c]
+%  \frametitle{$\alpha_0 \leq \min_k \left\{p_k\right\}, \; \; \alpha_1 \leq \min_k \left\{1 - p_k\right\}$}
+%\begin{figure}[h]
+%  \centering
+%  \begin{tikzpicture}[scale=5]
+%    \draw [fill = lightgray] (0.66,0.75) rectangle (1,1);
+%    \draw [fill = cyan] (0,0) rectangle (0.25, 0.34);
+%    \draw [thick, <->] (0,1.1)
+%    node[above] {$\alpha_1$} -- (0,0) 
+%    node [below left] {$(0,0)$} -- (1.1,0) 
+%    node [right] {$\alpha_0$};
+%    \draw [thick] (0.25,0.02) -- (0.25,-0.02) node [below] {$p_\ell$}; 
+%    \draw [thick] (0.02,0.75) -- (-0.02,0.75) node [left] {$1 - p_\ell$}; 
+%    \draw [thick] (0.66,0.02) -- (0.66,-0.02) node [below] {$p_k$}; 
+%    \draw [thick] (0.02,0.34) -- (-0.02,0.34) node [left] {$1 - p_k$}; 
+%    \draw [thick, red] (0,1) to (1,0); 
+%    \node [right, red] at (0.06,0.95) {$\alpha_0 + \alpha_1 = 1$};
+%    \draw [thick] (0,1) -- (1,1) -- (1,0);
+%    \node [above right] at (1,1) {$(1,1)$};
+%    \end{tikzpicture}
+%\end{figure}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Bounds for $\beta$}
+%  \begin{block}{$\mathbb{E}[\varepsilon|z]=0$} 
+%    $\implies \beta_{RF} = \mathbb{E}[y|z_k] - \mathbb{E}[y|z_\ell] =\beta (p_k^* - p_\ell^*)$
+%  \end{block}
+%
+%  \begin{block}{Mis-classification} 
+%  $\implies p_k^* - p_\ell^* = (p_k - p_\ell)/(1 - \alpha_0 - \alpha_1)$
+%  \end{block}
+%
+%  \vspace{1em}
+%
+%  \begin{alertblock}{Combining: $\beta_{IV} = \beta / (1 - \alpha_0 - \alpha_1)$}
+%  \end{alertblock}
+%
+%  \vspace{-1em}
+%
+%\begin{block}{$\alpha_0 + \alpha_1 < 1 \implies $}
+%  \begin{itemize}
+%    \item $\beta$ is between $\beta_{RF}$ and $\beta_{IV}$ 
+%    \item $\beta_{IV}$ \emph{inflated} but has correct sign 
+%    \item $\beta_{RF}$ bound equivalent to substituting $\alpha_0, \alpha_1$ bounds
+%  \end{itemize}
+%\end{block}
+%  
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Even Tighter Bounds for $\alpha_0, \alpha_1$ from Conditional Variances}
+  \begin{block}{Assume}
+    $\mathbb{E}[\varepsilon^2|T^*,T,z] = \mathbb{E}[\varepsilon^2|T^*,z]$
+  \end{block}
+
+  \begin{block}{Observables}
+    $\sigma^2_{tk} = \mbox{Var}(y|T=t,z=k)$ 
+  \end{block}
+
+  \begin{block}{Constrain Unobservables}
+    $s^{*2}_{tk} = Var(u|T^*=t, z_k) > 0$ 
+
+    \footnotesize
+\begin{align*}
+  (p_k - \alpha_0) \left[ (1 - \alpha_0)p_k \sigma^2_{1k} - \alpha_0 (1 - p_k)\sigma_{0k}^2 \right] &> \alpha_0 (1 - \alpha_0)p_k (1 - p_k)(\bar{y}_{1k} - \bar{y}_{0k})^2\\
+  (1 - p_k - \alpha_1) \left[ (1 - \alpha_1)(1 - p_k) \sigma^2_{0k} - \alpha_1 p_k\sigma_{1k}^2 \right] &> \alpha_1 (1 - \alpha_1)p_k (1 - p_k)(\bar{y}_{1k} - \bar{y}_{0k})^2
+\end{align*}
+  \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}
@@ -671,6 +711,15 @@ $0.01$&$0.007$&$0.95$&$1.00$&$0.25$&$5.92$\tabularnewline
 %
 %  \normalsize
 %\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Identification-Robust Joint Inference for $(\alpha_0, \alpha_1, \beta)$}
+  \begin{itemize}
+    \item Auxiliary moment inequalities to bound $(\alpha_0, \alpha_1)$
+    \item Joint CS for $(\alpha_0, \alpha_1, \beta)$ by inverting Anderson-Rubin Test 
+    \item Generalized Moment Selection (Andrews \& Soares, 2010) for tighter confidence sets.
+  \end{itemize}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
