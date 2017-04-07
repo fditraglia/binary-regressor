@@ -14,7 +14,7 @@
 \title[Binary Regressors]{Estimating the Effect of a Mis-measured, Endogenous, Binary Treatment}
 \author[FJ DiTraglia]{Francis J.\ DiTraglia\\ Camilo Garcia-Jimeno}
 \institute{University of Pennsylvania}
-\date{February 27th, 2017}
+\date{April 8th, 2017}
 \begin{document} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -717,14 +717,16 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
   \begin{itemize}
     \item Auxiliary moment inequalities to bound $(\alpha_0, \alpha_1)$
     \item Joint CS for $(\alpha_0, \alpha_1, \beta)$ by inverting Anderson-Rubin Test 
+    \item Marginal inference for $\beta$ by projection.
     \item Generalized Moment Selection (Andrews \& Soares, 2010) for tighter confidence sets.
+    \item Results are preliminary (not exploiting full set of inequalities) but this approach seems to work extremely well. 
   \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \begin{figure}
     \centering
-    \includegraphics[scale=0.6]{GMS.pdf}
+    \includegraphics[scale=0.5]{GMS.pdf}
   \end{figure}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
