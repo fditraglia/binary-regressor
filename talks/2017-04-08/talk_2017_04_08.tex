@@ -11,7 +11,7 @@
 %%%%%%%%%%%%%%%%%%%% Not needed at home!
 
 
-\title[Binary Regressors]{Estimating the Effect of a Mis-measured, Endogenous, Binary Treatment}
+\title[Binary Regressors]{Estimating the Effect of a Mis-measured, Endogenous, Binary Regressor}
 \author[FJ DiTraglia]{Francis J.\ DiTraglia\\ Camilo Garcia-Jimeno}
 \institute{University of Pennsylvania}
 \date{April 8th, 2017}
@@ -30,7 +30,7 @@
   \begin{itemize}
     \item $y$ -- Outcome of interest
     \item $h$ -- Known or Unknown function 
-    \item $T^*$ -- Unobserved, endogenous binary treatment
+    \item $T^*$ -- Unobserved, endogenous binary regressor
     \item $T$ -- Observed, mis-measured binary surrogate for $T^*$
     \item $\mathbf{x}$ -- Exogenous covariates
     \item $\varepsilon$ -- Mean-zero error term
@@ -56,20 +56,20 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
    
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%  \frametitle{Example: Smoking and Birthweight (SNAP Trial)}
-%\framesubtitle{Coleman et al.\ (N Engl J Med, 2012)}
-%  RCT with 1050 pregnant smokers in England: 521 given nicotine patches, the rest given placebo patches.
-%\begin{itemize}
-%  \item $y$ -- Birthweight 
-%  \item $T^*$ -- True smoking behavior 
-%  \item $T$ -- Self-reported smoking behavior
-%  \item $\mathbf{x}$ -- Mother characteristics
-%  \item $z$ -- Indicator of nicotine patch
-%\end{itemize}
-%   
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Example: Smoking and Birthweight (SNAP Trial)}
+\framesubtitle{Coleman et al.\ (N Engl J Med, 2012)}
+  RCT with 1050 pregnant smokers in England: 521 given nicotine patches, the rest given placebo patches.
+\begin{itemize}
+  \item $y$ -- Birthweight 
+  \item $T^*$ -- True smoking behavior 
+  \item $T$ -- Self-reported smoking behavior
+  \item $\mathbf{x}$ -- Mother characteristics
+  \item $z$ -- Indicator of nicotine patch
+\end{itemize}
+   
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}
 %  \frametitle{Example: Schooling and Test Scores}
 %\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
@@ -114,7 +114,7 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
   \begin{block}{Binary, Endogenous Treatment}
     \alert{Mahajan (2006)}, \small Shiu (2015), Ura (2015), Denteh et al.\ (2016)  
   \end{block}
-    \hyperlink{MAHAJAN_APPEND}{\beamergotobutton{Mahajan Details}}
+    %\hyperlink{MAHAJAN_APPEND}{\beamergotobutton{Mahajan Details}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}
@@ -206,30 +206,30 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Unobservable Moments: $y = \beta T^* + u$}
-
-\alert{Define error term that absorbs constant: $u = c + \varepsilon$}
-
-\begin{center}
-  \begin{tabular}{c|c|c|c|c|}
-    \multicolumn{1}{c}{}& \multicolumn{1}{c}{$z=1$} &\multicolumn{1}{c}{$z=2$} & \multicolumn{1}{c}{\dots} &\multicolumn{1}{c}{$z=K$}\\
-    \cline{2-5}
-    $T^*=0$ & \diagbox[dir=NE]{$m^*_{01}$}{$p^*_{01}$} & \diagbox[dir=NE]{$m^*_{02}$}{$p^*_{02}$} & \dots &\diagbox[dir=NE]{$m^*_{0K}$}{$p^*_{0K}$}\\
-    \cline{2-5}
-    $T^*=1$ & \diagbox[dir=NE]{$m^*_{11}$}{$p^*_{11}$} & \diagbox[dir=NE]{$m^*_{12}$}{$p^*_{12}$} & \dots &\diagbox[dir=NE]{$m^*_{1K}$}{$p^*_{1K}$}\\
-    \cline{2-5}
-  \end{tabular}
-\end{center}
-
-\vspace{1em}
-
-\[m^*_{tk} = \mathbb{E}[u|T^*=t,z=z_k],
-\quad p^*_{tk}=q_k p^*_k\]
-\small
-\[q_k = \mathbb{P}(z = z_k),\quad p^*_k=\mathbb{P}(T^*=1|z=z_k)\]
-
-\end{frame}
+%\begin{frame}
+%  \frametitle{Unobservable Moments: $y = \beta T^* + u$}
+%
+%\alert{Define error term that absorbs constant: $u = c + \varepsilon$}
+%
+%\begin{center}
+%  \begin{tabular}{c|c|c|c|c|}
+%    \multicolumn{1}{c}{}& \multicolumn{1}{c}{$z=1$} &\multicolumn{1}{c}{$z=2$} & \multicolumn{1}{c}{\dots} &\multicolumn{1}{c}{$z=K$}\\
+%    \cline{2-5}
+%    $T^*=0$ & \diagbox[dir=NE]{$m^*_{01}$}{$p^*_{01}$} & \diagbox[dir=NE]{$m^*_{02}$}{$p^*_{02}$} & \dots &\diagbox[dir=NE]{$m^*_{0K}$}{$p^*_{0K}$}\\
+%    \cline{2-5}
+%    $T^*=1$ & \diagbox[dir=NE]{$m^*_{11}$}{$p^*_{11}$} & \diagbox[dir=NE]{$m^*_{12}$}{$p^*_{12}$} & \dots &\diagbox[dir=NE]{$m^*_{1K}$}{$p^*_{1K}$}\\
+%    \cline{2-5}
+%  \end{tabular}
+%\end{center}
+%
+%\vspace{1em}
+%
+%\[m^*_{tk} = \mathbb{E}[u|T^*=t,z=z_k],
+%\quad p^*_{tk}=q_k p^*_k\]
+%\small
+%\[q_k = \mathbb{P}(z = z_k),\quad p^*_k=\mathbb{P}(T^*=1|z=z_k)\]
+%
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}
 %  \frametitle{Unrestricted System of Equations} 
@@ -258,15 +258,16 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{System of Equations given $E[\varepsilon|z]=0$}
-  \small
-  \alert{\framebox{$\mathbb{E}[\varepsilon|z]=0 \implies$ \emph{pair} of equations for each $k = 1, \dots, K$}}
+  \footnotesize
+  Let $m^*_{tk} = \mathbb{E}[\varepsilon|T^*=t,z=k]$
+  %\alert{\framebox{$\mathbb{E}[\varepsilon|z]=0 \implies$ \emph{pair} of equations for each $k = 1, \dots, K$}}
 \begin{align*}
-  (1 - p_k)\bar{y}_{0k} &=\alpha_1(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + (1-\alpha_0)c - (p _k -  \alpha_0)m_{1k}^* \\[1.5ex]
-  p_k\bar{y}_{1k} &=(1-\alpha_1)(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + \alpha_0 c + (p _k -  \alpha_0)m_{1k}^*
+  (1 - p_k)\bar{y}_{0k} &=\alpha_1(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + (1-\alpha_0)c - (p _k -  \alpha_0)(c + m_{1k}^*) \\[1.5ex]
+  p_k\bar{y}_{1k} &=(1-\alpha_1)(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + \alpha_0 c + (p _k -  \alpha_0)(c + m_{1k}^*)
 \end{align*}
 
 \begin{alertblock}{Theorem}
-  $2K$ equations in $K+4$ unknowns, but $\beta$ is unidentified \emph{regardless} of $K$.
+  $2K$ equations in $K+4$ unknowns, but $\beta$ is unidentified from conditional means of $y$ regardless of how many values, $K$, the instrument takes on.
 \end{alertblock}
 
 \begin{block}{Intuition}
@@ -361,7 +362,8 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 \end{block}
 \normalsize
 \begin{alertblock}{Theorem}
-  Third moment suffice to identify the model provided that $\beta \neq 0$. If $\beta = 0$, the reduced form identifies $\beta$.
+  Model is identified if $\beta \neq 0$ and $\alpha_0 + \alpha_1 <1$. If $\beta = 0$, reduced form identifies $\beta$. 
+If $\alpha_0 + \alpha_1 >1$, $\beta$ is identified up to sign.
 \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -746,83 +748,83 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\appendix
-
-\begin{frame}[label=MAHAJAN_APPEND]
-  \frametitle{Mahajan (2006, ECTA)}
-
-  \vspace{-1em}
-
-    \begin{columns}[c]
-    \column{.45\textwidth} 
-    \begin{exampleblock}{Regression Model}
-      $y = \mathbb{E}[y|T^*] + \nu$\\
-      {\small $\mathbb{E}[\nu|T^*]=0$ by construction}
-    \end{exampleblock}
-    \column{.45\textwidth}
-    \begin{exampleblock}{Causal Model}
-     $y = c + \beta T^* + \varepsilon$\\
-     {\small$\mathbb{E}[\varepsilon|T^*]\neq 0$}
-    \end{exampleblock}
-    \end{columns}
-
-    \vspace{1.5em}
-  
-  \begin{block}{Main Result (Correct) -- Exogenous Treatment}
-   Relevant binary instrument $z$ ($p^*_k \neq p^*_\ell$) identifies $\alpha_0, \alpha_1$ and $\mathbb{E}[y|T^*]$ provided that $\mathbb{E}[\nu|T^*,T,z]=0$ and $\alpha_0 + \alpha_1 < 1$. 
-  \end{block}
-
-  \begin{alertblock}{Extension (Incorrect) -- Endogenous Treatment}
-    $\mathbb{E}[\varepsilon|z]=0$, $p^*_k \neq p^*_\ell$, $\mathbb{E}[\varepsilon|T,T^*,z]=\mathbb{E}[\varepsilon|T^*] \implies$ $\beta$ identified.
-  \end{alertblock}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-  \frametitle{Mahajan (2006, ECTA)}
-    \begin{columns}[c]
-    \column{.45\textwidth} 
-    \begin{exampleblock}{Regression Model}
-      $y = \mathbb{E}[y|T^*] + \nu$\\
-      {\small $\mathbb{E}[\nu|T^*]=0$ by construction}
-    \end{exampleblock}
-    \column{.45\textwidth}
-    \begin{exampleblock}{Causal Model}
-     $y = c + \beta T^* + \varepsilon$\\
-     {\small$\mathbb{E}[\varepsilon|T^*]\neq 0$}
-    \end{exampleblock}
-    \end{columns}
-
-    \vspace{0.7em}
-
-    \begin{block}{Ingredients}
-      
-  \begin{enumerate}
-    \item If $p^*_k \neq p^*_\ell$, $\mathbb{E}[\varepsilon|z]=0$ then, since $\beta_{IV} = \beta/(1-\alpha_0-\alpha_1)$, knowledge of $\alpha_0,\alpha_1$ is sufficient to recover $\beta$. \textcolor{blue}{(Correct)}
-    \item If $p^*_k \neq p^*_\ell$, $\mathbb{E}[\nu|T^*,T,z]=0$, $\alpha_0, \alpha_1$ are identified. \textcolor{blue}{(Correct)}
-    \item[] \alert{\framebox{How to satisfy both 1 and 2 while allowing $\mathbb{E}[\varepsilon|T^*]\neq 0$?}}
-    \item[3.] Assume that $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ \\ {\small (i.e.\ $m_{0k}^* = m_{0\ell}^*$ and $m_{1k}^*=m_{1\ell}^*$)}
-  \end{enumerate}
-    \end{block}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Flaw in the Argument}
-  \begin{block}{Proposition}
-    If $\mathbb{E}[\varepsilon|T^*]\neq 0$ then  $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ combined with $\mathbb{E}[\varepsilon|z]=0$ implies $p^*_k = p^*_\ell$, i.e.\ $z$ is irrelevant for $T^*$.
-  \end{block}
-  \begin{block}{Proof}
-    $\mathbb{E}[\varepsilon|z]=0$ implies
-  \begin{align*}
-    (1-p_1^*) \textcolor{red}{m^*_{0k}} + p^*_1 \textcolor{blue}{m^*_{1k}}&=c\\
-    (1-p_2^*) \textcolor{red}{m^*_{0\ell}} + p^*_2 \textcolor{blue}{m^*_{1\ell}}&=c
-  \end{align*}
-  while Mahajan's assumption implies $m_{0k}^* = m_{0\ell}^*$ and $m_{1k}^*=m_{1\ell}^*$.
-  Therefore either $m_{0k}^*=m_{0\ell}^* = m_{1k}^* =m_{1\ell}^*=c$, which is ruled out by $E[\varepsilon|T^*]=0$, or $p^*_k = p^*_\ell$.
-  \end{block}
-    \hyperlink{MAHAJAN_BODY}{\beamergotobutton{Back}}
-\end{frame}
+%\appendix
+%
+%\begin{frame}[label=MAHAJAN_APPEND]
+%  \frametitle{Mahajan (2006, ECTA)}
+%
+%  \vspace{-1em}
+%
+%    \begin{columns}[c]
+%    \column{.45\textwidth} 
+%    \begin{exampleblock}{Regression Model}
+%      $y = \mathbb{E}[y|T^*] + \nu$\\
+%      {\small $\mathbb{E}[\nu|T^*]=0$ by construction}
+%    \end{exampleblock}
+%    \column{.45\textwidth}
+%    \begin{exampleblock}{Causal Model}
+%     $y = c + \beta T^* + \varepsilon$\\
+%     {\small$\mathbb{E}[\varepsilon|T^*]\neq 0$}
+%    \end{exampleblock}
+%    \end{columns}
+%
+%    \vspace{1.5em}
+%  
+%  \begin{block}{Main Result (Correct) -- Exogenous Treatment}
+%   Relevant binary instrument $z$ ($p^*_k \neq p^*_\ell$) identifies $\alpha_0, \alpha_1$ and $\mathbb{E}[y|T^*]$ provided that $\mathbb{E}[\nu|T^*,T,z]=0$ and $\alpha_0 + \alpha_1 < 1$. 
+%  \end{block}
+%
+%  \begin{alertblock}{Extension (Incorrect) -- Endogenous Treatment}
+%    $\mathbb{E}[\varepsilon|z]=0$, $p^*_k \neq p^*_\ell$, $\mathbb{E}[\varepsilon|T,T^*,z]=\mathbb{E}[\varepsilon|T^*] \implies$ $\beta$ identified.
+%  \end{alertblock}
+%
+%\end{frame}
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}
+%  \frametitle{Mahajan (2006, ECTA)}
+%    \begin{columns}[c]
+%    \column{.45\textwidth} 
+%    \begin{exampleblock}{Regression Model}
+%      $y = \mathbb{E}[y|T^*] + \nu$\\
+%      {\small $\mathbb{E}[\nu|T^*]=0$ by construction}
+%    \end{exampleblock}
+%    \column{.45\textwidth}
+%    \begin{exampleblock}{Causal Model}
+%     $y = c + \beta T^* + \varepsilon$\\
+%     {\small$\mathbb{E}[\varepsilon|T^*]\neq 0$}
+%    \end{exampleblock}
+%    \end{columns}
+%
+%    \vspace{0.7em}
+%
+%    \begin{block}{Ingredients}
+%      
+%  \begin{enumerate}
+%    \item If $p^*_k \neq p^*_\ell$, $\mathbb{E}[\varepsilon|z]=0$ then, since $\beta_{IV} = \beta/(1-\alpha_0-\alpha_1)$, knowledge of $\alpha_0,\alpha_1$ is sufficient to recover $\beta$. \textcolor{blue}{(Correct)}
+%    \item If $p^*_k \neq p^*_\ell$, $\mathbb{E}[\nu|T^*,T,z]=0$, $\alpha_0, \alpha_1$ are identified. \textcolor{blue}{(Correct)}
+%    \item[] \alert{\framebox{How to satisfy both 1 and 2 while allowing $\mathbb{E}[\varepsilon|T^*]\neq 0$?}}
+%    \item[3.] Assume that $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ \\ {\small (i.e.\ $m_{0k}^* = m_{0\ell}^*$ and $m_{1k}^*=m_{1\ell}^*$)}
+%  \end{enumerate}
+%    \end{block}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Flaw in the Argument}
+%  \begin{block}{Proposition}
+%    If $\mathbb{E}[\varepsilon|T^*]\neq 0$ then  $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*]$ combined with $\mathbb{E}[\varepsilon|z]=0$ implies $p^*_k = p^*_\ell$, i.e.\ $z$ is irrelevant for $T^*$.
+%  \end{block}
+%  \begin{block}{Proof}
+%    $\mathbb{E}[\varepsilon|z]=0$ implies
+%  \begin{align*}
+%    (1-p_1^*) \textcolor{red}{m^*_{0k}} + p^*_1 \textcolor{blue}{m^*_{1k}}&=c\\
+%    (1-p_2^*) \textcolor{red}{m^*_{0\ell}} + p^*_2 \textcolor{blue}{m^*_{1\ell}}&=c
+%  \end{align*}
+%  while Mahajan's assumption implies $m_{0k}^* = m_{0\ell}^*$ and $m_{1k}^*=m_{1\ell}^*$.
+%  Therefore either $m_{0k}^*=m_{0\ell}^* = m_{1k}^* =m_{1\ell}^*=c$, which is ruled out by $E[\varepsilon|T^*]=0$, or $p^*_k = p^*_\ell$.
+%  \end{block}
+%    \hyperlink{MAHAJAN_BODY}{\beamergotobutton{Back}}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
