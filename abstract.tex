@@ -1,11 +1,10 @@
 %!TEX root = ./main.tex
-This paper studies identification of the causal effect of a binary, endogenous regressor subject to non-differential measurement error when a discrete-valued instrumental variable is available. 
-We begin by showing that the only existing identification result for this case is incorrect.
-As such, identification in this model remains an open question.
-We then show that the causal effect is unidentified under the usual mean independence assumption for the instrument and measurement error.
-This motivates us to consider alternative and slightly stronger forms of independence.
-Our main result shows that adding second and third moment independence assumptions suffices to identify the model.
-We complement this identification result with partial identification bounds that hold under weaker conditions.
-Our identification result leads to an explicit method of moments estimator. 
-Like a number of related estimators from the literature, however, it suffers from a weak identification problem when the regressor has only a small effect on the outcome of interest. 
-To address this difficulty, we propose a two-step inference procedure that combines our moment equalities with partially-identifying moment inequalities.
+This paper studies identification and estimation of the effect of a binary, endogenous regressor subject to non-differential measurement error when a discrete-valued instrumental variable is available. 
+We begin by showing that the only existing identification result for this case is incorrect. 
+As such, identification in this model remains an open question. 
+We then show that the usual mean independence assumption for the instrument and measurement error fail to identify the effect of interest. 
+This motivates us to consider alternative and slightly stronger assumptions. 
+We show that adding second and third moment independence assumptions suffices to identify the model and leads to an explicit method of moments estimator. 
+Because our setting has features of a mixture model, however, this estimator suffers from a weak identification problem when the binary regressor has only a small effect on the outcome of interest. 
+To address this difficulty, we derive a number of auxiliary moment inequalities that remain informative regardless of the magnitude of the treatment effect. 
+Combining these with the moment equalities that emerge from our identification result, we propose a robust inference procedure based on generalized moment selection.
