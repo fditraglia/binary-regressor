@@ -2161,7 +2161,7 @@ and define
 \right]
 \end{align*}
 
-\section{April 2017 -- Andrews \& Soares (2010)}
+\section{April 1--15, 2017 -- Andrews \& Soares (2010)}
 Our moment equalities from above do not identify $\alpha$ when $\beta=0$.
 More generally, the estimator based on them performs poorly when $\beta$ is relatively small compared to the error variance.
 Continue to assume that $\alpha_0 = 0$ so the moment conditions simplify.
@@ -2359,6 +2359,76 @@ Now we describe the procedure for calculating the bootstrap critical value:
   \item Reject $H_0\colon \theta = \theta_0$ if $T_n > \widehat{c}_n(\theta_0, 1-\delta)$
   \item To construct a $(1 - \delta)\times 100\%$ confidence set, invert the test of $H_0\colon \theta = \theta_0$ for $\theta_0 \in \Theta$.
 \end{enumerate}
+
+\section{April 15--18, 2017}
+ 
+\subsection{Second Moment Inequalities}
+
+\paragraph{Step 1: Second Moment Bounds}
+Our model has $\varepsilon = y - c - bT^*$ where $\mathbb{E}[\varepsilon]=0$.
+Conditional on $T^*=0$, $\varepsilon = y-c$ and conditional on $T^*=1$, $\varepsilon = y - c -\beta$.
+Hence,
+\begin{align*}
+  \mathbb{E}\left[ \varepsilon^2| T^*=0, z=k\right] &= \mathbb{E}\left[ y^2 - 2cy|T^*=0, z=k \right] + c^2\\
+  \mathbb{E}\left[ \varepsilon^2| T^*=1, z=k\right] &= \mathbb{E}\left[ y^2 - 2(\beta + c)y|T^*=1, z=k \right] + (\beta + c)^2
+\end{align*}
+The bounds will impose that $\mbox{Var}(\varepsilon|T^*,z)>0$ which is equivalent to $\mathbb{E}\left[ \varepsilon|T^*,z \right]>0$ since $\varepsilon$ is mean zero:
+\begin{align*}
+  \mathbb{E}\left[ y^2|T^*=0, z=k \right]&> 2c \mathbb{E}\left[ y|T^*=0, z=k \right] - c^2\\
+  \mathbb{E}\left[ y^2|T^*=1, z=k \right]&> 2(\beta + c) \mathbb{E}\left[ y|T^*=1, z=k \right] - (\beta + c)^2
+\end{align*}
+
+
+\paragraph{Step 2: Relate $\mathbb{E}[y^r|T^*,z]$ to $\mathbb{E}[y^r|T,z]$}
+By iterated expectations and the assumption that $\mathbb{E}\left[ y^r|T,T^*,z \right]= \mathbb{E}\left[ y^r|T^*,z \right]$,
+\begin{align*}
+  \mathbb{E}\left[ y^r|T=0, z_k \right] &= \mathbb{E}\left[ y^r|T^*=0, z_k \right]\mathbb{P}(T^*=0|T=0, z_k) + \mathbb{E}\left[ y^r|T^*=1, z_k \right]\mathbb{P}(T^*=1|T=0, z_k)\\
+  \mathbb{E}\left[ y^r|T=1, z_k \right] &= \mathbb{E}\left[ y^r|T^*=0, z_k \right]\mathbb{P}(T^*=0|T=1, z_k) + \mathbb{E}\left[ y^r|T^*=1, z_k \right]\mathbb{P}(T^*=1|T=1, z_k)
+\end{align*}
+The preceding is a linear system of the form
+\begin{align*}
+  a &= \pi x + (1 - \pi)y \\
+  b &= (1 - \delta) x + \delta y
+\end{align*}
+and hence its solution is
+\begin{align*}
+  x &= \left[ \frac{\delta}{\pi\delta - (1 - \pi)(1 - \delta)} \right] a + \left[ \frac{-(1 - \pi)}{\pi \delta - (1 - \pi)(1 - \delta)} \right] b\\
+  y &= \left[ \frac{-(1 - \delta)}{\pi\delta - (1 - \pi)(1 - \delta)} \right] a + \left[ \frac{\pi}{\pi \delta - (1 - \pi)(1 - \delta)} \right] b\\
+\end{align*}
+by Bayes' rule, as we show in the appendix to sick-instruments,
+\begin{align*}
+  \pi &= \mathbb{P}(T^*=0|T=0, z_k) =(1 - \alpha_0)(1 - p_k^*)/(1 - p_k)\\
+  1 - \pi &= \mathbb{P}(T^*=1|T=0, z_k) =\alpha_1p_k^*/(1 - p_k)\\
+  \delta &= \mathbb{P}(T^*=1|T=1, z_k) =(1 - \alpha_1)p_k^*/p_k\\
+  1-\delta &= \mathbb{P}(T^*=0|T=1, z_k) = \alpha_0 (1 - p_k^*)/p_k
+\end{align*}
+Some algebra shows that 
+\[
+  \pi\delta - (1 - \pi)(1 - \delta) = \frac{(p_k - \alpha_0)(1 - p_k - \alpha_1)}{1 - \alpha_0 - \alpha_1}
+\]
+Hence, after simplifying and rearranging, it follows that 
+\begin{align*}
+  p_k(1 - p_k)(1 - p_k - \alpha_1)\mathbb{E}\left[ y^r|T^*=0, z_k \right] &= (1 - \alpha_1)(1 - p_k) \mathbb{E}[y^r|T=0, z_k] - \alpha_1 p_k \mathbb{E}[y^r|T=1,z_k]\\
+  p_k(1 - p_k)(p_k - \alpha_0)\mathbb{E}\left[ y^r|T^*=1, z_k \right] &= (1 - \alpha_0)p_k\mathbb{E}[y^r|T=1,z_k] - \alpha_0(1 - p_k) \mathbb{E}[y^r|T=0,z_k]\\
+\end{align*}
+
+
+\paragraph{Step 3: Convert Conditional to Unconditional Moments}
+By iterated expectations and the assumption that $\mathbb{E}\left[ y^r|T,T^*,z \right]= \mathbb{E}\left[ y^r|T^*,z \right]$
+\begin{align*}
+  p_k &= \mathbb{E}[T|z=k] = \mathbb{E}\left[ T \mathbf{1}(z=k) \right]/\mathbb{P}(z=k)\\
+  \mathbb{E}\left[ y^r |T=0, z=k\right] &= \mathbb{E}\left[ y^r(1 - T) \mathbf{1}(z=k) \right]/\left[ (1 - p_k) \mathbb{P}(z=k)\right]\\
+  \mathbb{E}\left[ y^r |T=1, z=k\right] &= \mathbb{E}\left[ y^r T \mathbf{1}(z=k) \right]/\left[p_k \mathbb{P}(z=k)\right]
+\end{align*}
+
+\paragraph{Step 4: Substitute Steps 2--3 into Step 1}
+After some algebra, we find that
+\begin{align*}
+  \mathbb{E}\left[ \mathbf{1}(z=k)\left\{ T - (1 - \alpha_1) \right\}\left(y - 2cy \right) \right] &< c^2 \mathbb{P}(z=k)p_k(1 - p_k)(1 - p_k - \alpha_1)\\
+  \mathbb{E}\left[ \mathbf{1}(z=k)(T - \alpha_0)\left\{ y^2 - 2(\beta + c)y \right\} \right] &< (\beta + c)^2 \mathbb{P}(z=k) p_k(1 - p_k)(p_k - \alpha_0)
+\end{align*}
+
+
 
 \end{document}
 
