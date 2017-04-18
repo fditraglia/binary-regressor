@@ -2409,7 +2409,7 @@ Some algebra shows that
 Hence, after simplifying and rearranging, it follows that 
 \begin{align*}
   p_k(1 - p_k)(1 - p_k - \alpha_1)\mathbb{E}\left[ y^r|T^*=0, z_k \right] &= (1 - \alpha_1)(1 - p_k) \mathbb{E}[y^r|T=0, z_k] - \alpha_1 p_k \mathbb{E}[y^r|T=1,z_k]\\
-  p_k(1 - p_k)(p_k - \alpha_0)\mathbb{E}\left[ y^r|T^*=1, z_k \right] &= (1 - \alpha_0)p_k\mathbb{E}[y^r|T=1,z_k] - \alpha_0(1 - p_k) \mathbb{E}[y^r|T=0,z_k]\\
+  p_k(1 - p_k)(p_k - \alpha_0)\mathbb{E}\left[ y^r|T^*=1, z_k \right] &= (1 - \alpha_0)p_k\mathbb{E}[y^r|T=1,z_k] - \alpha_0(1 - p_k) \mathbb{E}[y^r|T=0,z_k]
 \end{align*}
 
 
@@ -2425,7 +2425,7 @@ By iterated expectations and the assumption that $\mathbb{E}\left[ y^r|T,T^*,z \
 After some algebra, we find that
 \begin{align*}
   \mathbb{E}\left[ \mathbf{1}(z=k)\left\{ T - (1 - \alpha_1) \right\}\left(y - 2cy \right) \right] &< c^2 \mathbb{P}(z=k)p_k(1 - p_k)(1 - p_k - \alpha_1)\\
-  \mathbb{E}\left[ \mathbf{1}(z=k)(T - \alpha_0)\left\{ y^2 - 2(\beta + c)y \right\} \right] &< (\beta + c)^2 \mathbb{P}(z=k) p_k(1 - p_k)(p_k - \alpha_0)
+  \mathbb{E}\left[ \mathbf{1}(z=k)(\alpha_0 - T)\left\{ y^2 - 2(\beta + c)y \right\} \right] &< (\beta + c)^2 \mathbb{P}(z=k) p_k(1 - p_k)(p_k - \alpha_0)
 \end{align*}
 
 
