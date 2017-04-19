@@ -2372,7 +2372,7 @@ Hence,
   \mathbb{E}\left[ \varepsilon^2| T^*=0, z=k\right] &= \mathbb{E}\left[ y^2 - 2cy|T^*=0, z=k \right] + c^2\\
   \mathbb{E}\left[ \varepsilon^2| T^*=1, z=k\right] &= \mathbb{E}\left[ y^2 - 2(\beta + c)y|T^*=1, z=k \right] + (\beta + c)^2
 \end{align*}
-The bounds will impose that $\mbox{Var}(\varepsilon|T^*,z)>0$ which is equivalent to $\mathbb{E}\left[ \varepsilon|T^*,z \right]>0$ since $\varepsilon$ is mean zero:
+The bounds will impose that $\mbox{Var}(\varepsilon|T^*,z)>0$ which is equivalent to $\mathbb{E}\left[ \varepsilon^2|T^*,z \right]>0$ since $\varepsilon$ is mean zero:
 \begin{align*}
   \mathbb{E}\left[ y^2|T^*=0, z=k \right]&> 2c \mathbb{E}\left[ y|T^*=0, z=k \right] - c^2\\
   \mathbb{E}\left[ y^2|T^*=1, z=k \right]&> 2(\beta + c) \mathbb{E}\left[ y|T^*=1, z=k \right] - (\beta + c)^2
@@ -2424,9 +2424,16 @@ By iterated expectations and the assumption that $\mathbb{E}\left[ y^r|T,T^*,z \
 \paragraph{Step 4: Substitute Steps 2--3 into Step 1}
 After some algebra, we find that
 \begin{align*}
-  \mathbb{E}\left[ \mathbf{1}(z=k)\left\{ T - (1 - \alpha_1) \right\}\left(y - 2cy \right) \right] &< c^2 \mathbb{P}(z=k)p_k(1 - p_k)(1 - p_k - \alpha_1)\\
+  \mathbb{E}\left[ \mathbf{1}(z=k)\left\{ T - (1 - \alpha_1) \right\}\left(y^2 - 2cy \right) \right] &< c^2 \mathbb{P}(z=k)p_k(1 - p_k)(1 - p_k - \alpha_1)\\
   \mathbb{E}\left[ \mathbf{1}(z=k)(\alpha_0 - T)\left\{ y^2 - 2(\beta + c)y \right\} \right] &< (\beta + c)^2 \mathbb{P}(z=k) p_k(1 - p_k)(p_k - \alpha_0)
 \end{align*}
+
+\paragraph{Step 5: Complete the Square}
+\begin{align*}
+  \mathbb{E}\left[ \mathbf{1}(z=k)\left\{ 1 - \alpha_1 - T \right\}\left(y - c\right)^2 \right] &> c^2 \mathbb{P}(z=k)(1 - p_k - \alpha_1)\left[ 1 - p_k(1 - p_k) \right]\\
+  \mathbb{E}\left[ \mathbf{1}(z=k)(T - \alpha_0)\left\{ y - (\beta + c) \right\}^2 \right] &> (\beta + c)^2 \mathbb{P}(z=k) (p_k - \alpha_0)\left[ 1 - p_k(1 - p_k) \right]
+\end{align*}
+
 
 
 
