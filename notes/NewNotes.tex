@@ -2651,5 +2651,53 @@ Under this assumption the result of Frazis \& Loewenstein (2003) holds -- the IV
 Since $(y - \mathbf{x}'\boldsymbol{\gamma} ) = c + \beta T^* + \varepsilon$, all of the preceding moment conditions should still hold only with $(y - \mathbf{x}'\boldsymbol{\gamma})$ in place of $y$.
 To identify $\boldsymbol{\gamma}$ we add an extra moment condition in which $\mathbf{x}$ multiplies the $u_1$ error term, re-defined to subtract $\mathbf{x}'\boldsymbol{\gamma}$.
 
+\subsection*{Correcting the Second Moment Inequalities}
+In the derivation from above I mistakenly claimed that since $\varepsilon$ is mean zero, it is sufficient to work with the conditional means of $\varepsilon^2$ given $T^*$ and $z$. 
+This is not correct since the \emph{conditional} means of $\varepsilon$ are not zero.
+The bounds from above are not wrong, but they can be improved by looking at the conditional variance of $\varepsilon$ rather than simply $\mathbb{E}[\varepsilon^2]$.
+Steps 2--3 from above are still usable, but we need to change step 1.
+
+Our inequalities come from the fact that
+\[
+  \mbox{Var}(\varepsilon|T^*,z) > 0 \iff \mathbb{E}[\varepsilon^2 |T^*,z] > \left\{\mathbb{E}[\varepsilon|T^*,z]\right\}^2
+\]
+We've already done the calculations for $\varepsilon^2|T^*,z$.
+Now we simply need to do the same for $\varepsilon|T^*,z$, namely
+\begin{align*}
+  \mathbb{E}[\varepsilon|T^*=0,z=k] &= \mathbb{E}\left[ y |T^*=0, z=k \right] - c\\
+  \mathbb{E}[\varepsilon|T^*=1,z=k] &= \mathbb{E}\left[ y |T^*=1, z=k\right] - (c + \beta)
+\end{align*}
+Now we relate $\mathbb{E}[y|T^*,z]$ to $\mathbb{E}[y|T,z]$ using the calculations from above:
+\begin{align*}
+  \mathbb{E}\left[ y|T^*=0, z_k \right] &= \frac{(1 - \alpha_1)}{p_k (1 - p_k - \alpha_1)} \mathbb{E}[y|T=0, z_k] - \frac{\alpha_1 }{(1 - p_k)(1 - p_k - \alpha_1)}\mathbb{E}[y|T=1,z_k]\\
+  \mathbb{E}\left[ y|T^*=1, z_k \right] &= \frac{(1 - \alpha_0)}{( 1 - p_k)(p_k - \alpha_0)}\mathbb{E}[y|T=1,z_k] - \frac{\alpha_0}{p_k (p_k - \alpha_0)} \mathbb{E}[y|T=0,z_k]
+\end{align*}
+After lots of algebra (see our handwritten notes), we obtain:
+\small
+\begin{align*}
+  p_k (1 - p_k)(1 - p_k - \alpha_1) \left\{ (1  - \alpha_1)(1 - p_k)\mathbb{E}\left[ y^2|T=0,z_k \right] - \alpha_1 p_k \mathbb{E}[y^2|T=1,z_k \right\}  \\
+    > \left\{ (1 - \alpha_1)(1 - p_k)\mathbb{E}[y|T=0,z_k] - \alpha_1 p_k \mathbb{E}[y|T=1,z_k] \right\}^2
+\end{align*}
+and
+\begin{align*}
+  p_k (1 - p_k)(p_k - \alpha_0) \left\{ (1  - \alpha_0)p_k\mathbb{E}\left[ y^2|T=1,z_k \right] - \alpha_0 (1-p_k) \mathbb{E}[y^2|T=0,z_k \right\}  \\
+    > \left\{ (1 - \alpha_0)p_k\mathbb{E}[y|T=1,z_k] - \alpha_0 (1-p_k) \mathbb{E}[y|T=0,z_k] \right\}^2
+\end{align*}
+Finally, we need to convert these into expressions involving unconditional moments via
+\begin{align*}
+  p_k &= \mathbb{E}[T|z=k] = \mathbb{E}\left[ T \mathbf{1}(z=k) \right]/\mathbb{P}(z=k)\\
+  \mathbb{E}\left[ y^r |T=0, z=k\right] &= \mathbb{E}\left[ y^r(1 - T) \mathbf{1}(z=k) \right]/\left[ (1 - p_k) \mathbb{P}(z=k)\right]\\
+  \mathbb{E}\left[ y^r |T=1, z=k\right] &= \mathbb{E}\left[ y^r T \mathbf{1}(z=k) \right]/\left[p_k \mathbb{P}(z=k)\right]
+\end{align*}
+These appear to match our expressions from the sick-instruments paper.
+
+
+\subsection*{Estimated Parameters in Andrews \& Soares}
+In our simple example from above applying the Andrews and Soares (2010) generalized moment selection procedure to the case where $\alpha_0 = 0$, we assumed for simplicity that $c$ and $\sigma_{\varepsilon\varepsilon}$ were known.
+Without $\alpha_0 = 0$, the analogous assumption would be that $\boldsymbol{\kappa}$ is known.
+In practice, however, this parameter is estimated from the data. 
+Accounting for this fact requires a change in the procedure for calculating the variance matrix $\Sigma$ of the moment conditions under the null hypothesis. 
+We know explain how this works.
+
 \end{document}
 
