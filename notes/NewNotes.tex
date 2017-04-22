@@ -2637,5 +2637,19 @@ where
 \end{align*}
 
 
+\paragraph{What about exogenous covariates?}
+At one extreme, we could simply carry out the above \emph{conditional} on $\mathbf{x}$.
+This would entail treating $\boldsymbol{\kappa}$ and $\boldsymbol{\theta}$ as functions of $\mathbf{x}$ such that $\alpha_0, \alpha_1$ and $\beta$ would be allowed to depend on $\mathbf{x}$.
+To implement this, one would need to estimate a number of conditional mean functions: $\mathbb{E}[y|\mathbf{x}]$, $\mathbb{E}[T|\mathbf{x}]$, $\mathbb{E}[yT|\mathbf{x}]$, $\mathbb{E}[y^3|\mathbf{x}]$, and $\mathbb{E}[y^2T|\mathbf{x}]$.
+It would appear that this leads to a standard two-step estimation problem although clearly you'd need a lot of data to have any chance!
+Another idea would be to impose some restrictions on the way in which $\mathbf{x}$ affects $\alpha_0$ etc, leading to a semi-parametric estimator.
+At the other extreme, we could impose the assumption that $\mathbf{x}$ affects $y$ linearly and $\alpha_0, \alpha_1$ do not vary with $\mathbf{x}$:
+\[
+  y = c + \beta T^* + \mathbf{x}'\boldsymbol{\gamma} + \varepsilon
+\]
+Under this assumption the result of Frazis \& Loewenstein (2003) holds -- the IV estimator would recover $\kappa_1, \theta_1, \boldsymbol{\gamma}$.
+Since $(y - \mathbf{x}'\boldsymbol{\gamma} ) = c + \beta T^* + \varepsilon$, all of the preceding moment conditions should still hold only with $(y - \mathbf{x}'\boldsymbol{\gamma})$ in place of $y$.
+To identify $\boldsymbol{\gamma}$ we add an extra moment condition in which $\mathbf{x}$ multiplies the $u_1$ error term, re-defined to subtract $\mathbf{x}'\boldsymbol{\gamma}$.
+
 \end{document}
 
