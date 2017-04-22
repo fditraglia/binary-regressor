@@ -2362,7 +2362,7 @@ Now we describe the procedure for calculating the bootstrap critical value:
 
 \section{April 15--18, 2017}
  
-\subsection{Second Moment Inequalities}
+\subsection*{Second Moment Inequalities}
 
 \paragraph{Step 1: Second Moment Bounds}
 Our model has $\varepsilon = y - c - bT^*$ where $\mathbb{E}[\varepsilon]=0$.
@@ -2378,6 +2378,7 @@ The bounds will impose that $\mbox{Var}(\varepsilon|T^*,z)>0$ which is equivalen
   \mathbb{E}\left[ y^2|T^*=1, z=k \right]&> 2(\beta + c) \mathbb{E}\left[ y|T^*=1, z=k \right] - (\beta + c)^2
 \end{align*}
 
+\todo[inline]{These are not in fact the bounds we want! I messed up since $\varepsilon$ is \emph{not} mean zero \emph{conditional} on $T^*$ and $z$. These bounds are still correct, but they're not the best we can do and may not in fact be better than the simple first-moment bounds\ldots}
 
 \paragraph{Step 2: Relate $\mathbb{E}[y^r|T^*,z]$ to $\mathbb{E}[y^r|T,z]$}
 By iterated expectations and the assumption that $\mathbb{E}\left[ y^r|T,T^*,z \right]= \mathbb{E}\left[ y^r|T^*,z \right]$,
@@ -2434,8 +2435,114 @@ After some algebra, we find that
   \mathbb{E}\left[ \mathbf{1}(z=k)(T - \alpha_0)\left\{ y - (\beta + c) \right\}^2 \right] &> (\beta + c)^2 \mathbb{P}(z=k) (p_k - \alpha_0)\left[ 1 - p_k(1 - p_k) \right]
 \end{align*}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{April 21--23}
+\subsection*{The Full Set of Moment Inequalities}
+Above we considered the special case in which $\alpha_0= 0$ so that first and second moments were sufficient to identify the model.
+We now derive the GMM-style moment conditions for the general case in which $\alpha_0$ may not equal zero and we need to use third moments for identification.
 
+\todo[inline]{Note that we have checked all of these equalities numerically in our simulation study and they are indeed correct!}
+
+\paragraph{Notation and Identification} Define the following re-parameterization
+\begin{align*}
+  \theta_1 &= \beta/(1 - \alpha_0 - \alpha_1)\\
+  \theta_2 &= \theta_1^2 \left[ 1 + (\alpha_0 - \alpha_1) \right]\\
+  \theta_3 &= \theta_1^3\left[ \left( 1 - \alpha_0 - \alpha_1 \right)^2 + 6\alpha_0\left( 1 - \alpha_1 \right) \right]
+\end{align*}
+Using this notation, the covariance equations from above become
+\begin{align*}
+  \mbox{Cov}(y,z) - \theta_1 \mbox{Cov}(T,z) &= 0\\
+  \mbox{Cov}(y^2,z) - \theta_1 2\mbox{Cov}(yT,z) + \theta_2 \mbox{Cov}(T,z)&= 0\\
+  \mbox{Cov}(y^3,z) - \theta_1 3 \mbox{Cov}(y^2T,z) + \theta_2 3\mbox{Cov}(yT,z) - \theta_3\mbox{Cov}(T,z) &= 0
+\end{align*}
+Note that it is trivial to prove that $\theta_1, \theta_2$ and $\theta_3$ are identified.
+To show that $\beta, \alpha_0$ and $\alpha_1$ are identified, write
+\begin{align*}
+  \theta_2/\theta_1^2 &= 1 + \left( \alpha_0 - \alpha_1 \right)\\
+  \theta_3/\theta_1^3 &= (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0 (1 - \alpha_1) 
+\end{align*}
+which we can always do provided that $\theta_1\neq 0$ which is equivalent to $\beta \neq 0$.
+Re-arranging the first equation allows us to solve for $\alpha_0$ as a function of $\alpha_1$.
+Substituting this into the second gives us a quadratic in $\alpha_1$ only.
+This should be identical to the quadratic we obtained in our original identification proof.
+
+\paragraph{First Moment Equalities}
+Expanding,
+\begin{align*}
+  \mbox{Cov}(y,z) - \theta_1 \mbox{Cov}(T,z) &= 0\\
+  \mathbb{E}[yz - \theta_1 Tz] - \mathbb{E}[z]\mathbb{E}[y - \theta_1 T]&= 0
+\end{align*}
+and
+\begin{align*}
+  \mathbb{E}[y - \theta_1 T] &= c + \beta \mathbb{E}\left[ T^* - T/(1 - \alpha_0 - \alpha_1) \right]\\
+  &= c + \beta\left\{ \frac{\mathbb{E}[T] - \alpha_0}{1 - \alpha_0 - \alpha_1} - \frac{\mathbb{E}[T]}{1 - \alpha_0 - \alpha_1} \right\}\\
+&= c - \alpha_0 \theta_1 
+\end{align*}
+Thus,
+\[
+  \mathbb{E}\left[ \left\{ y - \left( c - \alpha_0 \theta_1 \right) - \theta_1 T\right\}z \right] = 0
+\]
+Now define 
+\begin{align*}
+\kappa_1 &= c - \alpha_0 \theta_1\\
+u_1 &= y - \kappa_1 - \theta_1 T
+\end{align*}
+Using this notation, we obtain the unconditional moment equalities
+\[
+  \mathbb{E}\left[
+  \begin{array}{l}
+    u_1(\kappa_1, \theta_1)\\ u_1(\kappa_1, \theta_1) z
+  \end{array}
+\right] = \mathbf{0}
+\]
+
+\paragraph{Second Moment Equalities}
+
+\begin{align*}
+  \mbox{Cov}(y^2,z) - \theta_1 2\mbox{Cov}(yT,z) + \theta_2 \mbox{Cov}(T,z)&= 0\\
+  \mathbb{E}\left[ y^2z - \theta_1 2yTz + \theta_2 Tz \right] -\mathbb{E}\left[ z \right]\mathbb{E}\left[ y^2 - \theta_1 2yT + \theta_2 T \right] &= 0
+\end{align*}
+
+Now, using some lemmas from the notes in our sick-instruments paper,
+\begin{align*}
+  \mathbb{E}[T\varepsilon] &= \mbox{Cov}(T,\varepsilon) \\
+  &= \mbox{Cov}(T^*,\varepsilon) + \mbox{Cov}(w,\varepsilon)\\
+  &= \mbox{Cov}(T^*,\varepsilon) - \mbox{Cov}(T^*,\varepsilon)(\alpha_0 + \alpha_1)\\
+  &= \mathbb{E}(T^*\varepsilon)(1 - \alpha_0 - \alpha_1)
+\end{align*}
+hence,
+\begin{align*}
+  \mathbb{E}[yT] &= c \mathbb{E}[T] + \beta \mathbb{E}[TT^*] + \mathbb{E}\left[T,\varepsilon \right] \\
+  &= cp + \beta \mathbb{P}(T=1,T^*=1) + \mathbb{E}[T^*\varepsilon](1 - \alpha_0 - \alpha_1)\\
+  &= cp + \beta (1 - \alpha_1)p^* + \mathbb{E}[T^*\varepsilon](1 - \alpha_0 - \alpha_1)
+\end{align*}
+Combining this with
+\[
+  \mathbb{E}[y^2] = c^2 + \beta^2 p^* + \sigma_{\varepsilon\varepsilon} + 2 c\beta p^* + 2 \beta \mathbb{E}[T^*\varepsilon]
+\]
+we find that 
+\[
+  \mathbb{E}\left[ y^2 - \theta_1 2yT + \theta_2 T \right] = \cdots = c^2 + \sigma_{\varepsilon\varepsilon} + \alpha_0(\theta_2 - 2c\theta_1)
+\]
+\todo[inline]{For the steps, see our whiteboard notes from 2017-04-21 17.06.32}
+
+Now, define
+\begin{align*}
+  \kappa_2 &= c^2 + \sigma_{\varepsilon\varepsilon} + \alpha_0 (\theta_2 - 2c \theta_1)\\
+  u_2 &= y^2 - \kappa_2 - \theta_1 2 yT + \theta_2 T
+\end{align*}
+Using this notation, we obtain the unconditional moment equalities
+\[
+  \mathbb{E}\left[
+  \begin{array}{l}
+    u_2(\kappa_1, \theta_1, \theta_2)\\ 
+    u_2(\kappa_1, \theta_1, \theta_2) z
+  \end{array}
+\right] = \mathbf{0}
+\]
 
 \end{document}
 
