@@ -2538,11 +2538,98 @@ Using this notation, we obtain the unconditional moment equalities
 \[
   \mathbb{E}\left[
   \begin{array}{l}
-    u_2(\kappa_1, \theta_1, \theta_2)\\ 
-    u_2(\kappa_1, \theta_1, \theta_2) z
+    u_2(\kappa_2, \theta_1, \theta_2)\\ 
+    u_2(\kappa_2, \theta_1, \theta_2) z
   \end{array}
 \right] = \mathbf{0}
 \]
+
+
+\paragraph{Third Moment Equalities} 
+\begin{align*}
+  \mbox{Cov}(y^3,z) - \theta_1 3 \mbox{Cov}(y^2T,z) + \theta_2 3\mbox{Cov}(yT,z) - \theta_3\mbox{Cov}(T,z) &= 0\\
+  \mathbb{E}\left[ y^3 z - \theta_1 3 y^2 Tz + \theta_2 3 yTz - \theta_3 Tz \right] - \mathbb{E}[z]\mathbb{E}\left[ y^3 - \theta_1 3 y^2T + \theta_2 3 yT - \theta_3 T \right] &= 0
+\end{align*}
+
+\[
+  \mathbb{E}[y^3] = \cdots = c^3 + \beta p^* \left( 3 c^2 + 3 c\beta + \beta^2 \right) + 3 \beta \mathbb{E}[\varepsilon T^*] (2c + \beta) + 3 c \sigma_{\varepsilon\varepsilon} + 3\beta \mathbb{E}[\varepsilon^2 T^*] + \mathbb{E}[\varepsilon^3]
+\]
+
+\todo[inline]{For derivations of the following, see our whiteboard notes from April 21st and 22nd, 2017}
+\[
+  \mathbb{E}\left[ y^2T \right] = \cdots = c^2 p + \beta(1 - \alpha_1)p^* + \mathbb{E}[T\varepsilon^2] + 2 c \beta(1 - \alpha_1) p^* + 2 c \mathbb{E}[T\varepsilon] + 2 \beta \mathbb{E}[TT^* \varepsilon] 
+\]
+and 
+\begin{align*}
+  \mathbb{E}[T\varepsilon^2] &= \cdots = \alpha_0 \sigma_{\varepsilon\varepsilon} + (1 - \alpha_0 - \alpha_1) \mathbb{E}[\varepsilon^2 T^*]\\
+  \mathbb{E}[TT^*\varepsilon] &= \cdots = (1 - \alpha_1) \mathbb{E}[T^*\varepsilon] 
+\end{align*}
+
+We then need to calculate $\mathbb{E}[y^3 - \theta_1 3 y^2T + \theta_2 3yT - \theta_3 T]$.
+Using the preceding expressions, we can show after some algebra that the $\mathbb{E}[T^*\varepsilon]$ and $\mathbb{E}[T^*\varepsilon^2]$ terms drop out, hence
+\begin{align*}
+\mathbb{E}[y^3 - \theta_1 3 y^2T + \theta_2 3yT - \theta_3 T]&=
+\left\{ c^3 + \beta p^* \left( 3c^2 + 3 c\beta + \beta^2 \right) \right\} + 3c \sigma_{\varepsilon\varepsilon} + \mathbb{E}[\varepsilon^3] - \theta_1 3 \alpha_0 \sigma_{\varepsilon\varepsilon} - \theta_3 p\\
+&- \theta_1 3 \left\{ c^2p + \beta^2(1 - \alpha_1)p^* + 2 c \beta (1 - \alpha_1) p^* \right\} + \theta_2 3 \left\{ cp + \beta (1 - \alpha_1)p^* \right\}
+\end{align*}
+After \emph{even more algebra} we can show that this expression depends neither on $p$ nor on $p^*$:
+\small
+\begin{align*}
+\mathbb{E}[y^3 - \theta_1 3 y^2T + \theta_2 3yT - \theta_3 T]&=
+c^3 + 3\left( c - \theta_1 \alpha_0 \right) \sigma_{\varepsilon\varepsilon} + \mathbb{E}[\varepsilon^3] - \alpha_0 \theta_3 - 3 c \alpha_0 \left[ \theta_1 \left( c + \beta \right) - 2\theta_2 \frac{1 - \alpha_1}{1 + \alpha_0 - \alpha_1} \right]\\
+&= c^3 + 3\left( c - \theta_1 \alpha_0 \right) \sigma_{\varepsilon\varepsilon} + \mathbb{E}[\varepsilon^3] - \alpha_0 \theta_3 - 3 c \alpha_0 \left[ \theta_1 \left( c + \beta \right) - 2\theta_1^2 (1 - \alpha_1) \right]\\
+\end{align*}
+\normalsize
+Now let 
+\begin{align*}
+  \kappa_3 &= c^3 + 3\left( c - \theta_1 \alpha_0 \right) \sigma_{\varepsilon\varepsilon} + \mathbb{E}[\varepsilon^3] - \alpha_0 \theta_3 - 3 c \alpha_0 \left[ \theta_1 \left( c + \beta \right) - 2\theta_1^2 (1 - \alpha_1) \right]\\
+  u_3 &= y^3 - \kappa_3 - \theta_1 3y^2 T + \theta_2 3yT - \theta_3 T
+\end{align*}
+we obtain the following moment equalities
+\[
+  \mathbb{E}\left[
+  \begin{array}{l}
+    u_3(\kappa_3, \theta_1, \theta_2, \theta_3)\\ 
+    u_3(\kappa_3, \theta_1, \theta_2, \theta_3) z
+  \end{array}
+\right] = \mathbf{0}
+\]
+
+\paragraph{Putting Everything Together} Define
+\begin{align*}
+\boldsymbol{\kappa} &= (\kappa_1, \kappa_2, \kappa_3)' \\
+\boldsymbol{\theta} &= (\theta_1, \theta_2, \theta_3)'\\
+\mathbf{u}(\boldsymbol{\kappa}, \boldsymbol{\theta}) &= 
+\left[
+\begin{array}{ccc}
+  u_1(\kappa_1, \theta_1) & 
+  u_2(\kappa_2, \theta_2) &
+  u_3(\kappa_3, \theta_3)
+\end{array}
+\right]'
+\end{align*}
+where
+\begin{align*}
+\kappa_1 &= c - \alpha_0 \theta_1\\
+  \kappa_2 &= c^2 + \sigma_{\varepsilon\varepsilon} + \alpha_0 (\theta_2 - 2c \theta_1)\\
+  \kappa_3 &= c^3 + 3\left( c - \theta_1 \alpha_0 \right) \sigma_{\varepsilon\varepsilon} + \mathbb{E}[\varepsilon^3] - \alpha_0 \theta_3 - 3 c \alpha_0 \left[ \theta_1 \left( c + \beta \right) - 2\theta_1^2 (1 - \alpha_1) \right]
+\end{align*}
+and
+\begin{align*}
+u_1(\kappa_1, \theta_1) &= y - \kappa_1 - \theta_1 T\\
+  u_2(\kappa_2, \theta_1, \theta_2) &= y^2 - \kappa_2 - \theta_1 2 yT + \theta_2 T\\
+  u_3(\kappa_3, \theta_1, \theta_2, \theta_3) &= y^3 - \kappa_3 - \theta_1 3y^2 T + \theta_2 3yT - \theta_3 T
+\end{align*}
+Then the full system of moment equalities is given by
+\[
+  \mathbb{E}\left[
+  \begin{array}{l}
+    \mathbf{u}\left( \boldsymbol{\kappa}, \boldsymbol{\theta} \right)\\
+    \mathbf{u}\left( \boldsymbol{\kappa}, \boldsymbol{\theta} \right)z
+  \end{array}
+\right] = \mathbf{0}
+\]
+
 
 \end{document}
 
