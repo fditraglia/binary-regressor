@@ -2699,5 +2699,32 @@ In practice, however, this parameter is estimated from the data.
 Accounting for this fact requires a change in the procedure for calculating the variance matrix $\Sigma$ of the moment conditions under the null hypothesis. 
 We know explain how this works.
 
-\end{document}
+\section{May 5th, 2017 -- Todo for Revised Paper}
 
+\begin{enumerate}
+  \item New notation to accomodate covariates etc.\ as in Mahajan and Lewbel
+  \item Move Mahajan stuff into appendix; possibly convert back to his notation later -- I have handwritten notes on this.
+  \item Identification results: identification from higher moments, lack of identification from conditional means alone
+  \item Explain briefly how to do fully non-parametric estimation, specialize to some simple cases, e.g.\ linear model
+  \item Explain about inference versus estimation.
+  \item Possibly show that Mahajan, Lewbel, etc.\ also suffer from a weak identification problem. This might be helpful for selling the paper.
+    Would need to think about what inequalities to use in their case.
+    Presumably we could still use the ``weak'' bounds, but there might be others we could exploit.
+  \item Testing $\beta = 0$ should be very easy: don't need Andrews \& Soares at all. I think we can either just use the Stock \& Wright GMM-AR or even a plain old-fashioned GMM inference for testing a linear restriction.
+  \item Canay et al.\ projection inference for $\beta$? Need to figure out if this actually gives a speed-up in our case.
+    If so, could be very useful for simulations.
+    Would be nice to show that we have power to reject the probability limit of the IV and reduced form.
+    Is it easier to handle the strongly-identified parameters using their method?
+  \item Could also talk briefly about the continuum of moment conditions idea and how one obtains identification from quantiles. There's also a question of using more inequalities by imposing the independence assumption for the measurement error.
+    Could also proceed without our higher moment assumptions and just get inference for the identified set.
+  \item Is there any way to handle treatment effect heterogeneity? Should be ok if it's modeled heterogeneity but maybe there are some other special cases we can handle? What about that quantile treatment effect idea?
+  \item Simulations: want to show that we can actually learn something useful. Things we want to show are that we have more power than just the RF for testing $\beta=0$, that we have power to reject the RF and IV plims in certain cases.
+  \item Need to show at least in simulations that our confidence regions aren't insane. Would be good if we could formally argue that they must be convex and connected, for example.
+    Maybe the key is to show that our inequalities are always well-behaved and that adding the equalities cann't make the problem suddenly become badly behaved.
+  \item Andrews \& Soares with estimates of the strongly identified parameters to get a joint region for $\alpha_0, \alpha_1$, and $\beta$. But this is slow, so we probably can't do simulations although it would be interesting in the empirical examples.
+  \item Try to get the projection inference for $\beta$ working 
+  \item Empirical example or examples: Oreopolous? Maybe the Heckman JPTA dataset? Petra suggested emailing someone about this but I forget who it was\ldots
+
+\end{enumerate}
+
+\end{document}
