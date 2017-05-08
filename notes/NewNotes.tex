@@ -3100,8 +3100,8 @@ Identification will only rely on two values for $z$ so throughout the remainder 
   \begin{enumerate}[(i)] 
     \item $\alpha_0(\mathbf{x},z) = \alpha_1(\mathbf{x})$,   $\alpha_1(\mathbf{x},z) = \alpha_1(\mathbf{x})$
     \item $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z, T^*]$
-    \item $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) < 1$
     \item $\mathbb{E}\left[ T^*|\mathbf{x},z=0 \right] \neq \mathbb{E}\left[ T^*|\mathbf{x},z=1 \right]$
+    \item $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) \neq 1$ ($T$ is relevant for $T^*$)
     \item $\mathbb{E}[\varepsilon|\mathbf{x},z] = 0$
   \end{enumerate}
 \end{assump}
@@ -3120,13 +3120,21 @@ Identification will only rely on two values for $z$ so throughout the remainder 
   \end{enumerate}
 \end{assump}
 
+\begin{assump}
+  $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) <1$ ($T$ is positively correlated with $T^*$)
+\end{assump}
+
+
 \paragraph{Notation}
 
-\begin{align*}
+\begin{align}
+  \label{eq:theta1_def}
   \theta_1(\mathbf{x}) &= \beta(\mathbf{x})\left[ 1 - \left\{ \alpha_0(\mathbf{x}) + \mathbf{\alpha}_1(\mathbf{x}) \right\} \right]^{-1}\\
+  \label{eq:theta2_def}
   \theta_2(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^2 \left[ 1 + \left\{\alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})\right\}\right] \\
+  \label{eq:theta3_def}
   \theta_3(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^3\left[ \left( 1 - \left\{\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x})\right\} \right)^2 + 6\alpha_0(\mathbf{x})\left\{ 1 - \alpha_1(\mathbf{x}) \right\} \right]
-\end{align*}
+\end{align}
 
 \begin{align*}
   \mbox{Cov}(y,z|\mathbf{x}) - \mbox{Cov}(T,z|\mathbf{x}) \theta_1(\mathbf{x}) &= 0\\
@@ -3145,5 +3153,87 @@ Identification will only rely on two values for $z$ so throughout the remainder 
   \eta_2(\mathbf{x}) &=  2\tau_1(\mathbf{x}) \theta_1(\mathbf{x}) - \pi(\mathbf{x})\theta_2(\mathbf{x}) \\
   \eta_3(\mathbf{x}) &=  3\tau_2(\mathbf{x}) \theta_1(\mathbf{x}) - 3\tau_1(\mathbf{x}) \theta_2(\mathbf{x}) + \pi(\mathbf{x})\theta_3(\mathbf{x})
 \end{align*}
+
+
+
+\begin{lem}[Various bits and pieces, e.g.\ $\eta_1$ equation]
+  
+\end{lem}
+
+\begin{thm}[Non-identification Result]
+  \label{thm:nonident}
+\end{thm}
+\begin{proof}[Proof of Theorem \ref{thm:nonident}]
+\end{proof}
+
+\begin{lem}[The $\eta_2$ equation]
+  \label{lem:eta2}
+\end{lem}
+\begin{proof}[Proof of Lemma \ref{lem:eta2}]
+\end{proof}
+  
+
+\begin{lem}[The $\eta_3$ equation]
+  \label{lem:eta3}
+\end{lem}
+\begin{proof}[Proof of Lemma \ref{lem:eta3}]
+\end{proof}
+
+\begin{cor}[Identification of $\theta_1, \theta_2, \theta_3$]
+  \label{cor:theta_ident}
+\end{cor}
+\begin{proof}[Proof of Corollary \ref{cor:theta_ident}]
+\end{proof}
+
+
+\begin{thm}[Identification of $\beta$, $\alpha_0$, $\alpha_1$]
+  \label{thm:main_ident}
+\end{thm}
+\begin{proof}[Proof of Theorem \ref{thm:main_ident}]
+  For ease of notation we suppress dependence on $\mathbf{x}$ throughout this argument.
+  So long as $\beta \neq 0$, we can rearrange Equations \ref{eq:theta2_def} and \ref{eq:theta3_def} to obtain 
+  \begin{align}
+    \label{eq:quadraticA}
+  A &= \theta_2/\theta_1^2 = 1 + (\alpha_0 - \alpha_1)  \\
+  \label{eq:quadraticB}
+  B &= \theta_3/\theta_1^3 = (1 - \alpha_0 - \alpha_1)^2 + 6 \alpha_0 (1 - \alpha_1)
+  \end{align}
+  Equation \ref{eq:quadraticA} gives $(1 - \alpha_1)= A - \alpha_0$.
+  Hence $(1 - \alpha_0 - \alpha_1) = A - 2\alpha_0$ and $\alpha_0(1 - \alpha_1) = \alpha_0(A - \alpha_0)$.
+  Substituting into Equation \ref{eq:quadraticB} and simplifying, $(A^2 - B) + 2A \alpha_0 - 2\alpha_0^2=0$.
+  Substituting for $\alpha_0$ analogously gives a quadratic in $(1 - \alpha_1)$ with \emph{identical} coefficients.
+It follows that one root of $(A^2-B) + 2Ar - 2r^2=0$ is $\alpha_0$ and the other is $1 - \alpha_1$.
+Solving,
+  \begin{equation}
+    r = \frac{A}{2} \pm \sqrt{3 A^2 - 2B} = \frac{1}{\theta_1^2}\left(\frac{\theta_2}{2} \pm  \sqrt{3\theta_2^2  - 2\theta_1 \theta_3}\right).
+  \end{equation}
+
+  \begin{align*}
+    3\theta^2_2 - 2\theta_1 \theta_3 &= 3 \left[ \theta_1^2 \left( 1 + \alpha_0 - \alpha_1 \right) \right]^2 - 2 \theta_1 \left\{ \theta_1^3 \left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0 (1 - \alpha_1) \right] \right\} \\
+    &= \theta_1^4 \left\{ 3(1 + \alpha_0 - \alpha_1)^2 - 2 \left[ (1 - \alpha_0 - \alpha_1)^2 + 6 \alpha_0 (1 - \alpha_1) \right] \right\}\\
+  \end{align*}
+
+  \begin{align*}
+    3(1 + \alpha_0 - \alpha_1)^2 &= 3\left[ 1 + (\alpha_0 - \alpha_1) \right]^2 = 3\left[ 1 + 2(\alpha_0 - \alpha_1) + (\alpha_0 - \alpha_1)^2 \right]\\
+    &= 3 + 6\alpha_0 - 6\alpha_1 + 3 \alpha_0^2 + 3 \alpha_1^2 - 6\alpha_0\alpha_1 
+  \end{align*}
+
+  \begin{align*}
+    2\left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0(1 - \alpha_1) \right]&= 2\left\{ \left[ 1 - (\alpha_0 + \alpha_1) \right]^2 + 6\alpha_0(1 - \alpha_1) \right\}\\
+  &=2\left[ 1 - 2(\alpha_0 + \alpha_1) + (\alpha_0 + \alpha_1)^2 + 6\alpha_0 - 6 \alpha_0 \alpha_1 \right]\\
+    &= 2 - 4(\alpha_0 + \alpha_1) + 2(\alpha_0 + \alpha_1)^2 + 12\alpha_0 - 12 \alpha_0 \alpha_1 \\
+    &= 2 + 8\alpha_0 - 4\alpha_1 + 2\alpha_0^2 +  2\alpha_1^2 - 8 \alpha_0 \alpha_1
+  \end{align*}
+
+  \begin{align*}
+    3\theta^2_2 - 2\theta_1 \theta_3 &= \theta_1^4 \left\{ 3(1 + \alpha_0 - \alpha_1)^2 - 2 \left[ (1 - \alpha_0 - \alpha_1)^2 + 6 \alpha_0 (1 - \alpha_1) \right] \right\}\\
+    &= \theta_1^4 \left\{ 1 - 2 \alpha_0 - 2 \alpha_1 + \alpha_0^2 - \alpha_1^2 + 2\alpha_0 \alpha_1 \right\}\\
+    &= \theta_1^4 \left[ (1 - \alpha_0 - \alpha_1)^2 \right]
+  \end{align*}
+
+\end{proof}
+
+
+
 
 \end{document}
