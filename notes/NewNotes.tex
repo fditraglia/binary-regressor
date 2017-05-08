@@ -3201,36 +3201,45 @@ Identification will only rely on two values for $z$ so throughout the remainder 
   Equation \ref{eq:quadraticA} gives $(1 - \alpha_1)= A - \alpha_0$.
   Hence $(1 - \alpha_0 - \alpha_1) = A - 2\alpha_0$ and $\alpha_0(1 - \alpha_1) = \alpha_0(A - \alpha_0)$.
   Substituting into Equation \ref{eq:quadraticB} and simplifying, $(A^2 - B) + 2A \alpha_0 - 2\alpha_0^2=0$.
-  Substituting for $\alpha_0$ analogously gives a quadratic in $(1 - \alpha_1)$ with \emph{identical} coefficients.
+  Substituting for $\alpha_0$ analogously yields a quadratic in $(1 - \alpha_1)$ with \emph{identical} coefficients.
 It follows that one root of $(A^2-B) + 2Ar - 2r^2=0$ is $\alpha_0$ and the other is $1 - \alpha_1$.
 Solving,
   \begin{equation}
     r = \frac{A}{2} \pm \sqrt{3 A^2 - 2B} = \frac{1}{\theta_1^2}\left(\frac{\theta_2}{2} \pm  \sqrt{3\theta_2^2  - 2\theta_1 \theta_3}\right).
   \end{equation}
-
+By Equations \ref{eq:theta2_def} and \ref{eq:theta3_def}, 
   \begin{align*}
     3\theta^2_2 - 2\theta_1 \theta_3 &= 3 \left[ \theta_1^2 \left( 1 + \alpha_0 - \alpha_1 \right) \right]^2 - 2 \theta_1 \left\{ \theta_1^3 \left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0 (1 - \alpha_1) \right] \right\} \\
-    &= \theta_1^4 \left\{ 3(1 + \alpha_0 - \alpha_1)^2 - 2 \left[ (1 - \alpha_0 - \alpha_1)^2 + 6 \alpha_0 (1 - \alpha_1) \right] \right\}\\
+    &= \theta_1^4 \left\{ 3(1 + \alpha_0 - \alpha_1)^2 - 2 \left[ (1 - \alpha_0 - \alpha_1)^2 + 6 \alpha_0 (1 - \alpha_1) \right] \right\}.
   \end{align*}
-
+Expanding the first term we find that 
   \begin{align*}
-    3(1 + \alpha_0 - \alpha_1)^2 &= 3\left[ 1 + (\alpha_0 - \alpha_1) \right]^2 = 3\left[ 1 + 2(\alpha_0 - \alpha_1) + (\alpha_0 - \alpha_1)^2 \right]\\
+    3(1 + \alpha_0 - \alpha_1)^2 
+    %&= 3\left[ 1 + (\alpha_0 - \alpha_1) \right]^2 
+    &= 3\left[ 1 + 2(\alpha_0 - \alpha_1) + (\alpha_0 - \alpha_1)^2 \right]\\
     &= 3 + 6\alpha_0 - 6\alpha_1 + 3 \alpha_0^2 + 3 \alpha_1^2 - 6\alpha_0\alpha_1 
   \end{align*}
-
+and expanding the second 
   \begin{align*}
-    2\left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0(1 - \alpha_1) \right]&= 2\left\{ \left[ 1 - (\alpha_0 + \alpha_1) \right]^2 + 6\alpha_0(1 - \alpha_1) \right\}\\
+    2\left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0(1 - \alpha_1) \right]
+    %&= 2\left\{ \left[ 1 - (\alpha_0 + \alpha_1) \right]^2 + 6\alpha_0(1 - \alpha_1) \right\}\\
   &=2\left[ 1 - 2(\alpha_0 + \alpha_1) + (\alpha_0 + \alpha_1)^2 + 6\alpha_0 - 6 \alpha_0 \alpha_1 \right]\\
-    &= 2 - 4(\alpha_0 + \alpha_1) + 2(\alpha_0 + \alpha_1)^2 + 12\alpha_0 - 12 \alpha_0 \alpha_1 \\
-    &= 2 + 8\alpha_0 - 4\alpha_1 + 2\alpha_0^2 +  2\alpha_1^2 - 8 \alpha_0 \alpha_1
+    %&= 2 - 4(\alpha_0 + \alpha_1) + 2(\alpha_0 + \alpha_1)^2 + 12\alpha_0 - 12 \alpha_0 \alpha_1 \\
+    &= 2 + 8\alpha_0 - 4\alpha_1 + 2\alpha_0^2 +  2\alpha_1^2 - 8 \alpha_0 \alpha_1.
   \end{align*}
-
+Therefore
   \begin{align*}
-    3\theta^2_2 - 2\theta_1 \theta_3 &= \theta_1^4 \left\{ 3(1 + \alpha_0 - \alpha_1)^2 - 2 \left[ (1 - \alpha_0 - \alpha_1)^2 + 6 \alpha_0 (1 - \alpha_1) \right] \right\}\\
+    3\theta^2_2 - 2\theta_1 \theta_3 
+    %&= \theta_1^4 \left\{ 3(1 + \alpha_0 - \alpha_1)^2 - 2 \left[ (1 - \alpha_0 - \alpha_1)^2 + 6 \alpha_0 (1 - \alpha_1) \right] \right\}\\
     &= \theta_1^4 \left\{ 1 - 2 \alpha_0 - 2 \alpha_1 + \alpha_0^2 - \alpha_1^2 + 2\alpha_0 \alpha_1 \right\}\\
     &= \theta_1^4 \left[ (1 - \alpha_0 - \alpha_1)^2 \right]
   \end{align*}
-
+which is strictly greater than zero since $\theta_1 \neq 0$ and $\alpha_0 + \alpha_1 \neq 0$.
+It follows that both roots of the quadratic are real.
+Moreover, $3\theta_2^2/\theta_1^4 - 2\theta_3/\theta_1^3$ identifies $(1 - \alpha_0 - \alpha_1)^2$.
+Substituting into Equation \ref{eq:theta1_def}, it follows that $\beta$ is identified up to sign.
+If $\alpha_0 + \alpha_1 < 1$ then $\mbox{sign}(\beta) = \mbox{sign}(\theta_1)$ so that both the sign and magnitude of $\beta$ are identified.
+If $\alpha_0 + \alpha_1 < 1$ then $1 - \alpha_1 > \alpha_0$ so $(1 - \alpha_1)$ is the larger root of $(A^2 - B) + 2Ar - 2r^2=0$ and $\alpha_0$ is the smaller root.
 \end{proof}
 
 
