@@ -2804,7 +2804,20 @@ As sufficient condition for the restriction on $\tau^*$ to hold is $E(Y|Z=z,V=v,
   \item The triplets $(v_0, v_1, v_2)$ are allowed to depend on $z$.
 \end{itemize}
 
-\paragraph{Theorem 2} Under A1--A5
+\paragraph{Theorem 2} Under A1--A5, the mis-classification probabilities $b_0(x),b_1(x)$ are identified as is the probability of treatment $r^*(x)$ and treatment effect $\tau^*(x)$.
+If we replace $b_0(x)+b_1(x)<1$ from A2 with $b_0(x)+b_1(x) \neq 1$, then $\tau^*(x)$ is identified up to sign. 
+\begin{itemize}
+  \item For simplicity, suppress dependence on $z$. By Theorem 1 and A4,
+    \[
+      \tau(v_k) M\left[ b_0, b_1, r(v_k) \right] = \tau(v_0)M\left[ b_0, b_1, r(v_k) \right]
+    \]
+  \item Again suppressing dependence on $z$, recall from above that \[M[b_0, b_1, r(v_k)] = \frac{1}{1 - b_1 - b_0}\left\{ 1 - \frac{(1 - b_1)b_0}{r(v_k)} - \frac{(1 - b_0)b_1}{1 - r(v_k)} \right\}\]
+  \item Evaluating the two preceding expressions at $k=1$ and $k=2$ gives two equations relating the identified functions $r$ and $\tau$ to the unknown mis-classification probabilities $b_0$ and $b_1$.
+  \item Since each equation involves $v_0$, we need $V$ to take on at least three values to get as many equations as unknowns (two).
+  \item The proof of Theorem 2 shows that the two equations admit a unique solution, so that $b_0$ and $b_1$ are identified.
+\item Given knowledge of $b_0$ and $b_1$, Theorem 1 allows us to solve for $r^*$ and $\tau^*$.
+\item If $V$ only took on two values, we could not identify $b_0$ and $b_1$ without burther restrictions. However if either $b_0$ or $b_1$ were known, e.g.\ known to be zero as in a one-sided mis-classification setting, then we could identify the model using only a binary $V$.
+\end{itemize}
 
 
 \subsection*{Old Lewbel Notes}
