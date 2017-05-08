@@ -2747,7 +2747,7 @@ Goal is to estimate $\tau^*(x)$.
 Below we will partition $X$ according to $X = (V,Z)$ where $V$ is an ``instrument-like variable'' and $Z$ is the set of remaining covariates.
 
 \paragraph{Assumption A1} 
-There exists $E(Y|X,T^*T) = E(Y|X,T^*)$.
+There exists $E(Y|X,T^*,T) = E(Y|X,T^*)$.
 Equivalently, $Y$ is mean-independent of $T-T^*$, conditional on $X,T^*$ -- mis-classification does not affect true expected outcome.
 This rules out placebo effects, etc.
 
@@ -3073,8 +3073,77 @@ m_{jk} = E\left[ \varepsilon|x^*=j, v = k \right]
   \label{eq:mdef}
 \end{equation}
 
+\section{Notation and Results for New Draft -- May 8, 2017}
 
 
+Additively separable model
+\[
+  y = m(T^*,\mathbf{x})+\varepsilon
+\]
+where $\varepsilon$ is a mean-zero error term, $T^*$ is an endogenous binary regressor of interest and $\mathbf{x}$ is a vector of exogenous controls.
+Since $T^*$ is binary, we can re-write this as linear in $T^*$ conditional on $\mathbf{x}$
+\begin{align*}
+  y &= c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon\\
+  \beta(x) &= m(1,\mathbf{x}) - m(0,\mathbf{x})\\
+  c(\mathbf{x}) &= m(0,\mathbf{x})
+\end{align*}
+Goal is to use an instrumental variable $z$ to identify $\beta(\mathbf{x})$ when we observe not $T^*$ but a mis-measured binary surrogate $T$. 
+Define
+\begin{align*}
+  \alpha_0(\mathbf{x},z) &= \mathbb{P}\left(T=1|T^*=0,\mathbf{x},z  \right)\\
+  \alpha_1(\mathbf{x},z) &= \mathbb{P}\left(T=0|T^*=1,\mathbf{x},z  \right)\\
+\end{align*}
 
+Identification will only rely on two values for $z$ so throughout the remainder of the paper we assume that $z$ is binary and takes on values $0$ and $1$.
+
+\begin{assump} \mbox{}
+  \begin{enumerate}[(i)] 
+    \item $\alpha_0(\mathbf{x},z) = \alpha_1(\mathbf{x})$,   $\alpha_1(\mathbf{x},z) = \alpha_1(\mathbf{x})$
+    \item $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z, T^*]$
+    \item $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) < 1$
+    \item $\mathbb{E}\left[ T^*|\mathbf{x},z=0 \right] \neq \mathbb{E}\left[ T^*|\mathbf{x},z=1 \right]$
+    \item $\mathbb{E}[\varepsilon|\mathbf{x},z] = 0$
+  \end{enumerate}
+\end{assump}
+
+\begin{assump} \mbox{}
+  \begin{enumerate}[(i)] 
+    \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^2|\mathbf{x},z, T^*]$
+    \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z] = \mathbb{E}[\varepsilon^2|\mathbf{x}]$
+  \end{enumerate}
+\end{assump}
+
+\begin{assump} \mbox{}
+  \begin{enumerate}[(i)] 
+    \item $\mathbb{E}[\varepsilon^3|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^2|\mathbf{x},z, T^*]$
+    \item $\mathbb{E}[\varepsilon^3|\mathbf{x},z] = \mathbb{E}[\varepsilon^3|\mathbf{x}]$
+  \end{enumerate}
+\end{assump}
+
+\paragraph{Notation}
+
+\begin{align*}
+  \theta_1(\mathbf{x}) &= \beta(\mathbf{x})\left[ 1 - \left\{ \alpha_0(\mathbf{x}) + \mathbf{\alpha}_1(\mathbf{x}) \right\} \right]^{-1}\\
+  \theta_2(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^2 \left[ 1 + \left\{\alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})\right\}\right] \\
+  \theta_3(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^3\left[ \left( 1 - \left\{\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x})\right\} \right)^2 + 6\alpha_0(\mathbf{x})\left\{ 1 - \alpha_1(\mathbf{x}) \right\} \right]
+\end{align*}
+
+\begin{align*}
+  \mbox{Cov}(y,z|\mathbf{x}) - \mbox{Cov}(T,z|\mathbf{x}) \theta_1(\mathbf{x}) &= 0\\
+  \mbox{Cov}(y^2,z|\mathbf{x}) - 2\mbox{Cov}(yT,z|\mathbf{x}) \theta_1(\mathbf{x}) + \mbox{Cov}(T,z|\mathbf{x})\theta_2(\mathbf{x}) &= 0\\
+  \mbox{Cov}(y^3,z|\mathbf{x}) - 3 \mbox{Cov}(y^2T,z|\mathbf{x}) \theta_1(\mathbf{x}) + 3\mbox{Cov}(yT,z|\mathbf{x}) \theta_2(\mathbf{x}) - \mbox{Cov}(T,z|\mathbf{x}) \theta_3(\mathbf{x})&= 0
+\end{align*}
+
+\begin{align*}
+  \pi(\mathbf{x}) &= \mbox{Cov}(T,z|\mathbf{x})\\
+  \eta_j(\mathbf{x}) &= \mbox{Cov}(y^j,z|\mathbf{x})\\
+  \tau_j(\mathbf{x}) &= \mbox{Cov}(Ty^j,z|\mathbf{x})
+\end{align*}
+
+\begin{align*}
+ \eta_1(\mathbf{x}) &= \pi(\mathbf{x})\theta_1(\mathbf{x}) \\
+  \eta_2(\mathbf{x}) &=  2\tau_1(\mathbf{x}) \theta_1(\mathbf{x}) - \pi(\mathbf{x})\theta_2(\mathbf{x}) \\
+  \eta_3(\mathbf{x}) &=  3\tau_2(\mathbf{x}) \theta_1(\mathbf{x}) - 3\tau_1(\mathbf{x}) \theta_2(\mathbf{x}) + \pi(\mathbf{x})\theta_3(\mathbf{x})
+\end{align*}
 
 \end{document}
