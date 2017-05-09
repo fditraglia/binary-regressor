@@ -3084,16 +3084,15 @@ where $\varepsilon$ is a mean-zero error term, $T^*$ is an endogenous binary reg
 Since $T^*$ is binary, we can re-write this as linear in $T^*$ conditional on $\mathbf{x}$
 \begin{align*}
   y &= c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon\\
-  \beta(x) &= m(1,\mathbf{x}) - m(0,\mathbf{x})\\
+  \beta(\mathbf{x}) &= m(1,\mathbf{x}) - m(0,\mathbf{x})\\
   c(\mathbf{x}) &= m(0,\mathbf{x})
 \end{align*}
 Goal is to use an instrumental variable $z$ to identify $\beta(\mathbf{x})$ when we observe not $T^*$ but a mis-measured binary surrogate $T$. 
 Define
 \begin{align*}
   \alpha_0(\mathbf{x},z) &= \mathbb{P}\left(T=1|T^*=0,\mathbf{x},z  \right)\\
-  \alpha_1(\mathbf{x},z) &= \mathbb{P}\left(T=0|T^*=1,\mathbf{x},z  \right)\\
+  \alpha_1(\mathbf{x},z) &= \mathbb{P}\left(T=0|T^*=1,\mathbf{x},z  \right)
 \end{align*}
-
 Identification will only rely on two values for $z$ so throughout the remainder of the paper we assume that $z$ is binary and takes on values $0$ and $1$.
 
 \begin{assump} \mbox{}
@@ -3166,6 +3165,12 @@ Identification will only rely on two values for $z$ so throughout the remainder 
 
 \begin{lem}[Lemma for Appendix only with Bayes' Rule]
 For mis-classification probabilities
+\begin{align*}
+  P(T^*=1|T=1, Z=k) &= P(T=1 | T^*=1) \left(\frac{p_k^*}{p_k}\right) = (1 - \alpha_1)\left( \frac{p_k^*}{p_k} \right)\\
+  P(T^*=1|T=0, Z=k) &= P(T=0 | T^*=1) \left(\frac{p_k^*}{1 - p_k}\right) = \alpha_1 \left( \frac{p_k^*}{1 - p_k} \right)\\
+  P(T^*=0|T=1, Z=k) &= P(T=1 | T^*=0) \left(\frac{1 - p_k^*}{p_k}\right) = \alpha_0 \left( \frac{1 - p_k^*}{p_k} \right)\\
+  P(T^*=0|T=0, Z=k) &= P(T=0 | T^*=0) \left(\frac{1 - p_k^*}{1 - p_k}\right) = (1 - \alpha_0)\left( \frac{1 - p_k^*}{1 - p_k} \right)
+\end{align*}
 \end{lem}
 
 \begin{thm}[Non-identification Result]
@@ -3174,15 +3179,15 @@ For mis-classification probabilities
 \begin{proof}[Proof of Theorem \ref{thm:nonident}]
 \end{proof}
 
-\begin{lem}
+\begin{pro}
   Under Assumptions ???, $\eta_2(\mathbf{x}) =  2\tau_1(\mathbf{x}) \theta_1(\mathbf{x}) - \pi(\mathbf{x})\theta_2(\mathbf{x})$.
-  \label{lem:eta2}
-\end{lem}
-\begin{proof}[Proof of Lemma \ref{lem:eta2}]
-  Since $z$ is binary, $\mbox{Cov}(w,z|\mathbf{x}) = q(\mathbf{x})\left[ 1 - q(\mathbf{x}) \right] \Delta_w(\mathbf{x})$ for any random variable $w$, where $\Delta_z \mathbb{E}(w|\mathbf{x}) \equiv \mathbb{E}(w|\mathbf{x},z=1) - \mathbb{E}(w|\mathbf{x},z=0)$.
+  \label{pro:eta2}
+\end{pro}
+\begin{proof}[Proof of Proposition \ref{pro:eta2}]
+  Since $z$ is binary, $\mbox{Cov}(w,z|\mathbf{x}) = q(\mathbf{x})\left[ 1 - q(\mathbf{x}) \right] \Delta_z\mathbb{E}(w|\mathbf{x},z)$ for any $w$, where we define $\Delta_z \mathbb{E}(w|\mathbf{x},z) \equiv \mathbb{E}(w|\mathbf{x},z=1) - \mathbb{E}(w|\mathbf{x},z=0)$.
 Hence it suffices to show that 
 \[
-  \Delta_z \mathbb{E}(y^2|\mathbf{x}) = 2 \Delta_z \mathbb{E}(Ty|\mathbf{x}) \theta_1(\mathbf{x}) - \Delta_{z}\mathbb{E}(\mathbf{x})\theta_2(\mathbf{x}).
+  \Delta_z\mathbb{E}(y^2|\mathbf{x},z) = 2 \Delta_z \mathbb{E}(Ty|\mathbf{x},z) \theta_1(\mathbf{x}) - \Delta_z\mathbb{E}(T|\mathbf{x},z)\theta_2(\mathbf{x}).
 \]
 By iterated expectations 
   \begin{align*} 
@@ -3202,11 +3207,11 @@ By iterated expectations
 \end{proof}
   
 
-\begin{lem}
+\begin{pro}
   Under Assumptions ???, $\eta_3(\mathbf{x}) =  3\tau_2(\mathbf{x}) \theta_1(\mathbf{x}) - 3\tau_1(\mathbf{x}) \theta_2(\mathbf{x}) + \pi(\mathbf{x})\theta_3(\mathbf{x})$
-  \label{lem:eta3}
-\end{lem}
-\begin{proof}[Proof of Lemma \ref{lem:eta3}]
+  \label{pro:eta3}
+\end{pro}
+\begin{proof}[Proof of Proposition \ref{pro:eta3}]
 \end{proof}
 
 \begin{cor}
@@ -3216,7 +3221,7 @@ By iterated expectations
 \end{cor}
 \begin{proof}[Proof of Corollary \ref{cor:theta_ident}]
   For ease of notation we suppress dependence on $\mathbf{x}$ throughout this argument.
-  Lemmas ??? yield a triangular linear system of equations in $\theta_1, \theta_2, \theta_3$, namely
+  Propositions ??? yield a triangular linear system of equations in $\theta_1, \theta_2, \theta_3$, namely
 \begin{align*}
  \pi\theta_1 &= \eta_1 \\
  2\tau_1 \theta_1 - \pi \theta_2 &= \eta_2 \\
