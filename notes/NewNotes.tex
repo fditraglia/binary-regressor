@@ -3098,6 +3098,7 @@ Identification will only rely on two values for $z$ so throughout the remainder 
 
 \begin{assump} \mbox{}
   \begin{enumerate}[(i)] 
+    \item $y = c(\mathbf{x}) + \beta(\mathbf{x})T^* + \varepsilon$ where $\mathbb{E}[\varepsilon]=0$.
     \item $\alpha_0(\mathbf{x},z) = \alpha_1(\mathbf{x})$,   $\alpha_1(\mathbf{x},z) = \alpha_1(\mathbf{x})$
     \item $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z, T^*]$
     \item $\mathbb{E}\left[ T^*|\mathbf{x},z=0 \right] \neq \mathbb{E}\left[ T^*|\mathbf{x},z=1 \right]$
@@ -3107,6 +3108,7 @@ Identification will only rely on two values for $z$ so throughout the remainder 
 \end{assump}
 
 \begin{assump} \mbox{}
+  \label{assump:2ndMoment}
   \begin{enumerate}[(i)] 
     \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^2|\mathbf{x},z, T^*]$
     \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z] = \mathbb{E}[\varepsilon^2|\mathbf{x}]$
@@ -3143,6 +3145,7 @@ Identification will only rely on two values for $z$ so throughout the remainder 
 \end{align*}
 
 \begin{align*}
+  q(\mathbf{x}) &= \mathbb{P}(z=1|\mathbf{x})\\
   \pi(\mathbf{x}) &= \mbox{Cov}(T,z|\mathbf{x})\\
   \eta_j(\mathbf{x}) &= \mbox{Cov}(y^j,z|\mathbf{x})\\
   \tau_j(\mathbf{x}) &= \mbox{Cov}(Ty^j,z|\mathbf{x})
@@ -3160,29 +3163,72 @@ Identification will only rely on two values for $z$ so throughout the remainder 
   
 \end{lem}
 
+
+\begin{lem}[Lemma for Appendix only with Bayes' Rule]
+For mis-classification probabilities
+\end{lem}
+
 \begin{thm}[Non-identification Result]
   \label{thm:nonident}
 \end{thm}
 \begin{proof}[Proof of Theorem \ref{thm:nonident}]
 \end{proof}
 
-\begin{lem}[The $\eta_2$ equation]
+\begin{lem}
+  Under Assumptions ???, $\eta_2(\mathbf{x}) =  2\tau_1(\mathbf{x}) \theta_1(\mathbf{x}) - \pi(\mathbf{x})\theta_2(\mathbf{x})$.
   \label{lem:eta2}
 \end{lem}
 \begin{proof}[Proof of Lemma \ref{lem:eta2}]
+  Since $z$ is binary, $\mbox{Cov}(w,z|\mathbf{x}) = q(\mathbf{x})\left[ 1 - q(\mathbf{x}) \right] \Delta_w(\mathbf{x})$ for any random variable $w$, where $\Delta_z \mathbb{E}(w|\mathbf{x}) \equiv \mathbb{E}(w|\mathbf{x},z=1) - \mathbb{E}(w|\mathbf{x},z=0)$.
+Hence it suffices to show that 
+\[
+  \Delta_z \mathbb{E}(y^2|\mathbf{x}) = 2 \Delta_z \mathbb{E}(Ty|\mathbf{x}) \theta_1(\mathbf{x}) - \Delta_{z}\mathbb{E}(\mathbf{x})\theta_2(\mathbf{x}).
+\]
+By iterated expectations 
+  \begin{align*} 
+      \mathbb{E}\left( y^2|\mathbf{x},z \right) &= \mathbb{E}(y^2|\mathbf{x},T^*=0,z)\mathbb{P}(T^*=0|\mathbf{x},z) + \mathbb{E}(y^2|\mathbf{x},T^*=1,z)\mathbb{P}(T^*=1|\mathbf{x},z)\\
+      \mathbb{E}\left( Ty|\mathbf{x},z \right) &= \mathbb{E}(Ty|\mathbf{x},T^*=0,z)\mathbb{P}(T^*=0|\mathbf{x},z) + \mathbb{E}(Ty|\mathbf{x},T^*=1,z)\mathbb{P}(T^*=1|\mathbf{x},z)
+    \end{align*}
+    and since $y = c(\mathbf{x}) + \beta(\mathbf{x})T^* + \varepsilon$,
+  \begin{align*}
+    \mathbb{E}\left( y^2|\mathbf{x},T^*=1,z \right) &= \left[c(\mathbf{x}) + \beta(\mathbf{x})\right]^2 + 2\left[ c(\mathbf{x}) + \beta(\mathbf{x}) \right]\mathbb{E}\left( \varepsilon|\mathbf{x},T^*=1,z \right) + \mathbb{E}\left( \varepsilon^2|\mathbf{x},T^*=1,z \right)\\
+  \mathbb{E}\left( Ty|\mathbf{x},T^*=1,z \right)&= \left[c(\mathbf{x}) + \beta(\mathbf{x})\right]\mathbb{E}(T|\mathbf{x},T^*=1,z) + \mathbb{E}(T\varepsilon|\mathbf{x},T^*=1,z)\\
+    \mathbb{E}\left( y^2|\mathbf{x},T^*=0,z \right) &= c(\mathbf{x})^2 + 2c(\mathbf{x})\mathbb{E}\left( \varepsilon|\mathbf{x},T^*=0,z \right) + \mathbb{E}\left( \varepsilon^2|\mathbf{x},T^*=0,z \right)\\
+    \mathbb{E}\left( Ty|\mathbf{x},T^*=0,z \right)&= c(\mathbf{x})\,\mathbb{E}(T|\mathbf{x},T^*=0,z) + \mathbb{E}(T\varepsilon|\mathbf{x},T^*=0,z).
+  \end{align*}
+
+
+  using Assumptions ?? and \ref{assump:2ndMoment}.
 \end{proof}
   
 
-\begin{lem}[The $\eta_3$ equation]
+\begin{lem}
+  Under Assumptions ???, $\eta_3(\mathbf{x}) =  3\tau_2(\mathbf{x}) \theta_1(\mathbf{x}) - 3\tau_1(\mathbf{x}) \theta_2(\mathbf{x}) + \pi(\mathbf{x})\theta_3(\mathbf{x})$
   \label{lem:eta3}
 \end{lem}
 \begin{proof}[Proof of Lemma \ref{lem:eta3}]
 \end{proof}
 
-\begin{cor}[Identification of $\theta_1, \theta_2, \theta_3$]
+\begin{cor}
   \label{cor:theta_ident}
+  Suppose that $\eta_1(\mathbf{x}), \eta_2(\mathbf{x}), \eta_3(\mathbf{x}), \tau_1(\mathbf{x}), \tau_2(\mathbf{x})$ and $\pi(\mathbf{x})$ are identified and that $\pi(\mathbf{x})\neq 0$.
+  Then, under the conditions of Lemmas ???, $\theta_1(\mathbf{x}), \theta_2(\mathbf{x})$, and $\theta_3(\mathbf{x})$ are identified.
 \end{cor}
 \begin{proof}[Proof of Corollary \ref{cor:theta_ident}]
+  For ease of notation we suppress dependence on $\mathbf{x}$ throughout this argument.
+  Lemmas ??? yield a triangular linear system of equations in $\theta_1, \theta_2, \theta_3$, namely
+\begin{align*}
+ \pi\theta_1 &= \eta_1 \\
+ 2\tau_1 \theta_1 - \pi \theta_2 &= \eta_2 \\
+ 3\tau_2 \theta_1 - 3\tau_1 \theta_2 + \pi\theta_3 &= \eta_3
+\end{align*}
+By inspection, the determinant of the system is $-\pi^3$ so a unique solution exists if $z$ is correlated with $T^*$.
+In particular,
+\begin{align*}
+  \theta_1 &= \eta_1 / \pi\\
+  \theta_2 &= 2\tau_1\eta_1/\pi^2 - \eta_2/\pi\\
+  \theta_3 &= \eta_3/\pi - 3(\tau_2\eta_1 + \tau_1\eta_2)/\pi^2 + 6\tau_1\eta_1/\pi^3.
+\end{align*}
 \end{proof}
 
 
