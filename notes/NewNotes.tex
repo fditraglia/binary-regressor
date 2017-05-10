@@ -2756,7 +2756,7 @@ This rules out placebo effects, etc.
   r^*(x) &= E(T^*|X=x) = P(T^*=1|X=x)\\
   b_0(x) &= P(T=1|T^*=0,X=x)\\
   b_1(x) &= P(T=0|T^*=1,X=x)\\
-  r(x) &= E(T|X=z)\\
+  r(x) &= E(T|X=x)\\
   \tau(x) &= h(x,1) - h(x,0)\\
   h(x,t) &= E(Y|X=x,T=t)
 \end{align*}
@@ -2777,6 +2777,81 @@ If we add Assumption A2 then $m(x)>0$ as well.
       \left[ 1 - b_0(x) - b_1(x) \right] \implies m(x) >0 \mbox{ if } 1 - b_0(x) + b_1(x) > 0 
     \end{align*}
 \end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{proof}[Proof of Theorem 1]
+Let $p_t(X) = P(T^*=1|X,T=t)$. 
+By A1 we have 
+\[
+  E(Y|X,T^*,T) = E(Y|X,T^*) = h^*_0(X) + \tau^*(X) T^*
+\]
+combining this with iterated expectations, 
+\begin{align*}
+  E(Y|X,T=t) &= E_{T^*|X,T=t}\left[ E(Y|X,T=t,T^*) \right] = E_{T^*|X,T=t}\left[ h^*_0(X) + \tau^*(X) T^* \right]\\
+  &= p_t(X) \left[ h^*_0(X) + \tau^*(X) \right] + \left[ 1 - p_t(X) \right] h^*_0(X)\\
+  &= h^*_0(X) + p_t(X) \tau^*(X)
+\end{align*}
+Taking the difference of the preceding expression evaluated at $T=1$ and $T=0$
+\[
+  E(Y|X,T=1) - E(Y|X,T=0) = \left[p_1(X) - p_0(X)\right] \tau^*(X)
+\]
+whereas we defined 
+\[
+  \tau(X) = h(X,1) - h(X,0) = E(Y|X,T=1) - E(Y|X,T=0)
+\]
+Combining these two equations, we see that
+\[
+  \tau(X) = \left[ p_1(X) - p_0(X) \right] \tau^*(X) 
+\]
+so that the function $m(x)$ defined in Theorem 1 equals $p_1(x) - p_0(x)$.
+Since $m$ is a difference of probabilities, it follows immediately that $-1 \leq m(x) \leq 1$.
+Now, by Bayes' Rule, 
+\begin{align*}
+  p_0(x) &= P(T^*=1|X=x,T=0) = \frac{P(T=0|X=x,T^*=1)P(T^*=1|X=x)}{P(T=0|X=x)} = \frac{b_1(x) r^*(x)}{1-r(x)} \\
+  p_1(x) &= P(T^*=1|X=x,T=1) = \frac{P(T=1|X=x,T^*=1)P(T^*=1|X=x)}{P(T=1|X=x)} = \frac{[1-b_1(x)] r^*(x)}{r(x)} 
+\end{align*}
+and by iterated expectations,
+\begin{align*}
+  r(x) &= E(T|X=x) = E(T|X=x,T^*=1)P(T^*=1|X=x) + E(T|X=x,T^*=0)P(T^*=0|X=x)\\ 
+    &= [1 - b_1(x)]r^*(x) + b_0(x) [1 - r^*(x)] = b_0(x) + r^*(x)[1 - b_0(x) - b_1(x)] 
+\end{align*}
+Using this expression, if $b_0(x) + b_1(x) = 1$ then $r(x) = b_0$.
+If instead $b_0(x) + b_1(x) \neq 1$, then we can divide through by $1 - b_0(x) - b_1(x)$ to solve for $r^*(x)$ and $1 - r^*(x)$ as follows:
+\begin{align*}
+  r^*(x) &= \frac{r(x) - b_0(x)}{1 - b_0(x) - b_1(x)}\\
+  1 - r^*(x) &= \frac{[1 - b_0(x) - b_1(x)] - [r(x) - b_0(x)]}{1 - b_0(x) - b_1(x)} = \frac{1 - b_1(x) - r(x)}{1 - b_0(x) - b_1(x)}
+\end{align*}
+Using the expressions we have just derived for $p_0, p_1, r^*$ and $1 - r^*$ and suppressing the dependence on $x$ for simplicity, it follows that
+\begin{align*}
+  m &= p_1 - p_0 = \frac{(1 - b_1)r^*}{r} - \frac{b_1r^*}{1- r} = \frac{(1 - r)(1 - b_1) r^* - r b_1 r^*}{r(1 - r)}\\
+  &= \frac{r^*( 1 - r - b_1 + r b_1 - r b_1 )}{r (1 - r)} = \frac{r^*(1 - r - b_1)}{r(1-r)}
+\end{align*}
+Rearranging,
+\[
+  (1-r)rm = r^*(1 - r - b_1)
+\]
+and combining this with $1 - r^* = (1 - b_1 - r) / (1 - b_0 - b_1)$, we have
+\[
+  (1-r)rm = (1 - r^*)r^*(1 - b_0 - b_1)
+\]
+Both $r$ and $r^*$ are strictly between zero and one.
+Thus, if $b_0 + b_1 = 1$ we have $m = 0$.
+If instead $b_0 + b_1 <1$ we have $m>0$ and if $b_0 + b_1 > 1$ then $m <0$.
+Finally,
+
+
+\todo[inline]{Need to correct the notation for this part!}
+\begin{align*}
+  m &=\frac{p-\alpha_{0}}{1-\alpha_{0}-\alpha_{1}}\left[\frac{(1-\alpha_{1})(1-p)-\alpha_{1}p}{p(1-p)}\right]\\
+&=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[\frac{(p-\alpha_{0})(1-\alpha_{1})(1-p)-(p-\alpha_{0})\alpha_{1}p}{p(1-p)}\right]\\
+&=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-p)(1-\alpha_{1})\alpha_{0}+p\alpha_{1}-\alpha_{0}\alpha_{1}p}{p(1-p)}\right]\\
+&=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-p)(1-\alpha_{1})\alpha_{0}}{p(1-p)}-\frac{p\alpha_{1}(1-\alpha_{0})}{p(1-p)}\right]\\
+&=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-\alpha_{1})\alpha_{0}}{p}-\frac{(1-\alpha_{0})\alpha_{1}}{1-p}\right]
+\end{align*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Assumption A3} Assume that $r(x)$ and $\tau(x)$ are identified.
 Note that this only requires that we can consistently estimate conditional expectations of observable quantities.
