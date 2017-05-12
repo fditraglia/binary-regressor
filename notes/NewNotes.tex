@@ -2929,7 +2929,7 @@ We obtain,
   0 &= (1 - b_1)b_0 \left( \frac{\tau_k}{r_0} - \frac{\tau_0}{r_k} \right) + (1 - b_0)b_1 \left( \frac{\tau_k}{1 - r_0} - \frac{\tau_0}{1 - r_k} \right) + (\tau_0 - \tau_k)\\
   0 &= (1 - b_1)b_0 \left( \frac{\tau_0}{r_k} - \frac{\tau_k}{r_0} \right) + (1 - b_0)b_1 \left( \frac{\tau_0}{1 - r_k} - \frac{\tau_k}{1 - r_0} \right) + (\tau_k - \tau_0)
 \end{align*}
-This is an equation of the form
+This is a \emph{linear} equation of the form
 \[
   0 = B_0 w_{0k} + B_1 w_{1k} + w_{2k}
 \]
@@ -2940,67 +2940,67 @@ where the unknowns $B_0, B_1$ are defined as
 \end{align*}
 and the observable constants $w_{0k}, w_{1k}, w_{2k}$ are
 \begin{align*}
-  w_{0k} &= \\
+  w_{0k} &= \frac{\tau_0}{r_k} - \frac{\tau_k}{r_0}\\
   w_{1k} &= \frac{\tau_0}{1 - r_k} - \frac{\tau_k}{1 - r_0}\\
   w_{2k} &= \tau_k - \tau_0
 \end{align*}
-
-Since we have an equation for each value of $k$, we have a linear system of $k$ equations in two unknowns.
-One of these equations, however is redundant.
-\todo[inline]{Need to prove this.}
-Thus, $z$ must take at least \emph{three} values for the system to have a solution.
-In matrix form, we have
+Since we have an equation for $k=1$ and $k=2$, we have a linear system of $k$ equations in two unknowns.
+In matrix form, 
 \[
 \left[\begin{array}{cc}
-w_{0}^{1} & w{}_{1}^{1}\\
-w_{0}^{2} & w_{1}^{2}
+w_{01} & w_{11}\\
+w_{02} & w_{12}
 \end{array}\right]\left[\begin{array}{c}
 B_{0}\\
 B_{1}
 \end{array}\right]=\left[\begin{array}{c}
-w_{2}^{1}\\
-w_{2}^{2}
+-w_{21}\\
+-w_{22}
 \end{array}\right]
 \]
-and as long as $w_{0}^{1}w_{1}^{2}-w_{0}^{2}w_{1}^{1}\neq0$ (Lewbel's Assumption A5) the solution is
-\[
-\left[\begin{array}{c}
-B_{0}\\
-B_{1}
-\end{array}\right]=\frac{1}{w_{0}^{1}w_{1}^{2}-w_{0}^{2}w_{1}^{1}}\left[\begin{array}{c}
-w_{1}^{2}w_{2}^{1}-w_{1}^{1}w_{2}^{2}\\
-w_{0}^{1}w_{2}^{2}-w_{0}^{2}w_{2}^{1}
-\end{array}\right]
-\]
-Finally, given that $B_{0}=(1-\alpha_{1})\alpha_{0}$ and $B_{1}=(1-\alpha_{0})\alpha_{1}$, we can solve for the mis-classification rates as follows.
-First, rearranging the definition of $B_1$ gives $\alpha_0 = 1 - B_1/\alpha_1$.
-Substituting this into the definition of $B_0$, we see that $B_0 = (1 - B_1/\alpha_1)(1-\alpha_1)$, yielding the following quadratic equation
+In this notation, assumption A5 is simply $w_{01}w_{12}-w_{02}w_{11}\neq0$ which ensures the system has a unique solution.
+Now, given that $B_{0}=(1-b_{1})b_{0}$ and $B_{1}=(1-b_{0})b_{1}$, we can solve for the mis-classification rates as follows.
+First, rearranging the definition of $B_1$ gives $b_0 = 1 - B_1/b_1$.
+Substituting this into the definition of $B_0$, we see that $B_0 = (1 - B_1/b_1)(1-b_1)$, yielding the following quadratic equation
 \begin{equation*}
-  \alpha_1^2 - (1 - B_0 + B_1) \alpha_1 + B_1 = 0
+  b_1^2 - (1 - B_0 + B_1) b_1 + B_1 = 0
 \end{equation*}
+The discriminant of this quadratic equation is
+\begin{align*}
+  (1 - B_0 + B_1)^2 - 4 B_1 &=\left[ 1 - b_0\left( 1 - b_1 \right) + \left( 1 - b_0 \right)b_1 \right]^2 - 4b_1(1 - b_0) \\
+  &= \left( 1 - b_0 + b_1 \right)^2 - 4b_1(1 - b_0) \\
+  &= \left[ (1 - b_0 - b_1) + 2b_1 \right]^2 - 4b_1(1 - b_0)\\
+  &= \left[(1 - b_0 - b_1)^2 - 4b_1(1- b_0)\right] - 
+  4(b_1 - b_0 b_1) \\
+  &= (1 -b_0 - b_1)^2
+\end{align*}
+Since the discriminant is necessarily positive, the solutions are always real.
+Moreover, we have established that
+\begin{equation*}
+  1 - b_0 - b_1 = \pm \sqrt{(1 - B_0 + B_1)^2 - 4 B_1 }
+\end{equation*}
+
 Solving, we find that
 \[
-\alpha_{1}=\frac{1}{2}\left[1-B_{0}+B_{1}\pm\sqrt{(1-B_{0}+B_{1})^{2}-4B_{1}}\right]
+b_{1}=\frac{1}{2}\left[1-B_{0}+B_{1}\pm\sqrt{(1-B_{0}+B_{1})^{2}-4B_{1}}\right]
 \]
-and since $\alpha_0 = B_0/(1- \alpha_1)$
+and since $b_0 = B_0/(1- b_1)$
 \[
-\alpha_{0}=\frac{B_{0}}{1-\frac{1}{2}\left[1-B_{0}+B_{1}\pm\sqrt{(1-B_{0}+B_{1})^{2}-4B_{1}}\right]}
+b_{0}=\frac{B_{0}}{1-\frac{1}{2}\left[1-B_{0}+B_{1}\pm\sqrt{(1-B_{0}+B_{1})^{2}-4B_{1}}\right]}
 \]
 To determine the nature of these solutions, we re-express the discriminant: \begin{align*}
-  (1 - B_0 + B_1)^2 - 4 B_1 &=\left[ 1 - \alpha_0\left( 1 - \alpha_1 \right) + \left( 1 - \alpha_0 \right)\alpha_1 \right]^2 - 4\alpha_1(1 - \alpha_0) \\
-  &= \left( 1 - \alpha_0 + \alpha_1 \right)^2 - 4\alpha_1(1 - \alpha_0) \\
-  &= \left[ (1 - \alpha_0 - \alpha_1) + 2\alpha_1 \right]^2 - 4\alpha_1(1 - \alpha_0)\\
-  &= \left[(1 - \alpha_0 - \alpha_1)^2 - 4\alpha_1(1- \alpha_0)\right] - 
-  4(\alpha_1 - \alpha_0 \alpha_1) \\
-  &= (1 -\alpha_0 - \alpha_1)^2
+  (1 - B_0 + B_1)^2 - 4 B_1 &=\left[ 1 - b_0\left( 1 - b_1 \right) + \left( 1 - b_0 \right)b_1 \right]^2 - 4b_1(1 - b_0) \\
+  &= \left( 1 - b_0 + b_1 \right)^2 - 4b_1(1 - b_0) \\
+  &= \left[ (1 - b_0 - b_1) + 2b_1 \right]^2 - 4b_1(1 - b_0)\\
+  &= \left[(1 - b_0 - b_1)^2 - 4b_1(1- b_0)\right] - 
+  4(b_1 - b_0 b_1) \\
+  &= (1 -b_0 - b_1)^2
 \end{align*}
 Since the discriminant is necessarily positive, the solutions are always real.
 But more importantly, we have established that
 \begin{equation*}
   1 - \alpha_0 - \alpha_1 = \pm \sqrt{(1 - B_0 + B_1)^2 - 4 B_1 }
 \end{equation*}
-Since $\beta = \beta_{IV} (1 - \alpha_0 - \alpha_1)$, this expression \emph{alone} is sufficient to identify $\beta$: there is no need to substitute the solutions for $(\alpha_0, \alpha_1)$ into $M(\alpha_0, \alpha_1, p)$.
-Moreover, it clarifies the role of the assumption $1 - \alpha_0 - \alpha_1>0$: without this restriction we learn the \emph{magnitude} of $\beta$ but not the sign.
 
 
 \end{proof}
