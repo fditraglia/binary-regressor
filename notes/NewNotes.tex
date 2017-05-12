@@ -2839,15 +2839,22 @@ Both $r$ and $r^*$ are strictly between zero and one.
 Thus, if $b_0 + b_1 = 1$ we have $m = 0$.
 If instead $b_0 + b_1 <1$ we have $m>0$ and if $b_0 + b_1 > 1$ then $m <0$.
 Finally,
-
-
-\todo[inline]{Need to correct the notation for this part!}
+\[
+  m = \frac{r^*(1 - r - b_1)}{r(1-r)} = \frac{r - b_0}{1 - b_0 - b_1}\left[ \frac{1 - r - b_1}{r(1 - r)} \right] 
+\]
+and since 
 \begin{align*}
-  m &=\frac{p-\alpha_{0}}{1-\alpha_{0}-\alpha_{1}}\left[\frac{(1-\alpha_{1})(1-p)-\alpha_{1}p}{p(1-p)}\right]\\
-&=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[\frac{(p-\alpha_{0})(1-\alpha_{1})(1-p)-(p-\alpha_{0})\alpha_{1}p}{p(1-p)}\right]\\
-&=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-p)(1-\alpha_{1})\alpha_{0}+p\alpha_{1}-\alpha_{0}\alpha_{1}p}{p(1-p)}\right]\\
-&=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-p)(1-\alpha_{1})\alpha_{0}}{p(1-p)}-\frac{p\alpha_{1}(1-\alpha_{0})}{p(1-p)}\right]\\
-&=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-\alpha_{1})\alpha_{0}}{p}-\frac{(1-\alpha_{0})\alpha_{1}}{1-p}\right]
+ (r - b_0)(1 - r - b_1) &= r(1-r) - b_0(1-r) - b_1r + b_1 b_0  \\
+  &= r(1-r) - b_0(1-r) - b_1r + b_1 b_0  + (b_1 b_0 r - b_1 b_0 r)\\
+  &= r(1-r) - b_0(1-r) - b_1r + b_1 b_0(1 - r)  + b_1 b_0 r \\
+  &= r(1-r) - b_0(1-r) - b_1r(1 - b_0) + b_1 b_0(1 - r) \\
+  &= r(1-r) + b_0(1-r)(b_1 - 1) - b_1r(1 - b_0) \\
+  &= r(1-r) - b_0(1-r)(1 - b_1) - b_1r(1 - b_0) 
+\end{align*}
+we find that
+\begin{align*}
+  m &= M(b_0, b_1, r) = \frac{1}{1 - b_0 - b_1}\left[ \frac{r(1-r) - (1 - b_1)b_0(1-r) - (1-b_0)b_1r}{r(1-r)} \right]\\
+  &= \frac{1}{1 - b_0 - b_1}\left[ 1 - \frac{(1 - b_1)b_0}{r} - \frac{(1-b_0)b_1}{1-r} \right].
 \end{align*}
 \end{proof}
 
@@ -2884,146 +2891,58 @@ If we replace $b_0(x)+b_1(x)<1$ from A2 with $b_0(x)+b_1(x) \neq 1$, then $\tau^
 \begin{itemize}
   \item For simplicity, suppress dependence on $z$. By Theorem 1 and A4,
     \[
-      \tau(v_k) M\left[ b_0, b_1, r(v_k) \right] = \tau(v_0)M\left[ b_0, b_1, r(v_k) \right]
+      \tau(v_k) M\left[ b_0, b_1, r(v_0) \right] = \tau(v_0)M\left[ b_0, b_1, r(v_k) \right]
     \]
   \item Again suppressing dependence on $z$, recall from above that \[M[b_0, b_1, r(v_k)] = \frac{1}{1 - b_1 - b_0}\left\{ 1 - \frac{(1 - b_1)b_0}{r(v_k)} - \frac{(1 - b_0)b_1}{1 - r(v_k)} \right\}\]
   \item Evaluating the two preceding expressions at $k=1$ and $k=2$ gives two equations relating the identified functions $r$ and $\tau$ to the unknown mis-classification probabilities $b_0$ and $b_1$.
   \item Since each equation involves $v_0$, we need $V$ to take on at least three values to get as many equations as unknowns (two).
   \item The proof of Theorem 2 shows that the two equations admit a unique solution, so that $b_0$ and $b_1$ are identified.
 \item Given knowledge of $b_0$ and $b_1$, Theorem 1 allows us to solve for $r^*$ and $\tau^*$.
-\item If $V$ only took on two values, we could not identify $b_0$ and $b_1$ without burther restrictions. However if either $b_0$ or $b_1$ were known, e.g.\ known to be zero as in a one-sided mis-classification setting, then we could identify the model using only a binary $V$.
+\item If $V$ only took on two values, we could not identify $b_0$ and $b_1$ without further restrictions. However if either $b_0$ or $b_1$ were known, e.g.\ known to be zero as in a one-sided mis-classification setting, then we could identify the model using only a binary $V$.
 \end{itemize}
 
-
-\subsection*{Old Lewbel Notes}
-\todo[inline]{These are basically correct but when we wrote them we didn't realize that you don't get an extra equation from OLS. In our derivation we assumed that $z$ was an instrument but in Lewbel's case this isn't correct: he doesn't assume that the instrument-like-variable is excluded.}
-
-Lewbel shows that under an exogenous but missclasified treatment,
-and an instrument that takes on at least three values, the treatment
-effect is identified. 
-The model is 
+\begin{proof}[Proof of Theorem 2]
+For a fixed value of the covariates $z$, Assumption A4 ensures that there is a subset  $\Omega_z$ of the support of $V$ -- a subset that may depend on $z$ -- such that for all $v, v' \in \Omega_z$ we have $b_0(v,z) = b_0(v',z)$, $b_1(v,z) = b_1(v',z)$ and $\tau^*(v,z) = \tau^*(v',z)$.
+Assumption A5 ensures that $\Omega_z$ contains at least three values: $v_0, v_1$ and $v_2$.
+Suppress dependence on the covariates $z$: let $r_k = r(v_k)$ and $\tau_k = \tau(v_k)$ for $k=0, 1, 2$.
+Since $b_0$ and $b_1$ do not depend on $v$ for $v \in \Omega_z$, there is no subscript on these quantities.
+By Theorem 1, $\tau(v,z) = \tau^*(v,z)m(v,z)$.
+Again suppressing dependence on $z$ and using the expression for $m$ derived in the proof of Theorem 1,
+  $\tau_k = M(b_0, b_1, r_k) \tau^*_k$
+for all $k = 0, 1, 2$.
+But by Assumption A4, $\tau^*_0 = \tau^*_1 = \tau^*_2$, which yields
 \[
-\mathbb{E}[Y|T^{*},T]=\alpha+\beta T^{*}
+  \frac{\tau_k}{M(b_0, b_1, r_k)} = \frac{\tau_\ell}{M(b_0, b_1, r_\ell)}
 \]
-Using iterated expectations over the distribution of $T^{*}$ given
-$T$, 
-\begin{eqnarray*}
-\mathbb{E}[Y|T]&=& \mathbb{E}_{T^{*}|T}\left[\mathbb{E}[Y|T^{*},T]\right]\\
-&=& \mathbb{P}(T^{*}=1|T)\mathbb{E}[Y|T^{*}=1]+\mathbb{P}(T^{*}=0|T)\mathbb{E}[Y|T^{*}=0]\\
-&=& \mathbb{P}(T^{*}=1|T)(\alpha+\beta)+\mathbb{P}(T^{*}=0|T)\alpha\\
-&=& \alpha+\mathbb{P}(T^{*}=1|T)\beta
-\end{eqnarray*}
-which implies that 
+for any $k,\ell$.
+Rearranging, 
 \[
-\beta_{OLS}= \mathbb{E}[Y|T=1]-\mathbb{E}[Y|T=0]=\left[\mathbb{P}(T^{*}=1|T=1)-\mathbb{P}(T^{*}=1|T=0)\right]\beta
+  M(b_0, b_1, r_k)\tau_\ell = M(b_0, b_1, r_\ell)\tau_k
 \]
-Lewbel defines 
-$$M(\alpha_{0},\alpha_{1},p)=\mathbb{P}(T^{*}=1|T=1)-\mathbb{P}(T^{*}=1|T=0)$$
-implying that $\beta_{OLS} =\beta M(\alpha_{0},\alpha_{1},p)$.
-It turns out that we can re-express $M(\alpha_0, \alpha_1,p)$ as
+For $k \neq \ell$ this yields a nontrivial equation relating $b_0$ and $b_1$ to observables: $\tau_k, r_k$ and $\tau_\ell, r_\ell$.
+In particular, take $\ell = 0$ and $k = 1, 2$.
+We obtain,
+\begin{align*}
+  0 &= M(b_0, b_1, r_k)\tau_0 - M(b_0, b_1, r_0)\tau_k \\
+  0 &= \frac{1}{1 - b_0 - b_1}\left[ 1 - \frac{(1 - b_1)b_0}{r_k} - \frac{(1-b_0)b_1}{1-r_k} \right]\tau_0 - \frac{1}{1 - b_0 - b_1}\left[ 1 - \frac{(1 - b_1)b_0}{r_0} - \frac{(1-b_0)b_1}{1-r_0} \right]\tau_k\\
+  0 &= \left[ 1 - \frac{(1 - b_1)b_0}{r_k} - \frac{(1 - b_0)b_1}{1-r_k} \right]\tau_0 - \left[ 1 - \frac{(1 - b_1)b_0}{r_0} - \frac{(1 - b_0)b_1}{1-r_0} \right]\tau_k\\
+  0 &= (1 - b_1)b_0 \left( \frac{\tau_k}{r_0} - \frac{\tau_0}{r_k} \right) + (1 - b_0)b_1 \left( \frac{\tau_k}{1 - r_0} - \frac{\tau_0}{1 - r_k} \right) + (\tau_0 - \tau_k)\\
+  0 &= (1 - b_1)b_0 \left( \frac{\tau_0}{r_k} - \frac{\tau_k}{r_0} \right) + (1 - b_0)b_1 \left( \frac{\tau_0}{1 - r_k} - \frac{\tau_k}{1 - r_0} \right) + (\tau_k - \tau_0)
+\end{align*}
+This is an equation of the form
 \[
-M(\alpha_{0},\alpha_{1},p)=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-\alpha_{1})\alpha_{0}}{p}-\frac{(1-\alpha_{0})\alpha_{1}}{1-p}\right]
-\]
-To see why this is the case first note that, by Bayes' Rule,
-\begin{equation*}
-M(\alpha_{0},\alpha_{1},p) = \frac{(1-\alpha_{1})p^{*}}{p}-\frac{\alpha_{1}p^{*}}{1-p}
-=p^{*}\left[\frac{(1-\alpha_{1})(1-p)-\alpha_{1}p}{p(1-p)}\right]
-\end{equation*}
-Now, by the Law of Total Probability,
-\begin{align*}
-  p &= P(T=1|T^*=1)p^* + P(T=1|T^*=0)(1-p^*)\\
-  &= (1 - \alpha_0)p^* + \alpha_0 (1-p^*)\\
-  &= (1 - \alpha_0 - \alpha_1)p^* + \alpha_0
-\end{align*}
-Rearranging, we see that $p^* = (p - \alpha_0)/(1 - \alpha_0 - \alpha_1)$.
-Substituting this into the expression for $M(\alpha_0, \alpha_1, p)$ and simplifying,
-\begin{align*}
-  M(\alpha_{0},\alpha_{1},p) &=\frac{p-\alpha_{0}}{1-\alpha_{0}-\alpha_{1}}\left[\frac{(1-\alpha_{1})(1-p)-\alpha_{1}p}{p(1-p)}\right]\\
-&=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[\frac{(p-\alpha_{0})(1-\alpha_{1})(1-p)-(p-\alpha_{0})\alpha_{1}p}{p(1-p)}\right]\\
-&=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-p)(1-\alpha_{1})\alpha_{0}+p\alpha_{1}-\alpha_{0}\alpha_{1}p}{p(1-p)}\right]\\
-&=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-p)(1-\alpha_{1})\alpha_{0}}{p(1-p)}-\frac{p\alpha_{1}(1-\alpha_{0})}{p(1-p)}\right]\\
-&=\frac{1}{1-\alpha_{0}-\alpha_{1}}\left[1-\frac{(1-\alpha_{1})\alpha_{0}}{p}-\frac{(1-\alpha_{0})\alpha_{1}}{1-p}\right]
-\end{align*}
-
-Now, the instrument $z$ is assumed to be discrete and to take on at least three distinct values.
-Let $\beta_{OLS}^k$ denote the OLS estimator based only on observations for which $z = z_k$, where $z_k$ is a particular value in the support of $z_k$, that is
-\begin{equation*}
-  \beta_{OLS}^k = \frac{Cov(T,Y| z = z_k)}{Var(T|z=z_k)} 
-\end{equation*}
-and let $p_k = E(T|z=z_k)$.
-The denominator of the expression for $\beta_{OLS}^k$ is simply $Var(T|z=z_k) = p_k(1-p_k)$.
-For the numerator, note that
-\begin{align*}
-  Cov(T,y|z) &= E(Ty|z) - E(T|z)E(y|z)\\
-  &= E_{T|z}\left[E\left( y|T,z \right)T  \right] - E(T|z) E_{T|z}\left[ E(y|T,z) \right]\\
-  &= E(y|T=1,z)E(T|z)\\
-  &\quad - E(T|z)\left\{ E(T|z)E(y|T=1,z) + [1 - E(T|z)]E(y|T=0,z) \right\}\\
-  &= E(T|z)\left[ 1-E(T|z) \right]\left\{ E(y|T=1,z) - E(y|T=0,z) \right\}
-\end{align*}
-by iterated expectations over the distribution of $T^*$ given $T$ and $z$.
-Thus, 
-\begin{equation*}
-  \beta_{OLS}^k = E\left( y | T=1,z=z_k \right) - E(y|T=0,z=z_k)
-\end{equation*}
-and finally, since $E(y|T,z) = \alpha + \beta P(T^*=1|T,z)$, we see that
-\begin{equation*}
-  \beta_{OLS}^k = \beta \left\{P\left( T^*=1|T=1,z=z_k \right) - P(T^*=1|T=0, z=z_k)  \right\}
-\end{equation*}
-Notice that this expression looks almost identical to $\beta_{OLS} = \beta M(\alpha_0, \alpha_1, p)$ from above.
-The only difference is that we condition on $z=z_k$.
-Because we assume that the mis-classification probabilities are independent of $z$, 
-\begin{align*}
-  P(T=1|T^*=1, z=z_k) &= P(T=1|T^*=1) = 1-\alpha_1\\
-  P(T=1|T^*=0, z=z_k) &= P(T=1|T^*=0) = \alpha_0
-\end{align*}
-from which it follows by the Law of Total Probability that
-\begin{equation*}
-  p_k = P(T=1|z=z_k) = (1-\alpha_1) p_k^* + \alpha_0\left\{ 1 - p_k^* \right\}
-\end{equation*}
-where $p^*_k = P(T^*=1|z=z_k)$ and thus,
-\begin{equation*}
-  p^*_k = \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1}
-\end{equation*}
-Now, by Bayes' Rule and again using the fact that the mis-classification probabilities do not depend on $z$, so that conditioning on $z=z_k$ is superfluous given that we have already conditioned on $T^*$, we have
-\begin{align*}
-  \frac{\beta_{OLS}^k}{\beta} &= P\left( T^*=1|T=1,z=z_k \right) - P(T^*=1|T=0, z=z_k) \\
-  &= \frac{P(T=1|T^*=1,z=z_k)p^*_k}{p_k} - \frac{P(T=1|T^*=1,z=z_k)p^*_k}{(1 - p_k)}\\
-  &=
-  \left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)\left[ \frac{(1-p_k)(1-\alpha_1) - p_k \alpha_0}{p_k(1-p_k)} \right]
-\end{align*}
-This is \emph{exactly} the same expression as $M(\alpha_0, \alpha_1,\cdot)$, only evaluated at $p_k$ rather than $p$.
-This means that we can re-use the algebra from above:
-\begin{equation}
-  \beta_{OLS}^{k} = \beta M(\alpha_0, \alpha_1, p_k) = \beta\left\{ \frac{1}{1-\alpha_0 - \alpha_1}\left[ 1 - \frac{\alpha_0(1-\alpha_1)}{p_k} - \frac{(1-\alpha_0)\alpha_1}{1 - p_k} \right] \right\}
-\end{equation}
-which gives us an equation for \emph{each} value $z_k$ in the support of $z$.
-Solving the expressions for $\beta_{OLS}$ and $\beta_{OLS}^k$ for $\beta$ and equating them yields an equation of the form
-\begin{equation*}
-  \beta_{OLS}^k M(\alpha_0, \alpha_1, p) = \beta_{OLS} M(\alpha_0, \alpha_1, p_k)
-\end{equation*}
-for \emph{each} value of $k$.
-Using our expression for the function $M$ from above and multiplying through by $1 - \alpha_0 - \alpha_1$ gives
-\[
-\beta_{OLS}\left[1-\frac{(1-\alpha_{1})\alpha_{0}}{p_{k}}-\frac{(1-\alpha_{0})\alpha_{1}}{1-p_{k}}\right] = \beta^{k}_{OLS}\left[1-\frac{(1-\alpha_{1})\alpha_{0}}{p}-\frac{(1-\alpha_{0})\alpha_{1}}{1-p}\right]=0
-\]
-Rearranging this expression gives
-\[
-(1-\alpha_{1})\alpha_{0}\left[\frac{\beta^{k}_{OLS}}{p}-\frac{\beta_{OLS}}{p_{k}}\right]+(1-\alpha_{0})\alpha_{1}\left[\frac{\beta^{k}_{OLS}}{1-p}-\frac{\beta_{OLS}}{1-p_{k}}\right]=\beta^{k}_{OLS}-\beta_{OLS}
-\]
-which is an expression of the form
-\[
-B_{0}w_{0}^{k}+B_{1}w_{1}^{k}=w_{2}^{k}
+  0 = B_0 w_{0k} + B_1 w_{1k} + w_{2k}
 \]
 where the unknowns $B_0, B_1$ are defined as
 \begin{align*}
-  B_0 &= \alpha_0 (1- \alpha_1)\\
-  B_1 &= \alpha_1(1- \alpha_0)
+  B_0 &= b_0 (1- b_1)\\
+  B_1 &= b_1(1- b_0)
 \end{align*}
-and the observable constants $w_0^k, w_1^k, w_2^k$ are 
+and the observable constants $w_{0k}, w_{1k}, w_{2k}$ are
 \begin{align*}
-  w_0^k &= \frac{\beta_{OLS}^k}{p} - \frac{\beta_{OLS}}{p_k}\\
-  w_1^k &= \frac{\beta_{OLS}^k}{1-p} - \frac{\beta_{OLS}}{1-p_k}\\
-  w_2^k &= \beta_{OLS}^k - \beta_{OLS}
+  w_{0k} &= \\
+  w_{1k} &= \frac{\tau_0}{1 - r_k} - \frac{\tau_k}{1 - r_0}\\
+  w_{2k} &= \tau_k - \tau_0
 \end{align*}
 
 Since we have an equation for each value of $k$, we have a linear system of $k$ equations in two unknowns.
@@ -3084,15 +3003,14 @@ Since $\beta = \beta_{IV} (1 - \alpha_0 - \alpha_1)$, this expression \emph{alon
 Moreover, it clarifies the role of the assumption $1 - \alpha_0 - \alpha_1>0$: without this restriction we learn the \emph{magnitude} of $\beta$ but not the sign.
 
 
-In page 544 Lewbel observes that if his instrument were binary (if
-we only had one instrument in our case), identification could be achieved
-with one additional restriction on the missclasification rates. One
-such restriction is implied by homoskedasticity on the instrument,
-which he does not mention. 
+\end{proof}
 
-\todo[inline]{I like the way that Lewbel sets things up. I wonder whether a similar way of doing things would simplify some of our other calculations.}
 
 \section{Notes on Mahajan (2006)}
+
+\todo[inline]{It should be easy to adapt the proof for Lewbel (2007) above to get the result from Mahajan (2006). 
+We just need to replace Lewbel's assumption that $\tau^*(Z,V)$ does not depend on $V$ with the stronger assumption that $\tau^*(Z,V)$ and $h_0^*(Z,V)$ do not depend on $V$. Then we only need a binary $V$. Does Mahajan's assumption imply that $\tau_k = \tau_\ell$? (Rather than simply that $\tau_k^* = \tau_\ell$?)}
+
 
 Mahajan (2006) considers regression models of the form
 \begin{equation}
