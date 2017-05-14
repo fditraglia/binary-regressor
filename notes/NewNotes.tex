@@ -2958,50 +2958,64 @@ B_{1}
 -w_{22}
 \end{array}\right]
 \]
-In this notation, assumption A5 is simply $w_{01}w_{12}-w_{02}w_{11}\neq0$ which ensures the system has a unique solution.
-Now, given that $B_{0}=(1-b_{1})b_{0}$ and $B_{1}=(1-b_{0})b_{1}$, we can solve for the mis-classification rates as follows.
-First, rearranging the definition of $B_1$ gives $b_0 = 1 - B_1/b_1$.
-Substituting this into the definition of $B_0$, we see that $B_0 = (1 - B_1/b_1)(1-b_1)$, yielding the following quadratic equation
-\begin{equation*}
-  b_1^2 - (1 - B_0 + B_1) b_1 + B_1 = 0
-\end{equation*}
-The discriminant of this quadratic equation is
+In this notation, Assumption A5 is simply $w_{01}w_{12}-w_{02}w_{11}\neq0$ which ensures the system has a unique solution.
+
+Now, let $s = 1 - \alpha_0 - \alpha_1$.
+Since $B_{0}=(1-b_{1})b_{0}$ and $B_{1}=(1-b_{0})b_{1}$, we have
+\[
+  (s + b_0)b_0 = (1 - b_0 - b_1 + b_0) b_0 =  (1 - b_1) b_0 = B_0\\
+\]
+and 
 \begin{align*}
-  (1 - B_0 + B_1)^2 - 4 B_1 &=\left[ 1 - b_0\left( 1 - b_1 \right) + \left( 1 - b_0 \right)b_1 \right]^2 - 4b_1(1 - b_0) \\
-  &= \left( 1 - b_0 + b_1 \right)^2 - 4b_1(1 - b_0) \\
-  &= \left[ (1 - b_0 - b_1) + 2b_1 \right]^2 - 4b_1(1 - b_0)\\
-  &= \left[(1 - b_0 - b_1)^2 - 4b_1(1- b_0)\right] - 
-  4(b_1 - b_0 b_1) \\
-  &= (1 -b_0 - b_1)^2
+  B_0 - B_1 + 1 - s &= (1 - b_1)b_0 - (1 - b_0)b_1 + 1 - (1 - b_0 - b_1)\\
+  &= b_0 - b_1 b_0 - b_1 + b_1 b_0 + b_0 + b_1 = 2 b_0
 \end{align*}
-Since the discriminant is necessarily positive, the solutions are always real.
-Moreover, we have established that
-\begin{equation*}
-  1 - b_0 - b_1 = \pm \sqrt{(1 - B_0 + B_1)^2 - 4 B_1 }
-\end{equation*}
-
-Solving, we find that
-\[
-b_{1}=\frac{1}{2}\left[1-B_{0}+B_{1}\pm\sqrt{(1-B_{0}+B_{1})^{2}-4B_{1}}\right]
-\]
-and since $b_0 = B_0/(1- b_1)$
-\[
-b_{0}=\frac{B_{0}}{1-\frac{1}{2}\left[1-B_{0}+B_{1}\pm\sqrt{(1-B_{0}+B_{1})^{2}-4B_{1}}\right]}
-\]
-To determine the nature of these solutions, we re-express the discriminant: \begin{align*}
-  (1 - B_0 + B_1)^2 - 4 B_1 &=\left[ 1 - b_0\left( 1 - b_1 \right) + \left( 1 - b_0 \right)b_1 \right]^2 - 4b_1(1 - b_0) \\
-  &= \left( 1 - b_0 + b_1 \right)^2 - 4b_1(1 - b_0) \\
-  &= \left[ (1 - b_0 - b_1) + 2b_1 \right]^2 - 4b_1(1 - b_0)\\
-  &= \left[(1 - b_0 - b_1)^2 - 4b_1(1- b_0)\right] - 
-  4(b_1 - b_0 b_1) \\
-  &= (1 -b_0 - b_1)^2
+Substituting $2b_0 = B_0 - B_1 + 1 - s$ into $B_0 = (s + b_0)b_0$, we obtain 
+\begin{align*}
+  4 B_0 &= (2s + 2 b_0) 2 b_0 = (2s + B_0 - B_1 + 1 - s)(B_0 - B_1 + 1 - s)\\
+  &= (s + B_0 - B_1 + 1)(B_0 - B_1 + 1 - s)\\
+  &= [(B_0 - B_1 + 1) + s][(B_0 - B_1 + 1) - s]\\
+  &= (B_0 - B_1 + 1)^2 - s^2
 \end{align*}
-Since the discriminant is necessarily positive, the solutions are always real.
-But more importantly, we have established that
-\begin{equation*}
-  1 - \alpha_0 - \alpha_1 = \pm \sqrt{(1 - B_0 + B_1)^2 - 4 B_1 }
-\end{equation*}
+and rearranging to solve for $s$,
+\[
+  s = \pm \sqrt{(B_0 - B_1 + 1)^2 - 4 B_0}
+\]
+This identifies $s$ up to sign so long as $s\neq0$, and since
+\begin{align*}
+  M(b_0, b_1, r_k) &= \frac{1}{1 - b_0 - b_1}\left[ 1 - \frac{(1 - b_1)b_0}{r_k} - \frac{(1-b_0)b_1}{1-r_k} \right]  
+= \frac{1}{s}\left[ 1 - \frac{B_0}{r_k} - \frac{B_1}{1 - r_k} \right]
+\end{align*}
+and $\tau_k = M(b_0,b_1,r_k)\tau^*$, it follows that $\tau^*$ is identified up to sign.
+If $s > 0$, then $s$ is identified as are $b_0$ and $b_1$.
+To solve for the misclassification probabilities, first use the fact that $B_0 - B_1 + 1 - s = 2 b_0$ as shown above to yield,
+\[
+  b_0 = (B_0 - B_1 + 1 - s) / 2
+\]
+and similarly, use the fact that
+\begin{align*}
+  -(B_0 - B_1 - 1 + s) &= -\left[ (1 - b_1)b_0 - (1 - b_0)b_1  - b_0 - b_1 \right] \\
+  &= -(b_0 - b_1 b_0 - b_1 + b_1 b_0 - b_0 - b_1)\\ 
+  &= 2 b_1
+\end{align*}
+we obtain
+\[
+  b_1 = -(B_0 - B_1 - 1 + s) / 2.
+\]
 
+\todo[inline]{Still need to verify the following:}
+Finally, let 
+\[
+R_k = \displaystyle \frac{(1 - r_k^*)r_k^*}{(1 - r_k)r_k}
+\]
+Using the fact that $\tau_k = M(b_0, b_1, r_k) \tau^*$ along with 
+\[
+  m = \frac{(1 - b_1)r^*}{r} - \frac{b_1 r^*}{1-r}
+\] 
+the determinant condition can be expressed as  
+\[
+  \left[ \left( \frac{R_0}{r_1} - \frac{R_1}{r_0} \right)\left( \frac{R_0}{1 - r_2} - \frac{R_2}{1 - r_0} \right) - \left( \frac{R_0}{r_2} - \frac{R_2}{r_0} \right)\left( \frac{R_0}{1 - r_1} - \frac{R_1}{1 - r_0} \right) \right] \times (1 - b_0 - b_1) \tau^* \neq 0
+\]
 
 \end{proof}
 
