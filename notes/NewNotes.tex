@@ -3360,7 +3360,7 @@ The MR critical value $\widehat{c}_n(\lambda_0, 1 - \alpha)$ is calculated from 
 where we approximate the distribution of $T_n^{MR}$ by simulation, as described in more detail below.
 Both $T_n^{DR}$ and $T_n^{PR}$ are constructed from $v^*_{n,j}(\theta)$, defined as: 
 \begin{align*}
-  v^*_{n,j} &= \frac{1}{\sqrt{n}} \sum_{i=1}^{n} \xi_i \left[ \frac{m_j(W_i,\theta) - \bar{m}_{n,j}(\theta)}{\widehat{\sigma}_{n,j}(\theta)} \right], \, \mbox{for } j = 1, \hdots, p \\
+  v^*_{n,j}(\theta) &= \frac{1}{\sqrt{n}} \sum_{i=1}^{n} \xi_i \left[ \frac{m_j(W_i,\theta) - \bar{m}_{n,j}(\theta)}{\widehat{\sigma}_{n,j}(\theta)} \right], \, \mbox{for } j = 1, \hdots, p \\
   \xi_1, \cdots, \xi_n &\sim \mbox{ iid } N(0,1) \mbox{ independent of the data } W_1, \cdots, W_n.
 \end{align*}
 In particular, both the $T_n^{DR}$ and $T_{n}^{PR}$ take the form
@@ -3382,12 +3382,14 @@ The difference between DR and PR is the choice of $\widetilde{\Theta}$ and $s_j(
   \right.
 \end{align*}
 Note that $\widehat{\Theta}_I(\lambda_0)$ contains the values of $\theta$ that \emph{minimize} $T_n(\lambda_0) = \inf_{\theta \in \Theta(\lambda_0)} Q_n(\theta)$.
+Note further that $\varphi_j$ only affects the moment \emph{inequalities}: it is zero for $j > p$.
 
 \paragraph{Definition of $T_n^{PR}(\lambda_0)$}
 \begin{align*}
   T_n^{PR}(\lambda_0) &\equiv \inf_{\theta \in \Theta(\lambda_0)}\left(\sum_{j=1}^p \left[ v_{n,j}^*(\theta) + \ell_j(\theta) \right]_{-}^2 + \sum_{j=p+1}^{k}\left\{   v^*_{n,j}(\theta) + \ell_j(\theta)\right\}^2  \right)\\
   \ell_j(\theta) &= \sqrt{n}\, \bar{m}_{n,j}(\theta)/\left[ \widehat{\sigma}_{n,j}(\theta) \sqrt{\ln n} \right] 
 \end{align*}
+Note that 
 
 \paragraph{Some Important Points}
 
