@@ -3301,7 +3301,66 @@ If $\alpha_0 + \alpha_1 < 1$ then $\mbox{sign}(\beta) = \mbox{sign}(\theta_1)$ s
 If $\alpha_0 + \alpha_1 < 1$ then $1 - \alpha_1 > \alpha_0$ so $(1 - \alpha_1)$ is the larger root of $(A^2 - B) + 2Ar - 2r^2=0$ and $\alpha_0$ is the smaller root.
 \end{proof}
 
+\section{Notes on Bugni, Canay \& Shi (2017)}
 
+\paragraph{Setup} Partially identified model defined by $p$ moment  inequalities and $k - p$ equalities:
+\begin{align*}
+  E_F\left[ m_j(W_i,\theta) \right] &\geq 0 \mbox{ for } j = 1, \cdots, p\\
+  E_F\left[ m_j(W_i,\theta) \right] &= 0 \mbox{ for } j = p+1, \cdots, k
+\end{align*}
+where $W_1, \hdots, W_n \sim \mbox{ iid } F$.
+Function $m = (m_1, \hdots, m_k)$ is known and $\theta \in \Theta$ is a finite-dimensional parameter.
+The goal is to construct confidence sets for $\theta$.
+
+
+\paragraph{The Problem} 
+The existing literature tests the \emph{joint} hypothesis $\theta = \theta_0$ and inverts this test to construct a confidence set (CS) for $\theta$.
+In applied work, we often want inference for a \emph{subset} of $\theta$ and the usual approach is to \emph{project} a joint confidence set for $\theta$.
+For example if $\theta = (\alpha, \beta, \gamma, \delta)$, a projection confidence set for $\alpha$ is the set of all values for which we can find \emph{some} triple $(\beta_0, \gamma_0, \delta_0)$, allowed to depend on $\alpha$,  such that $\theta = (\alpha, \beta_0, \gamma_0, \delta_0)$ is not rejected.
+This approach is computationally intensive: even if we are only interested in one element of $\theta$ we have to invert the test over the high-dimensional \emph{joint} parameter space.
+Projection inference can also have poor power compared to the joint inference upon which it is based.
+
+\paragraph{This Paper} 
+The authors propose the \emph{minimum resampling test}: a direct test of
+\[
+  H_0\colon \lambda(\theta) = \lambda_0 \, \mbox{ vs. } \, H_1\colon \lambda(\theta) \neq \lambda_0
+\]
+where $\lambda$ is a \emph{function} of $\theta$.
+The leading case is where $\lambda$ is simply a sub-vector or individual coordinate of $\theta$.
+The test controls size uniformly, has high power, and is in general more computationally efficient than projection inference whenever $\lambda$ is of lower dimension that $\theta$. 
+
+
+\paragraph{Decision Rule for Minimum Resampling (MR) Test}
+The test rejects $H_0\colon \lambda(\theta) = \lambda_0$ when a \emph{profiled test statistic} $T_n(\lambda_0)$ is large.
+The rejection rule is
+\[
+  \phi^{MR}_n (\lambda_0) \equiv \mathbf{1}\left\{ T_n(\lambda_0) > \widehat{c}_n^{MR}(\lambda_0, 1-\alpha) \right\}
+\]
+where $\alpha$ is the significance level and $\widehat{c}_n^{MR}(\lambda_0, 1-\alpha)$ is the MR critical value, which is calculated by a bootstrap procedure described below.
+
+\paragraph{Notation}
+\begin{align*}
+  \bar{m}_{n,j}(\theta) &\equiv \frac{1}{n}\sum_{i=1}^n m_j(W_i,\theta), \mbox{ for } j = 1, \hdots, k\\
+  \widehat{\sigma}^2_{n,j} &\equiv \frac{1}{n}\left[ m_j(W_i,\theta) - \bar{m}_j(W_i,\theta) \right]^2, \mbox{ for } j = 1, \hdots, k\\
+[x]_{-} &\equiv \min\left\{ x, 0 \right\}\\
+  Q_n(\theta) &= \underbrace{\sum_{i=1}^p \left[ \frac{\sqrt{n}\bar{m}_{n,j}(\theta)}{\widehat{\sigma}_{n,j}(\theta)} \right]_{-}^{2}}_{\text{inequalities}} + \underbrace{\sum_{j=p+1}^{k} \left\{ \frac{\sqrt{n}\bar{m}_{n,j}(\theta)}{\widehat{\sigma}_{n,j}(\theta)} \right\}^2}_{\text{equalities}}\\
+  \Theta(\lambda_0) &\equiv \left\{ \theta \in \Theta\colon \lambda(\theta) = \lambda_0 \right\}\\
+  T_n(\lambda_0) &= \inf_{\theta \in \Theta(\lambda_0)} Q_n(\theta)
+\end{align*}
+
+\paragraph{Calculating the MR Critical Value}
+The MR critical value $\widehat{c}_n(\lambda_0, 1 - \alpha)$ is calculated from \emph{two different approximations} to the sampling distribution of $T_n(\lambda_0)$: ``DR'' and ``PR.''
+Both the DR and PR approximations are constructed from $v^*_{n,j}(\theta)$ for $j = 1, \hdots, p$ defined as: 
+\begin{align*}
+  v^*_{n,j} &= \frac{1}{\sqrt{n}} \sum_{i=1}^{n} \left[ \frac{m_j(W_i,\theta) - \bar{m}_{n,j}(\theta)}{\widehat{\sigma}_{n,j}(\theta)} \right]\xi_i\\
+  \xi_1, \cdots, \xi_n &\sim \mbox{ iid } N(0,1) \mbox{ independent of the data } W_1, \cdots, W_n.
+\end{align*}
+In particular, both the DR and PR approximations take the form
+\[
+  \inf_{\theta \in \widetilde{\Theta}}\left(\underbrace{\sum_{j=1}^p \left[ v_{n,j}^*(\theta) + \ell_j(\theta) \right]_{-}^2}_{\text{inequalities}} + \underbrace{\sum_{j=p+1}^{k}\left\{   v^*_{n,j}(\theta) + \ell_j(\theta)\right\}^2}_{\text{equalities}}  \right)
+\]
+where $v^*_{n,j}(\theta)$ is as defined in the preceding pair of displayed equations, $\widetilde{\Theta}$ is some set, and $\ell_j(\theta)$ is a \emph{slackness function}.
+The difference between DR and PR is the choice of $\widetilde{\Theta}$ and $\ell_j(\theta)$.
 
 
 \end{document}
