@@ -3302,6 +3302,9 @@ If $\alpha_0 + \alpha_1 < 1$ then $1 - \alpha_1 > \alpha_0$ so $(1 - \alpha_1)$ 
 \end{proof}
 
 \section{Notes on Bugni, Canay \& Shi (2017)}
+The notation follows the paper nearly verbatim, although I have made a few minor changes to the notation to avoid ambiguity.
+Regarding the sequence $\kappa_n$, used to carry out moment selection, the paper only requires that $\kappa_n \rightarrow \infty$ and $\kappa_n/\sqrt{n} \rightarrow 0$ as in Andrews \& Soares.
+The leading example, and indeed the choice recommended by Andrews \& Soares, is the BIC-type penalty $\kappa_n = \sqrt{\ln n}$ so in all the expressions below I replace $\kappa_n$ with this quantity.
 
 \paragraph{Setup} Partially identified model defined by $p$ moment  inequalities and $k - p$ equalities:
 \begin{align*}
@@ -3334,7 +3337,7 @@ The test controls size uniformly, has high power, and is in general more computa
 The test rejects $H_0\colon \lambda(\theta) = \lambda_0$ when a \emph{profiled test statistic} $T_n(\lambda_0)$ is large.
 The rejection rule is
 \[
-  \phi^{MR}_n (\lambda_0) \equiv \mathbf{1}\left\{ T_n(\lambda_0) > \widehat{c}_n^{MR}(\lambda_0, 1-\alpha) \right\}
+  \text{Reject if} \quad T_n(\lambda_0) > \widehat{c}_n^{MR}(\lambda_0, 1-\alpha) 
 \]
 where $\alpha$ is the significance level and $\widehat{c}_n^{MR}(\lambda_0, 1-\alpha)$ is the MR critical value, which is calculated by a bootstrap procedure described below.
 
@@ -3349,18 +3352,46 @@ where $\alpha$ is the significance level and $\widehat{c}_n^{MR}(\lambda_0, 1-\a
 \end{align*}
 
 \paragraph{Calculating the MR Critical Value}
-The MR critical value $\widehat{c}_n(\lambda_0, 1 - \alpha)$ is calculated from \emph{two different approximations} to the sampling distribution of $T_n(\lambda_0)$: ``DR'' and ``PR.''
-Both the DR and PR approximations are constructed from $v^*_{n,j}(\theta)$ for $j = 1, \hdots, p$ defined as: 
+The MR critical value $\widehat{c}_n(\lambda_0, 1 - \alpha)$ is calculated from \emph{two different approximations} to the sampling distribution of $T_n(\lambda_0)$: ``DR'' and ``PR,'' specifically
 \begin{align*}
-  v^*_{n,j} &= \frac{1}{\sqrt{n}} \sum_{i=1}^{n} \left[ \frac{m_j(W_i,\theta) - \bar{m}_{n,j}(\theta)}{\widehat{\sigma}_{n,j}(\theta)} \right]\xi_i\\
+  \widehat{c}_n^{MR}(\lambda_0, 1 - \alpha) &\equiv \mbox{(conditional) } 1 - \alpha \mbox{ quantile of } T_n^{MR}(\lambda_0) \\
+  T_n^{MR}(\lambda_0) &\equiv \min\left\{ T_n^{DR}(\lambda_0), T_n^{PR}(\lambda_0) \right\}
+\end{align*}
+where we approximate the distribution of $T_n^{MR}$ by simulation, as described in more detail below.
+Both $T_n^{DR}$ and $T_n^{PR}$ are constructed from $v^*_{n,j}(\theta)$, defined as: 
+\begin{align*}
+  v^*_{n,j} &= \frac{1}{\sqrt{n}} \sum_{i=1}^{n} \xi_i \left[ \frac{m_j(W_i,\theta) - \bar{m}_{n,j}(\theta)}{\widehat{\sigma}_{n,j}(\theta)} \right], \, \mbox{for } j = 1, \hdots, p \\
   \xi_1, \cdots, \xi_n &\sim \mbox{ iid } N(0,1) \mbox{ independent of the data } W_1, \cdots, W_n.
 \end{align*}
-In particular, both the DR and PR approximations take the form
+In particular, both the $T_n^{DR}$ and $T_{n}^{PR}$ take the form
 \[
-  \inf_{\theta \in \widetilde{\Theta}}\left(\underbrace{\sum_{j=1}^p \left[ v_{n,j}^*(\theta) + \ell_j(\theta) \right]_{-}^2}_{\text{inequalities}} + \underbrace{\sum_{j=p+1}^{k}\left\{   v^*_{n,j}(\theta) + \ell_j(\theta)\right\}^2}_{\text{equalities}}  \right)
+  \inf_{\theta \in \widetilde{\Theta}}\left(\underbrace{\sum_{j=1}^p \left[ v_{n,j}^*(\theta) + s_j(\theta) \right]_{-}^2}_{\text{inequalities}} + \underbrace{\sum_{j=p+1}^{k}\left\{   v^*_{n,j}(\theta) + s_j(\theta)\right\}^2}_{\text{equalities}}  \right)
 \]
-where $v^*_{n,j}(\theta)$ is as defined in the preceding pair of displayed equations, $\widetilde{\Theta}$ is some set, and $\ell_j(\theta)$ is a \emph{slackness function}.
-The difference between DR and PR is the choice of $\widetilde{\Theta}$ and $\ell_j(\theta)$.
+where $v^*_{n,j}(\theta)$ is as defined in the preceding pair of displayed equations, $\widetilde{\Theta}$ is some set, and $s_j(\theta)$ is a \emph{slackness function}.
+The difference between DR and PR is the choice of $\widetilde{\Theta}$ and $s_j(\theta)$ as explained in the following paragraphs.
 
+\paragraph{Definition of $T_n^{DR}(\lambda_0)$}
+\begin{align*}
+  T_n^{DR}(\lambda_0) &\equiv \inf_{\theta \in \widehat{\Theta}_I(\lambda_0)}\left(\sum_{j=1}^p \left[ v_{n,j}^*(\theta) + \varphi_j(\theta) \right]_{-}^2 + \sum_{j=p+1}^{k}\left\{   v^*_{n,j}(\theta) + \varphi_j(\theta)\right\}^2  \right)\\
+  \widehat{\Theta}_I(\lambda_0) &\equiv \left\{ \theta\in \Theta(\lambda_0)\colon Q_n(\theta) \leq T_n(\lambda_0) \right\}\\
+  \varphi_j(\theta) &= \left\{
+  \begin{array}{ll}
+    \infty & \mbox{if } \quad \sqrt{n}\, \bar{m}_{n,j}(\theta)/[ \widehat{\sigma}_{n,j}(\theta) \sqrt{\ln n}] > 1 \quad \mbox{ and } j \leq p\\
+    0 & \mbox{if } \quad \sqrt{n}\, \bar{m}_{n,j}(\theta)/[ \widehat{\sigma}_{n,j}(\theta) \sqrt{\ln n}]  \leq 1 \quad \mbox{ or } j > p
+  \end{array}
+  \right.
+\end{align*}
+Note that $\widehat{\Theta}_I(\lambda_0)$ contains the values of $\theta$ that \emph{minimize} $T_n(\lambda_0) = \inf_{\theta \in \Theta(\lambda_0)} Q_n(\theta)$.
+
+\paragraph{Definition of $T_n^{PR}(\lambda_0)$}
+\begin{align*}
+  T_n^{PR}(\lambda_0) &\equiv \inf_{\theta \in \Theta(\lambda_0)}\left(\sum_{j=1}^p \left[ v_{n,j}^*(\theta) + \ell_j(\theta) \right]_{-}^2 + \sum_{j=p+1}^{k}\left\{   v^*_{n,j}(\theta) + \ell_j(\theta)\right\}^2  \right)\\
+  \ell_j(\theta) &= \sqrt{n}\, \bar{m}_{n,j}(\theta)/\left[ \widehat{\sigma}_{n,j}(\theta) \sqrt{\ln n} \right] 
+\end{align*}
+
+\paragraph{Some Important Points}
+
+\paragraph{Steps in Implementing the MR Test}
 
 \end{document}
+
