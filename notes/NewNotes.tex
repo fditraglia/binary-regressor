@@ -3389,11 +3389,62 @@ Note further that $\varphi_j$ only affects the moment \emph{inequalities}: it is
   T_n^{PR}(\lambda_0) &\equiv \inf_{\theta \in \Theta(\lambda_0)}\left(\sum_{j=1}^p \left[ v_{n,j}^*(\theta) + \ell_j(\theta) \right]_{-}^2 + \sum_{j=p+1}^{k}\left\{   v^*_{n,j}(\theta) + \ell_j(\theta)\right\}^2  \right)\\
   \ell_j(\theta) &= \sqrt{n}\, \bar{m}_{n,j}(\theta)/\left[ \widehat{\sigma}_{n,j}(\theta) \sqrt{\ln n} \right] 
 \end{align*}
-Note that 
+Note that to calculate $T_n^{PR}(\lambda_0)$ we minimize over $\Theta(\lambda_0)$ -- the set of all $\theta$ for which $\lambda(\theta) = \lambda_0$.
+Note further that $\ell_j(\theta)$ affects \emph{both} the moment \emph{equalities} and inequalities.
 
-\paragraph{Some Important Points}
+\paragraph{Computational Cost}
+In practice we generate draws for the test statistics using a large number $B$ of simulation replications.
+These are essentially bootstrap draws, but we bootstrap the limit distribution rather than the data.
+In particular, each of these bootstrap replications makes $n$ iid standard normal draws: $\xi_1, \hdots, \xi_n$ which are used in the calculation of \emph{both} $T_n^{DR}$ and $T_n^{PR}$.
+(It is important to make sure that we use the same draws for both!)
+The computational cost of the MR test comes from the $2B +1$ optimization problems it requires us to solve.
+First, we need to calculate the test statistic $T_n(\lambda_0)$ based on the \emph{actual data} -- this requires us to solve one minimization problem.
+Then for each of the $B$ bootstrap replications we need to calculate $T_n^{DR}$ and $T_n^{PR}$ -- this requires us to solve two minimization problems.
+The authors claim that this is in general more efficient than projection inference which requires us to search over a high-dimensional space.
+Presumably the gains depend sensitively on how efficiently one can carry out the required minimizations.
 
-\paragraph{Steps in Implementing the MR Test}
+
+\paragraph{Sub-vector Inference}
+The leading application of the MR test is to sub-vector inference.
+In this case we only want to carry out a test for some subset of the coordinates of $\theta$.
+Let $\theta_s$ denote this sub-vector.
+Then $\Theta(\lambda_0) = \left\{ \theta\in \Theta \colon \theta_s = \lambda_0 \right\}$. 
+A particularly simple example is inference for a single coordinate of $\theta$, say $\theta_1$.
+In this case, the optimization problems are over all \emph{other} coordinates of $\theta$ besides $\theta_1$ since $\theta_1 = \lambda_0$ under the null that we are testing.
+
+\paragraph{Steps to Carry out the MR Test}
+For simplicity, in this section I assume that we wish to carry out inference on a sub-vector of $\theta$.
+Let $\theta = (\beta, \gamma)$ where $\beta$ and $\gamma$ could be scalars or vectors.
+The parameters of interest are $\beta$ and our null hypothesis is $\beta = \beta_0$.
+Let $\Gamma$ denote the parameter space for $\gamma$.
+I write any function of $\theta$ explicitly as a function of $(\beta, \gamma)$ so that any calculation carried out under the null is evaluated at $(\beta_0, \gamma)$
+\begin{enumerate}
+  \item Define the following functions of $\gamma$ under the null $\beta = \beta_0$
+    \begin{align*}
+      \bar{m}_n(\gamma) &= \frac{1}{n} \sum_{i=1}^n m(W_i,\beta_0,\gamma) \\
+      \widehat{D}_n(\gamma) &= \mbox{diag}\left\{ \frac{1}{n} \sum_{i=1}^{n} \left[ m(W_i,\beta_0, \gamma) - \bar{m}_n(\gamma) \right]\left[ m(W_i,\beta_0, \gamma) - \bar{m}_n(\gamma) \right]'\right\} \\
+      v(\gamma) &= \sqrt{n} \widehat{D}^{-1/2}_n(\gamma)\bar{m}_n(\gamma) \\
+      Q(\gamma) &=  \sum_{j=1}^p \left[ v_j(\gamma) \right]^2_{-} + \sum_{j=p+1}^k v_j^2(\gamma) 
+    \end{align*}
+  \item Calculate the test statistic using the observed data $\{W_1, \hdots, W_n\}$
+    \[
+      T_n = \min_{\gamma \in \Gamma} Q(\gamma) 
+    \]
+  \item Calculate $\widehat{\Gamma}_I$ -- the ``estimated set of minimizers'' of $Q(\gamma)$ 
+    \[
+      \widehat{\Gamma}_I = \left\{\gamma \in \Gamma \colon Q(\gamma) \leq T_n \right\} 
+    \]
+  \item For each of $B$ independent bootstrap replications, do the following:
+    \begin{enumerate}[(i)]
+      \item Draw $\xi_1, \xi_2, \hdots, \xi_n \sim \mbox{ iid } N(0,1)$
+      \item Construct $v^*(\gamma)$ -- the re-centered, bootstrap version  of $v(\gamma)$ -- as follows
+        \[
+          v^*(\gamma) = n^{-1/2} \widehat{D}_n^{-1/2}(\gamma) \sum_{i=1}^n \xi_i \left[ m(W_i, \beta_0, \gamma) - \bar{m}_n(\gamma) \right]
+        \]
+    \end{enumerate}
+\end{enumerate}
+
+\todo[inline]{I need to think some more about how step 3 works in our setting. I think the set of minimizers can be a singleton. If the null is that the treatment effect is zero, then I think the set of minimizers corresponds to all $\alpha_0, \alpha_1$ within the bounds.}
 
 \end{document}
 
