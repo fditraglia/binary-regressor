@@ -3470,4 +3470,116 @@ Here are a few ideas:
    Can we use this to back out inference for $\beta$?
 \end{enumerate}
 
+\section{May 18th, 2017 -- More on Andrews \& Soares (2010)}
+\paragraph{Recall the notation from above:}
+\[
+  \mathbb{E} \left[ m_j(\mathbf{w}_i,\theta_0) \right]
+  \left\{
+  \begin{array}{cc}
+    \geq 0 & \mbox{for } j = 1, \cdots, p\\
+    = 0 & \mbox{for } j = p + 1, \cdots,k \mbox{ where } k = p + v
+  \end{array}
+  \right.
+\]
+
+\[
+  \bar{m}_n(\theta) = \left[
+  \begin{array}{c}
+    \bar{m}_{n,1}(\theta)\\
+    \vdots \\
+    \bar{m}_{n,k}(\theta)\\
+  \end{array}
+\right], \quad
+\bar{m}_{n,j} = \frac{1}{n} \sum_{i=1}^{n} m_j(\mathbf{w}_i, \theta) \mbox{ for } j = 1, \cdots, k
+\]
+Now, let $\Sigma(\theta_0)$ denote the asymptotic variance of $\sqrt{n}\; \bar{m}_n(\theta)$.
+We estimate this quantity using $\widehat{\Sigma}_n(\theta)$.
+For iid observations, as in our example, the estimator is
+\[
+  \widehat{\Sigma}_n(\theta) = \frac{1}{n} \sum_{i=1}^n \left[ m(\mathbf{w}_i, \theta) - \bar{m}_n(\theta) \right]\left[ m(\mathbf{w}_i, \theta) - \bar{m}_n(\theta) \right]', \quad 
+  m(\mathbf{w}_i, \theta) = \left[
+  \begin{array}{c}
+    m_1(\mathbf{w}_i, \theta)\\
+    \vdots \\
+    m_k(\mathbf{w}_i, \theta)\\
+  \end{array}
+\right]
+\]
+The test statistic takes the form $T_n(\theta) = S\left( \sqrt{n}\; \bar{m}_n(\theta), \widehat{\Sigma}(\theta) \right)$ for some real-valued function $S$.
+The example we will use is $S_1$, defined by
+\[
+  S_1(m, \Sigma) = \sum_{j=1}^p [m_j/\sigma_j]^2_- + \sum_{j=p+1}^{p+v} (m_j/\sigma_j)^2
+\]
+where $m = (m_1, \cdots, m_k)'$, $\sigma_j^2$ is the $j$th diagonal element of $\Sigma$, and
+\[
+  [x]_- = \left\{
+  \begin{array}{cc}
+    x, & \mbox{if } x <0\\
+    0, & \mbox{if } x \geq 0
+  \end{array}
+\right.
+\]
+
+
+\paragraph{Calculating the Critical Value for the \emph{Asymptotic} Version of GMS}
+Above we described the calculation of the \emph{bootstrap} critical value for a test of $\theta = \theta_0$. 
+We now present an alternative method that uses iid standard normal draws to ``bootstrap the limit experiment.''
+
+\begin{enumerate}
+  \item Calculate $\bar{m}_n(\theta_0)$, $\widehat{\Sigma}_n(\theta_0)$, and $T_n(\theta_0) = S\left( \sqrt{n}\; \bar{m}_n(\theta_0), \widehat{\Sigma}_n(\theta_0) \right)$
+  \item Calculate the following quantities:
+    \begin{align*}
+      \widehat{\Omega}_n(\theta_0) &= \mbox{Diag}^{-1/2}\left(\widehat{\Sigma}_n(\theta_0)  \right)\left(\widehat{\Sigma}_n(\theta_0)\right)\mbox{Diag}^{-1/2}\left( \widehat{\Sigma}_n(\theta_0) \right)\\
+      \xi_n(\theta_0) &= \mbox{Diag}^{-1/2}\left( \widehat{\Sigma}_n(\theta_0) \right) \sqrt{n}\; \bar{m}_n(\theta_0) / \sqrt{\ln n}\\
+      \varphi\left( \xi_n(\theta_0), \widehat{\Omega}_n(\theta_0) \right) &= \left\{
+      \begin{array}{cc}
+        0, & \mbox{if } \xi_j \leq 1 \mbox{ and } j \leq p \\
+        \infty & \mbox{if } \xi_j > 1 \mbox{ or } j > p\\
+      \end{array}
+      \right.
+    \end{align*}
+  \item Draw $Z_1^*, \hdots, Z_R^* \sim \mbox{ iid } N(0_k, I_k)$ for $R$ large.
+  \item The critical value is the $1 - \alpha$ quantile of $\left\{S\left( \widehat{\Omega}^{1/2}(\theta_0) Z_r^* + \varphi\left( \xi_n(\theta_0), \widehat{\Omega}_n(\theta_0) \right), \widehat{\Omega}_n(\theta_0) \right)\right\}_{r=1}^R$
+\end{enumerate}
+
+\paragraph{Clearer Explanation of the Asymptotic GMS Critical Value Calculation}
+The preceding paragraph used the explanation from Andrews \& Soares but it's a little obscure. 
+Here's a simpler and clearer explanation.
+Recall that the statistics from Andrews \& Soares (2010) satisfy
+\begin{align*}
+  T_n &= S\left( \sqrt{n}\; \bar{m}_n(\theta), \widehat{\Sigma}(\theta) \right) = S\left( \widehat{D}_n^{-1/2}(\theta) \sqrt{n}\; \bar{m}_n(\theta), \widehat{\Omega}_n(\theta) \right)\\
+  \widehat{D}_n(\theta) &= \mbox{diag}\left( \widehat{\Sigma}\left( \theta \right) \right)\\
+  \widehat{\Omega}_n(\theta) &= \widehat{D}_n^{-1/2}(\theta)\, \widehat{\Sigma}(\theta)\, \widehat{D}_n^{-1/2}(\theta)
+\end{align*}
+The procedure for the asymptotic version of the GMS test is as follows:
+\begin{enumerate}
+  \item Calculate $\sqrt{n}\; \bar{m}_n\left( \theta_0 \right)$ and $\widehat{\Sigma}(\theta_0)$ under the null hypothesis $H_0\colon \theta = \theta_0$.
+  \item Calculate the test statistic $T_n(\theta_0) = S_1\left(\sqrt{n}\; \bar{m}_n\left( \theta_0 \right), \widehat{\Sigma}\left( \theta_0 \right)  \right)$.
+  \item Determine which inequality moment conditions are ``far from binding'' under $H_0\colon \theta = \theta_0$
+    \begin{itemize}
+      \item Let $j \in J = \{ 1, \cdots, p\}$ index the inequality moment conditions.
+      \item Let $\widehat{\sigma}_{n,j}(\theta_0)^2$ denote the $(j,j)$ element of $\widehat{\Sigma}(\theta_0)$
+      \item For each $j\in J$ calculate the ``t-statistic'' $ t_{n,j} = \sqrt{n}\; \bar{m}_j(\theta_0)/\widehat{\sigma}_{n,j}(\theta_0)$
+      \item Let $\mathcal{FB}$ denote the subset of $J$ for which $t_{n,j} >\sqrt{\log n}$.
+        These are the inequality moment conditions that are ``far from binding'' under $H_0\colon\theta = \theta_0$. 
+    \end{itemize}
+  \item Calculate the asymptotic critical value by simulation as follows:
+    \begin{itemize}
+      \item Draw $R$ standard normal $k$-vectors: $Z^*_1, \hdots, Z^*_R \sim \mbox{ iid } N(0_k, I_k)$
+      \item Construct the $k$-vector $\varphi(\theta_0)$ from its coordinates $\varphi_j$ as follows:
+        \[
+          \varphi_j(\theta_0) = \left\{
+          \begin{array}{ll}
+            \infty & j\in \mathcal{FB} \mbox{ and } j\leq p\\
+            0 & j>p \mbox{ or } 
+          \end{array}
+          \right.
+        \]
+      \item Set $M^*_{n,r}(\theta_0) = \widehat{\Omega}_n^{1/2}(\theta_0) Z_r^*$, yielding $R$ iid $N(0_k, \widehat{\Omega}_n)$ draws.
+      \item Calculate $T^{*(r)}_n(\theta_0) = S_1\left(M^*_{n,r}(\theta_0) + \varphi(\theta_0), \;\widehat{\Omega}_n(\theta_0)\right)$ for $r=1, 2, \hdots, R$. Notice that adding $\varphi(\theta_0)$ is equivalent to dropping any moment conditions that we have determined are far from binding before calculating the test statistic.
+      \item Set $\widehat{c}_n(\theta_0, 1 - \delta)$ equal to the $1 - \delta$ quantile of $\left\{ T_n^{*(r)}(\theta_0) \right\}_{r=1}^R$.
+    \end{itemize}
+  \item Reject $H_0\colon \theta = \theta_0$ if $T_n(\theta_0) > \widehat{c}_n(\theta_0, 1-\delta)$
+  \item To construct a $(1 - \delta)\times 100\%$ confidence set, invert the test of $H_0\colon \theta = \theta_0$ for $\theta_0 \in \Theta$.
+\end{enumerate}
 \end{document}
