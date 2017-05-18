@@ -3585,15 +3585,51 @@ The procedure for the asymptotic version of the GMS test is as follows:
 
 
 \paragraph{Preliminary Estimation of an Identified Parameter}
-Suppose that the moment equations take the form $m_j(W_i, \theta, \tau)$ where $\tau$ is an identified parameter for which we have a consistent, asymptotically normal estimator $\widehat{\tau}_n(\theta_0)$ under the null that $\theta = \theta_0$.
+Suppose that the moment equations take the form $m_j(W_i, \theta, \tau)$ where $\tau$ is identified under the null that $\theta = \theta_0$.
+Let $\widehat{\tau}_n(\theta_0)$ be a consistent, asymptotically normal estimator for $\tau$ under the null that $\theta = \theta_0$.
 As long as $\sqrt{n} \; \bar{m}_n(\theta, \widehat{\tau}_n(\theta))$ is asymptotically normal we can plug in our estimator of $\tau$ and carry out the GMS test almost exactly as above.
 Only one small change is required: the variance matrix estimator $\widehat{\Sigma}_n(\theta_0)$ needs to be adjusted to take account of the fact that $\tau$ has been estimated.
 This is fairly straightforward using standard calculations for moment condition models.
 The explanation we give here follows Hall (2005) although the notation is changed to match Andrews and Soares.
+
 Let $m(W_i, \theta, \tau)$ be a vector of moment functions that we will use to test $\theta = \theta_0$.
 Some of these moment functions will enter as equalities and others as inequalities but this is totally immaterial for the derivation to follow.
-Let $g(W_i, \theta, \tau)$ be another collection of moment functions that will be used to construct the estimator $\widehat{\tau}_n(\theta)$ but not to test $\theta = \theta_0$.
-Let $h(W_i, \theta, \tau) = (m', g')'$ denote the full set of moment functions.
+Let $h(W_i, \theta, \tau)$ be another collection of moment functions that will be used to construct the estimator $\widehat{\tau}_n(\theta)$ but not to test $\theta = \theta_0$.
+Let $g(W_i, \theta, \tau) = (m', h')'$ denote the full set of moment functions.
+This argument will use a mean-value expansion and hence will rely on $\tau$ being on the interior of the parameter space.
+So the idea here is that $\theta$ contains the ``problematic'' parameters, those that are weakly identified or may lie on a boundary, while $\tau$ contains the ``well-behaved'' parameters.
+Define: 
+\begin{align*}
+  \bar{g}_n(\theta_0, \tau) &= 
+  \left[
+  \begin{array}{c}
+    \bar{m}_n(\theta_0, \tau)\\
+    \bar{h}_n(\theta_0, \tau)\\
+  \end{array}
+\right] = 
+  \frac{1}{n}\sum_{i=1}^n g(W_i, \theta_0, \tau) \\
+G_n(\theta_0, \tau) &= \left[
+\begin{array}{c}
+  M_n(\theta_0, \tau)\\
+  H_n(\theta_0, \tau)
+\end{array}
+\right] = n^{-1}\sum_{i=1}^n \partial g(W_i, \theta_0, \tau)/\partial \tau'
+\end{align*}
+Note that we are holding $\theta$ \emph{fixed} at $\theta_0$.
+Let $\widehat{\tau}_n(\theta_0)$ denote the following GMM estimator
+\[
+  \widehat{\tau}_n(\theta_0) = \underset{\tau \in \mathscr{T}}{\arg \min} \; \bar{h}_n(\theta_0, \tau)'\, \widehat{\Xi} \, \bar{h}_n(\theta_0, \tau)
+\]
+where $\widehat{\Xi} \rightarrow_p \Xi$.
+By a mean-value expansion,
+\[
+  \bar{g}_n\left(\theta_0, \widehat{\tau}_n(\theta_0)\right) = \bar{g}_n(\theta_0, \tau(\theta_0)) + G_n(\theta_0, \widehat{\tau}_n(\theta_0), \tau(\theta_0), \lambda_n) \left( \widehat{\tau}_n(\theta_0) - \tau(\theta_0) \right)
+\]
+where the $i$th row of $G_n(\theta_0, \widehat{\tau}_n(\theta_0), \tau(\theta_0), \lambda_n)$ equals $i$th row of $G_n\left(\theta_0, \bar{\tau}_n(\theta_0)^{(i)}\right)$ and $\bar{\tau}_n(\theta_0)^{(i)} = \lambda_{n,i}\tau(\theta_0) + (1 - \lambda_{n,i}) \widehat{\tau}_n(\theta_0)$ for some $0 \leq \lambda_{n,i} \leq 1$.
 
+
+\[
+  \sqrt{n} \left( \widehat{\tau}_n(\theta_0) - \tau(\theta_0) \right) 
+\]
 
 \end{document}
