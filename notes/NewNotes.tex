@@ -3302,6 +3302,9 @@ If $\alpha_0 + \alpha_1 < 1$ then $1 - \alpha_1 > \alpha_0$ so $(1 - \alpha_1)$ 
 \end{proof}
 
 \section{Notes on Bugni, Canay \& Shi (2017)}
+
+\todo[inline]{I've played around with this a bit for our example and I don't think it's going to work. The problematic step is the construction of the profiled test statistic. If we want, for example, to carry out inference for $\beta$, we need to estimate $\alpha_0$ and $\alpha_1$ under the null $\beta = \beta_0$. But if $\beta_0$ is small, the moment equalities contain almost no information about $\alpha_0$ and $\alpha_1$ so the optimization problem goes haywire.}
+
 The notation follows the paper nearly verbatim, although I have made a few minor changes to the notation to avoid ambiguity.
 Regarding the sequence $\kappa_n$, used to carry out moment selection, the paper only requires that $\kappa_n \rightarrow \infty$ and $\kappa_n/\sqrt{n} \rightarrow 0$ as in Andrews \& Soares.
 The leading example, and indeed the choice recommended by Andrews \& Soares, is the BIC-type penalty $\kappa_n = \sqrt{\ln n}$ so in all the expressions below I replace $\kappa_n$ with this quantity.
@@ -3352,7 +3355,7 @@ where $\alpha$ is the significance level and $\widehat{c}_n^{MR}(\lambda_0, 1-\a
 \end{align*}
 
 \paragraph{Calculating the MR Critical Value}
-The MR critical value $\widehat{c}_n(\lambda_0, 1 - \alpha)$ is calculated from \emph{two different approximations} to the sampling distribution of $T_n(\lambda_0)$: ``DR'' and ``PR,'' specifically
+The MR critical value $\widehat{c}_n(\lambda_0, 1 - \alpha)$ is calculated from \emph{two different approximations} to the sampling distribution of $T_n(\lambda_0)$: \emph{discarded resampling} (DR) and \emph{penalized resampling} (PR), specifically
 \begin{align*}
   \widehat{c}_n^{MR}(\lambda_0, 1 - \alpha) &\equiv \mbox{(conditional) } 1 - \alpha \mbox{ quantile of } T_n^{MR}(\lambda_0) \\
   T_n^{MR}(\lambda_0) &\equiv \min\left\{ T_n^{DR}(\lambda_0), T_n^{PR}(\lambda_0) \right\}
@@ -3370,7 +3373,7 @@ In particular, both the $T_n^{DR}$ and $T_{n}^{PR}$ take the form
 where $v^*_{n,j}(\theta)$ is as defined in the preceding pair of displayed equations, $\widetilde{\Theta}$ is some set, and $s_j(\theta)$ is a \emph{slackness function}.
 The difference between DR and PR is the choice of $\widetilde{\Theta}$ and $s_j(\theta)$ as explained in the following paragraphs.
 
-\paragraph{Definition of $T_n^{DR}(\lambda_0)$}
+\paragraph{Discarded Resampling Statistic: $T_n^{DR}(\lambda_0)$}
 \begin{align*}
   T_n^{DR}(\lambda_0) &\equiv \inf_{\theta \in \widehat{\Theta}_I(\lambda_0)}\left(\sum_{j=1}^p \left[ v_{n,j}^*(\theta) + \varphi_j(\theta) \right]_{-}^2 + \sum_{j=p+1}^{k}\left\{   v^*_{n,j}(\theta) + \varphi_j(\theta)\right\}^2  \right)\\
   \widehat{\Theta}_I(\lambda_0) &\equiv \left\{ \theta\in \Theta(\lambda_0)\colon Q_n(\theta) \leq T_n(\lambda_0) \right\}\\
@@ -3384,7 +3387,7 @@ The difference between DR and PR is the choice of $\widetilde{\Theta}$ and $s_j(
 Note that $\widehat{\Theta}_I(\lambda_0)$ contains the values of $\theta$ that \emph{minimize} $T_n(\lambda_0) = \inf_{\theta \in \Theta(\lambda_0)} Q_n(\theta)$.
 Note further that $\varphi_j$ only affects the moment \emph{inequalities}: it is zero for $j > p$.
 
-\paragraph{Definition of $T_n^{PR}(\lambda_0)$}
+\paragraph{Penalized Resampling Test Statistic: $T_n^{PR}(\lambda_0)$}
 \begin{align*}
   T_n^{PR}(\lambda_0) &\equiv \inf_{\theta \in \Theta(\lambda_0)}\left(\sum_{j=1}^p \left[ v_{n,j}^*(\theta) + \ell_j(\theta) \right]_{-}^2 + \sum_{j=p+1}^{k}\left\{   v^*_{n,j}(\theta) + \ell_j(\theta)\right\}^2  \right)\\
   \ell_j(\theta) &= \sqrt{n}\, \bar{m}_{n,j}(\theta)/\left[ \widehat{\sigma}_{n,j}(\theta) \sqrt{\ln n} \right] 
@@ -3444,7 +3447,27 @@ I write any function of $\theta$ explicitly as a function of $(\beta, \gamma)$ s
     \end{enumerate}
 \end{enumerate}
 
-\todo[inline]{I need to think some more about how step 3 works in our setting. I think the set of minimizers can be a singleton. If the null is that the treatment effect is zero, then I think the set of minimizers corresponds to all $\alpha_0, \alpha_1$ within the bounds.}
+
+\section{May 18th, 2017}
+Today I figured out that the Bugni, Canay \& Shi idea isn't going to work for our example since the optimization problem involved in computing the profiled test statistic is very badly behaved under the null $\beta = \beta_0$ when $\beta_0$ is small.
+This means that we'll have to go back to doing joint inference over $(\alpha_0, \alpha_1, \beta)$ using Andrews \& Soares.
+Here are a few ideas:
+\begin{enumerate}
+  \item I think it could be faster to use the ``asymptotic version'' of Andrews and Soares.
+    The asymptotic version involves making normal draws instead of bootstrapping the sample.
+    Is there a tradeoff in terms of accuracy?
+    Presumably it won't matter much for reasonably large samples.
+  \item $\theta_1$ is strongly identified regardless of the values of $\beta$, $\alpha_0$ and $\alpha_1$.
+    This means that if we wanted to do inference for $\alpha_0, \alpha_1$ we could use a plug-in estimator of $\theta_1$ provided that we correct the asymptotic variance matrix estimator as described in section 10.2 of Andrews and Soares.
+  \item Might it be interesting to look at a test for the presence of mis-classification? This would entail testing the null that $\alpha_0 = \alpha_1 = 0$.
+    This is a null for which the moment inequalities cannot provide any information so presumably we could just use Stock and Wright's GMM-AR test.
+    It might also be interesting to try this with Mahajan or Lewbel and show the size distortions that arise if one does not use the AR test.
+  \item Our implementation of Andrews and Soares should use preliminary estimators for $\boldsymbol{\kappa}$ and the parameters associated with exogenous covariates.
+    We can use the simplest possible estimator for $\boldsymbol{\kappa}$ under the null: three sample means, e.g.\ $\kappa_1 = \bar{y} - \beta_0 \bar{T}/(1 - \alpha_0 - \alpha_1)$.
+    Similarly, for the coefficient on the exogenous covariates you just have a regression under the null in which $y - \beta_0 T/(1 - \alpha_0 - \alpha_1)$ replaces $y$.
+  \item Is there a clever way to use the fact that $\theta_1$ is strongly identified to help us carry out inference for $\beta$?
+   Specifically, suppose we construct a confidence set for $\alpha_0, \alpha_0$ by profiling out $\theta_1$. 
+   Can we use this to back out inference for $\beta$?
+\end{enumerate}
 
 \end{document}
-
