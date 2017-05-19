@@ -3600,36 +3600,143 @@ This argument will use a mean-value expansion and hence will rely on $\tau$ bein
 So the idea here is that $\theta$ contains the ``problematic'' parameters, those that are weakly identified or may lie on a boundary, while $\tau$ contains the ``well-behaved'' parameters.
 Define: 
 \begin{align*}
-  \bar{g}_n(\theta_0, \tau) &= 
+  \bar{g}_n(\theta, \tau) &= 
   \left[
   \begin{array}{c}
-    \bar{m}_n(\theta_0, \tau)\\
-    \bar{h}_n(\theta_0, \tau)\\
+    \bar{m}_n(\theta, \tau)\\
+    \bar{h}_n(\theta, \tau)\\
   \end{array}
 \right] = 
-  \frac{1}{n}\sum_{i=1}^n g(W_i, \theta_0, \tau) \\
-G_n(\theta_0, \tau) &= \left[
+  \frac{1}{n}\sum_{i=1}^n g(W_i, \theta, \tau) \\
+G_n(\theta, \tau) &= \left[
 \begin{array}{c}
-  M_n(\theta_0, \tau)\\
-  H_n(\theta_0, \tau)
+  M_n(\theta, \tau)\\
+  H_n(\theta, \tau)
 \end{array}
-\right] = n^{-1}\sum_{i=1}^n \partial g(W_i, \theta_0, \tau)/\partial \tau'
+\right] = n^{-1}\sum_{i=1}^n \partial g(W_i, \theta, \tau)/\partial \tau'
 \end{align*}
-Note that we are holding $\theta$ \emph{fixed} at $\theta_0$.
-Let $\widehat{\tau}_n(\theta_0)$ denote the following GMM estimator
+Throughout this argument, we will hold $\theta$ \emph{fixed} at $\theta_0$.
+Under $\theta = \theta_0$ we have the following GMM estimator for $\tau(\theta_0)$, the true value of $\tau$ assuming that $\theta = \theta_0$,
 \[
-  \widehat{\tau}_n(\theta_0) = \underset{\tau \in \mathscr{T}}{\arg \min} \; \bar{h}_n(\theta_0, \tau)'\, \widehat{\Xi} \, \bar{h}_n(\theta_0, \tau)
+  \widehat{\tau}_n(\theta_0) = \underset{\tau \in \mathscr{T}}{\arg \min} \; \bar{h}_n(\theta_0, \tau)'\, \Xi_n \, \bar{h}_n(\theta_0, \tau)
 \]
-where $\widehat{\Xi} \rightarrow_p \Xi$.
-By a mean-value expansion,
+where $\Xi_n \rightarrow_p \Xi$.
+To simplify the notation, we suppress dependence on $\theta$.
+Unless otherwise specified, \emph{every function} is evaluated at $\theta = \theta_0$, e.g.\ 
 \[
-  \bar{g}_n\left(\theta_0, \widehat{\tau}_n(\theta_0)\right) = \bar{g}_n(\theta_0, \tau(\theta_0)) + G_n(\theta_0, \widehat{\tau}_n(\theta_0), \tau(\theta_0), \lambda_n) \left( \widehat{\tau}_n(\theta_0) - \tau(\theta_0) \right)
+  \widehat{\tau}_n = \widehat{\tau}_n(\theta_0), \quad \bar{g}_n(\tau) = \bar{g}_n(\theta_0, \tau), \quad G_n(\tau) = G_n(\theta_0, \tau)
 \]
-where the $i$th row of $G_n(\theta_0, \widehat{\tau}_n(\theta_0), \tau(\theta_0), \lambda_n)$ equals $i$th row of $G_n\left(\theta_0, \bar{\tau}_n(\theta_0)^{(i)}\right)$ and $\bar{\tau}_n(\theta_0)^{(i)} = \lambda_{n,i}\tau(\theta_0) + (1 - \lambda_{n,i}) \widehat{\tau}_n(\theta_0)$ for some $0 \leq \lambda_{n,i} \leq 1$.
-
-
+Now, mean-value expanding $\bar{g}_n$, viewed as a function of $\tau$ \emph{only}, around $\tau_0 \equiv \tau(\theta_0)$,
+\begin{equation}
+  \bar{g}_n\left(\widehat{\tau}_n\right) = \bar{g}_n(\tau_0) + G_n(\widehat{\tau}_n, \tau_0, \lambda_n) \left( \widehat{\tau}_n - \tau_0 \right)
+  \label{eq:gn_MVE}
+\end{equation}
+where the $i$th row of $G_n(\widehat{\tau}_n, \tau_0, \lambda_n)$ equals $i$th row of $G_n(\widetilde{\tau}_n^{(i)})$ and 
 \[
-  \sqrt{n} \left( \widehat{\tau}_n(\theta_0) - \tau(\theta_0) \right) 
+\widetilde{\tau}_n^{(i)} = \lambda_{n,i}\tau_0 + (1 - \lambda_{n,i}) \widehat{\tau}_n
+\] 
+for some $0 \leq \lambda_{n,i} \leq 1$.
+The preceding mean-value expansion is for $\bar{g}_n = (\bar{m}_n', \bar{h}_n')'$.
+Restricting our attention to the sub-vector $\bar{h}_n$, we have
+\[
+  \bar{h}_n(\widehat{\tau}_n) = \bar{h}_n(\tau_0) + H_n(\widehat{\tau}_n, \tau_0, \lambda^h_n)(\widehat{\tau}_n - \tau_0) 
 \]
-
+where $\lambda^h_n$ is the sub-vector of $\lambda_n$ that corresponds to $H_n$. 
+Pre-multiplying by $H_n(\widehat{\tau}_n)'\Xi_n$, we have
+\[
+  H_n(\widehat{\tau}_n)'\Xi_n\bar{h}_n(\widehat{\tau}_n) = H_n(\widehat{\tau}_n)'\Xi_n \bar{h}_n(\tau_0) + H_n(\widehat{\tau}_n)'\Xi_n H_n(\widehat{\tau}_n, \tau_0, \lambda^h_n)(\widehat{\tau}_n - \tau_0).
+\]
+But by the first-order conditions for $\widehat{\tau}_n$, we have  $H_n(\widehat{\tau}_n)'\Xi_n \bar{h}_n(\widehat{\tau}_n) = 0$ and thus
+\[
+  H_n(\widehat{\tau}_n)'\Xi_n \bar{h}_n(\tau_0) + H_n(\widehat{\tau}_n)'\Xi_n H_n(\widehat{\tau}_n, \tau_0, \lambda^h_n)(\widehat{\tau}_n - \tau_0) = 0.
+\]
+Rearranging,
+\begin{equation}
+  (\widehat{\tau}_n - \tau_0) = -\left[ H_n(\widehat{\tau}_n)'\Xi_n H_n(\widehat{\tau}_n, \tau_0, \lambda^h_n)\right]^{-1} H_n(\widehat{\tau}_n)'\Xi_n \bar{h}_n(\tau_0).
+  \label{eq:tau_solution}
+\end{equation}
+Now, substituting Equation \ref{eq:tau_solution} into Equation \ref{eq:gn_MVE},
+\begin{align*}
+  \bar{g}_n\left(\widehat{\tau}_n\right) &= \bar{g}_n(\tau_0) + G_n(\widehat{\tau}_n, \tau_0, \lambda_n) \left( \widehat{\tau}_n - \tau_0 \right)\\
+  &= \bar{g}_n(\tau_0) - G_n(\widehat{\tau}_n, \tau_0, \lambda_n) \left[ H_n(\widehat{\tau}_n)'\Xi_n H_n(\widehat{\tau}_n, \tau_0, \lambda^h_n)\right]^{-1} H_n(\widehat{\tau}_n)'\Xi_n \bar{h}_n(\tau_0)
+\end{align*}
+And since $\bar{g}_n = (\bar{m}_n', \bar{h}_n')$ and $G_n = (M_n', H_n')'$, 
+\begin{align*}
+  \left[
+  \begin{array}{cc}
+    \sqrt{n}\;\bar{m}_n(\widehat{\tau}_n)\\
+    \sqrt{n}\;\bar{h}_n(\widehat{\tau}_n)
+  \end{array}
+\right] &=
+  \left[
+  \begin{array}{cc}
+    \sqrt{n}\;\bar{m}_n(\tau_0)\\
+    \sqrt{n}\;\bar{h}_n(\tau_0)
+  \end{array}
+\right] - 
+\left[
+\begin{array}{c}
+  M_n(\widehat{\tau}_n, \tau_0, \lambda_n^m)\\
+  H_n(\widehat{\tau}_n, \tau_0, \lambda_n^h)
+\end{array}
+\right]
+\left[ H_n(\widehat{\tau}_n)'\Xi_n H_n(\widehat{\tau}_n, \tau_0, \lambda^h_n)\right]^{-1} H_n(\widehat{\tau}_n)'\Xi_n \left[\sqrt{n}\;\bar{h}_n(\tau_0)\right]\\
+  &= \left[
+  \begin{array}{cc}
+    \sqrt{n}\;\bar{m}_n(\tau_0)\\
+    \sqrt{n}\;\bar{h}_n(\tau_0)
+  \end{array}
+\right] - 
+\left[
+\begin{array}{r}
+M(\tau_0)\left\{ H(\tau_0)'\Xi H(\tau_0)\right\}^{-1} H'(\tau_0)\Xi \\
+H(\tau_0)\left\{ H(\tau_0)'\Xi H(\tau_0)\right\}^{-1} H'(\tau_0)\Xi 
+\end{array}
+\right]
+\sqrt{n}\;\bar{h}_n(\tau_0) + o_p(1)
+\end{align*}
+where $M(\tau) = E[\partial m(W_i, \theta_0, \tau)/\partial \tau']$ and $H(\tau) = E[\partial h(W_i, \theta_0, \tau)/\partial \tau']$.
+We are only interested in the behavior of $\sqrt{n} \; m_n(\widehat{\tau}_n)$.
+Restricting attention to this sub-vector,
+\begin{align*}
+  \sqrt{n}\; \bar{m}_n(\widehat{\tau}_n) &= \sqrt{n}\; \bar{m}_n(\tau_0) - M(\tau_0)\left\{ H(\tau_0)'\Xi H(\tau_0)\right\}^{-1} H'(\tau_0)\Xi \times \sqrt{n}\; \bar{h}_n(\tau_0) + o_p(1) \\
+  &= \left\{ \mathbf{I} - 
+  \left[
+  \begin{array}{cc}
+    \mathbf{0}_k' & M(\tau_0)\left\{ H(\tau_0)'\Xi H(\tau_0)\right\}^{-1} H'(\tau_0)\Xi 
+  \end{array}
+\right] \right\}
+\left[
+\begin{array}{c}
+  \sqrt{n}\; \bar{m}_n(\tau_0)\\ 
+  \sqrt{n}\; \bar{h}_n(\tau_0)
+\end{array}
+\right] + o_p(1) \\
+&= \left\{\mathbf{I} - 
+\left[
+\begin{array}{cc}
+  \mathbf{0}'_k & B(\tau_0)
+\end{array}
+\right]\right\} \sqrt{n}\; \bar{g}_n(\tau_0)
+\end{align*}
+where $\mathbf{0}'_k$ is a $1\times k$ vector of zeros and $B(\tau_0) = M(\tau_0)\left\{ H(\tau_0)'\Xi H(\tau_0)\right\}^{-1} H'(\tau_0)\Xi$.
+We now have all the ingredients we need to calculate our variance matrix adjustment.
+Restoring explicit dependence on $\theta_0$, we have 
+\[
+  \sqrt{n}\; \bar{m}_n\left( \theta_0, \widehat{\tau}_n(\theta_0) \right) = \left\{ \mathbf{I} - \left[
+  \begin{array}{cc}
+    \mathbf{0}_k' & B\left( \theta_0, \tau(\theta_0) \right) 
+\end{array}
+\right]\right\} \; \sqrt{n}\; \bar{g}_n\left( \theta_0, \tau(\theta_0) \right)
+\]
+By an appropriate Central Limit Theorem, $\sqrt{n}\; \bar{g}_n\left( \theta_0, \tau(\theta_0) \right)$ is asymptotically normal with variance matrix $\mathcal{V}\left( \theta_0, \tau(\theta_0) \right)$, partitioned as follows:
+\[
+  \mathcal{V}\left( \theta_0, \tau(\theta_0) \right) = 
+  \left[
+  \begin{array}{cc}
+    hi & hi \\
+    hi & hi
+  \end{array}
+\right]
+\]
 \end{document}
