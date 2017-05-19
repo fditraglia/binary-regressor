@@ -3700,43 +3700,67 @@ We are only interested in the behavior of $\sqrt{n} \; m_n(\widehat{\tau}_n)$.
 Restricting attention to this sub-vector,
 \begin{align*}
   \sqrt{n}\; \bar{m}_n(\widehat{\tau}_n) &= \sqrt{n}\; \bar{m}_n(\tau_0) - M(\tau_0)\left\{ H(\tau_0)'\Xi H(\tau_0)\right\}^{-1} H'(\tau_0)\Xi \times \sqrt{n}\; \bar{h}_n(\tau_0) + o_p(1) \\
-  &= \left\{ \mathbf{I} - 
+  &=  
   \left[
   \begin{array}{cc}
-    \mathbf{0}_k' & M(\tau_0)\left\{ H(\tau_0)'\Xi H(\tau_0)\right\}^{-1} H'(\tau_0)\Xi 
+    \mathbf{I}_k & -M(\tau_0)\left\{ H(\tau_0)'\Xi H(\tau_0)\right\}^{-1} H'(\tau_0)\Xi 
   \end{array}
-\right] \right\}
+\right]
 \left[
 \begin{array}{c}
   \sqrt{n}\; \bar{m}_n(\tau_0)\\ 
   \sqrt{n}\; \bar{h}_n(\tau_0)
 \end{array}
 \right] + o_p(1) \\
-&= \left\{\mathbf{I} - 
+&=  
 \left[
 \begin{array}{cc}
-  \mathbf{0}'_k & B(\tau_0)
+  \mathbf{I}_k & B(\tau_0)
 \end{array}
-\right]\right\} \sqrt{n}\; \bar{g}_n(\tau_0)
+\right] \sqrt{n}\; \bar{g}_n(\tau_0)
 \end{align*}
-where $\mathbf{0}'_k$ is a $1\times k$ vector of zeros and $B(\tau_0) = M(\tau_0)\left\{ H(\tau_0)'\Xi H(\tau_0)\right\}^{-1} H'(\tau_0)\Xi$.
+where $\mathbf{I}_k$ is the $k\times k$ identity matrix and $B(\tau_0) = M(\tau_0)\left\{ H(\tau_0)'\Xi H(\tau_0)\right\}^{-1} H'(\tau_0)\Xi$.
 We now have all the ingredients we need to calculate our variance matrix adjustment.
 Restoring explicit dependence on $\theta_0$, we have 
 \[
-  \sqrt{n}\; \bar{m}_n\left( \theta_0, \widehat{\tau}_n(\theta_0) \right) = \left\{ \mathbf{I} - \left[
+  \sqrt{n}\; \bar{m}_n\left( \theta_0, \widehat{\tau}_n(\theta_0) \right) =  \left[
   \begin{array}{cc}
-    \mathbf{0}_k' & B\left( \theta_0, \tau(\theta_0) \right) 
+    \mathbf{I}_k & B\left( \theta_0, \tau(\theta_0) \right) 
 \end{array}
-\right]\right\} \; \sqrt{n}\; \bar{g}_n\left( \theta_0, \tau(\theta_0) \right)
+\right] \; \sqrt{n}\; \bar{g}_n\left( \theta_0, \tau(\theta_0) \right)
 \]
 By an appropriate Central Limit Theorem, $\sqrt{n}\; \bar{g}_n\left( \theta_0, \tau(\theta_0) \right)$ is asymptotically normal with variance matrix $\mathcal{V}\left( \theta_0, \tau(\theta_0) \right)$, partitioned as follows:
 \[
   \mathcal{V}\left( \theta_0, \tau(\theta_0) \right) = 
   \left[
   \begin{array}{cc}
-    hi & hi \\
-    hi & hi
+    \mathcal{V}_{mm}\left( \theta_0, \tau(\theta_0) \right) & \mathcal{V}_{mh}\left( \theta_0, \tau(\theta_0) \right) \\
+    \mathcal{V}_{hm}\left( \theta_0, \tau(\theta_0) \right) & \mathcal{V}_{hh}\left( \theta_0, \tau(\theta_0) \right) \\
   \end{array}
-\right]
+\right].
 \]
+Thus, we calculate the asymptotic variance matrix $\Sigma\left(\theta_0, \widehat{\tau}_n(\theta_0)\right)$ of $\sqrt{n}\; \bar{m}_n\left( \theta_0, \widehat{\tau}_n(\theta_0) \right)$ as follows, 
+suppressing dependence on $\theta$ and $\tau$ for simplicity:
+\begin{align*}
+\Sigma &= 
+\left[
+\begin{array}{cc}
+  \mathbf{I}_k & B
+\end{array}
+\right] 
+\left[
+\begin{array}{cc}
+  \mathcal{V}_{mm} & \mathcal{V}_{mh}\\
+  \mathcal{V}_{hm} & \mathcal{V}_{hh}
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+\mathbf{I}_k \\ B'
+\end{array}
+\right]
+\end{align*}
+So to estimate $\Sigma\left( \theta_0, \tau(\theta_0) \right)$ we require estimators of $B\left( \theta_0, \tau(\theta_0) \right)$ and $\mathcal{V}\left( \theta_0, \tau(\theta_0) \right)$.
+
+
 \end{document}
