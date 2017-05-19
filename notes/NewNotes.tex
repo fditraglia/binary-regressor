@@ -3470,7 +3470,7 @@ Here are a few ideas:
    Can we use this to back out inference for $\beta$?
 \end{enumerate}
 
-\section{May 18th, 2017 -- More on Andrews \& Soares (2010)}
+\section{May 18--19, 2017: More on Andrews \& Soares}
 \paragraph{Recall the notation from above:}
 \[
   \mathbb{E} \left[ m_j(\mathbf{w}_i,\theta_0) \right]
@@ -3761,6 +3761,24 @@ suppressing dependence on $\theta$ and $\tau$ for simplicity:
 \right]
 \end{align*}
 So to estimate $\Sigma\left( \theta_0, \tau(\theta_0) \right)$ we require estimators of $B\left( \theta_0, \tau(\theta_0) \right)$ and $\mathcal{V}\left( \theta_0, \tau(\theta_0) \right)$.
+In our example, $\tau(\theta_0)$ is just-identified, leading to the following simplification:
+\[
+  B = -M\left( H'\Xi H\right)^{-1} H'\Xi 
+  = -M\left( H' H\right)^{-1} H' 
+  = -M H^{-1} (H')^{-1} H' = -M H^{-1}.
+\]
+Thus, we can construct the desired variance matrix estimator $\widehat{\Sigma}_n\left( \theta_0, \widehat{\tau}_n(\theta_0) \right)$ as follows:
+\begin{align*}
+  \widehat{\mathcal{V}}_n\left( \theta_0\right) &= \frac{1}{n} \sum_{i=1}^n \left[ g\left(W_i, \theta_0, \widehat{\tau}_n(\theta_0)\right) - \bar{g}_n\left( \theta_0, \widehat{\tau}_n(\theta_0) \right) \right] \left[ g\left(W_i, \theta_0, \widehat{\tau}_n(\theta_0)\right) - \bar{g}_n\left( \theta_0, \widehat{\tau}_n(\theta_0) \right) \right]'\\
+  \widehat{M}_n\left( \theta_0 \right) &= \frac{1}{n} \sum_{i=1}^n \frac{\partial m\left( W_i, \theta_0, \widehat{\tau}_n(\theta_0) \right)}{\partial \tau'}\\
+  \widehat{H}_n\left( \theta_0 \right) &= \frac{1}{n} \sum_{i=1}^n \frac{\partial h\left( W_i, \theta_0, \widehat{\tau}_n(\theta_0) \right)}{\partial \tau'}\\
+  \widehat{A}_n(\theta_0) &= \left[
+  \begin{array}{cc}
+    \mathbf{I}_k &  -\widehat{M}_n(\theta_0) \widehat{H}_n^{-1}(\theta_0)\\
+  \end{array}
+\right]\\
+\widehat{\Sigma}_n\left( \theta_0, \widehat{\tau}_n(\theta_0) \right) &= \widehat{A}_n(\theta_0) \widehat{\mathcal{V}}_n(\theta_0) \widehat{A}_n(\theta_0)'
+\end{align*}
 
 
 \end{document}
