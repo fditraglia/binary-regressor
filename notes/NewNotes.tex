@@ -3781,5 +3781,130 @@ Thus, we can construct the desired variance matrix estimator $\widehat{\Sigma}_n
 \end{align*}
 Notice that if $M = 0$, so that the $m$ moment functions do not depend on $\tau$, then this reduces to the expression from Andrews \& Soares \emph{without} preliminary estimation of identified parameters.
 
+\section{May 20th -- A\&S (2010) w/ Preliminary Estimates}
+\todo[inline]{Notice that in this special case we have $\theta_2 = \beta \theta_1$. Since $\theta_1$ is strongly identified, this means that we could concentrate it out and conduct inference for $\beta$ alone.
+But is this a good idea? It would mean that the inequalities don't give us any information. We should possibly try this out in simulations and see what happens. Note that the third moment condition simplifies in this example as well, so that $\theta_3 = \beta^2 \theta_1$. We could also try using this to see how valuable the over-identifying information can be. Could be interesting to try the same thing using quantiles to get over-identifying moment equalities. Can one carry out A\&S (2010) using a continuum of moment equalities and inequalities? Could at least try it out with deciles.}
+
+\paragraph{Simple Example:}
+We now return to the simple example of Andrews \& Soares from above, in which we assume that $\alpha_0 = 0$ and use only the ``weak'' bounds for $\alpha_1$.
+The difference is that we will now estimate both intercepts: $\kappa_1$ and $\kappa_2$.
+The moment equalities in this case are:
+\[
+  \mathbb{E}\left[ u_1(\kappa_1, \theta_1) \right] = 0, \quad
+  \mathbb{E}\left[ u_1(\kappa_1, \theta_1) z \right] = 0, \quad
+  \mathbb{E}\left[ u_2(\kappa_2, \theta_1, \theta_2) \right] = 0, \quad
+  \mathbb{E}\left[ u_2(\kappa_2, \theta_1, \theta_2) z \right] = 0
+\]
+where
+\begin{align*}
+u_1(\kappa_1, \theta_1) &= y - \kappa_1 - \theta_1 T & \theta_1 &= \beta/(1 - \alpha_1)\\
+  u_2(\kappa_2, \theta_1, \theta_2) &= y^2 - \kappa_2 - \theta_1 2 yT + \theta_2 T & \theta_2 &= \beta^2/(1 - \alpha_1) = \beta \theta_1
+\end{align*}
+
+Using the notation of the preceding section, the $h$ block of moment equalities used for preliminary estimation of $\tau = (\kappa_1, \kappa_2)$ is 
+\[
+  h(W_i, \theta, \kappa) = \left[
+  \begin{array}{l}
+    u_{1,i}(\kappa_1,\theta_1)\\
+    u_{2,i}(\kappa_2, \theta_1, \theta_2)\\
+  \end{array}
+\right] = 
+\left[
+\begin{array}{l}
+  y_i - \kappa_1 - \theta_1 T_i\\
+  y^2_i - \kappa_2 - \theta_1 2 y_iT_i + \theta_2 T_i
+\end{array}
+\right]
+\]
+while the $m$ block of moment inequalities and equalities used for inference are
+\[
+  m(W_i, \theta, \kappa) = \left[
+  \begin{array}{l}
+    (1 - \alpha_1) - T_i(1 - z_i)/(1 - q)\\
+    (1 - \alpha_1) - T_iz_i/q\\
+    u_{1,i}(\kappa_1, \theta_1) z_i \\
+    u_{2,i}(\kappa_2, \theta_1, \theta_2) z_i
+  \end{array}
+\right]
+   = \left[
+  \begin{array}{l}
+    (1 - \alpha_1) - T_i(1 - z_i)/(1 - q)\\
+    (1 - \alpha_1) - T_iz_i/q\\
+    (y_i - \kappa_1 - \theta_1 T_i) z_i\\
+    (y_i^2 - \kappa_2 - \theta_1 2 y_i T_i + \theta_2 T_i) z_i 
+  \end{array}
+\right]
+\]
+Under the null $(\beta, \alpha_1) = (\beta^0, \alpha_1^0)$, or equivalently $(\theta_1, \theta_2) = (\theta_1^0, \theta_2^0)$, we can estimate $\kappa_1$ and $\kappa_2$:
+\begin{align*}
+  \widehat{\kappa}_1(\theta_0) &= \frac{1}{n} \sum_{i=1}^n y_i - \theta_1^0 T_i\\
+  \widehat{\kappa}_2(\theta_0) &= \frac{1}{n}\sum_{i=1}^n y^2_i - \theta_1^0 2y_i T_i + \theta_2^0 T_i 
+\end{align*}
+Note that this estimator is just identified, so the simplification $B = -MH^{-1}$ obtains.
+To calculate this quantity, we first need the expected derivative matrices: 
+\[
+  H = \mathbb{E}\left[ \frac{\partial h}{\partial \kappa'} \right] = 
+  \left[
+  \begin{array}{rr}
+    -1 & 0 \\
+    0 & -1
+  \end{array}
+\right] = -\mathbf{I}_2
+\]
+and 
+\[
+  M = \mathbb{E}\left[ \frac{\partial m}{\partial \kappa'} \right] = 
+  \left[
+  \begin{array}{rr}
+    0 & 0 \\ 
+    0 & 0 \\ 
+    -q & 0 \\
+    0 & -q 
+  \end{array}
+\right] = 
+-q \left[
+\begin{array}{c}
+  \mathbf{0}_{2} \\ \mathbf{I}_2
+\end{array}
+\right]
+\]
+which imply 
+\[
+  B = -MH^{-1} = -q \left[
+  \begin{array}{cc}
+    \mathbf{0}_2\\ \mathbf{I}_2
+  \end{array}
+\right] \mathbf{I}_2^{-1} = -q \left[
+\begin{array}{c}
+  \mathbf{0}_{2} \\ \mathbf{I}_2
+\end{array}
+\right]
+\]
+Notice that in our example $B$ does not depend on parameters so it does not have to be re-computed for different null hypotheses.
+And since $A = \left[
+\begin{array}{cc}
+  I & B
+\end{array}
+\right]$,
+the same is true of $A$.
+In contrast, $\widehat{\mathcal{V}}_n(\theta_0)$ \emph{does} depend on the null:
+\[
+  \widehat{\mathcal{V}}_n(\theta_0) = \frac{1}{n}\sum_{i=1}^n 
+  \left[
+  \begin{array}{c}
+    m(W_i, \theta_0, \widehat{\kappa}(\theta_0)) - \bar{m}_n(\theta_0, \widehat{\kappa}(\theta_0))\\
+    h(W_i, \theta_0, \widehat{\kappa}(\theta_0)) - \bar{h}_n(\theta_0, \widehat{\kappa}(\theta_0))
+  \end{array}
+\right]
+  \left[
+  \begin{array}{c}
+    m(W_i, \theta_0, \widehat{\kappa}) - \bar{m}_n(\theta_0, \widehat{\kappa})\\
+    h(W_i, \theta_0, \widehat{\kappa}) - \bar{h}_n(\theta_0, \widehat{\kappa})
+  \end{array}
+\right]'
+\]
+Finally, we set $\widehat{\Sigma}_n\left( \theta_0, \widehat{\kappa}(\theta_0) \right) = A \widehat{\mathcal{V}}_n A'$ and use this in the Andrews \& Soares (2010) GMS test to correctly account for the fact that $\kappa_1$ and $\kappa_2$ have been estimated in a preliminary GMM step.
+
+
 
 \end{document}
