@@ -3905,6 +3905,58 @@ In contrast, $\widehat{\mathcal{V}}_n(\theta_0)$ \emph{does} depend on the null:
 \]
 Finally, we set $\widehat{\Sigma}_n\left( \theta_0, \widehat{\kappa}(\theta_0) \right) = A \widehat{\mathcal{V}}_n A'$ and use this in the Andrews \& Soares (2010) GMS test to correctly account for the fact that $\kappa_1$ and $\kappa_2$ have been estimated in a preliminary GMM step.
 
-
+\section{May 21st, 2017 -- Adding Second Moment Bounds}
+Continuing from the preceding section, we now add the second moment bounds for $\alpha_1$ from above:
+\begin{align*}
+  p_k (1 - p_k)(1 - p_k - \alpha_1) \left\{ (1  - \alpha_1)(1 - p_k)\mathbb{E}\left[ y^2|T=0,z_k \right] - \alpha_1 p_k \mathbb{E}[y^2|T=1,z_k \right\}  \\
+    > \left\{ (1 - \alpha_1)(1 - p_k)\mathbb{E}[y|T=0,z_k] - \alpha_1 p_k \mathbb{E}[y|T=1,z_k] \right\}^2
+\end{align*}
+where $k = 0, 1$.
+We continue, for the moment, to assume that $\alpha_0 = 0$.
+Recall that
+\begin{align*}
+  \mathbb{E}\left[ y^r |T=0, z=k\right] &= \mathbb{E}\left[ y^r(1 - T) \mathbf{1}(z=k) \right]/\left[ (1 - p_k) \mathbb{P}(z=k)\right]\\
+  \mathbb{E}\left[ y^r |T=1, z=k\right] &= \mathbb{E}\left[ y^r T \mathbf{1}(z=k) \right]/\left[p_k \mathbb{P}(z=k)\right]
+\end{align*}
+from which we obtain:
+\begin{align*}
+  (1 - p_k)\mathbb{E}[y|T=0, z=0] &= \mathbb{E}[y(1 - T)(1 - z)]/(1 -q)\\
+  p_k \mathbb{E}[y|T=1, z=0] &= \mathbb{E}[yT(1 - z)]/(1 -q)\\
+  (1 - p_k)\mathbb{E}[y^2|T=0, z=0] &= \mathbb{E}[y^2(1 - T)(1 - z)]/(1 -q)\\
+  p_k\mathbb{E}[y^2|T=1, z=0] &= \mathbb{E}[y^2T(1 - z)]/(1 - q)
+\end{align*}
+Thus, the bound for $k = 0$ is
+\begin{align*}
+ (1-q) p_0 (1 - p_0)(1 - p_0 - \alpha_1) \left\{ (1  - \alpha_1)\mathbb{E}\left[ y^2(1-T)(1-z) \right] - \alpha_1 \mathbb{E}[y^2 T(1-z)] \right\}  \\
+    > \left\{ (1 - \alpha_1)\mathbb{E}[y(1-T)(1-z)] - \alpha_1 \mathbb{E}[yT(1-z)] \right\}^2 
+\end{align*}
+Proceeding similarly for $k = 1$ we obtain
+\begin{align*}
+  (1 - p_k)\mathbb{E}[y|T=0, z=1] &= \mathbb{E}[y(1 - T)z]/q\\
+  p_k \mathbb{E}[y|T=1, z=1] &= \mathbb{E}[yTz]/q\\
+  (1 - p_k)\mathbb{E}[y^2|T=0, z=1] &= \mathbb{E}[y^2(1 - T)z]/q\\
+  p_k\mathbb{E}[y^2|T=1, z=1] &= \mathbb{E}[y^2Tz]/q
+\end{align*}
+and hence
+\begin{align*}
+ q p_1 (1 - p_1)(1 - p_1 - \alpha_1) \left\{ (1  - \alpha_1)\mathbb{E}\left[ y^2(1-T)z \right] - \alpha_1 \mathbb{E}[y^2 Tz] \right\}  \\
+    > \left\{ (1 - \alpha_1)\mathbb{E}[y(1-T)z] - \alpha_1 \mathbb{E}[yTz] \right\}^2 
+\end{align*}
+To convert these bounds into moment functions of the form required by Andrews \& Soares, we introduce additional parameters for we will carry out a preliminary moment-based estimation step: 
+\begin{align*}
+  \mathbb{E}[p_0 - T(1 - z)/(1 - q)] &= 0\\
+  \mathbb{E}[p_1 - Tz/q] &= 0\\
+  \mathbb{E}[\mu_{00} - y(1 - T)(1 - z)] &= 0\\
+  \mathbb{E}[\mu_{10} - yT(1 - z)] &= 0\\
+  \mathbb{E}[\mu_{01} - y(1 - T)z] &= 0\\
+  \mathbb{E}[\mu_{11} - yTz] &= 0
+\end{align*}
+We will continue, however, to treat $q=\mathbb{P}(z=1)$ as fixed in repeated sampling.
+In terms of the newly introduced parameters $\mu_{00}, \mu_{10}, \mu_{01}$, and $\mu_{11}$, the second moment bounds become
+\begin{align*}
+  \mathbb{E}\left[y^2(1 - p_0 - \alpha_1)\left\{ (1 - \alpha_1) - T \right\}(1 - z)   - \frac{\left\{ (1 - \alpha_1)\mu_{00} - \alpha_1 \mu_{10} \right\}^2}{p_0(1-p_0)(1-q)} \right] &> 0 \\
+   \mathbb{E}\left[y^2(1 - p_1 - \alpha_1)\left\{ (1 - \alpha_1) - T \right\}z   - \frac{\left\{ (1 - \alpha_1)\mu_{01} - \alpha_1 \mu_{11} \right\}^2}{p_1(1-p_1)q} \right]&> 0 
+\end{align*}
+\todo[inline]{Need to check these!}
 
 \end{document}
