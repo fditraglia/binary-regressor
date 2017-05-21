@@ -3954,9 +3954,14 @@ To convert these bounds into moment functions of the form required by Andrews \&
 We will continue, however, to treat $q=\mathbb{P}(z=1)$ as fixed in repeated sampling.
 In terms of the newly introduced parameters $\mu_{00}, \mu_{10}, \mu_{01}$, and $\mu_{11}$, the second moment bounds become
 \begin{align*}
-  \mathbb{E}\left[y^2(1 - p_0 - \alpha_1)\left\{ (1 - \alpha_1) - T \right\}(1 - z)   - \frac{\left\{ (1 - \alpha_1)\mu_{00} - \alpha_1 \mu_{10} \right\}^2}{p_0(1-p_0)(1-q)} \right] &> 0 \\
-   \mathbb{E}\left[y^2(1 - p_1 - \alpha_1)\left\{ (1 - \alpha_1) - T \right\}z   - \frac{\left\{ (1 - \alpha_1)\mu_{01} - \alpha_1 \mu_{11} \right\}^2}{p_1(1-p_1)q} \right]&> 0 
+  \mathbb{E}\left[(1 - p_0 - \alpha_1)y^2(1 - z)(1 - T - \alpha_1)   - \frac{\left\{ (1 - \alpha_1)\mu_{00} - \alpha_1 \mu_{10} \right\}^2}{p_0(1-p_0)(1-q)} \right] &\geq 0 \\
+   \mathbb{E}\left[(1 - p_1 - \alpha_1)y^2 z(1 - T - \alpha_1)   - \frac{\left\{ (1 - \alpha_1)\mu_{01} - \alpha_1 \mu_{11} \right\}^2}{p_1(1-p_1)q} \right]&\geq 0 
 \end{align*}
-\todo[inline]{Need to check these!}
+Notice that the parameters $p_0, p_1, \mu_{00}, \mu_{01}, \mu_{10}$, and $\mu_{11}$ enter these expressions in a fairly complicated way.
+This means that the adjustment to the asymptotic variance matrix will be more involved.
+Fortunately, each of these parameters should be fairly well estimated in practice.
+Notice further that we have taken care to write these inequalities so that the \emph{second term} within the expectation is always \emph{non-positive} and there is no danger of division by zero provided that the instrument not degenerate.
+\todo[inline]{Still need to check these inequalities against the version from the other paper. They should always provide additional information beyond that in the ``weak'' bounds, however. The reason for this is hinted at in the appendix to sick-instruments, but I'll clarify it here. Consider the equality version of the condition: it's a quadratic so there are two roots: $r_1 < r_2$. (How can we be sure the roots aren't equal?) From the weak bounds, we get the sign of the leading term of the quadratic, telling us that it opens upwards. This means that the inequality is satisfied for $\alpha_1 \leq r_2$ and for $\alpha_1 \geq r_1$.
+  But we also know that there's a point in between $r_1$ and $r_2$ that is exactly the boundary for one of the weak bounds, meaning that $r_2$ must \emph{violate} one of the weak bounds. Hence the second moment bound is $\alpha_1 \leq r_1$ and this must be an improvement over the weak bound. Note that we still need the weak bound to rule out one branch of the quadratic: in practice we have to include to make sure that we don't end up in the wrong branch of the quadratic. It would be helpful to understand when the second moment bound becomes degenerate and reduces to the first moment bound. Presumably this has something to do with $\beta$ being small, but I think we need to make sure we understand this fully before preceding. For example, it might be the case that when $\beta$ is zero the second moment bounds are equal to the weak bounds, but the second moment bounds are necessarily higher in variance, so we should still want to include the first moment bounds I think.}
 
 \end{document}
