@@ -2651,53 +2651,53 @@ Under this assumption the result of Frazis \& Loewenstein (2003) holds -- the IV
 Since $(y - \mathbf{x}'\boldsymbol{\gamma} ) = c + \beta T^* + \varepsilon$, all of the preceding moment conditions should still hold only with $(y - \mathbf{x}'\boldsymbol{\gamma})$ in place of $y$.
 To identify $\boldsymbol{\gamma}$ we add an extra moment condition in which $\mathbf{x}$ multiplies the $u_1$ error term, re-defined to subtract $\mathbf{x}'\boldsymbol{\gamma}$.
 
-\subsection*{Correcting the Second Moment Inequalities}
-In the derivation from above I mistakenly claimed that since $\varepsilon$ is mean zero, it is sufficient to work with the conditional means of $\varepsilon^2$ given $T^*$ and $z$. 
-This is not correct since the \emph{conditional} means of $\varepsilon$ are not zero.
-The bounds from above are not wrong, but they can be improved by looking at the conditional variance of $\varepsilon$ rather than simply $\mathbb{E}[\varepsilon^2]$.
-Steps 2--3 from above are still usable, but we need to change step 1.
-
-Our inequalities come from the fact that
-\[
-  \mbox{Var}(\varepsilon|T^*,z) > 0 \iff \mathbb{E}[\varepsilon^2 |T^*,z] > \left\{\mathbb{E}[\varepsilon|T^*,z]\right\}^2
-\]
-We've already done the calculations for $\varepsilon^2|T^*,z$.
-Now we simply need to do the same for $\varepsilon|T^*,z$, namely
-\begin{align*}
-  \mathbb{E}[\varepsilon|T^*=0,z=k] &= \mathbb{E}\left[ y |T^*=0, z=k \right] - c\\
-  \mathbb{E}[\varepsilon|T^*=1,z=k] &= \mathbb{E}\left[ y |T^*=1, z=k\right] - (c + \beta)
-\end{align*}
-Now we relate $\mathbb{E}[y|T^*,z]$ to $\mathbb{E}[y|T,z]$ using the calculations from above:
-\begin{align*}
-  \mathbb{E}\left[ y|T^*=0, z_k \right] &= \frac{(1 - \alpha_1)}{p_k (1 - p_k - \alpha_1)} \mathbb{E}[y|T=0, z_k] - \frac{\alpha_1 }{(1 - p_k)(1 - p_k - \alpha_1)}\mathbb{E}[y|T=1,z_k]\\
-  \mathbb{E}\left[ y|T^*=1, z_k \right] &= \frac{(1 - \alpha_0)}{( 1 - p_k)(p_k - \alpha_0)}\mathbb{E}[y|T=1,z_k] - \frac{\alpha_0}{p_k (p_k - \alpha_0)} \mathbb{E}[y|T=0,z_k]
-\end{align*}
-After lots of algebra (see our handwritten notes), we obtain:
-\small
-\begin{align*}
-  p_k (1 - p_k)(1 - p_k - \alpha_1) \left\{ (1  - \alpha_1)(1 - p_k)\mathbb{E}\left[ y^2|T=0,z_k \right] - \alpha_1 p_k \mathbb{E}[y^2|T=1,z_k \right\}  \\
-    > \left\{ (1 - \alpha_1)(1 - p_k)\mathbb{E}[y|T=0,z_k] - \alpha_1 p_k \mathbb{E}[y|T=1,z_k] \right\}^2
-\end{align*}
-and
-\begin{align*}
-  p_k (1 - p_k)(p_k - \alpha_0) \left\{ (1  - \alpha_0)p_k\mathbb{E}\left[ y^2|T=1,z_k \right] - \alpha_0 (1-p_k) \mathbb{E}[y^2|T=0,z_k \right\}  \\
-    > \left\{ (1 - \alpha_0)p_k\mathbb{E}[y|T=1,z_k] - \alpha_0 (1-p_k) \mathbb{E}[y|T=0,z_k] \right\}^2
-\end{align*}
-Finally, we need to convert these into expressions involving unconditional moments via
-\begin{align*}
-  p_k &= \mathbb{E}[T|z=k] = \mathbb{E}\left[ T \mathbf{1}(z=k) \right]/\mathbb{P}(z=k)\\
-  \mathbb{E}\left[ y^r |T=0, z=k\right] &= \mathbb{E}\left[ y^r(1 - T) \mathbf{1}(z=k) \right]/\left[ (1 - p_k) \mathbb{P}(z=k)\right]\\
-  \mathbb{E}\left[ y^r |T=1, z=k\right] &= \mathbb{E}\left[ y^r T \mathbf{1}(z=k) \right]/\left[p_k \mathbb{P}(z=k)\right]
-\end{align*}
-These appear to match our expressions from the sick-instruments paper.
-
-
-\subsection*{Estimated Parameters in Andrews \& Soares}
-In our simple example from above applying the Andrews and Soares (2010) generalized moment selection procedure to the case where $\alpha_0 = 0$, we assumed for simplicity that $c$ and $\sigma_{\varepsilon\varepsilon}$ were known.
-Without $\alpha_0 = 0$, the analogous assumption would be that $\boldsymbol{\kappa}$ is known.
-In practice, however, this parameter is estimated from the data. 
-Accounting for this fact requires a change in the procedure for calculating the variance matrix $\Sigma$ of the moment conditions under the null hypothesis. 
-We know explain how this works.
+%\subsection*{Correcting the Second Moment Inequalities}
+%In the derivation from above I mistakenly claimed that since $\varepsilon$ is mean zero, it is sufficient to work with the conditional means of $\varepsilon^2$ given $T^*$ and $z$. 
+%This is not correct since the \emph{conditional} means of $\varepsilon$ are not zero.
+%The bounds from above are not wrong, but they can be improved by looking at the conditional variance of $\varepsilon$ rather than simply $\mathbb{E}[\varepsilon^2]$.
+%Steps 2--3 from above are still usable, but we need to change step 1.
+%
+%Our inequalities come from the fact that
+%\[
+%  \mbox{Var}(\varepsilon|T^*,z) > 0 \iff \mathbb{E}[\varepsilon^2 |T^*,z] > \left\{\mathbb{E}[\varepsilon|T^*,z]\right\}^2
+%\]
+%We've already done the calculations for $\varepsilon^2|T^*,z$.
+%Now we simply need to do the same for $\varepsilon|T^*,z$, namely
+%\begin{align*}
+%  \mathbb{E}[\varepsilon|T^*=0,z=k] &= \mathbb{E}\left[ y |T^*=0, z=k \right] - c\\
+%  \mathbb{E}[\varepsilon|T^*=1,z=k] &= \mathbb{E}\left[ y |T^*=1, z=k\right] - (c + \beta)
+%\end{align*}
+%Now we relate $\mathbb{E}[y|T^*,z]$ to $\mathbb{E}[y|T,z]$ using the calculations from above:
+%\begin{align*}
+%  \mathbb{E}\left[ y|T^*=0, z_k \right] &= \frac{(1 - \alpha_1)}{p_k (1 - p_k - \alpha_1)} \mathbb{E}[y|T=0, z_k] - \frac{\alpha_1 }{(1 - p_k)(1 - p_k - \alpha_1)}\mathbb{E}[y|T=1,z_k]\\
+%  \mathbb{E}\left[ y|T^*=1, z_k \right] &= \frac{(1 - \alpha_0)}{( 1 - p_k)(p_k - \alpha_0)}\mathbb{E}[y|T=1,z_k] - \frac{\alpha_0}{p_k (p_k - \alpha_0)} \mathbb{E}[y|T=0,z_k]
+%\end{align*}
+%After lots of algebra (see our handwritten notes), we obtain:
+%\small
+%\begin{align*}
+%  p_k (1 - p_k)(1 - p_k - \alpha_1) \left\{ (1  - \alpha_1)(1 - p_k)\mathbb{E}\left[ y^2|T=0,z_k \right] - \alpha_1 p_k \mathbb{E}[y^2|T=1,z_k \right\}  \\
+%    > \left\{ (1 - \alpha_1)(1 - p_k)\mathbb{E}[y|T=0,z_k] - \alpha_1 p_k \mathbb{E}[y|T=1,z_k] \right\}^2
+%\end{align*}
+%and
+%\begin{align*}
+%  p_k (1 - p_k)(p_k - \alpha_0) \left\{ (1  - \alpha_0)p_k\mathbb{E}\left[ y^2|T=1,z_k \right] - \alpha_0 (1-p_k) \mathbb{E}[y^2|T=0,z_k \right\}  \\
+%    > \left\{ (1 - \alpha_0)p_k\mathbb{E}[y|T=1,z_k] - \alpha_0 (1-p_k) \mathbb{E}[y|T=0,z_k] \right\}^2
+%\end{align*}
+%Finally, we need to convert these into expressions involving unconditional moments via
+%\begin{align*}
+%  p_k &= \mathbb{E}[T|z=k] = \mathbb{E}\left[ T \mathbf{1}(z=k) \right]/\mathbb{P}(z=k)\\
+%  \mathbb{E}\left[ y^r |T=0, z=k\right] &= \mathbb{E}\left[ y^r(1 - T) \mathbf{1}(z=k) \right]/\left[ (1 - p_k) \mathbb{P}(z=k)\right]\\
+%  \mathbb{E}\left[ y^r |T=1, z=k\right] &= \mathbb{E}\left[ y^r T \mathbf{1}(z=k) \right]/\left[p_k \mathbb{P}(z=k)\right]
+%\end{align*}
+%These appear to match our expressions from the sick-instruments paper.
+%
+%
+%\subsection*{Estimated Parameters in Andrews \& Soares}
+%In our simple example from above applying the Andrews and Soares (2010) generalized moment selection procedure to the case where $\alpha_0 = 0$, we assumed for simplicity that $c$ and $\sigma_{\varepsilon\varepsilon}$ were known.
+%Without $\alpha_0 = 0$, the analogous assumption would be that $\boldsymbol{\kappa}$ is known.
+%In practice, however, this parameter is estimated from the data. 
+%Accounting for this fact requires a change in the procedure for calculating the variance matrix $\Sigma$ of the moment conditions under the null hypothesis. 
+%We know explain how this works.
 
 \section{May 5th, 2017 -- Todo for Revised Paper}
 
@@ -3905,63 +3905,173 @@ In contrast, $\widehat{\mathcal{V}}_n(\theta_0)$ \emph{does} depend on the null:
 \]
 Finally, we set $\widehat{\Sigma}_n\left( \theta_0, \widehat{\kappa}(\theta_0) \right) = A \widehat{\mathcal{V}}_n A'$ and use this in the Andrews \& Soares (2010) GMS test to correctly account for the fact that $\kappa_1$ and $\kappa_2$ have been estimated in a preliminary GMM step.
 
-\section{May 21st, 2017 -- Adding Second Moment Bounds}
-Continuing from the preceding section, we now add the second moment bounds for $\alpha_1$ from above:
-\begin{align*}
-  p_k (1 - p_k)(1 - p_k - \alpha_1) \left\{ (1  - \alpha_1)(1 - p_k)\mathbb{E}\left[ y^2|T=0,z_k \right] - \alpha_1 p_k \mathbb{E}[y^2|T=1,z_k \right\}  \\
-    > \left\{ (1 - \alpha_1)(1 - p_k)\mathbb{E}[y|T=0,z_k] - \alpha_1 p_k \mathbb{E}[y|T=1,z_k] \right\}^2
-\end{align*}
-where $k = 0, 1$.
-We continue, for the moment, to assume that $\alpha_0 = 0$.
-Recall that
-\begin{align*}
-  \mathbb{E}\left[ y^r |T=0, z=k\right] &= \mathbb{E}\left[ y^r(1 - T) \mathbf{1}(z=k) \right]/\left[ (1 - p_k) \mathbb{P}(z=k)\right]\\
-  \mathbb{E}\left[ y^r |T=1, z=k\right] &= \mathbb{E}\left[ y^r T \mathbf{1}(z=k) \right]/\left[p_k \mathbb{P}(z=k)\right]
-\end{align*}
-from which we obtain:
-\begin{align*}
-  (1 - p_k)\mathbb{E}[y|T=0, z=0] &= \mathbb{E}[y(1 - T)(1 - z)]/(1 -q)\\
-  p_k \mathbb{E}[y|T=1, z=0] &= \mathbb{E}[yT(1 - z)]/(1 -q)\\
-  (1 - p_k)\mathbb{E}[y^2|T=0, z=0] &= \mathbb{E}[y^2(1 - T)(1 - z)]/(1 -q)\\
-  p_k\mathbb{E}[y^2|T=1, z=0] &= \mathbb{E}[y^2T(1 - z)]/(1 - q)
-\end{align*}
-Thus, the bound for $k = 0$ is
-\begin{align*}
- (1-q) p_0 (1 - p_0)(1 - p_0 - \alpha_1) \left\{ (1  - \alpha_1)\mathbb{E}\left[ y^2(1-T)(1-z) \right] - \alpha_1 \mathbb{E}[y^2 T(1-z)] \right\}  \\
-    > \left\{ (1 - \alpha_1)\mathbb{E}[y(1-T)(1-z)] - \alpha_1 \mathbb{E}[yT(1-z)] \right\}^2 
-\end{align*}
-Proceeding similarly for $k = 1$ we obtain
-\begin{align*}
-  (1 - p_k)\mathbb{E}[y|T=0, z=1] &= \mathbb{E}[y(1 - T)z]/q\\
-  p_k \mathbb{E}[y|T=1, z=1] &= \mathbb{E}[yTz]/q\\
-  (1 - p_k)\mathbb{E}[y^2|T=0, z=1] &= \mathbb{E}[y^2(1 - T)z]/q\\
-  p_k\mathbb{E}[y^2|T=1, z=1] &= \mathbb{E}[y^2Tz]/q
-\end{align*}
-and hence
-\begin{align*}
- q p_1 (1 - p_1)(1 - p_1 - \alpha_1) \left\{ (1  - \alpha_1)\mathbb{E}\left[ y^2(1-T)z \right] - \alpha_1 \mathbb{E}[y^2 Tz] \right\}  \\
-    > \left\{ (1 - \alpha_1)\mathbb{E}[y(1-T)z] - \alpha_1 \mathbb{E}[yTz] \right\}^2 
-\end{align*}
-To convert these bounds into moment functions of the form required by Andrews \& Soares, we introduce additional parameters for we will carry out a preliminary moment-based estimation step: 
-\begin{align*}
-  \mathbb{E}[p_0 - T(1 - z)/(1 - q)] &= 0\\
-  \mathbb{E}[p_1 - Tz/q] &= 0\\
-  \mathbb{E}[\mu_{00} - y(1 - T)(1 - z)] &= 0\\
-  \mathbb{E}[\mu_{10} - yT(1 - z)] &= 0\\
-  \mathbb{E}[\mu_{01} - y(1 - T)z] &= 0\\
-  \mathbb{E}[\mu_{11} - yTz] &= 0
-\end{align*}
-We will continue, however, to treat $q=\mathbb{P}(z=1)$ as fixed in repeated sampling.
-In terms of the newly introduced parameters $\mu_{00}, \mu_{10}, \mu_{01}$, and $\mu_{11}$, the second moment bounds become
-\begin{align*}
-  \mathbb{E}\left[(1 - p_0 - \alpha_1)y^2(1 - z)(1 - T - \alpha_1)   - \frac{\left\{ (1 - \alpha_1)\mu_{00} - \alpha_1 \mu_{10} \right\}^2}{p_0(1-p_0)(1-q)} \right] &\geq 0 \\
-   \mathbb{E}\left[(1 - p_1 - \alpha_1)y^2 z(1 - T - \alpha_1)   - \frac{\left\{ (1 - \alpha_1)\mu_{01} - \alpha_1 \mu_{11} \right\}^2}{p_1(1-p_1)q} \right]&\geq 0 
-\end{align*}
-Notice that the parameters $p_0, p_1, \mu_{00}, \mu_{01}, \mu_{10}$, and $\mu_{11}$ enter these expressions in a fairly complicated way.
-This means that the adjustment to the asymptotic variance matrix will be more involved.
-Fortunately, each of these parameters should be fairly well estimated in practice.
-Notice further that we have taken care to write these inequalities so that the \emph{second term} within the expectation is always \emph{non-positive} and there is no danger of division by zero provided that the instrument not degenerate.
-\todo[inline]{Still need to check these inequalities against the version from the other paper. They should always provide additional information beyond that in the ``weak'' bounds, however. The reason for this is hinted at in the appendix to sick-instruments, but I'll clarify it here. Consider the equality version of the condition: it's a quadratic so there are two roots: $r_1 < r_2$. (How can we be sure the roots aren't equal?) From the weak bounds, we get the sign of the leading term of the quadratic, telling us that it opens upwards. This means that the inequality is satisfied for $\alpha_1 \leq r_2$ and for $\alpha_1 \geq r_1$.
-  But we also know that there's a point in between $r_1$ and $r_2$ that is exactly the boundary for one of the weak bounds, meaning that $r_2$ must \emph{violate} one of the weak bounds. Hence the second moment bound is $\alpha_1 \leq r_1$ and this must be an improvement over the weak bound. Note that we still need the weak bound to rule out one branch of the quadratic: in practice we have to include to make sure that we don't end up in the wrong branch of the quadratic. It would be helpful to understand when the second moment bound becomes degenerate and reduces to the first moment bound. Presumably this has something to do with $\beta$ being small, but I think we need to make sure we understand this fully before preceding. For example, it might be the case that when $\beta$ is zero the second moment bounds are equal to the weak bounds, but the second moment bounds are necessarily higher in variance, so we should still want to include the first moment bounds I think.}
+%\section{May 21st, 2017 -- Adding Second Moment Bounds}
+%Continuing from the preceding section, we now add the second moment bounds for $\alpha_1$ from above:
+%\begin{align*}
+%  p_k (1 - p_k)(1 - p_k - \alpha_1) \left\{ (1  - \alpha_1)(1 - p_k)\mathbb{E}\left[ y^2|T=0,z_k \right] - \alpha_1 p_k \mathbb{E}[y^2|T=1,z_k \right\}  \\
+%    > \left\{ (1 - \alpha_1)(1 - p_k)\mathbb{E}[y|T=0,z_k] - \alpha_1 p_k \mathbb{E}[y|T=1,z_k] \right\}^2
+%\end{align*}
+%where $k = 0, 1$.
+%We continue, for the moment, to assume that $\alpha_0 = 0$.
+%Recall that
+%\begin{align*}
+%  \mathbb{E}\left[ y^r |T=0, z=k\right] &= \mathbb{E}\left[ y^r(1 - T) \mathbf{1}(z=k) \right]/\left[ (1 - p_k) \mathbb{P}(z=k)\right]\\
+%  \mathbb{E}\left[ y^r |T=1, z=k\right] &= \mathbb{E}\left[ y^r T \mathbf{1}(z=k) \right]/\left[p_k \mathbb{P}(z=k)\right]
+%\end{align*}
+%from which we obtain:
+%\begin{align*}
+%  (1 - p_k)\mathbb{E}[y|T=0, z=0] &= \mathbb{E}[y(1 - T)(1 - z)]/(1 -q)\\
+%  p_k \mathbb{E}[y|T=1, z=0] &= \mathbb{E}[yT(1 - z)]/(1 -q)\\
+%  (1 - p_k)\mathbb{E}[y^2|T=0, z=0] &= \mathbb{E}[y^2(1 - T)(1 - z)]/(1 -q)\\
+%  p_k\mathbb{E}[y^2|T=1, z=0] &= \mathbb{E}[y^2T(1 - z)]/(1 - q)
+%\end{align*}
+%Thus, the bound for $k = 0$ is
+%\begin{align*}
+% (1-q) p_0 (1 - p_0)(1 - p_0 - \alpha_1) \left\{ (1  - \alpha_1)\mathbb{E}\left[ y^2(1-T)(1-z) \right] - \alpha_1 \mathbb{E}[y^2 T(1-z)] \right\}  \\
+%    > \left\{ (1 - \alpha_1)\mathbb{E}[y(1-T)(1-z)] - \alpha_1 \mathbb{E}[yT(1-z)] \right\}^2 
+%\end{align*}
+%Proceeding similarly for $k = 1$ we obtain
+%\begin{align*}
+%  (1 - p_k)\mathbb{E}[y|T=0, z=1] &= \mathbb{E}[y(1 - T)z]/q\\
+%  p_k \mathbb{E}[y|T=1, z=1] &= \mathbb{E}[yTz]/q\\
+%  (1 - p_k)\mathbb{E}[y^2|T=0, z=1] &= \mathbb{E}[y^2(1 - T)z]/q\\
+%  p_k\mathbb{E}[y^2|T=1, z=1] &= \mathbb{E}[y^2Tz]/q
+%\end{align*}
+%and hence
+%\begin{align*}
+% q p_1 (1 - p_1)(1 - p_1 - \alpha_1) \left\{ (1  - \alpha_1)\mathbb{E}\left[ y^2(1-T)z \right] - \alpha_1 \mathbb{E}[y^2 Tz] \right\}  \\
+%    > \left\{ (1 - \alpha_1)\mathbb{E}[y(1-T)z] - \alpha_1 \mathbb{E}[yTz] \right\}^2 
+%\end{align*}
+%To convert these bounds into moment functions of the form required by Andrews \& Soares, we introduce additional parameters for we will carry out a preliminary moment-based estimation step: 
+%\begin{align*}
+%  \mathbb{E}[p_0 - T(1 - z)/(1 - q)] &= 0\\
+%  \mathbb{E}[p_1 - Tz/q] &= 0\\
+%  \mathbb{E}[\mu_{00} - y(1 - T)(1 - z)] &= 0\\
+%  \mathbb{E}[\mu_{10} - yT(1 - z)] &= 0\\
+%  \mathbb{E}[\mu_{01} - y(1 - T)z] &= 0\\
+%  \mathbb{E}[\mu_{11} - yTz] &= 0
+%\end{align*}
+%We will continue, however, to treat $q=\mathbb{P}(z=1)$ as fixed in repeated sampling.
+%In terms of the newly introduced parameters $\mu_{00}, \mu_{10}, \mu_{01}$, and $\mu_{11}$, the second moment bounds become
+%\begin{align*}
+%  \mathbb{E}\left[(1 - p_0 - \alpha_1)y^2(1 - z)(1 - T - \alpha_1)   - \frac{\left\{ (1 - \alpha_1)\mu_{00} - \alpha_1 \mu_{10} \right\}^2}{p_0(1-p_0)(1-q)} \right] &\geq 0 \\
+%   \mathbb{E}\left[(1 - p_1 - \alpha_1)y^2 z(1 - T - \alpha_1)   - \frac{\left\{ (1 - \alpha_1)\mu_{01} - \alpha_1 \mu_{11} \right\}^2}{p_1(1-p_1)q} \right]&\geq 0 
+%\end{align*}
+%Notice that the parameters $p_0, p_1, \mu_{00}, \mu_{01}, \mu_{10}$, and $\mu_{11}$ enter these expressions in a fairly complicated way.
+%This means that the adjustment to the asymptotic variance matrix will be more involved.
+%Fortunately, each of these parameters should be fairly well estimated in practice.
+%Notice further that we have taken care to write these inequalities so that the \emph{second term} within the expectation is always \emph{non-positive} and there is no danger of division by zero provided that the instrument not degenerate.
+%\todo[inline]{Still need to check these inequalities against the version from the other paper. They should always provide additional information beyond that in the ``weak'' bounds, however. The reason for this is hinted at in the appendix to sick-instruments, but I'll clarify it here. Consider the equality version of the condition: it's a quadratic so there are two roots: $r_1 < r_2$. (How can we be sure the roots aren't equal?) From the weak bounds, we get the sign of the leading term of the quadratic, telling us that it opens upwards. This means that the inequality is satisfied for $\alpha_1 \leq r_2$ and for $\alpha_1 \geq r_1$.
+%  But we also know that there's a point in between $r_1$ and $r_2$ that is exactly the boundary for one of the weak bounds, meaning that $r_2$ must \emph{violate} one of the weak bounds. Hence the second moment bound is $\alpha_1 \leq r_1$ and this must be an improvement over the weak bound. Note that we still need the weak bound to rule out one branch of the quadratic: in practice we have to include to make sure that we don't end up in the wrong branch of the quadratic. It would be helpful to understand when the second moment bound becomes degenerate and reduces to the first moment bound. Presumably this has something to do with $\beta$ being small, but I think we need to make sure we understand this fully before preceding. For example, it might be the case that when $\beta$ is zero the second moment bounds are equal to the weak bounds, but the second moment bounds are necessarily higher in variance, so we should still want to include the first moment bounds I think.}
 
+
+\section{May 22nd, 2017 -- Unsolved Mystery}
+A while back we noticed that the CDF bounds appeared to identify the true $\alpha_0$ and $\alpha_1$ in our normal simulation.
+At one point I tried to figure out if this was really true and if so why.
+I think I wrote out a few notes on paper but didn't make much progress.
+It would be good to eventually figure this out.
+There are a few calculations for our simulation design above on pages 44--45 of these notes.
+Maybe these could be used to figure it out.
+I think the CDF bounds may be worth coming back to since one can impose them without making our stronger assumptions about the IV.
+This means they could be used with Mahajan or Lewbel, for example.
+One needn't use all of them in practice: something like quintile bounds could be useful.
+
+\section{June 1st, 2017 -- Second Moment Bounds}
+Camilo triple-checked the conditional variance inequalities from our sick-instrument paper: they're definitely correct.
+Moreover, in spite of the fact that we defined $u = \varepsilon + c$ in that paper, they continue to hold exactly as written since $c$ is a constant.
+(The $m^*_{tk}$ only enter the derivation as differences, so the $c$ disappears in any case.)
+Camilo then re-wrote the inequalities as follows:
+\begin{align*}
+  \mathbb{E}\left[ (1- p_k - \alpha_1) y^2 \mathbf{1}\left\{ z=k \right\}(1 - T - \alpha_1) - \mathbb{P}(z=k)\left\{ \alpha_1 p_k \mu_{1k} - (1 - \alpha_1)(1 - p_k)\mu_{0k} \right\}^2 \right] &>0 \\
+  \mathbb{E}\left[ (p_k - \alpha_0) y^2 \mathbf{1}\left\{ z=k \right\}(T - \alpha_0) - \mathbb{P}(z=k)\left\{ (1 - \alpha_0) p_k \mu_{1k} - \alpha_0(1 - p_k)\mu_{0k} \right\}^2 \right] &>0 
+\end{align*}
+where $p_k = \mathbb{P}(T=1|z=k)$ and $\mu_{tk} = \mathbb{E}(y|T=t,z=k)$.
+I derived one of these expressions as well (the $\alpha_1$ inequality) and my derivation matches.
+To incorporate these inequalities into our inference procedure, we will need auxiliary moment conditions to estimate $\mu_{tk}$ and $p_k$.
+We will continue, however, to treat $\mathbb{P}(z=k)$ as fixed in repeated sampling.
+
+We can re-write the preceding expressions in a slightly simpler form that also makes the derivatives we'll need to take to compute the covariance matrix adjustment for the GMS test much simpler. 
+Recall that 
+\begin{align*}
+  \mu_{0k} &= \mathbb{E}\left( y|T=0, z_k \right) = \frac{\mathbb{E}\left[ y(1 - T) \mathbf{1}(z=k) \right]}{(1 - p_k) \mathbb{P}(z=k)}\\ \\
+  \mu_{1k} &= \mathbb{E}\left( y|T=1, z_k \right) = \frac{\mathbb{E}\left[ yT \mathbf{1}(z=k) \right]}{p_k \mathbb{P}(z=k)}
+\end{align*}
+Rearranging,
+\begin{align*}
+  \mathbb{P}(z=k)(1-p_k)\mu_{0k} &=  \mathbb{E}\left[ y(1 - T) \mathbf{1}(z=k) \right]\\
+  \mathbb{P}(z=k)p_k\mu_{1k} &= \mathbb{E}\left[ yT \mathbf{1}(z=k) \right]
+\end{align*}
+Thus, defining
+\begin{align*}
+  m_{0k} &= \mathbb{P}(z=k)(1-p_k)\mu_{0k} =  \mathbb{E}\left[ y(1 - T) \mathbf{1}(z=k) \right]\\
+  m_{1k} &= \mathbb{P}(z=k)p_k\mu_{1k} = \mathbb{E}\left[ yT \mathbf{1}(z=k) \right]
+\end{align*}
+we can write the second moment inequalities as
+\begin{align*}
+  \mathbb{E}\left[ (1- p_k - \alpha_1) y^2 \mathbf{1}\left\{ z=k \right\}(1 - T - \alpha_1) - \left\{ \alpha_1 m_{1k} - (1 - \alpha_1)m_{0k} \right\}^2 \right] &>0 \\
+  \mathbb{E}\left[ (p_k - \alpha_0) y^2 \mathbf{1}\left\{ z=k \right\}(T - \alpha_0) - \left\{ (1 - \alpha_0) m_{1k} - \alpha_0 m_{0k} \right\}^2 \right] &>0 
+\end{align*}
+Thus, the six quantities for which we require preliminary estimators are
+\begin{align*}
+  m_{0k} &= \mathbb{E}\left[ y(1 - T) \mathbf{1}(z=k) \right]\\
+  m_{1k} &= \mathbb{E}\left[ yT \mathbf{1}(z=k) \right]\\
+  p_k &= \mathbb{E}[T\mathbf{1}(z=k)] / \mathbb{P}(z=k)
+\end{align*}
+for $k = 0, 1$.
+Again, we will treat $\mathbb{P}(z=k)$ as fixed in repeated sampling.
+Since $m_{tk}$ and $p_k$ are just sample means, they should be very precisely estimated.
+
+\subsection{Are the 2nd Moment Bounds Tighter?} 
+The second moment bounds given above are equivalent to those from the sick-instruments paper, namely
+\begin{align}
+  \label{ineq:a0}
+  (p_k - \alpha_0) \left[ (1 - \alpha_0)p_k \sigma^2_{1k} - \alpha_0 (1 - p_k)\sigma_{0k}^2 \right] &\geq \alpha_0 (1 - \alpha_0)p_k (1 - p_k)(\mu_{1k} - \mu_{0k})^2\\
+  \label{ineq:a1}
+  (1 - p_k - \alpha_1) \left[ (1 - \alpha_1)(1 - p_k) \sigma^2_{0k} - \alpha_1 p_k\sigma_{1k}^2 \right] &\geq \alpha_1 (1 - \alpha_1)p_k (1 - p_k)(\mu_{1k} - \mu_{0k})^2
+\end{align}
+where I have re-written $\bar{y}_{tk}$ as $\mu_{tk}$ to match the notation we use in our derivations above and allowed for the possibility that the bounds are not strict.
+(This is a degenerate situation in which an unobservable variance is zero, but I just want to consider all possibilities!)
+We will now argue that these bounds must generically be tighter than the ``weak'' bounds that use only $p_k$.
+This holds even if $\beta = 0$.
+We will proceed by analyzing the quadratic equations along which the preceding expressions hold with equality.
+Throughout the following argument we assume that $p_k \neq 0$ and $p_k \neq 1$ for all $k$.
+
+\paragraph{The Bounds for $\alpha_0$}
+If $\alpha_0 = 0$ then the RHS of Inequality \ref{ineq:a0} becomes zero while the LHS becomes $p_k^2 \sigma_{1k}^2$.
+Thus, Inequality \ref{ineq:a0} is always satisfied when $\alpha_0 = 0$.
+If $\alpha_0 = 1$, the RHS is again zero while the LHS becomes $(1 - p_k)^2\sigma_{0k}^2$.
+Thus, inequality \ref{ineq:a0} is always satisfied when $\alpha_0 = 1$.
+If instead $\alpha_0 = p_k$, then the RHS becomes $p_k^2(1-p_k)^2(\mu_{1k} - \mu_{0k})^2$ while the LHS is zero.
+Thus, unless $\mu_{1k} = \mu_{0k}$, when $\alpha_0 = p_k$ Inequality \ref{ineq:a0} is violated.
+Rearranging Inequality \ref{ineq:a0}, we have $A_k \alpha_0^2 + B^0_k \alpha_0 + C^0_k \geq 0$ where
+\begin{align*}
+  A_k &= p_k (1 - p_k)(\mu_{1k} - \mu_{0k})^2 + (1 - p_k) \sigma_{0k}^2 + p_k \sigma_{1k}^2\\
+  B_k^0 &= - \left[ \sigma_{1k}^2 p_k(1 + p_k) + p_k (1 - p_k)\sigma_{0k}^2 + p_k (1 - p_k)(\mu_{1k} - \mu_{0k})^2 \right]\\
+  C_k^0 &= p_k^2 \sigma_{1k}^2. 
+\end{align*}
+Since $A_k > 0$, the quadratic equation defined by $A_k \alpha_1^2 + B^0_k \alpha_1 + C_k^0 = 0$ opens upwards.
+
+
+
+Notice that both $\alpha_0 = 0$ and $\alpha_0 =1$ satisfy the inequality.
+In contrast $\alpha_0 = p_k$ does not: the left hand side becomes zero while the right hand side is \emph{strictly} positive.
+This implies that the quadratic equation defining the boundary of the inequality crosses the $\alpha_0$-axis and thus has two real roots.
+Moreover, one of these is strictly less than $p_k$.
+Rearranging Inequality \ref{ineq:a0}, we have $A_k \alpha_0^2 + B^0_k \alpha_0 + C^0_k > 0$ where
+\begin{align*}
+  A_k &= p_k (1 - p_k)(\bar{y}_{1k} - \bar{y}_{0k})^2 + (1 - p_k) \sigma_{0k}^2 + p_k \sigma_{1k}^2\\
+  B_k^0 &= - \left[ \sigma_{1k}^2 p_k(1 + p_k) + p_k (1 - p_k)\sigma_{0k}^2 + p_k (1 - p_k)(\bar{y}_{1k} - \bar{y}_{0k})^2 \right]\\
+  C_k^0 &= p_k^2 \sigma_{1k}^2. 
+\end{align*}
+Since $A_k > 0$, the quadratic equation defined by $A_k \alpha_1^2 + B^0_k \alpha_1 + C_k^0 = 0$ opens upwards.
+Since $\alpha_0 < p_k$ we need only consider the smaller of the two roots. 
+Our bound imposes that $\alpha_0$ be strictly less than this quantity.
+Analogous reasoning for Inequality \ref{ineq:a1}, using $1 - p_k$ rather than $p_k$, shows that the smaller of the two roots of $A_k \alpha_1^2 + B^1_k \alpha_1 + C^1_k = 0$ bounds $\alpha_1$ from above, where 
+\begin{align*}
+  A_k &= p_k (1 - p_k)(\bar{y}_{1k} - \bar{y}_{0k})^2 + (1 - p_k) \sigma_{0k}^2 + p_k \sigma_{1k}^2\\
+  B^1_{k} &= - \left[p_k (1 - p_k) \sigma_{1k}^2 + (1 - p_k)(2 - p_k)\sigma_{0k}^2 + p_k(1 - p_k)(\bar{y}_{1k} - \bar{y}_{0k})^2 \right]\\
+  C^1_{k} &= (1 - p_k)^2 \sigma_{0k}^2. 
+\end{align*}
+Notice that the coefficient of the squared term, $A_k$, is common to both quadratics.
+Because the bounds for $\alpha_0$ and $\alpha_1$ hold for each $k$, we can take the tighter of each.
 \end{document}
