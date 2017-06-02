@@ -3976,10 +3976,16 @@ I think the CDF bounds may be worth coming back to since one can impose them wit
 This means they could be used with Mahajan or Lewbel, for example.
 One needn't use all of them in practice: something like quintile bounds could be useful.
 
-\section{June 1st, 2017 -- Second Moment Bounds}
+\section{June 1--2, 2017 -- Second Moment Bounds}
 Camilo triple-checked the conditional variance inequalities from our sick-instrument paper: they're definitely correct.
 Moreover, in spite of the fact that we defined $u = \varepsilon + c$ in that paper, they continue to hold exactly as written since $c$ is a constant.
-(The $m^*_{tk}$ only enter the derivation as differences, so the $c$ disappears in any case.)
+To see why this is the case, let $u = c + \varepsilon$.
+Then
+\begin{align*}
+  \mbox{Var}\left( u|T,z \right) &= \mathbb{E}(u^2|T,z) - \left[ E(u|T,z) \right]^2\\
+&= \mathbb{E}(\varepsilon^2|T,z) + 2c\mathbb{E}(\varepsilon|T,z) + c^2 - \left[ c + \mathbb{E}(\varepsilon|T,z)  \right]^2\\
+&= \mbox{Var}(\varepsilon|T,z)
+\end{align*}
 Camilo then re-wrote the inequalities as follows:
 \begin{align*}
   \mathbb{E}\left[ (1- p_k - \alpha_1) y^2 \mathbf{1}\left\{ z=k \right\}(1 - T - \alpha_1) - \mathbb{P}(z=k)\left\{ \alpha_1 p_k \mu_{1k} - (1 - \alpha_1)(1 - p_k)\mu_{0k} \right\}^2 \right] &>0 \\
@@ -4006,10 +4012,10 @@ Thus, defining
   m_{0k} &= \mathbb{P}(z=k)(1-p_k)\mu_{0k} =  \mathbb{E}\left[ y(1 - T) \mathbf{1}(z=k) \right]\\
   m_{1k} &= \mathbb{P}(z=k)p_k\mu_{1k} = \mathbb{E}\left[ yT \mathbf{1}(z=k) \right]
 \end{align*}
-we can write the second moment inequalities as
+by multiplying both sides by $\mathbb{P}(z=k)$ we can write the second moment inequalities as
 \begin{align*}
-  \mathbb{E}\left[ (1- p_k - \alpha_1) y^2 \mathbf{1}\left\{ z=k \right\}(1 - T - \alpha_1) - \left\{ \alpha_1 m_{1k} - (1 - \alpha_1)m_{0k} \right\}^2 \right] &>0 \\
-  \mathbb{E}\left[ (p_k - \alpha_0) y^2 \mathbf{1}\left\{ z=k \right\}(T - \alpha_0) - \left\{ (1 - \alpha_0) m_{1k} - \alpha_0 m_{0k} \right\}^2 \right] &>0 
+  \mathbb{E}\left[\mathbb{P}(z=k) (1- p_k - \alpha_1) y^2 \mathbf{1}\left\{ z=k \right\}(1 - T - \alpha_1) - \left\{ \alpha_1 m_{1k} - (1 - \alpha_1)m_{0k} \right\}^2 \right] &>0 \\
+  \mathbb{E}\left[ \mathbb{P}(z=k)(p_k - \alpha_0) y^2 \mathbf{1}\left\{ z=k \right\}(T - \alpha_0) - \left\{ (1 - \alpha_0) m_{1k} - \alpha_0 m_{0k} \right\}^2 \right] &>0 
 \end{align*}
 Thus, the six quantities for which we require preliminary estimators are
 \begin{align*}
@@ -4021,7 +4027,7 @@ for $k = 0, 1$.
 Again, we will treat $\mathbb{P}(z=k)$ as fixed in repeated sampling.
 Since $m_{tk}$ and $p_k$ are just sample means, they should be very precisely estimated.
 
-\subsection{Are the 2nd Moment Bounds Tighter?} 
+\subsection*{Are the 2nd Moment Bounds Tighter?} 
 The second moment bounds given above are equivalent to those from the sick-instruments paper, namely
 \begin{align}
   \label{ineq:a0}
@@ -4034,44 +4040,69 @@ where I have re-written $\bar{y}_{tk}$ as $\mu_{tk}$ to match the notation we us
 We will now argue that these bounds must generically be tighter than the ``weak'' bounds that use only $p_k$.
 This holds even if $\beta = 0$.
 We will proceed by analyzing the quadratic equations along which the preceding expressions hold with equality.
-Throughout the following argument we assume that $p_k \neq 0$ and $p_k \neq 1$ for all $k$.
+Throughout the following argument we assume that $p_k \neq 0,1$ and that \emph{at least one} of $\sigma^2_{0k}, \sigma^2_{1k}$ is strictly positive. 
 
 \paragraph{The Bounds for $\alpha_0$}
-If $\alpha_0 = 0$ then the RHS of Inequality \ref{ineq:a0} becomes zero while the LHS becomes $p_k^2 \sigma_{1k}^2$.
-Thus, Inequality \ref{ineq:a0} is always satisfied when $\alpha_0 = 0$.
-If $\alpha_0 = 1$, the RHS is again zero while the LHS becomes $(1 - p_k)^2\sigma_{0k}^2$.
-Thus, inequality \ref{ineq:a0} is always satisfied when $\alpha_0 = 1$.
-If instead $\alpha_0 = p_k$, then the RHS becomes $p_k^2(1-p_k)^2(\mu_{1k} - \mu_{0k})^2$ while the LHS is zero.
-Thus, unless $\mu_{1k} = \mu_{0k}$, when $\alpha_0 = p_k$ Inequality \ref{ineq:a0} is violated.
-Rearranging Inequality \ref{ineq:a0}, we have $A_k \alpha_0^2 + B^0_k \alpha_0 + C^0_k \geq 0$ where
+Rearranging, we can write Inequality \ref{ineq:a0} as $\varphi_k(\alpha_0) \geq 0$ where
 \begin{align*}
+  \varphi_k(\alpha_0) &= A_k \alpha_0^2 + B^0_k \alpha_0 + C^0_k \\
   A_k &= p_k (1 - p_k)(\mu_{1k} - \mu_{0k})^2 + (1 - p_k) \sigma_{0k}^2 + p_k \sigma_{1k}^2\\
   B_k^0 &= - \left[ \sigma_{1k}^2 p_k(1 + p_k) + p_k (1 - p_k)\sigma_{0k}^2 + p_k (1 - p_k)(\mu_{1k} - \mu_{0k})^2 \right]\\
   C_k^0 &= p_k^2 \sigma_{1k}^2. 
 \end{align*}
-Since $A_k > 0$, the quadratic equation defined by $A_k \alpha_1^2 + B^0_k \alpha_1 + C_k^0 = 0$ opens upwards.
+Since we assume that $p_k \neq 0,1$ and that at least one of $\sigma_{0k}^2,\sigma^2_{1k}$ is positive $A_k > 0$.
+Thus the quadratic function $\varphi_k(\alpha_0)$ opens upwards.
+Now, if $\alpha_0 = 0$ then the RHS of Inequality \ref{ineq:a0} becomes zero while the LHS becomes $p_k^2 \sigma_{1k}^2$.
+Thus, Inequality \ref{ineq:a0} is always satisfied when $\alpha_0 = 0$.
+Similarly $\alpha_0 = 1$, the RHS is again zero while the LHS becomes $(1 - p_k)^2\sigma_{0k}^2$.
+Thus, inequality \ref{ineq:a0} is always satisfied when $\alpha_0 = 1$.
+Since $\alpha_0$ is a probability it follows that, so long as $\varphi_k$ has two distinct roots $r_1 < r_2$, Inequality \ref{ineq:a0} is satisfied if and only if $\alpha_0 \in [0, r_1]$ or $\alpha_0 \in [r_2, 1]$.
+We now show that $\varphi$ generically has two distinct roots, that the bound involving $r_2$ is extraneous, that that $r_1$ is generically strictly smaller than $p_k$ so that the second moment bound is tighter than the weak bound $\alpha_0 \leq p_k$ unless $\mu_{1k} = \mu_{0k}$ in which case the weak and second moment bounds coincide.
 
-
-
-Notice that both $\alpha_0 = 0$ and $\alpha_0 =1$ satisfy the inequality.
-In contrast $\alpha_0 = p_k$ does not: the left hand side becomes zero while the right hand side is \emph{strictly} positive.
-This implies that the quadratic equation defining the boundary of the inequality crosses the $\alpha_0$-axis and thus has two real roots.
-Moreover, one of these is strictly less than $p_k$.
-Rearranging Inequality \ref{ineq:a0}, we have $A_k \alpha_0^2 + B^0_k \alpha_0 + C^0_k > 0$ where
+If $\alpha_0 = p_k$, the LHS of \ref{ineq:a0} becomes zero.
+There are two cases.
+Suppose first that $\mu_{1k} \neq \mu_{0k}$.
+In this case, the RHS of the inequality becomes becomes $p_k^2(1-p_k)^2(\mu_{1k} - \mu_{0k})^2 >0$ so the inequality is violated.
+Thus, $\mu_{1k} \neq \mu_{0k}$ implies that $\varphi_k$ has two distinct roots and that $p_k$ is strictly \emph{between} them.
+Since the weak bound gives us $\alpha_0 < p_k$, the bound arising from the larger of the two roots is extraneous.
+Now suppose that $\mu_{1k}=\mu_{0k}$.
+In this case the RHS and LHS of the inequality are both zero so $\alpha_0 = p_k$ is a root of $\varphi_k$.
+When $\mu_{1k}=\mu_{0k}$, the coefficients of $\varphi_k$ become
 \begin{align*}
-  A_k &= p_k (1 - p_k)(\bar{y}_{1k} - \bar{y}_{0k})^2 + (1 - p_k) \sigma_{0k}^2 + p_k \sigma_{1k}^2\\
-  B_k^0 &= - \left[ \sigma_{1k}^2 p_k(1 + p_k) + p_k (1 - p_k)\sigma_{0k}^2 + p_k (1 - p_k)(\bar{y}_{1k} - \bar{y}_{0k})^2 \right]\\
-  C_k^0 &= p_k^2 \sigma_{1k}^2. 
+  a &= (1 - p_k) \sigma_{0k}^2 + p_k \sigma_{1k}^2 = \sigma_{0k}^2 + p_k(\sigma_{1k}^2 - \sigma_{0k}^2)\\
+  b &= - \left[ \sigma_{1k}^2 p_k(1 + p_k) + p_k (1 - p_k)\sigma_{0k}^2 \right] = -\left[ p_k\sigma_{1k}^2 + p_k \sigma_{0k}^2 + p_k^2(\sigma_{1k}^2 - \sigma_{0k}^2)  \right] = -p_k\left(\sigma_{1k}^2 + a  \right) \\
+  c &= p_k^2 \sigma_{1k}^2. 
 \end{align*}
-Since $A_k > 0$, the quadratic equation defined by $A_k \alpha_1^2 + B^0_k \alpha_1 + C_k^0 = 0$ opens upwards.
-Since $\alpha_0 < p_k$ we need only consider the smaller of the two roots. 
-Our bound imposes that $\alpha_0$ be strictly less than this quantity.
-Analogous reasoning for Inequality \ref{ineq:a1}, using $1 - p_k$ rather than $p_k$, shows that the smaller of the two roots of $A_k \alpha_1^2 + B^1_k \alpha_1 + C^1_k = 0$ bounds $\alpha_1$ from above, where 
+Thus, we find that
+\begin{align*}
+  b^2 - 4ac &= p_k^2 (\sigma_{1k}^2 + a)^2 - 4a p_k^2 \sigma_{1k}^2 = p_k^2 \left[ \sigma_{1k}^4 + 2a \sigma_{1k}^2 + a^2 - 4a \sigma_{1k}^2 \right]\\
+  &= p_k^2\left( \sigma_{1k}^2 - a \right)^2
+\end{align*}
+so the roots of the quadratic are
+\[
+  \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} = \frac{p_k(\sigma_{1k}^2 + a) \pm p_k(\sigma_{1k}^2 - a)}{2a} = \left\{\frac{p_k \sigma_{1k}^2}{a}, \, p_k  \right\}
+\]
+Substituting the definition of $a$,
+\[
+  \frac{p_k\sigma_{1k}^2}{a} = \frac{p_k \sigma_{1k}^2}{p_k \sigma_{1k}^2 + (1 - p_k) \sigma_{0k}^2}
+\]
+so we see that $p_k$ is the smaller root if and only if $\sigma_{0k}^2<\sigma_{1k}^2$.
+From a proof in the appendix of the sick instruments paper,
+\begin{eqnarray*}
+  \sigma^2_{0k} &=&  \frac{\alpha_1 p_k^* }{1 - p_k} s^{*2}_{1k} + \frac{(1 - \alpha_0)(1 - p_k^*)}{1 - p_k} s^{*2}_{0k} + \frac{\alpha_1 ( 1 - \alpha_0) p_k^2 \left( \mu_{1k} - \mu_{0k} \right)^2}{(p_k - \alpha_0)(1 - p_k - \alpha_1)} \\
+  \sigma^2_{1k}&=&  \frac{(1 - \alpha_1) p_k^* }{p_k} s^{*2}_{1k} + \frac{\alpha_0(1 - p_k^*)}{p_k} s^{*2}_{0k} + \frac{\alpha_0 ( 1 - \alpha_1) (1 - p_k)^2 \left( \mu_{1k} - \mu_{0k} \right)^2}{(p_k - \alpha_0)(1 - p_k - \alpha_1)}
+\end{eqnarray*}
+If $\mu_{1k} = \mu_{0k}$ this reduces to 
+\begin{eqnarray*}
+  \sigma^2_{0k} &=&  \frac{\alpha_1 p_k^* }{1 - p_k} s^{*2}_{1k} + \frac{(1 - \alpha_0)(1 - p_k^*)}{1 - p_k} s^{*2}_{0k}\\
+  \sigma^2_{1k}&=&  \frac{(1 - \alpha_1) p_k^* }{p_k} s^{*2}_{1k} + \frac{\alpha_0(1 - p_k^*)}{p_k} s^{*2}_{0k} 
+\end{eqnarray*}
+\todo[inline]{It's not obvious to me that we can say for sure that $\sigma_{0k}^2 < \sigma_{1k}^2$ so I think it's possible that even if $\mu_{1k} = \mu_{0k}$ the 2nd moment inequality gives a strictly tighter bound. I also need to add an explanation of what would be required for $\mu_{1k} = \mu_{0k}$: we would need both $\beta=0$ and no endogeneity.}
+
+\paragraph{Bounds for $\alpha_1$}
 \begin{align*}
   A_k &= p_k (1 - p_k)(\bar{y}_{1k} - \bar{y}_{0k})^2 + (1 - p_k) \sigma_{0k}^2 + p_k \sigma_{1k}^2\\
   B^1_{k} &= - \left[p_k (1 - p_k) \sigma_{1k}^2 + (1 - p_k)(2 - p_k)\sigma_{0k}^2 + p_k(1 - p_k)(\bar{y}_{1k} - \bar{y}_{0k})^2 \right]\\
   C^1_{k} &= (1 - p_k)^2 \sigma_{0k}^2. 
 \end{align*}
-Notice that the coefficient of the squared term, $A_k$, is common to both quadratics.
-Because the bounds for $\alpha_0$ and $\alpha_1$ hold for each $k$, we can take the tighter of each.
 \end{document}
