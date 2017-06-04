@@ -4223,4 +4223,201 @@ To summarize, we have shown the following:
     So even if $\beta = 0$, the second moment bounds are tighter unless $T^*$ is exogenous \emph{and} $\varepsilon$ is homoskedastic with respect to $T^*$.
 \end{enumerate}
 
+\section{June 3, 2017: Inference Procedure (no covariates)}
+We now describe the full inference procedure for our model, including preliminary estimation of strongly identified parameters and using both the weak and second moment bounds.
+We place no restriction on $\alpha_0$ and $\alpha_1$, but assume for the moment that there are no covariates.
+
+
+\paragraph{Overview and Notation}
+We test the null hypothesis $\boldsymbol{\theta} = \boldsymbol{\theta}_0$ for a vector $\boldsymbol{\theta}$ of weakly identified parameters based on a set of equality moment conditions $m^E$ and inequality moment conditions $m^I$
+\[
+  \mathbb{E}\left[ m^E\left(W_i, \boldsymbol{\theta}_0, \widehat{\boldsymbol{\gamma}}_0\right) \right] = \mathbf{0}, \quad \mathbb{E}\left[ m^I(W_i, \boldsymbol{\theta}_0, \widehat{\boldsymbol{\gamma}}_0) \right] \geq \mathbf{0}
+\]
+where $\widehat{\boldsymbol{\gamma}}_0 = \widehat{\boldsymbol{\gamma}}(\theta_0)$ is preliminary estimator of the strongly identified parameters $\boldsymbol{\gamma}$ constructed from the moment equalities $\mathbb{E}\left[ h(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}) \right]=0$.
+We define $\boldsymbol{\theta}' = (\theta_1, \theta_2, \theta_3)$ where
+\begin{align*}
+  \theta_1 &= \beta/(1 - \alpha_0 - \alpha_1)\\
+  \theta_2 &= \theta_1^2 \left[ 1 + (\alpha_0 - \alpha_1) \right]\\
+  \theta_3 &= \theta_1^3\left[ \left( 1 - \alpha_0 - \alpha_1 \right)^2 + 6\alpha_0\left( 1 - \alpha_1 \right) \right]
+\end{align*}
+and $\boldsymbol{\gamma}' = (\mathbf{p}', \boldsymbol{\nu}', \boldsymbol{\kappa}')$ where
+  $\mathbf{p}'= (p_0, p_1)$,  $\boldsymbol{\nu}' = (\nu_{00}, \nu_{01}, \nu_{10}, \nu_{11})$ and $\boldsymbol{\kappa}' = (\kappa_1, \kappa_2, \kappa_3)$.
+The moment functions $m^E$ are defined as 
+\begin{align*}
+  m^E(W_i, \boldsymbol{\theta}, \boldsymbol{\gamma}) &=  \mathbf{u}_i(\boldsymbol{\theta}, \boldsymbol{\gamma}) z_i\\
+  \mathbf{u}_i(\boldsymbol{\theta}, \boldsymbol{\gamma}) &= 
+  \left[
+  \begin{array}{l}
+ y_i - \kappa_1 - \theta_1 T_i\\
+ y^2_i - \kappa_2 - \theta_1 2 y_i T_i + \theta_2 T_i\\
+ y^3_i - \kappa_3 - \theta_1 3y_i^2 T + \theta_2 3y_iT_i - \theta_3 T_i
+  \end{array}
+\right]
+\end{align*}
+while the moment functions $h$ for the preliminary estimator of $\boldsymbol{\gamma}$ are
+\begin{align*}
+  h(W_i, \boldsymbol{\theta}, \boldsymbol{\gamma}) &= \left[
+  \begin{array}{l}
+    h_p(W_i, \boldsymbol{\gamma})\\
+    h_\nu(W_i, \boldsymbol{\gamma}) \\
+    \mathbf{u}_i(\boldsymbol{\theta}, \boldsymbol{\kappa})
+  \end{array}
+\right]\\
+h_p(W_i, \boldsymbol{\gamma}) &= \left[
+\begin{array}{l}
+  T_i (1-z_i)/(1-q) - p_0\\
+  T_i z_i / q - p_1
+\end{array}
+\right] \\
+h_\nu(W_i, \boldsymbol{\gamma}) &= \left[
+\begin{array}{l}
+  y_i (1 - T_i) (1-z_i) / \sqrt{1-q} - \nu_{00}  \\
+  y_i (1 - T_i) z_i / \sqrt{q} - \nu_{01}  \\
+  y_i T_i (1-z_i) / \sqrt{1-q} - \nu_{10} \\
+  y_i T_i z_i/\sqrt{q} - \nu_{11} 
+\end{array}
+\right]\\
+\end{align*}
+Finally, the inequality moment functions $m^I$ are
+\begin{align*}
+  m^I(W_i, \boldsymbol{\theta}, \boldsymbol{\gamma}) &=
+  \left[
+  \begin{array}{l}
+    m_1^I(W_i, \boldsymbol{\theta}, \boldsymbol{\gamma}) \\ 
+    m_2^I(W_i, \boldsymbol{\theta}, \boldsymbol{\gamma}) 
+  \end{array}
+\right] \\
+  m_1^I(W_i, \boldsymbol{\theta}, \boldsymbol{\gamma}) &=
+  \left[
+  \begin{array}{r}
+  p_0 - \alpha_0 \\
+  p_1 - \alpha_0 \\
+  (1 - p_0) - \alpha_1  \\
+  (1 - p_1) - \alpha_1  
+  \end{array}
+\right]\\
+m_2^I(W_i, \boldsymbol{\theta}, \boldsymbol{\gamma}) &=
+\left[
+\begin{array}{r}
+   (p_0 - \alpha_0) y_i^2 (1 - z_i)(T_i - \alpha_0) - \left\{ (1 - \alpha_0) \nu_{10} - \alpha_0 \nu_{00} \right\}^2 \\ 
+   (p_1 - \alpha_0) y^2_i z_i(T_i - \alpha_0) - \left\{ (1 - \alpha_0) \nu_{11} - \alpha_0 \nu_{01} \right\}^2 \\
+  (1- p_0 - \alpha_1) y^2 (1-z_i)(1 - T_i - \alpha_1) - \left\{ \alpha_1 \nu_{10} - (1 - \alpha_1)\nu_{00} \right\}^2 \\
+  (1- p_1 - \alpha_1) y_i^2 z_i(1 - T_i - \alpha_1) - \left\{ \alpha_1 \nu_{11} - (1 - \alpha_1)\nu_{01} \right\}^2 
+\end{array}
+\right]
+\end{align*}
+
+
+\paragraph{The Preliminary Estimator}
+We estimate $\boldsymbol{\gamma}$ under the null $\boldsymbol{\theta} = \boldsymbol{\theta}_0$ using the just-identified system of moment functions $h$.
+Specifically, 
+\begin{align*}
+  \widehat{\boldsymbol{\gamma}}_0' &= \widehat{\boldsymbol{\gamma}}(\boldsymbol{\theta}_0)' = \left[
+\begin{array}{ccc}
+  \widehat{\mathbf{p}}' & \widehat{\boldsymbol{\nu}}' &  \widehat{\boldsymbol{\kappa}}(\boldsymbol{\theta}_0)'
+\end{array}
+\right]\\
+\widehat{\mathbf{p}} &= 
+\left[
+\begin{array}{c}
+  \widehat{p}_0 \\ \widehat{p}_1
+\end{array}
+\right] = 
+\frac{1}{n}\sum_{i=1}^n \left[
+\begin{array}{l}
+  T_i (1-z_i)/(1-q)\\
+  T_i z_i / q
+\end{array}
+\right] \\
+\widehat{\boldsymbol{\nu}} &= \left[
+\begin{array}{c}
+  \widehat{\nu}_{00} \\ \widehat{\nu}_{01} \\ \widehat{\nu}_{10} \\ \widehat{\nu}_{11}
+\end{array}
+\right] = \frac{1}{n} \sum_{i=1}^n \left[
+\begin{array}{l}
+  y_i (1 - T_i) (1-z_i) / \sqrt{1-q} \\
+  y_i (1 - T_i) z_i / \sqrt{q} \\
+  y_i T_i (1-z_i) / \sqrt{1-q} \\
+  y_i T_i z_i/\sqrt{q} 
+\end{array}
+\right]\\
+\widehat{\boldsymbol{\kappa}}(\boldsymbol{\theta}_0) &= 
+\left[
+\begin{array}{c}
+  \widehat{\kappa}_1(\boldsymbol{\theta}_0)\\
+  \widehat{\kappa}_2(\boldsymbol{\theta}_0)\\
+  \widehat{\kappa}_3(\boldsymbol{\theta}_0)
+\end{array}
+\right] = \frac{1}{n} \sum_{i=1}^n\left[
+  \begin{array}{l}
+ y_i - \theta_1^0 T_i\\
+ y^2_i - \theta_1^0 2 y_i T_i + \theta_2^0 T_i\\
+ y^3_i - \theta_1^0 3y_i^2 T + \theta_2^0 3y_iT_i - \theta_3^0 T_i
+  \end{array}
+\right]
+\end{align*}
+where $\boldsymbol{\theta}_0 = (\theta_1^0, \theta_2^0, \theta_3^0)$.
+Notice that the preliminary estimators of $\boldsymbol{p}$ and $\boldsymbol{\nu}$ do not depend on the null hypothesis $\boldsymbol{\theta}_0$.
+
+
+\paragraph{Correcting the Asymptotic Variance Matrix}
+To account for the preliminary estimation of $\boldsymbol{\gamma}$ we need to make an adjustment to the estimator of the asymptotic covariance matrix of the moment conditions $m^I$ and $m^E$, as explained above.
+Let $m' = (m^{'I}, m^{'E})$ denote the full collection of moment conditions.
+Because our estimator of $\boldsymbol{\gamma}$ is just identified, the quantity required to calculate the adjusted covariance matrix estimator is $B = -MH^{-1}$ where 
+\begin{align*}
+  H &= \mathbb{E}\left[ \frac{\partial h(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\gamma}'} \right] - \mathbf{I}_9\\
+  M &= \mathbb{E}\left[ \frac{\partial m(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\gamma}'} \right]  =
+  \left[
+  \begin{array}{c}
+    \partial m^I(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)/\partial \boldsymbol{\gamma}' \\ 
+    \partial m^E(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)/\partial \boldsymbol{\gamma}' 
+  \end{array}
+\right]  \\
+\mathbb{E}\left[\frac{\partial m^I(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\gamma}'}\right] &=  
+  \left[
+  \begin{array}{c}
+    \partial m^I_1(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)/\partial \boldsymbol{\gamma}' \\ 
+    \partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)/\partial \boldsymbol{\gamma}' 
+  \end{array}
+\right]  \\
+\mathbb{E}\left[\frac{\partial m^I_1(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\gamma}'}\right] &=  
+\left[
+\begin{array}{rr}
+  \mathbf{I}_2 & \mathbf{0}_{2 \times 7} \\
+  -\mathbf{I}_2 & \mathbf{0}_{2\times 7}
+\end{array}
+\right] \\
+\mathbb{E}\left[\frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\gamma}'}\right] &=  
+\mathbb{E}
+\left[
+\begin{array}{ccc}
+  \displaystyle \frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \mathbf{p}'} &
+\displaystyle \frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\nu}'} &
+\displaystyle \frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\kappa}'}
+\end{array}
+\right]\\
+\mathbb{E}\left[\frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \mathbf{p}'} \right]
+ &= \left[
+\begin{array}{cc}
+  y_i^2(1-z_i)(T_i - \alpha_0) & 0 \\
+  0 & y_i^2 z_i(T_i - \alpha_0) \\
+  -y_i^2(1-z_i)(1 - T_i - \alpha_1) & 0 \\
+  0 & -y_i^2 z_i(1 - T_i - \alpha_1) 
+\end{array}
+\right]\\
+\mathbb{E}\left[\frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\kappa}'} \right]
+ &= \left[
+   \scriptsize
+\begin{array}{cccc}
+  2\alpha_0\left\{ (1 - \alpha_0)\nu_{10} - \alpha_0 \nu_{00} \right\} & 0 & -2(1 - \alpha_0)\left\{ (1 - \alpha_0) \nu_{10} - \alpha_0 \nu_{00} \right\} & 0 \\
+  0 & 2\alpha_0 \left\{ (1 - \alpha_0)\nu_{11} - \alpha_0 \nu_{01} \right\} & 0 & -2(1 - \alpha_0)\left\{ (1 - \alpha_0)\nu_{11} - \alpha_0 \nu_{01}  \right\} \\
+  ? & 0 & ? & 0 \\
+  0 & ? & 0 & ? 
+\end{array}
+\right]\\
+\mathbb{E}\left[\frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\kappa}'} \right]
+&= \mathbf{0}_{4\times 3}
+\end{align*}
+
+
 \end{document}
