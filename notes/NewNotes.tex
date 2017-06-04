@@ -4381,7 +4381,7 @@ But in our example $H = -\mathbf{I}$ so that
 \end{array}
 \right]
 \]
-where we have
+where 
 \begin{align*}
 \mathbb{E}\left[\frac{\partial m_1^I(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \mathbf{p}'}\right] &= 
 \left[
@@ -4402,15 +4402,31 @@ where we have
 \end{array}
 \right]\\
 \mathbb{E}\left[\frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\nu}'} \right]
- &= \left[
+ &= 
+ \left[
+ \begin{array}{ll}
+   Q_1 & \mathbf{0}_{2\times 2} \\
+   \mathbf{0}_{2\times 2} & Q_2 
+ \end{array}
+ \right]\\
+ Q_1 &=\left[
 \begin{array}{cccc}
-  ? & ? & 0 & 0\\
-  ? & ? & 0 & 0\\
-  0 & 0 & ? & ?\\
-  0 & 0 & ? & ?
+  2\alpha_0\left\{ (1 - \alpha_0)\nu_{10} - \alpha_0 \nu_{00} \right\} & -2(1 - \alpha_0)\left\{ (1 - \alpha_0)\nu_{10} - \alpha_0\nu_{00} \right\} \\
+  2(1 - \alpha_1)\left\{ \alpha_1 \nu_{10} - (1 - \alpha_1)\nu_{00} \right\} &
+  -2\alpha_1\left\{ \alpha_1 \nu_{10} - (1 - \alpha_1)\nu_{00} \right\} 
 \end{array}
-\right]
+\right]\\
+Q_2 &= \left[
+\begin{array}{cc}
+  2 \alpha_0\left\{ (1 - \alpha_0)\nu_{11} - \alpha_0 \nu_{01} \right\} &
+  -2 (1 - \alpha_0)\left\{ (1 - \alpha_0)\nu_{11} - \alpha_0 \nu_{01} \right\}\\
+  2 (1 - \alpha_1)\left\{ \alpha_1 \nu_{11} - (1 - \alpha_1)\nu_{01} \right\} &
+  -2\alpha_1\left\{ \alpha_1 \nu_{11} - (1 - \alpha_1)\nu_{01} \right\}
+\end{array}
+\right] \\
+\mathbb{E}\left[\frac{\partial m^E\left( W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0 \right)}{\partial \boldsymbol{\kappa}'}\right] &= -q\, \mathbf{I}_3
 \end{align*}
+and $\alpha_0,\alpha_1$ are understood to be hypothesized values under the null $\boldsymbol{\theta} = \boldsymbol{\theta}_0$.
 
 
 \end{document}
