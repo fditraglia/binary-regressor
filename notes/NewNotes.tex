@@ -4241,7 +4241,7 @@ We define $\boldsymbol{\theta}' = (\theta_1, \theta_2, \theta_3)$ where
   \theta_3 &= \theta_1^3\left[ \left( 1 - \alpha_0 - \alpha_1 \right)^2 + 6\alpha_0\left( 1 - \alpha_1 \right) \right]
 \end{align*}
 and $\boldsymbol{\gamma}' = (\mathbf{p}', \boldsymbol{\nu}', \boldsymbol{\kappa}')$ where
-  $\mathbf{p}'= (p_0, p_1)$,  $\boldsymbol{\nu}' = (\nu_{00}, \nu_{01}, \nu_{10}, \nu_{11})$ and $\boldsymbol{\kappa}' = (\kappa_1, \kappa_2, \kappa_3)$.
+  $\mathbf{p}'= (p_0, p_1)$,  $\boldsymbol{\nu}' = (\nu_{00}, \nu_{10}, \nu_{01}, \nu_{11})$ and $\boldsymbol{\kappa}' = (\kappa_1, \kappa_2, \kappa_3)$.
 The moment functions $m^E$ are defined as 
 \begin{align*}
   m^E(W_i, \boldsymbol{\theta}, \boldsymbol{\gamma}) &=  \mathbf{u}_i(\boldsymbol{\theta}, \boldsymbol{\gamma}) z_i\\
@@ -4291,8 +4291,8 @@ Finally, the inequality moment functions $m^I$ are
   \left[
   \begin{array}{r}
   p_0 - \alpha_0 \\
-  p_1 - \alpha_0 \\
   (1 - p_0) - \alpha_1  \\
+  p_1 - \alpha_0 \\
   (1 - p_1) - \alpha_1  
   \end{array}
 \right]\\
@@ -4300,8 +4300,8 @@ m_2^I(W_i, \boldsymbol{\theta}, \boldsymbol{\gamma}) &=
 \left[
 \begin{array}{r}
    (p_0 - \alpha_0) y_i^2 (1 - z_i)(T_i - \alpha_0) - \left\{ (1 - \alpha_0) \nu_{10} - \alpha_0 \nu_{00} \right\}^2 \\ 
-   (p_1 - \alpha_0) y^2_i z_i(T_i - \alpha_0) - \left\{ (1 - \alpha_0) \nu_{11} - \alpha_0 \nu_{01} \right\}^2 \\
   (1- p_0 - \alpha_1) y^2 (1-z_i)(1 - T_i - \alpha_1) - \left\{ \alpha_1 \nu_{10} - (1 - \alpha_1)\nu_{00} \right\}^2 \\
+   (p_1 - \alpha_0) y^2_i z_i(T_i - \alpha_0) - \left\{ (1 - \alpha_0) \nu_{11} - \alpha_0 \nu_{01} \right\}^2 \\
   (1- p_1 - \alpha_1) y_i^2 z_i(1 - T_i - \alpha_1) - \left\{ \alpha_1 \nu_{11} - (1 - \alpha_1)\nu_{01} \right\}^2 
 \end{array}
 \right]
@@ -4364,27 +4364,34 @@ Notice that the preliminary estimators of $\boldsymbol{p}$ and $\boldsymbol{\nu}
 To account for the preliminary estimation of $\boldsymbol{\gamma}$ we need to make an adjustment to the estimator of the asymptotic covariance matrix of the moment conditions $m^I$ and $m^E$, as explained above.
 Let $m' = (m^{'I}, m^{'E})$ denote the full collection of moment conditions.
 Because our estimator of $\boldsymbol{\gamma}$ is just identified, the quantity required to calculate the adjusted covariance matrix estimator is $B = -MH^{-1}$ where 
+\[
+  H = \mathbb{E}\left[ \frac{\partial h(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\gamma}'} \right], \,
+  M = \mathbb{E}\left[ \frac{\partial m(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\gamma}'} \right]  
+\]
+But in our example $H = -\mathbf{I}$, so we have 
 \begin{align*}
-  H &= \mathbb{E}\left[ \frac{\partial h(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\gamma}'} \right] - \mathbf{I}_9\\
-  M &= \mathbb{E}\left[ \frac{\partial m(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\gamma}'} \right]  =
-  \left[
+  B = M &= \left[
   \begin{array}{c}
     \partial m^I(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)/\partial \boldsymbol{\gamma}' \\ 
     \partial m^E(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)/\partial \boldsymbol{\gamma}' 
   \end{array}
-\right]  \\
+\right]  \\ \\
 \mathbb{E}\left[\frac{\partial m^I(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\gamma}'}\right] &=  
-  \left[
-  \begin{array}{c}
-    \partial m^I_1(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)/\partial \boldsymbol{\gamma}' \\ 
-    \partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)/\partial \boldsymbol{\gamma}' 
-  \end{array}
-\right]  \\
-\mathbb{E}\left[\frac{\partial m^I_1(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\gamma}'}\right] &=  
 \left[
-\begin{array}{rr}
-  \mathbf{I}_2 & \mathbf{0}_{2 \times 7} \\
-  -\mathbf{I}_2 & \mathbf{0}_{2\times 7}
+\begin{array}{ccc}
+  \displaystyle \frac{\partial m_1^I(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \mathbf{p}'} & \mathbf{0}_{4\times 4} & \mathbf{0}_{4 \times 3}\\ \\
+  \displaystyle \frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \mathbf{p}'} &
+\displaystyle \frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\nu}'} &
+\mathbf{0}_{4\times 3}
+\end{array}
+\right]\\ \\
+\mathbb{E}\left[\frac{\partial m_1^I(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \mathbf{p}'}\right] &= 
+\left[
+\begin{array}{rrr}
+  1 & 0 \\
+  -1 & 0 \\
+  0 & 1 \\
+  0 & -1 \\
 \end{array}
 \right] \\
 \mathbb{E}\left[\frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\gamma}'}\right] &=  
@@ -4393,15 +4400,15 @@ Because our estimator of $\boldsymbol{\gamma}$ is just identified, the quantity 
 \begin{array}{ccc}
   \displaystyle \frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \mathbf{p}'} &
 \displaystyle \frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\nu}'} &
-\displaystyle \frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\kappa}'}
+\mathbf{0}_{4\times 3}
 \end{array}
 \right]\\
 \mathbb{E}\left[\frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \mathbf{p}'} \right]
- &= \left[
+&= \mathbb{E}\left[
 \begin{array}{cc}
   y_i^2(1-z_i)(T_i - \alpha_0) & 0 \\
-  0 & y_i^2 z_i(T_i - \alpha_0) \\
   -y_i^2(1-z_i)(1 - T_i - \alpha_1) & 0 \\
+  0 & y_i^2 z_i(T_i - \alpha_0) \\
   0 & -y_i^2 z_i(1 - T_i - \alpha_1) 
 \end{array}
 \right]\\
@@ -4414,9 +4421,7 @@ Because our estimator of $\boldsymbol{\gamma}$ is just identified, the quantity 
   ? & 0 & ? & 0 \\
   0 & ? & 0 & ? 
 \end{array}
-\right]\\
-\mathbb{E}\left[\frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\kappa}'} \right]
-&= \mathbf{0}_{4\times 3}
+\right]
 \end{align*}
 
 
