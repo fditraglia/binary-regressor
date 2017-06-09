@@ -22,12 +22,12 @@ GMS_sim_draw <- function(a0, a1, b, n = 1000, d = 0.15, rho = 0.5, cc = 0) {
   return(pvals)
 }
 
-GMS_sim <- function(a0, a1, b, n_reps = 2000, signif_level = 0.05) {
+GMS_sim <- function(a0, a1, b, n_reps = 5000, signif_level = 0.05) {
   p_values <- t(replicate(n_reps, GMS_sim_draw(a0 = a0, a1 = a1, b = b)))
   apply(p_values, 2, function(p_value) mean(p_value <= signif_level))
 }
 
-a0_vals <- a1_vals <- seq(0, 0.2, 0.05)
+a0_vals <- a1_vals <- c(0, 0.1, 0.2) 
 beta_vals <- seq(0, 2, 0.2)
 sim_params <- expand.grid(a0_vals, a1_vals, beta_vals)
 names(sim_params) <- c('a0', 'a1', 'b')
@@ -41,4 +41,4 @@ results <- cbind(sim_params, results)
 setwd("~/binary-regressor/sims/")
 save(results, file = "GMS_sim_results_2017_06_07.RData")
 
-rm(list = ls())
+#rm(list = ls())
