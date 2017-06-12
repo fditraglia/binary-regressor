@@ -3101,14 +3101,14 @@ Define
   \alpha_0(\mathbf{x},z) &= \mathbb{P}\left(T=1|T^*=0,\mathbf{x},z  \right)\\
   \alpha_1(\mathbf{x},z) &= \mathbb{P}\left(T=0|T^*=1,\mathbf{x},z  \right)
 \end{align*}
-Identification will only rely on two values for $z$ so throughout the remainder of the paper we assume that $z$ is binary and takes on values $0$ and $1$.
+Identification will only rely on two values for $z$.
 
 \begin{assump} \mbox{}
   \begin{enumerate}[(i)] 
     \item $y = c(\mathbf{x}) + \beta(\mathbf{x})T^* + \varepsilon$ where $\mathbb{E}[\varepsilon]=0$.
-    \item $\alpha_0(\mathbf{x},z) = \alpha_1(\mathbf{x})$,   $\alpha_1(\mathbf{x},z) = \alpha_1(\mathbf{x})$
+    \item $\alpha_0(\mathbf{x},z) = \alpha_0(\mathbf{x})$,   $\alpha_1(\mathbf{x},z) = \alpha_1(\mathbf{x})$
     \item $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z, T^*]$
-    \item $\mathbb{E}\left[ T^*|\mathbf{x},z=0 \right] \neq \mathbb{E}\left[ T^*|\mathbf{x},z=1 \right]$
+    \item $\mathbb{E}\left[ T^*|\mathbf{x},z=k \right] \neq \mathbb{E}\left[ T^*|\mathbf{x},z=\ell \right]$ two distinct values $k, \ell$ in the support of $z$.
     \item $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) \neq 1$ ($T$ is relevant for $T^*$)
     \item $\mathbb{E}[\varepsilon|\mathbf{x},z] = 0$
   \end{enumerate}
