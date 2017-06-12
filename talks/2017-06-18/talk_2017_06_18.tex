@@ -175,8 +175,7 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 %\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Baseline Assumptions}
-  \framesubtitle{Maintained Throughout}
+  \frametitle{Baseline Assumptions -- Maintained Throughout}
 
   \begin{block}{Additively Separable Model}
     $y = c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon, \quad \mathbb{E}[ \varepsilon] = 0$ 
@@ -343,6 +342,54 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 %  \end{alertblock}
 %
 %\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Identification from Stronger Assumptions?}
+
+  \begin{block}{Second Moment Assumption}
+    \begin{enumerate}[(i)]
+    \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^2|\mathbf{x},z, T^*]$
+    \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z] = \mathbb{E}[\varepsilon^2|\mathbf{x}]$
+  \end{enumerate}
+  \end{block}
+
+  \begin{block}{Third Moment Assumption}
+    \begin{enumerate}[(i)]
+    \item $\mathbb{E}[\varepsilon^3|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^3|\mathbf{x},z, T^*]$
+    \item $\mathbb{E}[\varepsilon^3|\mathbf{x},z] = \mathbb{E}[\varepsilon^3|\mathbf{x}]$
+  \end{enumerate}
+  \end{block}
+
+  \begin{alertblock}{Sufficient Condition}
+    \begin{enumerate}[(i)]
+      \item $T$ is conditionally independent of $(\varepsilon,z)$ given $(T^*,\mathbf{x})$
+      \item $z$ is conditionally independent of $\varepsilon$ given $\mathbf{x}$
+    \end{enumerate}
+  \end{alertblock}
+  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Identification Argument: Step I}
+ 
+  \begin{block}{Reparameterization}
+\begin{align*}
+  \theta_1(\mathbf{x}) &= \beta(\mathbf{x})/\left[ 1 - \alpha_0(\mathbf{x}) - \mathbf{\alpha}_1(\mathbf{x})  \right]\\
+  \theta_2(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^2 \left[ 1 + \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})\right] \\
+  \theta_3(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^3\left[ \left\{ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right\}^2 + 6\alpha_0(\mathbf{x})\left\{ 1 - \alpha_1(\mathbf{x}) \right\} \right]
+\end{align*}
+  \end{block}
+
+  \begin{alertblock}{Theorem}
+    Suppose that $\theta_1(\mathbf{x}), \theta_2(\mathbf{x})$ and $\theta_3(\mathbf{x})$ are identified.
+    Then:
+    \begin{itemize}
+      \item $\theta_1(\mathbf{x})\neq 0 \implies \beta(\mathbf{x}), \alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ are identified 
+      \item $\theta_1(\mathbf{x}) = 0 \implies \beta(\mathbf{x})$ is identified but $\alpha_0(\mathbf{x})$ and $\mathbf{\alpha}_1(\mathbf{x})$ are not.
+    \end{itemize}
+  \end{alertblock}
+  
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{First Moment Condition}
