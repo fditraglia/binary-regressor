@@ -53,9 +53,9 @@
 
   \begin{alertblock}{This Paper:}
     \begin{itemize}
-      \item Does a binary instrument $z$ suffice to identify $\beta(\mathbf{x})$? 
-      \item What assumptions are required for $z$ and ``surrogate'' $T$? 
-      \item How should we carry out inference in this model?
+      \item Does a discrete instrument $z$ (typically binary) identify $\beta(\mathbf{x})$? 
+      \item What assumptions are required for $z$ and the surrogate $T$?
+      \item How to carry out inference for a mis-classified regressor?
     \end{itemize}
   \end{alertblock}
 \end{frame}
@@ -176,50 +176,52 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Baseline Assumptions}
+  \framesubtitle{Maintained Throughout}
 
   \begin{block}{Additively Separable Model}
     $y = c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon, \quad \mathbb{E}[ \varepsilon] = 0$ 
   \end{block}
 
   \begin{block}{Valid \& Relevant Instrument}
-    $\mathbb{E}[\varepsilon|\mathbf{x},z] = 0, \quad \mathbb{E}\left[ T^*|\mathbf{x},z=0 \right] \neq \mathbb{E}\left[ T^*|\mathbf{x},z=1 \right]$
+    $\mathbb{E}[\varepsilon|\mathbf{x},z] = 0, \quad \mathbb{E}\left[ T^*|\mathbf{x},z=k \right] \neq \mathbb{E}\left[ T^*|\mathbf{x},z=\ell \right]$
   \end{block}
 
-  \begin{block}{Non-differential Measurement Error}
+  \begin{block}{Measurement Error Assumptions}
   \begin{enumerate}[(i)] 
-    \item $\alpha_0(\mathbf{x},z) = \alpha_1(\mathbf{x})$,   $\alpha_1(\mathbf{x},z) = \alpha_1(\mathbf{x})$
-    \item $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z, T^*]$
-    \item $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) \neq 1$ ($T$ is relevant for $T^*$)
+    \item  $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z, T^*]$
+    \item $\alpha_0(\mathbf{x}) = \mathbb{P}(T=1|T^*=0,\mathbf{x},z)$
+    \item $\alpha_1(\mathbf{x}) = \mathbb{P}(T=0|T^*=1,\mathbf{x},z)$
+    \item $T$ is (positively) correlated with $T^*$
   \end{enumerate}
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Observable Moments:  $y = c + \beta T^* + \varepsilon$}
-
-\phantom{Define error term that absorbs constant: $u = c + \varepsilon$}
-
-\begin{center}
-  \begin{tabular}{c|c|c|c|c|}
-    \multicolumn{1}{c}{}& \multicolumn{1}{c}{$z=1$} &\multicolumn{1}{c}{$z=2$} & \multicolumn{1}{c}{\dots} &\multicolumn{1}{c}{$z=K$}\\
-    \cline{2-5}
-    $T=0$ & \diagbox[dir=NE]{$\bar{y}_{01}$}{$p_{01}$} & \diagbox[dir=NE]{$\bar{y}_{02}$}{$p_{02}$} & \dots &\diagbox[dir=NE]{$\bar{y}_{0K}$}{$p_{0K}$}\\
-    \cline{2-5}
-    $T=1$ & \diagbox[dir=NE]{$\bar{y}_{11}$}{$p_{11}$} & \diagbox[dir=NE]{$\bar{y}_{12}$}{$p_{12}$} & \dots &\diagbox[dir=NE]{$\bar{y}_{1K}$}{$p_{1K}$}\\
-    \cline{2-5}
-  \end{tabular}
-\end{center}
-
-\vspace{1em}
-
-\[\bar{y}_{tk} = \mathbb{E}[y|T=t,z=z_k],
-\quad p_{tk} =q_k p_k\]
-\small
-\[q_k = \mathbb{P}(z = z_k), \quad
-p_k = \mathbb{P}(T=1|z=z_k)\]
-
-\end{frame}
-
+%\begin{frame}
+%  \frametitle{Observable Moments:  $y = c + \beta T^* + \varepsilon$}
+%
+%\phantom{Define error term that absorbs constant: $u = c + \varepsilon$}
+%
+%\begin{center}
+%  \begin{tabular}{c|c|c|c|c|}
+%    \multicolumn{1}{c}{}& \multicolumn{1}{c}{$z=1$} &\multicolumn{1}{c}{$z=2$} & \multicolumn{1}{c}{\dots} &\multicolumn{1}{c}{$z=K$}\\
+%    \cline{2-5}
+%    $T=0$ & \diagbox[dir=NE]{$\bar{y}_{01}$}{$p_{01}$} & \diagbox[dir=NE]{$\bar{y}_{02}$}{$p_{02}$} & \dots &\diagbox[dir=NE]{$\bar{y}_{0K}$}{$p_{0K}$}\\
+%    \cline{2-5}
+%    $T=1$ & \diagbox[dir=NE]{$\bar{y}_{11}$}{$p_{11}$} & \diagbox[dir=NE]{$\bar{y}_{12}$}{$p_{12}$} & \dots &\diagbox[dir=NE]{$\bar{y}_{1K}$}{$p_{1K}$}\\
+%    \cline{2-5}
+%  \end{tabular}
+%\end{center}
+%
+%\vspace{1em}
+%
+%\[\bar{y}_{tk} = \mathbb{E}[y|T=t,z=z_k],
+%\quad p_{tk} =q_k p_k\]
+%\small
+%\[q_k = \mathbb{P}(z = z_k), \quad
+%p_k = \mathbb{P}(T=1|z=z_k)\]
+%
+%\end{frame}
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}
 %  \frametitle{Unobservable Moments: $y = \beta T^* + u$}
@@ -270,6 +272,22 @@ p_k = \mathbb{P}(T=1|z=z_k)\]
 %  \end{alertblock}
 %
 %\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Theorem: Baseline Assumptions Fail to Identify $\beta(\mathbf{x})$} 
+
+  \begin{block}{Sketch for Simple Case: $\alpha_0 = 0$}
+    \begin{align*}
+      0 \leq \alpha_1(\mathbf{x}) &\leq \min_k \left\{ 1 - p_k(\mathbf{x}) \right\}\\
+      \left[1 - p_k(\mathbf{x})\right] \mathbb{E}[y|T=0,z_k, \mathbf{x}] &= \\
+      p_k(\mathbf{x}) \mathbb{E}[y|T=1,z_k, \mathbf{x}] &= p_k(\mathbf{x}) \beta(\mathbf{x})\\
+    \end{align*}
+    
+  \end{block}
+
+
+  
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{System of Equations given $E[\varepsilon|z]=0$}
