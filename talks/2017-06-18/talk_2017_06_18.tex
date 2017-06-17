@@ -529,8 +529,8 @@ $0.01$&$1.00$&$5.92$\tabularnewline
   \begin{itemize}
     \item Bounds for $(\alpha_0, \alpha_1)$ immune to weak identification problem: remain informative if $\beta$ is small or zero.
     \item 2nd moment bounds strictly tighter, but still need weak bounds to determine which root of  quadratic is extraneous.
-    \item Since $\beta = 1/(1 - \alpha_0 - \alpha_1)$ is identified by TSLS, we can always get meaningful restrictions on $\beta$.
-    \item Inequalities that are far from binding sap power, so use Generalized Moment Selection (Andrews \& Soares, 2010) 
+    \item Since $\beta = 1/(1 - \alpha_0 - \alpha_1)$ is identified by TSLS, get meaningful restrictions on $\beta$.
+    \item Inference using Generalized Moment Selection (Andrews \& Soares, 2010)
   \end{itemize}
 
   
@@ -544,8 +544,6 @@ $0.01$&$1.00$&$5.92$\tabularnewline
   $\mathbb{E} \left[ m_j(\mathbf{w}_i,\theta_0) \right] = 0, \quad j = 1, \cdots, p$\\
   $\mathbb{E} \left[ m_j(\mathbf{w}_i,\theta_0) \right]  \geq 0, \quad j = p+1, \cdots, p + v$
 \end{block}
-
-
 
 
 \begin{block}{Test Statistic}
@@ -564,32 +562,85 @@ $0.01$&$1.00$&$5.92$\tabularnewline
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Generalized Moment Selection Critical Value}
+  \frametitle{Inference via Generalized Moment Selection}
   \framesubtitle{Andrews \& Soares (2010)}
-  \small
-\begin{enumerate}
-  \item Calculate $\bar{m}_n(\theta_0)$, $\widehat{\Sigma}_n(\theta_0)$, and $T_n(\theta_0) = S\left( \sqrt{n}\; \bar{m}_n(\theta_0), \widehat{\Sigma}_n(\theta_0) \right)$
-  \item Calculate the following quantities:
-    \begin{align*}
-      \widehat{\Omega}_n(\theta_0) &= \mbox{Diag}^{-1/2}\left(\widehat{\Sigma}_n(\theta_0)  \right)\left(\widehat{\Sigma}_n(\theta_0)\right)\mbox{Diag}^{-1/2}\left( \widehat{\Sigma}_n(\theta_0) \right)\\
-      \xi_n(\theta_0) &= \mbox{Diag}^{-1/2}\left( \widehat{\Sigma}_n(\theta_0) \right) \sqrt{n}\; \bar{m}_n(\theta_0) / \sqrt{\ln n}\\
-      \varphi\left( \xi_n(\theta_0), \widehat{\Omega}_n(\theta_0) \right) &= \left\{
-      \begin{array}{cc}
-        0, & \mbox{if } \xi_j \leq 1 \mbox{ and } j \leq p \\
-        \infty & \mbox{if } \xi_j > 1 \mbox{ or } j > p\\
-      \end{array}
-      \right.
-    \end{align*}
-  \item Draw $Z_1^*, \hdots, Z_R^* \sim \mbox{ iid } N(0_k, I_k)$ for $R$ large.
-  \item The critical value is the $1 - \alpha$ quantile of $\left\{S\left( \widehat{\Omega}^{1/2}(\theta_0) Z_r^* + \varphi\left( \xi_n(\theta_0), \widehat{\Omega}_n(\theta_0) \right), \widehat{\Omega}_n(\theta_0) \right)\right\}_{r=1}^R$
-\end{enumerate}
+
+  \begin{block}{Moment Selection Step}
+    If $\displaystyle\frac{\sqrt{n}\,\bar{m}_{n,j}(\theta_0)}{\widehat{\sigma}_{n,j}(\theta_0)} > \sqrt{\ln n}$ then drop inequality $j$
+  \end{block}
+
+  \begin{block}{Critical Value} 
+    \begin{itemize}
+      \item $\sqrt{n}\, \bar{m}_n(\theta_0) \rightarrow_d$ normal limit with covariance matrix $\Sigma(\theta_0)$
+      \item Use this to bootstrap the limit distribution of the test statistic.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Theoretical Guarantees}
+    Uniformly valid test of $H_0\colon \theta = \theta_0$ that is \emph{not} asymptotically conservative. 
+  \end{block}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+  \frametitle{Confidence Regions}
+  \begin{itemize}
+    \item Invert test of $\theta = \theta_0$ to form confidence region
+    \item Preliminary estimation of strongly identified parameters ($\boldsymbol{\kappa}$)
+    \item Yields \emph{joint} inference for $(\alpha_0, \alpha_0, \beta)$
+    \item Projection to get inference for $\beta$, but can be conservative
+      
+  \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Generalized Moment Selection Critical Value}
+%  \framesubtitle{Andrews \& Soares (2010)}
+%  \small
+%\begin{enumerate}
+%  \item Calculate $\bar{m}_n(\theta_0)$, $\widehat{\Sigma}_n(\theta_0)$, and $T_n(\theta_0) = S\left( \sqrt{n}\; \bar{m}_n(\theta_0), \widehat{\Sigma}_n(\theta_0) \right)$
+%  \item Calculate the following quantities:
+%    \begin{align*}
+%      \widehat{\Omega}_n(\theta_0) &= \mbox{Diag}^{-1/2}\left(\widehat{\Sigma}_n(\theta_0)  \right)\left(\widehat{\Sigma}_n(\theta_0)\right)\mbox{Diag}^{-1/2}\left( \widehat{\Sigma}_n(\theta_0) \right)\\
+%      \xi_n(\theta_0) &= \mbox{Diag}^{-1/2}\left( \widehat{\Sigma}_n(\theta_0) \right) \sqrt{n}\; \bar{m}_n(\theta_0) / \sqrt{\ln n}\\
+%      \varphi\left( \xi_n(\theta_0), \widehat{\Omega}_n(\theta_0) \right) &= \left\{
+%      \begin{array}{cc}
+%        0, & \mbox{if } \xi_j \leq 1 \mbox{ and } j \leq p \\
+%        \infty & \mbox{if } \xi_j > 1 \mbox{ or } j > p\\
+%      \end{array}
+%      \right.
+%    \end{align*}
+%  \item Draw $Z_1^*, \hdots, Z_R^* \sim \mbox{ iid } N(0_k, I_k)$ for $R$ large.
+%  \item The critical value is the $1 - \alpha$ quantile of $\left\{S\left( \widehat{\Omega}^{1/2}(\theta_0) Z_r^* + \varphi\left( \xi_n(\theta_0), \widehat{\Omega}_n(\theta_0) \right), \widehat{\Omega}_n(\theta_0) \right)\right\}_{r=1}^R$
+%\end{enumerate}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Simple Example: $n = 1000$}
+  \framesubtitle{Simulation DGP from earlier in talk}
+  \begin{columns}
+    \column{0.4\textwidth}
+    \footnotesize
+    \begin{itemize}
+      \item Special case $\alpha_0 = 1$
+      \item $\beta = 0.25,\, \alpha_1 = 0.1$
+      \item Reduced Form $\approx 0.18$
+      \item Wald $\approx 0.28$
+      \item Only ``weak'' bounds
+      \item Naive GMM Median Width $\approx 1.1$!
+
+    \end{itemize}
+    \column{0.6\textwidth}
   \begin{figure}
     \centering
-    \includegraphics[scale=0.5]{GMS.pdf}
+    \includegraphics[scale=0.35]{GMS.pdf}
   \end{figure}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Additional Simulations: Size of GMS Test}
+  Same DGP as earlier in the talk except $\alpha_0$ is not zero, and use full set of inequalities\ldots
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
