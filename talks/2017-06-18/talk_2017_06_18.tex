@@ -541,8 +541,8 @@ $0.01$&$1.00$&$5.92$\tabularnewline
   \small
 
 \begin{block}{Moment Conditions}
-  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\theta_0) \right] = 0, \quad j = 1, \cdots, p$\\
-  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\theta_0) \right]  \geq 0, \quad j = p+1, \cdots, p + v$
+  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\theta_0) \right] \geq 0, \quad j = 1, \cdots, p$\\
+  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\theta_0) \right]  = 0, \quad j = p+1, \cdots, p + v$
 \end{block}
 
 
@@ -577,7 +577,8 @@ $0.01$&$1.00$&$5.92$\tabularnewline
   \end{block}
 
   \begin{block}{Theoretical Guarantees}
-    Uniformly valid test of $H_0\colon \theta = \theta_0$ that is \emph{not} asymptotically conservative. 
+    Uniformly valid test of $H_0\colon \theta = \theta_0$ \alert{regardless of whether $\theta_0$ is identified}.
+    Not asymptotically conservative.
   \end{block}
 
 \end{frame}
@@ -638,10 +639,10 @@ $0.01$&$1.00$&$5.92$\tabularnewline
   \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Additional Simulations: Size of GMS Test}
-  Same DGP as earlier in the talk except $\alpha_0$ is not zero, and use full set of inequalities\ldots
-\end{frame}
+%\begin{frame}
+%  \frametitle{Additional Simulations: Size of GMS Test}
+%  Same DGP as earlier in the talk except $\alpha_0$ is not zero, and use full set of inequalities\ldots
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
