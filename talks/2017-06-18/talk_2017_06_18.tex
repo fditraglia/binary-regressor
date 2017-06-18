@@ -61,7 +61,7 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Example: Job Training Partnership Act (JPTA)}
+  \frametitle{Example: Job Training Partnership Act (JTPA)}
 \framesubtitle{Heckman et al.\ (2000, QJE)}
 Randomized offer of job training, but about $30\%$ of those \emph{not} offered also obtain training and about $40\%$ of those offered training don't attend. Estimate causal effect of \emph{training} rather than \emph{offer} of training.
 
@@ -119,17 +119,17 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 \begin{frame}[label=MAHAJAN_BODY]
   \frametitle{Related Literature}
  
-  \begin{block}{Continuous Treatment}
+  \begin{block}{Continuous Regressor}
     \small
   Lewbel (1997, 2012), Schennach (2004, 2007), Chen et al. (2005), Hu \& Schennach (2008), Song (2015), Hu et al.\ (2015)\ldots 
   \end{block}
 
-  \begin{block}{Binary, Exogenous Treatment}
+  \begin{block}{Binary, Exogenous Regressor}
     \small
    Aigner (1973), Bollinger (1996), Kane et al. (1999), Black et al. (2000), Frazis \& Loewenstein (2003), Mahajan (2006), Lewbel (2007), Hu (2008)
   \end{block}
 
-  \begin{block}{Binary, Endogenous Treatment}
+  \begin{block}{Binary, Endogenous Regressor}
     \alert{Mahajan (2006)}, \small Shiu (2015), Ura (2015), Denteh et al.\ (2016)  
   \end{block}
     %\hyperlink{MAHAJAN_APPEND}{\beamergotobutton{Mahajan Details}}
@@ -529,7 +529,7 @@ $0.01$&$1.00$&$5.92$\tabularnewline
   \begin{itemize}
     \item Bounds for $(\alpha_0, \alpha_1)$ immune to weak identification problem: remain informative if $\beta$ is small or zero.
     \item 2nd moment bounds strictly tighter, but still need weak bounds to determine which root of  quadratic is extraneous.
-    \item Since $\beta = 1/(1 - \alpha_0 - \alpha_1)$ is identified by TSLS, get meaningful restrictions on $\beta$.
+    \item Since $\beta /(1 - \alpha_0 - \alpha_1)$ is identified by TSLS, get meaningful restrictions on $\beta$.
     \item Inference using Generalized Moment Selection (Andrews \& Soares, 2010)
   \end{itemize}
 
@@ -623,7 +623,7 @@ $0.01$&$1.00$&$5.92$\tabularnewline
     \column{0.4\textwidth}
     \footnotesize
     \begin{itemize}
-      \item Special case $\alpha_0 = 1$
+      \item Special case $\alpha_0 = 0$
       \item $\beta = 0.25,\, \alpha_1 = 0.1$
       \item Reduced Form $\approx 0.18$
       \item Wald $\approx 0.28$
