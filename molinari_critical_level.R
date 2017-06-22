@@ -87,8 +87,6 @@ constraint_function <- function(a1, beta, dat, Chi, confidence_level = 0.05,
   shift <- r * D_gms[,1] 
   bootRHS_gms <- apply(G_gms, 2, function(column) shift - column)
   
-  
-  
   # These are fixed!
   f.con <- matrix(c(D_gms[,1], 1), ncol = 1)
   f.dir <- rep('<=', nrow(f.con))
@@ -140,5 +138,55 @@ B <- 2001
 normal_sims <- rnorm(B * n)
 normal_sims <- matrix(normal_sims, nrow = n, ncol = B)
 
-constraint_function(a1 = 0.1, beta = 0.25, dat = sim_dat, Chi = normal_sims)
-constraint_function(a1 = 0.7, beta = 2, dat = sim_dat, Chi = normal_sims)
+#bbin - Types of Variables
+#0 = Continuous, 1 = Integer, 2 = Categorical, 3 = Binary
+
+#bbout - Description of objective and constraints
+#   Constraints that are not simply bounds are are imposed 
+#   by feeding in a function that returns several values.
+#   We need to indicate which of these values is the objective
+#   functions and which are the constraints. We also need to 
+#   indicate what kind of constraints we are using.
+#
+#   In the NOMAD documentation, these are indicated by:
+#     OBJ = objective function
+#     EB  = extreme barrier
+#     PB  = progressive barrier
+#   So far as I can tell from the examples, snomadr uses
+#   the convention:
+#     0 = OBJ
+#     1 = EB
+#     2 = PB
+snomadr.default <- function(f){
+  snomadr(eval.f = f,
+          n = 2,
+          x0 = c(0, with(sim_dat, cov(y, z) / cov(Tobs, z))),
+          bbin = c(0, 0),
+          bbout = c(0, rep(2, 6)),
+          lb = c(0, -100),
+          ub = c(0.9, 100),
+          #opts = list("MIN_MESH_SIZE" = 0.00001),
+          #when enclosed in a function itself, snomadr gets 
+          #confused by closures and needs to be explicitly
+          #told to look in the calling environment
+          snomadr.environment = parent.frame())
+}
+
+b_lower <- function(params) {
+  a1 <- params[1]
+  b <- params[2] 
+  results <- constraint_function(a1, b, dat = sim_dat, Chi = normal_sims)
+  return(c(results$beta, results$constraint))
+}
+
+b_upper <- function(params) {
+  a1 <- params[1]
+  b <- params[2] 
+  results <- constraint_function(a1, b, dat = sim_dat, Chi = normal_sims)
+  return(c(-results$beta, results$constraint))
+}
+
+Lower <- snomadr.default(b_lower) 
+Upper <- snomadr.default(b_upper)
+
+c(Lower$solution[2], Upper$solution[2])
