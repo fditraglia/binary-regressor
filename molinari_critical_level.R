@@ -129,15 +129,6 @@ constraint_function <- function(a1, beta, dat, Chi, confidence_level = 0.05,
               a1 = a1, beta = beta))
 }
 
-library(mbereg)
-set.seed(71234)
-n <- 1000
-sim_dat <- dgp(a0 = 0, a1 = 0.1, b = 0.25, n = n)
-
-B <- 2001
-normal_sims <- rnorm(B * n)
-normal_sims <- matrix(normal_sims, nrow = n, ncol = B)
-
 #bbin - Types of Variables
 #0 = Continuous, 1 = Integer, 2 = Categorical, 3 = Binary
 
@@ -160,33 +151,58 @@ normal_sims <- matrix(normal_sims, nrow = n, ncol = B)
 snomadr.default <- function(f){
   snomadr(eval.f = f,
           n = 2,
-          x0 = c(0, with(sim_dat, cov(y, z) / cov(Tobs, z))),
+          x0 = c(0, 0),
           bbin = c(0, 0),
           bbout = c(0, rep(2, 6)),
           lb = c(0, -100),
           ub = c(0.9, 100),
-          #opts = list("MIN_MESH_SIZE" = 0.00001),
+          opts = list("MIN_MESH_SIZE" = 0.000001),
           #when enclosed in a function itself, snomadr gets 
           #confused by closures and needs to be explicitly
           #told to look in the calling environment
           snomadr.environment = parent.frame())
 }
 
-b_lower <- function(params) {
-  a1 <- params[1]
-  b <- params[2] 
-  results <- constraint_function(a1, b, dat = sim_dat, Chi = normal_sims)
-  return(c(results$beta, results$constraint))
+
+
+sim_CI <- function(a1_true, b_true, boot_samples){
+  sim_dat <- dgp(a0 = 0, a1 = a1_true, b = b_true)
+  #p0 <- with(sim_dat, mean(Tobs[z == 0]))
+  #p1 <- with(sim_dat, mean(Tobs[z == 1]))
+  #a1_upper <- with(sim_dat, min(1 - p0, 1 - p1))
+  #Wald <- with(sim_dat, cov(y, z) / cov(Tobs, z))
+  #Rf <- with(sim_dat, cov(y, z))
+  
+  f_lower <- function(params){
+    a1 <- params[1]
+    b <- params[2]
+    results <- constraint_function(a1, b, sim_dat, boot_samples)
+    return(c(results$beta, results$constraint))
+  }
+  f_upper <- function(params){
+    a1 <- params[1]
+    b <- params[2]
+    results <- constraint_function(a1, b, sim_dat, boot_samples)
+    return(c(-results$beta, results$constraint))
+  }
+  
+  Lower <- snomadr.default(f = f_lower)
+  Upper <- snomadr.default(f = f_upper)
+                               
+  out <- c(lower = Lower$solution[2], upper = Upper$solution[2])
+  return(out)
 }
 
-b_upper <- function(params) {
-  a1 <- params[1]
-  b <- params[2] 
-  results <- constraint_function(a1, b, dat = sim_dat, Chi = normal_sims)
-  return(c(-results$beta, results$constraint))
-}
 
-Lower <- snomadr.default(b_lower) 
-Upper <- snomadr.default(b_upper)
+library(mbereg)
+library(crs)
+set.seed(7234)
+n <- 1000
+B <- 2001
+normal_sims <- rnorm(B * n)
+normal_sims <- matrix(normal_sims, nrow = n, ncol = B)
 
-c(Lower$solution[2], Upper$solution[2])
+
+sim_CIs <- replicate(2, sim_CI(0.1, 0.25, normal_sims))
+
+
