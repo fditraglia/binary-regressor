@@ -4,27 +4,6 @@
 # p1. This assumes that a0 is zero and we know in advance which of the two 
 # inequality constraints for a1 is the tighter.
 
-library(mbereg)
-
-# True parameter values
-a1_true <- 0.2
-beta_true <- 1
-d <- 0.15
-p0_star <- d
-p1_star <- 1 - d
-RF <- beta_true * (p1_star - p0_star)
-Wald <- beta_true / (1 - a1_true)
-b_lower <- RF * p1_star / (p1_star - p0_star)
-b_upper <- Wald
-
-set.seed(72349)
-n <- 1000
-B <- 2001
-zeta <- matrix(rnorm(n * B), n, B)
-
-
-dat <- dgp(a0 = 0, a1 = a1_true, b = beta_true, n = n)
-
 BCS_test <- function(beta_null, dat, zeta){
   n <- nrow(dat)
   q <- with(dat, mean(z))
@@ -93,11 +72,57 @@ BCS_test <- function(beta_null, dat, zeta){
   return(mean(Tn_MR >= Tn))
 }
 
+library(mbereg)
 
+# True parameter values
+a1_true <- 0.4
+beta_true <- 0.75
+d <- 0.15
+p0_star <- d
+p1_star <- 1 - d
+RF <- beta_true * (p1_star - p0_star)
+Wald <- beta_true / (1 - a1_true)
+b_lower <- RF * p1_star / (p1_star - p0_star)
+b_upper <- Wald
 
+set.seed(72349)
+n <- 1000
+B <- 10001
+myzeta <- matrix(rnorm(n * B), n, B)
 
+sim_test <- function(){
+  mydat <- dgp(a0 = 0, a1 = a1_true, b = beta_true, n = n)
+  p_lower <- BCS_test(b_lower, mydat, myzeta)
+  p_true <- BCS_test(beta_true, mydat, myzeta)
+  p_upper <- BCS_test(b_upper, mydat, myzeta)
+  out <- c(lower = p_lower, true = p_true, upper = p_upper)
+  return(out)
+}
 
+n_reps <- 10000
+system.time(results <- parallel::mclapply(1:n_reps, function(i) sim_test(), 
+                                          mc.cores = 8))
+results <- as.data.frame(do.call(rbind, results))
 
+hist(results$lower)
+hist(results$true)
+hist(results$upper)
+
+mean(results$lower < 0.05)
+mean(results$true < 0.05)
+mean(results$upper < 0.05)
+
+qqunif <- function(x){
+  unif_quantiles <- seq(0, 1, 0.001)
+  x_quantiles <- quantile(x, unif_quantiles)
+  plot(unif_quantiles, x_quantiles, main = "Uniform Q-Q Plot", 
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+  points(unif_quantiles, unif_quantiles, type = 'l')
+}
+
+qqunif(results$lower)
+qqunif(results$true)
+qqunif(results$upper)
 
 
 
