@@ -60,8 +60,12 @@ BCS_test <- function(beta_null, dat, zeta){
   
   if(isTRUE(all.equal(0, beta_null))){
     Tn <- Qn(0)
-    nu <- c(0, 1)
-    Tn_DR <- Tn_PR <- drop(Xi %*% nu)^2 / drop(crossprod(nu, M_hat) %*% nu)
+    
+    nu2 <- c(0, 1, 0, 0)
+    term2 <- drop(Xi %*% nu2)^2 / drop(crossprod(nu2, M_hat) %*% nu2)
+    nu3 <- c(0, 0, 0, 1)
+    term3 <- drop(Xi %*% nu3)^2 / drop(crossprod(nu3, M_hat) %*% nu3)
+    Tn_DR <- Tn_PR <- term2 + term3
   } else {
     Qn_optimization <- optimize(Qn, lower = 0, upper = 0.99)
     Tn <- Qn_optimization$objective
@@ -116,7 +120,7 @@ set.seed(12871)
 n_reps <- 320
 #results <- replicate(n_reps, sim_test_alternative())
 #results <- replicate(n_reps, sim_test_null())
-system.time(results <- parallel::mclapply(1:n_reps, function(i) sim_test_null(), 
+system.time(results <- parallel::mclapply(1:n_reps, function(i) sim_test_alternative(), 
                                           mc.cores = 8))
 results <- as.data.frame(do.call(rbind, results))
 #results <- as.data.frame(t(results))
