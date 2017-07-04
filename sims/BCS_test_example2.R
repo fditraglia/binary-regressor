@@ -1,8 +1,4 @@
-# This is a simple example to test the procedure from Bugni, Canay & Shi (2017)
-# We examine the partially identified case using a single moment equality, the
-# IV estimate, and a single moment inequality, the upper bound for a1 based on 
-# p1. This assumes that a0 is zero and we know in advance which of the two 
-# inequality constraints for a1 is the tighter.
+# Compared to BCS_test_example.R, here we incorporate the second moment equality
 
 BCS_test <- function(beta_null, dat, zeta){
   n <- nrow(dat)
@@ -10,19 +6,25 @@ BCS_test <- function(beta_null, dat, zeta){
   x1 <- with(dat, Tobs * z)
   s1 <- sd(x1)
   x2 <- with(dat, y * z)
-  X <- cbind(x1, x2)
+  x3 <- with(dat, 2 * y * Tobs * z)
+  x4 <- with(dat, (y^2 - 1) * z)
+  X <- cbind(x1, x2, x3, x4)
   M_hat <- var(X)
   X_bar <- colMeans(X)
   kappa_n <- sqrt(log(n))
   Xi <- crossprod(zeta, scale(X, scale = FALSE, center = TRUE)) / sqrt(n)
-  Xi_tilde <- Xi + matrix(X_bar * sqrt(n) / kappa_n, B, 2, byrow = TRUE)
+  Xi_tilde <- Xi + matrix(X_bar * sqrt(n) / kappa_n, B, ncol(X), byrow = TRUE)
   
   Qn <- function(a1){
     m1 <- q * (1 - a1) - X_bar[1]
     term1 <- (m1 < 0) * m1^2 / M_hat[1,1]
-    nu <- c(-beta_null / (1 - a1), 1)
-    term2 <- drop(crossprod(nu, X_bar))^2 / drop(crossprod(nu, M_hat) %*% nu)
-    return(n * (term1 + term2))
+    theta1 <- beta_null / (1 - a1)
+    nu2 <- c(-theta1, 1, 0, 0)
+    term2 <- drop(crossprod(nu2, X_bar))^2 / drop(crossprod(nu2, M_hat) %*% nu2)
+    theta2 <- beta_null * theta1
+    nu3 <- c(theta2, 0, -theta1, 1)
+    term3 <- drop(crossprod(nu3, X_bar))^2 / drop(crossprod(nu3, M_hat) %*% nu3)
+    return(n * (term1 + term2 + term3))
   }
   
   # We never optimize over this function, so I calculate the values for all
@@ -34,18 +36,26 @@ BCS_test <- function(beta_null, dat, zeta){
     } else {
       term1 <- pmin(-Xi[,1] / s1, 0)^2
     }
-    nu <- c(-beta_null / (1 - a1), 1)
-    term2 <- drop(Xi %*% nu)^2 / drop(crossprod(nu, M_hat) %*% nu)
-    return(term1 + term2)
+    theta1 <- beta_null / (1 - a1)
+    nu2 <- c(-theta1, 1, 0, 0)
+    term2 <- drop(Xi %*% nu2)^2 / drop(crossprod(nu2, M_hat) %*% nu2)
+    theta2 <- beta_null * theta1
+    nu3 <- c(theta2, 0, -theta1, 1)
+    term3 <- drop(Xi %*% nu3)^2 / drop(crossprod(nu3, M_hat) %*% nu3)
+    return(term1 + term2 + term3)
   }
   
   # Since we will optimize this for each bootstrap draw, I have written this 
   # differently from Qn_DR so that we evaluate for a fixed 
   Qn_PR <- function(a1, xi_tilde){
     term1 <- min(0, (sqrt(n) * q * (1 - a1) / kappa_n - xi_tilde[1]) / s1)^2
-    nu <- c(-beta_null / (1 - a1), 1)
-    term2 <- sum(nu * xi_tilde)^2 / drop(crossprod(nu, M_hat) %*% nu)
-    return(term1 + term2)
+    theta1 <- beta_null / (1 - a1)
+    nu2 <- c(-theta1, 1, 0, 0)
+    term2 <- sum(nu2 * xi_tilde)^2 / drop(crossprod(nu2, M_hat) %*% nu2)
+    theta2 <- beta_null * theta1
+    nu3 <- c(theta2, 0, -theta1, 1)
+    term3 <- sum(nu3 * xi_tilde)^2 / drop(crossprod(nu3, M_hat) %*% nu3)
+    return(term1 + term2 + term3)
   }
   
   if(isTRUE(all.equal(0, beta_null))){
@@ -55,16 +65,7 @@ BCS_test <- function(beta_null, dat, zeta){
   } else {
     Qn_optimization <- optimize(Qn, lower = 0, upper = 0.99)
     Tn <- Qn_optimization$objective
-    
-    Qn_0 <- Qn(0)
-    tol <- 1 / sqrt(log(n))
-    
-    #if(abs(Qn_0 - Tn) < tol){
-      #Tn_DR <- pmin(Qn_DR(Qn_optimization$minimum), Qn_DR(0))
-    #} else {
-      Tn_DR <- Qn_DR(Qn_optimization$minimum)
-    #}
-    
+    Tn_DR <- Qn_DR(Qn_optimization$minimum)
     Tn_PR <- apply(Xi_tilde, 1, function(x) optimize(function(a1) Qn_PR(a1, x), 
                                                      lower = 0, upper = 0.99)$objective)
   }
@@ -76,8 +77,7 @@ library(mbereg)
 
 # True parameter values
 a1_true <- 0.1
-beta_true <- 0.01
-#beta_true <- 0.25
+beta_true <- 0.25
 d <- 0.15
 p0_star <- d
 p1_star <- 1 - d
@@ -113,25 +113,12 @@ library(parallel)
 RNGkind("L'Ecuyer-CMRG")
 set.seed(12871)
 
-n_reps <- 1000
+n_reps <- 320
 #results <- replicate(n_reps, sim_test_alternative())
 #results <- replicate(n_reps, sim_test_null())
-system.time(results <- parallel::mclapply(1:n_reps, function(i) sim_test_alternative(), 
+system.time(results <- parallel::mclapply(1:n_reps, function(i) sim_test_null(), 
                                           mc.cores = 8))
 results <- as.data.frame(do.call(rbind, results))
 #results <- as.data.frame(t(results))
 
 apply(results, 2, function(pvalue) mean(pvalue <= 0.05))
-
-qqunif <- function(x){
-  unif_quantiles <- seq(0, 1, 0.001)
-  x_quantiles <- quantile(x, unif_quantiles)
-  plot(unif_quantiles, x_quantiles, main = "Uniform Q-Q Plot", 
-       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-  points(unif_quantiles, unif_quantiles, type = 'l')
-}
-
-
-
-
-
