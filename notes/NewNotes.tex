@@ -3019,67 +3019,106 @@ the determinant condition can be expressed as
 
 \end{proof}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Notes on Mahajan (2006)}
 
-\todo[inline]{It should be easy to adapt the proof for Lewbel (2007) above to get the result from Mahajan (2006). 
-We just need to replace Lewbel's assumption that $\tau^*(Z,V)$ does not depend on $V$ with the stronger assumption that $\tau^*(Z,V)$ and $h_0^*(Z,V)$ do not depend on $V$. Then we only need a binary $V$. Does Mahajan's assumption imply that $\tau_k = \tau_\ell$? (Rather than simply that $\tau_k^* = \tau_\ell$?)}
-
-
-Mahajan (2006) considers regression models of the form
-\begin{equation}
-  E\left[ y - g(x^*,z) \right] = 0
-\end{equation}
-where $x^*$ is an unobserved binary regressor and $z$ is a $d_z \times 1$ vector of control regressors.
-Rather than $x^*$ we observe a noisy measure $x$ called the ``surrogate'' and an additional variable $v$ that acts, in essence, as an instrumental variable.
-Since $v$ does not, strictly speaking, meet the traditional requirements for an instrument, Mahajan refers to it as an ``instrument-like variable'' or ILV for short.
-Throughout the paper, Mahajan assumes that $v$ is binary although he claims that the same idea applies to arbitrary discrete variables.
-The paper considers two main cases: one in which $x^*$ is assumed to be exogenous, and another in which it is not.
 
 \subsection{The Case of Exogenous $x^*$}
-The first is based on the restriction
+\paragraph{Model and Basic Notation:}
+Consider a model of the form
 \begin{equation}
-  E\left[ y - g(x^*,z)\left. \right| x^*,x, z, v \right] = 0
+  \mathbb{E}\left[ y - g(\widetilde{z})\left. \right| \widetilde{z} \right] = 0
+  \label{eq:mahajanI}
+\end{equation}
+where $\widetilde{z} = (x^*, z)$, $x^*$ is an unobserved binary random variable, $z$ is  a $d_z\times 1$ vector of observed random variables (covariates), and the conditional expectation function $g(\widetilde{z}) = \mathbb{E}(y|\widetilde{z})$ is unknown.\footnote{The fact that $g$ is the conditional expectation of $y$ given $\widetilde{z}$ follows from the linearity of expectation and the fact that $g$ is a function of $\widetilde{z}$ only, since $0 = \mathbb{E}[y - g(\widetilde{z})|\widetilde{z}] = \mathbb{E}(y|\widetilde{z}) - \mathbb{E}[g(\widetilde{z})|\widetilde{z}] = \mathbb{E}(y|\widetilde{z}) - g(\widetilde{z})$.}
+In addition to $z$ we also observe $x$, a binary, mis-classified surrogate for $x^*$ along with a ``special'' random variable $v$ -- in essence an instrumental variable.
+
+\paragraph{Basic Model Assumption}
+The basic assumption of the model is
+\begin{equation}
+  \mathbb{E}[y - g(\widetilde{z}) | \widetilde{z}, x, v] = \mathbb{E}[y - g(x^*,z) |x^*, x, v,z] = 0.
   \label{eq:mahajan1}
 \end{equation}
+Now, since
+\[
+  \mathbb{E}[y - g(\widetilde{z}) | \widetilde{z}, x, v] =
+  \mathbb{E}[y| \widetilde{z}, x, v] - g(\widetilde{z}) = \mathbb{E}[y|\widetilde{z},z,v] - E[y|\widetilde{z}] = 0
+\]
+we see that this assumption is equivalent to 
+\[
+  \mathbb{E}[y|x^*,x,v,z] = \mathbb{E}[y|x^*,z] = g(x^*,z)
+\]
+which entails both non-differential measurement error and an exclusion restriction for $v$.
+
+\paragraph{Relationship to an Additively Separable Model}
+Our object of interest here is the conditional mean function $g(\widetilde{z})$.
+Defining $\varepsilon = y - g(\widetilde{z})$, by construction we have $y = g(\widetilde{z}) + \varepsilon$ and $\mathbb{E}(\varepsilon|x^*,z)= 0$ which gives us an additively separable model.
+Note that $g$ \emph{need not} be a structural function: unless $\widetilde{z}$ is exogenous, we cannot give it a causal interpretation.
+But if we are only interested in learning the conditional mean function $g$, we do not have to worry about endogeneity since $x^*$ is by construction exogenous for the error term $\varepsilon$.
+Note that by iterated expectations and Equation \ref{eq:mahajan1},
+\begin{align*}
+  \mathbb{E}[y|x^*,x,z]  &= 
+  \mathbb{E}_{v|\widetilde{z},x}\left[\mathbb{E}\left( y|\widetilde{z},x,v \right)  \right]
+  = \mathbb{E}_{v|\widetilde{z},x}\left[ g(\widetilde{z}) \right] = g(x^*,z)\\
+  \mathbb{E}[y|x^*,v,z]  &= 
+  \mathbb{E}_{x|\widetilde{z},v}\left[\mathbb{E}\left( y|\widetilde{z},x,v \right)  \right]
+  = \mathbb{E}_{x|\widetilde{z},v}\left[ g(\widetilde{z}) \right] = g(x^*,z)
+\end{align*}
+or expressed in terms of $\varepsilon$,
+\[
+  \mathbb{E}[\varepsilon|x^*,x,z,v] = \mathbb{E}[\varepsilon|x^*,x,z] = \mathbb{E}[\varepsilon|x^*,v,z] = 0.
+\]
+
+\paragraph{A Note Concerning Covariates}
+Throughout the following, the covariates $z$ are held fixed at $z = z_a$ so we will sometimes suppress the dependence of various functions on $z$.
+
+\paragraph{Notation: Misclassification Rates}
+\begin{align*}
+  \eta_0(z_a) = \mathbb{P}(x=1|x^*=0,z_a)\\
+  \eta_1(z_a) = \mathbb{P}(x=0|x^*=1,z_a)\\
+\end{align*}
+
+\paragraph{Additional Assumptions} 
+In addition to Equations \ref{eq:mahajanI} and \ref{eq:mahajan1}, we maintain the following:
+\begin{assump}[Identification of $g$ if $x^*$ were observed]\mbox{}
+     \\ Knowledge of the distribution of $(y,x^*,z)$ suffices to identify $g(x^*,z_a)$.
+  \label{assump:A1}
+\end{assump}
+\begin{assump}[Positive correlation between $x^*$ and $x$]\mbox{}
+      \\ The sum of the mis-classification error rates is less than one: $\eta_0(z_a) + \eta_1(z_a) < 1$.
+  \label{assump:A2}
+\end{assump}
+Assumption \ref{assump:A2} requires that the mis-classification is not so severe that $x$ is uncorrelated with or negatively correlated with $x^*$.
+
+\begin{assump}
+      The surrogate $x$ is conditionally independent of $v$ given $x^*$ and $z_a$.
+  \label{assump:A3}
+\end{assump}
+
+In essence, Assumption \ref{assump:A3} requires that $v$ is excluded for the mis-classification error process.
+In particular, it implies that
+\begin{align*}
+  \mathbb{P}(x=1|x^*=0,v, z_a) &= \mathbb{P}(x=1|x^*=0,z_a) = \eta_0(z_a)\\
+  \mathbb{P}(x=0|x^*=1,v, z_a) &= \mathbb{P}(x=0|x^*=1,z_a) = \eta_1(z_a)
+\end{align*}
+
+\begin{assump}[First-stage]\mbox{}
+  For some $v_1 \neq v_2$, $\mathbb{P}(x^*=1|z_a,v_1)\neq \mathbb{P}(x^*1|z_a,v_2)$. 
+  \label{assump:A4}
+\end{assump}
+
+\begin{assump}{Relevance of $x^*$}
+\\ The conditional mean function $g$ depends on $x^*$, i.e.\ $g(1,z_a) \neq g(0,z_a)$. 
+  \label{assump:A5}
+\end{assump}
+  
+  
 
 \subsection{The Case of Endogenous $x^*$}
-While the preceding case required $x^*$ to be exogenous, Mahajan claims (page 640) that his identification results can be extended to account for endogeneity provided that one is willing to restrict attending to additively separable models of the form
-\begin{equation}
-  y = g^*(x^*,z) + \varepsilon
-  \label{eq:mahajan10}
-\end{equation}
-In this case, the ILV is assumed to satisfy the usual instrumental variables mean independence assumption
-\begin{equation}
-E\left[ \varepsilon|z,v \right]=0 
-\label{eq:ivassump}
-\end{equation}
-and Equation \ref{eq:mahajan1} is replaced by
-\begin{equation}
-  E\left[ y|x^*,x,z,v \right] = E\left[ y|x^*,z \right]
-  \label{eq:mahajan11}
-\end{equation}
 
-Unfortunately, Mahajan's proof is incorrect and the model in Equation \ref{eq:mahajan10} is unidentified.
-The mistake stems from a false analogy with the identification proof in the case of exogenous $x^*$.
-In A.2 Mahajan argues, correctly, that under \ref{eq:mahajan10}--\ref{eq:mahajan11} knowledge of the mis-classification rates is sufficient to identify the model even when $x^*$ is endogenous.
-He then appeals to Theorem 1 to argue that the mis-classification rates are indeed identified.
-The proof of Theorem 1, however, depends crucially on the assumption that $x^*$ is exogenous.
-Without this assumption, the mis-classification rates are unidentified, as we now show
-For ease of exposition we consider the case without covariates.
-Equivalently, one can interpret all of the expressions that follow as implicitly conditioned on $z=z_a$ where $z_a$ is a value in the support of $z$.\footnote{Because the covariates are held fixed throughout the proof of Mahajan's Theorem 1, there is no loss of generality.}
 
-Without covariates we can write 
-\begin{equation}
-  y = \alpha + \beta x^* + \varepsilon
-  \label{eq:nocovariates}
-\end{equation}
-where $\alpha=g^*(0)$ and $\beta = g^*(1) - g^*(0)$ and the mis-classification rates become $\eta_0 =  P(x=1|x^*=0)$ and $\eta_1 =  P(x=0|x^*=1)$.
-Now define
-\begin{equation}
-m_{jk} = E\left[ \varepsilon|x^*=j, v = k \right]
-  \label{eq:mdef}
-\end{equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Notation and Results for New Draft -- May 8, 2017}
 
