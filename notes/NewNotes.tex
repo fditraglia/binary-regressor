@@ -3074,12 +3074,19 @@ or expressed in terms of $\varepsilon$,
 Throughout the following, the covariates $z$ are held fixed at $z = z_a$ so we will sometimes suppress the dependence of various functions on $z$.
 
 \paragraph{Notation: Misclassification Rates}
+(Note that these correspond to $\alpha_0$ and $\alpha_1$ in our notation.)
 \begin{align*}
   \eta_0(z_a) = \mathbb{P}(x=1|x^*=0,z_a)\\
   \eta_1(z_a) = \mathbb{P}(x=0|x^*=1,z_a)\\
 \end{align*}
 
-\paragraph{Additional Assumptions} 
+\paragraph{Notation: Observed and Unobserved First-stage} 
+(Note that these correspond to $p_k$ and $p_k^*$ in our notation.)
+\begin{align*}
+  \eta_2(z_a, v) &= \mathbb{P}(x=1|z_a, v) \\
+  \eta_2^*(z_a,v) &= \mathbb{P}(x^*=1|z_a,v)
+\end{align*}
+
 In addition to Equations \ref{eq:mahajanI} and \ref{eq:mahajan1}, we maintain the following:
 \begin{assump}[Identification of $g$ if $x^*$ were observed]\mbox{}
      \\ Knowledge of the distribution of $(y,x^*,z)$ suffices to identify $g(x^*,z_a)$.
@@ -3104,16 +3111,114 @@ In particular, it implies that
 \end{align*}
 
 \begin{assump}[First-stage]\mbox{}
-  For some $v_1 \neq v_2$, $\mathbb{P}(x^*=1|z_a,v_1)\neq \mathbb{P}(x^*1|z_a,v_2)$. 
+  For some $v_1 \neq v_2$, $\eta^*_2(z_a,v_1) \neq \eta_2(z_a,v_2)$.
   \label{assump:A4}
 \end{assump}
 
-\begin{assump}{Relevance of $x^*$}
-\\ The conditional mean function $g$ depends on $x^*$, i.e.\ $g(1,z_a) \neq g(0,z_a)$. 
+Assumption \ref{assump:A4} is just the standard IV relevance condition, conditional on $z = z_a$.
+
+
+\begin{assump}[Relevance of $x^*$] The function $g$ depends on $x^*$:  $g(1,z_a) \neq g(0,z_a)$. 
   \label{assump:A5}
 \end{assump}
+The mis-classification error rates $\eta_0$ and $\eta_1$ are not identified if Assumption \ref{assump:A5} fails. 
+
+\begin{thm}
+  Under Assumptions \ref{assump:A1}--\ref{assump:A5} $g(x^*,z_a)$,  $\eta_0(z_a)$, and $\eta_1(z_a)$ are identified.
+  \label{thm:mahajan}
+\end{thm}
   
-  
+\paragraph{Steps in the Proof}
+\begin{enumerate}
+  \item Show that if $\eta_0(z_a)$ and $\eta_1(z_a)$ are identified, so is $g(x^*,z_a)$.
+  \item Show that $\eta_0(z_a)$ and $\eta_1(z_a)$ are identified.
+\end{enumerate}
+In the proof we will suppose that $v$ is binary and takes on values $v_1\neq v_2$.
+We will also suppress dependence on $(z,v)$ unless needed and employ the convention that $w = (x, y, xy)$.
+
+\paragraph{Some Additional Notation}
+  \begin{align*}
+    r(z_a,v) \equiv \mathbb{E}(xy|z_a,v)\\
+    \eta_2(z_a,v) \equiv \mathbb{E}(x|z_a,v)\\
+    t(z_a,v) \equiv \mathbb{E}(y|z_a,v)
+  \end{align*}
+Note that we have already defined $\eta_2$ above. 
+The definition given here is equivalent since $x$ is binary and hence $\mathbb{P}(x=1|\cdots) = \mathbb{E}(x|\cdots)$.
+
+\begin{lem}
+  $[1 - \eta_0(z_a) - \eta_1(z_a)]\, \eta^*_2(z_a,v) = \eta_2(z_a,v) - \eta_0(z_a)$.
+  \label{lem:star_nonstar}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:star_nonstar}]
+  By the Law of Total Probability and the fact that $\mathbb{P}(x=1|x^*,z_a, v)$ does not depend on $v$ by Assumption \ref{assump:A3}, we have
+  \begin{align*}
+    \eta_2(z_a,v) &= \mathbb{P}(x=1|x^*=0,z_a,v)\left[ 1 - \eta_2^*(z_a,v)]\right] + \mathbb{P}(x=1|x^*=1,z_a,v)\eta^*_2(z_a,v)\\
+    &= \mathbb{P}(x=1|x^*=0,z_a)\left[ 1 - \eta_2^*(z_a,v)]\right] + \mathbb{P}(x=1|x^*=1,z_a)\eta^*_2(z_a,v)\\
+    &= \eta_0(z_a)\left[ 1 - \eta_2^*(z_a,v)]\right] + \left[1 - \eta_1(z_a)\right]\eta^*_2(z_a,v)\\
+    &= \eta_0(z_a) + \left[ 1 - \eta_0(z_a) - \eta_1(z_a) \right] \eta_2^*(z_a,v)
+  \end{align*}
+  The result follows by re-arranging.
+\end{proof}
+
+\paragraph{Note:} In our notation, the preceding corresponds to $(1 - \alpha_0 - \alpha_1) p_k^* = p_k - \alpha_0$.
+
+\begin{lem}
+  $t(z_a,v) = g(0, z_a)\left[ 1 - \eta_2^*(z_a,v) \right] + g(1,z_a)\eta_2^*(z_a,v)$.
+  \label{lem:t}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:t}]
+\end{proof}
+
+\begin{lem}
+  $r(z_a,v) = g(0,z_a)\eta_0(z_a) \left[ 1 - \eta_2^*(z_a,v) \right] + g(1, z_a) \left[ 1 - \eta_1(z_a) \right]\eta_2^*(z_a,v)$
+  \label{lem:r} 
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:r}]
+\end{proof}
+
+\begin{lem}
+  \[r(z_a,v_1) - r(z_a,v_2) = \left[ \eta_2^*(z_a,v_1) - \eta_2^*(z_a,v_2)\left\{ \left[ 1 - \eta_1(z_a) \right]g(1,z_a) - \eta_0(z_a)g(0,z_a) \right\} \right]\]
+  \label{lem:r_diff}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:r_diff}]
+\end{proof}
+
+\begin{lem}[IV Estimator]
+  \[\bar{t}(z_a) = k(a)\left[ g(1,z_a) - g(0,z_a) \right]\]
+  where 
+\[
+\bar{t}(z_a) = \frac{t(z_a,v_1) - t(z_a,v_2)}{\eta_2(z_a,v_1) - \eta_2(z_a,v_2)}, \quad k(z_a) = \frac{1}{1 - \eta_0(z_a) - \eta_1(z_a)}
+\]
+  \label{lem:t_bar}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:t_bar}]
+\end{proof}
+
+\begin{lem}[``Modified'' IV Estimator]
+  \[\bar{r}(z_a) = k(a)\left\{\left[1 - \eta_1(z_a)\right] g(1,z_a) - \eta_0(z_a) g(0,z_a) \right]\]
+    where 
+\[
+\bar{r}(z_a) = \frac{r(z_a,v_1) - r(z_a,v_2)}{\eta_2(z_a,v_1) - \eta_2(z_a,v_2)}, \quad k(z_a) = \frac{1}{1 - \eta_0(z_a) - \eta_1(z_a)}
+\]
+  \label{lem:r_bar}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:r_bar}]
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:mahajan} -- Step 1]
+  In this step, we assume that $\eta_0(z_a)$ and $\eta_1(z_a)$ are both identified.
+  We then show that Assumptions \ref{assump:A1}--\ref{assump:A5} suffice to identify $g(x^*,z)$ given knowledge of $r(z_a,v), \eta_2(z_a,v)$, and $t(z_a,v)$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:mahajan} -- Step 2]
+  In this step, we show that $\eta_0(z_a)$ and $\eta_1(z_a)$ are both identified under Assumptions \ref{assump:A1}--\ref{assump:A5}.
+\end{proof}
 
 \subsection{The Case of Endogenous $x^*$}
 
