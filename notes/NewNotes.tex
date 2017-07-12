@@ -3224,6 +3224,159 @@ The definition given here is equivalent since $x$ is binary and hence $\mathbb{P
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Frazis \& Loewenstein / Mahajan Moments}
+\todo[inline]{I've checked everything out here by simulation and it's all correct as expected.}
+
+Throughout this section I suppress dependence on covariates.
+Consider a version of our model $y = c + \beta T^* + \epsilon$ with $\mathbb{E}[\varepsilon|T^*,z] = 0$, the setting from Mahajan (2006), Frazis \& Loewenstein, BBS, and KRS.
+In this setting the Wald estimator continues to identify $\beta / (1 - \alpha_0 - \alpha_1)$, so one of the moment equations matches ours:
+\begin{equation}
+  \mbox{Cov}(y,z) - \theta_1\mbox{Cov}(T,z) = 0
+  \label{eq:WaldExog}
+\end{equation}
+where $\theta_1 = \beta / (1 - \alpha_0 - \alpha_1)$.
+The next equation appears as the first display on page 657 of Mahajan:
+\[
+  r(v_1) - r(v_2) = \left[ \eta^*_2(v_1) - \eta^*_2(v_2) \right]\left[ g(1) - (1 - \eta_1) - g(0) \eta_0 \right]
+\]
+Translating this into our notation, we have
+\[
+  \frac{\mbox{Cov}(YT,z)}{q(1-q)} = (p_1^* - p_0^*) \left[ (\beta+c)(1 - \alpha_1) - c\alpha_0 \right]  
+\]
+but since 
+\[
+  (p_1^* - p_0^*) = \frac{p_1 - p_0}{1 - \alpha_0 - \alpha_1} = \frac{\mbox{Cov}(T,z)}{q (1 - q)(1 - \alpha_0 - \alpha_1)}
+\]
+after multiplying through by $q(1-q)$ we can re-write the expression from Mahajan as
+\begin{equation}
+  \mbox{Cov}(yT,z) - \theta_2 \mbox{Cov}(z,T) = 0 
+  \label{eq:ModifiedWaldExog}
+\end{equation}
+where $\theta_2 = c + \theta_1 (1 -\alpha_1)$.
+This expression is based on the same information as Equation (13d) from Frazis and Loewenstein, although their choice of parameterization is much more complicated.
+Both are essentially the ``modified Wald'' in which we estimate the effect of $T$ on $yT$ using an instrument $z$.
+
+The final expression we will need to close the model can be constructed from Equation (13c) of Frazis \& Loewenstein, namely 
+\[
+  \mbox{Cov}(T,y) = \beta \mbox{Cov}(T, T^*)
+\]
+where we set $\gamma$ to zero since covariates do not enter additively in our (and Mahajan's) formulation, but instead every expression tacitly conditions on $\mathbf{x}$.
+Since,
+\[
+  \mbox{Cov}(T, T^*) = \frac{(p - \alpha_0)(1 - p - \alpha_1)}{1 - \alpha_0 - \alpha_1}
+\]
+we can re-write this expression as
+\begin{equation}
+  \mbox{Cov}(T,y) - \theta_1 (p - \alpha_0)(1 - p - \alpha_1) = 0.
+  \label{eq:OLSExog}
+\end{equation}
+This expression incorporates the information from the OLS estimator.
+Mahajan uses a \emph{conditional on $z$} version of the same expression, namely 
+\[
+  r(v) - \eta_2(v) t(v) = \bar{t} \left[ 1 - \eta_2(v) - \eta_1 \right]\left[ \eta_2(v) - \eta_0 \right]
+\]
+which can be written in our notation as
+\[
+  \mbox{Cov}(y,T|z) - \theta_1 (1 - p_k - \alpha_1)(p_k - \alpha_0) = 0.
+\]
+
+
+Both Mahajan and Frazis and Loewenstein prove identification in an extremely convoluted way.
+A much simpler approach proveeds directly from Equations \ref{eq:WaldExog}--\ref{eq:OLSExog} by re-writing them as unconditional moment equations.
+First,
+\[
+  \mbox{Cov}(y,z) - \theta_1 \mbox{Cov}(T,z) = \mathbb{E}\left[ yz - \theta_1 Tz \right] - \mathbb{E}[z]\mathbb{E}[y - \theta_1 T] = 0
+\]
+so that we can express Equation \ref{eq:WaldExog} using two unconditional moment equalities:
+\begin{align}
+  \label{eq:ExogUncond1a}
+  \mathbb{E}\left[ y - \kappa_1 - \theta_1 T \right] &= 0 \\
+  \label{eq:ExogUncond1b}
+  \mathbb{E}\left[ (y - \kappa_1 - \theta_1 T) z \right] &= 0 
+\end{align}
+Proceeding similarly for Equation \ref{eq:ModifiedWaldExog}, we have:
+\[
+  \mbox{Cov}(yT,z) - \theta_2 \mbox{Cov}(T,z) = \mathbb{E}\left[ yTz - \theta_2 Tz \right] - \mathbb{E}[z]\mathbb{E}\left[ yT - \theta_2 T \right] = 0
+\]
+which we can write as
+\begin{align}
+  \label{eq:ExogUncond2a}
+  \mathbb{E}\left[ yT - \kappa_2 - \theta_2 T \right] &= 0 \\
+  \label{eq:ExogUncond2b}
+  \mathbb{E}\left[ (yT - \kappa_2 - \theta_2 T) z \right] &= 0 
+\end{align}
+It turns out that equations \ref{eq:ExogUncond1a} -- \ref{eq:ExogUncond2b} suffice to identify the model.
+To see why, we need to re-write Equation \ref{eq:OLSExog}.
+First, 
+\begin{align*}
+  \mbox{Cov}(T,y) &= \mathbb{E}[Ty] - \mathbb{E}[T]\mathbb{E}[c + \beta T^* + \varepsilon]\\
+  &= \mathbb{E}[Ty] - p(c + \beta p^*)\\
+  &= \mathbb{E}[Ty] - p\left[ c + \beta \left(\frac{p - \alpha_0}{1 - \alpha_0 - \alpha_1} \right) \right]\\
+  &= \mathbb{E}[Ty] - p\left[ c + \theta_1 \left( p - \alpha_0 \right) \right]
+\end{align*}
+so that Equation \ref{eq:OLSExog} becomes
+\begin{align*}
+  \mathbb{E}[Ty] - p\left[ c + \theta_1(p - \alpha_0) \right] - \theta_1(p-\alpha_0)(1 - p - \alpha_1) &= 0\\
+  \mathbb{E}[Ty] - pc - \theta_1 (1 - \alpha_1)(p - \alpha_0) &= 0\\
+  \mathbb{E}[Ty] - p \theta_2 + \theta_1 \alpha_0 (1 - \alpha_1) &= 0\\
+  \mathbb{E}[(y - \theta_2)T] + \theta_1 \alpha_0 (1 - \alpha_1) &= 0
+\end{align*}
+But recall that we defined $\kappa_2$ such that $\mathbb{E}[yT - \kappa_2 - \theta_2 T] = 0$, in other words $\kappa_2 = \mathbb{E}[(y - \theta_2)T]$ which means that $\kappa_2 = -\theta_1 \alpha_0(1 - \alpha_1)$.
+Thus, we can write the full system of unconditional moment equations as
+\[
+  \mathbb{E}\left\{ \left[
+    \begin{array}{c}
+    y - \kappa_1 - \theta_1 T \\ 
+    yT - \kappa_2 - \theta_2 T
+  \end{array}
+\right]\otimes
+\left[
+\begin{array}{cc}
+1 \\ z
+\end{array}
+\right]\right\} = \mathbf{0}
+\]
+where
+\begin{align*}
+  \theta_1 &= \beta / (1 - \alpha_0 - \alpha_1) \\
+  \kappa_1 &= c - \alpha_0 \theta_1\\
+  \theta_2 &= c + \theta_1 (1 - \alpha_1)\\
+  \kappa_2 &= -\theta_1 \alpha_0 (1 - \alpha_1).
+\end{align*}
+Now, notice that
+\[
+  \theta_2 - \kappa_1 = \left[ c + \theta_1 (1 - \alpha_10 \right] - \left[ c - \alpha_0 \theta_1 \right] = \theta_1 \left[ (1 - \alpha_1) + \alpha_0 \right]
+\]
+Hence
+\begin{align}
+  \label{eq:IdentExog1}
+  A &\equiv \left(\frac{\theta_2 - \kappa_1}{\theta_1}\right) = (1 - \alpha_1) + \alpha_0\\
+  B &\equiv -\frac{\kappa_2}{\theta_1} = \alpha_0 (1 - \alpha_1)
+\end{align}
+Eliminating $(1 - \alpha_1)$ and $\alpha_0$, respectively, we obtain the following two quadratics:
+\begin{align}
+  \alpha_0^2 - A \alpha_0 + B &= 0\\
+  (1 - \alpha_1)^2 - A (1 - \alpha_1) + B &= 0
+\end{align}
+It follows that one root of $x^2 - Ax + B = 0$ is $\alpha_0$ while the other is $(1 - \alpha_1)$.
+The discriminant of this quadratic is
+\begin{align*}
+  D &= A^2 - 4 B  = \left( \frac{\theta_2 - \kappa_1}{\theta_1} \right)^2 - 4 \left( -\frac{\kappa_2}{\theta_1} \right) = [(1 - \alpha_1) + \alpha_0]^2 - 4 [\alpha_0 (1 - \alpha_1)]\\
+  &= (1 - \alpha_1) + 2(1 - \alpha_1)\alpha_0 + \alpha_0^2 - 4\alpha_0 (1 - \alpha_1)\\
+  &= (1 - \alpha_0 - \alpha_1)^2
+\end{align*}
+so we see that both roots are real provided that $\alpha_0 + \alpha_1 \neq 0$ and, moreover, that
+\[
+  (1 - \alpha_0 - \alpha_1)^2 = \left( \frac{\theta_2 - \kappa_1}{\theta_1} \right)^2 - 4 \left( -\frac{\kappa_2}{\theta_1} \right)
+\]
+Since $\beta = \theta_1 (1 - \alpha_0 - \alpha_1)$, we know that the sign of $\theta_1$ will match that of $\beta$ so long as $\alpha_0 + \alpha_1 < 1$, and in this case we find that
+\[
+  \beta = \mbox{sign}(\theta_1) \sqrt{\theta_1^2\left[ \left( \frac{\theta_2 - \kappa_1}{\theta_1} \right)^2 - 4 \left( -\frac{\kappa_2}{\theta_1} \right)
+ \right]} = \sqrt{(\theta_2 - \kappa_1)^2 + 4 \theta_1 \kappa_2}
+\]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Notation and Results for New Draft -- May 8, 2017}
 
