@@ -3489,26 +3489,32 @@ For mis-classification probabilities
   \label{pro:eta2}
 \end{pro}
 \begin{proof}[Proof of Proposition \ref{pro:eta2}]
-  Since $z$ is binary, $\mbox{Cov}(w,z|\mathbf{x}) = q(\mathbf{x})\left[ 1 - q(\mathbf{x}) \right] \Delta_z\mathbb{E}(w|\mathbf{x},z)$ for any $w$, where we define $\Delta_z \mathbb{E}(w|\mathbf{x},z) \equiv \mathbb{E}(w|\mathbf{x},z=1) - \mathbb{E}(w|\mathbf{x},z=0)$.
-Hence it suffices to show that 
-\[
-  \Delta_z\mathbb{E}(y^2|\mathbf{x},z) = 2 \Delta_z \mathbb{E}(Ty|\mathbf{x},z) \theta_1(\mathbf{x}) - \Delta_z\mathbb{E}(T|\mathbf{x},z)\theta_2(\mathbf{x}).
-\]
-By iterated expectations 
-  \begin{align*} 
-      \mathbb{E}\left( y^2|\mathbf{x},z \right) &= \mathbb{E}(y^2|\mathbf{x},T^*=0,z)\mathbb{P}(T^*=0|\mathbf{x},z) + \mathbb{E}(y^2|\mathbf{x},T^*=1,z)\mathbb{P}(T^*=1|\mathbf{x},z)\\
-      \mathbb{E}\left( Ty|\mathbf{x},z \right) &= \mathbb{E}(Ty|\mathbf{x},T^*=0,z)\mathbb{P}(T^*=0|\mathbf{x},z) + \mathbb{E}(Ty|\mathbf{x},T^*=1,z)\mathbb{P}(T^*=1|\mathbf{x},z)
-    \end{align*}
-    and since $y = c(\mathbf{x}) + \beta(\mathbf{x})T^* + \varepsilon$,
-  \begin{align*}
-    \mathbb{E}\left( y^2|\mathbf{x},T^*=1,z \right) &= \left[c(\mathbf{x}) + \beta(\mathbf{x})\right]^2 + 2\left[ c(\mathbf{x}) + \beta(\mathbf{x}) \right]\mathbb{E}\left( \varepsilon|\mathbf{x},T^*=1,z \right) + \mathbb{E}\left( \varepsilon^2|\mathbf{x},T^*=1,z \right)\\
-  \mathbb{E}\left( Ty|\mathbf{x},T^*=1,z \right)&= \left[c(\mathbf{x}) + \beta(\mathbf{x})\right]\mathbb{E}(T|\mathbf{x},T^*=1,z) + \mathbb{E}(T\varepsilon|\mathbf{x},T^*=1,z)\\
-    \mathbb{E}\left( y^2|\mathbf{x},T^*=0,z \right) &= c(\mathbf{x})^2 + 2c(\mathbf{x})\mathbb{E}\left( \varepsilon|\mathbf{x},T^*=0,z \right) + \mathbb{E}\left( \varepsilon^2|\mathbf{x},T^*=0,z \right)\\
-    \mathbb{E}\left( Ty|\mathbf{x},T^*=0,z \right)&= c(\mathbf{x})\,\mathbb{E}(T|\mathbf{x},T^*=0,z) + \mathbb{E}(T\varepsilon|\mathbf{x},T^*=0,z).
-  \end{align*}
-
-
-  using Assumptions ?? and \ref{assump:2ndMoment}.
+  Throughout this argument we suppress dependence on $\mathbf{x}$ for simplicity. 
+  By Assumption ??? (Model) and the basic properties of covariance, 
+\begin{align*}
+    \eta_2 &= \beta^2 \mbox{Cov}(T^*,z) + 2 \beta\left[ c\, \mbox{Cov}(T^*,z) + \mbox{Cov}(T^*\varepsilon,z)  \right] + 2c \, \mbox{Cov}(\varepsilon,z) + \mbox{Cov}(\varepsilon^2,z)\\
+  \tau_1 &= c \pi + \mbox{Cov}(T\varepsilon,z) + \beta \mbox{Cov}(TT^*,z)
+\end{align*}
+Now, by Assumptions ??? (IV 1st and 2nd moments), 
+moments $\mbox{Cov}(\varepsilon,z) = \mbox{Cov}(\varepsilon^2,z) = 0$, and by Assumptions ??? (alphas don't depend on z) $\mbox{Cov}(TT^*,z) = (1 - \alpha_1)\mbox{Cov}(T^*,z)$ and $\mbox{Cov}(T^*,z) = \pi/(1 - \alpha_0 - \alpha_1)$.
+Hence, 
+\begin{align*}
+  \eta_2 &= \theta_1\left( \beta 
++ 2 c \right) \pi + 2\beta \mbox{Cov}(T^*\varepsilon,z) \\
+  2 \tau_1 \theta_1 - \pi \theta_2 &= \left[2\theta_1 c + 2 \theta_1^2 (1 - \alpha_1) - \theta_2\right]\pi + 2\theta_1 \mbox{Cov}(T\varepsilon,z) 
+\end{align*}
+but since $\theta_2 = \theta_1^2 \left[ (1 - \alpha_1) + \alpha_0 \right]$, we see that $[2\theta_1^2(1 - \alpha_1) - \theta_2] = \theta_1 \beta$.
+Thus, it suffices to show that $\beta \mbox{Cov}(T^*\varepsilon,z) = \theta_1 \mbox{Cov}(T\varepsilon,z)$.
+This equality is trivially satisfied when $\beta=0$, so suppose that $\beta \neq 0$. 
+In this case it suffices to show that $(1 - \alpha_0 - \alpha_1) \mbox{Cov}(T^*\varepsilon,z) = \mbox{Cov}(T\varepsilon,z)$.
+Define $m^*_{tk} = \mathbb{E}\left[ \varepsilon|T^*=t,z=k \right]$ and $p^*_k = \mathbb{P}(T^*=1|z=k)$.
+Then, by iterated expectations and Assumption ??? (non-diff),
+\begin{align*}
+  \mbox{Cov}(T^*\varepsilon,z) &=q(1 - q)\left(m_{11}^* p_1^* - m_{10}^* p_0^*  \right) \\
+  \mbox{Cov}(T\varepsilon,z) &= q(1 - q)\left\{ (1 - \alpha_1)\left[ p_1^* m_{11}^* - p_0^* m_{10}^* \right] + \alpha_0\left[ (1 - p_1^*) m_{01}^* - (1 - p_0^*)m_{00}^* \right] \right\} 
+\end{align*}
+But by Assumption ??? (IV validity), $\mathbb{E}[\varepsilon|z=k] = m_{1k}^*p_{k}^* + m_{0k}^*(1 - p_k^*)=0$ so that $m_{0k}^*(1 - p_k^*)= - m_{1k}^* p_k^*$.
+The result follows.
 \end{proof}
   
 
