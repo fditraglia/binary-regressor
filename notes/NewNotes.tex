@@ -3400,35 +3400,55 @@ Define
 \end{align*}
 Identification will only rely on two values for $z$.
 
+\noindent Assumptions that would suffice to identify the model if $T^*$ were observed
 \begin{assump} \mbox{}
+  \label{assump:model}
   \begin{enumerate}[(i)] 
     \item $y = c(\mathbf{x}) + \beta(\mathbf{x})T^* + \varepsilon$ where $\mathbb{E}[\varepsilon]=0$.
-    \item $\alpha_0(\mathbf{x},z) = \alpha_0(\mathbf{x})$,   $\alpha_1(\mathbf{x},z) = \alpha_1(\mathbf{x})$
-    \item $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z, T^*]$
-    \item $\mathbb{E}\left[ T^*|\mathbf{x},z=k \right] \neq \mathbb{E}\left[ T^*|\mathbf{x},z=\ell \right]$ two distinct values $k, \ell$ in the support of $z$.
     \item $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) \neq 1$ ($T$ is relevant for $T^*$)
     \item $\mathbb{E}[\varepsilon|\mathbf{x},z] = 0$
   \end{enumerate}
 \end{assump}
 
+\noindent Stronger version of Assumption \ref{assump:model} (iii) used by Frazis \& Loewenstein, Mahajan, etc.
+This assumption gives point identification without higher moment restrictions.
 \begin{assump} \mbox{}
-  \label{assump:2ndMoment}
+  \label{assump:jointExog}
+    $\mathbb{E}[\varepsilon|\mathbf{x},z, T^*] = 0$
+\end{assump}
+
+
+\noindent Assumptions on the mis-classification
+\begin{assump} \mbox{}
+  \label{assump:misclassification}
   \begin{enumerate}[(i)] 
-    \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^2|\mathbf{x},z, T^*]$
-    \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z] = \mathbb{E}[\varepsilon^2|\mathbf{x}]$
+    \item $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z, T^*]$
+    \item $\alpha_0(\mathbf{x},z) = \alpha_0(\mathbf{x})$,   $\alpha_1(\mathbf{x},z) = \alpha_1(\mathbf{x})$
+    \item $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) \neq 1$ ($T$ is relevant for $T^*$)
   \end{enumerate}
 \end{assump}
 
-\begin{assump} \mbox{}
-  \begin{enumerate}[(i)] 
-    \item $\mathbb{E}[\varepsilon^3|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^3|\mathbf{x},z, T^*]$
-    \item $\mathbb{E}[\varepsilon^3|\mathbf{x},z] = \mathbb{E}[\varepsilon^3|\mathbf{x}]$
-  \end{enumerate}
-\end{assump}
-
+\noindent Stronger version of \ref{assump:misclassification} (iii) without which we can only get identification of $\beta$ up to sign.
 \begin{assump}
+  \label{assump:extent}
   $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) <1$ ($T$ is positively correlated with $T^*$)
 \end{assump}
+
+\noindent Second moment assumption identifies the difference of mis-classification error rates.
+\begin{assump} \mbox{}
+  \label{assump:2ndMoment}
+    $\mathbb{E}[\varepsilon^2|\mathbf{x},z] = \mathbb{E}[\varepsilon^2|\mathbf{x}]$ 
+\end{assump}
+
+\noindent Additional moment assumptions to get identification
+\begin{assump} \mbox{}
+  \begin{enumerate}[(i)] 
+    \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^2|\mathbf{x},z, T^*]$
+    \item $\mathbb{E}[\varepsilon^3|\mathbf{x},z] = \mathbb{E}[\varepsilon^3|\mathbf{x}]$
+    \item $\mathbb{E}[\varepsilon^3|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^3|\mathbf{x},z, T^*]$ (Do we actually need this assumption?)
+  \end{enumerate}
+\end{assump}
+
 
 
 \paragraph{Notation}
@@ -3485,18 +3505,17 @@ For mis-classification probabilities
 \end{proof}
 
 \begin{pro}
-  Under Assumptions ???, $\eta_2(\mathbf{x}) =  2\tau_1(\mathbf{x}) \theta_1(\mathbf{x}) - \pi(\mathbf{x})\theta_2(\mathbf{x})$.
+  Under Assumptions \ref{assump:model}, \ref{assump:misclassification} and \ref{assump:2ndMoment}, $\eta_2(\mathbf{x}) =  2\tau_1(\mathbf{x}) \theta_1(\mathbf{x}) - \pi(\mathbf{x})\theta_2(\mathbf{x})$.
   \label{pro:eta2}
 \end{pro}
 \begin{proof}[Proof of Proposition \ref{pro:eta2}]
   Throughout this argument we suppress dependence on $\mathbf{x}$ for simplicity. 
-  By Assumption ??? (Model) and the basic properties of covariance, 
+  By Assumption \ref{assump:model} (i) and the basic properties of covariance, 
 \begin{align*}
     \eta_2 &= \beta^2 \mbox{Cov}(T^*,z) + 2 \beta\left[ c\, \mbox{Cov}(T^*,z) + \mbox{Cov}(T^*\varepsilon,z)  \right] + 2c \, \mbox{Cov}(\varepsilon,z) + \mbox{Cov}(\varepsilon^2,z)\\
   \tau_1 &= c \pi + \mbox{Cov}(T\varepsilon,z) + \beta \mbox{Cov}(TT^*,z)
 \end{align*}
-Now, by Assumptions ??? (IV 1st and 2nd moments), 
-moments $\mbox{Cov}(\varepsilon,z) = \mbox{Cov}(\varepsilon^2,z) = 0$, and by Assumptions ??? (alphas don't depend on z) $\mbox{Cov}(TT^*,z) = (1 - \alpha_1)\mbox{Cov}(T^*,z)$ and $\mbox{Cov}(T^*,z) = \pi/(1 - \alpha_0 - \alpha_1)$.
+Now, by Assumptions \ref{assump:model} (iii) and \ref{assump:2ndMoment}  $\mbox{Cov}(\varepsilon,z) = \mbox{Cov}(\varepsilon^2,z) = 0$, and by Assumption \ref{assump:misclassification} (ii) and (iii) $\mbox{Cov}(TT^*,z) = (1 - \alpha_1)\mbox{Cov}(T^*,z)$ and $\mbox{Cov}(T^*,z) = \pi/(1 - \alpha_0 - \alpha_1)$.
 Hence, 
 \begin{align*}
   \eta_2 &= \theta_1\left( \beta 
@@ -3508,13 +3527,14 @@ Thus, it suffices to show that $\beta \mbox{Cov}(T^*\varepsilon,z) = \theta_1 \m
 This equality is trivially satisfied when $\beta=0$, so suppose that $\beta \neq 0$. 
 In this case it suffices to show that $(1 - \alpha_0 - \alpha_1) \mbox{Cov}(T^*\varepsilon,z) = \mbox{Cov}(T\varepsilon,z)$.
 Define $m^*_{tk} = \mathbb{E}\left[ \varepsilon|T^*=t,z=k \right]$ and $p^*_k = \mathbb{P}(T^*=1|z=k)$.
-Then, by iterated expectations and Assumption ??? (non-diff),
+Then, by iterated expectations and Assumption \ref{assump:misclassification} (i)
 \begin{align*}
   \mbox{Cov}(T^*\varepsilon,z) &=q(1 - q)\left(m_{11}^* p_1^* - m_{10}^* p_0^*  \right) \\
   \mbox{Cov}(T\varepsilon,z) &= q(1 - q)\left\{ (1 - \alpha_1)\left[ p_1^* m_{11}^* - p_0^* m_{10}^* \right] + \alpha_0\left[ (1 - p_1^*) m_{01}^* - (1 - p_0^*)m_{00}^* \right] \right\} 
 \end{align*}
-But by Assumption ??? (IV validity), $\mathbb{E}[\varepsilon|z=k] = m_{1k}^*p_{k}^* + m_{0k}^*(1 - p_k^*)=0$ so that $m_{0k}^*(1 - p_k^*)= - m_{1k}^* p_k^*$.
-The result follows.
+But by Assumption \ref{assump:model} (iii), $\mathbb{E}[\varepsilon|z=k] = m_{1k}^*p_{k}^* + m_{0k}^*(1 - p_k^*)=0$.
+Thus we see that $m_{0k}^*(1 - p_k^*)= - m_{1k}^* p_k^*$.
+Therefore  $(1 - \alpha_0 - \alpha_1) \mbox{Cov}(T^*\varepsilon,z) = \mbox{Cov}(T\varepsilon,z)$ as required.
 \end{proof}
   
 
