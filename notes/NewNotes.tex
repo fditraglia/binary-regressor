@@ -3378,19 +3378,19 @@ Since $\beta = \theta_1 (1 - \alpha_0 - \alpha_1)$, we know that the sign of $\t
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Notation and Results for New Draft -- May 8, 2017}
+\section{Notation and Results for New Draft -- July 19th, 2017}
 
 
 Additively separable model
 \[
-  y = m(T^*,\mathbf{x})+\varepsilon
+  y = h(T^*,\mathbf{x})+\varepsilon
 \]
 where $\varepsilon$ is a mean-zero error term, $T^*$ is an endogenous binary regressor of interest and $\mathbf{x}$ is a vector of exogenous controls.
 Since $T^*$ is binary, we can re-write this as linear in $T^*$ conditional on $\mathbf{x}$
 \begin{align*}
   y &= c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon\\
-  \beta(\mathbf{x}) &= m(1,\mathbf{x}) - m(0,\mathbf{x})\\
-  c(\mathbf{x}) &= m(0,\mathbf{x})
+  \beta(\mathbf{x}) &= h(1,\mathbf{x}) - h(0,\mathbf{x})\\
+  c(\mathbf{x}) &= h(0,\mathbf{x})
 \end{align*}
 Goal is to use an instrumental variable $z$ to identify $\beta(\mathbf{x})$ when we observe not $T^*$ but a mis-measured binary surrogate $T$. 
 Define
@@ -3515,7 +3515,9 @@ For mis-classification probabilities
     \eta_2 &= \beta^2 \mbox{Cov}(T^*,z) + 2 \beta\left[ c\, \mbox{Cov}(T^*,z) + \mbox{Cov}(T^*\varepsilon,z)  \right] + 2c \, \mbox{Cov}(\varepsilon,z) + \mbox{Cov}(\varepsilon^2,z)\\
   \tau_1 &= c \pi + \mbox{Cov}(T\varepsilon,z) + \beta \mbox{Cov}(TT^*,z)
 \end{align*}
-Now, by Assumptions \ref{assump:model} (iii) and \ref{assump:2ndMoment}  $\mbox{Cov}(\varepsilon,z) = \mbox{Cov}(\varepsilon^2,z) = 0$, and by Assumption \ref{assump:misclassification} (ii) and (iii) $\mbox{Cov}(TT^*,z) = (1 - \alpha_1)\mbox{Cov}(T^*,z)$ and $\mbox{Cov}(T^*,z) = \pi/(1 - \alpha_0 - \alpha_1)$.
+using the fact that $T^*$ is binary. 
+Now, by Assumptions \ref{assump:model} (iii) and \ref{assump:2ndMoment} we have $\mbox{Cov}(\varepsilon,z) = \mbox{Cov}(\varepsilon^2,z) = 0$.
+And, using Assumptions \ref{assump:misclassification} (ii) and (iii), one can show that $\mbox{Cov}(TT^*,z) = (1 - \alpha_1)\mbox{Cov}(T^*,z)$ and $\mbox{Cov}(T^*,z) = \pi/(1 - \alpha_0 - \alpha_1)$.
 Hence, 
 \begin{align*}
   \eta_2 &= \theta_1\left( \beta 
@@ -3532,8 +3534,7 @@ Then, by iterated expectations and Assumption \ref{assump:misclassification} (i)
   \mbox{Cov}(T^*\varepsilon,z) &=q(1 - q)\left(m_{11}^* p_1^* - m_{10}^* p_0^*  \right) \\
   \mbox{Cov}(T\varepsilon,z) &= q(1 - q)\left\{ (1 - \alpha_1)\left[ p_1^* m_{11}^* - p_0^* m_{10}^* \right] + \alpha_0\left[ (1 - p_1^*) m_{01}^* - (1 - p_0^*)m_{00}^* \right] \right\} 
 \end{align*}
-But by Assumption \ref{assump:model} (iii), $\mathbb{E}[\varepsilon|z=k] = m_{1k}^*p_{k}^* + m_{0k}^*(1 - p_k^*)=0$.
-Thus we see that $m_{0k}^*(1 - p_k^*)= - m_{1k}^* p_k^*$.
+But by Assumption \ref{assump:model} (iii), $\mathbb{E}[\varepsilon|z=k] = m_{1k}^*p_{k}^* + m_{0k}^*(1 - p_k^*)=0$ and thus we obtain $m_{0k}^*(1 - p_k^*)= - m_{1k}^* p_k^*$.
 Therefore  $(1 - \alpha_0 - \alpha_1) \mbox{Cov}(T^*\varepsilon,z) = \mbox{Cov}(T\varepsilon,z)$ as required.
 \end{proof}
   
@@ -3543,7 +3544,49 @@ Therefore  $(1 - \alpha_0 - \alpha_1) \mbox{Cov}(T^*\varepsilon,z) = \mbox{Cov}(
   \label{pro:eta3}
 \end{pro}
 \begin{proof}[Proof of Proposition \ref{pro:eta3}]
+  Throughout this argument we suppress dependence on $\mathbf{x}$ for simplicity.
+  By the basic properties of covariance,
+\begin{align*}
+  \eta_3 &= \mbox{Cov}\left[ (c + \varepsilon)^3,z \right] + 3 \beta \mbox{Cov}[(c + \varepsilon)^2 T^*, z] + 3 \beta^2 \mbox{Cov}[(c + \varepsilon)T^*,z] + \beta^3 \mbox{Cov}(T^*,z)\\
+  \tau_2 &= \mbox{Cov}\left[ (c + \varepsilon)^2 T, z \right] + 2 \beta \mbox{Cov}\left[ (c + \varepsilon)T^*,z \right] + \beta^2 \mbox{Cov}(TT^*,z)\\
+  \tau_1 &= c\pi + \mbox{Cov}(T\varepsilon,z) + \beta\mbox{Cov}(TT^*,z)
+\end{align*}
+using the fact that $T^*$ is binary.
+By Assumptions ??? (1--3 moment IV exog), $\mbox{Cov}\left[ (c + \varepsilon)^3,z \right] = 0$ and thus, expanding and simplifying,
+\begin{align*}
+  \eta_3 %&= 3 \beta \mbox{Cov}[(c + \varepsilon)^2 T^*, z] + 3 \beta^2 \mbox{Cov}[(c + \varepsilon)T^*,z] + \beta^3 \mbox{Cov}(T^*,z)\\
+  %&= 3\beta\left[  c^2 \mbox{Cov}(T^*,z) + 2c \,\mbox{Cov}(T^*\varepsilon,z) + \mbox{Cov}(T^*\varepsilon^2, z)\right] + 3 \beta^2\left[ c\, \mbox{Cov}(T^*, z) + \mbox{Cov}(T^*\varepsilon, z)\right] + \beta^3 \mbox{Cov}(T^*, z)\\
+  &= 3 \beta \mbox{Cov}(T^*\varepsilon^2,z) + \left(3 \beta^2 + 6c\beta \right)\mbox{Cov}(T^*\varepsilon,z) + \left( \beta^3 + 3c\beta^2 + 3c^2\beta \right)\mbox{Cov}(T^*, z).
+\end{align*}
+It follows that $\eta_3 = 3\tau_2 \theta_1 - 3 \tau_1 \theta_2 + \pi \theta_3$ is trivially satisfied if $\beta = 0$ since this implies $\theta_1 = \theta_2 = \theta_3 = 0$.
+Accordingly, we assume that $\beta \neq 0$ throughout the remainder of this argument.
+From the proof of Proposition \ref{pro:eta2}, we have
+\begin{align*}
+  \mbox{Cov}(TT^*,z) &= (1 - \alpha_1) \mbox{Cov}(T^*,z)\\ 
+  \mbox{Cov}(T^*,z) &= \pi / (1 - \alpha_0 - \alpha_1)\\
+  \mbox{Cov}(T^*\varepsilon,z) &= \mbox{Cov}(T\varepsilon,z) / (1 - \alpha_0 - \alpha_1)
+\end{align*}
+
+\footnotesize
+\begin{align*}
+  \tau_2 &= \mbox{Cov}\left[ (c + \varepsilon)^2 T, z \right] + 2 \beta \mbox{Cov}\left[ (c + \varepsilon)T^*,z \right] + \beta^2 \mbox{Cov}(TT^*,z)\\
+  &= \left[c^2 \pi + 2c \, \mbox{Cov}(T\varepsilon, z) + \mbox{Cov}(T\varepsilon^2, z)\right] + 2\beta\left[ c\, \mbox{Cov}(T^*,z) + \mbox{Cov}(T^*\varepsilon, z) \right] + \beta^2 \mbox{Cov}(TT^*,z)\\
+  &= \left[c^2 (1 - \alpha_0 - \alpha_1) \mbox{Cov}(T^*,z) + 2c \, \mbox{Cov}(T\varepsilon, z) + \mbox{Cov}(T\varepsilon^2, z)\right] + 2\beta\left[ c\, \mbox{Cov}(T^*,z) + \mbox{Cov}(T^*\varepsilon, z) \right] + \beta^2 (1 - \alpha_1)\mbox{Cov}(T^*,z)\\
+  &= \mbox{Cov}(T\varepsilon^2, z) + \mbox{Cov}(T^*\varepsilon, z)\left[2 \beta + 2c(1 - \alpha_0 - \alpha_1) \right] + \mbox{Cov}(T^*,z)\left[ c^2(1 - \alpha_0 - \alpha_1) + 2c\beta + \beta^2 (1 - \alpha_1) \right] \\
+  &= \mbox{Cov}(T\varepsilon^2, z) + \mbox{Cov}(T^*\varepsilon, z)2\left[ \beta + c(1 - \alpha_0 - \alpha_1) \right] + \mbox{Cov}(T^*,z)\left[ (c^2 + \beta^2)(1 - \alpha_1) + c(2\beta - c \alpha_0) \right]\\ 
+  &= \mbox{Cov}(T\varepsilon^2, z) + 2\left[ \beta + c(1 - \alpha_0 - \alpha_1) \right] \mbox{Cov}(T^*\varepsilon, z)+ \left[ (c^2 + \beta^2)(1 - \alpha_1) + c(2\beta - c \alpha_0) \right] \mbox{Cov}(T^*,z)
+\end{align*}
+
+\normalsize
+Define $s^*_{tk} = \mathbb{E}[\varepsilon^2|T^*=t, z=k]$ and $p_k^* = \mathbb{P}(T^*=1|z=k)$.
+\begin{align*}
+  \mbox{Cov}(T^*\varepsilon^2, z) &= q(1 - q) \left\{ \mathbb{E}[T^*\varepsilon^2|z=1] - \mathbb{E}[T^*\varepsilon^2|z=0] \right\} 
+\end{align*}<++>
+
+
 \end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{cor}
   \label{cor:theta_ident}
