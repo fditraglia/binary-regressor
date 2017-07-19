@@ -3556,7 +3556,7 @@ Thus, expanding and simplifying,
   \eta_3 %&= 3 \beta \mbox{Cov}[(c + \varepsilon)^2 T^*, z] + 3 \beta^2 \mbox{Cov}[(c + \varepsilon)T^*,z] + \beta^3 \mbox{Cov}(T^*,z)\\
   %&= 3\beta\left[  c^2 \mbox{Cov}(T^*,z) + 2c \,\mbox{Cov}(T^*\varepsilon,z) + \mbox{Cov}(T^*\varepsilon^2, z)\right] + 3 \beta^2\left[ c\, \mbox{Cov}(T^*, z) + \mbox{Cov}(T^*\varepsilon, z)\right] + \beta^3 \mbox{Cov}(T^*, z)\\
   &= 3 \beta \mbox{Cov}(T^*\varepsilon^2,z) + \left(3 \beta^2 + 6c\beta \right)\mbox{Cov}(T^*\varepsilon,z) + \left( \beta^3 + 3c\beta^2 + 3c^2\beta \right)\mbox{Cov}(T^*, z)\\
-  \tau_2 &= c^2 \mbox{Cov}(T,z) + \beta(\beta + 2c) \mbox{Cov}(TT^*,z) + \mbox{Cov}(T\varepsilon^2,z) + 2c\,\mbox{Cov}(TT^*\varepsilon,z)
+  \tau_2 &= c^2 \mbox{Cov}(T,z) + \beta(\beta + 2c) \mbox{Cov}(TT^*,z) + \mbox{Cov}(T\varepsilon^2,z) + 2c \mbox{Cov}(T\varepsilon,z) + 2\beta\,\mbox{Cov}(TT^*\varepsilon,z)
 \end{align*}
 From the proof of Proposition \ref{pro:eta2}, we have 
 $\tau_1 = c\pi + \mbox{Cov}(T\varepsilon,z) + \beta\mbox{Cov}(TT^*,z)$
@@ -3593,41 +3593,48 @@ Now, as shown in the proof of Proposition \ref{pro:eta2},
   \mbox{Cov}(T^*,z) &= \pi / (1 - \alpha_0 - \alpha_1)\\
   \mbox{Cov}(T^*\varepsilon,z) &= \mbox{Cov}(T\varepsilon,z) / (1 - \alpha_0 - \alpha_1)
 \end{align*}
-and combining these equalities with Equations  \ref{eq:TEpsilonSquared} and \ref{eq:TTstarEpsilon}, we find that
-
-Defining the shorthand $\pi^*\equiv \mbox{Cov}(T^*,z)$, it follows that
+and combining these equalities with Equations \ref{eq:TEpsilonSquared} and \ref{eq:TTstarEpsilon}, it follows that
 \begin{align*}
-  \tau_2 &= \mbox{Cov}\left[ (c + \varepsilon)^2 T, z \right] + 2 \beta \mbox{Cov}\left[ (c + \varepsilon)T^*,z \right] + \beta^2 \mbox{Cov}(TT^*,z)\\
-  &= c^2 \mbox{Cov}(T,z) + \beta(\beta + 2c) \mbox{Cov}(TT^*,z) + \mbox{Cov}(T\varepsilon^2,z) + 2c\,\mbox{Cov}(TT^*\varepsilon,z)\\ 
-  &= c^2\pi + \beta(\beta + 2c) (1 - \alpha_1)\mbox{Cov}(T^*,z)\\
-  &= ??? \\
-  &= \mbox{Cov}(T\varepsilon^2, z) + 2\left[ \beta + c(1 - \alpha_0 - \alpha_1) \right] \mbox{Cov}(T^*\varepsilon, z) + \left[ (c^2 + \beta^2)(1 - \alpha_1)  + c(2\beta - c \alpha_0) \right] \pi^*\\
-  \tau_1 %&= c\pi + \mbox{Cov}(T\varepsilon,z) + \beta \mbox{Cov}(TT^*,z)\\ 
-  %&= \left[c(1 - \alpha_0 - \alpha_1)\right] \mbox{Cov}(T^*,z) + (1 - \alpha_0 - \alpha_1)\mbox{Cov}(T^*\varepsilon,z) + \beta (1 - \alpha_1)\mbox{Cov}(T^*,z)\\ 
-  %&= \left[c(1 - \alpha_0 - \alpha_1) + \beta(1 - \alpha_1)\right] \mbox{Cov}(T^*,z) + (1 - \alpha_0 - \alpha_1)\mbox{Cov}(T^*\varepsilon,z)\\ 
-  %&= \left[(c + \beta)(1 - \alpha_1) - c \alpha_0\right] \mbox{Cov}(T^*,z) + (1 - \alpha_0 - \alpha_1)\mbox{Cov}(T^*\varepsilon,z)\\ 
-  &= (1 - \alpha_0 - \alpha_1)\mbox{Cov}(T^*\varepsilon,z) + \left[(c + \beta)(1 - \alpha_1) - c \alpha_0\right]\pi^*
+  \tau_2 &=  2\left[(1 - \alpha_1)(c + \beta) - c \alpha_0\right]\mbox{Cov}(T^*\varepsilon,z) + \left[(1 - \alpha_1)(c + \beta)^2 - c^2 \alpha_0 \right]\mbox{Cov}(T^*,z)\\
+  &\quad \quad +(1 - \alpha_0 - \alpha_1)\mbox{Cov}(T^*\varepsilon^2,z) \\
+  \tau_1 &= (1 - \alpha_0 - \alpha_1)\mbox{Cov}(T^*\varepsilon,z) + \left[(1 - \alpha_1)(c + \beta) - c \alpha_0\right] \mbox{Cov}(T^*,z)
 \end{align*}
-and thus, after some algebra, we find that
+and thus, 
+\[
+  3\tau_2 \theta_1 - 3 \tau_1 \theta_2 + \pi \theta_3 = K_1 \mbox{Cov}(T^*\varepsilon^2,z) + K_2 \mbox{Cov}(T^*\varepsilon, z) + K_3 \mbox{Cov}(T^*,z)
+\]
+where
 \begin{align*}
-  3\tau_2 \theta_1 - 3 \tau_1 \theta_2 + \pi \theta_3 &= 3\theta_1 \mbox{Cov}(T\varepsilon^2,z) + K_1 \mbox{Cov}(T^*\varepsilon,z) + K_2 \pi^* \\
-  K_1 &= 6\theta_1 \left[ \beta + c(1 - \alpha_0 - \alpha_1) \right] - 3\theta_2 (1 - \alpha_0 - \alpha_1)\\
-  K_2 &= 3\theta_1 \left[ (c^2 + \beta^2)(1 - \alpha_1) + c(2\beta - c\alpha_0) \right] - 3 \theta_2 \left[ (c + \beta)(1 - \alpha_1) - c\alpha_0 \right] + \theta_3
+  K_1 &\equiv 3 \theta_1(1 - \alpha_0 - \alpha_1)\\ 
+  K_2 &\equiv 6\theta_1 \left[(1 - \alpha_1)(c +\beta) - c\alpha_0\right] - 3\theta_2 (1 - \alpha_0 - \alpha_1) \\
+  %&= (1 - \alpha_0 - \alpha_1) \left\{6\theta_1\left[c + \theta_1 (1 - \alpha_1)\right] - 3\theta_2 \right\}\\
+  %&= (1 - \alpha_0 - \alpha_1) \theta_1\left\{6\left[c + \theta_1 (1 - \alpha_1)\right] - 3\theta_1\left[(1 - \alpha_1) + \alpha_0\right]\right\}\\
+  %&= \beta\left\{6\left[c + \theta_1 (1 - \alpha_1)\right] - 3\theta_1\left[(1 - \alpha_1) + \alpha_0\right]\right\}\\
+  %&= \beta\left[6c + 6\theta_1 (1 - \alpha_1) - 3\theta_1(1 - \alpha_1) - 3 \alpha_0\right]\\
+  %&= \beta\left[6c + 3\theta_1 (1 - \alpha_1)  - 3 \alpha_0\right]\\
+  %&= \beta\left[6c + 3\theta_1 (1 - \alpha_0 - \alpha_1)\right]\\
+  %= 3\beta^2 + 6c\beta\\
+  K_3 &\equiv 3\theta_1 \left[ (1 - \alpha_1)(c + \beta)^2 - c^2 \alpha_0 \right] - 3\theta_2 \left[ (1 - \alpha_1)(c + \beta) - c\alpha_0 \right] + \theta_3(1 - \alpha_0 - \alpha_1)
+%  &= (1 - \alpha_0 - \alpha_1)\left\{3\theta_1\left[ c^2 + \theta_1(2c + \beta)(1 - \alpha_1) \right] - 3\theta_2\left[ c + \theta_1(1 - \alpha_1) \right] + \theta_3\right\}\\
+%  &= \beta\left\{ 3\left[ c^2 + \theta_1(2c + \beta)(1 - \alpha_1) \right] - 3 \theta_1\left[(1 - \alpha_1) + \alpha_0\right]\left[ c + \theta_1(1 - \alpha_1) \right] + \theta_1^2\left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0 (1 - \alpha_1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1(1 - \alpha_1)(2c + \beta) - 3 \theta_1\left[(1 - \alpha_1) + \alpha_0\right]\left[ c + \theta_1(1 - \alpha_1) \right] + \theta_1^2\left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0 (1 - \alpha_1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[(1 - \alpha_1)(2c + \beta) - \left( 1 + \alpha_0 - \alpha_1 \right) c\right] - 3 \theta_1^2(1 + \alpha_0 - \alpha_1)(1 - \alpha_1) + \theta_1^2\left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0 (1 - \alpha_1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[(1 - \alpha_1)(2c + \beta) - \left( 1 + \alpha_0 - \alpha_1 \right) c\right]  + \theta_1^2\left[ (1 - \alpha_0 - \alpha_1)^2 - 3(1 - \alpha_1)(1 + \alpha_0 - \alpha_1) + 6\alpha_0 (1 - \alpha_1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[(1 - \alpha_1)(2c + \beta) - \left( 1 + \alpha_0 - \alpha_1 \right) c\right]  + \theta_1^2\left[ (1 - \alpha_0 - \alpha_1)^2 + 3(1 - \alpha_1)(2 \alpha_0 - 1 - \alpha_0 + \alpha_1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[(1 - \alpha_1)(2c + \beta) - \left( 1 + \alpha_0 - \alpha_1 \right) c\right]  + \theta_1^2\left[ (1 - \alpha_0 - \alpha_1)^2 + 3(1 - \alpha_1)(\alpha_0 + \alpha_1 - 1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[(1 - \alpha_1)(2c + \beta) - \left( 1 + \alpha_0 - \alpha_1 \right) c\right]  + \theta_1^2\left[ (1 - \alpha_0 - \alpha_1)^2 - 3(1 - \alpha_1)(1 - \alpha_0 - \alpha_1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[(1 - \alpha_1)(2c + \beta) - \left( 1 + \alpha_0 - \alpha_1 \right) c\right]  + \theta_1^2(1 - \alpha_0 - \alpha_1)\left[ (1 - \alpha_0 - \alpha_1) - 3(1 - \alpha_1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[(1 - \alpha_1)(2c + \beta) - \left( 1 + \alpha_0 - \alpha_1 \right) c\right]  + \beta \theta_1\left[ (1 - \alpha_0 - \alpha_1) - 3(1 - \alpha_1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[(1 - \alpha_1)(2c + \beta) - \left( 1 + \alpha_0 - \alpha_1 \right) c\right]  + \beta^2 - 3\beta \theta_1(1 - \alpha_1) \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[c(2 - 2\alpha_1 - 1 - \alpha_0 +\alpha_1) + \beta(1 - \alpha_1)\right]  + \beta^2 - 3\beta \theta_1(1 - \alpha_1) \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[c(1 - \alpha_0  - \alpha_1) + \beta(1 - \alpha_1)\right]  + \beta^2 - 3\beta \theta_1(1 - \alpha_1) \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3c\beta + 3\beta\theta_1(1 - \alpha_1)  + \beta^2 - 3\beta \theta_1(1 - \alpha_1) \right\}\\
+%&= \beta( 3 c^2 + 3c\beta + \beta^2)\\
+%&= \beta^3 + 3c\beta^2 + 3c^2\beta
 \end{align*}
-Hence, it suffices to show that $\theta_1 \mbox{Cov}(T\varepsilon^2,z) = \beta \mbox{Cov}(T^*\varepsilon^2,z)$, that $K_1 = (3\beta^2 + 6c\beta)$ and that $K_2 = (\beta^3 + 3c\beta^2 + 3c^2\beta)$.
-To establish the first of these claims, 
-
-Finally,
-\begin{align*}
-  K_1 &= 6\theta_1 \left[ \beta + c(1 - \alpha_0 - \alpha_1) \right] - 3\theta_2 (1 - \alpha_0 - \alpha_1)\\
-      &= 6\beta\theta_1 + 6c\theta_1 (1 - \alpha_0 - \alpha_1) - 3\theta_2 (1 - \alpha_0 - \alpha_1) \\
-      &= 6\beta\theta_1 + 6c\beta - 3\theta_1^2(1 - \alpha_0 - \alpha_1) (1 + \alpha_0 - \alpha_1)\\
-      &= 6\beta(c + \theta_1) - 3\beta \theta_1 (1 + \alpha_0 - \alpha_1)\\
-      &= 6c\beta + 6 \beta\theta_1 - 3\beta \theta_1 (1 + \alpha_0 - \alpha_1)\\
-      &= 6c\beta + 3 \beta\theta_1\left[2 -  (1 + \alpha_0 - \alpha_1)\right]\\
-      &= 6c\beta + 3 \beta\theta_1\left[1 - (\alpha_0 - \alpha_1)\right]\\
-\end{align*}
-
+Clearly $K_1 = 3\beta$.
+Tedious but straightforward algebra likewise shows that $K_2 = 3\beta^2 + 6c\beta$ and $K_3 = \beta^3 + 3c\beta^2 + 3c^2\beta$.
+The result follows.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
