@@ -3399,6 +3399,7 @@ Define
   \alpha_1(\mathbf{x},z) &= \mathbb{P}\left(T=0|T^*=1,\mathbf{x},z  \right)
 \end{align*}
 Identification will only rely on two values for $z$.
+\todo[inline]{Be clear about the fact that, with the exception of the non-identification results, we assume throughout that $z$ is binary.}
 
 \noindent Assumptions that would suffice to identify the model if $T^*$ were observed
 \begin{assump} \mbox{}
@@ -3446,7 +3447,8 @@ This assumption gives point identification without higher moment restrictions.
   \begin{enumerate}[(i)] 
     \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^2|\mathbf{x},z, T^*]$
     \item $\mathbb{E}[\varepsilon^3|\mathbf{x},z] = \mathbb{E}[\varepsilon^3|\mathbf{x}]$
-    \item $\mathbb{E}[\varepsilon^3|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^3|\mathbf{x},z, T^*]$ (Do we actually need this assumption?)
+% The following assumption isn't actually needed! Not sure why we thought it was.
+    %\item $\mathbb{E}[\varepsilon^3|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^3|\mathbf{x},z, T^*]$ 
   \end{enumerate}
 \end{assump}
 
@@ -3483,12 +3485,6 @@ This assumption gives point identification without higher moment restrictions.
 \end{align*}
 
 
-
-\begin{lem}[Various bits and pieces, e.g.\ $\eta_1$ equation]
-  
-\end{lem}
-
-
 \begin{lem}[Lemma for Appendix only with Bayes' Rule]
 For mis-classification probabilities
 \begin{align*}
@@ -3499,19 +3495,55 @@ For mis-classification probabilities
 \end{align*}
 \end{lem}
 
+
+\noindent Both of the following two lemmas are known results from the literature.
+The first gives the relationship between the observed first stage probabilities and their unobserved counterparts,
+\begin{lem}
+  Under Assumption \ref{assump:misclassification}, 
+\begin{align*}
+  \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right]\mathbb{P}(T^*=1|\mathbf{x}, z=k) &= \mathbb{P}(T=1|\mathbf{x},z=k) - \alpha_0(\mathbf{x})\\
+  \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right]\mathbb{P}(T^*=0|\mathbf{x}, z=k) &= \mathbb{P}(T=0|\mathbf{x},z=k) - \alpha_1(\mathbf{x})
+\end{align*}
+\label{lem:p_pstar}
+\end{lem} 
+
+\begin{proof}
+  Simple calculation using law of total probability.
+\end{proof}
+
+\noindent The second shows that the IV estimand does not equal $\beta$ in the presence of mis-classification
+\begin{lem}
+  Let $\eta_1(\mathbf{x}) = \mbox{Cov}(y,z|\mathbf{x})$ and $\pi(\mathbf{x}) = \mbox{Cov}(T,z|\mathbf{x})$.  
+  Then, under Assumptions \ref{assump:model} and \ref{assump:misclassification}, $\eta_1(\mathbf{x}) = \pi(\mathbf{x}) \theta_1(\mathbf{x})$ where $\theta_1(\mathbf{x})$ is as defined in Equation \ref{eq:theta1_def}.
+  \label{lem:eta1}
+\end{lem}
+
+\begin{proof}
+  Immediate since $\mbox{Cov}(T,y|\mathbf{x}) = \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right] \mbox{Cov}(T^*,z|\mathbf{x})$ by Lemma \ref{lem:p_pstar}.
+\end{proof}
+
+\noindent If we strengthen Assumption \ref{assump:model} (iii) to Assumption \ref{assump:jointExog}, then a binary instrument suffices to identify $\beta$ under Assumptions ???.
+(See KRS, BBS, FL, and Mahajan. Also possibly put a proof in the online-only appendix).
+However, without this additional condition $\beta$ is unidentified regardless of the number of values that the instrument takes on, as we now show.\footnote{Footnote mentioning how this relates to Mahajan's mistake. He imposed an extra assumption that contradicts the existence of a first-stage. Direct the reader a separate note explaining the error.}
 \begin{thm}[Non-identification Result]
   \label{thm:nonident}
 \end{thm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 \begin{proof}[Proof of Theorem \ref{thm:nonident}]
+  Proof non-identification by deriving the sharp identified set.
+  This requires deriving bounds such that: (1) any point that violates the bounds violates one of our assumptions, and (2) for any point within the bounds we can find a DGP that satisfies all of our assumptions.
+  This shouldn't be too hard, but we just need to make sure the proof is completely rigorous.
 \end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{lem}
-  Let $\eta_2(\mathbf{x}) = \mbox{Cov}(y^2,z|\mathbf{x})$, $\tau_1(\mathbf{x}) = \mbox{Cov}(yT,z|\mathbf{x})$ and $\pi(\mathbf{x}) = \mbox{Cov}(T,z|\mathbf{x})$.
-  Then, Under Assumptions \ref{assump:model}, \ref{assump:misclassification} and \ref{assump:2ndMoment}, 
+  Let $\eta_2(\mathbf{x}) = \mbox{Cov}(y^2,z|\mathbf{x})$ and $\tau_1(\mathbf{x}) = \mbox{Cov}(yT,z|\mathbf{x})$.
+Then, Under Assumptions \ref{assump:model}, \ref{assump:misclassification} and \ref{assump:2ndMoment}, 
 \[
     \eta_2(\mathbf{x}) =  2\tau_1(\mathbf{x}) \theta_1(\mathbf{x}) - \pi(\mathbf{x})\theta_2(\mathbf{x})
 \]
-where $\theta_1(\mathbf{x})$ and $\theta_2(\mathbf{x})$ are as defined in Equations \ref{eq:theta1_def}--\ref{eq:theta2_def}.
+where $\pi(\mathbf{x})$ is as defined in Lemma \ref{lem:eta1} and $\theta_1(\mathbf{x})$ and $\theta_2(\mathbf{x})$ are given by Equations \ref{eq:theta1_def}--\ref{eq:theta2_def}.
   \label{lem:eta2}
 \end{lem}
 
@@ -3546,7 +3578,10 @@ But by Assumption \ref{assump:model} (iii), $\mathbb{E}[\varepsilon|z=k] = m_{1k
 Therefore  $(1 - \alpha_0 - \alpha_1) \mbox{Cov}(T^*\varepsilon,z) = \mbox{Cov}(T\varepsilon,z)$ as required.
 \end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  
+ 
+\todo[inline]{We probably want to have a corollary that establishes identification in the one-sided version of the problem. Related to this, we probably want to show that we are not in general identified from second moments even if the instrument takes on many values. This could be a real pain but on the plus side we would end up deriving the sharp identified set. One slightly confusing point is that we are now making the 2nd moment IV assumption separately from the 2nd moment non-differential measurement error assumption but we need both to get the second moment bounds for $\alpha_0$ and $\alpha_1$.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{lem}
   Let $\eta_3(\mathbf{x}) = \mbox{Cov}(y^3,z|\mathbf{x})$ and $\tau_2(\mathbf{x}) = \mbox{Cov}(Ty^2,z|\mathbf{x})$.
@@ -3585,20 +3620,20 @@ By iterated expectations, Bayes' rule, and Assumption \ref{assump:3rdMoment} (i)
   %&= q(1 - q)(p_1 s_{11} - p_0 s_{10}) \\
   &= q(1 - q)\left\{ (1 - \alpha_1)\left[p^*_1 s_{11}^* - p_0^* s_{10}^*\right] + \alpha_0 \left[ (1 - p_1^*)s_{01}^* - (1 - p_0^*) s_{00}^*\right] \right\}
 \end{align*}
-By Assumption \ref{assump:2ndMoment}, $\mathbb{E}[\varepsilon^2|z=1] = \mathbb{E}[\varepsilon^2|z=0]$ and thus, by iterated expectations,
+By Assumption \ref{assump:2ndMoment}, $\mathbb{E}[\varepsilon^2|z=1] = \mathbb{E}[\varepsilon^2|z=0]$ and thus, by iterated expectations we have
 $p_1^* s_{11}^* - p_0^* s^*_{10} =  - \left[(1 - p_1^*)s_{01}^* - (1 - p_0^*)s_{00}^* \right]$
 which implies 
 \begin{equation}
   \mbox{Cov}(T\varepsilon^2,z) = (1 - \alpha_0 - \alpha_1)\mbox{Cov}(T^*\varepsilon^2,z).
   \label{eq:TEpsilonSquared}
 \end{equation}
-Similarly, defining $m_{tk}^*$ as in the proof of Lemma \ref{lem:eta2},
+Similarly by iterated expectations and Assumptions \ref{assump:misclassification} (i)--(ii)
 \begin{equation}
   \mbox{Cov}(TT^*\varepsilon, z) = q(1 - q)(1 - \alpha_1)(p_1^* m_{1k}^* - p_0^* m_{10}^*) = (1 - \alpha_1) \mbox{Cov}(T^*\varepsilon, z) 
   \label{eq:TTstarEpsilon}
 \end{equation}
-using iterated expectations and Assumptions \ref{assump:misclassification} (i)--(ii).
-Now, as shown in the proof of Lemma \ref{lem:eta2}, 
+where $m_{tk}^*$ is defined as in the proof of Lemma \ref{lem:eta2}.
+As shown in the proof of Lemma \ref{lem:eta2}, 
 \begin{align*}
   \mbox{Cov}(TT^*,z) &= (1 - \alpha_1) \mbox{Cov}(T^*,z)\\ 
   \mbox{Cov}(T^*,z) &= \pi / (1 - \alpha_0 - \alpha_1)\\
@@ -3653,7 +3688,7 @@ Therefore the coefficients of $\eta_3$ equal those of $3\tau_2 - 3\tau_1 \theta_
 
 \begin{cor}
   \label{cor:theta_ident}
-  Suppose that $\pi(\mathbf{x}), \tau_1(\mathbf{x}), \tau_2(\mathbf{x}),  \eta_2(\mathbf{x})$, and $\eta_3(\mathbf{x})$ -- defined in Lemmas ??? -- are identified.
+  Suppose that $\pi(\mathbf{x}), \tau_1(\mathbf{x}), \tau_2(\mathbf{x}),  \eta_1(\mathbf{x}), \eta_2(\mathbf{x})$, and $\eta_3(\mathbf{x})$ -- defined in Lemmas ??? -- are identified.
   Then, under the conditions of Lemmas ???, $\theta_1(\mathbf{x}), \theta_2(\mathbf{x})$, and $\theta_3(\mathbf{x})$ -- defined in Equations \ref{eq:theta1_def}--\ref{eq:theta3_def} -- are identified if and only if $\pi(\mathbf{x}) \neq 0$.
 \end{cor}
 \begin{proof}[Proof of Corollary \ref{cor:theta_ident}]
@@ -3669,7 +3704,7 @@ In particular,
 \begin{align*}
   \theta_1 &= \eta_1 / \pi\\
   \theta_2 &= 2\tau_1\eta_1/\pi^2 - \eta_2/\pi\\
-  \theta_3 &= \eta_3/\pi - 3(\tau_2\eta_1 + \tau_1\eta_2)/\pi^2 + 6\tau_1\eta_1/\pi^3.
+  \theta_3 &= \eta_3/\pi - 3(\tau_2\eta_1 + \tau_1\eta_2)/\pi^2 + 6\tau_1^2\eta_1/\pi^3.
 \end{align*}
 \end{proof}
 
