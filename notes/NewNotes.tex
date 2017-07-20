@@ -3405,7 +3405,7 @@ Identification will only rely on two values for $z$.
   \label{assump:model}
   \begin{enumerate}[(i)] 
     \item $y = c(\mathbf{x}) + \beta(\mathbf{x})T^* + \varepsilon$ where $\mathbb{E}[\varepsilon]=0$.
-    \item $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) \neq 1$ ($T$ is relevant for $T^*$)
+    \item $\mathbb{P}(T^*=1|\mathbf{x},z_k) \neq \mathbb{P}(T^*=1|\mathbf{x},z_\ell)$ for two distinct values $z_k, z_\ell$ in the support of $z$.
     \item $\mathbb{E}[\varepsilon|\mathbf{x},z] = 0$
   \end{enumerate}
 \end{assump}
@@ -3442,6 +3442,7 @@ This assumption gives point identification without higher moment restrictions.
 
 \noindent Additional moment assumptions to get identification
 \begin{assump} \mbox{}
+  \label{assump:3rdMoment}
   \begin{enumerate}[(i)] 
     \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^2|\mathbf{x},z, T^*]$
     \item $\mathbb{E}[\varepsilon^3|\mathbf{x},z] = \mathbb{E}[\varepsilon^3|\mathbf{x}]$
@@ -3504,11 +3505,18 @@ For mis-classification probabilities
 \begin{proof}[Proof of Theorem \ref{thm:nonident}]
 \end{proof}
 
-\begin{pro}
-  Under Assumptions \ref{assump:model}, \ref{assump:misclassification} and \ref{assump:2ndMoment}, $\eta_2(\mathbf{x}) =  2\tau_1(\mathbf{x}) \theta_1(\mathbf{x}) - \pi(\mathbf{x})\theta_2(\mathbf{x})$.
-  \label{pro:eta2}
-\end{pro}
-\begin{proof}[Proof of Proposition \ref{pro:eta2}]
+\begin{lem}
+  Let $\eta_2(\mathbf{x}) = \mbox{Cov}(y^2,z|\mathbf{x})$, $\tau_1(\mathbf{x}) = \mbox{Cov}(yT,z|\mathbf{x})$ and $\pi(\mathbf{x}) = \mbox{Cov}(T,z|\mathbf{x})$.
+  Then, Under Assumptions \ref{assump:model}, \ref{assump:misclassification} and \ref{assump:2ndMoment}, 
+\[
+    \eta_2(\mathbf{x}) =  2\tau_1(\mathbf{x}) \theta_1(\mathbf{x}) - \pi(\mathbf{x})\theta_2(\mathbf{x})
+\]
+where $\theta_1(\mathbf{x})$ and $\theta_2(\mathbf{x})$ are as defined in Equations \ref{eq:theta1_def}--\ref{eq:theta2_def}.
+  \label{lem:eta2}
+\end{lem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{proof}[Proof of Lemma \ref{lem:eta2}]
   Throughout this argument we suppress dependence on $\mathbf{x}$ for simplicity. 
   By Assumption \ref{assump:model} (i) and the basic properties of covariance, 
 \begin{align*}
@@ -3537,34 +3545,37 @@ Then, by iterated expectations, Bayes' rule, and Assumption \ref{assump:misclass
 But by Assumption \ref{assump:model} (iii), $\mathbb{E}[\varepsilon|z=k] = m_{1k}^*p_{k}^* + m_{0k}^*(1 - p_k^*)=0$ and thus we obtain $m_{0k}^*(1 - p_k^*)= - m_{1k}^* p_k^*$.
 Therefore  $(1 - \alpha_0 - \alpha_1) \mbox{Cov}(T^*\varepsilon,z) = \mbox{Cov}(T\varepsilon,z)$ as required.
 \end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
 
-\begin{pro}
-  Under Assumptions ???, $\eta_3(\mathbf{x}) =  3\tau_2(\mathbf{x}) \theta_1(\mathbf{x}) - 3\tau_1(\mathbf{x}) \theta_2(\mathbf{x}) + \pi(\mathbf{x})\theta_3(\mathbf{x})$
-  \label{pro:eta3}
-\end{pro}
-\begin{proof}[Proof of Proposition \ref{pro:eta3}]
+\begin{lem}
+  Let $\eta_3(\mathbf{x}) = \mbox{Cov}(y^3,z|\mathbf{x})$ and $\tau_2(\mathbf{x}) = \mbox{Cov}(Ty^2,z|\mathbf{x})$.
+  Then, under Assumptions \ref{assump:model}, \ref{assump:misclassification}, \ref{assump:2ndMoment} and \ref{assump:3rdMoment},
+\[
+  \eta_3(\mathbf{x}) =  3\tau_2(\mathbf{x}) \theta_1(\mathbf{x}) - 3\tau_1(\mathbf{x}) \theta_2(\mathbf{x}) + \pi(\mathbf{x})\theta_3(\mathbf{x})
+\]
+where $\tau_1(\mathbf{x})$ and $\pi(\mathbf{x})$ are as defined in Lemma \ref{lem:eta2}, and $\theta_1(\mathbf{x}), \theta_2(\mathbf{x}), \theta_3(\mathbf{x})$ are defined in Equations \ref{eq:theta1_def}--\ref{eq:theta3_def}.
+  \label{lem:eta3}
+\end{lem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{proof}[Proof of Lemma \ref{lem:eta3}]
   Throughout this argument we suppress dependence on $\mathbf{x}$ for simplicity.
   Since $T^*$ is binary, if follows from the basic properties of covariance that,
 \begin{align*}
   \eta_3 &= \mbox{Cov}\left[ (c + \varepsilon)^3,z \right] + 3 \beta \mbox{Cov}[(c + \varepsilon)^2 T^*, z] + 3 \beta^2 \mbox{Cov}[(c + \varepsilon)T^*,z] + \beta^3 \mbox{Cov}(T^*,z)\\
   \tau_2 &= \mbox{Cov}\left[ (c + \varepsilon)^2 T, z \right] + 2 \beta \mbox{Cov}\left[ (c + \varepsilon)TT^*,z \right] + \beta^2 \mbox{Cov}(TT^*,z)
 \end{align*}
-By Assumptions ??? (1--3 moment IV exog), $\mbox{Cov}\left[ (c + \varepsilon)^3,z \right] = 0$.
-Thus, expanding and simplifying,
+By Assumptions \ref{assump:model} (iii), \ref{assump:2ndMoment}, and \ref{assump:3rdMoment} (ii) , $\mbox{Cov}\left[ (c + \varepsilon)^3,z \right] = 0$.
+Expanding, 
 \begin{align*}
   \eta_3 %&= 3 \beta \mbox{Cov}[(c + \varepsilon)^2 T^*, z] + 3 \beta^2 \mbox{Cov}[(c + \varepsilon)T^*,z] + \beta^3 \mbox{Cov}(T^*,z)\\
   %&= 3\beta\left[  c^2 \mbox{Cov}(T^*,z) + 2c \,\mbox{Cov}(T^*\varepsilon,z) + \mbox{Cov}(T^*\varepsilon^2, z)\right] + 3 \beta^2\left[ c\, \mbox{Cov}(T^*, z) + \mbox{Cov}(T^*\varepsilon, z)\right] + \beta^3 \mbox{Cov}(T^*, z)\\
   &= 3 \beta \mbox{Cov}(T^*\varepsilon^2,z) + \left(3 \beta^2 + 6c\beta \right)\mbox{Cov}(T^*\varepsilon,z) + \left( \beta^3 + 3c\beta^2 + 3c^2\beta \right)\mbox{Cov}(T^*, z)\\
   \tau_2 &= c^2 \mbox{Cov}(T,z) + \beta(\beta + 2c) \mbox{Cov}(TT^*,z) + \mbox{Cov}(T\varepsilon^2,z) + 2c \mbox{Cov}(T\varepsilon,z) + 2\beta\,\mbox{Cov}(TT^*\varepsilon,z)
 \end{align*}
-From the proof of Proposition \ref{pro:eta2}, we have 
-$\tau_1 = c\pi + \mbox{Cov}(T\varepsilon,z) + \beta\mbox{Cov}(TT^*,z)$
-so that $\eta_3 = 3\tau_2 \theta_1 - 3 \tau_1 \theta_2 + \pi \theta_3$ is trivially satisfied if $\beta = 0$.
-Accordingly, we assume that $\beta \neq 0$ for the remainder of this argument.
-
 Now, define $s^*_{tk} = \mathbb{E}[\varepsilon^2|T^*=t, z=k]$ and $p_k^* = \mathbb{P}(T^*=1|z=k)$.
-By iterated expectations, Bayes' rule, and Assumption ??? (2nd moment non-diff),
+By iterated expectations, Bayes' rule, and Assumption \ref{assump:3rdMoment} (i), 
 \begin{align*}
   \mbox{Cov}(T^*\varepsilon^2, z) %&= q(1 - q) \left\{ \mathbb{E}[T^*\varepsilon^2|z=1] - \mathbb{E}[T^*\varepsilon^2|z=0] \right\} \\
   %&= q(1 - q) \left\{ \mathbb{E}_{T^*|z=1}\left[T^*\mathbb{E}\left(\varepsilon^2|T^*, z=1\right)\right] - \mathbb{E}_{T^*|z=0}\left[T^*\mathbb{E}\left(\varepsilon^2|T^*,z=0\right)\right] \right\} \\
@@ -3574,20 +3585,20 @@ By iterated expectations, Bayes' rule, and Assumption ??? (2nd moment non-diff),
   %&= q(1 - q)(p_1 s_{11} - p_0 s_{10}) \\
   &= q(1 - q)\left\{ (1 - \alpha_1)\left[p^*_1 s_{11}^* - p_0^* s_{10}^*\right] + \alpha_0 \left[ (1 - p_1^*)s_{01}^* - (1 - p_0^*) s_{00}^*\right] \right\}
 \end{align*}
-By Assumption ??? (2nd moment IV exog) $\mathbb{E}[\varepsilon^2|z=1] = \mathbb{E}[\varepsilon^2|z=0]$ and thus, by iterated expectations,
+By Assumption \ref{assump:2ndMoment}, $\mathbb{E}[\varepsilon^2|z=1] = \mathbb{E}[\varepsilon^2|z=0]$ and thus, by iterated expectations,
 $p_1^* s_{11}^* - p_0^* s^*_{10} =  - \left[(1 - p_1^*)s_{01}^* - (1 - p_0^*)s_{00}^* \right]$
 which implies 
 \begin{equation}
   \mbox{Cov}(T\varepsilon^2,z) = (1 - \alpha_0 - \alpha_1)\mbox{Cov}(T^*\varepsilon^2,z).
   \label{eq:TEpsilonSquared}
 \end{equation}
-Similarly, defining $m_{tk}^*$ as in the proof of Proposition \ref{pro:eta2},
+Similarly, defining $m_{tk}^*$ as in the proof of Lemma \ref{lem:eta2},
 \begin{equation}
   \mbox{Cov}(TT^*\varepsilon, z) = q(1 - q)(1 - \alpha_1)(p_1^* m_{1k}^* - p_0^* m_{10}^*) = (1 - \alpha_1) \mbox{Cov}(T^*\varepsilon, z) 
   \label{eq:TTstarEpsilon}
 \end{equation}
-using iterated expectations and Assumptions ??? (1st moment nondiff, alpha doesn't depend on z).
-Now, as shown in the proof of Proposition \ref{pro:eta2}, 
+using iterated expectations and Assumptions \ref{assump:misclassification} (i)--(ii).
+Now, as shown in the proof of Lemma \ref{lem:eta2}, 
 \begin{align*}
   \mbox{Cov}(TT^*,z) &= (1 - \alpha_1) \mbox{Cov}(T^*,z)\\ 
   \mbox{Cov}(T^*,z) &= \pi / (1 - \alpha_0 - \alpha_1)\\
@@ -3599,7 +3610,8 @@ and combining these equalities with Equations \ref{eq:TEpsilonSquared} and \ref{
   &\quad \quad +(1 - \alpha_0 - \alpha_1)\mbox{Cov}(T^*\varepsilon^2,z) \\
   \tau_1 &= (1 - \alpha_0 - \alpha_1)\mbox{Cov}(T^*\varepsilon,z) + \left[(1 - \alpha_1)(c + \beta) - c \alpha_0\right] \mbox{Cov}(T^*,z)
 \end{align*}
-and thus, 
+using $\tau_1 = c\pi + \mbox{Cov}(T\varepsilon,z) + \beta\mbox{Cov}(TT^*,z)$ as shown in the proof of Lemma \ref{lem:eta2}.
+Thus, 
 \[
   3\tau_2 \theta_1 - 3 \tau_1 \theta_2 + \pi \theta_3 = K_1 \mbox{Cov}(T^*\varepsilon^2,z) + K_2 \mbox{Cov}(T^*\varepsilon, z) + K_3 \mbox{Cov}(T^*,z)
 \]
@@ -3633,26 +3645,26 @@ where
 %&= \beta^3 + 3c\beta^2 + 3c^2\beta
 \end{align*}
 Clearly $K_1 = 3\beta$.
-Tedious but straightforward algebra likewise shows that $K_2 = 3\beta^2 + 6c\beta$ and $K_3 = \beta^3 + 3c\beta^2 + 3c^2\beta$.
-The result follows.
+Substituting the definitions of $\theta_1, \theta_2$, and $\theta_3$ from Equations \ref{eq:theta1_def}--\ref{eq:theta3_def}, tedious but straightforward algebra likewise shows that $K_2 = 3\beta^2 + 6c\beta$ and $K_3 = \beta^3 + 3c\beta^2 + 3c^2\beta$.
+Therefore the coefficients of $\eta_3$ equal those of $3\tau_2 - 3\tau_1 \theta_2 + \pi \theta_3$ and the result follows.
 \end{proof}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \begin{cor}
   \label{cor:theta_ident}
-  Suppose that $\eta_1(\mathbf{x}), \eta_2(\mathbf{x}), \eta_3(\mathbf{x}), \tau_1(\mathbf{x}), \tau_2(\mathbf{x})$ and $\pi(\mathbf{x})$ are identified and that $\pi(\mathbf{x})\neq 0$.
-  Then, under the conditions of Lemmas ???, $\theta_1(\mathbf{x}), \theta_2(\mathbf{x})$, and $\theta_3(\mathbf{x})$ are identified.
+  Suppose that $\pi(\mathbf{x}), \tau_1(\mathbf{x}), \tau_2(\mathbf{x}),  \eta_2(\mathbf{x})$, and $\eta_3(\mathbf{x})$ -- defined in Lemmas ??? -- are identified.
+  Then, under the conditions of Lemmas ???, $\theta_1(\mathbf{x}), \theta_2(\mathbf{x})$, and $\theta_3(\mathbf{x})$ -- defined in Equations \ref{eq:theta1_def}--\ref{eq:theta3_def} -- are identified if and only if $\pi(\mathbf{x}) \neq 0$.
 \end{cor}
 \begin{proof}[Proof of Corollary \ref{cor:theta_ident}]
   For ease of notation we suppress dependence on $\mathbf{x}$ throughout this argument.
-  Propositions ??? yield a triangular linear system of equations in $\theta_1, \theta_2, \theta_3$, namely
-\begin{align*}
- \pi\theta_1 &= \eta_1 \\
- 2\tau_1 \theta_1 - \pi \theta_2 &= \eta_2 \\
- 3\tau_2 \theta_1 - 3\tau_1 \theta_2 + \pi\theta_3 &= \eta_3
-\end{align*}
-By inspection, the determinant of the system is $-\pi^3$ so a unique solution exists if $z$ is correlated with $T^*$.
+  Lemmas ??? yield a triangular system of linear equations in $\theta_1, \theta_2, \theta_3$.
+%\begin{align*}
+% \pi\theta_1 &= \eta_1 \\
+% 2\tau_1 \theta_1 - \pi \theta_2 &= \eta_2 \\
+% 3\tau_2 \theta_1 - 3\tau_1 \theta_2 + \pi\theta_3 &= \eta_3
+%\end{align*}
+By inspection, the determinant of the system is $-\pi^3$ so a unique solution exists if and only if $\pi \neq 0$. 
 In particular,
 \begin{align*}
   \theta_1 &= \eta_1 / \pi\\
