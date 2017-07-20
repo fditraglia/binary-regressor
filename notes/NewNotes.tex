@@ -4926,5 +4926,78 @@ Q_2 &= \left[
 \end{align*}
 and $\alpha_0,\alpha_1$ are understood to be hypothesized values under the null $\boldsymbol{\theta} = \boldsymbol{\theta}_0$.
 
+\section{Improved Notation -- July 20th}
+This section expands some of our whiteboard notes from the first week of July.
+In our efforts to implement the various proposals for sub-vector inference (KMS and BCS), we discovered some more compact notation with which to express our problem and, in particular, the derivatives of the moment conditions.
+Although it looks like we will end up using Andrews \& Soares rather than one of these subvector procedures, the notation is much nicer that what we had before so we might as well use it.
+It should make it easier to write out the expressions used in the preliminary estimation of $\kappa$, etc.
 
+\[
+  \mathbf{w} = 
+  \left[
+  \begin{array}{c}
+    W_1\\ W_2\\ W_3\\ W_4\\ W_5\\ W_6
+  \end{array}
+\right] = 
+  \left[
+  \begin{array}{c}
+    T\\ y \\ yT\\  y^2 \\ y^2 T \\ y^3
+  \end{array}
+\right], \quad \boldsymbol{\mu}_w = \mathbb{E}[\mathbf{w}]
+\]
+
+\begin{align*}
+  \boldsymbol{\Psi}(\boldsymbol{\theta}) &= \left[
+\begin{array}{ccc}
+  \boldsymbol{\psi}_1(\boldsymbol{\theta}) &
+  \boldsymbol{\psi}_2(\boldsymbol{\theta}) &
+  \boldsymbol{\psi}_3(\boldsymbol{\theta})
+\end{array}
+\right]\\
+  \boldsymbol{\psi}_1'(\boldsymbol{\theta}) &= \left[
+  \begin{array}{cccccc}
+   -\theta_1 & 1 & 0 & 0 & 0 & 0 
+  \end{array}
+\right] \\
+  \boldsymbol{\psi}_2'(\boldsymbol{\theta}) &= \left[
+  \begin{array}{cccccc}
+   \theta_2 & 0 & -2\theta_1 & 1 & 0 & 0
+  \end{array}
+\right] \\
+  \boldsymbol{\psi}_3'(\boldsymbol{\theta}) &= \left[
+  \begin{array}{cccccc}
+   -\theta_3 & 0 & 3\theta_2 & 0 & -3\theta_1 & 1
+  \end{array}
+\right] 
+\end{align*}
+
+\begin{align*}
+  \kappa_1 + u_{i1}(\boldsymbol{\theta}, \boldsymbol{\kappa}) &=  \boldsymbol{\psi}_1'(\boldsymbol{\theta}) \mathbf{w}_i  =  y_i - \theta_1 T_i \\
+  \kappa_2 + u_{i2}(\boldsymbol{\theta}, \boldsymbol{\kappa}) &= \boldsymbol{\psi}_2'(\boldsymbol{\theta}) \mathbf{w}_i = y_i^2 - 2\theta_1 y_iT_i + \theta_2 T_i \\
+  \kappa_3 + u_{i3}(\boldsymbol{\theta},\boldsymbol{\kappa}) &= \boldsymbol{\psi}_3'(\boldsymbol{\theta}) \mathbf{w}_i = y_i^3 - 3\theta_1 y^2_i T_i + 3 \theta_2 y_iT_i - \theta_3 T_i 
+\end{align*}
+
+\noindent Moment equalities
+\begin{align*}
+  m^E_j(\mathbf{w}_i, \boldsymbol{\theta}, \kappa_j) =  \boldsymbol{\psi}_j'(\boldsymbol{\theta}) \mathbf{w}_i - \kappa_j \\
+  \mathbb{E}[m^E_j(\mathbf{w}_i, \boldsymbol{\theta}, \kappa_j) ] = 0
+\end{align*}
+
+\noindent Population version of preliminary estimator and plugin
+\begin{align*}
+  \kappa_j(\boldsymbol{\theta}) &= \mathbb{E}[\boldsymbol{\psi}_j'(\boldsymbol{\theta})\mathbf{w}] = \boldsymbol{\psi}_j'(\boldsymbol{\theta}) \boldsymbol{\mu}_w\\
+m_j^E\left(\mathbf{w}_i, \boldsymbol{\theta}, \kappa_j(\boldsymbol{\theta})\right) &= \left[\boldsymbol{\psi}_j'(\boldsymbol{\theta}) \mathbf{w}_i - \kappa_j(\boldsymbol{\theta})\right] z_i = \boldsymbol{\psi}_j'(\boldsymbol{\theta}) (\mathbf{w}_i - \boldsymbol{\mu}_w)z_i
+\end{align*}
+sample analogues of the same
+\begin{align*}
+  \widehat{\kappa}_j(\boldsymbol{\theta}) &= \boldsymbol{\psi}_j'(\boldsymbol{\theta}) \bar{\mathbf{w}}\\ m_j^E\left(\mathbf{w}_i, \boldsymbol{\theta}, \kappa_j(\boldsymbol{\theta})\right) &= \left[ \boldsymbol{\psi}'_j(\boldsymbol{\theta}) \mathbf{w}_i - \widehat{\kappa}_j(\boldsymbol{\theta}) \right] =  \boldsymbol{\psi}_j'(\boldsymbol{\theta}) (\mathbf{w}_i - \bar{\mathbf{w}}_i) z_i
+\end{align*}
+
+\noindent We may not end up needing all of these derivatives, but just in case:
+
+\noindent If $\boldsymbol{\theta}$ is a $(d\times 1)$ vector of parameters and $\mathbf{b}(\boldsymbol{\theta})$ is $(r\times 1)$ vector of functions, then 
+\[
+  \frac{\partial}{\partial \boldsymbol{\theta}'} \left[ \frac{\mathbf{b}(\boldsymbol{\theta})'\mathbf{c}}{\sqrt{\mathbf{b}(\boldsymbol{\theta})'\mathbf{M}\mathbf{b}(\boldsymbol{\theta})}} \right]
+  = \underbrace{\frac{\partial}{\partial \boldsymbol{\theta}'} \mathbf{b}(\boldsymbol{\theta})}_{(r\times d)}
+\]
 \end{document}
