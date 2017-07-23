@@ -4997,7 +4997,69 @@ sample analogues of the same
 
 \noindent If $\boldsymbol{\theta}$ is a $(d\times 1)$ vector of parameters and $\mathbf{b}(\boldsymbol{\theta})$ is $(r\times 1)$ vector of functions, then 
 \[
-  \frac{\partial}{\partial \boldsymbol{\theta}'} \left[ \frac{\mathbf{b}(\boldsymbol{\theta})'\mathbf{c}}{\sqrt{\mathbf{b}(\boldsymbol{\theta})'\mathbf{M}\mathbf{b}(\boldsymbol{\theta})}} \right]
-  = \underbrace{\frac{\partial}{\partial \boldsymbol{\theta}'} \mathbf{b}(\boldsymbol{\theta})}_{(r\times d)}
+  \underbrace{\frac{\partial}{\partial \boldsymbol{\theta}'} \left[ \frac{\mathbf{b}(\boldsymbol{\theta})'\mathbf{c}}{\sqrt{\mathbf{b}(\boldsymbol{\theta})'\mathbf{M}\mathbf{b}(\boldsymbol{\theta})}} \right]}_{(1 \times d)}
+  = \underbrace{\frac{\partial}{\partial \mathbf{b}'} \left[ \frac{\mathbf{b}'\mathbf{c}}{\sqrt{\mathbf{b}'\mathbf{M}\mathbf{b}}} \right]}_{(1\times r)} \underbrace{\frac{\partial}{\partial \boldsymbol{\theta}'} \mathbf{b}(\boldsymbol{\theta})}_{(r\times d)}
 \]
+by the chain rule and, using basic properties of matrix derivatives,
+\[
+  \frac{\partial}{\partial \mathbf{b}'} \left[ \frac{\mathbf{b}'\mathbf{c}}{\sqrt{\mathbf{b}'\mathbf{M}\mathbf{b}}}   \right] = \frac{1}{\sqrt{\mathbf{b}'\mathbf{M}\mathbf{b}}}\left[ \mathbf{c}' - \frac{\mathbf{b}' \mathbf{c}\mathbf{b}' \mathbf{M}}{\mathbf{b}'\mathbf{M}\mathbf{b}} \right]
+\]
+
+\section{2017-07-23 -- Preliminary Estimation of $\theta_1$}
+As long as $z$ is a strong instrument, which we will assume, $\theta_1$ is strongly identified.
+Recall that $\beta$ does not enter our inequality moment conditions.
+And since,
+\begin{align*}
+  \theta_1 &= \beta/(1 - \alpha_0 - \alpha_1)\\
+  \theta_2 &= \theta_1^2 \left[ 1 + (\alpha_0 - \alpha_1) \right]\\
+  \theta_3 &= \theta_1^3\left[ \left( 1 - \alpha_0 - \alpha_1 \right)^2 + 6\alpha_0\left( 1 - \alpha_1 \right) \right]
+\end{align*}
+we see that $\beta$ only enters the equality moment conditions through $\theta_1$.
+This means that we can completely eliminate $\beta$ from the system if we substitute a preliminary estimator for $\theta_1$.
+After doing this, our equalities and inequalities will be functions of $\alpha_0$ and $\alpha_1$ only.
+The same idea could be used with the BBS/KRS/FL/Mahajan moment conditions.
+I initially thought this could be a useful way to carry out inference for $\alpha_0$ and $\alpha_1$, for example to test $\alpha_0 = \alpha_1 = 0$, in a way that accounts for boundary problems and weak identification.
+If one only desires inference for $\alpha_0$ and $\alpha_1$ it is clearly overkill to $m_1^E$ among the moment equalities used in the GMS inference procedure, since $\theta_1$ does not suffer from a weak identification problem.
+Including it would be just like including the moment conditions for $\mathbf{\kappa}$ -- computationally expensive and unnecessary since these parameters are strongly identified.
+
+Because we are not especially interested in carrying out inference for $\alpha_0$ and $\alpha_1$, I initially dismissed this idea.
+It was unclear to me how a confidence region for $(\alpha_0, \alpha_1)$ could be used to carry out inference for $\beta$.
+But I think there's actually a very simple way to do this.
+Suppose we have a valid $(1 - \delta)\times 100\%$ confidence interval $(\mbox{LCL}, \mbox{UCL})$ for $\theta_1$, then
+\begin{align*}
+  \mathbb{P}\left( \mbox{LCL} \leq \theta_1 \leq \mbox{UCL} \right) &= 1 - \delta\\
+  \mathbb{P}\left( \mbox{LCL} \leq \frac{\beta}{1 - \alpha_0 - \alpha_1} \leq \mbox{UCL} \right) &= 1 - \delta\\
+  \mathbb{P}\left( \left[ 1 - \alpha_0 - \alpha_1 \right] \times \mbox{LCL} \leq \beta \leq \left[ 1 - \alpha_0 - \alpha_1 \right] \times \mbox{UCL} \right) &= 1 - \delta
+\end{align*}
+It is trivial to construct a valid confidence interval for $\theta_1$ under our assumption that $z$ is a strong instrument: we can used use the usual IV confidence interval.
+And the preceding equalities show that a valid confidence interval for $\theta_1$ immediately implies a valid confidence interval for $\beta$ \emph{conditional} on knowledge of the sum $\alpha_0 + \alpha_1$.
+This is exactly analogous to the situation in my job market paper, where I had a way to construct a valid confidence interval for $\mu$ conditional on knowledge of $\tau$, so we can use the same solution here: Bonferroni.
+The procedure will be to construct a $(1 - \delta_1)\times 100\%$ confidence set for $\alpha_0 + \alpha_1$ and then take the max and min of the $(1 - \delta_2)\times 100\%$ confidence sets for $\beta|\alpha_0 + \alpha_1$, yielding a valid $>= (1 - \delta_1 - \delta_2)\times 100\%$ confidence set for $\beta$.
+Bonferroni necessarily induces conservatism, but so does projection.
+And unlike projection, which we can't tune, Bonferroni allows us to choose $\delta_1$ and $\delta_2$ to reduce the degree of conservatism.
+Moreover, by reducing the dimension over which we must carry out projection there should be an attendant reduction in the conservatism that comes from projection itself.
+So I think in the end, Bonferroni could end up being less conservative than our planned projection of a joint confidence set for $(\alpha_0, \alpha_1, \beta)$ into a marginal set for $\beta$.
+
+Another consideration is computational cost.
+Bonferroni should be much cheaper to compute since we only have to carry out the GMS procedure in two dimensions $(\alpha_0, \alpha_1)$-space.
+Indeed, we do not in fact need a confidence set for $(\alpha_0, \alpha_1)$ -- we only need a confidence set for their \emph{sum}.
+This means that we do not even need to carry out a two-dimensional grid search.
+What we really need is projection inference for $\alpha_0 + \alpha_1$.
+I have several ideas for how we can speed this up.
+First, after eliminating $m_1^E$, the only moment equalities are $m_2^E$ and $m_3^E$. 
+We would expect that $m_2^E$ is the more precisely estimated of these since second moments should have less sampling variation than third moments.
+Since the second moment equality identifies a line of the form $\alpha_1 - \alpha_0 = K$, I think we can reduce the dimensionality even further be searching at or near this line.
+In other words, we probably do not want to start by constructing the full grid of $\alpha_0, \alpha_1$ values since we have a good guess for the region that will not be rejected, provided we're inside the region where the moment inequalities do not bind.
+And once we've identified a pair $(\alpha_0, \alpha_1)$ that sum to a particular value, say $B$, we don't need to check any more grid points on the line $\alpha_0 + \alpha_1 = B$, since we're only interested in inference for the sum.
+
+Another idea worth considering is speeding up or eliminating the bootstrap entirely.
+Given the observed data, the GMS procedure defines a region in $(\alpha_0, \alpha_1)$ space where the moment inequalities are ``far from binding'' and are hence excluded.
+Indeed, the structure of our problem tells us that there is a rectangular region $(0, \underline{\alpha}_0) \times (0, \underline{\alpha}_1)$ in which \emph{all} of the moment conditions will be deemed far from binding.
+The region itself may depend on the $(\alpha_0, \alpha_1)$ pair being tested via the variance matrix but this doesn't matter: at a given pair $(\alpha_0, \alpha_1)$ we can determine whether we're in a case where GMS throws out \emph{all} of the moment conditions.
+In any case, the pair $(\alpha_0 = 0, \alpha_1 = 0)$ should always be in the region where GMS tosses out the inequalities.
+To put it another way, we know in advance that we cannot rule this point out from the inequalities given their one-sided nature.
+If we are testing a point $(\alpha_0, \alpha_1)$ where the inequalities are all excluded  then, since we are using the asymptotic version of the GMS test, there is in fact no need to use the bootstrap normal draws.
+We can work out the \emph{exact} distribution of the test statistic under the null and it will be fully determined by a \emph{single} value that we estimate from data under the null.
+
+
 \end{document}
