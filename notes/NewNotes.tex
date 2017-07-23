@@ -5152,7 +5152,28 @@ The GMS moment functions $m^E$ are defined as
 
 
 \paragraph{Moment Functions for Preliminary Estimators}
-The preliminary estimators of the parameters $\mathbf{p}$ and $\mathbf{\nu}$ from the moment inequality conditions are are unchanged:
+The preliminary estimators of the parameters $\mathbf{p}$ and $\mathbf{\nu}$ from the moment inequality conditions, defined above, are are unchanged.
+However, the preliminary estimators for the moment equality conditions are affected by the fact that we will now use a preliminary estimator of $\theta_1$.
+Note that $\kappa_1$ does not enter the GMS moment equalities $m^E$ although it does enter the moment equality used to identify $\theta_1$.
+Moreover, estimating $\kappa_2$ and $\kappa_3$ under the null $\mathbf{\alpha} = \alpha^0$ in turn requires a preliminary estimator of $\theta_1$.
+The moment equalities we will use to construct preliminary estimators to plug into $m^E$, under the null $\boldsymbol{\alpha} = \boldsymbol{\alpha}^0$, are $\mathbb{E}[h^E(\mathbf{w}_i, \boldsymbol{\alpha}^0, \theta_1, \boldsymbol{\kappa})]=0$ where
+\[
+  h^E(\mathbf{w}_i, \boldsymbol{\alpha}^0, \theta_1, \boldsymbol{\kappa}) = 
+  \left[
+  \begin{array}{l}
+ y_i - \kappa_1 - \theta_1 T_i\\
+ (y_i - \kappa_1 - \theta_1 T_i)z_i\\
+  y_i^2 - \kappa_2 - \theta_1 2y_i T_i + \eta_2(\boldsymbol{\alpha}^0) (\theta_1^2 T_i) \\
+ y_i^3 - \kappa_3 - \theta_1 3 y_i^2 T_i +  \eta_2(\boldsymbol{\alpha}^0)(3\theta_1^2y_iT_i) -  \eta_3(\boldsymbol{\alpha}^0)(\theta_1^3 T_i)
+  \end{array}
+\right] 
+\]
+Since this system is just identified, the GMM weighting matrix is irrelevant and the GMM estimator will simply equal the method of moments estimator: we can always set find parameter values that make the sample analogues of all four moment conditions \emph{exactly} equal to zero which in turn makes the GMM criterion function exactly zero.
+Setting the first two moment conditions equal to zero is equivalent to using the standard TSLS estimator of $\theta_1$ and $\kappa_1$.
+This means that GMM estimation of these four moment conditions will not attempt to use information about the higher powers of $\theta_1$ in the third and fourth moment equalities to estimate $\theta_1$.
+If we simply plug the TSLS estimator for $\theta_1$ into the bottom two equalities, we are still free to choose $\kappa_2$ and $\kappa_3$ to make the corresponding sample analogues exactly zero, so this is what GMM estimation will do.
+
+The moment equalities used to construct preliminary estimators for the moment inequality conditions are unchanged from above, namely $\mathbb{E}\left[ h_p(\mathbf{w})_i - \mathbf{p} \right] = 0$ and $\mathbb{E}\left[ h_\nu(\mathbf{w}_i) - \boldsymbol{\nu} \right] = 0$ where
 \begin{align*}
 h_p(W_i) - \mathbf{p} &= \left[
 \begin{array}{l}
@@ -5180,24 +5201,190 @@ h_\nu(W_i) - \boldsymbol{\nu} &= \left[
 \end{array}
 \right]
 \end{align*}
-where $\mathbf{p}'= (p_0, p_1)$ and $\boldsymbol{\nu}' = (\nu_{00}, \nu_{10}, \nu_{01}, \nu_{11})$.
-However, the preliminary estimators for the moment equality conditions are affected by the fact that we will now use a preliminary estimator of $\theta_1$.
-Note that $\kappa_1$ does not enter the GMS moment equalities $m^E$ although it does enter the moment equality used to identify $\theta_1$.
-Moreover, estimating $\kappa_2$ and $\kappa_3$ under the null $\mathbf{\alpha} = \alpha^0$ in turn requires a preliminary estimator of $\theta_1$.
-The following comprise all moment equalities that will be used for the preliminary estimators to plug into $m^E$, under the null $\boldsymbol{\alpha} = \boldsymbol{\alpha}^0$
+and we define $\mathbf{p}'= (p_0, p_1)$ and $\boldsymbol{\nu}' = (\nu_{00}, \nu_{10}, \nu_{01}, \nu_{11})$.
+Stacking all the moment equalities used for preliminary estimation under the null, we have $\mathbb{E}[h(\mathbf{w}_i, \boldsymbol{\alpha}^0, \boldsymbol{\gamma})] = 0$ where
 \[
-  \mathbb{E} 
+  h\left( \mathbf{w}_i, \boldsymbol{\alpha}_0,\boldsymbol{\gamma} \right) = \left[
+  \begin{array}{l}
+    h_p(\mathbf{w}_i) - \mathbf{p} \\
+    h_\nu(\mathbf{w}_i) - \boldsymbol{\nu} \\
+    h_E(\mathbf{w}_i, \boldsymbol{\alpha}^0, \theta_1, \boldsymbol{\kappa}) 
+  \end{array}
+\right]
+\]
+
+\paragraph{Preliminary Estimators:} The preliminary estimators of $\mathbf{p}$ and $\boldsymbol{\nu}$ are sample means:
+\[
+  \widehat{\mathbf{p}} = \frac{1}{n}\sum_{i=1}^n h_p(\mathbf{w}_i), \quad
+  \widehat{\boldsymbol{\nu}} = \frac{1}{n}\sum_{i=1}^n h_\nu(\mathbf{w}_i) 
+\]
+And, as argued a few paragraphs back, the preliminary estimator for $\theta_1$ is ordinary IV: 
+\[
+  \widehat{\theta}_1 = \frac{\sum_{i=1}^n (y_i - \bar{y})(z_i - \bar{z})}{\sum_{i=1}^n (T_i - \bar{T})(z_i - \bar{z})}
+\]
+while those for $\kappa_2$ and $\kappa_3$ are sample means constructed by plugging in $\widehat{\theta}_1$ and the null:
+\begin{align*}
+  \widehat{\kappa}_2(\boldsymbol{\alpha}^0) &= \frac{1}{n} \sum_{i=1}^n \left[y_i^2 - 2\widehat{\theta}_1 y_i T_i + \widehat{\theta}_2(\boldsymbol{\alpha}^0) T_i \right]\\
+  \widehat{\kappa}_2(\boldsymbol{\alpha}^0) &= \frac{1}{n} \sum_{i=1}^n 
+  \left[y_i^3 - 3\widehat{\theta}_1  y_i^2 T_i +  3\widehat{\theta}_2(\boldsymbol{\alpha}^0) y_iT_i -  \widehat{\theta}_3(\boldsymbol{\alpha}^0)T_i\right]\\
+  \widehat{\theta}_2(\boldsymbol{\alpha}^0) &= (\widehat{\theta}_1)^2 \, \eta_2(\boldsymbol{\alpha}^0)\\
+  \widehat{\theta}_3(\boldsymbol{\alpha}^0) &= (\widehat{\theta}_1)^3\, \eta_3(\boldsymbol{\alpha}^0)
+\end{align*}
+Using the notation $\boldsymbol{\psi}_j$ and $\mathbf{w}$ defined in the preceding section, we can express these more compactly as
+\begin{align*}
+  \widehat{\kappa}_2(\boldsymbol{\alpha}^0) &= \widehat{\boldsymbol{\psi}}_2'(\boldsymbol{\alpha}^0) \bar{\mathbf{w}}\\
+  \widehat{\kappa}_3(\boldsymbol{\alpha}^0) &= \widehat{\boldsymbol{\psi}}_3'(\boldsymbol{\alpha}^0) \bar{\mathbf{w}}
+\end{align*}
+where, repeating some of the definitions from above so I don't have to keep scrolling back in this ridiculously long document, 
+\begin{align*}
+  \bar{\mathbf{w}} &= n^{-1} \sum_{i=1}^n \mathbf{w}_i \\
+  \mathbf{w}_i' &= \left[
+  \begin{array}{cccccc}
+    T_i & y_i & y_i T_i & y_i^2 & y^2_i T_i & y_i^3
+  \end{array}
+\right]\\
+  \widehat{\boldsymbol{\psi}}_2'(\boldsymbol{\alpha}^0) &= \left[
+  \begin{array}{cccccc}
+    \widehat{\theta}_2(\boldsymbol{\alpha}^0) & 0 & -2\widehat{\theta}_1 & 1 & 0 & 0
+  \end{array}
+\right] \\
+\widehat{\boldsymbol{\psi}}_3'(\boldsymbol{\alpha}^0) &= \left[
+  \begin{array}{cccccc}
+    -\widehat{\theta}_3(\boldsymbol{\alpha}^0) & 0 & 3\widehat{\theta}_2(\boldsymbol{\alpha}^0) & 0 & -3\widehat{\theta}_1 & 1
+  \end{array}
+\right] \\
+  \widehat{\theta}_2(\boldsymbol{\alpha}^0) &= (\widehat{\theta}_1)^2 \, \eta_2(\boldsymbol{\alpha}^0)\\
+  \widehat{\theta}_3(\boldsymbol{\alpha}^0) &= (\widehat{\theta}_1)^3\, \eta_3(\boldsymbol{\alpha}^0)\\
+  \eta_2(\boldsymbol{\alpha}) &= 1 + (\alpha_0 - \alpha_1)\\
+  \eta_3(\boldsymbol{\alpha}) &= (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0(1 - \alpha_1)
+\end{align*}
+
+\paragraph{Cleaner Notation for Equality Moment Conditions with Preliminary Estimators}
+Let $\widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)$ denote our preliminary estimator of $\widehat{\gamma}$ under the null $\boldsymbol{\alpha} = \boldsymbol{\alpha}^0$. 
+Then using the notation of the preceding paragraph,
+\begin{align*}
+  m_2^E\left(\mathbf{w}_i, \boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) &= \left[y_i^2 - \widehat{\kappa}_2(\boldsymbol{\alpha}^0) - 2 \widehat{\theta}_1 y_i T_i + (\widehat{\theta_1})^2 \eta_2(\boldsymbol{\alpha}) T_i\right] z_i \\
+  &= \widehat{\boldsymbol{\psi}}_2'(\boldsymbol{\alpha}^0)(\mathbf{w}_i z_i) - \widehat{\boldsymbol{\psi}}_2'(\boldsymbol{\alpha}^0) (\bar{\mathbf{w}} z_i)\\
+  &= \widehat{\boldsymbol{\psi}}_2'(\boldsymbol{\alpha}^0)(\mathbf{w}_i - \bar{\mathbf{w}})z_i \\
+  m_3^E(\mathbf{w}_i, \boldsymbol{\alpha}, \boldsymbol{\gamma}) &= \left[ y_i^3 - \widehat{\kappa}_3(\boldsymbol{\alpha}^0) - 3\widehat{\theta_1}  y_i^2 T_i + 3 (\widehat{\theta}_1)^2 \eta_2(\boldsymbol{\alpha})y_iT_i -  (\widehat{\theta}_1)^3\eta_3(\boldsymbol{\alpha}) T_i\right]z_i\\
+  &= \widehat{\boldsymbol{\psi}}_3'(\boldsymbol{\alpha}^0)(\mathbf{w}_i - \bar{\mathbf{w}})z_i 
+\end{align*}
+So we see that the data enters in a very simple and transparent way, as does the null hypothesis and the preliminary estimator $\widehat{\theta}_1$ of the IV estimand $\theta_1$.
+
+
+
+\paragraph{Inequality Moment Conditions}
+The inequality moment functions $m^I$ are unchanged from above, namely
+\begin{align*}
+  m^I(W_i, \boldsymbol{\theta}, \boldsymbol{\gamma}) &=
   \left[
   \begin{array}{l}
- y_i - \kappa_1 - \theta_1 T_i\\
- (y_i - \kappa_1 - \theta_1 T_i)z_i\\
-  y_i^2 - \kappa_2 - \theta_1 2y_i T_i + \eta_2(\boldsymbol{\alpha}^0) (\theta_1^2 T_i) \\
- y_i^3 - \kappa_3 - \theta_1 3 y_i^2 T_i +  \eta_2(\boldsymbol{\alpha}^0)(3\theta_1^2y_iT_i) -  \eta_3(\boldsymbol{\alpha}^0)(\theta_1^3 T_i)
+    m_1^I(W_i, \boldsymbol{\theta}, \boldsymbol{\gamma}) \\ 
+    m_2^I(W_i, \boldsymbol{\theta}, \boldsymbol{\gamma}) 
   \end{array}
-\right] = \mathbf{0}
-\]
-The question is how exactly to use these conditions.
-Since this system is just identified, the GMM weighting matrix should be irrelevant and I think this means that the method of moments estimator and GMM estimator should coincide.
+\right] \\
+  m_1^I(W_i, \boldsymbol{\theta}, \boldsymbol{\gamma}) &=
+  \left[
+  \begin{array}{r}
+  p_0 - \alpha_0 \\
+  (1 - p_0) - \alpha_1  \\
+  p_1 - \alpha_0 \\
+  (1 - p_1) - \alpha_1  
+  \end{array}
+\right]\\
+m_2^I(W_i, \boldsymbol{\theta}, \boldsymbol{\gamma}) &=
+\left[
+\begin{array}{r}
+  (p_0 - \alpha_0) \widetilde{y}_i^2(\alpha_0,z=0) - d^2(\alpha_0,z=0)\\
+  (1- p_0 - \alpha_1) \widetilde{y}^2_i(\alpha_1,z=0) - d^2(\alpha_1,z=0)\\
+  (p_1 - \alpha_0) \widetilde{y}^2_i(\alpha_0,z=1) - d^2(\alpha_0,z=1)\\
+  (1- p_1 - \alpha_1) \widetilde{y}_i^2(\alpha_1,z=1) -  d^2(\alpha_1,z=1)
+\end{array}
+\right]
+\end{align*}
+where we define the shorthand
+\begin{align*}
+  \widetilde{y}_i^2(\alpha_0, z=0) &= y_i^2 (1 - z_i)(T_i - \alpha_0)\\ 
+  \widetilde{y}_i^2(\alpha_1, z=0) &= y^2 (1-z_i)(1 - T_i - \alpha_1) \\
+  \widetilde{y}_i^2(\alpha_0, z=1) &= y^2_i z_i(T_i - \alpha_0) \\
+  \widetilde{y}_i^2(\alpha_1, z=1) &= y_i^2 z_i(1 - T_i - \alpha_1)
+\end{align*}
+and analogously
+\begin{align*}
+  d(\alpha_0,z=0) &=(1 - \alpha_0) \nu_{10} - \alpha_0 \nu_{00} \\ 
+  d(\alpha_1, z=0) &=\alpha_1 \nu_{10} - (1 - \alpha_1)\nu_{00} \\
+  d(\alpha_0, z=1) &=(1 - \alpha_0) \nu_{11} - \alpha_0 \nu_{01} \\
+  d(\alpha_1, z=1) &=\alpha_1 \nu_{11} - (1 - \alpha_1)\nu_{01}
+\end{align*}
 
+
+\paragraph{Correcting the Asymptotic Variance Matrix}
+We now have all the ingredients needed to account for the preliminary estimation of $\boldsymbol{\gamma} = (\mathbf{p}', \boldsymbol{\nu}', \boldsymbol{\kappa}', \theta_1)$ where $\boldsymbol{\kappa}' = (\kappa_2, \kappa_3)$ under the null $\boldsymbol{\alpha} = \boldsymbol{\alpha}^0$.
+As above, let $m' = (m^{'I}, m^{'E})$ denote the full collection of moment conditions.
+Because our estimator of $\boldsymbol{\gamma}$ is just identified, the quantity required to adjust the covariance matrix estimator is $B = -MH^{-1}$ where 
+\[
+  H = \mathbb{E}\left[ \frac{\partial h\left(\mathbf{w}_i, \boldsymbol{\alpha}^0, \boldsymbol{\gamma}(\boldsymbol{\alpha}^0)\right)}{\partial \boldsymbol{\gamma}'} \right], \,
+  M = \mathbb{E}\left[ \frac{\partial m(\mathbf{w}_i, \boldsymbol{\alpha}^0, \boldsymbol{\gamma}(\boldsymbol{\alpha}^0))}{\partial \boldsymbol{\gamma}'} \right]  
+\]
+
+\todo[inline]{Update from here down!}
+But in our example $H = -\mathbf{I}$ so that 
+\[
+  B = M = \mathbb{E}\left[
+\begin{array}{ccc}
+  \displaystyle \frac{\partial m_1^I(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \mathbf{p}'} & \mathbf{0}_{4\times 4} & \mathbf{0}_{4 \times 3}\\ \\
+  \displaystyle \frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \mathbf{p}'} &
+\displaystyle \frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\nu}'} &
+\mathbf{0}_{4\times 3} \\ \\
+\mathbf{0}_{3 \times 2} & \mathbf{0}_{3\times 4} & 
+\displaystyle \frac{\partial m^E\left( W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0 \right)}{\partial \boldsymbol{\kappa}'}
+\end{array}
+\right]
+\]
+where 
+\begin{align*}
+\mathbb{E}\left[\frac{\partial m_1^I(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \mathbf{p}'}\right] &= 
+\left[
+\begin{array}{rrr}
+  1 & 0 \\
+  -1 & 0 \\
+  0 & 1 \\
+  0 & -1 \\
+\end{array}
+\right] \\
+\mathbb{E}\left[\frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \mathbf{p}'} \right]
+&= \mathbb{E}\left[
+\begin{array}{rr}
+  \widetilde{y}_i^2(\alpha_0, z=0) & 0 \\
+  -\widetilde{y}_i^2(\alpha_1, z=0) & 0 \\
+  0 & \widetilde{y}_i^2(\alpha_0, z=1)\\ 
+  0 & -\widetilde{y}_i^2(\alpha_1, z=1)
+\end{array}
+\right]\\
+\mathbb{E}\left[\frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\nu}'} \right]
+ &= 
+ \left[
+ \begin{array}{rr}
+   Q_1 & \mathbf{0}_{2\times 2}\\
+   \mathbf{0}_{2\times 2} & Q_2
+ \end{array}
+ \right]\\
+ Q_1 &=\left[
+\begin{array}{rr}
+   2\alpha_0\, d(\alpha_0, z=0)& -2(1 - \alpha_0)\, d(\alpha_0, z=0)\\
+   2(1 - \alpha_1)\, d(\alpha_1, z=0)& -2\alpha_1\, d(\alpha_1, z=0) \\
+\end{array}
+\right]\\
+Q_2 &= \left[
+\begin{array}{cc}
+  2 \alpha_0 \, d(\alpha_0, z=1) &
+  -2 (1 - \alpha_0) \, d(\alpha_0, z=1)\\
+  2 (1 - \alpha_1)\, d(\alpha_1, z=1) &
+  -2\alpha_1 \, d(\alpha_1, z=1)
+\end{array}
+\right] \\
+\mathbb{E}\left[\frac{\partial m^E\left( W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0 \right)}{\partial \boldsymbol{\kappa}'}\right] &= -q\, \mathbf{I}_3
+\end{align*}
+and $\alpha_0,\alpha_1$ are understood to be hypothesized values under the null $\boldsymbol{\theta} = \boldsymbol{\theta}_0$.
 
 \end{document}
