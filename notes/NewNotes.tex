@@ -5114,7 +5114,90 @@ Effectively, it will allow us to rule out pairs $(\alpha_0, \alpha_1)$ strongly 
     Presumably the first case is easier, possibly even trivial.
     It would be nice if this were the case.
     I think there's also a question of whether you want to learn $\beta(\mathbf{x})$ or $\mathbb{E}[\beta(\mathbf{x})]$.
+  \item We also need to carry out the standard GMM calculations for naive estimation of our model along with that of Lewbel, BBS/KRS/FL/Mahajan so we can do simulations comparing the performance of the methods.
 \end{enumerate}
+
+\section{Preliminary Estimation of $\theta_1$ (2017--07--23)}
+
+\paragraph{Notation}
+Recall that
+\begin{align*}
+  \theta_1 &= \beta/(1 - \alpha_0 - \alpha_1)\\
+  \theta_2 &= \theta_1^2 \left[ 1 + (\alpha_0 - \alpha_1) \right]\\
+  \theta_3 &= \theta_1^3\left[ \left( 1 - \alpha_0 - \alpha_1 \right)^2 + 6\alpha_0\left( 1 - \alpha_1 \right) \right]
+\end{align*}
+Now, define $\boldsymbol{\alpha} = (\alpha_0, \alpha_1)'$ and $\eta_2(\boldsymbol{\alpha})$, $\eta_3(\boldsymbol{\alpha})$ as
+\begin{align*}
+  \eta_2(\boldsymbol{\alpha}) &= 1 + (\alpha_0 - \alpha_1)\\
+  \eta_3(\boldsymbol{\alpha}) &= (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0(1 - \alpha_1)
+\end{align*}
+so that we have
+\begin{align*}
+  \theta_2 &= \eta_2(\boldsymbol{\alpha}) \theta_1^2\\
+  \theta_3 &= \eta_3(\boldsymbol{\alpha})\theta_1^3
+\end{align*}
+and we will use the shorthand $\eta_2, \eta_3$ suppressing dependence on $\alpha_0, \alpha_1$.
+
+
+
+\paragraph{Moment Equality Conditions}
+Let $\boldsymbol{\gamma}$ denote the parameters for which we will substitute preliminary estimators.
+The elements of $\boldsymbol{\gamma}$ that are relevant for the GMS moment equalities $m^E$ are $\theta_1, \kappa_2$ and $\kappa_3$.
+The GMS moment functions $m^E$ are defined as 
+\begin{align*}
+  m_2^E(\mathbf{w}_i, \boldsymbol{\alpha}, \boldsymbol{\gamma}) &= \left[y_i^2 - \kappa_2 - \theta_1 2y_i T_i + \eta_2(\boldsymbol{\alpha}) (\theta_1^2 T_i)\right] z_i \\
+  m_3^E(\mathbf{w}_i, \boldsymbol{\alpha}, \boldsymbol{\gamma}) &= \left[ y_i^3 - \kappa_3 - \theta_1 3 y_i^2 T_i +  \eta_2(\boldsymbol{\alpha})(3\theta_1^2y_iT_i) -  \eta_3(\boldsymbol{\alpha})(\theta_1^3 T_i)\right]z_i
+\end{align*}
+
+
+
+\paragraph{Moment Functions for Preliminary Estimators}
+The preliminary estimators of the parameters $\mathbf{p}$ and $\mathbf{\nu}$ from the moment inequality conditions are are unchanged:
+\begin{align*}
+h_p(W_i) - \mathbf{p} &= \left[
+\begin{array}{l}
+  T_i (1-z_i)/(1-q)\\ 
+  T_i z_i / q 
+\end{array}
+\right] - \left[
+\begin{array}{c}
+  p_0 \\ p_1
+\end{array}
+\right]\\
+h_\nu(W_i) - \boldsymbol{\nu} &= \left[
+\begin{array}{l}
+  y_i (1 - T_i) (1-z_i) / \sqrt{1-q}\\ 
+  y_i T_i (1-z_i) / \sqrt{1-q} \\
+  y_i (1 - T_i) z_i / \sqrt{q} \\
+  y_i T_i z_i/\sqrt{q} 
+\end{array}
+\right] - \left[
+\begin{array}{c}
+  \nu_{00} \\
+  \nu_{10} \\
+  \nu_{01} \\
+  \nu_{11} 
+\end{array}
+\right]
+\end{align*}
+where $\mathbf{p}'= (p_0, p_1)$ and $\boldsymbol{\nu}' = (\nu_{00}, \nu_{10}, \nu_{01}, \nu_{11})$.
+However, the preliminary estimators for the moment equality conditions are affected by the fact that we will now use a preliminary estimator of $\theta_1$.
+Note that $\kappa_1$ does not enter the GMS moment equalities $m^E$ although it does enter the moment equality used to identify $\theta_1$.
+Moreover, estimating $\kappa_2$ and $\kappa_3$ under the null $\mathbf{\alpha} = \alpha^0$ in turn requires a preliminary estimator of $\theta_1$.
+The following comprise all moment equalities that will be used for the preliminary estimators to plug into $m^E$, under the null $\boldsymbol{\alpha} = \boldsymbol{\alpha}^0$
+\[
+  \mathbb{E} 
+  \left[
+  \begin{array}{l}
+ y_i - \kappa_1 - \theta_1 T_i\\
+ (y_i - \kappa_1 - \theta_1 T_i)z_i\\
+  y_i^2 - \kappa_2 - \theta_1 2y_i T_i + \eta_2(\boldsymbol{\alpha}^0) (\theta_1^2 T_i) \\
+ y_i^3 - \kappa_3 - \theta_1 3 y_i^2 T_i +  \eta_2(\boldsymbol{\alpha}^0)(3\theta_1^2y_iT_i) -  \eta_3(\boldsymbol{\alpha}^0)(\theta_1^3 T_i)
+  \end{array}
+\right] = \mathbf{0}
+\]
+The question is how exactly to use these conditions.
+Since this system is just identified, the GMM weighting matrix should be irrelevant and I think this means that the method of moments estimator and GMM estimator should coincide.
 
 
 \end{document}
