@@ -5005,7 +5005,7 @@ by the chain rule and, using basic properties of matrix derivatives,
   \frac{\partial}{\partial \mathbf{b}'} \left[ \frac{\mathbf{b}'\mathbf{c}}{\sqrt{\mathbf{b}'\mathbf{M}\mathbf{b}}}   \right] = \frac{1}{\sqrt{\mathbf{b}'\mathbf{M}\mathbf{b}}}\left[ \mathbf{c}' - \frac{\mathbf{b}' \mathbf{c}\mathbf{b}' \mathbf{M}}{\mathbf{b}'\mathbf{M}\mathbf{b}} \right]
 \]
 
-\section{2017-07-23 -- Preliminary Estimation of $\theta_1$}
+\section{New Idea: Prelim.\ Estimation of $\theta_1$ (2017-07-22)}
 As long as $z$ is a strong instrument, which we will assume, $\theta_1$ is strongly identified.
 Recall that $\beta$ does not enter our inequality moment conditions.
 And since,
@@ -5060,6 +5060,61 @@ In any case, the pair $(\alpha_0 = 0, \alpha_1 = 0)$ should always be in the reg
 To put it another way, we know in advance that we cannot rule this point out from the inequalities given their one-sided nature.
 If we are testing a point $(\alpha_0, \alpha_1)$ where the inequalities are all excluded  then, since we are using the asymptotic version of the GMS test, there is in fact no need to use the bootstrap normal draws.
 We can work out the \emph{exact} distribution of the test statistic under the null and it will be fully determined by a \emph{single} value that we estimate from data under the null.
+This is because the test statistic is simply a sum of squares of two correlated, zero-mean normals (we've eliminated one of the moment equalities by using a preliminary estimator of $\theta_1$).
+But because the test statistic divides through by the variance of each component, we can assume WLOG that the normals are standard normal.
+The only unknown is the correlation between them, but our code already estimates this to transform the normal draws for carrying out the asymptotic version of the bootstrap.
+So we just need to know the distribution of the sum of squares of two correlated standard normals.
+This can be shown (see the StackOverflow question) to equal a weighted sum of two independent Chi-squared random variables and there is an R package that calculates $\mathbb{P}(X>x)$ for such a distribution.
+If we were to use the random normal draws instead we would simply be approximating this distribution by simulation.
+
+Now, suppose instead that we are testing a pair $(\alpha_0, \alpha_1)$ in the region where at least one moment inequality is \emph{not} far from binding.
+In this case we cannot directly calculate the distribution of the test statistic.
+However, we can easily find an \emph{upper bound} on the critical value without using our normal draws.
+To do this, we construct a test statistic that dominates the MMM statistic.
+Suppose that $J$ moment inequalities are deemed to \emph{not} be far from binding.
+Then these $J$ are used in the calculation of the critical value for the MMM test statistic.
+Notice that the moment inequalities only contribute to the MMM statistic when they are violated, in which case they enter as a sum of squares.
+Otherwise they contribute zero.
+Thus, the MMM test statistic is \emph{bounded above} by the sum of squares of $J+2$ correlated normals: $J$ for the inequalities that were not discarded, and two for the equalities.
+Again, the MMM test statistic does not depend on variances, only correlations.
+So this dominating statistic (one that treats the inequalities \emph{symmetrically}) is a sum of squares of $J+2$ correlated standard normals.
+This can be shown to be equivalent to a weighted sum of $J+2$ independent Chi-squared random variables where the weights depends on the correlations.
+This means that we can potentially take a computational shortcut even when $(\alpha_0,\alpha_1)$ lies in a region where at least one moment inequality binds.
+To calculate the bootstrap critical value, we need the correlation matrix of the moment conditions anyway.
+But before doing the multiplications that transform all the normal draws for the bootstrap, we could first calculate the critical value for the \emph{dominating} test statistic.
+Call this the ``upper bound'' critical value.
+The upper bound critical value is exactly correct when all of the moment inequalities are deemed far from binding; otherwise it is ``too large.''
+However, if we don't care getting the p-value for the test and merely the accept/reject decision itself we could first compare the test statistic to the upper bound critical value.
+If we would reject, then there is no need to calculate the actual critical value, since we know that we would reject.
+In these cases we can skip the calculations for the bootstrap.
+Since these comprise almost the whole cost of the procedure, this should be a substantial savings.
+Effectively, it will allow us to rule out pairs $(\alpha_0, \alpha_1)$ strongly rejected by the data using very simple calculations.
+
+\paragraph{What should we do now?}
+\begin{enumerate}
+  \item Preliminary estimation of $\theta_1$ changes the variance matrix of the remaining moment conditions.
+    We need to do the calculations for this.
+    It will involve taking some derivatives, but I don't think they're too bad since $\theta_1$ always enters multiplicatively.
+  \item I should write up the precise calculations needed for the ``upper bound'' critical value. 
+    The same calculations are used in the case where it is an upper bound as when it is exact.
+  \item We need to think a bit more about how to cleverly search over values for $(\alpha_0, \alpha_1)$ to get the projection confidence set for $\alpha_0 + \alpha_1$.
+    I suppose there are some calculations to do concerning the line along with we can make the second moment equality zero.
+  \item We should think about how to use this method with BBS/KRS/FL/Mahajan and also how to use it for Lewbel.
+    We don't have the unconditional moment equalities for Lewbel yet so I suppose we need to derive these.
+  \item We're going to have to say something about covariates.
+    At the least I think we should derive the moment conditions one would use under the assumption that $\alpha_0, \alpha_1, \beta$ don't depend on $\mathbf{x}$ as in Frazis and Loewenstein.
+    This requires some additional preliminary estimation and hence some additional derivatives.
+    I suppose we'll also need to write up a brief description of what one could do if one is unwilling to make these assumptions.
+    I wonder if the fact that we're now doing Bonferroni simplifies anything here.
+    For example, suppose one did an IV series estimator with interactions between the exogenous variable and the treatment.
+    What is the probability limit of IV ignoring the mis-classification?
+    Is there some simple way to proceed? 
+    I think there actually might be.
+    There are presumably two cases: one in which the $\alpha_0, \alpha_1$ don't depend on $\mathbf{x}$ but $\beta$ does, and another in which everything depends on $\mathbf{x}$. 
+    Presumably the first case is easier, possibly even trivial.
+    It would be nice if this were the case.
+    I think there's also a question of whether you want to learn $\beta(\mathbf{x})$ or $\mathbb{E}[\beta(\mathbf{x})]$.
+\end{enumerate}
 
 
 \end{document}
