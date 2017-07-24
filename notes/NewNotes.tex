@@ -5486,10 +5486,14 @@ and hence
     \mathbf{0}_{4\times 6} & \mathbf{R}^{-1}
 \end{array}\right]
 \]
+So $H$ is invertible if and only if $\mathbf{R}$ is invertible.
+From the definition of $\mathbf{w}$ a few lines of algebra show that the determinant of $\mathbf{R}$ is equal to $\mbox{Cov}(T,z)$.
+Thus, so long as we have a strong instrument, there will be no problem inverting $H$ \emph{regardless} of the values of $\alpha_0,\alpha_1$ under the null hypothesis!
+
 The matrix $M$ is fairly similar to the case without preliminary estimation of $\theta_1$.
 In particular,
 \[
-  B = M = \mathbb{E}\left[
+  M = \mathbb{E}\left[
 \begin{array}{cccc}
   \displaystyle \frac{\partial m_1^I(\mathbf{w}_i,\mathbf{p}^0)}{\partial \mathbf{p}'} & \mathbf{0}_{4\times 4} & \mathbf{0}_{4 \times 3} & \mathbf{0}_{4\times 1}\\ \\
   \displaystyle \frac{\partial m^I_2(\mathbf{w}_i, \mathbf{p}^0, \boldsymbol{\nu}^0)}{\partial \mathbf{p}'} &
@@ -5548,9 +5552,156 @@ Q_2 &= \left[
   0 & 0 & -q
 \end{array}
 \right]\\ 
-\mathbb{E}\left[\frac{\partial m^E\left( \mathbf{w}_i, \boldsymbol{\alpha}^0,  \boldsymbol{\kappa}^0, \theta_1^0 \right)}{\partial \theta_1}\right] &= 
+\mathbb{E}\left[\frac{\partial m^E\left( \mathbf{w}_i, \boldsymbol{\alpha}^0,  \boldsymbol{\kappa}^0, \theta_1^0 \right)}{\partial \theta_1}\right] &=
+\left[
+\begin{array}{c}
+  \displaystyle\left( \frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1} \right)'\\ 
+  \displaystyle\left( \frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1} \right)' 
+\end{array}
+\right] \mathbb{E}[\mathbf{w}_iz_i]
 \end{align*}
 and $\alpha_0,\alpha_1$ are understood to be hypothesized values under the null.
 Notice that we take derivatives with respect to $\kappa_1$ but these are all equal to zero.
 
+\paragraph{Simpler Special Case: Only First Moment Inequalities}
+If we only use the first moment inequalities, the preceding expressions become much simpler since we only need preliminary estimators of $\boldsymbol{\kappa}$ and $\theta_1$.
+Hence,
+\[
+  h = h^E  =  \left[
+ \begin{array}{l}
+   \boldsymbol{\psi}'_1(\theta_1)\mathbf{w}_i - \kappa_1\\
+   \boldsymbol{\psi}'_2(\theta_1,\boldsymbol{\alpha}^0)\mathbf{w}_i - \kappa_2\\
+   \boldsymbol{\psi}'_3(\theta_1,\boldsymbol{\alpha}^0)\mathbf{w}_i - \kappa_3\\ 
+   \boldsymbol{\psi}'_1(\theta_1)\mathbf{w}_i z_i - \kappa_1 z_i
+ \end{array}
+ \right] = \left[
+ \begin{array}{l}
+   \boldsymbol{\Psi}'(\theta_1, \boldsymbol{\alpha}^0) \mathbf{w}_i - \boldsymbol{\kappa}\\
+   \left\{\boldsymbol{\psi}_1'(\theta_1)\mathbf{w}_i - \kappa_1\right\}z_i
+ \end{array}
+ \right]
+\]
+and $m' = (m^{I'}_1, m^{E'})$ where
+\begin{align*}
+m^E &= \left[
+  \begin{array}{cc}
+    m_2^E \\ m_3^E 
+  \end{array}
+\right], \quad m_j^E(\mathbf{w}_i, \cdots) = \left[ \boldsymbol{\psi}_j'(\theta_1, \boldsymbol{\alpha}^0) \mathbf{w}_i - \kappa_j \right]z_i  \\
+m_1^I(\mathbf{w}_i, \boldsymbol{\theta}, \boldsymbol{\gamma}) &=
+  \left[
+  \begin{array}{r}
+  T(1 - z)/(1 - q) - \alpha_0 \\
+  (1 - T)(1 - z)/(1 - q) - \alpha_1  \\
+  Tz/q - \alpha_0 \\
+  (1 - T)z/q - \alpha_1  
+  \end{array}
+\right]
+\end{align*}
+Now $H$ simplifies to
+\[
+  H = \left[
+  \begin{array}{cc}
+    \displaystyle \frac{\partial h^E}{\partial \boldsymbol{\kappa}'} &
+    \displaystyle \frac{\partial h^E}{\partial \theta_1}
+  \end{array}
+\right] = \mathbf{R}, \quad \mathbf{R} = \left[
+\begin{array}{rrrr}
+  -1 & 0 & 0 
+  & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+   0 & -1 & 0 & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+   0 & 0 & -1 & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+   -q & 0 & 0 &  \displaystyle \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}z]\\
+\end{array}
+\right]
+\]
+And $M$ becomes
+\[
+  M = \mathbb{E}\left[ \frac{\partial m}{\partial \boldsymbol{\gamma}'}  \right]= 
+  \mathbb{E}\left[
+  \begin{array}{rr}
+    \displaystyle \frac{\partial m^I_1}{\partial \boldsymbol{\kappa}'} &
+    \displaystyle \frac{\partial m^I_1}{\partial \theta_1}\\ \\
+    \displaystyle \frac{\partial m^E}{\partial \boldsymbol{\kappa}'} &
+    \displaystyle \frac{\partial m^E}{\partial \theta_1}
+  \end{array}
+\right]  =
+  \mathbb{E}\left[
+  \begin{array}{rr}
+
+    \mathbf{0}_{4\times 3} & \mathbf{0}_{4\times 1}\\ \\
+    \displaystyle \frac{\partial m^E}{\partial \boldsymbol{\kappa}'} &
+    \displaystyle \frac{\partial m^E}{\partial \theta_1}
+  \end{array}
+\right] 
+\]
+where
+\begin{align*}
+\mathbb{E}\left[\frac{\partial m^E\left( \mathbf{w}_i, \boldsymbol{\alpha}^0,  \boldsymbol{\kappa}^0, \theta_1^0 \right)}{\partial \boldsymbol{\kappa}'}\right] &= \left[
+\begin{array}{ccc}
+  0 & -q & 0 \\
+  0 & 0 & -q
+\end{array}
+\right]\\ 
+\mathbb{E}\left[\frac{\partial m^E\left( \mathbf{w}_i, \boldsymbol{\alpha}^0,  \boldsymbol{\kappa}^0, \theta_1^0 \right)}{\partial \theta_1}\right] &=
+\left[
+\begin{array}{c}
+  \displaystyle\left( \frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1} \right)'\\ 
+  \displaystyle\left( \frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1} \right)' 
+\end{array}
+\right] \mathbb{E}[\mathbf{w}_iz_i]
+\end{align*}
+so that $B = -M \mathbf{R}^{-1}$ and $A = \left[
+\begin{array}{cc}
+\mathbf{I} & B
+\end{array}
+\right]$.
+Finally, accounting for preliminary estimation of $\boldsymbol{\kappa}$ and $\theta_1$, the variance matrix estimator is $\widehat{\Sigma}_n\left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) = A \widehat{\mathcal{V}}_n \left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) A'$ where
+\[
+  \widehat{\mathcal{V}}_n\left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) = \frac{1}{n}\sum_{i=1}^n 
+  \left[
+  \begin{array}{c}
+    m(\mathbf{w}_i, \alpha^0, \widehat{\gamma}(\alpha^0)) - \bar{m}_n(\alpha^0, \widehat{\gamma}(\alpha^0))\\
+    h(\mathbf{w}_i, \alpha^0, \widehat{\gamma}(\alpha^0)) - \bar{h}_n(\alpha^0, \widehat{\gamma}(\alpha^0))
+  \end{array}
+\right]
+  \left[
+  \begin{array}{c}
+    m(\mathbf{w}_i, \alpha^0, \widehat{\gamma}(\alpha^0)) - \bar{m}_n(\alpha^0, \widehat{\gamma}(\alpha^0))\\
+    h(\mathbf{w}_i, \alpha^0, \widehat{\gamma}(\alpha^0)) - \bar{h}_n(\alpha^0, \widehat{\gamma}(\alpha^0))
+  \end{array}
+\right]'
+\]
+Where, 
+\begin{align*}
+  m_1^I(\mathbf{w}_i, \boldsymbol{\alpha}^0) &=
+  \left[
+  \begin{array}{r}
+  T(1 - z)/(1 - q) - \alpha_0 \\
+  (1 - T)(1 - z)/(1 - q) - \alpha_1  \\
+  Tz/q - \alpha_0 \\
+  (1 - T)z/q - \alpha_1  
+  \end{array}
+\right]\\
+  m^E\left(\mathbf{w}_i, \boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) &= 
+  \left[
+  \begin{array}{c}
+ \widehat{\boldsymbol{\psi}}_2'(\boldsymbol{\alpha}^0)(\mathbf{w}_i - \bar{\mathbf{w}})z_i \\
+   \widehat{\boldsymbol{\psi}}_3'(\boldsymbol{\alpha}^0)(\mathbf{w}_i - \bar{\mathbf{w}})z_i 
+  \end{array}
+\right]\\
+  h_E\left(\mathbf{w}_i, \boldsymbol{\alpha}^0, \widehat{\gamma}(\boldsymbol{\alpha}^0)\right) &= \left[
+  \begin{array}{l}
+    \widehat{\boldsymbol{\psi}}'_1 (\mathbf{w}_i - \bar{\mathbf{w}})\\ 
+    \widehat{\boldsymbol{\psi}}'_2(\boldsymbol{\alpha}^0) (\mathbf{w}_i - \bar{\mathbf{w}})\\ 
+    \widehat{\boldsymbol{\psi}}'_3(\boldsymbol{\alpha}^0) (\mathbf{w}_i - \bar{\mathbf{w}})\\
+    \widehat{\boldsymbol{\psi}}'_1 (\mathbf{w}_i - \bar{\mathbf{w}})z_i
+  \end{array}
+\right] = \left[
+\begin{array}{l}
+  \widehat{\boldsymbol{\Psi}}'(\boldsymbol{\alpha}^0)(\mathbf{w}_i - \bar{\mathbf{w}})\\
+    \widehat{\boldsymbol{\psi}}'_1 (\mathbf{w}_i - \bar{\mathbf{w}})z_i
+\end{array}
+\right]
+\end{align*}
 \end{document}
