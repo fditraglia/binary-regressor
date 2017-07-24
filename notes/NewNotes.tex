@@ -5207,8 +5207,8 @@ Stacking all the moment equalities used for preliminary estimation under the nul
 \[
   h\left( \mathbf{w}_i, \boldsymbol{\alpha}_0,\boldsymbol{\gamma} \right) = \left[
   \begin{array}{l}
-    h^E(\mathbf{w}_i, \boldsymbol{\alpha}^0, \theta_1, \boldsymbol{\kappa}) \\
-    h^I(\mathbf{w}_i, \mathbf{p}, \boldsymbol{\nu}) 
+    h^I(\mathbf{w}_i, \mathbf{p}, \boldsymbol{\nu}) \\
+    h^E(\mathbf{w}_i, \boldsymbol{\alpha}^0, \theta_1, \boldsymbol{\kappa}) 
   \end{array}
 \right]
 \]
@@ -5300,6 +5300,32 @@ where,
   \eta_3(\boldsymbol{\alpha}) &= (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0(1 - \alpha_1)
 \end{align*}
 
+\paragraph{Cleaner Notation for Equality Moment Conditions} 
+\[
+m^E = \left[
+  \begin{array}{cc}
+    m_2^E \\ m_3^E 
+  \end{array}
+\right], \quad m_j^E(\mathbf{w}_i, \cdots) = \left[ \boldsymbol{\psi}_j'(\theta_1, \boldsymbol{\alpha}^0) \mathbf{w}_i - \kappa_j \right]z_i 
+\]
+
+\paragraph{Cleaner Notation for $h^E$} 
+\[
+  h^E(\mathbf{w}_i, \cdots) = \left[
+ \begin{array}{l}
+   \boldsymbol{\psi}'_1(\theta_1)\mathbf{w}_i - \kappa_1\\
+   \boldsymbol{\psi}'_2(\theta_1,\boldsymbol{\alpha}^0)\mathbf{w}_i - \kappa_2\\
+   \boldsymbol{\psi}'_3(\theta_1,\boldsymbol{\alpha}^0)\mathbf{w}_i - \kappa_3\\ 
+   \boldsymbol{\psi}'_1(\theta_1)\mathbf{w}_i z_i - \kappa_1 z_i
+ \end{array}
+ \right] = \left[
+ \begin{array}{l}
+   \boldsymbol{\Psi}'(\theta_1, \boldsymbol{\alpha}^0) \mathbf{w}_i - \boldsymbol{\kappa}\\
+   \left\{\boldsymbol{\psi}_1'(\theta_1)\mathbf{w}_i - \kappa_1\right\}z_i
+ \end{array}
+ \right]
+\]
+
 \paragraph{Cleaner Notation for Equality Moment Conditions with Preliminary Estimators}
 Let $\widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)$ denote our preliminary estimator of $\widehat{\gamma}$ under the null $\boldsymbol{\alpha} = \boldsymbol{\alpha}^0$. 
 Then using the notation of the preceding paragraph,
@@ -5379,14 +5405,13 @@ and analogously
 
 
 \paragraph{Correcting the Asymptotic Variance Matrix}
-We now have all the ingredients needed to account for the preliminary estimation of $\boldsymbol{\gamma} = (\mathbf{p}', \boldsymbol{\nu}', \boldsymbol{\kappa}', \theta_1)$ where $\boldsymbol{\kappa}' = (\kappa_2, \kappa_3)$ under the null $\boldsymbol{\alpha} = \boldsymbol{\alpha}^0$.
+We now have all the ingredients needed to account for the preliminary estimation of $\boldsymbol{\gamma} = (\mathbf{p}', \boldsymbol{\nu}', \boldsymbol{\kappa}', \theta_1)$ where $\boldsymbol{\kappa}' = (\kappa_1, \kappa_2, \kappa_3)$ under the null $\boldsymbol{\alpha} = \boldsymbol{\alpha}^0$.
 As above, let $m' = (m^{'I}, m^{'E})$ denote the full collection of moment conditions.
 Because our estimator of $\boldsymbol{\gamma}$ is just identified, the quantity required to adjust the covariance matrix estimator is $B = -MH^{-1}$ where 
 \[
   H = \mathbb{E}\left[ \frac{\partial h\left(\mathbf{w}_i, \boldsymbol{\alpha}^0, \boldsymbol{\gamma}(\boldsymbol{\alpha}^0)\right)}{\partial \boldsymbol{\gamma}'} \right], \,
   M = \mathbb{E}\left[ \frac{\partial m(\mathbf{w}_i, \boldsymbol{\alpha}^0, \boldsymbol{\gamma}(\boldsymbol{\alpha}^0))}{\partial \boldsymbol{\gamma}'} \right]  
 \]
-
 It is no longer the case that $H = -\mathbf{I}$ because the $h_E$ block of moment conditions is more complicated:
 \[
   h^E(\mathbf{w}_i, \boldsymbol{\alpha}^0, \theta_1, \boldsymbol{\kappa}) = 
@@ -5399,19 +5424,79 @@ It is no longer the case that $H = -\mathbf{I}$ because the $h_E$ block of momen
   \end{array}
 \right] 
 \]
-
-\todo[inline]{Update from here down! I think $H$ will be different, and there will be some extra derivatives in $M$. Don't forget that we've included $\kappa_1$ among the pre-estimated parameters, so we need to put in the derivatives. These will all be zero but the notation is simpler this way. We also need to make sure that everything is arranged in the correct order.}
-
-
+Define 
+\[
+  H = \left[
+  \begin{array}{c}
+    H^I \\ H^E
+  \end{array}
+\right], 
+\quad H^I = \frac{\partial h^I}{\partial \boldsymbol{\gamma}'}, \quad
+\quad H^E = \frac{\partial h^E}{\partial \boldsymbol{\gamma}'}
+\]
+we have
+\[
+  H^I = \left[
+  \begin{array}{cccc}
+    \displaystyle \frac{\partial h^I}{\partial \mathbf{p}'} & 
+    \displaystyle \frac{\partial h^I}{\partial \boldsymbol{\nu}'} &
+    \displaystyle \frac{\partial h^I}{\partial \boldsymbol{\kappa}'} &
+    \displaystyle \frac{\partial h^I}{\partial \theta_1}
+  \end{array}
+\right] = \left[
+\begin{array}{cc}
+  -\mathbf{I}_{6\times 6} & \mathbf{0}_{6\times 4}
+\end{array}
+\right]
+\]
+and
+\[
+  H^E = \left[
+  \begin{array}{cccc}
+    \displaystyle \frac{\partial h^E}{\partial \mathbf{p}'} & 
+    \displaystyle \frac{\partial h^E}{\partial \boldsymbol{\nu}'} &
+    \displaystyle \frac{\partial h^E}{\partial \boldsymbol{\kappa}'} &
+    \displaystyle \frac{\partial h^E}{\partial \theta_1}
+  \end{array}
+\right] = \left[
+\begin{array}{cc}
+  \mathbf{0}_{4\times 6} & \mathbf{R}
+\end{array}
+\right], \quad
+\mathbf{R} = \left[
+\begin{array}{rrrr}
+  -1 & 0 & 0 
+  & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+   0 & -1 & 0 & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+   0 & 0 & -1 & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+   -q & 0 & 0 &  \displaystyle \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}z]\\
+\end{array}
+\right]
+\]
+and hence
+\[
+  H = \left[
+  \begin{array}{rr}
+    -\mathbf{I}_{6\times 6} & \mathbf{0}_{6\times 4}\\
+    \mathbf{0}_{4\times 6} & \mathbf{R}
+  \end{array}
+\right] \implies H^{-1} =
+  \left[\begin{array}{rr}
+    -\mathbf{I}_{6\times 6} & \mathbf{0}_{6\times 4}\\
+    \mathbf{0}_{4\times 6} & \mathbf{R}^{-1}
+\end{array}\right]
+\]
+The matrix $M$ is fairly similar to the case without preliminary estimation of $\theta_1$.
+In particular,
 \[
   B = M = \mathbb{E}\left[
-\begin{array}{ccc}
-  \displaystyle \frac{\partial m_1^I(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \mathbf{p}'} & \mathbf{0}_{4\times 4} & \mathbf{0}_{4 \times 3}\\ \\
-  \displaystyle \frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \mathbf{p}'} &
-\displaystyle \frac{\partial m^I_2(W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0)}{\partial \boldsymbol{\nu}'} &
-\mathbf{0}_{4\times 3} \\ \\
-\mathbf{0}_{3 \times 2} & \mathbf{0}_{3\times 4} & 
-\displaystyle \frac{\partial m^E\left( W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0 \right)}{\partial \boldsymbol{\kappa}'}
+\begin{array}{cccc}
+  \displaystyle \frac{\partial m_1^I(\mathbf{w}_i,\mathbf{p}^0)}{\partial \mathbf{p}'} & \mathbf{0}_{4\times 4} & \mathbf{0}_{4 \times 3} & \mathbf{0}_{4\times 1}\\ \\
+  \displaystyle \frac{\partial m^I_2(\mathbf{w}_i, \mathbf{p}^0, \boldsymbol{\nu}^0)}{\partial \mathbf{p}'} &
+  \displaystyle \frac{\partial m^I_2(\mathbf{w}_i, \mathbf{p}^0, \boldsymbol{\nu}^0)}{\partial \boldsymbol{\nu}'} &
+  \mathbf{0}_{4\times 3} & \mathbf{0}_{4\times 1}\\ \\
+\mathbf{0}_{2 \times 2} & \mathbf{0}_{2\times 4} & 
+\displaystyle \frac{\partial m^E\left( \mathbf{w}_i, \boldsymbol{\alpha}^0, \boldsymbol{\kappa}^0, \theta_1^0 \right)}{\partial \boldsymbol{\kappa}'} & \displaystyle \frac{\partial m^E\left( \mathbf{w}_i, \boldsymbol{\alpha}^0, \boldsymbol{\kappa}^0,\theta_1^0\right)}{\partial \theta_1} 
 \end{array}
 \right]
 \]
@@ -5457,8 +5542,15 @@ Q_2 &= \left[
   -2\alpha_1 \, d(\alpha_1, z=1)
 \end{array}
 \right] \\
-\mathbb{E}\left[\frac{\partial m^E\left( W_i, \boldsymbol{\theta}_0, \boldsymbol{\gamma}_0 \right)}{\partial \boldsymbol{\kappa}'}\right] &= -q\, \mathbf{I}_3
+\mathbb{E}\left[\frac{\partial m^E\left( \mathbf{w}_i, \boldsymbol{\alpha}^0,  \boldsymbol{\kappa}^0, \theta_1^0 \right)}{\partial \boldsymbol{\kappa}'}\right] &= \left[
+\begin{array}{ccc}
+  0 & -q & 0 \\
+  0 & 0 & -q
+\end{array}
+\right]\\ 
+\mathbb{E}\left[\frac{\partial m^E\left( \mathbf{w}_i, \boldsymbol{\alpha}^0,  \boldsymbol{\kappa}^0, \theta_1^0 \right)}{\partial \theta_1}\right] &= 
 \end{align*}
-and $\alpha_0,\alpha_1$ are understood to be hypothesized values under the null $\boldsymbol{\theta} = \boldsymbol{\theta}_0$.
+and $\alpha_0,\alpha_1$ are understood to be hypothesized values under the null.
+Notice that we take derivatives with respect to $\kappa_1$ but these are all equal to zero.
 
 \end{document}
