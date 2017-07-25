@@ -5749,7 +5749,8 @@ Compare this to the full three-dimensional projection, in which we gain power fr
 Third, our Bonferroni procedure is very simple computationally.
 Constructing a grid of values over which to carry out projection is already very costly, though feasible, in three dimensions.
 The alternative is to trust the results of a derivative-free constrained optimizer on a problem that can be highly non-smooth.
-In contrast, forming a grid in two dimensions is essentially trivial.
+Note that the parameter space for $\beta$ is \emph{unbounded}.
+In contrast, forming a grid for $(\alpha_0, \alpha_1)$ in two dimensions is essentially trivial, particularly since the parameter space is bounded: $\alpha_0, \alpha_1>0$ and we have assume $\alpha_0 + \alpha_1 < 1$.
 \todo[inline]{Also say something about how eliminating $\theta_1$ gives us a very good idea of how to set up our grid, where to look, etc.\ since we know that we can make the second moment conditions exactly zero along a particular line in $(\alpha_0, \alpha_1)$-space.}
 
 
