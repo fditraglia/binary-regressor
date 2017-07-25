@@ -5704,4 +5704,55 @@ Where,
 \end{array}
 \right]
 \end{align*}
+
+\section{More on Bonferroni -- (2017--07-25)}
+The Bonferroni idea we sketched above is implemented as follows.
+We first construct a $(1 - \delta_1)\times 100 \%$ joint confidence set for $(\alpha_0, \alpha_1)$ and then project this to get a $(1 - \delta_1)\times 100 \%$ confidence region $\mathscr{S}$ for $s = (1 - \alpha_0 - \alpha_1)$.
+We then construct a $(1 - \delta_2)\times 100\%$ confidence interval for $\theta_1$ from the output of the usual IV estimator.
+let $(\mbox{LCL}, \mbox{UCL})$ denote this IV confidence interval.
+Since
+\begin{align*}
+  \mathbb{P}\left( \mbox{LCL} \leq \theta_1 \leq \mbox{UCL} \right) &= 1 - \delta_2\\
+  \mathbb{P}\left( \mbox{LCL} \leq \frac{\beta}{1 - \alpha_0 - \alpha_1} \leq \mbox{UCL} \right) &= 1 - \delta_2\\
+  \mathbb{P}\left( \left[ 1 - \alpha_0 - \alpha_1 \right] \times \mbox{LCL} \leq \beta \leq \left[ 1 - \alpha_0 - \alpha_1 \right] \times \mbox{UCL} \right) &= 1 - \delta_2
+\end{align*}
+The Bonferroni interval
+\[
+\left[\inf_{s \in \mathscr{S}} (s \times \mbox{LCL}),\, \sup_{s \in \mathscr{S}} (s \times \mbox{UCL})\right] 
+\]
+is a valid $(1 - \delta_1 - \delta_2) \times 100\%$ confidence interval for $\beta$.
+But we do not actually have to evaluate each $s \in \mathscr{S}$ since the $\inf$ and $\sup$ must clearly occur at one the endpoints of $\mathscr{S}$.
+Defining $\underbar{s} =\inf \mathscr{S}$ and $\bar{s} = \sup \mathscr{S}$, the Bonferroni interval is equivalent to
+\[
+  \left[\min\left\{\underbar{s} \times \mbox{LCL}, \bar{s} \times \mbox{LCL}  \right\}, \; 
+\max\left\{\underbar{s} \times \mbox{UCL}, \bar{s} \times \mbox{UCL}  \right\} \right]
+\]
+
+The Bonferroni interval above has several advantages over projection inference for $\beta$ based on a joint confidence set for $(\alpha_0, \alpha_1, \beta)$.
+These should make it quite appealing for practitioners.
+First, if a standard $(1 - \delta_1 - \delta_2)\times 100\%$ IV confidence interval for $\theta_1$ includes zero, so does the Bonferroni interval. 
+Recall that the standard IV test of $\theta_1 = 0$ is also a valid test of $\beta = 0$ at the same significance level. 
+This means that we will never be in a situation where the higher moment equalities lead us to reject $\beta = 0$ when we would have been unable to reject $\beta = 0$ based on first moments alone.
+In contrast, even if $\mbox{Cov}(y,z)$ were exactly equal to zero, the full projection-based inference for $\beta$ could lead us to reject $\beta=0$ if $\mbox{Cov}(y^2,z)\neq 0$ or $\mbox{Cov}(y^3,z) \neq 0$.
+Given that lower moments of $y$ should be more precisely estimated, a rejection of this form would strongly suggest that something is wrong with our model, for example that the higher moment assumptions for the instrument are incorrect.
+The Bonferroni procedure is immune to this problem because it can only reject $\beta = 0$ based on first moment information.
+When the first moment information conflicts with the higher moment information, we prefer the former.
+
+Second, projection necessarily involves some degree of conservatism.\footnote{Although I suppose we could always consider going back to look at BCS or KMS\ldots}
+Our procedure projects from a two-dimensional space to a one-dimensional space -- we convert a confidence region for $(\alpha_0, \alpha_1)$ to a confidence interval for $(1 - \alpha_0 - \alpha_1)$ -- while the alternative projects form a three-dimensional space to a one-dimensional space.
+Thus we would generally expect the projection conservatism to be less severe in our procedure.
+Bonferroni, of course, introduces its own source of conservatism.
+Often, however, the alternative hypothesis of greatest interest is $\beta = 0$.
+Our Bonferroni procedure rejects this hypothesis if and only if a standard IV test of $\beta=0$ does so at the $(1 - \delta_2)$ so the source of lower power is both quite transparent and under our direct control via the choice of $\delta_2$ relative to $\delta_1$.
+Compare this to the full three-dimensional projection, in which we gain power from the higher moment conditions but lose power from the dimension reduction, making the overall result less clear.
+
+Third, our Bonferroni procedure is very simple computationally.
+Constructing a grid of values over which to carry out projection is already very costly, though feasible, in three dimensions.
+The alternative is to trust the results of a derivative-free constrained optimizer on a problem that can be highly non-smooth.
+In contrast, forming a grid in two dimensions is essentially trivial.
+\todo[inline]{Also say something about how eliminating $\theta_1$ gives us a very good idea of how to set up our grid, where to look, etc.\ since we know that we can make the second moment conditions exactly zero along a particular line in $(\alpha_0, \alpha_1)$-space.}
+
+
+
+
 \end{document}
