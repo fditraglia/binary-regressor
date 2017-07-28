@@ -3524,17 +3524,130 @@ The first gives the relationship between the observed first stage probabilities 
 
 \noindent If we strengthen Assumption \ref{assump:model} (iii) to Assumption \ref{assump:jointExog}, then a binary instrument suffices to identify $\beta$ under Assumptions ???.
 (See KRS, BBS, FL, and Mahajan. Also possibly put a proof in the online-only appendix).
-However, without this additional condition $\beta$ is unidentified regardless of the number of values that the instrument takes on, as we now show.\footnote{Footnote mentioning how this relates to Mahajan's mistake. He imposed an extra assumption that contradicts the existence of a first-stage. Direct the reader a separate note explaining the error.}
-\begin{thm}[Non-identification Result]
-  \label{thm:nonident}
+However, without this additional condition $\beta$ is unidentified regardless of the number of values that the instrument takes on, as we now show.\footnote{Footnote mentioning how this relates to Mahajan's mistake. He imposed an extra assumption that contradicts the existence of a first-stage. Direct the reader an appendix explaining the error.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thm}[Sharp Identified Set I]
+  \label{thm:sharpI}
+  Under assumptions (baseline but need allow for more than two values for $k$!, also $\alpha_0 + \alpha_1 < 1$, also $p_k \neq p_\ell$ and $0 < q <1$) the sharp identified set is characterized by $\alpha_0(\mathbf{x}) \leq \mathbb{P}(T=1|\mathbf{x}, z=k) \leq 1 -  \alpha_1(\mathbf{x})$ and
+  \[
+    \beta(\mathbf{x}) \left[ \mathbb{P}(T=1|\mathbf{x},z=k) - \alpha_0(\mathbf{x}) \right] = \left[1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})\right] \left[\mathbb{E}\left( y |z = k \right) - c(\mathbf{x})\right]
+  \]
+for all $k \in K$.
 \end{thm}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-\begin{proof}[Proof of Theorem \ref{thm:nonident}]
-  Proof non-identification by deriving the sharp identified set.
-  This requires deriving bounds such that: (1) any point that violates the bounds violates one of our assumptions, and (2) for any point within the bounds we can find a DGP that satisfies all of our assumptions.
-  This shouldn't be too hard, but we just need to make sure the proof is completely rigorous.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{proof}[Proof of Theorem \ref{thm:sharpI}]
+  Throughout this argument we suppress dependence on $\mathbf{x}$ for simplicity. 
+  Define $p_k = \mathbb{P}(T=1|z=k)$ and $p_k^* = \mathbb{P}(T=1|z_k)$.
+
+We first show that so long as $\alpha_0 \leq p_k \leq 1 - \alpha_1$ then we can construct a valid joint probability distribution for $(T^*, T, z)$ that satisfies our assumptions.
+First decompose the joint probability mass function as
+\[
+  p(T^*,T,z) = p(T|T^*,z)p(T^*|z)p(z).
+\]
+By Assumption (???), $p(T|T^*,z) = p(T|T^*)$ and thus $\alpha_0$ and $\alpha_1$ fully determine $p(T|T^*,z)$.  
+Under the proposed bounds, $\alpha_0$ and $\alpha_1$ are clearly valid probabilities.
+Since $p(z)$ is observed, it thus suffices to ensure that $p(T^*|z)$ is a valid probability mass function.
+By the law of total probability and Assumption ??? ($\alpha_0 + \alpha_1 \neq 1)$, 
+\[
+  p_k^* = \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1}.
+\]
+Given Assumption ??? ($\alpha_0 + \alpha_1 < 1$), we see that $0 \leq p_k^* \leq 1$ if and only if $\alpha_0 \leq p_k \leq 1 - \alpha_1$.
+Since $(p_k - p_\ell) = (p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1)$, provided that $p_k - p_\ell \neq 0$ we have $p^*_k \neq p^*_\ell$. 
+
+We now show how to construct a valid conditional distribution for $y$ given $(T^*,T,z)$ that satisfies our assumptions if $\beta (p_k - \alpha_0) = (1 - \alpha_0 - \alpha_1)[\mathbb{E}(y|z_k) - c]$ for all $k$.
+Define
+\begin{align*}
+r_{tk} &\equiv \mathbb{P}(T^*=1|T=t,z=k)\\
+F_{t}(\tau) &\equiv \mathbb{P}(y \leq \tau|z=k) \\
+F_{tk}(\tau) &\equiv \mathbb{P}(y \leq \tau|T=t, z=k) \\
+F_{tk}^{t^*}(\tau) &\equiv \mathbb{P}(y \leq \tau|T^*=t^*,T=t, z=k)\\
+G_k(\tau) &\equiv \mathbb{P}(\varepsilon \leq \tau|z=k)\\
+G^{t^*}_{tk}(\tau) &\equiv \mathbb{P}(\varepsilon \leq \tau|T^*=t^*, T=t,z=k).
+\end{align*}
+There are several cases.
+
+\paragraph{Case I: $0 < \alpha_0 < p_k$ and $0 < \alpha_1 < 1 - p_k$.} 
+In this case $F^0_{tk}, F^1_{tk}$, and $r_{tk}$ exist for all $t =0, 1$.
+Moreover, $0 < r_{tk} < 1$ for all $t$ since $r_{0k} = (1 - \alpha_1)p_k^*/p_k$ and $r_{1k} = \alpha_1 p_k^*/p_k$ by Bayes' rule.
+Thus, by the law of total probability,
+\begin{equation}
+  F^1_{tk}(\tau) = \frac{1}{r_{tk}}\left[F_{tk}(\tau) - (1 - r_{tk})F^0_{tk}(\tau)\right]
+  \label{eq:F1fromF0}
+\end{equation}
+Since $F_{tk}(\tau)$ is observed and $r_{tk}$ is fixed given observables and $(\alpha_0, \alpha_1)$ we see that $F^{1}_{tk}(\tau)$ is completely determined by our choice of $F^0_{tk}(\tau)$.
+Now, Assumption ??? (model) implies a relationship between $G^{t^*}_{tk}$ and $F^{t^*}_{tk}$ for each $t^*$, namely 
+\begin{align*}
+  G^0_{tk}(\tau) &= F^0_{tk}(\tau + c)\\
+  G^1_{tk}(\tau) &= F^1_{tk}(\tau + c + \beta).
+\end{align*}
+and thus we see that
+%\scriptsize
+%\[
+%  G_k(\tau) = p_k^*\left[\frac{r_{1k}p_k}{p_k^*} F^1_{1k}(\tau + c + \beta) + \frac{r_{0k}(1 - p_k)}{p_k^*} F^1_{0k}(\tau + c + \beta)  \right] + (1 - p_k^*) \left[ \frac{(1 - r_{1k})p_k}{1 - p_k^*}  F^0_{1k}(\tau + c) + \frac{(1 - r_{0k})(1 - p_k)}{1 - p_k^*} F^0_{0k}(\tau + c) \right] 
+%\]
+%\normalsize
+\[
+  G_k(\tau) = r_{1k}p_k F^1_{1k}(\tau + c + \beta) + r_{0k}(1 - p_k) F^1_{0k}(\tau + c + \beta) +  (1 - r_{1k})p_k F^0_{1k}(\tau + c) + (1 - r_{0k})(1 - p_k) F^0_{0k}(\tau + c)
+\]
+again applying the law of total probability and Bayes' rule.
+Substituting Equation \ref{eq:F1fromF0}, 
+\begin{align*}
+  G_k(\tau) = F_k(\tau + c + \beta) &+ p_k(1 - r_{1k})\left[F^0_{1k}(\tau + c) - F_{1k}^0(\tau + c + \beta)\right]\\
+  &+ (1 - p_k)(1 - r_{0k}) \left[ F^0_{0k}(\tau + c) - F^0_{0k}(\tau + c + \beta) \right]
+\end{align*}
+using the fact that
+\[
+  F_k(\tau) = p_k F_{1k}(\tau) + (1 - p_k) F_{0k}(\tau).
+\]
+To establish that Assumption ??? (valid IV) is satisfied for $z = k$, we need to show that the expectation of a random variable with distribution  function $G_k(\tau)$ is zero.
+Integrating both sides of the equality for $G_k(\tau)$, we see that this occurs if and only if 
+\begin{align*}
+  0 = \mathbb{E}[y - c - \beta|z=k] &+ p_k(1 - r_{1k})\left[ \mathbb{E}(\varepsilon|T^*=0,T=1,z_k) - \mathbb{E}(\varepsilon - \beta|T^*=0,T=1,z_k) \right] \\
+   &+ (1 - p_k)(1 - r_{0k})\left[ \mathbb{E}(\varepsilon|T^*=0,T=0,z_k) - \mathbb{E}(\varepsilon - \beta|T^*=0,T=0,z_k) \right]\\
+   0 = \mathbb{E}[y - c - \beta|z=k] &+ \beta\left[p_k(1 - r_{1k}) + (1 - p_k)(1 - r_{0k})\right]
+\end{align*}
+But since $\left[p_k(1 - r_{1k}) + (1 - p_k)(1 - r_{0k})\right] = (1 - p_k^*)$ and $p_k^* = (p_k - \alpha_0) /(1 - \alpha_0 - \alpha_1)$, we find that $\mathbb{E}[\varepsilon|z=k] = 0$ if and only if 
+\[
+\mathbb{E}[y|z=k] = c + \beta\left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right).
+\]
+The final step is to show that we can satisfy Assumption ??? (non-differential).
+
+
+\todo[inline]{Fix from here down!}
+If $\alpha_1 \neq 0$, then $r_{1k}\neq 0$ so the analogous statement holds for $F_{1k}^1(\tau)$, namely
+\[ 
+  F_{tk}(\tau) = (1 - r_{tk}) F^{0}_{tk}(\tau) + r_{tk} F^{1}_{tk}(\tau)
+\]
+\[
+  F^1_{1k}(\tau) = \frac{1}{r_{1k}}\left[F_{1k}(\tau) - (1 - r_{1k})F^1_{0k}\right]
+\]
+If $\alpha_1 = 0$, however, then $r_{1k} = 0$.
+In this case $F^1_{1k}(\tau)$ does not exist and $F_{1k}(\tau) = F_{1k}^0(\tau)$.
+
 \end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{cor}
+  Implied sharp set for $\beta(\mathbf{x})$ and show that it can never be a singleton set. Discuss what happens if the mis-classification is one-sided or symmetric.
+\end{cor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{thm}[Sharp Identified Set II]
+  \label{thm:sharpII}
+  Strengthen Theorem \ref{thm:sharpI} to include the second moment IV restriction.
+\end{thm}
+
+\begin{proof}[Proof of Theorem \ref{thm:sharpII}]
+Only requires us to show that we can additionally satisfy the second moment restriction.
+All the other steps are the same as in the proof of Theorem \ref{thm:sharpI}.
+\end{proof}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{lem}
