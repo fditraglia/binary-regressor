@@ -5969,6 +5969,10 @@ where the derivatives that enter these expressions are
     \displaystyle \frac{\beta}{(1 - \alpha_0 - \alpha_1)^2} &
     \displaystyle \frac{1}{1 - \alpha_0 - \alpha_1}
   \end{array}
+\right] =\frac{1}{1 - \alpha_0 - \alpha_1} \left[
+\begin{array}{ccc}
+  \theta_1 & \theta_1 & 1
+\end{array}
 \right]\\
   \frac{\partial \theta_2}{\partial \boldsymbol{\vartheta}'} &= 
   -\alpha_0(1 - \alpha_1) \left( \frac{\partial \theta_1}{\partial \boldsymbol{\vartheta}'} \right) + \left[
@@ -5999,6 +6003,129 @@ Under the assumption of iid observations, the preceding simplifies to $\Omega = 
 \section{Derivatives for GMM -- 2017-07-28}
 We will show that the usual GMM estimator of our just-identified system of moment equalities is badly-behaved when $\beta$ is small.
 To do this, we require some derivatives that will allow us to calculate the asymptotic variance of the GMM estimator.
+
+As above, define the following quantities:
+\begin{align*}
+  \mathbf{w}' &= (T, y, yT, y^2, y^2 T, y^3) \\
+  \boldsymbol{\Psi} &= \left[
+  \begin{array}{ccc}
+    \psi_1 & \psi_2 & \psi_3
+  \end{array}
+\right]\\
+  \psi_1' &= (-\theta_1, 1, 0, 0, 0, 0)\\
+  \psi_2' &= (\theta_2, 0, -2\theta_1, 1, 0, 0)\\
+  \psi_3' &= (-\theta_3, 0, 3\theta_2, 0, -3\theta_1, 1)\\
+  \theta_1 &= \beta/(1 - \alpha_0 - \alpha_1)\\
+  \theta_2 &= \theta_1^2 (1 + \alpha_0 - \alpha_1) \\
+  \theta_3 &= \theta_1^3 \left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0(1 - \alpha_1) \right]
+\end{align*}
+As in the preceding section, let $\boldsymbol{\vartheta}' = (\alpha_0, \alpha_1, \beta)$, but define the blocks of moment functions as follows:
+\[
+  f = \left[
+  \begin{array}{c}
+  g(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\kappa})\\
+    h(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\kappa})
+  \end{array}
+\right] = 
+\left[
+\begin{array}{c}
+  \left\{\boldsymbol{\Psi}(\boldsymbol{\vartheta})'\mathbf{w}_i - \boldsymbol{\kappa}\right\} z_i \\
+  \boldsymbol{\Psi}(\boldsymbol{\vartheta})'\mathbf{w}_i - \boldsymbol{\kappa} 
+\end{array}
+\right]
+\]
+and 
+\[
+  F = \mathbb{E}[\nabla f ] = \mathbb{E}\left[
+  \begin{array}{cc}
+    \nabla_{\vartheta'} g & \nabla_{\kappa'} g \\
+    \nabla_{\vartheta'} h & \nabla_{\kappa'} h
+  \end{array}
+\right] = 
+\left[
+\begin{array}{cc}
+  G_{\vartheta} & -q\mathbb{I} \\
+  H_{\vartheta} & -\mathbb{I}
+\end{array}
+\right]
+\]
+Now, defining
+\[
+  D^\Psi = \left[
+  \begin{array}{c}
+    \frac{\partial\psi_1}{\partial \boldsymbol{\vartheta}'}\\
+    \frac{\partial\psi_2}{\partial \boldsymbol{\vartheta}'}\\
+    \frac{\partial\psi_3}{\partial \boldsymbol{\vartheta}'}
+  \end{array}
+\right]
+\]
+we see that
+\[
+  G_\vartheta = \mathbb{E}[\mathbf{w}_i z_i]' D^\Psi, \quad H_\vartheta = \mathbb{E}[\mathbf{w}_i]' D^\Psi
+\]
+The remaining derivatives needed to construct these objects are as follows:
+\[
+  \frac{\partial \psi_1}{\partial \boldsymbol{\vartheta}'} = \left[
+  \begin{array}{r}
+    \displaystyle -\frac{\partial\theta_1}{\partial \boldsymbol{\vartheta}'}\\ \\
+    \mathbf{0}_{5\times 3}
+  \end{array}
+\right], \quad
+  \frac{\partial \psi_2}{\partial \boldsymbol{\vartheta}'} = \left[
+  \begin{array}{r}
+    \displaystyle \frac{\partial\theta_2}{\partial \boldsymbol{\vartheta}'}\\  \\
+    \mathbf{0}_{1\times 3}\\ \\ 
+    \displaystyle -2\frac{\partial\theta_1}{\partial \boldsymbol{\vartheta}'}\\ \\
+    \mathbf{0}_{3\times 3}
+  \end{array}
+\right], \quad
+  \frac{\partial \psi_3}{\partial \boldsymbol{\vartheta}'} = \left[
+  \begin{array}{r}
+    -\displaystyle \frac{\partial\theta_3}{\partial \boldsymbol{\vartheta}'}\\  \\
+    \mathbf{0}_{1\times 3}\\ \\ 
+    \displaystyle 3\frac{\partial\theta_2}{\partial \boldsymbol{\vartheta}'}\\ \\
+    \mathbf{0}_{1\times 3} \\ \\ 
+    \displaystyle -3\frac{\partial\theta_1}{\partial \boldsymbol{\vartheta}'}\\ \\
+    \mathbf{0}_{1\times 3} 
+  \end{array}
+\right]
+\]
+
+\begin{align*}
+  \frac{\partial \theta_1}{\partial \boldsymbol{\vartheta}'} &= 
+  \left[
+  \begin{array}{ccc}
+    \displaystyle \frac{\beta}{(1 - \alpha_0 - \alpha_1)^2} &
+    \displaystyle \frac{\beta}{(1 - \alpha_0 - \alpha_1)^2} &
+    \displaystyle \frac{1}{1 - \alpha_0 - \alpha_1}
+  \end{array}
+\right] = \frac{1}{1 - \alpha_0 - \alpha_1}\left[
+\begin{array}{ccc}
+  \theta_1 & \theta_1 & 1
+\end{array}
+\right]\\ \\ 
+  \frac{\partial \theta_2}{\partial \boldsymbol{\vartheta}'} &= 2\theta_1(1 + \alpha_0 - \alpha_1) \left( \frac{\partial \theta_1}{\partial\boldsymbol{\vartheta}'} \right) +  \theta_1^2 \left[
+  \begin{array}{ccc}
+    1& -1 & 0
+  \end{array}
+\right] \\ \\ 
+  \frac{\partial \theta_3}{\partial \boldsymbol{\vartheta}'} &= 3\theta_1^2 \left[ (1 - \alpha_0 - \alpha_1)^2 + 6 \alpha_0 (1 - \alpha_1) \right] \left( \frac{\partial \theta_1}{\partial \boldsymbol{\vartheta}'} \right) +  \theta_1^3 \mathbf{v}'\\
+  \mathbf{v}' &= \left[
+  \begin{array}{ccc}
+    \left\{-2(1 - \alpha_0 - \alpha_1) + 6(1 - \alpha_1)\right\} & \left\{-2(1 - \alpha_0 - \alpha_1) - 6\alpha_0\right\} & 0
+  \end{array}
+\right]
+\end{align*}
+
+Now, because we have a just-identified system of moment equalities, standard results for GMM imply that the method of moments estimator of the full parameter vector $\boldsymbol{\gamma} = (\alpha_0, \alpha_1, \beta, \kappa_1)$ has the following large sample distribution:
+\[
+  \sqrt{n}\left( \widehat{\gamma} - \gamma \right) \rightarrow_d -F^{-1} M, \quad \sqrt{n}f_n(\gamma) \rightarrow_d M
+\]
+where $M \sim N(0, \Omega)$ and
+\[
+  \Omega = \lim_{n\rightarrow \infty}\mbox{Var}\left[ n^{-1/2}\sum_{i=1}^n f(\mathbf{w}_i; \gamma) \right]
+\]
+Under the assumption of iid observations, the preceding simplifies to $\Omega = \mbox{Var}\left[ f(\mathbf{w}_i;\gamma) \right]$.
 
 
 \end{document}
