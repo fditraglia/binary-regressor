@@ -5894,8 +5894,46 @@ Using these definitions, the moment conditions from above become
 \right]\right\} = \mathbf{0}
 \]
 Note that, as in our moment conditions, these conditions are completely uninformative about $(\alpha_0, \alpha_1)$ when $\beta = 0$.
+There is a closed-form for the GMM estimator in this example. 
+Define:
+\begin{align*}
+  A \equiv \theta_3/\theta_1 &= 1 + \alpha_0 - \alpha_1 \\
+  B \equiv -\theta_2/\theta_1 &= \alpha_0 (1 - - \alpha_1)
+\end{align*}
+Then, eliminating $(1 - \alpha_1)$ and $\alpha_0$, respectively, we obtain:
+\begin{align*}
+  \alpha_0^2 - A\alpha_0 + B &= 0\\
+  (1 - \alpha_1)^2 - A(1 - \alpha_1) + B &= 0
+\end{align*}
+These are exactly the same quadratic, namely $x^2 - Ax + B = 0$ so one root of this equation is $\alpha_0$ while the other is $(1 - \alpha_1)$.
+The discriminant is
+\begin{align*}
+  D &= A^2 - 4 B = \left( \frac{\theta_3}{\theta_1} \right)^2 + 4\left(\frac{\theta_2}{\theta_1} \right) = \left[ (1 - \alpha_1) + \alpha_0 \right]^2 - 4\left[ \alpha_0 (1 - \alpha_1) \right]\\
+  &= (1 - \alpha_0 - \alpha_1)^2
+\end{align*}
+so that both roots are real as long as $\alpha_0 + \alpha_1 \neq 0$.
+We can now estimate $\vartheta = (\alpha_0, \alpha_1, \theta)$.
+The procedure is as follows.
+First, use the standard IV estimator for $\kappa_1$ and $\theta_1$, namely
+\begin{align*}
+  \widehat{\theta}_1 &= \mbox{Cov}(y,z)/\mbox{Cov}(T,z)\\
+  \widehat{\kappa}_1 &= \bar{y} - \widehat{\theta}_1 \bar{T}
+\end{align*}
+Then substitute $\widehat{\kappa}_1$ into the remaining moment conditions and again use the standard IV estimator treating $(y - \widehat{\kappa}_1)T$ as the outcome variable:
+\begin{align*}
+  \widehat{\theta}_3 &= \mbox{Cov}\left[ (y-\widehat{\kappa}_1)T, z \right]/ \mbox{Cov}(T, z)\\
+  \widehat{\theta}_2 &= (\bar{yT} - \widehat{\kappa}_1 \bar{T}) - \widehat{\theta}_3 \bar{T}  
+\end{align*}
+These estimators make the sample analogue of the GMM moment conditions \emph{exactly zero}.
+To estimate $\beta$ we use the fact that $\beta = \theta_1 (1 - \alpha_0 - \alpha_1)$:
+\[
+  \widehat{\beta} =  \widehat{\theta}_1 \sqrt{D} = \widehat{\theta}_1 \sqrt{\left( \frac{\widehat{\theta}_3}{\widehat{\theta}_1} \right)^2 + 4 \left( \frac{\widehat{\theta}_2}{\widehat{\theta}_1} \right)} = \mbox{sign}(\widehat{\theta}_1) \sqrt{\left(\widehat{\theta}_3\right)^2 +4 \widehat{\theta}_1 \widehat{\theta}_2}
+\]
+where the final equality comes from the fact that, since $\alpha_0 + \alpha_1 < 1$, the sign of $\theta_1$ equals that of $\beta$.
 
-We will show that the usual GMM inference can break down very badly in this model.
+
+
+We will show that the usual GMM inference based on the estimator we have just defined can break down very badly in this model.
 To do so, we'll need the GMM asymptotic variance matrix estimator.
 This in turn requires some derivatives.
 Define $\boldsymbol{\vartheta}' = (\alpha_0, \alpha_1, \beta)$ and
@@ -5998,6 +6036,12 @@ where $M \sim N(0, \Omega)$ and
   \Omega = \lim_{n\rightarrow \infty}\mbox{Var}\left[ n^{-1/2}\sum_{i=1}^n f(\mathbf{w}_i; \gamma) \right]
 \]
 Under the assumption of iid observations, the preceding simplifies to $\Omega = \mbox{Var}\left[ f(\mathbf{w}_i;\gamma) \right]$.
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \section{Derivatives for GMM -- 2017-07-28}
