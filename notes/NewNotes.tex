@@ -5868,5 +5868,137 @@ In contrast, forming a grid for $(\alpha_0, \alpha_1)$ in two dimensions is esse
 
 
 
+\section{BBS/FL/Mahajan MCs -- 2017-07-28}
+
+It turns out to be much simpler if we use a different parameterization from the one given in the argument from above.
+Define, instead, the following quantities:
+\begin{align*}
+  \theta_1 &= \beta/(1 - \alpha_0 - \alpha_1)\\
+  \kappa_1 &= c - \alpha_0 \theta_1 \\
+  \theta_2 &= -\theta_1 \alpha_0(1 - \alpha_1)\\
+  \theta_3 &= \theta_1 (1 + \alpha_0 - \alpha_1)
+\end{align*}
+Notice that $\theta_1$ and $\kappa_1$ are \emph{exactly} as in our moment equations but the other quantities differ.
+Using these definitions, the moment conditions from above become
+\[
+  \mathbb{E}\left\{ \left[
+    \begin{array}{c}
+    y - \kappa_1 - \theta_1 T\\
+    (y - \kappa_1) T - \theta_2 - \theta_3 T
+  \end{array}
+\right]\otimes
+\left[
+\begin{array}{c}
+1 \\ z
+\end{array}
+\right]\right\} = \mathbf{0}
+\]
+Note that, as in our moment conditions, these conditions are completely uninformative about $(\alpha_0, \alpha_1)$ when $\beta = 0$.
+
+We will show that the usual GMM inference can break down very badly in this model.
+To do so, we'll need the GMM asymptotic variance matrix estimator.
+This in turn requires some derivatives.
+Define $\boldsymbol{\vartheta}' = (\alpha_0, \alpha_1, \beta)$ and
+\[
+  g = \left[
+  \begin{array}{c}
+    y - \kappa_1 - \theta_1 T\\
+    (y - \kappa_1 - \theta_1 T)z
+  \end{array}
+\right], \quad
+G = \mathbb{E}
+\left[
+\begin{array}{cc}
+  \nabla_{\vartheta}' g & \nabla_{\kappa_1}' g
+\end{array}
+\right]
+\]
+and
+\[
+  h = \left[
+  \begin{array}{c}
+    (y - \kappa_1)T - \theta_2 - \theta_3 T\\
+    \left\{  (y - \kappa_1)T - \theta_2 - \theta_3 T \right\} z
+  \end{array}
+\right], \quad
+H = \mathbb{E}
+\left[
+\begin{array}{cc}
+  \nabla_{\vartheta}' h & \nabla_{\kappa_1}' h
+\end{array}
+\right]
+\]
+and let $f = (f', g')'$ and $F = (G', H')'$.
+Then required derivative matrices are
+\[
+  G = 
+  \left[
+  \begin{array}{cc}
+    -\left(\displaystyle \frac{\partial \theta_1}{\partial\boldsymbol{\vartheta}'}  \right)\mathbb{E}[T] & -1\\ \\
+    -\left( \displaystyle \frac{\partial \theta_1}{\partial\boldsymbol{\vartheta}'}  \right)\mathbb{E}[Tz] & -\mathbb{E}[z]
+  \end{array}
+\right] = 
+  \left[
+  \begin{array}{cc}
+    -p\left(\displaystyle \frac{\partial \theta_1}{\partial\boldsymbol{\vartheta}'}  \right) & -1\\ \\
+    -p_1q\left( \displaystyle \frac{\partial \theta_1}{\partial\boldsymbol{\vartheta}'}  \right) & -q
+  \end{array}
+\right]
+\]
+and 
+\[
+  H = 
+  \left[
+  \begin{array}{cc}
+    -\left\{ \displaystyle \frac{\partial \theta_2}{\partial \boldsymbol{\vartheta}'} +  \frac{\partial \theta_3}{\partial \boldsymbol{\vartheta}'} \mathbb{E}[T]\right\}& - \mathbb{E}[T] \\ \\
+    -\left\{ \displaystyle \frac{\partial \theta_2}{\partial \boldsymbol{\vartheta}'} \mathbb{E}[z] +  \frac{\partial \theta_3}{\partial \boldsymbol{\vartheta}'} \mathbb{E}[Tz]\right\}& - \mathbb{E}[Tz] 
+  \end{array}
+\right] = 
+  \left[
+  \begin{array}{cc}
+    -\left\{ \displaystyle \frac{\partial \theta_2}{\partial \boldsymbol{\vartheta}'} +  p\left(\frac{\partial \theta_3}{\partial \boldsymbol{\vartheta}'}\right) \right\}& -p \\ \\
+    -\left\{ \displaystyle q\left(\frac{\partial \theta_2}{\partial \boldsymbol{\vartheta}'} \right) +  p_1 q\left(\frac{\partial \theta_3}{\partial \boldsymbol{\vartheta}'}\right) \right\}& -p_1 q
+  \end{array}
+\right]
+\]
+where the derivatives that enter these expressions are
+\begin{align*}
+  \frac{\partial \theta_1}{\partial \boldsymbol{\vartheta}'} &= \left[
+  \begin{array}{ccc}
+    \displaystyle \frac{\beta}{(1 - \alpha_0 - \alpha_1)^2} &
+    \displaystyle \frac{\beta}{(1 - \alpha_0 - \alpha_1)^2} &
+    \displaystyle \frac{1}{1 - \alpha_0 - \alpha_1}
+  \end{array}
+\right]\\
+  \frac{\partial \theta_2}{\partial \boldsymbol{\vartheta}'} &= 
+  -\alpha_0(1 - \alpha_1) \left( \frac{\partial \theta_1}{\partial \boldsymbol{\vartheta}'} \right) + \left[
+  \begin{array}{ccc}
+    -\theta_1(1 - \alpha_1) &
+    \theta_1 \alpha_0 & 
+    0
+  \end{array}
+\right]\\
+  \frac{\partial \theta_3}{\partial \boldsymbol{\vartheta}'} &= (1 + \alpha_0 - \alpha_1) \left( \frac{\partial \theta_1}{\partial \boldsymbol{\vartheta}'} \right) + \left[
+  \begin{array}{ccc}
+    \theta_1 & - \theta_1 & 0
+  \end{array}
+\right]
+\end{align*}
+
+Now, because we have a just-identified system of moment equalities, standard results for GMM imply that the method of moments estimator of the full parameter vector $\boldsymbol{\gamma} = (\alpha_0, \alpha_1, \beta, \kappa_1)$ has the following large sample distribution:
+\[
+  \sqrt{n}\left( \widehat{\gamma} - \gamma \right) \rightarrow_d -F^{-1} M, \quad \sqrt{n}f_n(\gamma) \rightarrow_d M
+\]
+where $M \sim N(0, \Omega)$ and
+\[
+  \Omega = \lim_{n\rightarrow \infty}\mbox{Var}\left[ n^{-1/2}\sum_{i=1}^n f(\mathbf{w}_i; \gamma) \right]
+\]
+Under the assumption of iid observations, the preceding simplifies to $\Omega = \mbox{Var}\left[ f(\mathbf{w}_i;\gamma) \right]$.
+
+
+\section{Derivatives for GMM -- 2017-07-28}
+We will show that the usual GMM estimator of our just-identified system of moment equalities is badly-behaved when $\beta$ is small.
+To do this, we require some derivatives that will allow us to calculate the asymptotic variance of the GMM estimator.
+
 
 \end{document}
