@@ -5971,12 +5971,13 @@ Note that these bounds are unavailable to us if we wish to allow $X$ to affect t
 Frazis and Loewenstein propose to carry out inference that respects both the parameter space restrictions for $\alpha_0$ and $\alpha_1$ along with their percentile bounds in two ways.
 In the first they employ a pseudo-Bayesian approach adapted from a paper by Geweke.
 In this procedure, they estimate the unrestricted GMM estimator $\widehat{\Pi}$ of the \emph{reduced form parameters} along with its associated asymptotic variance matrix estimator $V(\widehat{\Pi})$.
-They then make draws from a $N(\widehat{\Pi}, V(\widehat{\Pi}))$ distribution and discard those that violate $0 \leq \widehat{\alpha}_0 \leq 1$, $0 \leq \alpha_1 \leq 1$ or their estimated percentile bounds.
+They then make draws from a $N(\widehat{\Pi}, V(\widehat{\Pi}))$ distribution and discard those that violate $0 \leq \alpha_0 \leq 1$, $0 \leq \alpha_1 \leq 1$ or their estimated percentile bounds.
 The draws that remain are treated as a posterior for the purposes of estimation and inference.
 They also propose a specification test of their model via the inequality restrictions.
 In particular, they determine the least-favorable critical value for a test of the null hypothesis that none of their inequalities is violated.
-There doesn't appear to be anything wrong with the specification test but the inference procedure based on Geweke seems quite ad-hoc and they do not argue for why we should expect this to work.
-It's actually a farily interesting idea though, and we may want to try it out in simulations.
+There doesn't appear to be anything wrong with the specification test but the inference procedure based on Geweke seems quite ad-hoc and they do not argue for why we should expect this to give valid frequentist inference.
+They don't provide any simulation evidence either.
+It's actually a pretty interesting idea though and we may want to try it out.
 
 
 \paragraph{Standard GMM Inference}
@@ -6217,6 +6218,33 @@ where $M \sim N(0, \Omega)$ and
   \Omega = \lim_{n\rightarrow \infty}\mbox{Var}\left[ n^{-1/2}\sum_{i=1}^n f(\mathbf{w}_i; \gamma) \right]
 \]
 Under the assumption of iid observations, the preceding simplifies to $\Omega = \mbox{Var}\left[ f(\mathbf{w}_i;\gamma) \right]$.
+
+\section{What to include in our simulations? 2017-07-29}
+\begin{enumerate}
+  \item We need a ``baseline'' GMM procedure. It's difficult to decide what this should be. On the one hand we want it to be fairly simple. On the other hand, we don't want it to be a ``straw man.''
+    Here's a relatively simple idea that avoids full non-linear GMM and is broadly comparable to our Bonferroni GMS procedure (in that we use preliminary estimators along with the inequalities)
+    \begin{enumerate}
+      \item Calculate the unconstrained method of moment estimator if it exists.
+      \item If the unconstrained estimator fails to exist or does not satisfy the bounds, then fix $\theta_1$ and $\kappa$ at the GMM estimates and minimize the sum of squares of the profile GMM criterion over $\alpha_0, \alpha_1$ subject to the constraint.
+      \item Report standard GMM inference conditional on the estimated parameters, regardless of whether the estimates are the unconstrained solultion or the constrained solution.
+    \end{enumerate}
+  \item There are multiple ways to carry out our GMS procedure: Bonferroni vs full projection, first moment inequalities, second moment inequalities, CDF inequalities, etc.
+    There are many directions we could go, but some of these are really extensions.
+    Perhaps the baseline should be first moment inequalities only.
+  \item If we can show that the Bonferroni idea is not dominated by the full projection idea, then I think we can dispense with the full projection procedure.
+  \item I like the Geweke idea used by Frazis and Loewenstein now that I understand it, but I don't have any intuition about how well it can be expected to perform in practice.
+    This should be fairly easy to code since it doesn't rely on any of those ``nasty'' derivatives of the $\theta$ parameters with respect to $\alpha_0, \alpha_1$ and $\beta$.
+    The basic idea would be as follows:
+    \begin{enumerate}
+      \item Calculate the GMM estimates of the reduced form parameters $\theta$ and $\kappa$ and the associated asymptotic variance matrix estimator. 
+        Call the vector of reduced form estimates $\widehat{\Pi}$ and the associated asymptotic variance matrix $V(\widehat{\Pi})$.
+      \item  Make a large number of draws $\Pi^{(1)}, \cdots, \Pi^{(N)}$ from a $N\left(\widehat{\Pi}, V(\widehat{\Pi})\right)$ distribution.
+      \item Keep only those draws $\Pi^{(i)}$ that satisfy the constraints and restrictions on the parameter space.
+        This could potentially be a very small number of draws or perhaps even zero draws.
+      \item For each draw that satisfies the bounds, solve for the structural parameters $\alpha_0, \alpha_1, \beta$.
+        Treat the result as a posterior draw for the structural parameters.
+    \end{enumerate}
+\end{enumerate}
 
 
 \end{document}
