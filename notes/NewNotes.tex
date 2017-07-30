@@ -5863,13 +5863,13 @@ Third, our Bonferroni procedure is very simple computationally.
 Constructing a grid of values over which to carry out projection is already very costly, though feasible, in three dimensions.
 The alternative is to trust the results of a derivative-free constrained optimizer on a problem that can be highly non-smooth.
 Note that the parameter space for $\beta$ is \emph{unbounded}.
-In contrast, forming a grid for $(\alpha_0, \alpha_1)$ in two dimensions is essentially trivial, particularly since the parameter space is bounded: $\alpha_0, \alpha_1>0$ and we have assume $\alpha_0 + \alpha_1 < 1$.
-\todo[inline]{Also say something about how eliminating $\theta_1$ gives us a very good idea of how to set up our grid, where to look, etc.\ since we know that we can make the second moment conditions exactly zero along a particular line in $(\alpha_0, \alpha_1)$-space.}
+In contrast, searching over a grid for $(\alpha_0, \alpha_1)$ in two dimensions is easy, particularly since the parameter space is bounded: $\alpha_0, \alpha_1>0$ and we have assumed $\alpha_0 + \alpha_1 < 1$.
 
 
 
 \section{BBS/FL/Mahajan MCs -- 2017-07-28}
 
+\paragraph{A Better Parameterization}
 It turns out to be much simpler if we use a different parameterization from the one given in the argument from above.
 Define, instead, the following quantities:
 \begin{align*}
@@ -5893,9 +5893,12 @@ Using these definitions, the moment conditions from above become
 \end{array}
 \right]\right\} = \mathbf{0}
 \]
-Note that, as in our moment conditions, these conditions are completely uninformative about $(\alpha_0, \alpha_1)$ when $\beta = 0$.
+Note that these moment conditions are completely uninformative about $(\alpha_0, \alpha_1)$ when $\beta = 0$.
+
+\paragraph{The Method of Moments Estimator}
 There is a closed-form for the GMM estimator in this example. 
-Define:
+To calculate it, we first need to solve the moment equations from the preceding paragraph.
+To this end, define:
 \begin{align*}
   A \equiv \theta_3/\theta_1 &= 1 + \alpha_0 - \alpha_1 \\
   B \equiv -\theta_2/\theta_1 &= \alpha_0 (1 - - \alpha_1)
@@ -5912,27 +5915,71 @@ The discriminant is
   &= (1 - \alpha_0 - \alpha_1)^2
 \end{align*}
 so that both roots are real as long as $\alpha_0 + \alpha_1 \neq 0$.
+To solve for $\alpha_0$ and $\alpha_1$ we need to calculate the roots of $x^2 - Ax + B =0$, namely
+\[
+  x = \frac{1}{2}\left( A \pm \sqrt{D} \right)
+\]
+One of these roots is $\alpha_0$ and the other is $1 - \alpha_1$.
+By assumption, however, $\alpha_0 + \alpha_1 < 1$ and thus $\alpha_0 < 1 - \alpha_1$ so we know that the smaller of the two roots is $\alpha_0$ and the larger is $1 - \alpha_1$.
+
 We can now estimate $\vartheta = (\alpha_0, \alpha_1, \theta)$.
 The procedure is as follows.
 First, use the standard IV estimator for $\kappa_1$ and $\theta_1$, namely
 \begin{align*}
   \widehat{\theta}_1 &= \mbox{Cov}(y,z)/\mbox{Cov}(T,z)\\
-  \widehat{\kappa}_1 &= \bar{y} - \widehat{\theta}_1 \bar{T}
+  \widehat{\kappa}_1 &= \overline{y} - \widehat{\theta}_1 \overline{T}
 \end{align*}
 Then substitute $\widehat{\kappa}_1$ into the remaining moment conditions and again use the standard IV estimator treating $(y - \widehat{\kappa}_1)T$ as the outcome variable:
 \begin{align*}
   \widehat{\theta}_3 &= \mbox{Cov}\left[ (y-\widehat{\kappa}_1)T, z \right]/ \mbox{Cov}(T, z)\\
-  \widehat{\theta}_2 &= (\bar{yT} - \widehat{\kappa}_1 \bar{T}) - \widehat{\theta}_3 \bar{T}  
+  \widehat{\theta}_2 &= (\overline{yT} - \widehat{\kappa}_1 \overline{T}) - \widehat{\theta}_3 \overline{T}  
 \end{align*}
 These estimators make the sample analogue of the GMM moment conditions \emph{exactly zero}.
 To estimate $\beta$ we use the fact that $\beta = \theta_1 (1 - \alpha_0 - \alpha_1)$:
 \[
-  \widehat{\beta} =  \widehat{\theta}_1 \sqrt{D} = \widehat{\theta}_1 \sqrt{\left( \frac{\widehat{\theta}_3}{\widehat{\theta}_1} \right)^2 + 4 \left( \frac{\widehat{\theta}_2}{\widehat{\theta}_1} \right)} = \mbox{sign}(\widehat{\theta}_1) \sqrt{\left(\widehat{\theta}_3\right)^2 +4 \widehat{\theta}_1 \widehat{\theta}_2}
+  \widehat{\beta} =  \widehat{\theta}_1 \sqrt{\widehat{D}} = \widehat{\theta}_1 \sqrt{\left( \frac{\widehat{\theta}_3}{\widehat{\theta}_1} \right)^2 + 4 \left( \frac{\widehat{\theta}_2}{\widehat{\theta}_1} \right)} = \mbox{sign}(\widehat{\theta}_1) \sqrt{\left(\widehat{\theta}_3\right)^2 +4 \widehat{\theta}_1 \widehat{\theta}_2}
 \]
 where the final equality comes from the fact that, since $\alpha_0 + \alpha_1 < 1$, the sign of $\theta_1$ equals that of $\beta$.
+To estimate $\alpha_0$ and $\alpha_1$ we calculate
+\begin{align*}
+  \widehat{r}_1 &= \frac{1}{2}\left( \widehat{A} + \sqrt{\widehat{D}} \right)\\
+  \widehat{r}_2 &= \frac{1}{2}\left( \widehat{A} - \sqrt{\widehat{D}} \right)\\
+  \widehat{A} &= \widehat{\theta}_3 / \widehat{\theta}_1\\
+  \widehat{D} &= (\widehat{\theta}_3 / \widehat{\theta}_1)^2 + 4\widehat{\theta}_2/\widehat{\theta}_1
+\end{align*}
+and set $\widehat{\alpha}_0 = \min\left\{ \widehat{r}_1, \widehat{r}_2 \right\}$ and $\widehat{\alpha}_1 = \max\left\{ \widehat{r}_1, \widehat{r}_2 \right\}$.
+
+\paragraph{Boundary Problems Etc.}
+The above procedure will always yields estimates for $\theta_1, \kappa_1, \theta_2$ and $\theta_3$.
+The estimators of $\beta, \alpha_0$ and $\alpha_1$, on the other hand, do not exist when $\widehat{D} < 0$, or equivalently when 
+\[
+  (\widehat{\theta}_3 / \widehat{\theta}_1)^2 + 4\widehat{\theta}_2/\widehat{\theta}_1 < 0
+\]
+While the first term in this sum is always positive, the second can easily be negative.
+This could result either from sampling variation or model mis-specification.
+But even when $\widehat{D} < 0$, the proposed estimators do not enforce the constraints $0 \leq \alpha_0 \leq 1$, $0 \leq \alpha_1 \leq 1$ and $\alpha_0 + \alpha_1 < 1$.
+In our simulation study we will need to decide how to proceed when $\widehat{D}$ is negative or any of these constraints is violated.
+
+\paragraph{What do other papers say about this problem?}
+BBS, Mahajan and Lewbel don't say anything about the non-standard inference problem.
+KRS use a non-linear GMM estimator that constrains $\alpha_0, \alpha_1$ to be between zero and one, but don't account for this in their inference procedure.
+Frazis and Loewenstein point out the boundary value problem in relation both to the requirement that $\alpha_0$ and $\alpha_1$ should be valid probabilities and in relation to certain percentile bounds that they derive in their paper.
+The percentile bounds use an exogenous regressor $X$ and rely on the fact that $\alpha_0 \leq \mathbb{P}(T=1|X) \leq 1 - \alpha_1$ for all $X$ under the assumption that mis-classification is unrelated to $X$.
+This allows one to look at covariate ``bins'' $S$ for which $P(T=1|X\in S)$ is very large or very small and use this information to get tighter bounds for the mis-classification probabilities.
+This is essentially a simple non-parametric version of the maximum likelihood approach used by Hausman, Abrevaya and Scott-Morton.
+Note that these bounds are unavailable to us if we wish to allow $X$ to affect the mis-classification probabilities.
+Frazis and Loewenstein propose to carry out inference that respects both the parameter space restrictions for $\alpha_0$ and $\alpha_1$ along with their percentile bounds in two ways.
+In the first they employ a pseudo-Bayesian approach adapted from a paper by Geweke.
+In this procedure, they estimate the unrestricted GMM estimator $\widehat{\Pi}$ of the \emph{reduced form parameters} along with its associated asymptotic variance matrix estimator $V(\widehat{\Pi})$.
+They then make draws from a $N(\widehat{\Pi}, V(\widehat{\Pi}))$ distribution and discard those that violate $0 \leq \widehat{\alpha}_0 \leq 1$, $0 \leq \alpha_1 \leq 1$ or their estimated percentile bounds.
+The draws that remain are treated as a posterior for the purposes of estimation and inference.
+They also propose a specification test of their model via the inequality restrictions.
+In particular, they determine the least-favorable critical value for a test of the null hypothesis that none of their inequalities is violated.
+There doesn't appear to be anything wrong with the specification test but the inference procedure based on Geweke seems quite ad-hoc and they do not argue for why we should expect this to work.
+It's actually a farily interesting idea though, and we may want to try it out in simulations.
 
 
-
+\paragraph{Standard GMM Inference}
 We will show that the usual GMM inference based on the estimator we have just defined can break down very badly in this model.
 To do so, we'll need the GMM asymptotic variance matrix estimator.
 This in turn requires some derivatives.
