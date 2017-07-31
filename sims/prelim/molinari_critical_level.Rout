@@ -1,0 +1,444 @@
+
+R version 3.4.0 (2017-04-21) -- "You Stupid Darkness"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> # Special case in which a0 = 0 and k1 and k2 are known to be 0 and 1 respectively
+> constraint_function <- function(a1, beta, dat, Chi, confidence_level = 0.05,
++                                 bias = 0.01, tol = 0.01){
++   theta1 <- beta / (1 - a1)
++   theta2 <- beta^2 / (1 - a1)
++   B <- ncol(Chi)
++   
++   Tobs <- dat$Tobs
++   y <- dat$y
++   z <- dat$z
++   q <- mean(z) # treat this as fixed in repeated sampling
++   n <- nrow(dat)
++   
++   # Pretend for now that we know the intercepts
++   k1 <- 0
++   k2 <- 1
++   
++   get_u1 <- function(a1, beta) {
++     theta1 <- beta / (1 - a1)
++     y - k1 - theta1 * Tobs
++   }
++   get_u2 <- function(a1, beta) {
++     theta1 <- beta / (1 - a1)
++     theta2 <- beta^2 / (1 - a1)
++     y^2 - k2 - theta1 * 2 * y * Tobs + theta2 * Tobs
++   }
++   
++   m1 <- Tobs * (1 - z) / (1 - q) - (1 - a1)  
++   m2 <- Tobs * z / q - (1 - a1)  
++   m1_bar <- mean(m1)
++   m2_bar <- mean(m2)
++   s1 <- sd(m1)
++   s2 <- sd(m2)
++   
++   m3 <- get_u1(a1, beta) * z
++   m4 <- get_u2(a1, beta) * z
++   m3_bar <- mean(m3)
++   m4_bar <- mean(m4)
++   s3 <- sd(m3)
++   s4 <- sd(m4)
++   
++   eta1 <- (m1 - m1_bar) / s1
++   eta2 <- (m2 - m2_bar) / s2
++   eta3 <- (m3 - m3_bar) / s3
++   eta4 <- (m4 - m4_bar) / s4
++   eta <- cbind(eta1, eta2, eta3, eta4, -eta3, -eta4)
++   G <- crossprod(eta, Chi) / sqrt(n)
++   
++   m3_over_s3 <- function(params) {
++     a1 <- params[1]
++     beta <- params[2]
++     u1 <- get_u1(a1, beta)
++     numerator <- mean(u1 * z)
++     denominator <- sd(u1 * z)
++     return(numerator / denominator)
++   }
++   
++   m4_over_s4 <- function(params) {
++     a1 <- params[1]
++     beta <- params[2]
++     u2 <- get_u2(a1, beta)
++     numerator <- mean(u2 * z)
++     denominator <- sd(u2 * z)
++     return(numerator / denominator)
++   }
++   
++   D1 <- c(1 / s1, 0)
++   D2 <- c(1 / s2, 0)
++   D3 <- numDeriv::grad(m3_over_s3, x = c(a1, beta))
++   D4 <- numDeriv::grad(m4_over_s4, x = c(a1, beta))
++   D <- rbind(D1, D2, D3, D4, -D3, -D4)
++   
++   # Moment selection
++   kappa_n <- sqrt(log(n))
++   xi1 <- sqrt(n) * m1_bar / (kappa_n * s1)
++   xi2 <- sqrt(n) * m2_bar / (kappa_n * s2)
++   xi <- c(xi1, xi2)
++   phi <- matrix(c(ifelse(xi >= -1, 0, -Inf), 0, 0, 0, 0), 6, 1)
++   keepRows <- which(is.finite(drop(phi)))
++   G_gms <- G[keepRows,]
++   D_gms <- D[keepRows,]
++   
++   # Calculate boundaries of "rho-box"
++   r <- -qnorm(0.5 * (1 - (1 - bias)^(1/6)))
++   
++   # Re-center lambda so that lambda_tilde >= 0
++   shift <- r * D_gms[,1] 
++   bootRHS_gms <- apply(G_gms, 2, function(column) shift - column)
++   
++   # These are fixed!
++   f.con <- matrix(c(D_gms[,1], 1), ncol = 1)
++   f.dir <- rep('<=', nrow(f.con))
++   f.obj <- rep(1, ncol(f.con))
++   
++   # This changes with each bootstrap draw and depends on c_t  
++   solve_LP <- function(c_t, boot_indices){
++     unlist(lapply(boot_indices, function(i)
++       lpSolve::lp("max", f.obj, f.con, f.dir, c(c_t + bootRHS_gms[,i], 2 * r))$status))
++   }
++   
++   # Starting values
++   c_L <- 0
++   c_U <- qnorm(1 - confidence_level / 6) 
++   p_L <- 0
++   p_U <- 1
++   c_current <- mean(c(c_U, c_L))
++   check_me <- 1:B
++   
++   n_bisect <- ceiling(log2((c_U - c_L) / tol))
++   
++   for(i in 1:n_bisect){
++     status <- solve_LP(c_current, check_me)
++     p_current <- sum(status == 0) / B + p_L 
++     if(p_current < 1 - confidence_level) {
++       p_L <- p_current
++       c_L <- c_current
++       check_me <- check_me[status == 2] # status == 2 if the LP is infeasible
++     } else {
++       p_U <- p_current
++       c_U <- c_current
++       check_me <- check_me[status == 0] # status == 0 if the LP is feasible
++     }
++     c_current <- mean(c(c_U, c_L))
++   }
++   
++   m_bar <- c(mean(m1), mean(m2), mean(m3), mean(m4), -mean(m3), -mean(m4))
++   constraint <- sqrt(n) * m_bar - c_current
++   return(list(constraint = constraint, c_hat = c_current, p = p_current, 
++               a1 = a1, beta = beta))
++ }
+> 
+> #bbin - Types of Variables
+> #0 = Continuous, 1 = Integer, 2 = Categorical, 3 = Binary
+> 
+> #bbout - Description of objective and constraints
+> #   Constraints that are not simply bounds are are imposed 
+> #   by feeding in a function that returns several values.
+> #   We need to indicate which of these values is the objective
+> #   functions and which are the constraints. We also need to 
+> #   indicate what kind of constraints we are using.
+> #
+> #   In the NOMAD documentation, these are indicated by:
+> #     OBJ = objective function
+> #     EB  = extreme barrier
+> #     PB  = progressive barrier
+> #   So far as I can tell from the examples, snomadr uses
+> #   the convention:
+> #     0 = OBJ
+> #     1 = EB
+> #     2 = PB
+> snomadr.default <- function(f){
++   snomadr(eval.f = f,
++           n = 2,
++           x0 = c(0, 0),
++           bbin = c(0, 0),
++           bbout = c(0, rep(2, 6)),
++           lb = c(0, -100),
++           ub = c(0.9, 100),
++           opts = list("MIN_MESH_SIZE" = 0.000001),
++           #when enclosed in a function itself, snomadr gets 
++           #confused by closures and needs to be explicitly
++           #told to look in the calling environment
++           snomadr.environment = parent.frame())
++ }
+> 
+> 
+> 
+> sim_CI <- function(a1_true, b_true, boot_samples){
++   sim_dat <- dgp(a0 = 0, a1 = a1_true, b = b_true)
++   #p0 <- with(sim_dat, mean(Tobs[z == 0]))
++   #p1 <- with(sim_dat, mean(Tobs[z == 1]))
++   #a1_upper <- with(sim_dat, min(1 - p0, 1 - p1))
++   #Wald <- with(sim_dat, cov(y, z) / cov(Tobs, z))
++   #Rf <- with(sim_dat, cov(y, z))
++   
++   f_lower <- function(params){
++     a1 <- params[1]
++     b <- params[2]
++     results <- constraint_function(a1, b, sim_dat, boot_samples)
++     return(c(results$beta, results$constraint))
++   }
++   f_upper <- function(params){
++     a1 <- params[1]
++     b <- params[2]
++     results <- constraint_function(a1, b, sim_dat, boot_samples)
++     return(c(-results$beta, results$constraint))
++   }
++   
++   Lower <- snomadr.default(f = f_lower)
++   Upper <- snomadr.default(f = f_upper)
++                                
++   out <- c(lower = Lower$solution[2], upper = Upper$solution[2])
++   return(out)
++ }
+> 
+> 
+> library(mbereg)
+> library(crs)
+Categorical Regression Splines (version 0.15-27)
+[vignette("crs_faq") provides answers to frequently asked questions]
+> set.seed(7234)
+> n <- 1000
+> B <- 2001
+> normal_sims <- rnorm(B * n)
+> normal_sims <- matrix(normal_sims, nrow = n, ncol = B)
+> 
+> setwd("~/binary-regressor/sims/")
+> sim_CIs <- replicate(500, sim_CI(0.1, 0.25, normal_sims))
+
+MADS run {
+
+	BBE	(	SOL	)	OBJ
+
+	    8	(	0.0190000000 0.1000000000 )	0.1000000000
+	   31	(	0.0130000000 0.1000000000 )	0.1000000000
+	   51	(	0.0110000000 0.0660000000 )	0.0660000000
+	   56	(	0.0210000000 0.0640000000 )	0.0640000000
+	   76	(	0.0570000000 0.0600000000 )	0.0600000000
+	   85	(	0.3010000000 0.0440000000 )	0.0440000000
+	  138	(	0.3020000000 0.0435100000 )	0.0435100000
+	  148	(	0.3020000000 0.0435000000 )	0.0435000000
+	  149	(	0.3020000000 0.0434700000 )	0.0434700000
+	  157	(	0.3023700000 0.0434500000 )	0.0434500000
+	  173	(	0.3023500000 0.0434407000 )	0.0434407000
+	  183	(	0.3023500000 0.0434407000 )	0.0434407000
+
+} end of run (min mesh size)
+
+blackbox evaluations                     : 183
+best infeasible solution (min. violation): ( 0.30237 0.0434307 ) h=8.946408822e-05 f=0.0434307
+best feasible solution                   : ( 0.30235 0.0434407 ) h=0 f=0.0434407
+
+iterations: 42
+time:       74
+
+MADS run {
+
+	BBE	(	SOL	)	OBJ
+
+	   10	(	0.0050000000 0.3000000000 )	-0.3000000000
+	   34	(	0.0140000000 0.3820000000 )	-0.3820000000
+	   43	(	0.0140000000 0.3840000000 )	-0.3840000000
+	   69	(	0.0113800000 0.3850000000 )	-0.3850000000
+	   70	(	0.0035200000 0.3880000000 )	-0.3880000000
+	   85	(	0.0030000000 0.3885500000 )	-0.3885500000
+	  106	(	0.0028500000 0.3886100000 )	-0.3886100000
+	  122	(	0.0002700000 0.3896148000 )	-0.3896148000
+	  151	(	0.0002700000 0.3896148000 )	-0.3896148000
+
+} end of run (min mesh size)
+
+blackbox evaluations                     : 151
+best infeasible solution (min. violation): ( 0.00138 0.3891837 ) h=3.824304859e-07 f=-0.3891837
+best feasible solution                   : ( 0.00027 0.3896148 ) h=0 f=-0.3896148
+
+iterations: 36
+time:       52
+
+MADS run {
+
+	BBE	(	SOL	)	OBJ
+
+	   16	(	0.0150000000 0.3000000000 )	0.3000000000
+	   18	(	0.0250000000 0.2000000000 )	0.2000000000
+	   21	(	0.0140000000 0.2000000000 )	0.2000000000
+	   30	(	0.0070000000 0.2000000000 )	0.2000000000
+	   46	(	0.0047800000 0.1570000000 )	0.1570000000
+	   49	(	0.0135000000 0.1560000000 )	0.1560000000
+	   57	(	0.0147500000 0.1550000000 )	0.1550000000
+	   60	(	0.0415000000 0.1520000000 )	0.1520000000
+	   71	(	0.2035000000 0.1280000000 )	0.1280000000
+	  104	(	0.2045000000 0.1260000000 )	0.1260000000
+	  106	(	0.2045000000 0.1250000000 )	0.1250000000
+	  117	(	0.2115000000 0.1240000000 )	0.1240000000
+	  127	(	0.2615000000 0.1169700000 )	0.1169700000
+	  159	(	0.2665000000 0.1169694000 )	0.1169694000
+	  161	(	0.2725000000 0.1169100000 )	0.1169100000
+	  177	(	0.2720000000 0.1153887000 )	0.1153887000
+	  187	(	0.2757900000 0.1147463000 )	0.1147463000
+	  213	(	0.2757900000 0.1147425000 )	0.1147425000
+	  222	(	0.2757900000 0.1147425000 )	0.1147425000
+
+} end of run (min mesh size)
+
+blackbox evaluations                     : 222
+best infeasible solution (min. violation): ( 0.2758 0.1147387 ) h=7.360093916e-05 f=0.1147387
+best feasible solution                   : ( 0.27579 0.1147425 ) h=0 f=0.1147425
+
+iterations: 51
+time:       95
+
+MADS run {
+
+	BBE	(	SOL	)	OBJ
+
+	   26	(	0.0018700000 0.2930000000 )	-0.2930000000
+	   42	(	0.0000000000 0.4670000000 )	-0.4670000000
+	   62	(	0.0033900000 0.4680000000 )	-0.4680000000
+	   69	(	0.0000000000 0.4700000000 )	-0.4700000000
+	   93	(	0.0009300000 0.4717500000 )	-0.4717500000
+	  102	(	0.0027900000 0.4721900000 )	-0.4721900000
+	  121	(	0.0032500000 0.4727773000 )	-0.4727773000
+	  136	(	0.0008100000 0.4739770000 )	-0.4739770000
+	  140	(	0.0000000000 0.4741898000 )	-0.4741898000
+	  162	(	0.0000000000 0.4741898000 )	-0.4741898000
+
+} end of run (min mesh size)
+
+blackbox evaluations                     : 162
+best infeasible solution (min. violation): ( 0.00133 0.4737379 ) h=7.982580582e-05 f=-0.4737379
+best feasible solution                   : ( 0 0.4741898 ) h=0 f=-0.4741898
+
+iterations: 33
+time:       74
+
+MADS run {
+
+	BBE	(	SOL	)	OBJ
+
+	   11	(	0.0100000000 0.3000000000 )	0.3000000000
+	   19	(	0.0090000000 0.2000000000 )	0.2000000000
+	   37	(	0.0600000000 0.1500000000 )	0.1500000000
+	   39	(	0.0600000000 0.1250000000 )	0.1250000000
+	   62	(	0.0670000000 0.1230000000 )	0.1230000000
+	   64	(	0.1560000000 0.1110000000 )	0.1110000000
+	   81	(	0.1900000000 0.1070400000 )	0.1070400000
+	   91	(	0.1960000000 0.1061500000 )	0.1061500000
+	  108	(	0.2060000000 0.1047200000 )	0.1047200000
+	  111	(	0.2190000000 0.1030000000 )	0.1030000000
+	  135	(	0.2240000000 0.1024100000 )	0.1024100000
+	  161	(	0.2240200000 0.1022836000 )	0.1022836000
+	  180	(	0.2242000000 0.1022060720 )	0.1022060720
+	  204	(	0.2242000000 0.1022060720 )	0.1022060720
+
+} end of run (min mesh size)
+
+blackbox evaluations                     : 204
+best infeasible solution (min. violation): ( 0.2233 0.102322343 ) h=3.228355174e-06 f=0.102322343
+best feasible solution                   : ( 0.2242 0.102206072 ) h=0 f=0.102206072
+
+iterations: 44
+time:       74
+
+MADS run {
+
+	BBE	(	SOL	)	OBJ
+
+	   13	(	0.0000000000 0.4000000000 )	-0.4000000000
+	   53	(	0.0005000000 0.4490000000 )	-0.4490000000
+	   55	(	0.0020400000 0.4500000000 )	-0.4500000000
+	   71	(	0.0011900000 0.4505600000 )	-0.4505600000
+	   73	(	0.0011500000 0.4506500000 )	-0.4506500000
+	   75	(	0.0011500000 0.4506600000 )	-0.4506600000
+	   76	(	0.0011500000 0.4506900000 )	-0.4506900000
+	   85	(	0.0006300000 0.4509200000 )	-0.4509200000
+	   99	(	0.0006300000 0.4509200000 )	-0.4509200000
+
+} end of run (min mesh size)
+
+blackbox evaluations                     : 99
+best infeasible solution (min. violation): ( 0.00115 0.45081 ) h=0.001458805926 f=-0.45081
+best feasible solution                   : ( 0.00063 0.45092 ) h=0 f=-0.45092
+
+iterations: 23
+time:       35
+
+MADS run {
+
+	BBE	(	SOL	)	OBJ
+
+	   44	(	0.0842608240 0.3370000000 )	0.3370000000
+	   63	(	0.0953408240 0.3060000000 )	0.3060000000
+	   65	(	0.1053408240 0.3040000000 )	0.3040000000
+	   66	(	0.1353408240 0.2980000000 )	0.2980000000
+	   67	(	0.2553408240 0.2740000000 )	0.2740000000
+	   69	(	0.2873408240 0.2200000000 )	0.2200000000
+	   90	(	0.2983408240 0.1980000000 )	0.1980000000
+	   92	(	0.2983408240 0.1890000000 )	0.1890000000
+	  114	(	0.2993408240 0.1830000000 )	0.1830000000
+	  131	(	0.3003408240 0.1825000000 )	0.1825000000
+	  134	(	0.3063408240 0.1805000000 )	0.1805000000
+	  162	(	0.3066508240 0.1801800000 )	0.1801800000
+	  170	(	0.3067408240 0.1801300000 )	0.1801300000
+	  179	(	0.3068208240 0.1801209000 )	0.1801209000
+	  189	(	0.3068208240 0.1801171000 )	0.1801171000
+	  190	(	0.3068208240 0.1801057000 )	0.1801057000
+	  191	(	0.3068208240 0.1800601000 )	0.1800601000
+	  206	(	0.3068208240 0.1800601000 )	0.1800601000
+
+} end of run (min mesh size)
+
+blackbox evaluations                     : 206
+best infeasible solution (min. violation): ( 0.306840824 0.1801501 ) h=1.107529651e-05 f=0.1801501
+best feasible solution                   : ( 0.306820824 0.1800601 ) h=0 f=0.1800601
+
+iterations: 52
+time:       74
+
+MADS run {
+
+	BBE	(	SOL	)	OBJ
+
+
+} end of run (min mesh size)
+
+blackbox evaluations                     : 50
+best infeasible solution (min. violation): ( 0.0008028 0.3466 ) h=0.07620515525 f=-0.3466
+best feasible solution                   : no feasible solution has been found
+
+iterations: 14
+time:       17
+
+ *** caught segfault ***
+address 0x38, cause 'memory not mapped'
+
+Traceback:
+ 1: snomadr(eval.f = f, n = 2, x0 = c(0, 0), bbin = c(0, 0), bbout = c(0,     rep(2, 6)), lb = c(0, -100), ub = c(0.9, 100), opts = list(MIN_MESH_SIZE = 1e-06),     snomadr.environment = parent.frame())
+ 2: snomadr.default(f = f_upper)
+ 3: sim_CI(0.1, 0.25, normal_sims)
+ 4: FUN(X[[i]], ...)
+ 5: lapply(X = X, FUN = FUN, ...)
+ 6: sapply(integer(n), eval.parent(substitute(function(...) expr)),     simplify = simplify)
+ 7: replicate(500, sim_CI(0.1, 0.25, normal_sims))
+An irrecoverable exception occurred. R is aborting now ...
+Segmentation fault

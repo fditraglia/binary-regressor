@@ -64,11 +64,11 @@ bonf_CI <- function(dat, normal_sims, delta1 = 0.025, delta2 = 0.025,
 
 
 
-b_true <- 0.5
-a0_true <- 0
-a1_true <- 0
+b_true <- 0.2
+a0_true <- 0.2
+a1_true <- 0.3
 
-set.seed(720)
+set.seed(77777)
 dat <- dgp(a0 = a0_true, a1 = a1_true, b = b_true)
 
 system.time(foo <- bonf_CI(dat, normal_sims_alphas))
