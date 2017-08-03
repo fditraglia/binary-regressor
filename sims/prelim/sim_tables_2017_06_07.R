@@ -1,0 +1,12 @@
+setwd("~/binary-regressor/sims/")
+load("GMS_sim_results_2017_06_07.RData")
+
+results00 <- subset(results, (a0 == 0) & (a1 == 0))
+results01 <- subset(results, (a0 == 0) & (a1 == 0.1))
+results10 <- subset(results, (a0 == 0.1) & (a1 == 0))
+results11 <- subset(results, (a0 == 0.1) & (a1 == 0.1))
+results02 <- subset(results, (a0 == 0) & (a1 == 0.2))
+results20 <- subset(results, (a0 == 0.2) & (a1 == 0))
+results12 <- subset(results, (a0 == 0.1) & (a1 == 0.2))
+results21 <- subset(results, (a0 == 0.2) & (a1 == 0.1))
+results22 <- subset(results, (a0 == 0.2) & (a1 == 0.2)) 
