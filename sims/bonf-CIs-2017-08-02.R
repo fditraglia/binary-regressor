@@ -27,6 +27,6 @@ CIs_bonf <- lapply(1:nrow(sim_params), get_bonf_CI_i)
 
 results <- list(params = sim_params, CIs_bonf = CIs_bonf)
 setwd('~/binary-regressor/sims/')
-save(CIs_bonf, file = 'bonf-CIs-2017-08-02.Rd')
+save(results, file = 'bonf-CIs-2017-08-02.Rd')
 
 
