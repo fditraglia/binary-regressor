@@ -6247,4 +6247,207 @@ Under the assumption of iid observations, the preceding simplifies to $\Omega = 
 \end{enumerate}
 
 
+\section{CDF Bounds: 2017--08--03}
+In our simulation experiments thus far, we have found that using the second moment inequalities doesn't seem to help very much if at all.
+This seems to be because these bounds are much less precisely estimated than the ``weak'' bounds.
+But if we use only the weak bounds, we are not actually using the non-differential measurement error assumption in any of our inequality conditions.
+We now know that the FL/Mahajan/Lewbel non-differential measurement error assumption \emph{does} yield partially identifying information.
+However this information is difficult to express in terms of unconditional moment equalities because it involves conditional expectations of indicator functions whose arguments are quantiles of the data that are in turn functions of $\alpha_0$ and $\alpha_1$.
+
+If we instead impose the stronger assumption that $\varepsilon$ is conditionally independent of $T$ given $(T^*,z)$ we obtain bounds that are much easier to use.
+Note that FL/Mahajan/Lewbel make a mean assumption precisely because this is what they need for identification.
+But it is difficult to imagine a situation in which one is willing to make the mean assumption without actually believing the stronger independence assumption. 
+Let $F_{tk}$ denote the conditional CDF of $Y$ given $(T=t,z=k)$ and define $F^*_{t^*k}$ analogously given $(T^*=t^*,z=k)$.
+Using the this independence condition along with Bayes' rule and the law of total probability, 
+\begin{align*}
+  F_{0k}(\tau) &= \left[ \frac{(1 - \alpha_0)(1 - p_k^*)}{1 - p_k} \right] F_{0k}^*(\tau) + \left[ \frac{\alpha_1 p_k^*}{1 - p_k} \right] F_{1k}^*(\tau) \\
+  F_{1k}(\tau) &= \left[ \frac{\alpha_0(1 - p_k^*)}{p_k} \right] F_{0k}^*(\tau) + \left[ \frac{(1 - \alpha_1) p_k^*}{p_k} \right] F_{1k}^*(\tau) 
+\end{align*}
+for all $\tau$ and all $k$.
+Solving this system, we find that
+\begin{align*}
+  F_{0k}^*(\tau) &= \left[ \frac{(1 - p_k)(1 - \alpha_1)}{1 - p_k - \alpha_1} \right] F_{0k}(\tau) - \left[ \frac{\alpha_1 p_k}{1 - p_k - \alpha_1} \right] F_{1k}(\tau) \\
+  F_{1k}^*(\tau) &= -\left[ \frac{\alpha_0(1 - p_k)}{p_k - \alpha_0} \right] F_{0k}(\tau) + \left[ \frac{(1 - \alpha_0)p_k}{p_k - \alpha_0} \right] F_{1k}(\tau)
+\end{align*}
+Since CDFs must be non-decreasing and bounded between $0$ and $1$, these equalities impose restrictions on $(\alpha_0, \alpha_1)$ given the observed data.
+It is difficult to work with the first restriction but easy to work with the second.
+As our model is point identified, we need not use all the restrictions: the only point of including these moment inequalities is to stabilize the estimator and provide better inference in small samples.
+After some algebra, we see that $0\leq F^*_{tk}(\tau) \leq 1$ for all $\tau$ if and only if
+\begin{align*}
+  (1 - p_k) F_{0k}(\tau) - \alpha_1 F_k(\tau) &\geq 0\\
+  p_k F_{1k}(\tau) - \alpha_0 F_k(\tau) &\geq 0 \\
+(1 - p_k - \alpha_1) - \left[(1 - p_k) F_{0k}(\tau) - \alpha_1 F_k(\tau)\right] &\geq 0 \\
+  (p_k - \alpha_0) - \left[p_k F_{1k}(\tau) - \alpha_0 F_k(\tau)\right] &\geq 0
+\end{align*}
+for all $\tau$ and $k$, where we define $F_k(\tau) = \mathbb{P}(y \leq \tau|z=k)$.
+After yet more algebra, we can write these as unconditional moment restrictions as follows:
+\begin{align*}
+  \mathbb{E}\left[ \mathbf{1}(y\leq \tau) \mathbf{1}(z=k)(1 - T - \alpha_1) \right] &\geq 0\\
+  \mathbb{E}\left[ \mathbf{1}(y > \tau) \mathbf{1}(z=k)(1 - T - \alpha_1) \right] &\geq 0\\
+  \mathbb{E}\left[ \mathbf{1}(y\leq \tau) \mathbf{1}(z=k)(T - \alpha_0) \right] &\geq 0\\
+  \mathbb{E}\left[ \mathbf{1}(y > \tau) \mathbf{1}(z=k)(T-\alpha_0) \right] &\geq 0
+\end{align*}
+for all $\tau$ and all $k$.
+With a binary $z$ we obtain 8 inequalities for each quantile $\tau$.
+Notice that none of these requires any preliminary estimators and, moreover, that the inequalities involve only $\alpha_0$ and $\alpha_1$.
+Thus, including these in the GMS procedure is fairly straightforward.
+Moreover, we can simplify our notation for the first moment inequalities and avoid the awkward point about conditioning on $q$ in one fell swoop!
+To this end, define
+\[
+  m_1^I(\mathbf{w}_i, \alpha_0, \alpha_1) = \left[
+  \begin{array}{l}
+    (1 - z_i)(T_i - \alpha_0) \\
+    (1 - z_i)(1 - T_i - \alpha_1) \\
+    z_i(T - \alpha_0) \\
+    z_i (1 - T_i - \alpha_1) \\
+  \end{array}
+\right]
+\]
+Note that the preceding contains \emph{exactly the same information} as our earlier definition of the first moment inequalities from above. 
+By multiplying both sides of the inequalities by $q$ or $(1 - q)$, respectively, we can completely eliminate the need for $q$.
+Now, we can construct the CDF bounds simply by pre-multiplying by $\mathbf{1}(y_i\leq \tau)$ or $\mathbf{1}(y_i > \tau)$.
+In other words: \emph{the first moment inequalities are a special case of the CDF bounds!} 
+To obtain them from the CDF bounds either simply choose a $\tau$ that is strictly greater than or equal to all of the observed $y_i$ and pre-multiply by $\mathbf{1}(y_i \leq \tau)$ or choose a $\tau$ that is strictly \emph{less} than all of the observed $y_i$
+
+%As above when we considered using only the first moment inequalities, we only need preliminary estimators of $\boldsymbol{\kappa}$ and $\theta_1$.
+%As above, define
+%\[
+%  h = h^E  =  \left[
+% \begin{array}{l}
+%   \boldsymbol{\psi}'_1(\theta_1)\mathbf{w}_i - \kappa_1\\
+%   \boldsymbol{\psi}'_2(\theta_1,\boldsymbol{\alpha}^0)\mathbf{w}_i - \kappa_2\\
+%   \boldsymbol{\psi}'_3(\theta_1,\boldsymbol{\alpha}^0)\mathbf{w}_i - \kappa_3\\ 
+%   \boldsymbol{\psi}'_1(\theta_1)\mathbf{w}_i z_i - \kappa_1 z_i
+% \end{array}
+% \right] = \left[
+% \begin{array}{l}
+%   \boldsymbol{\Psi}'(\theta_1, \boldsymbol{\alpha}^0) \mathbf{w}_i - \boldsymbol{\kappa}\\
+%   \left\{\boldsymbol{\psi}_1'(\theta_1)\mathbf{w}_i - \kappa_1\right\}z_i
+% \end{array}
+% \right]
+%\]
+%and $m' = (m^{I'}_1, m^{E'})$ where
+%\begin{align*}
+%m^E &= \left[
+%  \begin{array}{cc}
+%    m_2^E \\ m_3^E 
+%  \end{array}
+%\right], \quad m_j^E(\mathbf{w}_i, \cdots) = \left[ \boldsymbol{\psi}_j'(\theta_1, \boldsymbol{\alpha}^0) \mathbf{w}_i - \kappa_j \right]z_i  \\
+%m_1^I(\mathbf{w}_i, \boldsymbol{\theta}, \boldsymbol{\gamma}) &=
+%  \left[
+%  \begin{array}{r}
+%  T(1 - z)/(1 - q) - \alpha_0 \\
+%  (1 - T)(1 - z)/(1 - q) - \alpha_1  \\
+%  Tz/q - \alpha_0 \\
+%  (1 - T)z/q - \alpha_1  
+%  \end{array}
+%\right]
+%\end{align*}
+%Now $H$ simplifies to
+%\[
+%  H = \left[
+%  \begin{array}{cc}
+%    \displaystyle \frac{\partial h^E}{\partial \boldsymbol{\kappa}'} &
+%    \displaystyle \frac{\partial h^E}{\partial \theta_1}
+%  \end{array}
+%\right] = \mathbf{R}, \quad \mathbf{R} = \left[
+%\begin{array}{rrrr}
+%  -1 & 0 & 0 
+%  & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+%   0 & -1 & 0 & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+%   0 & 0 & -1 & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+%   -q & 0 & 0 &  \displaystyle \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}z]\\
+%\end{array}
+%\right]
+%\]
+%And $M$ becomes
+%\[
+%  M = \mathbb{E}\left[ \frac{\partial m}{\partial \boldsymbol{\gamma}'}  \right]= 
+%  \mathbb{E}\left[
+%  \begin{array}{rr}
+%    \displaystyle \frac{\partial m^I_1}{\partial \boldsymbol{\kappa}'} &
+%    \displaystyle \frac{\partial m^I_1}{\partial \theta_1}\\ \\
+%    \displaystyle \frac{\partial m^E}{\partial \boldsymbol{\kappa}'} &
+%    \displaystyle \frac{\partial m^E}{\partial \theta_1}
+%  \end{array}
+%\right]  =
+%  \mathbb{E}\left[
+%  \begin{array}{rr}
+%
+%    \mathbf{0}_{4\times 3} & \mathbf{0}_{4\times 1}\\ \\
+%    \displaystyle \frac{\partial m^E}{\partial \boldsymbol{\kappa}'} &
+%    \displaystyle \frac{\partial m^E}{\partial \theta_1}
+%  \end{array}
+%\right] 
+%\]
+%where
+%\begin{align*}
+%\mathbb{E}\left[\frac{\partial m^E\left( \mathbf{w}_i, \boldsymbol{\alpha}^0,  \boldsymbol{\kappa}^0, \theta_1^0 \right)}{\partial \boldsymbol{\kappa}'}\right] &= \left[
+%\begin{array}{ccc}
+%  0 & -q & 0 \\
+%  0 & 0 & -q
+%\end{array}
+%\right]\\ 
+%\mathbb{E}\left[\frac{\partial m^E\left( \mathbf{w}_i, \boldsymbol{\alpha}^0,  \boldsymbol{\kappa}^0, \theta_1^0 \right)}{\partial \theta_1}\right] &=
+%\left[
+%\begin{array}{c}
+%  \displaystyle\left( \frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1} \right)'\\ 
+%  \displaystyle\left( \frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1} \right)' 
+%\end{array}
+%\right] \mathbb{E}[\mathbf{w}_iz_i]
+%\end{align*}
+%so that $B = -M \mathbf{R}^{-1}$ and $A = \left[
+%\begin{array}{cc}
+%\mathbf{I} & B
+%\end{array}
+%\right]$.
+%Finally, accounting for preliminary estimation of $\boldsymbol{\kappa}$ and $\theta_1$, the variance matrix estimator is $\widehat{\Sigma}_n\left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) = A \widehat{\mathcal{V}}_n \left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) A'$ where
+%\[
+%  \widehat{\mathcal{V}}_n\left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) = \frac{1}{n}\sum_{i=1}^n 
+%  \left[
+%  \begin{array}{c}
+%    m(\mathbf{w}_i, \alpha^0, \widehat{\gamma}(\alpha^0)) - \bar{m}_n(\alpha^0, \widehat{\gamma}(\alpha^0))\\
+%    h(\mathbf{w}_i, \alpha^0, \widehat{\gamma}(\alpha^0)) - \bar{h}_n(\alpha^0, \widehat{\gamma}(\alpha^0))
+%  \end{array}
+%\right]
+%  \left[
+%  \begin{array}{c}
+%    m(\mathbf{w}_i, \alpha^0, \widehat{\gamma}(\alpha^0)) - \bar{m}_n(\alpha^0, \widehat{\gamma}(\alpha^0))\\
+%    h(\mathbf{w}_i, \alpha^0, \widehat{\gamma}(\alpha^0)) - \bar{h}_n(\alpha^0, \widehat{\gamma}(\alpha^0))
+%  \end{array}
+%\right]'
+%\]
+%Where, 
+%\begin{align*}
+%  m_1^I(\mathbf{w}_i, \boldsymbol{\alpha}^0) &=
+%  \left[
+%  \begin{array}{r}
+%  T_i(1 - z_i)/(1 - q) - \alpha_0 \\
+%  (1 - T_i)(1 - z_i)/(1 - q) - \alpha_1  \\
+%  T_iz_i/q - \alpha_0 \\
+%  (1 - T_i)z/q - \alpha_1  
+%  \end{array}
+%\right]\\
+%  m^E\left(\mathbf{w}_i, \boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) &= 
+%  \left[
+%  \begin{array}{c}
+% \widehat{\boldsymbol{\psi}}_2'(\boldsymbol{\alpha}^0)(\mathbf{w}_i - \bar{\mathbf{w}})z_i \\
+%   \widehat{\boldsymbol{\psi}}_3'(\boldsymbol{\alpha}^0)(\mathbf{w}_i - \bar{\mathbf{w}})z_i 
+%  \end{array}
+%\right]\\
+%  h_E\left(\mathbf{w}_i, \boldsymbol{\alpha}^0, \widehat{\gamma}(\boldsymbol{\alpha}^0)\right) &= \left[
+%  \begin{array}{l}
+%    \widehat{\boldsymbol{\psi}}'_1 (\mathbf{w}_i - \bar{\mathbf{w}})\\ 
+%    \widehat{\boldsymbol{\psi}}'_2(\boldsymbol{\alpha}^0) (\mathbf{w}_i - \bar{\mathbf{w}})\\ 
+%    \widehat{\boldsymbol{\psi}}'_3(\boldsymbol{\alpha}^0) (\mathbf{w}_i - \bar{\mathbf{w}})\\
+%    \widehat{\boldsymbol{\psi}}'_1 (\mathbf{w}_i - \bar{\mathbf{w}})z_i
+%  \end{array}
+%\right] = \left[
+%\begin{array}{l}
+%  \widehat{\boldsymbol{\Psi}}'(\boldsymbol{\alpha}^0)(\mathbf{w}_i - \bar{\mathbf{w}})\\
+%    \widehat{\boldsymbol{\psi}}'_1 (\mathbf{w}_i - \bar{\mathbf{w}})z_i
+%\end{array}
+%\right]
+%\end{align*}
+
 \end{document}
