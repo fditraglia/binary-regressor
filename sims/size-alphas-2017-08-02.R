@@ -20,7 +20,7 @@ nB <- 5000
 normal_sims <- matrix(rnorm(nB * 6), nrow = 6, ncol = nB)
 
 get_size_alpha_i <- function(i) {
-  unlist(sim_alphas_size(true_params = sim_params[i,], normal_sims, ncores = 4,
+  unlist(sim_alphas_size(true_params = sim_params[i,], normal_sims, ncores = 8,
                          nreps = 10000))
 }
 
