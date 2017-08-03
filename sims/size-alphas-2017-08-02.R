@@ -20,10 +20,11 @@ nB <- 5000
 normal_sims <- matrix(rnorm(nB * 6), nrow = 6, ncol = nB)
 
 get_size_alpha_i <- function(i) {
-  sim_alphas_size(true_params = sim_params[i,], normal_sims, nreps = 1000)
+  unlist(sim_alphas_size(true_params = sim_params[i,], normal_sims, ncores = 4,
+                         nreps = 10000))
 }
 
-size_alpha <- mclapply(1:nrow(sim_params), get_size_alpha_i, mc.cores = 8)
+size_alpha <- lapply(1:nrow(sim_params), get_size_alpha_i)
 
 results <- list(params = sim_params, size_alpha = size_alpha)
 setwd('~/binary-regressor/sims/')
