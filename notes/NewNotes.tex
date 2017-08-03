@@ -6307,7 +6307,9 @@ Note that the preceding contains \emph{exactly the same information} as our earl
 By multiplying both sides of the inequalities by $q$ or $(1 - q)$, respectively, we can completely eliminate the need for $q$.
 Now, we can construct the CDF bounds simply by pre-multiplying by $\mathbf{1}(y_i\leq \tau)$ or $\mathbf{1}(y_i > \tau)$.
 In other words: \emph{the first moment inequalities are a special case of the CDF bounds!} 
-To obtain them from the CDF bounds either simply choose a $\tau$ that is strictly greater than or equal to all of the observed $y_i$ and pre-multiply by $\mathbf{1}(y_i \leq \tau)$ or choose a $\tau$ that is strictly \emph{less} than all of the observed $y_i$
+To obtain them from the CDF bounds either simply choose a $\tau$ that is strictly greater than or equal to all of the observed $y_i$ and multiply $m_1^I$ by $\mathbf{1}(y_i \leq \tau)$ or choose a $\tau$ that is strictly \emph{less} than all of the observed $y_i$ and multiply $m_1^I$ by $\mathbf{1}(y_i > \tau)$.
+
+\todo[inline]{It should be possible to use the monotonicity of expectation to figure out that some conditions will be irrelevant. For example, it looks like the weak bounds will be irrelevant if you use \emph{any} of the sets of CDF bounds, i.e.\ for any $\tau$ at all.}
 
 %As above when we considered using only the first moment inequalities, we only need preliminary estimators of $\boldsymbol{\kappa}$ and $\theta_1$.
 %As above, define
