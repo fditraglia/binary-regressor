@@ -3405,35 +3405,40 @@ Identification will only rely on two values for $z$.
 \begin{assump} \mbox{}
   \label{assump:model}
   \begin{enumerate}[(i)] 
-    \item $y = c(\mathbf{x}) + \beta(\mathbf{x})T^* + \varepsilon$ where $\mathbb{E}[\varepsilon]=0$.
-    \item $\mathbb{P}(T^*=1|\mathbf{x},z_k) \neq \mathbb{P}(T^*=1|\mathbf{x},z_\ell)$ for two distinct values $z_k, z_\ell$ in the support of $z$.
+    \item $y = c(\mathbf{x}) + \beta(\mathbf{x})T^* + \varepsilon$ where $T^* \in \left\{ 0,1 \right\}$ and $\mathbb{E}[\varepsilon]=0$.
+    \item  $z \in \left\{ 0,1 \right\}$, where $0 < \mathbb{P}(z=1|\mathbf{x}) < 1$, and $\mathbb{P}(T^*=1|\mathbf{x},z=1) \neq \mathbb{P}(T^*=1|\mathbf{x},z=0)$.
     \item $\mathbb{E}[\varepsilon|\mathbf{x},z] = 0$
   \end{enumerate}
 \end{assump}
 
-\noindent Stronger version of Assumption \ref{assump:model} (iii) used by Frazis \& Loewenstein, Mahajan, etc.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Point out that even though Assumption \ref{assump:model} (ii) refers to the unobserved $T^*$, under Assumptions \ref{assump:misclassification} (i) and (ii) we have $(p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1) = p_k - p_\ell$ so it suffices for an \emph{observed} first-stage to exist.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Stronger version of Assumption \ref{assump:model} (iii) used by Frazis \& Loewenstein, Mahajan, etc.
 This assumption gives point identification without higher moment restrictions.
+There should eventually be a result about this case in the paper.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{assump} \mbox{}
   \label{assump:jointExog}
     $\mathbb{E}[\varepsilon|\mathbf{x},z, T^*] = 0$
 \end{assump}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \noindent Assumptions on the mis-classification
 \begin{assump} \mbox{}
   \label{assump:misclassification}
   \begin{enumerate}[(i)] 
-    \item $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z, T^*]$
     \item $\alpha_0(\mathbf{x},z) = \alpha_0(\mathbf{x})$,   $\alpha_1(\mathbf{x},z) = \alpha_1(\mathbf{x})$
-    \item $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) \neq 1$ ($T$ is relevant for $T^*$)
+    \item $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) <1$ ($T$ is positively correlated with $T^*$)
+    \item $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z, T^*]$
   \end{enumerate}
 \end{assump}
 
-\noindent Stronger version of \ref{assump:misclassification} (iii) without which we can only get identification of $\beta$ up to sign.
-\begin{assump}
-  \label{assump:extent}
-  $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) <1$ ($T$ is positively correlated with $T^*$)
-\end{assump}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Explain what would happen if Assumption \ref{assump:misclassification} (ii) were weakened to $\alpha_0 + \alpha_1 \neq 1$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \noindent Second moment assumption identifies the difference of mis-classification error rates.
 \begin{assump} \mbox{}
@@ -3530,105 +3535,147 @@ However, without this additional condition $\beta$ is unidentified regardless of
 
 \begin{thm}[Sharp Identified Set I]
   \label{thm:sharpI}
-  Under assumptions (baseline but need allow for more than two values for $k$!, also $\alpha_0 + \alpha_1 < 1$, also $p_k \neq p_\ell$ and $0 < q <1$) the sharp identified set is characterized by $\alpha_0(\mathbf{x}) \leq \mathbb{P}(T=1|\mathbf{x}, z=k) \leq 1 -  \alpha_1(\mathbf{x})$ and
-  \[
-    \beta(\mathbf{x}) \left[ \mathbb{P}(T=1|\mathbf{x},z=k) - \alpha_0(\mathbf{x}) \right] = \left[1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})\right] \left[\mathbb{E}\left( y |z = k \right) - c(\mathbf{x})\right]
-  \]
-for all $k \in K$.
+  Under Assumptions \ref{assump:model} and \ref{assump:misclassification} (i)--(ii), the sharp identified set is characterized by 
+\[
+    \mathbb{E}[y|\mathbf{x},z=k] = c(\mathbf{x}) + \beta(\mathbf{x}) \left[\frac{\mathbb{P}(T=1|\mathbf{x},z_k) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}\right]
+  \] 
+and
+\[\alpha_0(\mathbf{x}) \leq \mathbb{P}(T=1|\mathbf{x}, z=k) \leq 1 -  \alpha_1(\mathbf{x})\]
+for $k = 0, 1$. 
 \end{thm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In our discussion of the results for the sharp identified set, we can discuss what would happen if there were more than 2 values of $k$.
+Our method of proof never actually relies on there being only a binary instrument. 
+You're not identified in any case, regardless of how many values $z$ takes on.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \begin{proof}[Proof of Theorem \ref{thm:sharpI}]
   Throughout this argument we suppress dependence on $\mathbf{x}$ for simplicity. 
-  Define $p_k = \mathbb{P}(T=1|z=k)$ and $p_k^* = \mathbb{P}(T=1|z_k)$.
+  Define $p_k = \mathbb{P}(T=1|z=k)$ and $p_k^* = \mathbb{P}(T^*=1|z_k)$.
 
 We first show that so long as $\alpha_0 \leq p_k \leq 1 - \alpha_1$ then we can construct a valid joint probability distribution for $(T^*, T, z)$ that satisfies our assumptions.
 First decompose the joint probability mass function as
 \[
   p(T^*,T,z) = p(T|T^*,z)p(T^*|z)p(z).
 \]
-By Assumption (???), $p(T|T^*,z) = p(T|T^*)$ and thus $\alpha_0$ and $\alpha_1$ fully determine $p(T|T^*,z)$.  
+By Assumption \ref{assump:misclassification} (ii), $p(T|T^*,z) = p(T|T^*)$ and thus $\alpha_0$ and $\alpha_1$ fully determine $p(T|T^*,z)$.  
 Under the proposed bounds, $\alpha_0$ and $\alpha_1$ are clearly valid probabilities.
 Since $p(z)$ is observed, it thus suffices to ensure that $p(T^*|z)$ is a valid probability mass function.
-By the law of total probability and Assumption ??? ($\alpha_0 + \alpha_1 \neq 1)$, 
+By the law of total probability and Assumption \ref{assump:misclassification} (ii), 
 \[
   p_k^* = \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1}.
 \]
-Given Assumption ??? ($\alpha_0 + \alpha_1 < 1$), we see that $0 \leq p_k^* \leq 1$ if and only if $\alpha_0 \leq p_k \leq 1 - \alpha_1$.
+and $0 \leq p_k^* \leq 1$ if and only if $\alpha_0 \leq p_k \leq 1 - \alpha_1$.
 Since $(p_k - p_\ell) = (p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1)$, provided that $p_k - p_\ell \neq 0$ we have $p^*_k \neq p^*_\ell$. 
 
 We now show how to construct a valid conditional distribution for $y$ given $(T^*,T,z)$ that satisfies our assumptions if $\beta (p_k - \alpha_0) = (1 - \alpha_0 - \alpha_1)[\mathbb{E}(y|z_k) - c]$ for all $k$.
 Define
 \begin{align*}
-r_{tk} &\equiv \mathbb{P}(T^*=1|T=t,z=k)\\
+r_{tk} &\equiv \mathbb{P}(T^*=1|T=t,z=k) &
 F_{t}(\tau) &\equiv \mathbb{P}(y \leq \tau|z=k) \\
-F_{tk}(\tau) &\equiv \mathbb{P}(y \leq \tau|T=t, z=k) \\
+F_{tk}(\tau) &\equiv \mathbb{P}(y \leq \tau|T=t, z=k) & 
 F_{tk}^{t^*}(\tau) &\equiv \mathbb{P}(y \leq \tau|T^*=t^*,T=t, z=k)\\
-G_k(\tau) &\equiv \mathbb{P}(\varepsilon \leq \tau|z=k)\\
+G_k(\tau) &\equiv \mathbb{P}(\varepsilon \leq \tau|z=k) &
 G^{t^*}_{tk}(\tau) &\equiv \mathbb{P}(\varepsilon \leq \tau|T^*=t^*, T=t,z=k).
 \end{align*}
-There are several cases.
-
-\paragraph{Case I: $0 < \alpha_0 < p_k$ and $0 < \alpha_1 < 1 - p_k$.} 
-In this case $F^0_{tk}, F^1_{tk}$, and $r_{tk}$ exist for all $t =0, 1$.
-Moreover, $0 < r_{tk} < 1$ for all $t$ since $r_{0k} = (1 - \alpha_1)p_k^*/(1 - p_k)$ and $r_{1k} = \alpha_1 p_k^*/p_k$ by Bayes' rule.
-Thus, by the law of total probability,
+Assumption \ref{assump:model} (i) implies a relationship between $G^{t^*}_{tk}$ and $F^{t^*}_{tk}$ for each $t^*$, namely 
 \begin{equation}
-  F^1_{tk}(\tau) = \frac{1}{r_{tk}}\left[F_{tk}(\tau) - (1 - r_{tk})F^0_{tk}(\tau)\right]
-  \label{eq:F1fromF0}
+  G^0_{tk}(\tau) = F^0_{tk}(\tau + c), \quad
+  G^1_{tk}(\tau) = F^1_{tk}(\tau + c + \beta)
+  \label{eq:Gtstartk}
 \end{equation}
-Since $F_{tk}(\tau)$ is observed and $r_{tk}$ is fixed given observables and $(\alpha_0, \alpha_1)$ we see that $F^{1}_{tk}(\tau)$ is completely determined by our choice of $F^0_{tk}(\tau)$.
-Now, Assumption ??? (model) implies a relationship between $G^{t^*}_{tk}$ and $F^{t^*}_{tk}$ for each $t^*$, namely 
-\begin{align*}
-  G^0_{tk}(\tau) &= F^0_{tk}(\tau + c)\\
-  G^1_{tk}(\tau) &= F^1_{tk}(\tau + c + \beta).
-\end{align*}
 and thus we see that
 %\scriptsize
 %\[
 %  G_k(\tau) = p_k^*\left[\frac{r_{1k}p_k}{p_k^*} F^1_{1k}(\tau + c + \beta) + \frac{r_{0k}(1 - p_k)}{p_k^*} F^1_{0k}(\tau + c + \beta)  \right] + (1 - p_k^*) \left[ \frac{(1 - r_{1k})p_k}{1 - p_k^*}  F^0_{1k}(\tau + c) + \frac{(1 - r_{0k})(1 - p_k)}{1 - p_k^*} F^0_{0k}(\tau + c) \right] 
 %\]
 %\normalsize
+\begin{align}
+  G_k(\tau) &= r_{1k}p_k F^1_{1k}(\tau + c + \beta) + r_{0k}(1 - p_k) F^1_{0k}(\tau + c + \beta) \nonumber \\
+  &\quad +  (1 - r_{1k})p_k F^0_{1k}(\tau + c) + (1 - r_{0k})(1 - p_k) F^0_{0k}(\tau + c)
+  \label{eq:Gk}
+\end{align}
+applying the law of total probability and Bayes' rule.
+Moreover, again applying the law of total probability, 
+\begin{equation}
+  F_{tk}(\tau) = r_{tk} F_{tk}^1(\tau) + (1 - r_{tk}) F_{tk}^0(\tau)
+  \label{eq:Ftk}
+\end{equation}
+for all $t,k \in \left\{ 0,1 \right\}$, and by Bayes' rule,
+\begin{equation}
+  r_{1k} = \frac{(1 - \alpha_1)p_k^*}{p_k}, \quad
+  r_{0k} = \frac{\alpha_1p_k^*}{1 - p_k}.
+  \label{eq:rtk}
+\end{equation}
+There are four cases, corresponding to different possibilities for the  $r_{tk}$.
+
+\paragraph{Case I: $r_{1k} = 0, r_{0k} \neq 0$}
+By Equation \ref{eq:rtk}, this requires $\alpha_1 = 1$ which is ruled out by Assumption \ref{assump:misclassification} (ii).
+
+\paragraph{Case II: $r_{0k} = r_{1k} = 0$}
+By Equation \ref{eq:rtk}, this requires $p_k^* = 0$ which in turn requires $p_k = \alpha_0$.
+Moreover, by Equation \ref{eq:Ftk} we have $F^0_{tk} = F_{tk}$, while $F^1_{tk}$ is undefined.
+Substituting into Equation \ref{eq:Gk},
 \[
-  G_k(\tau) = r_{1k}p_k F^1_{1k}(\tau + c + \beta) + r_{0k}(1 - p_k) F^1_{0k}(\tau + c + \beta) +  (1 - r_{1k})p_k F^0_{1k}(\tau + c) + (1 - r_{0k})(1 - p_k) F^0_{0k}(\tau + c)
+  G_k(\tau) = p_k F_{1k}(\tau + c) + (1 - p_k) F_{0k}(\tau + c) = F_k(\tau + c)
 \]
-again applying the law of total probability and Bayes' rule.
-Substituting Equation \ref{eq:F1fromF0}, 
+Now, since $F_k(\tau + c)$ is the conditional CDF of $y-c$ given that $z=k$, and $G_k$ is the conditional CDF of $\varepsilon$ given $z=k$,
+we see that Assumption \ref{assump:model} (i) is satisfied if and only if $\mathbb{E}(y|z=k) = c$.
+But since $p_k = \alpha_0$ in this case, $c = c + \beta (p_k - \alpha_0)/(1 - \alpha_0 - \alpha_1)$.
+
+\paragraph{Case III: $r_{1k}\neq 0, r_{0k} = 0$}
+By Equation \ref{eq:rtk} this requires $\alpha_1 = $ and $p_k^* \neq 0$.
+By Equation \ref{eq:Ftk} we have $F^0_{0k} = F_{0k}$ and since $r_{1k} \neq 1$, we can solve to obtain
+\[
+  F^1_{1k}(\tau) = \frac{1}{r_{1k}}\left[F_{1k}(\tau) - (1 - r_{1k})F^0_{1k}(\tau)\right]
+\]
+Substituting into Equation \ref{eq:Gk}, we obtain
+\begin{align*}
+  G_k(\tau) &= \left[ (1 - p_k)F_{0k}(\tau + c) + p_k F_{1k}(\tau + c + \beta) \right] \\ 
+  &\quad + p_k(1 - r_{1k})\left[ F^0_{1k}(\tau + c) - F^0_{1k}(\tau + c + \beta) \right]
+\end{align*}
+Now, $F_{0k}(\tau + c)$ is the conditional CDF of $(y-c)$ given $(T=0,z=k)$ while $F_{1k}(\tau + c + \beta)$ is the conditional CDF of $(y-c-\beta)$ given $(T=1,z=k)$.
+Similarly, $F^0_{1k}(\tau + c)$ is the conditional CDF of $\varepsilon$ given $(T^*=0,T = 1, z=k)$ while $F^0_{1k}(\tau + c + \beta)$ is the conditional CDF of $(\varepsilon - \beta)$ given $(T^*=0, T=1, z=k)$.
+Since $G_k(\tau)$ is the conditional CDF of $\varepsilon$ given $z=k$, we see that Assumption \ref{assump:model} (iii) is satisfied if and only if
+\begin{align*}
+  0 &= (1 - p_k) \mathbb{E}(y-c|T=0,z=k) + p_k \mathbb{E}(y - c - \beta|T=1,z=k)\\
+  &\quad + p_k(1 - r_{1k})\left[ \mathbb{E}(\varepsilon|T^*=0,T=1,z=k) - \mathbb{E}(\varepsilon - \beta|T^*=0,T=1,z=k) \right]
+\end{align*}
+Rearranging, this is equivalent to 
+\[
+  \mathbb{E}(y|z=k) = c + (1 - \alpha_1) \beta\left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right) = c + \beta\left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)
+\]
+since $\alpha_1 = 0$ in this case.
+As explained above, $F^0_{0k} = F_{0k}$ in the present case while $F^1_{0k}$ is undefined. 
+We are free to choose any distributions for $F^{0}_{1k}$ and $F^{1}_{1k}$ that satisfy Equation \ref{eq:Ftk}, for example $F^{0}_{1k} = F^{1}_{1k} = F_{1k}$.
+
+\paragraph{Case IV: $r_{1k}\neq 0, r_{0k} \neq 0$}
+In this case, we can solve Equation \ref{eq:Ftk} to obtain
+\[
+  F^1_{tk}(\tau) = \frac{1}{r_{tk}}\left[F_{tk}(\tau) - (1 - r_{tk})F^0_{tk}(\tau)\right]
+\]
+Substituting this into Equation \ref{eq:Gk}, we have
 \begin{align*}
   G_k(\tau) = F_k(\tau + c + \beta) &+ p_k(1 - r_{1k})\left[F^0_{1k}(\tau + c) - F_{1k}^0(\tau + c + \beta)\right]\\
   &+ (1 - p_k)(1 - r_{0k}) \left[ F^0_{0k}(\tau + c) - F^0_{0k}(\tau + c + \beta) \right]
 \end{align*}
-using the fact that
-\[
-  F_k(\tau) = p_k F_{1k}(\tau) + (1 - p_k) F_{0k}(\tau).
-\]
-To establish that Assumption ??? (valid IV) is satisfied for $z = k$, we need to show that the expectation of a random variable with distribution  function $G_k(\tau)$ is zero.
-Integrating both sides of the equality for $G_k(\tau)$, we see that this occurs if and only if 
+using the fact that $F_k(\tau) = p_k F_{1k}(\tau) + (1 - p_k) F_{0k}(\tau)$.
+Now, $F_k(\tau + c + \beta)$ is the conditional CDF of $(y - c - \beta)$ given $z=k$, while $F_{tk}^0(\tau + c)$ is the conditional CDF of $\varepsilon$ given $(T = t,z =k)$ and $F^0_{tk}(\tau + c + \beta)$ is the conditional CDF of $(\varepsilon - \beta)$ given $(T = t, z=k)$.
+Since $G_k(\tau)$ is the conditional CDF of $\varepsilon$ given $z=k$, we see that Assumption \ref{assump:model} (iii) is satisfied if and only if
 \begin{align*}
-  0 = \mathbb{E}[y - c - \beta|z=k] &+ p_k(1 - r_{1k})\left[ \mathbb{E}(\varepsilon|T^*=0,T=1,z_k) - \mathbb{E}(\varepsilon - \beta|T^*=0,T=1,z_k) \right] \\
-   &+ (1 - p_k)(1 - r_{0k})\left[ \mathbb{E}(\varepsilon|T^*=0,T=0,z_k) - \mathbb{E}(\varepsilon - \beta|T^*=0,T=0,z_k) \right]\\
-   0 = \mathbb{E}[y - c - \beta|z=k] &+ \beta\left[p_k(1 - r_{1k}) + (1 - p_k)(1 - r_{0k})\right]
+  0 &= \mathbb{E}[y - c - \beta|z=k] + p_k(1 - r_{1k})\left[ \mathbb{E}(\varepsilon|T^*=0,T=1,z=k) - \mathbb{E}(\varepsilon - \beta|T^*=0,T=1,z=k) \right] \\
+   &\quad + (1 - p_k)(1 - r_{0k})\left[ \mathbb{E}(\varepsilon|T^*=0,T=0,z=k) - \mathbb{E}(\varepsilon - \beta|T^*=0,T=0,z=k) \right]\\
+   0 &= \mathbb{E}[y - c - \beta|z=k] + \beta\left[p_k(1 - r_{1k}) + (1 - p_k)(1 - r_{0k})\right]
 \end{align*}
-But since $\left[p_k(1 - r_{1k}) + (1 - p_k)(1 - r_{0k})\right] = (1 - p_k^*)$ and $p_k^* = (p_k - \alpha_0) /(1 - \alpha_0 - \alpha_1)$, we find that $\mathbb{E}[\varepsilon|z=k] = 0$ if and only if 
+But since $\left[p_k(1 - r_{1k}) + (1 - p_k)(1 - r_{0k})\right] = (1 - p_k^*)$ and $p_k^* = (p_k - \alpha_0) /(1 - \alpha_0 - \alpha_1)$, this simplifies to 
 \[
 \mathbb{E}[y|z=k] = c + \beta\left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right).
 \]
-The final step is to show that we can satisfy Assumption ??? (non-differential).
-
-
-\todo[inline]{Fix from here down!}
-If $\alpha_1 \neq 0$, then $r_{1k}\neq 0$ so the analogous statement holds for $F_{1k}^1(\tau)$, namely
-\[ 
-  F_{tk}(\tau) = (1 - r_{tk}) F^{0}_{tk}(\tau) + r_{tk} F^{1}_{tk}(\tau)
-\]
-\[
-  F^1_{1k}(\tau) = \frac{1}{r_{1k}}\left[F_{1k}(\tau) - (1 - r_{1k})F^1_{0k}\right]
-\]
-If $\alpha_1 = 0$, however, then $r_{1k} = 0$.
-In this case $F^1_{1k}(\tau)$ does not exist and $F_{1k}(\tau) = F_{1k}^0(\tau)$.
-
+Thus, in this case we are free to choose \emph{any} distributions for $F^{0}_{tk}$ and $F^1_{tk}$ that satisfy Equation \ref{eq:Ftk}.
+For example we could take $F^0_{tk} = F^1_{tk} = F_{tk}$.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3670,7 +3717,7 @@ where $\pi(\mathbf{x})$ is as defined in Lemma \ref{lem:eta1} and $\theta_1(\mat
 \end{align*}
 using the fact that $T^*$ is binary. 
 Now, by Assumptions \ref{assump:model} (iii) and \ref{assump:2ndMoment} we have $\mbox{Cov}(\varepsilon,z) = \mbox{Cov}(\varepsilon^2,z) = 0$.
-And, using Assumptions \ref{assump:misclassification} (ii) and (iii), one can show that $\mbox{Cov}(TT^*,z) = (1 - \alpha_1)\mbox{Cov}(T^*,z)$ and $\mbox{Cov}(T^*,z) = \pi/(1 - \alpha_0 - \alpha_1)$.
+And, using Assumptions \ref{assump:misclassification} (i) and (ii), one can show that $\mbox{Cov}(TT^*,z) = (1 - \alpha_1)\mbox{Cov}(T^*,z)$ and $\mbox{Cov}(T^*,z) = \pi/(1 - \alpha_0 - \alpha_1)$.
 Hence, 
 \begin{align*}
   \eta_2 &= \theta_1\left( \beta 
@@ -3682,7 +3729,7 @@ Thus, it suffices to show that $\beta \mbox{Cov}(T^*\varepsilon,z) = \theta_1 \m
 This equality is trivially satisfied when $\beta=0$, so suppose that $\beta \neq 0$. 
 In this case it suffices to show that $(1 - \alpha_0 - \alpha_1) \mbox{Cov}(T^*\varepsilon,z) = \mbox{Cov}(T\varepsilon,z)$.
 Define $m^*_{tk} = \mathbb{E}\left[ \varepsilon|T^*=t,z=k \right]$ and $p^*_k = \mathbb{P}(T^*=1|z=k)$.
-Then, by iterated expectations, Bayes' rule, and Assumption \ref{assump:misclassification} (i)
+Then, by iterated expectations, Bayes' rule, and Assumption \ref{assump:misclassification} (iii)
 \begin{align*}
   \mbox{Cov}(T^*\varepsilon,z) &=q(1 - q)\left(p_1^* m_{11}^*  - p_0^*m_{10}^* \right) \\
   \mbox{Cov}(T\varepsilon,z) &= q(1 - q)\left\{ (1 - \alpha_1)\left[ p_1^* m_{11}^* - p_0^* m_{10}^* \right] + \alpha_0\left[ (1 - p_1^*) m_{01}^* - (1 - p_0^*)m_{00}^* \right] \right\} 
