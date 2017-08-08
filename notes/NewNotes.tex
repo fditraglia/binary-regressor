@@ -3541,7 +3541,7 @@ However, without this additional condition $\beta$ is unidentified regardless of
   \] 
 and
 \[\alpha_0(\mathbf{x}) \leq \mathbb{P}(T=1|\mathbf{x}, z=k) \leq 1 -  \alpha_1(\mathbf{x})\]
-for $k = 0, 1$. 
+for all $k = 0, 1$. 
 \end{thm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3679,20 +3679,41 @@ For example we could take $F^0_{tk} = F^1_{tk} = F_{tk}$.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Say how we get the following by plugging in the largest and smallest possible values for $\alpha_0 + \alpha_1$ and taking the difference of the expressions for $\mathbb{E}[y|z=k]$
 
 \begin{cor}
-  Implied sharp set for $\beta(\mathbf{x})$ and show that it can never be a singleton set. Discuss what happens if the mis-classification is one-sided or symmetric.
+  Under the conditions of Theorem \ref{thm:sharpI} the sharp identified set for $\beta(\mathbf{x})$ is the closed interval between $\Delta^y(\mathbf{x})$ and $\Delta^y(\mathbf{x})/\Delta^T(\mathbf{x})$ 
+where $\Delta^y(\mathbf{x}) \equiv \mathbb{E}(y|\mathbf{x},z=1) - \mathbb{E}(y|\mathbf{x},z=0)$ and $\Delta^T(\mathbf{x})= \mathbb{E}(T|\mathbf{x},z=1) - \mathbb{E}(T|\mathbf{x},z=0)$.
+\label{cor:sharpBeta1}
 \end{cor}
+
+
+
+Talk about applied settings in which there can be one-sided mis-classification.
+This restricts the identified set.
+Following corollary collects some common cases.
+
+\begin{cor}
+  Under the conditions of Theorem \ref{thm:sharpI}, restrictions on the misclassification probabilities shrink the sharp identified set for $\beta(\mathbf{x})$ to the closed interval between $B\Delta^y(\mathbf{x})/\Delta^T(\mathbf{x})$ and $\Delta^y(\mathbf{x})/\Delta^T(\mathbf{x})$ where
+  \begin{enumerate}[(i)]
+    \item $\alpha_0(\mathbf{x})=0$ implies $B = \max_k \mathbb{E}(T|\mathbf{x},z=k)$ 
+    \item $\alpha_1(\mathbf{x})=0$ implies $B = 1 - \min_k \mathbb{E}(T|\mathbf{x},z=k)$ 
+    \item $\alpha_0(\mathbf{x})=\alpha_1(\mathbf{x})$ implies $B =  1 - 2 \min\left\{ \min_k \mathbb{E}(T|\mathbf{x},z=k), 1 - \max_k \mathbb{E}(T|\mathbf{x},z=k) \right\}$ 
+  \end{enumerate}
+  for $k = 0,1$, where $\Delta^T(\mathbf{x})$ and $\Delta^y(\mathbf{x})$ are as defined in Corollary \ref{cor:sharpBeta1}.
+\end{cor}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The preceding results don't use the non-differential measurement error assumption -- Assumption \ref{assump:misclassification} (iii).
+This shrinks the identified set.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{thm}[Sharp Identified Set II]
   \label{thm:sharpII}
-  Strengthen Theorem \ref{thm:sharpI} to include the second moment IV restriction.
+  Under Assumptions \ref{assump:model} and \ref{assump:misclassification}, the sharp identified set is characterized by
 \end{thm}
 
 \begin{proof}[Proof of Theorem \ref{thm:sharpII}]
-Only requires us to show that we can additionally satisfy the second moment restriction.
-All the other steps are the same as in the proof of Theorem \ref{thm:sharpI}.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
