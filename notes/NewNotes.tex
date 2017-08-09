@@ -3744,8 +3744,10 @@ Solving the system,
 Given $(\alpha_0, \alpha_1)$, we see that $r_{tk}$ and $\mu_{tk}$ are fixed.
 Notice that $\mu_{0k}$ depends only on $\alpha_1$ and observables, while $\mu_{1k}$ depends only on $\alpha_0$ and observables.
 
-Suppose first that $(\alpha_0, \alpha_1)$ yield $0 < r_{0k} < 1$ and $0 < r_{1k} < 1$.
-In this case, define
+\todo[inline]{Some discussion of how the cases will work.}
+
+\paragraph{Case I: $0 < r_{tk} < 1$} 
+Define
 \begin{align*}
   m_{tk}(\xi) &= \mathbb{E}[y|y\in I_{tk}(\xi), T=t, z=k]\\
   I_{tk}(\xi) &= \left[ F^{-1}_{tk}(1 - \xi - r_{tk}), F^{-1}_{tk}(1 - \xi) \right]
@@ -3753,16 +3755,63 @@ In this case, define
 for $t,k = 0,1$ where $0 \leq \xi \leq 1 - r_{tk}$ and $F^{-1}_{tk}$ is the quantile function of $y$ given $(T=t, z=k)$.
 We see that $m_{tk}$ is a decreasing function of $\xi$ that attains its maximum at $\xi = 0$ and minimum at $\xi = 1 - r_{tk}$.
 Define these extrema as $\underline{m}_{tk} = m_{tk}(1 - r_{tk})$ and $\overline{m}_{tk} = m_{tk}(0)$.
-Since $y$ is assumed to follow a continuous distribution conditional on $(T,z)$, $m_{tk}$ is continuous on its domain and thus attains all values in the interval $\left[ \underline{m}_{tk}, \overline{m}_{tk} \right]$ by the intermediate value theorem.
-Now, suppose that for some pair $(t,k)$ the corresponding value of $\mu_{tk}$ does \emph{not} lie in the interval $[\underline{m}_{tk}, \overline{m}_{tk}]$.
-We now show that it is impossible to construct valid CDFs $F^0_{tk}$ and $F^{1}_{tk}$ that satisfy $F_{tk}(\tau) = r_{tk} F^1_{tk}(\tau) + (1 - r_{tk}) F^0_{tk}(\tau)$ where $F_{tk}$ and $F^{t^*}_{tk}$ are as defined in the proof of Theorem \ref{thm:sharpII}.
+
+Suppose first that $\mu_{tk}$ does \emph{not} lie in the interval $[\underline{m}_{tk}, \overline{m}_{tk}]$.
+We show that it is impossible to construct valid CDFs $F^0_{tk}$ and $F^{1}_{tk}$ that satisfy $F_{tk}(\tau) = r_{tk} F^1_{tk}(\tau) + (1 - r_{tk}) F^0_{tk}(\tau)$ where $F_{tk}$ and $F^{t^*}_{tk}$ are as defined in the proof of Theorem \ref{thm:sharpII}.
 Since $r_{tk} \neq 1$, we can solve the expression for $F_{tk}$ to yield 
   $F^{0}_{tk}(\tau) = \left[ F_{tk}(\tau) - r_{tk} F^1_{tk}(\tau)\right] / (1 - r_{tk})$.
   Hence, since $r_{tk} \neq 0$, the requirement that $0 \leq F_{tk}^0(\tau) \leq 1$ implies
-\[
+\begin{equation}
   \frac{F_{tk}(\tau) - (1 - r_{tk})}{r_{tk}} \leq F^{1}_{tk}(\tau) \leq \frac{F_{tk}(\tau)}{r_{tk}}
+  \label{eq:F1tk_ineq}
+\end{equation}
+Now define 
+\begin{align*}
+  \underline{F}^{1}_{tk}(\tau) &=  \min\left\{ 1,\,  F_{tk}(\tau)/r_{tk} \right\}\\
+\overline{F}^{1}_{tk}(\tau) &= \max\left\{ 0,\,  F_{tk}(\tau)/r_{tk} - (1 - r_{tk})/r_{tk} \right\}
+\end{align*}
+Combining Equation \ref{eq:F1tk_ineq} with the requirement that $0 \leq F^{1}_{tk}(\tau) \leq 1$, we see that
+\[
+  \overline{F}_{tk}^1(\tau) \leq F^{1}_{tk}(\tau) \leq \underline{F}_{tk}^1(\tau)
 \]
+Hence $\overline{F}^1_{tk}$ first-order stochastically dominates $F^{1}_{tk}$ which in turn first-order stochastically dominates $\underline{F}_{tk}^1$. 
+It follows that
+\[
+ \int \tau \underline{F}_{tk}^1(d\tau) \leq \int \tau F^{1}_{tk}(d\tau) \leq \int \tau\overline{F}_{tk}^1(d\tau)
+\]
+But notice that 
+\[
+  \underline{m}_{tk} = \int \tau \underline{F}_{tk}^1(d\tau), \quad 
+  \mu_{tk} = \int \tau F^{1}_{tk}(d\tau), \quad 
+  \overline{m}_{tk} = \int \tau\overline{F}_{tk}^1(d\tau)
+\]
+so we have $\underline{m}_{tk} \leq \mu_{tk} \leq \overline{m}_{tk}$ which contradicts $\mu_{tk} \notin [\underline{m}_{tk}, \overline{m}_{tk}]$.
 
+Now suppose that $\mu_{tk} \in \left[\underline{m}_{tk}, \overline{m}_{tk} \right]$.
+Since $y$ is assumed to follow a continuous distribution conditional on $(T,z)$, $m_{tk}$ is continuous on its domain and takes on all values in $\left[ \underline{m}_{tk}, \overline{m}_{tk} \right]$ by the intermediate value theorem.
+Thus, there exists a $\xi^*$ such that $m_{tk}(\xi^*) = \mu_{tk}$.
+Now let $f_{tk}(\tau) = dF_{tk}(\tau)/d\tau$ which is non-negative by the assumption that $y$ is continuously distributed.
+Define the densities
+\[
+  f^1_{tk}(\tau) = \frac{f_{tk}(\tau)\times \mathbf{1}\left\{ \tau \in I_{tk}(\xi^*) \right\}}{r_{tk}}, \quad
+  f^0_{tk}(\tau) = \frac{f_{tk}(\tau) \times \mathbf{1}\left\{ \tau \in I_{tk}(\xi^*) \right\}}{1 - r_{tk}}.
+\]
+Clearly $f_{tk}^1\geq 0$ and $f^0_{tk} \geq 0$.
+Integrating, 
+\begin{align*}
+  \int_{\mathbb{R}} f_{tk}^1(\tau) \; d\tau &= \frac{1}{r_{tk}}\int_{I_{tk}(\xi^*)} f_{tk}(\tau)\; d\tau = 1\\
+  \int_{\mathbb{R}} f_{tk}^0(\tau) \; d\tau &= \frac{1}{1 - r_{tk}}\int_{I^C_{tk}(\xi^*)} f_{tk}(\tau)\; d\tau = 1
+\end{align*}
+where $I_{tk}^C$ is the complement of $I_{tk}$.
+And, by construction
+\[
+  r_{tk} \int_A f_{tk}^1(\tau) \; d\tau + (1 - r_{tk}) \int_A f_{tk}^0(\tau) \; d\tau = \int_A f_{tk}(\tau)\; d\tau
+\]
+for any set $A$. 
+Finally,
+\[
+  \int_{\mathbb{R}} \tau f_{tk}^1(\tau) \; d\tau = \frac{1}{r_{tk}} \int_{I_{tk}(\xi^*)} \tau f_{tk}(\tau)\; d\tau = m(\xi^*) = \mu_{tk}.
+\]
 
 
 \end{proof}
