@@ -3704,18 +3704,74 @@ Following corollary collects some common cases.
 \end{cor}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The preceding results don't use the non-differential measurement error assumption -- Assumption \ref{assump:misclassification} (iii).
-This shrinks the identified set.
+The preceding results don't use the non-differential measurement error assumption 
+Further imposing non-differential measurement error -- Assumption \ref{assump:misclassification} (iii) -- shrinks the identified set.
+We impose some additional conditions that simplify the proof. 
+These are discussed further below.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{thm}[Sharp Identified Set II]
   \label{thm:sharpII}
-  Under Assumptions \ref{assump:model} and \ref{assump:misclassification}, the sharp identified set is characterized by
+  Suppose that the conditional distribution of $y$ given $(\mathbf{x}, T,z)$ is absolutely continuous with respect to the Lebesgue measure for any values of the conditioning variables and moreover that there is no $k$ such that $\mathbb{E}\left[ y|\mathbf{x},T=0,z=k \right] = \mathbb{E}\left[ y|\mathbf{x},T=1,z=k \right]$.
+  Then, under Assumptions \ref{assump:model} and \ref{assump:misclassification}, the sharp identified set is characterized by
+  \[
+    BLAH BLAH BLAH
+  \]
 \end{thm}
 
 \begin{proof}[Proof of Theorem \ref{thm:sharpII}]
+Under Assumption \ref{assump:model} (i) and Assumption \ref{assump:misclassification} (iii), we obtain $\mathbb{E}(y|T^*,T,z) = \mathbb{E}(y|T^*,z)$.
+Hence, by iterated expectations
+  \begin{align*}
+    \mathbb{E}(y|T=0,z=k) &= (1 - r_{0k}) \mathbb{E}(y|T^*=0,z=k) + r_{0k}\mathbb{E}(y|T^*=1,z=k)\\
+    \mathbb{E}(y|T=1,z=k) &= (1 - r_{1k}) \mathbb{E}(y|T^*=0,z=k) + r_{1k}\mathbb{E}(y|T^*=1,z=k)
+  \end{align*}
+where $r_{tk}$ is defined as in the proof of Theorem \ref{thm:sharpI}.
+This is system of two linear equations in two unknowns: $\mathbb{E}(y|T^*=0,z=k)$ and $\mathbb{E}(y|T^*=1,z=k)$.
+After some algebra, we find that the determinant is
+\[
+  r_{1k} - r_{0k} = \left[ \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right]\left[ \frac{1 - p_k - \alpha_1}{p_k(1 - p_k)} \right] 
+\]
+and thus a unique solution exists provided that $\alpha_0 \neq p_k$ and $\alpha_1 \neq 1 - p_k$.
+By our assumption that $\mathbb{E}[y|T=0,z=k] \neq \mathbb{E}[y|T=1,z=k]$, the system has no solution when the determinant condition fails.
+Thus, Assumption \ref{assump:misclassification} (iii) rules out $\alpha_0 = p_k$ and $\alpha_1 = 1-p_k$.
+Solving the system,
+\begin{align*}
+  \mu_{0k} \equiv \mathbb{E}(y|T^*=0,z=k) &= \left(\frac{1}{1 - p_k - \alpha_1}\right)\left[ (1 - p_k)\mathbb{E}(y|T=0,z_k) - \alpha_1 \mathbb{E}(y|z=k) \right]\\
+  \mu_{1k} \equiv \mathbb{E}(y|T^*=1,z=k) &= \left(\frac{1}{p_k - \alpha_0}\right)\left[ p_k\mathbb{E}(y|T=1,z_k) - \alpha_0 \mathbb{E}(y|z=k) \right]
+\end{align*}
+Given $(\alpha_0, \alpha_1)$, we see that $r_{tk}$ and $\mu_{tk}$ are fixed.
+Notice that $\mu_{0k}$ depends only on $\alpha_1$ and observables, while $\mu_{1k}$ depends only on $\alpha_0$ and observables.
+
+Suppose first that $(\alpha_0, \alpha_1)$ yield $0 < r_{0k} < 1$ and $0 < r_{1k} < 1$.
+In this case, define
+\begin{align*}
+  m_{tk}(\xi) &= \mathbb{E}[y|y\in I_{tk}(\xi), T=t, z=k]\\
+  I_{tk}(\xi) &= \left[ F^{-1}_{tk}(1 - \xi - r_{tk}), F^{-1}_{tk}(1 - \xi) \right]
+\end{align*}
+for $t,k = 0,1$ where $0 \leq \xi \leq 1 - r_{tk}$ and $F^{-1}_{tk}$ is the quantile function of $y$ given $(T=t, z=k)$.
+We see that $m_{tk}$ is a decreasing function of $\xi$ that attains its maximum at $\xi = 0$ and minimum at $\xi = 1 - r_{tk}$.
+Define these extrema as $\underline{m}_{tk} = m_{tk}(1 - r_{tk})$ and $\overline{m}_{tk} = m_{tk}(0)$.
+Since $y$ is assumed to follow a continuous distribution conditional on $(T,z)$, $m_{tk}$ is continuous on its domain and thus attains all values in the interval $\left[ \underline{m}_{tk}, \overline{m}_{tk} \right]$ by the intermediate value theorem.
+Now, suppose that for some pair $(t,k)$ the corresponding value of $\mu_{tk}$ does \emph{not} lie in the interval $[\underline{m}_{tk}, \overline{m}_{tk}]$.
+We now show that it is impossible to construct valid CDFs $F^0_{tk}$ and $F^{1}_{tk}$ that satisfy $F_{tk}(\tau) = r_{tk} F^1_{tk}(\tau) + (1 - r_{tk}) F^0_{tk}(\tau)$ where $F_{tk}$ and $F^{t^*}_{tk}$ are as defined in the proof of Theorem \ref{thm:sharpII}.
+Since $r_{tk} \neq 1$, we can solve the expression for $F_{tk}$ to yield 
+  $F^{0}_{tk}(\tau) = \left[ F_{tk}(\tau) - r_{tk} F^1_{tk}(\tau)\right] / (1 - r_{tk})$.
+  Hence, since $r_{tk} \neq 0$, the requirement that $0 \leq F_{tk}^0(\tau) \leq 1$ implies
+\[
+  \frac{F_{tk}(\tau) - (1 - r_{tk})}{r_{tk}} \leq F^{1}_{tk}(\tau) \leq \frac{F_{tk}(\tau)}{r_{tk}}
+\]
+
+
+
 \end{proof}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The preceding theorem assumes that $y$ is continuously distributed, which is natural in an additively separable model and holds in our simulations and empirical examples below.
+If this is not the case then non-differential measurement error may impose further restrictions, although the basic idea of the argument is similar.
+We also imposed $\mathbb{E}[y|\mathbf{x},T = 0, z=k] \neq \mathbb{E}[y|\mathbf{x},T=1, z=k]$ for any $k$, which holds generically.
+If the two means are exactly equal for some $k$, then the intersection of $\left\{ (\alpha_0, \alpha_1)\colon \alpha_0 = p_k \mbox{ or } \alpha_1 = 1-p_k \right\}$ with the bounds for $\alpha_0, \alpha_1$ from Theorem \ref{thm:sharpI} must be added to the identified set.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{lem}
