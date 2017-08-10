@@ -3772,7 +3772,7 @@ for $t,k = 0,1$ where $0 \leq \xi \leq 1 - r_{tk}$ and $F^{-1}_{tk}$ is the quan
 We see that $m_{tk}$ is a decreasing function of $\xi$ that attains its maximum at $\xi = 0$ and minimum at $\xi = 1 - r_{tk}$.
 Define these extrema as $\underline{m}_{tk} = m_{tk}(1 - r_{tk})$ and $\overline{m}_{tk} = m_{tk}(0)$.
 
-Suppose first that $\mu_{tk}$ does \emph{not} lie in the interval $[\underline{m}_{tk}, \overline{m}_{tk}]$.
+Suppose first that $\mu^1_{k}$ does \emph{not} lie in the interval $[\underline{m}_{tk}, \overline{m}_{tk}]$.
 We show that it is impossible to construct valid CDFs $F^0_{tk}$ and $F^{1}_{tk}$ that satisfy $F_{tk}(\tau) = r_{tk} F^1_{tk}(\tau) + (1 - r_{tk}) F^0_{tk}(\tau)$ where $F_{tk}$ and $F^{t^*}_{tk}$ are as defined in the proof of Theorem \ref{thm:sharpII}.
 Since $r_{tk} \neq 1$, we can solve the expression for $F_{tk}$ to yield 
   $F^{0}_{tk}(\tau) = \left[ F_{tk}(\tau) - r_{tk} F^1_{tk}(\tau)\right] / (1 - r_{tk})$.
@@ -3798,14 +3798,14 @@ It follows that
 But notice that 
 \[
   \underline{m}_{tk} = \int \tau \underline{F}_{tk}^1(d\tau), \quad 
-  \mu_{tk} = \int \tau F^{1}_{tk}(d\tau), \quad 
+  \mu^1_{k} = \int \tau F^{1}_{tk}(d\tau), \quad 
   \overline{m}_{tk} = \int \tau\overline{F}_{tk}^1(d\tau)
 \]
-so we have $\underline{m}_{tk} \leq \mu_{tk} \leq \overline{m}_{tk}$ which contradicts $\mu_{tk} \notin [\underline{m}_{tk}, \overline{m}_{tk}]$.
+so we have $\underline{m}_{tk} \leq \mu^1_{k} \leq \overline{m}_{tk}$ which contradicts $\mu^1_{k} \notin [\underline{m}_{tk}, \overline{m}_{tk}]$.
 
-Now suppose that $\mu_{tk} \in \left[\underline{m}_{tk}, \overline{m}_{tk} \right]$.
+Now suppose that $\mu^1_{k} \in \left[\underline{m}_{tk}, \overline{m}_{tk} \right]$.
 Since $y$ is assumed to follow a continuous distribution conditional on $(T,z)$, $m_{tk}$ is continuous on its domain and takes on all values in $\left[ \underline{m}_{tk}, \overline{m}_{tk} \right]$ by the intermediate value theorem.
-Thus, there exists a $\xi^*$ such that $m_{tk}(\xi^*) = \mu_{tk}$.
+Thus, there exists a $\xi^*$ such that $m_{tk}(\xi^*) = \mu^1_{k}$.
 Now let $f_{tk}(\tau) = dF_{tk}(\tau)/d\tau$ which is non-negative by the assumption that $y$ is continuously distributed.
 Define the densities
 \[
