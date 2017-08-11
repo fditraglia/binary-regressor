@@ -6600,6 +6600,173 @@ where
 \]
 
 \paragraph{Accounting for Preliminary Estimation}
+\[
+m = \left[
+\begin{array}{c}
+  m^I \\ m^E
+\end{array}
+\right], \quad
+m^I = \left[
+\begin{array}{c}
+  m^I_1 \\ m^I_2
+\end{array}
+\right], \quad
+m^E = \left[
+  \begin{array}{cc}
+    m_2^E \\ m_3^E 
+  \end{array}
+\right], \quad m_j^E(\mathbf{w}_i, \cdots) = \left[ \boldsymbol{\psi}_j'(\theta_1, \boldsymbol{\alpha}^0) \mathbf{w}_i - \kappa_j \right]z_i 
+\]
+
+\[
+  m_1^I(\mathbf{w}_i, \alpha_0, \alpha_1) = \left[
+  \begin{array}{l}
+    (1 - z_i)(T_i - \alpha_0) \\
+    (1 - z_i)(1 - T_i - \alpha_1) \\
+    z_i(T - \alpha_0) \\
+    z_i (1 - T_i - \alpha_1) \\
+  \end{array}
+\right], \quad
+m^I_2(W, \boldsymbol{\alpha}, \mathbf{q}) = \left[
+\begin{array}{c}
+  m^I_{2,00}(W,\boldsymbol{\alpha},\mathbf{q})\\
+  m^I_{2,10}(W,\boldsymbol{\alpha},\mathbf{q})\\
+  m^I_{2,01}(W,\boldsymbol{\alpha},\mathbf{q})\\
+  m^I_{2,11}(W,\boldsymbol{\alpha},\mathbf{q}) \\
+\end{array}
+\right]
+\]
+\[
+  m_{2,tk}^I(W, \boldsymbol{\alpha}, \mathbf{q}) = \left[
+  \begin{array}{c}
+  \mu_k(\alpha_0) - \underline{\mu}_{tk}(\alpha_0, \alpha_1) \\
+  \overline{\mu}_{tk}(\alpha_0, \alpha_1) - \mu_k(\alpha_0)  
+  \end{array}
+\right] 
+\]
+
+
+
+\[
+  h  = \left[
+  \begin{array}{c}
+    h^I_0 \\ h^I_1 \\ h^E
+  \end{array}
+\right], \quad
+  h^E  =  \left[
+ \begin{array}{l}
+   \boldsymbol{\psi}'_1(\theta_1)\mathbf{w}_i - \kappa_1\\
+   \boldsymbol{\psi}'_2(\theta_1,\boldsymbol{\alpha}^0)\mathbf{w}_i - \kappa_2\\
+   \boldsymbol{\psi}'_3(\theta_1,\boldsymbol{\alpha}^0)\mathbf{w}_i - \kappa_3\\ 
+   \boldsymbol{\psi}'_1(\theta_1)\mathbf{w}_i z_i - \kappa_1 z_i
+ \end{array}
+ \right] = \left[
+ \begin{array}{l}
+   \boldsymbol{\Psi}'(\theta_1, \boldsymbol{\alpha}^0) \mathbf{w}_i - \boldsymbol{\kappa}\\
+   \left\{\boldsymbol{\psi}_1'(\theta_1)\mathbf{w}_i - \kappa_1\right\}z_i
+ \end{array}
+ \right]
+\]
+Now, let $\boldsymbol{\gamma}' = (\mathbf{q}', \boldsymbol{\kappa}', \theta_1)$ where $\mathbf{q}' = ( \underline{q}_{00}, \overline{q}_{00}, \underline{q}_{10}, \overline{q}_{10}, \underline{q}_{01}, \overline{q}_{01}, \underline{q}_{11}, \overline{q}_{11})$, and $\boldsymbol{\kappa}' = (\kappa_1, \kappa_2, \kappa_3)$.
+Now define,
+\begin{align*}
+  B^E &= -M^E (H^E)^{-1}\\
+  M^E &= \mathbb{E}\left[
+  \begin{array}{cc}
+    \displaystyle \frac{\partial m^E}{\partial \boldsymbol{\kappa}'} &
+    \displaystyle \frac{\partial m^E}{\partial \theta_1}
+  \end{array}
+\right]\\
+  H^E &= \left[
+  \begin{array}{cc}
+    \displaystyle \frac{\partial h^E}{\partial \boldsymbol{\kappa}'} &
+    \displaystyle \frac{\partial h^E}{\partial \theta_1}
+  \end{array}
+\right] = \mathbf{R}
+\end{align*}
+where
+\[
+\mathbf{R} = \left[
+\begin{array}{rrrr}
+  -1 & 0 & 0 
+  & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+   0 & -1 & 0 & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+   0 & 0 & -1 & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+   -q & 0 & 0 &  \displaystyle \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}z]\\
+\end{array}
+\right]
+\]
+and
+\[
+\mathbb{E}\left[\frac{\partial m^E}{\partial \boldsymbol{\kappa}'}\right] = \left[
+\begin{array}{ccc}
+  0 & -q & 0 \\
+  0 & 0 & -q
+\end{array}
+\right], \quad
+\mathbb{E}\left[\frac{\partial m^E}{\partial \theta_1}\right] =
+\left[
+\begin{array}{c}
+  \displaystyle\left( \frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1} \right)'\\ 
+  \displaystyle\left( \frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1} \right)' 
+\end{array}
+\right] \mathbb{E}[\mathbf{w}_iz_i]
+\]
+
+\todo[inline]{Change from here down\ldots}
+so that $B = -M \mathbf{R}^{-1}$ and $A = \left[
+\begin{array}{cc}
+\mathbf{I} & B
+\end{array}
+\right]$.
+Finally, accounting for preliminary estimation of $\boldsymbol{\kappa}$ and $\theta_1$, the variance matrix estimator is $\widehat{\Sigma}_n\left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) = A \widehat{\mathcal{V}}_n \left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) A'$ where
+\[
+  \widehat{\mathcal{V}}_n\left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) = \frac{1}{n}\sum_{i=1}^n 
+  \left[
+  \begin{array}{c}
+    m(\mathbf{w}_i, \alpha^0, \widehat{\gamma}(\alpha^0)) - \bar{m}_n(\alpha^0, \widehat{\gamma}(\alpha^0))\\
+    h(\mathbf{w}_i, \alpha^0, \widehat{\gamma}(\alpha^0)) - \bar{h}_n(\alpha^0, \widehat{\gamma}(\alpha^0))
+  \end{array}
+\right]
+  \left[
+  \begin{array}{c}
+    m(\mathbf{w}_i, \alpha^0, \widehat{\gamma}(\alpha^0)) - \bar{m}_n(\alpha^0, \widehat{\gamma}(\alpha^0))\\
+    h(\mathbf{w}_i, \alpha^0, \widehat{\gamma}(\alpha^0)) - \bar{h}_n(\alpha^0, \widehat{\gamma}(\alpha^0))
+  \end{array}
+\right]'
+\]
+Where, 
+\begin{align*}
+  m_1^I(\mathbf{w}_i, \boldsymbol{\alpha}^0) &=
+  \left[
+  \begin{array}{r}
+  T_i(1 - z_i)/(1 - q) - \alpha_0 \\
+  (1 - T_i)(1 - z_i)/(1 - q) - \alpha_1  \\
+  T_iz_i/q - \alpha_0 \\
+  (1 - T_i)z/q - \alpha_1  
+  \end{array}
+\right]\\
+  m^E\left(\mathbf{w}_i, \boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) &= 
+  \left[
+  \begin{array}{c}
+ \widehat{\boldsymbol{\psi}}_2'(\boldsymbol{\alpha}^0)(\mathbf{w}_i - \bar{\mathbf{w}})z_i \\
+   \widehat{\boldsymbol{\psi}}_3'(\boldsymbol{\alpha}^0)(\mathbf{w}_i - \bar{\mathbf{w}})z_i 
+  \end{array}
+\right]\\
+  h_E\left(\mathbf{w}_i, \boldsymbol{\alpha}^0, \widehat{\gamma}(\boldsymbol{\alpha}^0)\right) &= \left[
+  \begin{array}{l}
+    \widehat{\boldsymbol{\psi}}'_1 (\mathbf{w}_i - \bar{\mathbf{w}})\\ 
+    \widehat{\boldsymbol{\psi}}'_2(\boldsymbol{\alpha}^0) (\mathbf{w}_i - \bar{\mathbf{w}})\\ 
+    \widehat{\boldsymbol{\psi}}'_3(\boldsymbol{\alpha}^0) (\mathbf{w}_i - \bar{\mathbf{w}})\\
+    \widehat{\boldsymbol{\psi}}'_1 (\mathbf{w}_i - \bar{\mathbf{w}})z_i
+  \end{array}
+\right] = \left[
+\begin{array}{l}
+  \widehat{\boldsymbol{\Psi}}'(\boldsymbol{\alpha}^0)(\mathbf{w}_i - \bar{\mathbf{w}})\\
+    \widehat{\boldsymbol{\psi}}'_1 (\mathbf{w}_i - \bar{\mathbf{w}})z_i
+\end{array}
+\right]
+\end{align*}
 
 
 
