@@ -6712,6 +6712,55 @@ and
 \end{array}
 \right] \mathbb{E}[\mathbf{w}_iz_i]
 \]
+Now, the moment functions that are not differentiable must be treated differently.
+Define:
+\[
+  B^I = -{M}_2^I \left( H^I \right)^{-1}, \quad
+  M_2^I = \frac{\partial\mathbb{E}[m_2^I]}{\partial \mathbf{q}'} , \quad
+  H^I = \frac{\partial\mathbb{E}[h^I]}{\partial \mathbf{q}'} 
+\]
+Now, since
+\begin{align*}
+  \frac{\partial}{\partial q} \mathbb{E}\left[ y\mathbf{1}(y>q)\mathbf{1}(T=t)\mathbf{1}(z=k) \right] &= \mathbb{P}(T=t,z=k)\times -q f_{tk}(q)\\
+  \frac{\partial}{\partial q} \mathbb{E}\left[ y\mathbf{1}(y\leq q)\mathbf{1}(T=t)\mathbf{1}(z=k) \right] &= \mathbb{P}(T=t, z=k) \times q f_{tk}(q)\\
+  \frac{\partial}{\partial q} \mathbb{E}\left[ \mathbf{1}(y>q)\mathbf{1}(T=t)\mathbf{1}(z=k) \right] &= \mathbb{P}(T=t,z=k) \times f_{tk}(q)
+\end{align*}
+we see that
+\[
+  H^I_k = \mbox{diag} \left[
+  \begin{array}{c}
+    \mathbb{P}(T=0,z=k)\times f_{0k}(\underline{q}_{0k})\\
+    \mathbb{P}(T=0,z=k)\times f_{0k}(\overline{q}_{0k})\\
+    \mathbb{P}(T=1,z=k)\times f_{1k}(\underline{q}_{1k})\\
+    \mathbb{P}(T=1,z=k)\times f_{1k}(\overline{q}_{1k})\\
+  \end{array}
+\right]
+\]
+while
+\[
+  M_{2k}^I = -(1 - \alpha_0 - \alpha_1)\times \mbox{diag} \left[
+  \begin{array}{l}
+    \mathbb{P}(T=0,z=k) \times \underline{q}_{0k} f_{0k}(\underline{q}_{0k}) / \alpha_1\\
+    \mathbb{P}(T=0,z=k)\times \overline{q}_{0k} f_{0k}(\overline{q}_{0k}) / \alpha_1\\
+    \mathbb{P}(T=1,z=k)\times \underline{q}_{1k} f_{1k}(\underline{q}_{1k}) / (1 - \alpha_1)\\
+    \mathbb{P}(T=1,z=k)\times \overline{q}_{1k} f_{1k}(\overline{q}_{1k}) / (1 - \alpha_1)\\
+  \end{array}
+\right]
+\]
+and thus
+\[
+  B^I_k = (1 - \alpha_0 - \alpha_1) \times \mbox{diag} \left[
+  \begin{array}{l}
+    \underline{q}_{0k} / \alpha_1\\
+    \overline{q}_{0k} / \alpha_1\\
+    \underline{q}_{1k} / (1 - \alpha_1)\\
+    \overline{q}_{1k} / (1 - \alpha_1)
+  \end{array}
+\right]
+\]
+and we just need to stack $B^I_0$ on top of $B^I_1$ to construct $B^I$.
+
+
 
 \todo[inline]{Change from here down\ldots}
 so that $B = -M \mathbf{R}^{-1}$ and $A = \left[
