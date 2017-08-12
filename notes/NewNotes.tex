@@ -6677,7 +6677,7 @@ Now define,
     \displaystyle \frac{\partial m^E}{\partial \theta_1}
   \end{array}
 \right]\\
-  H^E &= \left[
+H^E &= \mathbb{E}\left[
   \begin{array}{cc}
     \displaystyle \frac{\partial h^E}{\partial \boldsymbol{\kappa}'} &
     \displaystyle \frac{\partial h^E}{\partial \theta_1}
@@ -6723,7 +6723,7 @@ Now, since
 \begin{align*}
   \frac{\partial}{\partial q} \mathbb{E}\left[ y\mathbf{1}(y>q)\mathbf{1}(T=t)\mathbf{1}(z=k) \right] &= \mathbb{P}(T=t,z=k)\times -q f_{tk}(q)\\
   \frac{\partial}{\partial q} \mathbb{E}\left[ y\mathbf{1}(y\leq q)\mathbf{1}(T=t)\mathbf{1}(z=k) \right] &= \mathbb{P}(T=t, z=k) \times q f_{tk}(q)\\
-  \frac{\partial}{\partial q} \mathbb{E}\left[ \mathbf{1}(y>q)\mathbf{1}(T=t)\mathbf{1}(z=k) \right] &= \mathbb{P}(T=t,z=k) \times f_{tk}(q)
+  \frac{\partial}{\partial q} \mathbb{E}\left[ \mathbf{1}(y\leq q)\mathbf{1}(T=t)\mathbf{1}(z=k) \right] &= \mathbb{P}(T=t,z=k) \times f_{tk}(q)
 \end{align*}
 we see that
 \[
@@ -6760,15 +6760,55 @@ and thus
 \]
 and we just need to stack $B^I_0$ on top of $B^I_1$ to construct $B^I$.
 
-
-
-\todo[inline]{Change from here down\ldots}
-so that $B = -M \mathbf{R}^{-1}$ and $A = \left[
+\paragraph{Putting Everything Together}
+Finally, accounting for preliminary estimation of $\boldsymbol{\kappa}$ and $\theta_1$, the variance matrix estimator is $\widehat{\Sigma}_n\left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) = A \widehat{\mathcal{V}}_n \left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) A'$ where 
+\[
+  \underset{(14 \times 26)}{A} = \left[
 \begin{array}{cc}
-\mathbf{I} & B
+  \underset{(14\times 14)}{\mathbf{I}} & \underset{(14 \times 12)}{B}
 \end{array}
-\right]$.
-Finally, accounting for preliminary estimation of $\boldsymbol{\kappa}$ and $\theta_1$, the variance matrix estimator is $\widehat{\Sigma}_n\left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) = A \widehat{\mathcal{V}}_n \left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) A'$ where
+\right], \quad
+  B = \left[
+  \begin{array}{cc}
+    \underset{(4\times 8)}{\mathbf{0}} & \underset{(4\times 4)}{\mathbf{0}} \\
+    \underset{(8\times 8)}{B^I} & \underset{(8\times 4)}{\mathbf{0}} \\
+    \underset{(2 \times 8)}{\mathbf{0}} & \underset{(2\times 4)}{B^E} \\
+  \end{array}
+\right]
+\]
+and $B^{E} = -M^E \mathbf{R}^{-1}$ with
+\[
+  M^E = \left[ 
+    \begin{array}{cccc} 
+      0 & -q & 0 & \displaystyle\left( \frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1} \right)' \mathbb{E}[\mathbf{w}_iz_i]\\ 
+      0 & 0 & -q & \displaystyle\left( \frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1} \right)' \mathbb{E}[\mathbf{w}_iz_i] 
+  \end{array} \right], \quad
+\mathbf{R} = \left[
+\begin{array}{rrrr}
+  -1 & 0 & 0 
+  & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+   0 & -1 & 0 & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+   0 & 0 & -1 & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+   -q & 0 & 0 &  \displaystyle \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}z]\\
+\end{array}
+\right]
+\]
+while $B^I = -M_2^{I}\left( H^I \right)^{-1}$ which simplifies to
+\[
+  B^I = (1 - \alpha_0 - \alpha_1) \times \mbox{diag} \left[
+  \begin{array}{llllllll}
+    \displaystyle\frac{\underline{q}_{00}}{\alpha_1} &
+    \displaystyle\frac{\overline{q}_{00}}{\alpha_1} &
+    \displaystyle\frac{\underline{q}_{10}}{(1 - \alpha_1)} &
+    \displaystyle\frac{\overline{q}_{10}}{(1 - \alpha_1)} &
+    \displaystyle\frac{\underline{q}_{01}}{\alpha_1} &
+    \displaystyle\frac{\overline{q}_{01}}{\alpha_1} &
+    \displaystyle\frac{\underline{q}_{11}}{(1 - \alpha_1)} &
+    \displaystyle\frac{\overline{q}_{11}}{(1 - \alpha_1)}
+  \end{array}
+\right]
+\]
+and
 \[
   \widehat{\mathcal{V}}_n\left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) = \frac{1}{n}\sum_{i=1}^n 
   \left[
@@ -6789,10 +6829,10 @@ Where,
   m_1^I(\mathbf{w}_i, \boldsymbol{\alpha}^0) &=
   \left[
   \begin{array}{r}
-  T_i(1 - z_i)/(1 - q) - \alpha_0 \\
-  (1 - T_i)(1 - z_i)/(1 - q) - \alpha_1  \\
-  T_iz_i/q - \alpha_0 \\
-  (1 - T_i)z/q - \alpha_1  
+  (T_i - \alpha_0)(1 - z_i) \\
+  (1 - T_i - \alpha_1)(1 - z_i) \\
+  (T_i - \alpha_0) z_i \\
+  (1 - T_i - \alpha_1) z_i
   \end{array}
 \right]\\
   m^E\left(\mathbf{w}_i, \boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) &= 
@@ -6802,7 +6842,7 @@ Where,
    \widehat{\boldsymbol{\psi}}_3'(\boldsymbol{\alpha}^0)(\mathbf{w}_i - \bar{\mathbf{w}})z_i 
   \end{array}
 \right]\\
-  h_E\left(\mathbf{w}_i, \boldsymbol{\alpha}^0, \widehat{\gamma}(\boldsymbol{\alpha}^0)\right) &= \left[
+  h^E\left(\mathbf{w}_i, \boldsymbol{\alpha}^0, \widehat{\gamma}(\boldsymbol{\alpha}^0)\right) &= \left[
   \begin{array}{l}
     \widehat{\boldsymbol{\psi}}'_1 (\mathbf{w}_i - \bar{\mathbf{w}})\\ 
     \widehat{\boldsymbol{\psi}}'_2(\boldsymbol{\alpha}^0) (\mathbf{w}_i - \bar{\mathbf{w}})\\ 
