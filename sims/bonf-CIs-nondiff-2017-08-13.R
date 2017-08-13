@@ -1,8 +1,10 @@
 library(mbereg)
 library(parallel)
 
-b_seq <- c(0, 0.25, 0.5, 1, 2)
-n_seq <- c(1000, 2000)
+#b_seq <- c(0, 0.25, 0.5, 1, 2)
+b_seq <- c(0, 0.25, 0.5, 1)
+#n_seq <- c(1000, 2000)
+n_seq <- c(2000)
 a0_seq <- a1_seq <- c(0, 0.1, 0.2, 0.3)
 d_seq <- c(0.15)
 rho_seq <- c(0.5)
