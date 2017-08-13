@@ -20,7 +20,7 @@ sim_params <- expand.grid(b = b_seq,
                           cc = cc_seq)
 set.seed(619283)
 nB <- 5000
-normal_sims <- matrix(rnorm(nB * 6), nrow = 6, ncol = nB)
+normal_sims <- matrix(rnorm(nB * 14), nrow = 14, ncol = nB)
 
 get_bonf_CI_i <- function(i) {
   sim_bonf_CI(true_params = sim_params[i,], normal_sims, ncores = 8,
