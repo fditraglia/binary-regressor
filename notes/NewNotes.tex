@@ -6858,5 +6858,113 @@ Where,
 \end{align*}
 
 
+\section{GMS for Frazis and Loewenstein / Mahajan / BBS}
+We still use the same moment inequalities as above as these continue to hold under the assumptions of Frazis \& Loewenstein etc.
+However, the moment equalities change.
+It's more convenient to use different notation from that we employed above in our explanation of F\&L.
+In particular, define:
+\begin{align*}
+  \theta_1 &= \beta / (1 - \alpha_0 - \alpha_1)\\
+  \kappa_1 &= c - \alpha_0 - \theta_1\\
+  \rho &= -\theta_1 \alpha_0 (1 - \alpha_1)\\
+  \eta &= \theta_1 (1 + \alpha_0 - \alpha_1)
+\end{align*}
+Under the assumptions of F\&L/ Mahajan,
+\[
+  \mathbb{E}\left\{ \left[
+    \begin{array}{c}
+    y - \kappa_1 - \theta_1 T \\
+    (y - \kappa_1)T - \rho - \eta T
+  \end{array}
+\right] \otimes \left[
+\begin{array}{c}
+1 \\ z
+\end{array}
+\right]\right\} = \mathbf{0}
+\]
+So we only require preliminary estimators of $\kappa_1$ and $\theta_1$.
+Thus, compared to the preceding section $h^E$ becomes
+\[
+ h^E = \left[
+ \begin{array}{c}
+   y - \kappa_1 - \theta_1 T \\
+   (y - \kappa_1 - \theta_1 T) z
+ \end{array}
+ \right]
+\]
+and accordingly $H^E$ becomes
+\[
+  H^E =\mathbb{E}\left[
+  \begin{array}{cc}
+    \displaystyle \frac{\partial h^E}{\partial \kappa_1} &
+    \displaystyle \frac{\partial h^E}{\partial \theta_1}
+  \end{array}
+\right] = \left[
+\begin{array}{cc}
+  -1 & -\mathbb{E}(T)\\
+  -\mathbb{E}(z) & -\mathbb{E}(Tz)
+\end{array}
+\right]
+\]
+while $m^E$ becomes
+\[
+  m^E = \left[
+  \begin{array}{c}
+    (y - \kappa_1)T - \rho - \eta T\\
+    \left\{(y - \kappa_1)T - \rho - \eta T\right\}z
+  \end{array}
+\right]
+\]
+and accordingly $M^E$ becomes
+\[
+  M^E = \mathbb{E}\left[
+  \begin{array}{cc}
+    \displaystyle \frac{\partial m^E}{\partial \kappa_1} &
+    \displaystyle \frac{\partial m^E}{\partial \theta_1} 
+  \end{array}
+\right] = \left[
+\begin{array}{cc}
+  -\mathbb{E}[T] & 0 \\
+  -\mathbb{E}[Tz] & 0
+\end{array}
+\right]
+\]
+Thus,
+\begin{align*}
+  B^E &= -M^E (H^E)^{-1} = \left[ \mathbb{E}(Tz) - \mathbb{E}(T)\mathbb{E}(z) \right]^{-1} 
+\left[
+\begin{array}{cc}
+  \mathbb{E}[T] & 0 \\
+  \mathbb{E}[Tz] & 0
+\end{array}
+\right]\left[
+\begin{array}{cc}
+  -\mathbb{E}(Tz) & \mathbb{E}(T) \\
+  \mathbb{E}(z) & -1
+\end{array}
+\right]\\
+&= \frac{1}{\mbox{Cov}(T,z)} \left[
+\begin{array}{cc}
+  -\mathbb{E}(T)\mathbb{E}(Tz) & \mathbb{E}(T)^2 \\
+  -\mathbb{E}(Tz)^2 & \mathbb{E}(Tz) \mathbb{E}(T)
+\end{array}
+\right] \end{align*}
+and we see that the inverse of $H^E$ exists so long as $T$ is correlated with $z$.
+The dimensions of $A$ change as follows:
+\[
+  \underset{(14 \times 24)}{A} = \left[
+\begin{array}{cc}
+  \underset{(14\times 14)}{\mathbf{I}} & \underset{(14 \times 10)}{B}
+\end{array}
+\right], \quad
+\underset{(14\times10)}{B} = \left[
+  \begin{array}{cc}
+    \underset{(4\times 8)}{\mathbf{0}} & \underset{(4\times 2)}{\mathbf{0}} \\
+    \underset{(8\times 8)}{B^I} & \underset{(8\times 2)}{\mathbf{0}} \\
+    \underset{(2 \times 8)}{\mathbf{0}} & \underset{(2\times 2)}{B^E} \\
+  \end{array}
+\right]
+\]
+
 
 \end{document}
