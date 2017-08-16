@@ -6331,19 +6331,22 @@ and
 \end{array}
 \right]
 \]
-Now, defining
+Now, we see that
 \[
-  D^\Psi = \left[
+  G_\vartheta = \left[
   \begin{array}{c}
-    \frac{\partial\psi_1}{\partial \boldsymbol{\vartheta}'}\\
-    \frac{\partial\psi_2}{\partial \boldsymbol{\vartheta}'}\\
-    \frac{\partial\psi_3}{\partial \boldsymbol{\vartheta}'}
+    \mathbb{E}[\mathbf{w}_i z_i]' \frac{\partial \psi_1}{\partial \vartheta'}\\
+    \mathbb{E}[\mathbf{w}_i z_i]' \frac{\partial \psi_2}{\partial \vartheta'}\\
+    \mathbb{E}[\mathbf{w}_i z_i]' \frac{\partial \psi_3}{\partial \vartheta'}
+  \end{array}
+\right], \quad
+  H_\vartheta = \left[
+  \begin{array}{c}
+    \mathbb{E}[\mathbf{w}_i]' \frac{\partial \psi_1}{\partial \vartheta'}\\
+    \mathbb{E}[\mathbf{w}_i]' \frac{\partial \psi_2}{\partial \vartheta'}\\
+    \mathbb{E}[\mathbf{w}_i]' \frac{\partial \psi_3}{\partial \vartheta'}
   \end{array}
 \right]
-\]
-we see that
-\[
-  G_\vartheta = \mathbb{E}[\mathbf{w}_i z_i]' D^\Psi, \quad H_\vartheta = \mathbb{E}[\mathbf{w}_i]' D^\Psi
 \]
 The remaining derivatives needed to construct these objects are as follows:
 \[
