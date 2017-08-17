@@ -21,7 +21,7 @@ normal_sims <- matrix(rnorm(nB * 14), nrow = 14, ncol = nB)
 
 get_CIs_i <- function(i) {
   sim_bonf_vs_gmm(true_params = sim_params[i,], normal_sims = normal_sims,
-                  ncores = 36, nreps = 1000, delta1 = 0.05, delta2 = 0.05,
+                  ncores = 36, nreps = 1000, delta1 = 0.025, delta2 = 0.025,
                   test_alphas = GMS_test_alphas_nondiff, get_gmm = GMM_endog)
 }
 
