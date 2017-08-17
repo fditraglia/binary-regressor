@@ -64,12 +64,13 @@ bonf_CI <- function(dat, normal_sims, delta1 = 0.025, delta2 = 0.025,
 
 
 
-b_true <- 0.2
-a0_true <- 0.2
+b_true <- 2
+a0_true <- 0.3
 a1_true <- 0.3
+n <- 2000
 
-set.seed(77777)
-dat <- dgp(a0 = a0_true, a1 = a1_true, b = b_true)
+set.seed(7654321)
+dat <- dgp(a0 = a0_true, a1 = a1_true, b = b_true, n = n)
 
 system.time(foo <- bonf_CI(dat, normal_sims_alphas))
 
@@ -111,3 +112,13 @@ bar <- c(lower$solution[3], upper$solution[3])
 
 foo$b #Bonferroni
 bar #Projection
+
+set.seed(1234)
+Sigma <- matrix(c(1, 2.5, 2.5, 10), byrow = TRUE, 2, 2)
+cov2cor(Sigma)
+zsims <- mvtnorm::rmvnorm(1000, sigma = Sigma)
+plot(zsims)
+mixtools::ellipse(mu = colMeans(zsims), sigma = cov(zsims), alpha = .05,
+                  npoints = 250, col="red")
+abline(h = -1.96)
+abline(h = +1.96)
