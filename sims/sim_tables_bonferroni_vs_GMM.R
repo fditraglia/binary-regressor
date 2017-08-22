@@ -1,8 +1,20 @@
 library(mbereg)
 setwd('~/binary-regressor/sims/')
-load('bonf-vs-gmm-CIs-nondiff-2017-08-17.Rd')
+load('bonf-vs-gmm-CIs-nondiff-2017-08-18.Rd')
 
 setwd('~/binary-regressor/tab')
+
+#------------------------------------
+# Proportion of reps for which GMM
+# CI fails to exist
+#------------------------------------
+cat(TeXtable(build_table(subset(summarize_CI_results(results), n == 1000),
+                     out_stat = 'GMM_na')),
+    file = 'GMM_CIs_na_1000.tex')
+
+cat(TeXtable(build_table(subset(summarize_CI_results(results), n == 2000),
+                     out_stat = 'GMM_na')),
+    file = 'GMM_CIs_na_2000.tex')
 
 #------------------------------------
 # GMM Confidence Intervals
