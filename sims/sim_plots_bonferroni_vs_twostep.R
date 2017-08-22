@@ -1,4 +1,5 @@
 library(mbereg)
+library(tikzDevice)
 setwd('~/binary-regressor/sims/')
 load('bonf-vs-gmm-CIs-nondiff-2017-08-18.Rd')
 
@@ -24,73 +25,73 @@ panel_plot <- function(myb, myn, xlims = NULL){
 }
 
 
-#setwd('~/binary-regressor/fig')
-#tikzwidth <- 6.5
-#tikzheight <- 6.5
+setwd('~/binary-regressor/fig')
+tikzwidth <- 6.5
+tikzheight <- 6.5
 
-#tikz(file = '', width = tikzwidth, height = tikzheight)
+tikz(file = 'bonf_vs_twostep_0_1000.tex', width = tikzwidth, height = tikzheight)
 panel_plot(0, 1000, xlim = c(-0.6, 0.6))
-#dev.off()
+dev.off()
 
-#tikz(file = '', width = tikzwidth, height = tikzheight)
+tikz(file = 'bonf_vs_twostep_0_2000.tex', width = tikzwidth, height = tikzheight)
 panel_plot(0, 2000, xlim = c(-0.5, 0.5))
-#dev.off()
+dev.off()
 
-#tikz(file = '', width = tikzwidth, height = tikzheight)
+tikz(file = 'bonf_vs_twostep_point25_1000.tex', width = tikzwidth, height = tikzheight)
 panel_plot(0.25, 1000, xlim = c(-0.2, 1))
-#dev.off()
+dev.off()
 
-#tikz(file = '', width = tikzwidth, height = tikzheight)
+tikz(file = 'bonf_vs_twostep_point25_2000.tex', width = tikzwidth, height = tikzheight)
 panel_plot(0.25, 2000, xlim = c(-0.1, 0.9))
-#dev.off()
+dev.off()
 
-#tikz(file = '', width = tikzwidth, height = tikzheight)
+tikz(file = 'bonf_vs_twostep_point5_1000.tex', width = tikzwidth, height = tikzheight)
 panel_plot(0.5, 1000, xlim = c(0, 1.6))
-#dev.off()
+dev.off()
 
-#tikz(file = '', width = tikzwidth, height = tikzheight)
+tikz(file = 'bonf_vs_twostep_point5_2000.tex', width = tikzwidth, height = tikzheight)
 panel_plot(0.5, 2000, xlim = c(0.1, 1.4))
-#dev.off()
+dev.off()
 
-#tikz(file = '', width = tikzwidth, height = tikzheight)
+tikz(file = 'bonf_vs_twostep_point75_1000.tex', width = tikzwidth, height = tikzheight)
 panel_plot(0.75, 1000, xlim = c(0.15, 2.1))
-#dev.off()
+dev.off()
 
-#tikz(file = '', width = tikzwidth, height = tikzheight)
+tikz(file = 'bonf_vs_twostep_point75_2000.tex', width = tikzwidth, height = tikzheight)
 panel_plot(0.75, 2000, xlim = c(0.25, 2))
-#dev.off()
+dev.off()
 
-#tikz(file = 'bonf_one_1000.tex', width = tikzwidth, height = tikzheight)
+tikz(file = 'bonf_vs_twostep_1_1000.tex', width = tikzwidth, height = tikzheight)
 panel_plot(1, 1000, xlim = c(0.3, 2.7))
-#dev.off()
+dev.off()
 
-#tikz(file = '', width = tikzwidth, height = tikzheight)
+tikz(file = 'bonf_vs_twostep_1_2000.tex', width = tikzwidth, height = tikzheight)
 panel_plot(1, 2000, xlim = c(0.4, 2.3))
-#dev.off()
+dev.off()
 
-#tikz(file = '', width = tikzwidth, height = tikzheight)
+tikz(file = 'bonf_vs_twostep_1point5_1000.tex', width = tikzwidth, height = tikzheight)
 panel_plot(1.5, 1000, xlim = c(0.5, 3.6))
-#dev.off()
+dev.off()
 
-#tikz(file = '', width = tikzwidth, height = tikzheight)
+tikz(file = 'bonf_vs_twostep_1point5_2000.tex', width = tikzwidth, height = tikzheight)
 panel_plot(1.5, 2000, xlim = c(0.9, 3.1))
-#dev.off()
+dev.off()
 
-#tikz(file = '', width = tikzwidth, height = tikzheight)
+tikz(file = 'bonf_vs_twostep_2_1000.tex', width = tikzwidth, height = tikzheight)
 panel_plot(2, 1000, xlim = c(0.9, 4.5))
-#dev.off()
+dev.off()
 
-#tikz(file = '', width = tikzwidth, height = tikzheight)
+tikz(file = 'bonf_vs_twostep_2_2000.tex', width = tikzwidth, height = tikzheight)
 panel_plot(2, 2000, xlim = c(1.2, 3.7))
-#dev.off()
+dev.off()
 
-#tikz(file = '', width = tikzwidth, height = tikzheight)
+tikz(file = 'bonf_vs_twostep_3_1000.tex', width = tikzwidth, height = tikzheight)
 panel_plot(3, 1000, xlim = c(1.7, 6.1))
-#dev.off()
+dev.off()
 
-#tikz(file = '', width = tikzwidth, height = tikzheight)
+tikz(file = 'bonf_vs_twostep_3_2000.tex', width = tikzwidth, height = tikzheight)
 panel_plot(3, 2000, xlim = c(2, 5))
-#dev.off()
+dev.off()
 
 par(op)
 rm(list = ls())
