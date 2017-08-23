@@ -1,0 +1,450 @@
+%!TEX root = ./main.tex
+\section{Proofs}
+
+\begin{lem}[Lemma for Appendix only with Bayes' Rule]
+For mis-classification probabilities
+\begin{align*}
+  P(T^*=1|T=1, Z=k) &= P(T=1 | T^*=1) \left(\frac{p_k^*}{p_k}\right) = (1 - \alpha_1)\left( \frac{p_k^*}{p_k} \right)\\
+  P(T^*=1|T=0, Z=k) &= P(T=0 | T^*=1) \left(\frac{p_k^*}{1 - p_k}\right) = \alpha_1 \left( \frac{p_k^*}{1 - p_k} \right)\\
+  P(T^*=0|T=1, Z=k) &= P(T=1 | T^*=0) \left(\frac{1 - p_k^*}{p_k}\right) = \alpha_0 \left( \frac{1 - p_k^*}{p_k} \right)\\
+  P(T^*=0|T=0, Z=k) &= P(T=0 | T^*=0) \left(\frac{1 - p_k^*}{1 - p_k}\right) = (1 - \alpha_0)\left( \frac{1 - p_k^*}{1 - p_k} \right)
+\end{align*}
+\end{lem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{proof}[Proof of Theorem \ref{thm:sharpI}]
+  Throughout this argument we suppress dependence on $\mathbf{x}$ for simplicity. 
+  Define $p_k = \mathbb{P}(T=1|z=k)$ and $p_k^* = \mathbb{P}(T^*=1|z_k)$.
+
+We first show that so long as $\alpha_0 \leq p_k \leq 1 - \alpha_1$ then we can construct a valid joint probability distribution for $(T^*, T, z)$ that satisfies our assumptions.
+First decompose the joint probability mass function as
+\[
+  p(T^*,T,z) = p(T|T^*,z)p(T^*|z)p(z).
+\]
+By Assumption \ref{assump:misclassification} (ii), $p(T|T^*,z) = p(T|T^*)$ and thus $\alpha_0$ and $\alpha_1$ fully determine $p(T|T^*,z)$.  
+Under the proposed bounds, $\alpha_0$ and $\alpha_1$ are clearly valid probabilities.
+Since $p(z)$ is observed, it thus suffices to ensure that $p(T^*|z)$ is a valid probability mass function.
+By the law of total probability and Assumption \ref{assump:misclassification} (ii), 
+\[
+  p_k^* = \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1}.
+\]
+and $0 \leq p_k^* \leq 1$ if and only if $\alpha_0 \leq p_k \leq 1 - \alpha_1$.
+Since $(p_k - p_\ell) = (p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1)$, provided that $p_k - p_\ell \neq 0$ we have $p^*_k \neq p^*_\ell$. 
+
+We now show how to construct a valid conditional distribution for $y$ given $(T^*,T,z)$ that satisfies our assumptions if $\beta (p_k - \alpha_0) = (1 - \alpha_0 - \alpha_1)[\mathbb{E}(y|z_k) - c]$ for all $k$.
+Define
+\begin{align*}
+r_{tk} &\equiv \mathbb{P}(T^*=1|T=t,z=k) &
+F_{t}(\tau) &\equiv \mathbb{P}(y \leq \tau|z=k) \\
+F_{tk}(\tau) &\equiv \mathbb{P}(y \leq \tau|T=t, z=k) & 
+F_{tk}^{t^*}(\tau) &\equiv \mathbb{P}(y \leq \tau|T^*=t^*,T=t, z=k)\\
+G_k(\tau) &\equiv \mathbb{P}(\varepsilon \leq \tau|z=k) &
+G^{t^*}_{tk}(\tau) &\equiv \mathbb{P}(\varepsilon \leq \tau|T^*=t^*, T=t,z=k).
+\end{align*}
+Assumption \ref{assump:model} (i) implies a relationship between $G^{t^*}_{tk}$ and $F^{t^*}_{tk}$ for each $t^*$, namely 
+\begin{equation}
+  G^0_{tk}(\tau) = F^0_{tk}(\tau + c), \quad
+  G^1_{tk}(\tau) = F^1_{tk}(\tau + c + \beta)
+  \label{eq:Gtstartk}
+\end{equation}
+and thus we see that
+%\scriptsize
+%\[
+%  G_k(\tau) = p_k^*\left[\frac{r_{1k}p_k}{p_k^*} F^1_{1k}(\tau + c + \beta) + \frac{r_{0k}(1 - p_k)}{p_k^*} F^1_{0k}(\tau + c + \beta)  \right] + (1 - p_k^*) \left[ \frac{(1 - r_{1k})p_k}{1 - p_k^*}  F^0_{1k}(\tau + c) + \frac{(1 - r_{0k})(1 - p_k)}{1 - p_k^*} F^0_{0k}(\tau + c) \right] 
+%\]
+%\normalsize
+\begin{align}
+  G_k(\tau) &= r_{1k}p_k F^1_{1k}(\tau + c + \beta) + r_{0k}(1 - p_k) F^1_{0k}(\tau + c + \beta) \nonumber \\
+  &\quad +  (1 - r_{1k})p_k F^0_{1k}(\tau + c) + (1 - r_{0k})(1 - p_k) F^0_{0k}(\tau + c)
+  \label{eq:Gk}
+\end{align}
+applying the law of total probability and Bayes' rule.
+Moreover, again applying the law of total probability, 
+\begin{equation}
+  F_{tk}(\tau) = r_{tk} F_{tk}^1(\tau) + (1 - r_{tk}) F_{tk}^0(\tau)
+  \label{eq:Ftk}
+\end{equation}
+for all $t,k \in \left\{ 0,1 \right\}$, and by Bayes' rule,
+\begin{equation}
+  r_{1k} = \frac{(1 - \alpha_1)p_k^*}{p_k}, \quad
+  r_{0k} = \frac{\alpha_1p_k^*}{1 - p_k}.
+  \label{eq:rtk}
+\end{equation}
+There are four cases, corresponding to different possibilities for the  $r_{tk}$.
+
+\paragraph{Case I: $r_{1k} = 0, r_{0k} \neq 0$}
+By Equation \ref{eq:rtk}, this requires $\alpha_1 = 1$ which is ruled out by Assumption \ref{assump:misclassification} (ii).
+
+\paragraph{Case II: $r_{0k} = r_{1k} = 0$}
+By Equation \ref{eq:rtk}, this requires $p_k^* = 0$ which in turn requires $p_k = \alpha_0$.
+Moreover, by Equation \ref{eq:Ftk} we have $F^0_{tk} = F_{tk}$, while $F^1_{tk}$ is undefined.
+Substituting into Equation \ref{eq:Gk},
+\[
+  G_k(\tau) = p_k F_{1k}(\tau + c) + (1 - p_k) F_{0k}(\tau + c) = F_k(\tau + c)
+\]
+Now, since $F_k(\tau + c)$ is the conditional CDF of $y-c$ given that $z=k$, and $G_k$ is the conditional CDF of $\varepsilon$ given $z=k$,
+we see that Assumption \ref{assump:model} (i) is satisfied if and only if $\mathbb{E}(y|z=k) = c$.
+But since $p_k = \alpha_0$ in this case, $c = c + \beta (p_k - \alpha_0)/(1 - \alpha_0 - \alpha_1)$.
+
+\paragraph{Case III: $r_{1k}\neq 0, r_{0k} = 0$}
+By Equation \ref{eq:rtk} this requires $\alpha_1 = $ and $p_k^* \neq 0$.
+By Equation \ref{eq:Ftk} we have $F^0_{0k} = F_{0k}$ and since $r_{1k} \neq 1$, we can solve to obtain
+\[
+  F^1_{1k}(\tau) = \frac{1}{r_{1k}}\left[F_{1k}(\tau) - (1 - r_{1k})F^0_{1k}(\tau)\right]
+\]
+Substituting into Equation \ref{eq:Gk}, we obtain
+\begin{align*}
+  G_k(\tau) &= \left[ (1 - p_k)F_{0k}(\tau + c) + p_k F_{1k}(\tau + c + \beta) \right] \\ 
+  &\quad + p_k(1 - r_{1k})\left[ F^0_{1k}(\tau + c) - F^0_{1k}(\tau + c + \beta) \right]
+\end{align*}
+Now, $F_{0k}(\tau + c)$ is the conditional CDF of $(y-c)$ given $(T=0,z=k)$ while $F_{1k}(\tau + c + \beta)$ is the conditional CDF of $(y-c-\beta)$ given $(T=1,z=k)$.
+Similarly, $F^0_{1k}(\tau + c)$ is the conditional CDF of $\varepsilon$ given $(T^*=0,T = 1, z=k)$ while $F^0_{1k}(\tau + c + \beta)$ is the conditional CDF of $(\varepsilon - \beta)$ given $(T^*=0, T=1, z=k)$.
+Since $G_k(\tau)$ is the conditional CDF of $\varepsilon$ given $z=k$, we see that Assumption \ref{assump:model} (iii) is satisfied if and only if
+\begin{align*}
+  0 &= (1 - p_k) \mathbb{E}(y-c|T=0,z=k) + p_k \mathbb{E}(y - c - \beta|T=1,z=k)\\
+  &\quad + p_k(1 - r_{1k})\left[ \mathbb{E}(\varepsilon|T^*=0,T=1,z=k) - \mathbb{E}(\varepsilon - \beta|T^*=0,T=1,z=k) \right]
+\end{align*}
+Rearranging, this is equivalent to 
+\[
+  \mathbb{E}(y|z=k) = c + (1 - \alpha_1) \beta\left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right) = c + \beta\left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)
+\]
+since $\alpha_1 = 0$ in this case.
+As explained above, $F^0_{0k} = F_{0k}$ in the present case while $F^1_{0k}$ is undefined. 
+We are free to choose any distributions for $F^{0}_{1k}$ and $F^{1}_{1k}$ that satisfy Equation \ref{eq:Ftk}, for example $F^{0}_{1k} = F^{1}_{1k} = F_{1k}$.
+
+\paragraph{Case IV: $r_{1k}\neq 0, r_{0k} \neq 0$}
+In this case, we can solve Equation \ref{eq:Ftk} to obtain
+\[
+  F^1_{tk}(\tau) = \frac{1}{r_{tk}}\left[F_{tk}(\tau) - (1 - r_{tk})F^0_{tk}(\tau)\right]
+\]
+Substituting this into Equation \ref{eq:Gk}, we have
+\begin{align*}
+  G_k(\tau) = F_k(\tau + c + \beta) &+ p_k(1 - r_{1k})\left[F^0_{1k}(\tau + c) - F_{1k}^0(\tau + c + \beta)\right]\\
+  &+ (1 - p_k)(1 - r_{0k}) \left[ F^0_{0k}(\tau + c) - F^0_{0k}(\tau + c + \beta) \right]
+\end{align*}
+using the fact that $F_k(\tau) = p_k F_{1k}(\tau) + (1 - p_k) F_{0k}(\tau)$.
+Now, $F_k(\tau + c + \beta)$ is the conditional CDF of $(y - c - \beta)$ given $z=k$, while $F_{tk}^0(\tau + c)$ is the conditional CDF of $\varepsilon$ given $(T = t,z =k)$ and $F^0_{tk}(\tau + c + \beta)$ is the conditional CDF of $(\varepsilon - \beta)$ given $(T = t, z=k)$.
+Since $G_k(\tau)$ is the conditional CDF of $\varepsilon$ given $z=k$, we see that Assumption \ref{assump:model} (iii) is satisfied if and only if
+\begin{align*}
+  0 &= \mathbb{E}[y - c - \beta|z=k] + p_k(1 - r_{1k})\left[ \mathbb{E}(\varepsilon|T^*=0,T=1,z=k) - \mathbb{E}(\varepsilon - \beta|T^*=0,T=1,z=k) \right] \\
+   &\quad + (1 - p_k)(1 - r_{0k})\left[ \mathbb{E}(\varepsilon|T^*=0,T=0,z=k) - \mathbb{E}(\varepsilon - \beta|T^*=0,T=0,z=k) \right]\\
+   0 &= \mathbb{E}[y - c - \beta|z=k] + \beta\left[p_k(1 - r_{1k}) + (1 - p_k)(1 - r_{0k})\right]
+\end{align*}
+But since $\left[p_k(1 - r_{1k}) + (1 - p_k)(1 - r_{0k})\right] = (1 - p_k^*)$ and $p_k^* = (p_k - \alpha_0) /(1 - \alpha_0 - \alpha_1)$, this simplifies to 
+\[
+\mathbb{E}[y|z=k] = c + \beta\left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right).
+\]
+Thus, in this case we are free to choose \emph{any} distributions for $F^{0}_{tk}$ and $F^1_{tk}$ that satisfy Equation \ref{eq:Ftk}.
+For example we could take $F^0_{tk} = F^1_{tk} = F_{tk}$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{proof}[Proof of Theorem \ref{thm:sharpII}]
+Under Assumption \ref{assump:model} (i) and Assumption \ref{assump:misclassification} (iii), we obtain $\mathbb{E}(y|T^*,T,z) = \mathbb{E}(y|T^*,z)$.
+Hence, by iterated expectations
+  \begin{align*}
+    \mathbb{E}(y|T=0,z=k) &= (1 - r_{0k}) \mathbb{E}(y|T^*=0,z=k) + r_{0k}\mathbb{E}(y|T^*=1,z=k)\\
+    \mathbb{E}(y|T=1,z=k) &= (1 - r_{1k}) \mathbb{E}(y|T^*=0,z=k) + r_{1k}\mathbb{E}(y|T^*=1,z=k)
+  \end{align*}
+where $r_{tk}$ is defined as in the proof of Theorem \ref{thm:sharpI}.
+This is system of two linear equations in two unknowns: $\mathbb{E}(y|T^*=0,z=k)$ and $\mathbb{E}(y|T^*=1,z=k)$.
+After some algebra, we find that the determinant is
+\[
+  r_{1k} - r_{0k} = \left[ \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right]\left[ \frac{1 - p_k - \alpha_1}{p_k(1 - p_k)} \right] 
+\]
+and thus a unique solution exists provided that $\alpha_0 \neq p_k$ and $\alpha_1 \neq 1 - p_k$.
+By our assumption that $\mathbb{E}[y|T=0,z=k] \neq \mathbb{E}[y|T=1,z=k]$, the system has no solution when the determinant condition fails.
+Thus, Assumption \ref{assump:misclassification} (iii) rules out $\alpha_0 = p_k$ and $\alpha_1 = 1-p_k$.
+Solving,
+\begin{align*}
+  \mu^0_{k} \equiv \mathbb{E}(y|T^*=0,z=k) &= \left(\frac{1}{1 - p_k - \alpha_1}\right)\left[ (1 - p_k)\mathbb{E}(y|T=0,z_k) - \alpha_1 \mathbb{E}(y|z=k) \right]\\
+  \mu^1_{k} \equiv \mathbb{E}(y|T^*=1,z=k) &= \left(\frac{1}{p_k - \alpha_0}\right)\left[ p_k\mathbb{E}(y|T=1,z_k) - \alpha_0 \mathbb{E}(y|z=k) \right]
+\end{align*}
+Given $(\alpha_0, \alpha_1)$, we see that $r_{tk}, \mu^0_k$, and $\mu^1_{k}$ are fixed.
+The question is whether, for a given pair $(\alpha_0, \alpha_1)$ and observed CDFs $F_{tk}$, we can construct valid CDFs $F_{tk}^0, F_{tk}^1$ such that 
+\[
+  \int_{\mathbb{R}} \tau F_{tk}^0(d\tau) = \mu_k^0, \quad
+  \int_{\mathbb{R}} \tau F_{tk}^1(d\tau) = \mu_k^1, \quad 
+  F_{tk}(\tau) = r_{tk} F^1_{tk}(\tau) + (1 - r_{tk}) F^0_{tk}(\tau)
+\]
+where $F_{tk}$ and $F^{t^*}_{tk}$ are as defined in the proof of Theorem \ref{thm:sharpII}.
+For a given pair $(t,k)$, there are two cases: $0 < r_{tk} < 1$ and $r_{tk} \in \left\{ 0, 1 \right\}$.
+
+%Note that the only joint restrictions enter via $\mu_{0k}$ and $\mu_{1k}$, so once we have fixed these, we can proceed separately for each pair $(t,k)$.
+
+%Notice that $\mu_{0k}$ depends only on $\alpha_1$ and observables, while $\mu_{1k}$ depends only on $\alpha_0$ and observables.
+
+\paragraph{Case I: $r_{tk}\in \left\{ 0,1 \right\}$}
+Suppose that $r_{tk} = 1$.
+Then, $\mu^1_k = \mathbb{E}[y|T=t,z=k]$ so we can simply set $F^1_{tk} = F_{tk}$.
+In this case $F^0_{tk}$ is undefined.
+If instead $r_{tk} = 0$, then $\mu^0_k = \mathbb{E}[y|T=t,z=k]$ so we can simply set $F^0_{tk} = F_{tk}$.
+In this case $F^1_{tk}$ is undefined.
+
+\paragraph{Case II: $0 < r_{tk} < 1$} 
+Define
+\begin{align*}
+  m_{tk}(\xi) &= \mathbb{E}[y|y\in I_{tk}(\xi), T=t, z=k]\\
+  I_{tk}(\xi) &= \left[ F^{-1}_{tk}(1 - \xi - r_{tk}), F^{-1}_{tk}(1 - \xi) \right]
+\end{align*}
+for $t,k = 0,1$ where $0 \leq \xi \leq 1 - r_{tk}$ and $F^{-1}_{tk}$ is the quantile function of $y$ given $(T=t, z=k)$.
+We see that $m_{tk}$ is a decreasing function of $\xi$ that attains its maximum at $\xi = 0$ and minimum at $\xi = 1 - r_{tk}$.
+Define these extrema as $\underline{m}_{tk} = m_{tk}(1 - r_{tk})$ and $\overline{m}_{tk} = m_{tk}(0)$.
+
+Suppose first that $\mu^1_{k}$ does \emph{not} lie in the interval $[\underline{m}_{tk}, \overline{m}_{tk}]$.
+We show that it is impossible to construct valid CDFs $F^0_{tk}$ and $F^{1}_{tk}$ that satisfy $F_{tk}(\tau) = r_{tk} F^1_{tk}(\tau) + (1 - r_{tk}) F^0_{tk}(\tau)$ where $F_{tk}$ and $F^{t^*}_{tk}$ are as defined in the proof of Theorem \ref{thm:sharpII}.
+Since $r_{tk} \neq 1$, we can solve the expression for $F_{tk}$ to yield 
+  $F^{0}_{tk}(\tau) = \left[ F_{tk}(\tau) - r_{tk} F^1_{tk}(\tau)\right] / (1 - r_{tk})$.
+  Hence, since $r_{tk} \neq 0$, the requirement that $0 \leq F_{tk}^0(\tau) \leq 1$ implies
+\begin{equation}
+  \frac{F_{tk}(\tau) - (1 - r_{tk})}{r_{tk}} \leq F^{1}_{tk}(\tau) \leq \frac{F_{tk}(\tau)}{r_{tk}}
+  \label{eq:F1tk_ineq}
+\end{equation}
+Now define 
+\begin{align*}
+  \underline{F}^{1}_{tk}(\tau) &=  \min\left\{ 1,\,  F_{tk}(\tau)/r_{tk} \right\}\\
+\overline{F}^{1}_{tk}(\tau) &= \max\left\{ 0,\,  F_{tk}(\tau)/r_{tk} - (1 - r_{tk})/r_{tk} \right\}
+\end{align*}
+Combining Equation \ref{eq:F1tk_ineq} with the requirement that $0 \leq F^{1}_{tk}(\tau) \leq 1$, we see that
+\[
+  \overline{F}_{tk}^1(\tau) \leq F^{1}_{tk}(\tau) \leq \underline{F}_{tk}^1(\tau)
+\]
+Hence $\overline{F}^1_{tk}$ first-order stochastically dominates $F^{1}_{tk}$ which in turn first-order stochastically dominates $\underline{F}_{tk}^1$. 
+It follows that
+\[
+ \int \tau \underline{F}_{tk}^1(d\tau) \leq \int \tau F^{1}_{tk}(d\tau) \leq \int \tau\overline{F}_{tk}^1(d\tau)
+\]
+But notice that 
+\[
+  \underline{m}_{tk} = \int \tau \underline{F}_{tk}^1(d\tau), \quad 
+  \mu^1_{k} = \int \tau F^{1}_{tk}(d\tau), \quad 
+  \overline{m}_{tk} = \int \tau\overline{F}_{tk}^1(d\tau)
+\]
+so we have $\underline{m}_{tk} \leq \mu^1_{k} \leq \overline{m}_{tk}$ which contradicts $\mu^1_{k} \notin [\underline{m}_{tk}, \overline{m}_{tk}]$.
+
+Now suppose that $\mu^1_{k} \in \left[\underline{m}_{tk}, \overline{m}_{tk} \right]$.
+Since $y$ is assumed to follow a continuous distribution conditional on $(T,z)$, $m_{tk}$ is continuous on its domain and takes on all values in $\left[ \underline{m}_{tk}, \overline{m}_{tk} \right]$ by the intermediate value theorem.
+Thus, there exists a $\xi^*$ such that $m_{tk}(\xi^*) = \mu^1_{k}$.
+Now let $f_{tk}(\tau) = dF_{tk}(\tau)/d\tau$ which is non-negative by the assumption that $y$ is continuously distributed.
+Define the densities
+\[
+  f^1_{tk}(\tau) = \frac{f_{tk}(\tau)\times \mathbf{1}\left\{ \tau \in I_{tk}(\xi^*) \right\}}{r_{tk}}, \quad
+  f^0_{tk}(\tau) = \frac{f_{tk}(\tau) \times \mathbf{1}\left\{ \tau \in I_{tk}(\xi^*) \right\}}{1 - r_{tk}}.
+\]
+Clearly $f_{tk}^1\geq 0$ and $f^0_{tk} \geq 0$.
+Integrating, 
+\begin{align*}
+  \int_{\mathbb{R}} f_{tk}^1(\tau) \; d\tau &= \frac{1}{r_{tk}}\int_{I_{tk}(\xi^*)} f_{tk}(\tau)\; d\tau = 1\\
+  \int_{\mathbb{R}} f_{tk}^0(\tau) \; d\tau &= \frac{1}{1 - r_{tk}}\int_{I^C_{tk}(\xi^*)} f_{tk}(\tau)\; d\tau = 1
+\end{align*}
+where $I_{tk}^C$ is the complement of $I_{tk}$.
+And, by construction
+\[
+  r_{tk} \int_A f_{tk}^1(\tau) \; d\tau + (1 - r_{tk}) \int_A f_{tk}^0(\tau) \; d\tau = \int_A f_{tk}(\tau)\; d\tau
+\]
+for any set $A$. 
+Finally,
+\[
+  \int_{\mathbb{R}} \tau f_{tk}^1(\tau) \; d\tau = \frac{1}{r_{tk}} \int_{I_{tk}(\xi^*)} \tau f_{tk}(\tau)\; d\tau = m(\xi^*) = \mu_{tk}.
+\]
+
+\todo[inline]{Some discussion putting all of the pieces together and explaining what the identified set looks like. In particular, what are the ``edge'' cases? Can't rule out $\alpha_0 = \alpha_1 = 0$.}
+
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{proof}[Proof of Lemma \ref{lem:eta2}]
+  Throughout this argument we suppress dependence on $\mathbf{x}$ for simplicity. 
+  By Assumption \ref{assump:model} (i) and the basic properties of covariance, 
+\begin{align*}
+    \eta_2 &= \beta^2 \mbox{Cov}(T^*,z) + 2 \beta\left[ c\, \mbox{Cov}(T^*,z) + \mbox{Cov}(T^*\varepsilon,z)  \right] + 2c \, \mbox{Cov}(\varepsilon,z) + \mbox{Cov}(\varepsilon^2,z)\\
+  \tau_1 &= c \pi + \mbox{Cov}(T\varepsilon,z) + \beta \mbox{Cov}(TT^*,z)
+\end{align*}
+using the fact that $T^*$ is binary. 
+Now, by Assumptions \ref{assump:model} (iii) and \ref{assump:2ndMoment} we have $\mbox{Cov}(\varepsilon,z) = \mbox{Cov}(\varepsilon^2,z) = 0$.
+And, using Assumptions \ref{assump:misclassification} (i) and (ii), one can show that $\mbox{Cov}(TT^*,z) = (1 - \alpha_1)\mbox{Cov}(T^*,z)$ and $\mbox{Cov}(T^*,z) = \pi/(1 - \alpha_0 - \alpha_1)$.
+Hence, 
+\begin{align*}
+  \eta_2 &= \theta_1\left( \beta 
++ 2 c \right) \pi + 2\beta \mbox{Cov}(T^*\varepsilon,z) \\
+  2 \tau_1 \theta_1 - \pi \theta_2 &= \left[2\theta_1 c + 2 \theta_1^2 (1 - \alpha_1) - \theta_2\right]\pi + 2\theta_1 \mbox{Cov}(T\varepsilon,z) 
+\end{align*}
+but since $\theta_2 = \theta_1^2 \left[ (1 - \alpha_1) + \alpha_0 \right]$, we see that $[2\theta_1^2(1 - \alpha_1) - \theta_2] = \theta_1 \beta$.
+Thus, it suffices to show that $\beta \mbox{Cov}(T^*\varepsilon,z) = \theta_1 \mbox{Cov}(T\varepsilon,z)$.
+This equality is trivially satisfied when $\beta=0$, so suppose that $\beta \neq 0$. 
+In this case it suffices to show that $(1 - \alpha_0 - \alpha_1) \mbox{Cov}(T^*\varepsilon,z) = \mbox{Cov}(T\varepsilon,z)$.
+Define $m^*_{tk} = \mathbb{E}\left[ \varepsilon|T^*=t,z=k \right]$ and $p^*_k = \mathbb{P}(T^*=1|z=k)$.
+Then, by iterated expectations, Bayes' rule, and Assumption \ref{assump:misclassification} (iii)
+\begin{align*}
+  \mbox{Cov}(T^*\varepsilon,z) &=q(1 - q)\left(p_1^* m_{11}^*  - p_0^*m_{10}^* \right) \\
+  \mbox{Cov}(T\varepsilon,z) &= q(1 - q)\left\{ (1 - \alpha_1)\left[ p_1^* m_{11}^* - p_0^* m_{10}^* \right] + \alpha_0\left[ (1 - p_1^*) m_{01}^* - (1 - p_0^*)m_{00}^* \right] \right\} 
+\end{align*}
+But by Assumption \ref{assump:model} (iii), $\mathbb{E}[\varepsilon|z=k] = m_{1k}^*p_{k}^* + m_{0k}^*(1 - p_k^*)=0$ and thus we obtain $m_{0k}^*(1 - p_k^*)= - m_{1k}^* p_k^*$.
+Therefore  $(1 - \alpha_0 - \alpha_1) \mbox{Cov}(T^*\varepsilon,z) = \mbox{Cov}(T\varepsilon,z)$ as required.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{proof}[Proof of Corollary \ref{cor:theta_ident}]
+  For ease of notation we suppress dependence on $\mathbf{x}$ throughout this argument.
+  Lemmas ??? yield a triangular system of linear equations in $\theta_1, \theta_2, \theta_3$.
+%\begin{align*}
+% \pi\theta_1 &= \eta_1 \\
+% 2\tau_1 \theta_1 - \pi \theta_2 &= \eta_2 \\
+% 3\tau_2 \theta_1 - 3\tau_1 \theta_2 + \pi\theta_3 &= \eta_3
+%\end{align*}
+By inspection, the determinant of the system is $-\pi^3$ so a unique solution exists if and only if $\pi \neq 0$. 
+In particular,
+\begin{align*}
+  \theta_1 &= \eta_1 / \pi\\
+  \theta_2 &= 2\tau_1\eta_1/\pi^2 - \eta_2/\pi\\
+  \theta_3 &= \eta_3/\pi - 3(\tau_2\eta_1 + \tau_1\eta_2)/\pi^2 + 6\tau_1^2\eta_1/\pi^3.
+\end{align*}
+\end{proof}
+
+\begin{proof}[Proof of Lemma \ref{lem:eta3}]
+  Throughout this argument we suppress dependence on $\mathbf{x}$ for simplicity.
+  Since $T^*$ is binary, if follows from the basic properties of covariance that,
+\begin{align*}
+  \eta_3 &= \mbox{Cov}\left[ (c + \varepsilon)^3,z \right] + 3 \beta \mbox{Cov}[(c + \varepsilon)^2 T^*, z] + 3 \beta^2 \mbox{Cov}[(c + \varepsilon)T^*,z] + \beta^3 \mbox{Cov}(T^*,z)\\
+  \tau_2 &= \mbox{Cov}\left[ (c + \varepsilon)^2 T, z \right] + 2 \beta \mbox{Cov}\left[ (c + \varepsilon)TT^*,z \right] + \beta^2 \mbox{Cov}(TT^*,z)
+\end{align*}
+By Assumptions \ref{assump:model} (iii), \ref{assump:2ndMoment}, and \ref{assump:3rdMoment} (ii) , $\mbox{Cov}\left[ (c + \varepsilon)^3,z \right] = 0$.
+Expanding, 
+\begin{align*}
+  \eta_3 %&= 3 \beta \mbox{Cov}[(c + \varepsilon)^2 T^*, z] + 3 \beta^2 \mbox{Cov}[(c + \varepsilon)T^*,z] + \beta^3 \mbox{Cov}(T^*,z)\\
+  %&= 3\beta\left[  c^2 \mbox{Cov}(T^*,z) + 2c \,\mbox{Cov}(T^*\varepsilon,z) + \mbox{Cov}(T^*\varepsilon^2, z)\right] + 3 \beta^2\left[ c\, \mbox{Cov}(T^*, z) + \mbox{Cov}(T^*\varepsilon, z)\right] + \beta^3 \mbox{Cov}(T^*, z)\\
+  &= 3 \beta \mbox{Cov}(T^*\varepsilon^2,z) + \left(3 \beta^2 + 6c\beta \right)\mbox{Cov}(T^*\varepsilon,z) + \left( \beta^3 + 3c\beta^2 + 3c^2\beta \right)\mbox{Cov}(T^*, z)\\
+  \tau_2 &= c^2 \mbox{Cov}(T,z) + \beta(\beta + 2c) \mbox{Cov}(TT^*,z) + \mbox{Cov}(T\varepsilon^2,z) + 2c \mbox{Cov}(T\varepsilon,z) + 2\beta\,\mbox{Cov}(TT^*\varepsilon,z)
+\end{align*}
+Now, define $s^*_{tk} = \mathbb{E}[\varepsilon^2|T^*=t, z=k]$ and $p_k^* = \mathbb{P}(T^*=1|z=k)$.
+By iterated expectations, Bayes' rule, and Assumption \ref{assump:3rdMoment} (i), 
+\begin{align*}
+  \mbox{Cov}(T^*\varepsilon^2, z) %&= q(1 - q) \left\{ \mathbb{E}[T^*\varepsilon^2|z=1] - \mathbb{E}[T^*\varepsilon^2|z=0] \right\} \\
+  %&= q(1 - q) \left\{ \mathbb{E}_{T^*|z=1}\left[T^*\mathbb{E}\left(\varepsilon^2|T^*, z=1\right)\right] - \mathbb{E}_{T^*|z=0}\left[T^*\mathbb{E}\left(\varepsilon^2|T^*,z=0\right)\right] \right\} \\
+  &= q(1 - q)(p^*_1 s^*_{11} - p^*_0 s^*_{10}) \\
+  \mbox{Cov}(T\varepsilon^2, z) %&= q(1 - q) \left\{ \mathbb{E}[T\varepsilon^2|z=1] - \mathbb{E}[T\varepsilon^2|z=0] \right\} \\
+  %&= q(1 - q) \left\{ \mathbb{E}_{T|z=1}\left[T\mathbb{E}\left(\varepsilon^2|T, z=1\right)\right] - \mathbb{E}_{T|z=0}\left[T\mathbb{E}\left(\varepsilon^2|T,z=0\right)\right] \right\} \\
+  %&= q(1 - q)(p_1 s_{11} - p_0 s_{10}) \\
+  &= q(1 - q)\left\{ (1 - \alpha_1)\left[p^*_1 s_{11}^* - p_0^* s_{10}^*\right] + \alpha_0 \left[ (1 - p_1^*)s_{01}^* - (1 - p_0^*) s_{00}^*\right] \right\}
+\end{align*}
+By Assumption \ref{assump:2ndMoment}, $\mathbb{E}[\varepsilon^2|z=1] = \mathbb{E}[\varepsilon^2|z=0]$ and thus, by iterated expectations we have
+$p_1^* s_{11}^* - p_0^* s^*_{10} =  - \left[(1 - p_1^*)s_{01}^* - (1 - p_0^*)s_{00}^* \right]$
+which implies 
+\begin{equation}
+  \mbox{Cov}(T\varepsilon^2,z) = (1 - \alpha_0 - \alpha_1)\mbox{Cov}(T^*\varepsilon^2,z).
+  \label{eq:TEpsilonSquared}
+\end{equation}
+Similarly by iterated expectations and Assumptions \ref{assump:misclassification} (i)--(ii)
+\begin{equation}
+  \mbox{Cov}(TT^*\varepsilon, z) = q(1 - q)(1 - \alpha_1)(p_1^* m_{1k}^* - p_0^* m_{10}^*) = (1 - \alpha_1) \mbox{Cov}(T^*\varepsilon, z) 
+  \label{eq:TTstarEpsilon}
+\end{equation}
+where $m_{tk}^*$ is defined as in the proof of Lemma \ref{lem:eta2}.
+As shown in the proof of Lemma \ref{lem:eta2}, 
+\begin{align*}
+  \mbox{Cov}(TT^*,z) &= (1 - \alpha_1) \mbox{Cov}(T^*,z)\\ 
+  \mbox{Cov}(T^*,z) &= \pi / (1 - \alpha_0 - \alpha_1)\\
+  \mbox{Cov}(T^*\varepsilon,z) &= \mbox{Cov}(T\varepsilon,z) / (1 - \alpha_0 - \alpha_1)
+\end{align*}
+and combining these equalities with Equations \ref{eq:TEpsilonSquared} and \ref{eq:TTstarEpsilon}, it follows that
+\begin{align*}
+  \tau_2 &=  2\left[(1 - \alpha_1)(c + \beta) - c \alpha_0\right]\mbox{Cov}(T^*\varepsilon,z) + \left[(1 - \alpha_1)(c + \beta)^2 - c^2 \alpha_0 \right]\mbox{Cov}(T^*,z)\\
+  &\quad \quad +(1 - \alpha_0 - \alpha_1)\mbox{Cov}(T^*\varepsilon^2,z) \\
+  \tau_1 &= (1 - \alpha_0 - \alpha_1)\mbox{Cov}(T^*\varepsilon,z) + \left[(1 - \alpha_1)(c + \beta) - c \alpha_0\right] \mbox{Cov}(T^*,z)
+\end{align*}
+using $\tau_1 = c\pi + \mbox{Cov}(T\varepsilon,z) + \beta\mbox{Cov}(TT^*,z)$ as shown in the proof of Lemma \ref{lem:eta2}.
+Thus, 
+\[
+  3\tau_2 \theta_1 - 3 \tau_1 \theta_2 + \pi \theta_3 = K_1 \mbox{Cov}(T^*\varepsilon^2,z) + K_2 \mbox{Cov}(T^*\varepsilon, z) + K_3 \mbox{Cov}(T^*,z)
+\]
+where
+\begin{align*}
+  K_1 &\equiv 3 \theta_1(1 - \alpha_0 - \alpha_1)\\ 
+  K_2 &\equiv 6\theta_1 \left[(1 - \alpha_1)(c +\beta) - c\alpha_0\right] - 3\theta_2 (1 - \alpha_0 - \alpha_1) \\
+  %&= (1 - \alpha_0 - \alpha_1) \left\{6\theta_1\left[c + \theta_1 (1 - \alpha_1)\right] - 3\theta_2 \right\}\\
+  %&= (1 - \alpha_0 - \alpha_1) \theta_1\left\{6\left[c + \theta_1 (1 - \alpha_1)\right] - 3\theta_1\left[(1 - \alpha_1) + \alpha_0\right]\right\}\\
+  %&= \beta\left\{6\left[c + \theta_1 (1 - \alpha_1)\right] - 3\theta_1\left[(1 - \alpha_1) + \alpha_0\right]\right\}\\
+  %&= \beta\left[6c + 6\theta_1 (1 - \alpha_1) - 3\theta_1(1 - \alpha_1) - 3 \alpha_0\right]\\
+  %&= \beta\left[6c + 3\theta_1 (1 - \alpha_1)  - 3 \alpha_0\right]\\
+  %&= \beta\left[6c + 3\theta_1 (1 - \alpha_0 - \alpha_1)\right]\\
+  %= 3\beta^2 + 6c\beta\\
+  K_3 &\equiv 3\theta_1 \left[ (1 - \alpha_1)(c + \beta)^2 - c^2 \alpha_0 \right] - 3\theta_2 \left[ (1 - \alpha_1)(c + \beta) - c\alpha_0 \right] + \theta_3(1 - \alpha_0 - \alpha_1)
+%  &= (1 - \alpha_0 - \alpha_1)\left\{3\theta_1\left[ c^2 + \theta_1(2c + \beta)(1 - \alpha_1) \right] - 3\theta_2\left[ c + \theta_1(1 - \alpha_1) \right] + \theta_3\right\}\\
+%  &= \beta\left\{ 3\left[ c^2 + \theta_1(2c + \beta)(1 - \alpha_1) \right] - 3 \theta_1\left[(1 - \alpha_1) + \alpha_0\right]\left[ c + \theta_1(1 - \alpha_1) \right] + \theta_1^2\left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0 (1 - \alpha_1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1(1 - \alpha_1)(2c + \beta) - 3 \theta_1\left[(1 - \alpha_1) + \alpha_0\right]\left[ c + \theta_1(1 - \alpha_1) \right] + \theta_1^2\left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0 (1 - \alpha_1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[(1 - \alpha_1)(2c + \beta) - \left( 1 + \alpha_0 - \alpha_1 \right) c\right] - 3 \theta_1^2(1 + \alpha_0 - \alpha_1)(1 - \alpha_1) + \theta_1^2\left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0 (1 - \alpha_1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[(1 - \alpha_1)(2c + \beta) - \left( 1 + \alpha_0 - \alpha_1 \right) c\right]  + \theta_1^2\left[ (1 - \alpha_0 - \alpha_1)^2 - 3(1 - \alpha_1)(1 + \alpha_0 - \alpha_1) + 6\alpha_0 (1 - \alpha_1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[(1 - \alpha_1)(2c + \beta) - \left( 1 + \alpha_0 - \alpha_1 \right) c\right]  + \theta_1^2\left[ (1 - \alpha_0 - \alpha_1)^2 + 3(1 - \alpha_1)(2 \alpha_0 - 1 - \alpha_0 + \alpha_1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[(1 - \alpha_1)(2c + \beta) - \left( 1 + \alpha_0 - \alpha_1 \right) c\right]  + \theta_1^2\left[ (1 - \alpha_0 - \alpha_1)^2 + 3(1 - \alpha_1)(\alpha_0 + \alpha_1 - 1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[(1 - \alpha_1)(2c + \beta) - \left( 1 + \alpha_0 - \alpha_1 \right) c\right]  + \theta_1^2\left[ (1 - \alpha_0 - \alpha_1)^2 - 3(1 - \alpha_1)(1 - \alpha_0 - \alpha_1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[(1 - \alpha_1)(2c + \beta) - \left( 1 + \alpha_0 - \alpha_1 \right) c\right]  + \theta_1^2(1 - \alpha_0 - \alpha_1)\left[ (1 - \alpha_0 - \alpha_1) - 3(1 - \alpha_1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[(1 - \alpha_1)(2c + \beta) - \left( 1 + \alpha_0 - \alpha_1 \right) c\right]  + \beta \theta_1\left[ (1 - \alpha_0 - \alpha_1) - 3(1 - \alpha_1) \right] \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[(1 - \alpha_1)(2c + \beta) - \left( 1 + \alpha_0 - \alpha_1 \right) c\right]  + \beta^2 - 3\beta \theta_1(1 - \alpha_1) \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[c(2 - 2\alpha_1 - 1 - \alpha_0 +\alpha_1) + \beta(1 - \alpha_1)\right]  + \beta^2 - 3\beta \theta_1(1 - \alpha_1) \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3\theta_1\left[c(1 - \alpha_0  - \alpha_1) + \beta(1 - \alpha_1)\right]  + \beta^2 - 3\beta \theta_1(1 - \alpha_1) \right\}\\
+%  &= \beta\left\{ 3 c^2 + 3c\beta + 3\beta\theta_1(1 - \alpha_1)  + \beta^2 - 3\beta \theta_1(1 - \alpha_1) \right\}\\
+%&= \beta( 3 c^2 + 3c\beta + \beta^2)\\
+%&= \beta^3 + 3c\beta^2 + 3c^2\beta
+\end{align*}
+Clearly $K_1 = 3\beta$.
+Substituting the definitions of $\theta_1, \theta_2$, and $\theta_3$ from Equations \ref{eq:theta1_def}--\ref{eq:theta3_def}, tedious but straightforward algebra likewise shows that $K_2 = 3\beta^2 + 6c\beta$ and $K_3 = \beta^3 + 3c\beta^2 + 3c^2\beta$.
+Therefore the coefficients of $\eta_3$ equal those of $3\tau_2 - 3\tau_1 \theta_2 + \pi \theta_3$ and the result follows.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{proof}[Proof of Theorem \ref{thm:main_ident}]
+  For ease of notation we suppress dependence on $\mathbf{x}$ throughout this argument.
+  So long as $\beta \neq 0$, we can rearrange Equations \ref{eq:theta2_def} and \ref{eq:theta3_def} to obtain 
+  \begin{align}
+    \label{eq:quadraticA}
+  A &= \theta_2/\theta_1^2 = 1 + (\alpha_0 - \alpha_1)  \\
+  \label{eq:quadraticB}
+  B &= \theta_3/\theta_1^3 = (1 - \alpha_0 - \alpha_1)^2 + 6 \alpha_0 (1 - \alpha_1)
+  \end{align}
+  Equation \ref{eq:quadraticA} gives $(1 - \alpha_1)= A - \alpha_0$.
+  Hence $(1 - \alpha_0 - \alpha_1) = A - 2\alpha_0$ and $\alpha_0(1 - \alpha_1) = \alpha_0(A - \alpha_0)$.
+  Substituting into Equation \ref{eq:quadraticB} and simplifying, $(A^2 - B) + 2A \alpha_0 - 2\alpha_0^2=0$.
+  Substituting for $\alpha_0$ analogously yields a quadratic in $(1 - \alpha_1)$ with \emph{identical} coefficients.
+It follows that one root of $(A^2-B) + 2Ar - 2r^2=0$ is $\alpha_0$ and the other is $1 - \alpha_1$.
+Solving,
+  \begin{equation}
+    r = \frac{A}{2} \pm \sqrt{3 A^2 - 2B} = \frac{1}{\theta_1^2}\left(\frac{\theta_2}{2} \pm  \sqrt{3\theta_2^2  - 2\theta_1 \theta_3}\right).
+  \end{equation}
+By Equations \ref{eq:theta2_def} and \ref{eq:theta3_def}, 
+  \begin{align*}
+    3\theta^2_2 - 2\theta_1 \theta_3 &= 3 \left[ \theta_1^2 \left( 1 + \alpha_0 - \alpha_1 \right) \right]^2 - 2 \theta_1 \left\{ \theta_1^3 \left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0 (1 - \alpha_1) \right] \right\} \\
+    &= \theta_1^4 \left\{ 3(1 + \alpha_0 - \alpha_1)^2 - 2 \left[ (1 - \alpha_0 - \alpha_1)^2 + 6 \alpha_0 (1 - \alpha_1) \right] \right\}.
+  \end{align*}
+Expanding the first term we find that 
+  \begin{align*}
+    3(1 + \alpha_0 - \alpha_1)^2 
+    %&= 3\left[ 1 + (\alpha_0 - \alpha_1) \right]^2 
+    &= 3\left[ 1 + 2(\alpha_0 - \alpha_1) + (\alpha_0 - \alpha_1)^2 \right]\\
+    &= 3 + 6\alpha_0 - 6\alpha_1 + 3 \alpha_0^2 + 3 \alpha_1^2 - 6\alpha_0\alpha_1 
+  \end{align*}
+and expanding the second 
+  \begin{align*}
+    2\left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0(1 - \alpha_1) \right]
+    %&= 2\left\{ \left[ 1 - (\alpha_0 + \alpha_1) \right]^2 + 6\alpha_0(1 - \alpha_1) \right\}\\
+  &=2\left[ 1 - 2(\alpha_0 + \alpha_1) + (\alpha_0 + \alpha_1)^2 + 6\alpha_0 - 6 \alpha_0 \alpha_1 \right]\\
+    %&= 2 - 4(\alpha_0 + \alpha_1) + 2(\alpha_0 + \alpha_1)^2 + 12\alpha_0 - 12 \alpha_0 \alpha_1 \\
+    &= 2 + 8\alpha_0 - 4\alpha_1 + 2\alpha_0^2 +  2\alpha_1^2 - 8 \alpha_0 \alpha_1.
+  \end{align*}
+Therefore
+  \begin{align*}
+    3\theta^2_2 - 2\theta_1 \theta_3 
+    %&= \theta_1^4 \left\{ 3(1 + \alpha_0 - \alpha_1)^2 - 2 \left[ (1 - \alpha_0 - \alpha_1)^2 + 6 \alpha_0 (1 - \alpha_1) \right] \right\}\\
+    &= \theta_1^4 \left\{ 1 - 2 \alpha_0 - 2 \alpha_1 + \alpha_0^2 - \alpha_1^2 + 2\alpha_0 \alpha_1 \right\}\\
+    &= \theta_1^4 \left[ (1 - \alpha_0 - \alpha_1)^2 \right]
+  \end{align*}
+which is strictly greater than zero since $\theta_1 \neq 0$ and $\alpha_0 + \alpha_1 \neq 0$.
+It follows that both roots of the quadratic are real.
+Moreover, $3\theta_2^2/\theta_1^4 - 2\theta_3/\theta_1^3$ identifies $(1 - \alpha_0 - \alpha_1)^2$.
+Substituting into Equation \ref{eq:theta1_def}, it follows that $\beta$ is identified up to sign.
+If $\alpha_0 + \alpha_1 < 1$ then $\mbox{sign}(\beta) = \mbox{sign}(\theta_1)$ so that both the sign and magnitude of $\beta$ are identified.
+If $\alpha_0 + \alpha_1 < 1$ then $1 - \alpha_1 > \alpha_0$ so $(1 - \alpha_1)$ is the larger root of $(A^2 - B) + 2Ar - 2r^2=0$ and $\alpha_0$ is the smaller root.
+\end{proof}

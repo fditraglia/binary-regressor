@@ -1,6 +1,17 @@
 %!TEX root = ./main.tex
 \section{Introduction}
-\todo[inline]{Write an intro!}
+Additively separable model
+\[
+  y = h(T^*,\mathbf{x})+\varepsilon
+\]
+where $\varepsilon$ is a mean-zero error term, $T^*$ is an endogenous binary regressor of interest and $\mathbf{x}$ is a vector of exogenous controls.
+Since $T^*$ is binary, we can re-write this as linear in $T^*$ conditional on $\mathbf{x}$
+\begin{align*}
+  y &= c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon\\
+  \beta(\mathbf{x}) &= h(1,\mathbf{x}) - h(0,\mathbf{x})\\
+  c(\mathbf{x}) &= h(0,\mathbf{x})
+\end{align*}
+Goal is to use an instrumental variable $z$ to identify $\beta(\mathbf{x})$ when we observe not $T^*$ but a mis-measured binary surrogate $T$. 
 
 \paragraph{Old Introduction:} Many treatments of interest in applied work are binary.
 To take a particularly prominent example, consider treatment status in a randomized controlled trial.
