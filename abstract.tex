@@ -1,10 +1,11 @@
 %!TEX root = ./main.tex
-This paper studies identification and estimation of the effect of a binary, endogenous regressor subject to non-differential measurement error when a discrete-valued instrumental variable is available. 
-We begin by showing that the only existing identification result for this case is incorrect. 
-As such, identification in this model remains an open question. 
-We then show that the usual mean independence assumption for the instrument and measurement error fail to identify the effect of interest. 
-This motivates us to consider alternative and slightly stronger assumptions. 
-We show that adding second and third moment independence assumptions suffices to identify the model and leads to an explicit method of moments estimator. 
-Because our setting has features of a mixture model, however, this estimator suffers from a weak identification problem when the binary regressor has only a small effect on the outcome of interest. 
-To address this difficulty, we derive a number of auxiliary moment inequalities that remain informative regardless of the magnitude of the treatment effect. 
-Combining these with the moment equalities that emerge from our identification result, we propose a robust inference procedure based on generalized moment selection.
+This paper studies identification and inference for the effect of a mis-classified, binary, endogenous regressor when a discrete-valued instrumental variable is available. 
+We begin by showing that the only existing point identification result for this model is incorrect. 
+We go on to derive the sharp identified set under mean independence assumptions for the instrument and measurement error, and find that these fail to point identify the effect of interest.
+This motivates us to consider alternative and slightly stronger assumptions: we show that adding second and third moment independence assumptions suffices to identify the model.
+We then turn our attention to inference.
+We show that both our model, and related models from the literature that assume regressor exogeneity, suffer from weak identification when the effect of interest is small.
+To address this difficulty, we exploit the inequality restrictions that emerge from our derivation of the sharp identified set under mean independence only.
+These restrictions remain informative irrespective of the strength of identification.
+Combining these with the moment equalities that emerge from our identification result, we propose a robust inference procedure using tools from the moment inequality literature.
+Our method performs well in simulations, both for the exogenous and endogenous regressor case.
