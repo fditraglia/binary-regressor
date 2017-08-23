@@ -63,7 +63,123 @@ Assumptions \ref{assump:model}--\ref{assump:misclassification}, Assumption \ref{
 If $z$ is a valid instrument and $T^*$ is endogenous, then Assumption \ref{assump:mahajan} implies that there is no first-stage relationship between $z$ and $T^*$.
 As such, identification in the case where $T^*$ is endogenous is an open question. 
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Partial Identification}
+
+In this section we derive the sharp identified set for under Assumptions \ref{assump:model}--\ref{assump:misclassification} and show that  $\beta(\mathbf{x})$ is not point identified.
+We first state two lemmas that have appeared in various guises throughout the literature. 
+These will be used repeatedly below.
+\begin{lem}
+\label{lem:p_pstar}
+  Under Assumption \ref{assump:misclassification} (i),
+\begin{align*}
+  \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right]\mathbb{P}(T^*=1|\mathbf{x}, z=k) &= \mathbb{P}(T=1|\mathbf{x},z=k) - \alpha_0(\mathbf{x})\\
+  \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right]\mathbb{P}(T^*=0|\mathbf{x}, z=k) &= \mathbb{P}(T=0|\mathbf{x},z=k) - \alpha_1(\mathbf{x})
+\end{align*}
+\end{lem} 
+
+\begin{lem}
+  \label{lem:wald}
+  Under Assumptions \ref{assump:model} and \ref{assump:misclassification} (i)--(ii), $$\beta(\mathbf{x}) \mbox{Cov}(z,T|\mathbf{x}) = \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right]\mbox{Cov}(y,z|\mathbf{x})$$
+\end{lem}
+
+Lemma \ref{lem:p_pstar} relates the observed first-stage probabilities $\mathbb{P}(T|\mathbf{x},z)$ to their unobserved counterparts $\mathbb{P}(T^*|\mathbf{x},z)$ in terms of the mis-classification probabilities $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
+By Assumption \ref{assump:misclassification} (ii), $1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) > 0$ so that Lemma \ref{lem:p_pstar} provides non-trivial bounds for $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ in terms of the observed first-stage probabilities.
+Lemma \ref{lem:wald} relates the instrumental variables (IV) estimand, $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T)$, to the mis-classification probabilities.
+Since $1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) > 0$, IV is biased \emph{upwards} in the presence of mis-classification.
+Combining the two lemmas yields a well-known bound, namely that $\beta(\mathbf{x})$ lies between the reduced form and IV estimators.
+Our first result shows that \emph{without} Assumption \ref{assump:misclassification} (non-differential measurement error) these bounds are sharp.
+
+\begin{thm}[Sharp Identified Set I]
+  Under Assumptions \ref{assump:model} and \ref{assump:misclassification} (i)--(ii), the sharp identified set is characterized by 
+  \begin{equation}
+    \mathbb{E}[y|\mathbf{x},z=k] = c(\mathbf{x}) + \beta(\mathbf{x}) \left[\frac{\mathbb{P}(T=1|\mathbf{x},z_k) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}\right]
+    \label{eq:identsetI}
+  \end{equation}
+and
+\[\alpha_0(\mathbf{x}) \leq \mathbb{P}(T=1|\mathbf{x}, z=k) \leq 1 -  \alpha_1(\mathbf{x}), \quad k = 0, 1.\]
+  \label{thm:sharpI}
+\end{thm}
+
+\begin{cor}
+  Under the conditions of Theorem \ref{thm:sharpI} the sharp identified set for $\beta(\mathbf{x})$ is the closed interval between $\Delta^y(\mathbf{x})$ and $\Delta^y(\mathbf{x})/\Delta^T(\mathbf{x})$ 
+where $\Delta^y(\mathbf{x}) \equiv \mathbb{E}(y|\mathbf{x},z=1) - \mathbb{E}(y|\mathbf{x},z=0)$ and $\Delta^T(\mathbf{x})= \mathbb{P}(T=1|\mathbf{x},z=1) - \mathbb{P}(T=1|\mathbf{x},z=0)$.
+\label{cor:sharpBeta1}
+\end{cor}
+
+Corollary \ref{cor:sharpBeta1} follows by taking differences of the expression for $\mathbb{E}[y|\mathbf{x},z=k]$ across $k=1$ and $k=0$, and substituting the maximum and minimum value for $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x})$ consistent with the observed first-stage probabilities.
+When the mis-classification probabilities are known \emph{a priori} to satisfy additional restrictions, these bounds can be tightened.\footnote{\cite{FL} consider a model in which $\alpha_0$ and $\alpha_1$ do not depend on the exogenous covariates $\mathbf{x}$. In this case $\alpha_0 \leq \mathbb{P}(T=1|\mathbf{x},z)\leq 1 - \alpha_1$ and they suggest minimizing the bounds over $\mathbf{x}$.}
+The following corollary collects results for two common cases: one-sided misclassification (either $\alpha_0(\mathbf{x})$ or $\alpha_1(\mathbf{x})$ equals zero), and symmetric mis-classification ($\alpha_0(\mathbf{x}) = \alpha_1(\mathbf{x})$).
+
+\begin{cor}
+  \label{cor:onsided}
+  Under the conditions of Theorem \ref{thm:sharpI}, restrictions on the misclassification probabilities shrink the sharp identified set for $\beta(\mathbf{x})$ to the closed interval between $B\Delta^y(\mathbf{x})/\Delta^T(\mathbf{x})$ and $\Delta^y(\mathbf{x})/\Delta^T(\mathbf{x})$ where
+  \begin{enumerate}[(i)]
+    \item $\alpha_0(\mathbf{x})=0$ implies $B = \max_k \mathbb{P}(T=1|\mathbf{x},z=k)$ 
+    \item $\alpha_1(\mathbf{x})=0$ implies $B = 1 - \min_k \mathbb{P}(T=1|\mathbf{x},z=k)$ 
+    \item $\alpha_0(\mathbf{x})=\alpha_1(\mathbf{x})$ implies $B =  1 - 2 \min\left\{ \min_k \mathbb{P}(T=1|\mathbf{x},z=k), 1 - \max_k \mathbb{P}(T=1|\mathbf{x},z=k) \right\}$ 
+  \end{enumerate}
+  for $k = 0,1$, where $\Delta^T(\mathbf{x})$ and $\Delta^y(\mathbf{x})$ are as defined in Corollary \ref{cor:sharpBeta1}.
+\end{cor}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Theorem \ref{thm:sharpI} and Corollaries \ref{cor:sharpBeta1}--\ref{cor:onsided} do not impose Assumption \ref{assump:misclassification} (iii) -- non-differential measurement error.
+
+We impose two additional conditions that simplify the proof of sharpness.
+These are discussed further below.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{thm}[Sharp Identified Set II]
+  \label{thm:sharpII}
+  Suppose that the conditional distribution of $y$ given $(\mathbf{x}, T,z)$ is continuous for any values of the conditioning variables and additionally  that $\mathbb{E}\left[ y|\mathbf{x},T=0,z=k \right] \neq \mathbb{E}\left[ y|\mathbf{x},T=1,z=k \right]$ for all $k$.
+  Then, under Assumptions \ref{assump:model} and \ref{assump:misclassification}, the sharp identified set is characterized by Equation \ref{eq:identsetI} from Theorem \ref{thm:sharpI} along with 
+\[
+  \alpha_0(\mathbf{x}) < p_k(\mathbf{x}) < 1 -  \alpha_1(\mathbf{x}), \quad k = 0, 1
+\]
+and
+\[
+  \underline{\mu}_{tk}\big( \alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})\left.\right|\mathbf{x} \big)\leq 
+  \underline{\mu}_{k}\big( \alpha_0(\mathbf{x})\left.\right|\mathbf{x} \big)\leq 
+  \overline{\mu}_{tk}\big( \alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})\left.\right|\mathbf{x} \big), \quad t,k=0,1 
+\]
+where
+\begin{align*}
+  \underline{\mu}_{tk}\big( q\left.\right|\mathbf{x} \big) &= \mathbb{E}\left[ y\left|\right.y\leq q, \mathbf{x},T=t, z=k\right] \\
+  \overline{\mu}_{tk}\big(q \left.\right|\mathbf{x} \big) &= \mathbb{E}\left[ y\left|\right. y > q, \mathbf{x}, T=t, z=k\right]\\
+  \mu_k\big(\alpha_0(\mathbf{x}) \left.\right|\mathbf{x}\big) &= 
+  \frac{p_k(\mathbf{x}) \mathbb{E}[y|\mathbf{x},z=k,T=1] - \alpha_0(\mathbf{x}) \mathbb{E}[y|\mathbf{x},z=k]}{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}\\
+\end{align*}
+
+\begin{align*}
+  \underline{q}_{tk} &= F^{-1}_{tk}(r_{tk})\\
+  \overline{q}_{tk} &= F^{-1}_{tk}(1 - r_{tk})\\
+  r_{0k} &= \frac{\alpha_1}{1 - p_k} \left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)\\
+  r_{1k} &= \frac{1 - \alpha_1}{p_k} \left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)
+\end{align*}
+\end{thm}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The preceding theorem assumes that $y$ is continuously distributed, which is natural in an additively separable model and holds in our simulation examples below. 
+If this is not the case then non-differential measurement error may impose further restrictions, although the basic idea of the argument is similar.
+We also imposed $\mathbb{E}[y|\mathbf{x},T = 0, z=k] \neq \mathbb{E}[y|\mathbf{x},T=1, z=k]$ for any $k$, which holds generically.
+If the two means are exactly equal for some $k$, then the intersection of $\left\{ (\alpha_0, \alpha_1)\colon \alpha_0 = p_k \mbox{ or } \alpha_1 = 1-p_k \right\}$ with the bounds for $\alpha_0, \alpha_1$ from Theorem \ref{thm:sharpI} must be added to the identified set.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In our discussion of the results for the sharp identified set, we can discuss what would happen if there were more than 2 values of $k$.
+Our method of proof never actually relies on there being only a binary instrument. 
+You're not identified in any case, regardless of how many values $z$ takes on.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 One approach is sharp bounds under FL/Mahajan, etc.\ assumptions.
 
 \subsection{Point Identification}
@@ -125,106 +241,6 @@ Explain what would happen if Assumption \ref{assump:misclassification} (ii) were
 
 
 
-\noindent Both of the following two lemmas are known results from the literature.
-The first gives the relationship between the observed first stage probabilities and their unobserved counterparts,
-\begin{lem}
-  Under Assumption \ref{assump:misclassification}, 
-\begin{align*}
-  \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right]\mathbb{P}(T^*=1|\mathbf{x}, z=k) &= \mathbb{P}(T=1|\mathbf{x},z=k) - \alpha_0(\mathbf{x})\\
-  \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right]\mathbb{P}(T^*=0|\mathbf{x}, z=k) &= \mathbb{P}(T=0|\mathbf{x},z=k) - \alpha_1(\mathbf{x})
-\end{align*}
-\label{lem:p_pstar}
-\end{lem} 
-
-\begin{proof}
-  Simple calculation using law of total probability.
-\end{proof}
-
-\noindent The second shows that the IV estimand does not equal $\beta$ in the presence of mis-classification
-\begin{lem}
-  Let $\eta_1(\mathbf{x}) = \mbox{Cov}(y,z|\mathbf{x})$ and $\pi(\mathbf{x}) = \mbox{Cov}(T,z|\mathbf{x})$.  
-  Then, under Assumptions \ref{assump:model} and \ref{assump:misclassification}, $\eta_1(\mathbf{x}) = \pi(\mathbf{x}) \theta_1(\mathbf{x})$ where $\theta_1(\mathbf{x})$ is as defined in Equation \ref{eq:theta1_def}.
-  \label{lem:eta1}
-\end{lem}
-
-\begin{proof}
-  Immediate since $\mbox{Cov}(T,y|\mathbf{x}) = \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right] \mbox{Cov}(T^*,z|\mathbf{x})$ by Lemma \ref{lem:p_pstar}.
-\end{proof}
-
-\noindent If we strengthen Assumption \ref{assump:model} (iii) to Assumption \ref{assump:jointExog}, then a binary instrument suffices to identify $\beta$ under Assumptions ???.
-(See KRS, BBS, FL, and Mahajan. Also possibly put a proof in the online-only appendix).
-However, without this additional condition $\beta$ is unidentified regardless of the number of values that the instrument takes on, as we now show.\footnote{Footnote mentioning how this relates to Mahajan's mistake. He imposed an extra assumption that contradicts the existence of a first-stage. Direct the reader an appendix explaining the error.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{thm}[Sharp Identified Set I]
-  \label{thm:sharpI}
-  Under Assumptions \ref{assump:model} and \ref{assump:misclassification} (i)--(ii), the sharp identified set is characterized by 
-\[
-    \mathbb{E}[y|\mathbf{x},z=k] = c(\mathbf{x}) + \beta(\mathbf{x}) \left[\frac{\mathbb{P}(T=1|\mathbf{x},z_k) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}\right]
-  \] 
-and
-\[\alpha_0(\mathbf{x}) \leq \mathbb{P}(T=1|\mathbf{x}, z=k) \leq 1 -  \alpha_1(\mathbf{x})\]
-for all $k = 0, 1$. 
-\end{thm}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In our discussion of the results for the sharp identified set, we can discuss what would happen if there were more than 2 values of $k$.
-Our method of proof never actually relies on there being only a binary instrument. 
-You're not identified in any case, regardless of how many values $z$ takes on.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Say how we get the following by plugging in the largest and smallest possible values for $\alpha_0 + \alpha_1$ and taking the difference of the expressions for $\mathbb{E}[y|z=k]$
-
-\begin{cor}
-  Under the conditions of Theorem \ref{thm:sharpI} the sharp identified set for $\beta(\mathbf{x})$ is the closed interval between $\Delta^y(\mathbf{x})$ and $\Delta^y(\mathbf{x})/\Delta^T(\mathbf{x})$ 
-where $\Delta^y(\mathbf{x}) \equiv \mathbb{E}(y|\mathbf{x},z=1) - \mathbb{E}(y|\mathbf{x},z=0)$ and $\Delta^T(\mathbf{x})= \mathbb{E}(T|\mathbf{x},z=1) - \mathbb{E}(T|\mathbf{x},z=0)$.
-\label{cor:sharpBeta1}
-\end{cor}
-
-
-
-Talk about applied settings in which there can be one-sided mis-classification.
-This restricts the identified set.
-Following corollary collects some common cases.
-
-\begin{cor}
-  Under the conditions of Theorem \ref{thm:sharpI}, restrictions on the misclassification probabilities shrink the sharp identified set for $\beta(\mathbf{x})$ to the closed interval between $B\Delta^y(\mathbf{x})/\Delta^T(\mathbf{x})$ and $\Delta^y(\mathbf{x})/\Delta^T(\mathbf{x})$ where
-  \begin{enumerate}[(i)]
-    \item $\alpha_0(\mathbf{x})=0$ implies $B = \max_k \mathbb{E}(T|\mathbf{x},z=k)$ 
-    \item $\alpha_1(\mathbf{x})=0$ implies $B = 1 - \min_k \mathbb{E}(T|\mathbf{x},z=k)$ 
-    \item $\alpha_0(\mathbf{x})=\alpha_1(\mathbf{x})$ implies $B =  1 - 2 \min\left\{ \min_k \mathbb{E}(T|\mathbf{x},z=k), 1 - \max_k \mathbb{E}(T|\mathbf{x},z=k) \right\}$ 
-  \end{enumerate}
-  for $k = 0,1$, where $\Delta^T(\mathbf{x})$ and $\Delta^y(\mathbf{x})$ are as defined in Corollary \ref{cor:sharpBeta1}.
-\end{cor}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-The preceding results don't use the non-differential measurement error assumption 
-Further imposing non-differential measurement error -- Assumption \ref{assump:misclassification} (iii) -- shrinks the identified set.
-We impose some additional conditions that simplify the proof. 
-These are discussed further below.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{thm}[Sharp Identified Set II]
-  \label{thm:sharpII}
-  Suppose that the conditional distribution of $y$ given $(\mathbf{x}, T,z)$ is absolutely continuous with respect to the Lebesgue measure for any values of the conditioning variables and moreover that there is no $k$ such that $\mathbb{E}\left[ y|\mathbf{x},T=0,z=k \right] = \mathbb{E}\left[ y|\mathbf{x},T=1,z=k \right]$.
-  Then, under Assumptions \ref{assump:model} and \ref{assump:misclassification}, the sharp identified set is characterized by
-  \[
-    BLAH BLAH BLAH
-  \]
-\end{thm}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The preceding theorem assumes that $y$ is continuously distributed, which is natural in an additively separable model and holds in our simulations and empirical examples below.
-If this is not the case then non-differential measurement error may impose further restrictions, although the basic idea of the argument is similar.
-We also imposed $\mathbb{E}[y|\mathbf{x},T = 0, z=k] \neq \mathbb{E}[y|\mathbf{x},T=1, z=k]$ for any $k$, which holds generically.
-If the two means are exactly equal for some $k$, then the intersection of $\left\{ (\alpha_0, \alpha_1)\colon \alpha_0 = p_k \mbox{ or } \alpha_1 = 1-p_k \right\}$ with the bounds for $\alpha_0, \alpha_1$ from Theorem \ref{thm:sharpI} must be added to the identified set.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{lem}
@@ -233,7 +249,7 @@ Then, Under Assumptions \ref{assump:model}, \ref{assump:misclassification} and \
 \[
     \eta_2(\mathbf{x}) =  2\tau_1(\mathbf{x}) \theta_1(\mathbf{x}) - \pi(\mathbf{x})\theta_2(\mathbf{x})
 \]
-where $\pi(\mathbf{x})$ is as defined in Lemma \ref{lem:eta1} and $\theta_1(\mathbf{x})$ and $\theta_2(\mathbf{x})$ are given by Equations \ref{eq:theta1_def}--\ref{eq:theta2_def}.
+where $\pi(\mathbf{x})$ is as defined in Lemma ??? and $\theta_1(\mathbf{x})$ and $\theta_2(\mathbf{x})$ are given by Equations \ref{eq:theta1_def}--\ref{eq:theta2_def}.
   \label{lem:eta2}
 \end{lem}
 

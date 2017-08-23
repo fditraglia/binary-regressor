@@ -12,6 +12,14 @@ For mis-classification probabilities
 \end{lem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{proof}[Proof of Lemma \ref{lem:p_pstar}]
+  The result follows from a simple calculation using the law of total probability.
+\end{proof}
+
+\begin{proof}[Proof of Lemma \ref{lem:wald}]
+  Immediate since $\mbox{Cov}(T,y|\mathbf{x}) = \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right] \mbox{Cov}(T^*,z|\mathbf{x})$ by Lemma \ref{lem:p_pstar}.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{proof}[Proof of Theorem \ref{thm:sharpI}]
   Throughout this argument we suppress dependence on $\mathbf{x}$ for simplicity. 
@@ -138,6 +146,12 @@ But since $\left[p_k(1 - r_{1k}) + (1 - p_k)(1 - r_{0k})\right] = (1 - p_k^*)$ a
 Thus, in this case we are free to choose \emph{any} distributions for $F^{0}_{tk}$ and $F^1_{tk}$ that satisfy Equation \ref{eq:Ftk}.
 For example we could take $F^0_{tk} = F^1_{tk} = F_{tk}$.
 \end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{proof}[Proof of Corollary \ref{cor:sharpBeta1}]
+Follows by plugging in the largest and smallest possible values for $\alpha_0 + \alpha_1$ and taking the difference of the expressions for $\mathbb{E}[y|z=k]$
+\end{proof}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
