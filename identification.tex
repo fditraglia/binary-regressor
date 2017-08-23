@@ -1,61 +1,75 @@
 %!TEX root = ./main.tex
 \section{Identification Results}
 
-Additively separable model
-\[
-  y = h(T^*,\mathbf{x})+\varepsilon
-\]
-where $\varepsilon$ is a mean-zero error term, $T^*$ is an endogenous binary regressor of interest and $\mathbf{x}$ is a vector of exogenous controls.
-Since $T^*$ is binary, we can re-write this as linear in $T^*$ conditional on $\mathbf{x}$
-\begin{align*}
-  y &= c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon\\
-  \beta(\mathbf{x}) &= h(1,\mathbf{x}) - h(0,\mathbf{x})\\
-  c(\mathbf{x}) &= h(0,\mathbf{x})
-\end{align*}
-Goal is to use a discrete instrumental variable $z$ to identify $\beta(\mathbf{x})$ when we observe not $T^*$ but a mis-measured binary surrogate $T$. 
-Define
-\begin{align*}
-  \alpha_0(\mathbf{x},z) &= \mathbb{P}\left(T=1|T^*=0,\mathbf{x},z  \right)\\
-  \alpha_1(\mathbf{x},z) &= \mathbb{P}\left(T=0|T^*=1,\mathbf{x},z  \right)
-\end{align*}
-Identification will only rely on two values for $z$.
-\todo[inline]{Be clear about the fact that, with the exception of the non-identification results, we assume throughout that $z$ is binary.}
-
-\noindent Assumptions that would suffice to identify the model if $T^*$ were observed
+\subsection{Baseline Assumptions}
+As defined in the preceding section, our model is $y = c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon$, where $\varepsilon$ is a mean-zero error term, and the parameter of interest is $\beta(\mathbf{x})$ -- the effect of an unobserved, binary, endogenous regressor $T^*$.
+Suppose we observe a valid and relevant binary instrument $z$.
+We assume that the model and instrument satisfy the following conditions:
 \begin{assump} \mbox{}
   \label{assump:model}
   \begin{enumerate}[(i)] 
-    \item $y = c(\mathbf{x}) + \beta(\mathbf{x})T^* + \varepsilon$ where $T^* \in \left\{ 0,1 \right\}$ and $\mathbb{E}[\varepsilon]=0$.
-    \item  $z \in \left\{ 0,1 \right\}$, where $0 < \mathbb{P}(z=1|\mathbf{x}) < 1$, and $\mathbb{P}(T^*=1|\mathbf{x},z=1) \neq \mathbb{P}(T^*=1|\mathbf{x},z=0)$.
-    \item $\mathbb{E}[\varepsilon|\mathbf{x},z] = 0$
+    \item $y = c(\mathbf{x}) + \beta(\mathbf{x})T^* + \varepsilon$ where $T^* \in \left\{ 0,1 \right\}$ and $\mathbb{E}[\varepsilon]=0$;
+    \item  $z \in \left\{ 0,1 \right\}$, where $0 < \mathbb{P}(z=1|\mathbf{x}) < 1$, and $\mathbb{P}(T^*=1|\mathbf{x},z=1) \neq \mathbb{P}(T^*=1|\mathbf{x},z=0)$;
+    \item $\mathbb{E}[\varepsilon|\mathbf{x},z] = 0$.
   \end{enumerate}
 \end{assump}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Point out that even though Assumption \ref{assump:model} (ii) refers to the unobserved $T^*$, under Assumptions \ref{assump:misclassification} (i) and (ii) we have $(p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1) = p_k - p_\ell$ so it suffices for an \emph{observed} first-stage to exist.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Assumptions \ref{assump:model}(ii) and (iii) are the standard instrument relevance and mean independence assumptions.\footnote{Point out that even though Assumption \ref{assump:model} (ii) refers to the unobserved $T^*$, under Assumptions \ref{assump:misclassification} (i) and (ii) we have $(p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1) = p_k - p_\ell$ so it suffices for an \emph{observed} first-stage to exist.}
+If $T^*$ were observed, Assumption \ref{assump:model} would suffice to identify  $\beta(\mathbf{x})$.  
+Unfortunately we observe not $T^*$ but a mis-classified binary surrogate $T$.  
+Define the following mis-classification probabilities:
+\begin{equation}
+\label{eq:adef}
+  \alpha_0(\mathbf{x},z) = \mathbb{P}\left(T=1|T^*=0,\mathbf{x},z  \right), \quad
+  \alpha_1(\mathbf{x},z) = \mathbb{P}\left(T=0|T^*=1,\mathbf{x},z  \right).
+\end{equation}
+Following the existing literature for the case of an exogenous regressor \citep{Mahajan,BBS,FL,KRS,Lewbel}, we impose the following conditions on the mis-classification process.
 
-Stronger version of Assumption \ref{assump:model} (iii) used by Frazis \& Loewenstein, Mahajan, etc.
-This assumption gives point identification without higher moment restrictions.
-There should eventually be a result about this case in the paper.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{assump} \mbox{}
-  \label{assump:jointExog}
-    $\mathbb{E}[\varepsilon|\mathbf{x},z, T^*] = 0$
-\end{assump}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\noindent Assumptions on the mis-classification
 \begin{assump} \mbox{}
   \label{assump:misclassification}
   \begin{enumerate}[(i)] 
     \item $\alpha_0(\mathbf{x},z) = \alpha_0(\mathbf{x})$,   $\alpha_1(\mathbf{x},z) = \alpha_1(\mathbf{x})$
-    \item $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) <1$ ($T$ is positively correlated with $T^*$)
+    \item $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) <1$ 
     \item $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z, T^*]$
   \end{enumerate}
 \end{assump}
 
+Assumption \ref{assump:misclassification} (i) states that the mis-classification probabilities do not depend on $z$.
+As we maintain this assumption throughout, we drop the dependence of $\alpha_0$ and $\alpha_1$ on $z$ and write $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
+Assumption \ref{assump:misclassification} (ii) restricts the extent of mis-classification and is equivalent to requiring that $T$ and $T^*$ be positively correlated.
+Assumption \ref{assump:misclassification} (iii) is often referred to as ``non-differential measurement error.''
+Intuitively, it maintains that $T$ provides no additional information about $\varepsilon$, and hence $y$, given knowledge of $(T^*,z,\mathbf{x})$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Point Identification Results from the Literature}
+
+Existing results from the literature -- see for example \cite{FL} and \cite{Mahajan} -- establish that $\beta(\mathbf{x})$ is point identified if Assumptions \ref{assump:model}--\ref{assump:misclassification} are augmented to include the following condition:
+\begin{assump}[Joint Exogeneity] \mbox{}
+  \label{assump:jointExog}
+    $\mathbb{E}[\varepsilon|\mathbf{x},z, T^*] = 0$.
+\end{assump}
+
+Assumption \ref{assump:jointExog} strengthens the mean independence condition from Assumption \ref{assump:model} (iii) to hold \emph{jointly} for $T^*$ and $z$.
+By iterated expectations, this implies that $T^*$ is exogenous, i.e.\ $\mathbb{E}[\varepsilon|\mathbf{x},T^*] = 0$.
+If $T^*$ is endogenous, Assumption \ref{assump:jointExog} clearly fails.
+\cite{Mahajan} argues, however, that the following restriction, along with our Assumptions \ref{assump:model}--\ref{assump:misclassification}, suffices to identify $\beta(\mathbf{x})$ when $T^*$ may be endogenous:
+\begin{assump}[\cite{Mahajan} Equation 11] \mbox{}
+  \label{assump:mahajan}
+  $\mathbb{E}[\varepsilon|\mathbf{x}, z, T^*, T] = \mathbb{E}[\varepsilon|\mathbf{x},T^*]$.
+\end{assump}
+Assumption \ref{assump:mahajan} does not require $\mathbb{E}[\varepsilon|\mathbf{x},T^*]$ to be zero, but maintains that it does not vary with $z$.
+We show in Appendix \ref{sec:mahajan}, however, that under 
+Assumptions \ref{assump:model}--\ref{assump:misclassification}, Assumption \ref{assump:mahajan} can only hold if $T^*$ is exogenous.
+If $z$ is a valid instrument and $T^*$ is endogenous, then Assumption \ref{assump:mahajan} implies that there is no first-stage relationship between $z$ and $T^*$.
+As such, identification in the case where $T^*$ is endogenous is an open question. 
+
+\subsection{Partial Identification}
+One approach is sharp bounds under FL/Mahajan, etc.\ assumptions.
+
+\subsection{Point Identification}
+Another approach, strengthen assumptions to get point identification.
+
+\todo[inline]{Edit from here down}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Explain what would happen if Assumption \ref{assump:misclassification} (ii) were weakened to $\alpha_0 + \alpha_1 \neq 1$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -13,6 +13,14 @@ Since $T^*$ is binary, we can re-write this as linear in $T^*$ conditional on $\
 \end{align*}
 Goal is to use an instrumental variable $z$ to identify $\beta(\mathbf{x})$ when we observe not $T^*$ but a mis-measured binary surrogate $T$. 
 
+
+\paragraph{How are we different from Ura?}
+\begin{enumerate}
+  \item We maintain nondifferential measurement error assumption throughout; Ura's main purpose is to relax it.
+  \item We focus on an additively separable model; Ura explicitly studies at LATE setting
+  \item We obtain point and partial identification results; Ura present only partial identification results
+\end{enumerate}
+
 \paragraph{Old Introduction:} Many treatments of interest in applied work are binary.
 To take a particularly prominent example, consider treatment status in a randomized controlled trial.
 Even if the randomization is pristine, which yields a valid binary instrument (the offer of treatment), subjects may select into treatment based on unobservables, and given the many real-world complications that arise in the field, measurement error may be an important concern.
