@@ -220,10 +220,20 @@ If $z$ takes on more than two values, our results in Theorems \ref{thm:sharpI}--
 
 
 \subsection{Point Identification}
+\todo[inline]{ Showed that weakening the joint exog to instrument mean exclusion implies not identified.
+Derived sharp identified set.
 One approach given the results of the preceding section is to just do partial identification.
 Another approach, strengthen assumptions to get point identification.
+We now consider simple set of extra assumptions that point identification.
+Demand more from the data, but in an additively separable model they're not really much stronger that what we've already assumed.
+Start by defining some notation: thetas, eta, tau etc.
+Then give Assumption 2.5 and Lemma 2.3.
+Then explain how this identifies the difference of alphas and hence gives point identification under one-sided mis-classification.
+Need to add a corollary here.
+Then give Assumption 2.6 and Lemma 2.4, followed by Corollary 2.4 and the main theorem.
+End of section!}
 
-\todo[inline]{Edit from here down}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Explain what would happen if Assumption \ref{assump:misclassification} (ii) were weakened to $\alpha_0 + \alpha_1 \neq 1$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -322,3 +332,8 @@ where $\tau_1(\mathbf{x})$ and $\pi(\mathbf{x})$ are as defined in Lemma \ref{le
 \begin{thm}[Identification of $\beta$, $\alpha_0$, $\alpha_1$]
   \label{thm:main_ident}
 \end{thm}
+
+\subsection{Unobserved Heterogeneity}
+\todo[inline]{Although our results allow arbitrary observed heterogeneity, additive separability places restrictions on unobserved heterogeneity.
+  Although it is not the main focus of our paper, unlike Ura, briefly comment on how these results can be interpreted, say, in a LATE context. First, the bounds stuff all goes through (???) provided one is willing to make the LATE assumptions. Higher moment restrictions do impose restrictions. Can say what happens with the second moment assumption since we already derived this: it's a restriction on the variance of the potential outcome distributions, conditional on $\mathbf{x}$.}
+
