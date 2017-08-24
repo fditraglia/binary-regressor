@@ -142,24 +142,30 @@ These are discussed further below.
 \]
 and
 \[
-  \underline{\mu}_{tk}\big( \alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})\left.\right|\mathbf{x} \big)\leq 
-  \underline{\mu}_{k}\big( \alpha_0(\mathbf{x})\left.\right|\mathbf{x} \big)\leq 
-  \overline{\mu}_{tk}\big( \alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})\left.\right|\mathbf{x} \big), \quad t,k=0,1 
+  \underline{\mu}_{tk}\bigg( \underline{q}_{tk}\big( \alpha_0(\mathbf{x}), \alpha_1(\mathbf{x}), \mathbf{x}\big) , \,\mathbf{x} \bigg)\leq 
+  \mu_{k}\big( \alpha_0(\mathbf{x}),\mathbf{x} \big)\leq 
+  \overline{\mu}_{tk}\bigg(\overline{q}_{tk}\big( \alpha_0(\mathbf{x}), \alpha_1(\mathbf{x}), \mathbf{x}\big), \,\mathbf{x} \bigg)
 \]
-where
+for all pairs $(t,k)$ where
 \begin{align*}
-  \underline{\mu}_{tk}\big( q\left.\right|\mathbf{x} \big) &= \mathbb{E}\left[ y\left|\right.y\leq q, \mathbf{x},T=t, z=k\right] \\
-  \overline{\mu}_{tk}\big(q \left.\right|\mathbf{x} \big) &= \mathbb{E}\left[ y\left|\right. y > q, \mathbf{x}, T=t, z=k\right]\\
-  \mu_k\big(\alpha_0(\mathbf{x}) \left.\right|\mathbf{x}\big) &= 
+  \underline{\mu}_{tk}\big( q,\mathbf{x} \big) = \mathbb{E}\left[ y\left|\right.y\leq q, \mathbf{x},T=t, z=k\right], \quad \quad
+  \overline{\mu}_{tk}\big(q,\mathbf{x} \big) = \mathbb{E}\left[ y\left|\right. y > q, \mathbf{x}, T=t, z=k\right]
+\end{align*}
+  \begin{align*}
+  \mu_k\big(\alpha_0(\mathbf{x}),\mathbf{x}\big) &= 
   \frac{p_k(\mathbf{x}) \mathbb{E}[y|\mathbf{x},z=k,T=1] - \alpha_0(\mathbf{x}) \mathbb{E}[y|\mathbf{x},z=k]}{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}\\
 \end{align*}
-
+and we define 
 \begin{align*}
-  \underline{q}_{tk} &= F^{-1}_{tk}(r_{tk})\\
-  \overline{q}_{tk} &= F^{-1}_{tk}(1 - r_{tk})\\
-  r_{0k} &= \frac{\alpha_1}{1 - p_k} \left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)\\
-  r_{1k} &= \frac{1 - \alpha_1}{p_k} \left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right)
+  \underline{q}_{tk}\big(\alpha_0(\mathbf{x}),\alpha_1(\mathbf{x}),\mathbf{x}\big) &= F^{-1}_{tk}\bigg(r_{tk}\big(\alpha_0(\mathbf{x}),\alpha_1(\mathbf{x}), \mathbf{x}\big)\, \bigg|\,\mathbf{x}\bigg)\\
+  \overline{q}_{tk}\big(\alpha_0(\mathbf{x}),\alpha_1(\mathbf{x}),\mathbf{x}\big) &= F^{-1}_{tk}\bigg(1 - r_{tk}\big(\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x}),\mathbf{x}\big) \,\bigg|\,\mathbf{x}\bigg)
 \end{align*}
+where $F_{tk}^{-1}(\cdot|\mathbf{x})$ is the conditional quantile function of $y$ given $(\mathbf{x},T=t,z=k)$,  
+\begin{align*}
+  r_{0k}\big(\alpha_0(\mathbf{x}),\alpha_1(\mathbf{x}),\mathbf{x}\big) &= \frac{\alpha_1(\mathbf{x})}{1 - p_k(\mathbf{x})} \left[ \frac{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})} \right]\\
+  r_{1k}\big(\alpha_0(\mathbf{x}),\alpha_1(\mathbf{x}),\mathbf{x}\big) &= \frac{1 - \alpha_1(\mathbf{x})}{p_k(\mathbf{x})} \left[ \frac{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})} \right]
+\end{align*}
+and $p_k(\mathbf{x}) = \mathbb{P}(T=1|\mathbf{x},z=k)$.
 \end{thm}
 
 
