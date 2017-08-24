@@ -70,15 +70,23 @@ As such, identification in the case where $T^*$ is endogenous is an open questio
 \subsection{Partial Identification}
 
 In this section we derive the sharp identified set for under Assumptions \ref{assump:model}--\ref{assump:misclassification} and show that  $\beta(\mathbf{x})$ is not point identified.
+To simplify the notation, define the following shorthand for the observed and unobserved first stage probabilities
+\begin{align}
+  \label{eq:pkstar_def}
+  p^*_k(\mathbf{x}) &= \mathbb{P}(T^*=1|\mathbf{x},z=k)\\
+  \label{eq:pk_def}
+  p_k(\mathbf{x}) &= \mathbb{P}(T=1|\mathbf{x},z=k).
+\end{align}
 We first state two lemmas that have appeared in various guises throughout the literature. 
 These will be used repeatedly below.
 \begin{lem}
 \label{lem:p_pstar}
   Under Assumption \ref{assump:misclassification} (i),
 \begin{align*}
-  \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right]\mathbb{P}(T^*=1|\mathbf{x}, z=k) &= \mathbb{P}(T=1|\mathbf{x},z=k) - \alpha_0(\mathbf{x})\\
-  \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right]\mathbb{P}(T^*=0|\mathbf{x}, z=k) &= \mathbb{P}(T=0|\mathbf{x},z=k) - \alpha_1(\mathbf{x})
+  \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right]p^*_k(\mathbf{x}) &= p_k(\mathbf{x}) - \alpha_0(\mathbf{x})\\
+  \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right]\left[1 - p^*_k(\mathbf{x}) \right]&= 1 - p_k(\mathbf{x}) - \alpha_1(\mathbf{x})
 \end{align*}
+where the first-stage probabilities $p_k^*(\mathbf{x})$ and $p_k(\mathbf{x})$ are as defined in Equations \ref{eq:pkstar_def}--\ref{eq:pk_def}.
 \end{lem} 
 
 \begin{lem}
@@ -86,27 +94,26 @@ These will be used repeatedly below.
   Under Assumptions \ref{assump:model} and \ref{assump:misclassification} (i)--(ii), $$\beta(\mathbf{x}) \mbox{Cov}(z,T|\mathbf{x}) = \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right]\mbox{Cov}(y,z|\mathbf{x})$$
 \end{lem}
 
-Lemma \ref{lem:p_pstar} relates the observed first-stage probabilities $\mathbb{P}(T|\mathbf{x},z)$ to their unobserved counterparts $\mathbb{P}(T^*|\mathbf{x},z)$ in terms of the mis-classification probabilities $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
+Lemma \ref{lem:p_pstar} relates the observed first-stage probabilities $p_k(\mathbf{x})$ to their unobserved counterparts $p^*_k(\mathbf{x})$ in terms of the mis-classification probabilities $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
 By Assumption \ref{assump:misclassification} (ii), $1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) > 0$ so that Lemma \ref{lem:p_pstar} provides non-trivial bounds for $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ in terms of the observed first-stage probabilities.
 Lemma \ref{lem:wald} relates the instrumental variables (IV) estimand, $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T)$, to the mis-classification probabilities.
 Since $1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) > 0$, IV is biased \emph{upwards} in the presence of mis-classification.
 Combining the two lemmas yields a well-known bound, namely that $\beta(\mathbf{x})$ lies between the reduced form and IV estimators.
 Our first result shows that \emph{without} Assumption \ref{assump:misclassification} (non-differential measurement error) these bounds are sharp.
 
-\begin{thm}[Sharp Identified Set I]
+\begin{thm}
   Under Assumptions \ref{assump:model} and \ref{assump:misclassification} (i)--(ii), the sharp identified set is characterized by 
   \begin{equation}
-    \mathbb{E}[y|\mathbf{x},z=k] = c(\mathbf{x}) + \beta(\mathbf{x}) \left[\frac{\mathbb{P}(T=1|\mathbf{x},z_k) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}\right]
+    \mathbb{E}[y|\mathbf{x},z=k] = c(\mathbf{x}) + \beta(\mathbf{x}) \left[\frac{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}\right]
     \label{eq:identsetI}
   \end{equation}
-and
-\[\alpha_0(\mathbf{x}) \leq \mathbb{P}(T=1|\mathbf{x}, z=k) \leq 1 -  \alpha_1(\mathbf{x}), \quad k = 0, 1.\]
+and $\alpha_0(\mathbf{x}) \leq p_k(\mathbf{x}) \leq 1 -  \alpha_1(\mathbf{x})$ for  $k = 0, 1$ where $p_k(\mathbf{x})$ is defined in Equation \ref{eq:pk_def}.
   \label{thm:sharpI}
 \end{thm}
 
 \begin{cor}
   Under the conditions of Theorem \ref{thm:sharpI} the sharp identified set for $\beta(\mathbf{x})$ is the closed interval between $\Delta^y(\mathbf{x})$ and $\Delta^y(\mathbf{x})/\Delta^T(\mathbf{x})$ 
-where $\Delta^y(\mathbf{x}) \equiv \mathbb{E}(y|\mathbf{x},z=1) - \mathbb{E}(y|\mathbf{x},z=0)$ and $\Delta^T(\mathbf{x})= \mathbb{P}(T=1|\mathbf{x},z=1) - \mathbb{P}(T=1|\mathbf{x},z=0)$.
+  where $\Delta^y(\mathbf{x}) \equiv \mathbb{E}(y|\mathbf{x},z=1) - \mathbb{E}(y|\mathbf{x},z=0)$ and $\Delta^T(\mathbf{x})= p_1(\mathbf{x}) - p_0(\mathbf{x})$, with $p_k(\mathbf{x})$ as defined in Equation \ref{eq:pk_def} for $k = 0,1$. 
 \label{cor:sharpBeta1}
 \end{cor}
 
@@ -127,20 +134,25 @@ The following corollary collects results for two common cases: one-sided misclas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Theorem \ref{thm:sharpI} and Corollaries \ref{cor:sharpBeta1}--\ref{cor:onsided} do not impose Assumption \ref{assump:misclassification} (iii) -- non-differential measurement error.
+We now show that this assumption yields further restrictions on the mis-classification probabilities $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
+While these restrictions are more complicated to describe than those from Theorem \ref{thm:sharpI}, they are straightforward to implement in practice and can be extremely informative, as we will show in our simulation exercises below.
+To the best of our knowledge, the sharp bounds that we derive by adding Assumption \ref{assump:misclassification} (iii) are new to the literature.
+Our result uses two additional conditions to simplify the proof of sharpness.
+First, we assume that $y$ is continuously distributed.
+This is natural in an additively separable model and holds in our simulation examples below. 
+Without this assumption, the bounds that we derive are still valid, but may not be sharp. 
+Nevertheless, the reasoning from our proof can be generalized to cases in which $y$ does not have a continuous support set.
+We also impose $\mathbb{E}[y|\mathbf{x},T = 0, z=k] \neq \mathbb{E}[y|\mathbf{x},T=1, z=k]$ for any $k$.
+This holds generically and is not essential to the proof: it merely simplifies the description of the identified set.
 
-We impose two additional conditions that simplify the proof of sharpness.
-These are discussed further below.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{thm}[Sharp Identified Set II]
+\begin{thm}
   \label{thm:sharpII}
-  Suppose that the conditional distribution of $y$ given $(\mathbf{x}, T,z)$ is continuous for any values of the conditioning variables and additionally  that $\mathbb{E}\left[ y|\mathbf{x},T=0,z=k \right] \neq \mathbb{E}\left[ y|\mathbf{x},T=1,z=k \right]$ for all $k$.
-  Then, under Assumptions \ref{assump:model} and \ref{assump:misclassification}, the sharp identified set is characterized by Equation \ref{eq:identsetI} from Theorem \ref{thm:sharpI} along with 
-\[
-  \alpha_0(\mathbf{x}) < p_k(\mathbf{x}) < 1 -  \alpha_1(\mathbf{x}), \quad k = 0, 1
-\]
-and
+  Suppose that the conditional distribution of $y$ given $(\mathbf{x}, T,z)$ is continuous for any values of the conditioning variables and $\mathbb{E}\left[ y|\mathbf{x},T=0,z=k \right] \neq \mathbb{E}\left[ y|\mathbf{x},T=1,z=k \right]$ for all $k$.
+  Then, under Assumptions \ref{assump:model} and \ref{assump:misclassification}, the sharp identified set is characterized by Equation \ref{eq:identsetI} from Theorem \ref{thm:sharpI} along with $\alpha_0(\mathbf{x}) < p_k(\mathbf{x}) < 1 -  \alpha_1(\mathbf{x})$ for $k = 0,1$ and
 \[
   \underline{\mu}_{tk}\bigg( \underline{q}_{tk}\big( \alpha_0(\mathbf{x}), \alpha_1(\mathbf{x}), \mathbf{x}\big) , \,\mathbf{x} \bigg)\leq 
   \mu_{k}\big( \alpha_0(\mathbf{x}),\mathbf{x} \big)\leq 
@@ -153,7 +165,7 @@ for all pairs $(t,k)$ where
 \end{align*}
   \begin{align*}
   \mu_k\big(\alpha_0(\mathbf{x}),\mathbf{x}\big) &= 
-  \frac{p_k(\mathbf{x}) \mathbb{E}[y|\mathbf{x},z=k,T=1] - \alpha_0(\mathbf{x}) \mathbb{E}[y|\mathbf{x},z=k]}{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}\\
+  \frac{p_k(\mathbf{x}) \mathbb{E}[y|\mathbf{x},z=k,T=1] - \alpha_0(\mathbf{x}) \mathbb{E}[y|\mathbf{x},z=k]}{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}
 \end{align*}
 and we define 
 \begin{align*}
@@ -165,28 +177,38 @@ where $F_{tk}^{-1}(\cdot|\mathbf{x})$ is the conditional quantile function of $y
   r_{0k}\big(\alpha_0(\mathbf{x}),\alpha_1(\mathbf{x}),\mathbf{x}\big) &= \frac{\alpha_1(\mathbf{x})}{1 - p_k(\mathbf{x})} \left[ \frac{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})} \right]\\
   r_{1k}\big(\alpha_0(\mathbf{x}),\alpha_1(\mathbf{x}),\mathbf{x}\big) &= \frac{1 - \alpha_1(\mathbf{x})}{p_k(\mathbf{x})} \left[ \frac{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})} \right]
 \end{align*}
-and $p_k(\mathbf{x}) = \mathbb{P}(T=1|\mathbf{x},z=k)$.
+and $p_k(\mathbf{x})$ is defined in Equation \ref{eq:pk_def}.
 \end{thm}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The preceding theorem assumes that $y$ is continuously distributed, which is natural in an additively separable model and holds in our simulation examples below. 
-If this is not the case then non-differential measurement error may impose further restrictions, although the basic idea of the argument is similar.
-We also imposed $\mathbb{E}[y|\mathbf{x},T = 0, z=k] \neq \mathbb{E}[y|\mathbf{x},T=1, z=k]$ for any $k$, which holds generically.
-If the two means are exactly equal for some $k$, then the intersection of $\left\{ (\alpha_0, \alpha_1)\colon \alpha_0 = p_k \mbox{ or } \alpha_1 = 1-p_k \right\}$ with the bounds for $\alpha_0, \alpha_1$ from Theorem \ref{thm:sharpI} must be added to the identified set.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In our discussion of the results for the sharp identified set, we can discuss what would happen if there were more than 2 values of $k$.
-Our method of proof never actually relies on there being only a binary instrument. 
-You're not identified in any case, regardless of how many values $z$ takes on.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+The intuition for Theorem \ref{thm:sharpII} is as follows.
+For simplicity, suppress dependence on $\mathbf{x}$.
+Now, fix $(T=t, z=k)$ and $(\alpha_0, \alpha_1)$.
+The observed distribution of $y$ given $(T=t,z=k)$, call it $F_{tk}$, is a mixture of two unobserved distributions: the distribution of $y$ given $(T=1,z=k,T^*=1)$, call it $F^1_{tk}$, and the distribution of $y$ given $(T=t,z=k,T^*=0)$, call it $F^{0}_{tk}$.
+The mixing probabilities are $r_{tk}$ and $1-r_{tk}$ from the statement of Theorem \ref{thm:sharpII} and are fully determined by $(\alpha_0, \alpha_1)$ and $p_k$.
+Assumptions \ref{assump:model} (i) and \ref{assump:misclassification} (ii) imply that the unobserved means $\mathbb{E}[y|T^*,T,z]$  are fully determined by $(\alpha_0, \alpha_1)$ given the observed means $\mathbb{E}[y|T,z]$.
+The question is whether it is possible, given the observed distribution $F_{tk}$, to construct $F^1_{tk}$ and $F^{0}_{tk}$ with the required values for $\mathbb{E}[y|T^*,T,z]$ such that $F_{tk} = r_{tk} F^{1}_{tk} + (1 - r_{tk}) F^{0}_{tk}$ for all combinations $(t,k)$. 
+If not, then $(\alpha_0, \alpha_1)$ does not belong to the identified set.
+Our proof provides necessary and sufficient conditions for such a mixture to exist at a given point $(\alpha_0, \alpha_1)$.
+We can then appeal to the reasoning from Theorem \ref{thm:sharpI} to complete the argument.
+By ruling out values for $\alpha_0$ and $\alpha_1$, Theorem \ref{thm:sharpII} restricts $\beta$ via Lemma \ref{lem:wald}. 
+While these restrictions can be very informative in practice, they do not yield point identification as we now show.
+
+\begin{cor}
+  Under Assumptions ??? the identified set for $\beta(\mathbf{x})$ contains at least two points: wald and truth.
+  Hence, $\beta$ is not point identified.
+\end{cor}
+
+Say why we can't rule out Wald: no mis-classification is always a possibility.
+Since our proofs have all been for an arbitrary $k$,turns out that preceding result holds even $z$ takes on an arbitrary (finite) number of values $k \in \left\{ 1, \cdots, K \right\}$ and Assumptions ??? are satisfied for all of them.
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-One approach is sharp bounds under FL/Mahajan, etc.\ assumptions.
 
 \subsection{Point Identification}
 Another approach, strengthen assumptions to get point identification.
