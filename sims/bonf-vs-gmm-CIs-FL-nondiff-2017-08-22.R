@@ -5,7 +5,7 @@ b_seq <- c(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.5, 1)
 n_seq <- c(1000, 2000)
 a0_seq <- a1_seq <- c(0, 0.1, 0.2, 0.3)
 d_seq <- c(0.15)
-rho_seq <- c(0.5)
+rho_seq <- c(0) # Exogenous regressor!
 cc_seq <- c(0)
 
 sim_params <- expand.grid(b = b_seq,
