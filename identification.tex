@@ -201,7 +201,7 @@ While these restrictions can be very informative in practice, they do not yield 
 \end{cor}
 
 Corollary \ref{cor:nonident} follows by Lemma \ref{lem:wald} because $\alpha_0(\mathbf{x})=\alpha_1(\mathbf{x})=0$ always belongs to the sharp identified set from Theorem \ref{thm:sharpII}.
-Non-differential measurement error cannot excluded the possibility that there is no mis-classification because in this case it is trivial to construct the required mixtures.
+Non-differential measurement error cannot exclude the possibility that there is no mis-classification because in this case it is trivial to construct the required mixtures.
 
 Although we focus throughout this paper on the case of a binary instrument, one might wonder whether point identification can be achieved by increasing the support of $z$.
 The answer turns out to be no.
@@ -220,29 +220,66 @@ If $z$ takes on more than two values, our results in Theorems \ref{thm:sharpI}--
 
 
 \subsection{Point Identification}
-\todo[inline]{ Showed that weakening the joint exog to instrument mean exclusion implies not identified.
-Derived sharp identified set.
-One approach given the results of the preceding section is to just do partial identification.
-Another approach, strengthen assumptions to get point identification.
-We now consider simple set of extra assumptions that point identification.
+The results of the preceding section establish that $\beta(\mathbf{x})$ is not point identified under Assumptions \ref{assump:model} and \ref{assump:misclassification}.
+In light of this, there are two possible ways to proceed: either one can report partial identification bounds based on our characterization of the sharp identified set from Theorem \ref{thm:sharpII}, or one can attempt to impose stronger assumptions to obtain point identification.
+In this section we consider the second possibility.
+We begin by defining the following functions of the model parameters: 
+\begin{align}
+  \label{eq:theta1_def}
+  \theta_1(\mathbf{x}) &= \beta(\mathbf{x})\left[ 1 -  \alpha_0(\mathbf{x}) - \mathbf{\alpha}_1(\mathbf{x}) \right]^{-1}\\
+  \label{eq:theta2_def}
+  \theta_2(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^2 \left[ 1 + \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})\right] \\
+  \label{eq:theta3_def}
+  \theta_3(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^3\left[ \left\{ 1 -\alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right\}^2 + 6\alpha_0(\mathbf{x})\left\{ 1 - \alpha_1(\mathbf{x}) \right\} \right]
+\end{align}
+along with the observable quantities
+\begin{equation}
+  \pi(\mathbf{x}) = \mbox{Cov}(T,z|\mathbf{x}), \quad
+  \eta_j(\mathbf{x}) = \mbox{Cov}(y^j,z|\mathbf{x}), \quad
+  \tau_j(\mathbf{x}) = \mbox{Cov}(Ty^j,z|\mathbf{x})
+  \label{eq:observables}
+\end{equation}
+for $j = 1, 2, 3$.
+Using this notation, Lemma \ref{lem:wald} can be written as $\eta_1(\mathbf{x}) = \pi(\mathbf{x})\theta_1(\mathbf{x})$.
+Now consider the following additional assumption:
+\begin{assump} \mbox{}
+  \label{assump:2ndMoment}
+    $\mathbb{E}[\varepsilon^2|\mathbf{x},z] = \mathbb{E}[\varepsilon^2|\mathbf{x}]$ 
+\end{assump}
+Assumption \ref{assump:2ndMoment} is a \emph{second moment} version of the standard mean exclusion restriction for the instrument $z$ -- Assumption \ref{assump:model} (iii).
+It requires that the conditional variance of the error term given the covariates $\mathbf{x}$ does not depend on $z$.
+Notice that this assumption does not require homoskedasticity with respect to $\mathbf{x}, T^*$ or $T$.
+Assumption \ref{assump:2ndMoment} allows us to derive the following lemma:
+\begin{lem} Under Assumptions \ref{assump:model}, \ref{assump:misclassification} and \ref{assump:2ndMoment}, $\eta_2(\mathbf{x}) =  2\tau_1(\mathbf{x}) \theta_1(\mathbf{x}) - \pi(\mathbf{x})\theta_2(\mathbf{x})$,
+  where $\pi(\mathbf{x}), \tau_1(\mathbf{x})$ and $\eta_2(\mathbf{x})$ are defined in Equation \ref{eq:observables}, and $\theta_1(\mathbf{x}),\theta_2(\mathbf{x})$ in Equations \ref{eq:theta1_def}--\ref{eq:theta2_def}.
+  \label{lem:eta2}
+\end{lem}
+
+Lemma \ref{lem:wald} identifies $\theta_1(\mathbf{x})$.
+Since $\pi(\mathbf{x}) \neq 0$ by Assumption \ref{assump:model} (ii), we can solve for $\theta_2(\mathbf{x})$ in terms of observables only, using Lemma \ref{lem:eta2}.
+Given knowledge of $\theta_1(\mathbf{x})$, we can solve Equation \ref{eq:theta2_def} for the difference of mis-classification rates so long as $\beta(\mathbf{x}) \neq 0$.
+
+\begin{cor}
+  Under Assumptions \ref{assump:model}--\ref{assump:misclassification} and \ref{assump:2ndMoment}, $\alpha_1(\mathbf{x}) - \alpha_0(\mathbf{x})$ is identified so long as $\beta(\mathbf{x}) \neq 0$.
+  \label{cor:alpha_diff}
+\end{cor}
+Corollary \ref{cor:alpha_diff} identifies the difference of mis-classification error rates.
+Hence, under one-sided mis-classification, $\alpha_0(\mathbf{x}) = 0$ or $\alpha_1(\mathbf{x}) = 0$, augmenting our baseline Assumptions \ref{assump:model}--\ref{assump:misclassification} with Assumption \ref{assump:2ndMoment} suffices to identify $\beta(\mathbf{x})$.
+Notice that $\beta(\mathbf{x})=0$ if and only if $\theta_1(\mathbf{x}) = 0$.
+Thus, $\beta(\mathbf{x})$ is still identified in the case where Corollary \ref{cor:alpha_diff} fails to apply.
+
+\todo[inline]{ 
 Demand more from the data, but in an additively separable model they're not really much stronger that what we've already assumed.
-Start by defining some notation: thetas, eta, tau etc.
 Then give Assumption 2.5 and Lemma 2.3.
 Then explain how this identifies the difference of alphas and hence gives point identification under one-sided mis-classification.
 Need to add a corollary here.
 Then give Assumption 2.6 and Lemma 2.4, followed by Corollary 2.4 and the main theorem.
 End of section!}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Explain what would happen if Assumption \ref{assump:misclassification} (ii) were weakened to $\alpha_0 + \alpha_1 \neq 1$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\noindent Second moment assumption identifies the difference of mis-classification error rates.
-\begin{assump} \mbox{}
-  \label{assump:2ndMoment}
-    $\mathbb{E}[\varepsilon^2|\mathbf{x},z] = \mathbb{E}[\varepsilon^2|\mathbf{x}]$ 
-\end{assump}
 
 \noindent Additional moment assumptions to get identification
 \begin{assump} \mbox{}
@@ -257,49 +294,10 @@ Explain what would happen if Assumption \ref{assump:misclassification} (ii) were
 
 
 
-\paragraph{Notation}
-
-\begin{align}
-  \label{eq:theta1_def}
-  \theta_1(\mathbf{x}) &= \beta(\mathbf{x})\left[ 1 - \left\{ \alpha_0(\mathbf{x}) + \mathbf{\alpha}_1(\mathbf{x}) \right\} \right]^{-1}\\
-  \label{eq:theta2_def}
-  \theta_2(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^2 \left[ 1 + \left\{\alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})\right\}\right] \\
-  \label{eq:theta3_def}
-  \theta_3(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^3\left[ \left( 1 - \left\{\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x})\right\} \right)^2 + 6\alpha_0(\mathbf{x})\left\{ 1 - \alpha_1(\mathbf{x}) \right\} \right]
-\end{align}
-
-\begin{align*}
-  \mbox{Cov}(y,z|\mathbf{x}) - \mbox{Cov}(T,z|\mathbf{x}) \theta_1(\mathbf{x}) &= 0\\
-  \mbox{Cov}(y^2,z|\mathbf{x}) - 2\mbox{Cov}(yT,z|\mathbf{x}) \theta_1(\mathbf{x}) + \mbox{Cov}(T,z|\mathbf{x})\theta_2(\mathbf{x}) &= 0\\
-  \mbox{Cov}(y^3,z|\mathbf{x}) - 3 \mbox{Cov}(y^2T,z|\mathbf{x}) \theta_1(\mathbf{x}) + 3\mbox{Cov}(yT,z|\mathbf{x}) \theta_2(\mathbf{x}) - \mbox{Cov}(T,z|\mathbf{x}) \theta_3(\mathbf{x})&= 0
-\end{align*}
-
-\begin{align*}
-  q(\mathbf{x}) &= \mathbb{P}(z=1|\mathbf{x})\\
-  \pi(\mathbf{x}) &= \mbox{Cov}(T,z|\mathbf{x})\\
-  \eta_j(\mathbf{x}) &= \mbox{Cov}(y^j,z|\mathbf{x})\\
-  \tau_j(\mathbf{x}) &= \mbox{Cov}(Ty^j,z|\mathbf{x})
-\end{align*}
-
-\begin{align*}
- \eta_1(\mathbf{x}) &= \pi(\mathbf{x})\theta_1(\mathbf{x}) \\
-  \eta_2(\mathbf{x}) &=  2\tau_1(\mathbf{x}) \theta_1(\mathbf{x}) - \pi(\mathbf{x})\theta_2(\mathbf{x}) \\
-  \eta_3(\mathbf{x}) &=  3\tau_2(\mathbf{x}) \theta_1(\mathbf{x}) - 3\tau_1(\mathbf{x}) \theta_2(\mathbf{x}) + \pi(\mathbf{x})\theta_3(\mathbf{x})
-\end{align*}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{lem}
-  Let $\eta_2(\mathbf{x}) = \mbox{Cov}(y^2,z|\mathbf{x})$ and $\tau_1(\mathbf{x}) = \mbox{Cov}(yT,z|\mathbf{x})$.
-Then, Under Assumptions \ref{assump:model}, \ref{assump:misclassification} and \ref{assump:2ndMoment}, 
-\[
-    \eta_2(\mathbf{x}) =  2\tau_1(\mathbf{x}) \theta_1(\mathbf{x}) - \pi(\mathbf{x})\theta_2(\mathbf{x})
-\]
-where $\pi(\mathbf{x})$ is as defined in Lemma ??? and $\theta_1(\mathbf{x})$ and $\theta_2(\mathbf{x})$ are given by Equations \ref{eq:theta1_def}--\ref{eq:theta2_def}.
-  \label{lem:eta2}
-\end{lem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
