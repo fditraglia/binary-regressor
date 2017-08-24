@@ -1,0 +1,106 @@
+%!TEX root = ./main.tex
+
+\subsection{Lack of Identification From Conditional Means}
+We have seen that \cite{Mahajan}'s approach based on a binary instrument cannot identify $\beta$ when the treatment is endogenous: Assumption \ref{assump:Eq11} in fact implies that the instrument is \emph{irrelevant}. 
+We now show that, regardless of how many values the instrument takes on, conditional mean information is insufficient for identification.
+
+To begin, consider the model in Equation \ref{eq:linear} without any restrictions on the $m^*_{tk}$, that is \emph{without} imposing the IV restriction given in Equation \ref{eq:IV}.
+In this fully general case, the $2K + 3$ unknown parameters are $\beta, \alpha_0, \alpha_1$ and the conditional means of $u$, namely $m^*_{tk}$.
+In contrast, there are only $2K$ available moment conditions.
+\begin{lem}
+  Suppose that $\mathbb{E}\left[ \varepsilon|T^*,T,z \right]= \mathbb{E}\left[ \varepsilon|T^*,z \right]$. Then, under Assumption \ref{assump:A2} (ii)--(iv),
+  \label{lem:eq1}
+\begin{align}
+  \label{eq:MC0}
+  \hat{y}_{0k} &=\frac{\alpha_1(p_k - \alpha_0)(\beta + m_{1k}^*) + (1 - \alpha_0)(1 - p _k -  \alpha_1)m_{0k}^*}{1 - \alpha_0 - \alpha_1} \\[1.5ex]
+  \label{eq:MC1}
+  \hat{y}_{1k} &= \frac{(1-\alpha_1)(p_k - \alpha_0)(\beta+m_{1k}^*)+  \alpha_0(1-p_k - \alpha_1)m_{0k}^*}{1-\alpha_0 - \alpha_1}
+\end{align}
+where $\hat{y}_{0k} = (1-p_k)\bar{y}_{0k}$ and $\hat{y}_{1k}= p_k \bar{y}_{1k}$.
+\end{lem}
+Notice that the observable ``weighted'' cell mean $\hat{y}_{tk}$ defined in the preceding lemma depends on both $m^*_{tk}$ \emph{and} $m^*_{1-t,k}$ since the cell in which $T=t$ from Table \ref{tab:observables} is in fact a mixture of both the cells $T^*=0$ and $T^*=1$ from Table \ref{tab:unobservables}, for a particular column $k$.
+Clearly we have fewer equations than unknowns.
+What additional restrictions could we consider imposing on the system? 
+In a very interesting paper, \cite{Lewbel} proposes using a three-valued ``instrument'' that does \emph{not} satisfy the exclusion restriction.
+By assuming instead that there is no \emph{interaction} between the instrument and the treatment, he is able to prove identification of the treatment effect.
+Using our notation it is easy to see why \cite{Lewbel} requires a three-valued instrument. 
+His moment conditions are equivalent to Equations \ref{eq:MC0} and \ref{eq:MC1} with the additional restriction that $m^*_{0k} = m^*_{1k}$ for all $k= 1, \dots, K$.
+This leaves the number of equations unchanged at $2K$, but reduces the number of unknowns to $K+3$.
+The smallest $K$ for which $K+3$ is at least as large as $2K$ is 3.\footnote{The context considered by \cite{Lewbel} is slightly different from the one we pursue here, in that his ``instrument'' is more like a covariate: it is allowed to have a direct effect on the outcome of interest.  For this reason, \cite{Lewbel} cannot use the exogeneity of the treatment to obtain identification based on a two-valued instrument.}
+
+Unlike \cite{Lewbel} we, along with \cite{Mahajan} and others, assume that $\mathbb{E}[\varepsilon|z]=0$ so that Equation \ref{eq:IV} holds. 
+\begin{cor}
+  \label{cor:eq2}
+  Suppose that $\mathbb{E}\left[ \varepsilon|T^*,T,z \right]= \mathbb{E}\left[ \varepsilon|T^*,z \right]$. Then, under Assumption \ref{assump:A2},
+\begin{align}
+  \label{eq:MC0IV}
+  \hat{y}_{0k} &=\alpha_1(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + (1-\alpha_0)c - (p _k -  \alpha_0)m_{1k}^* \\[1.5ex]
+  \label{eq:MC1IV}
+  \hat{y}_{1k} &=(1-\alpha_1)(p_k - \alpha_0)\left(\frac{\beta}{1 - \alpha_0 - \alpha_1}\right) + \alpha_0 c + (p _k -  \alpha_0)m_{1k}^*
+\end{align}
+where $\hat{y}_{0k} = (1-p_k)\bar{y}_{0k}$ and $\hat{y}_{1k}= p_k \bar{y}_{1k}$.
+\end{cor}
+Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} also make it clear why the IV estimator is inconsistent in the face of non-differential measurement error, and that this inconsistency does not depend on the endogeneity of the treatment, as noted by \cite{FL}.
+Adding together Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} yields
+\begin{equation*}
+  \hat{y}_{0k} + \hat{y}_{1k} = c + (p_k - \alpha_0)\left( \frac{\beta}{1 - \alpha_0 - \alpha_1} \right) 
+\end{equation*}
+completely eliminating the $m^*_{1k}$ from the system.
+Taking the difference of the preceding expression evaluated at two different values of the instrument, $z_{k}$ and $z_{\ell}$, and rearranging
+\begin{equation}
+  \mathcal{W} = \frac{(\hat{y}_{0k} + \hat{y}_{1k}) - (\hat{y}_{0\ell} + \hat{y}_{1\ell})}{p_k - p_\ell} =  \frac{\beta}{1 - \alpha_0 - \alpha_1}
+  \label{eq:wald}
+\end{equation}
+which is the well-known Wald IV estimator, since $\hat{y}_{0k} + \hat{y}_{1k} = \mathbb{E}[y|z = z_k]$.
+
+Imposing $\mathbb{E}[\varepsilon|z]=0$ replaces the $K$ unknown parameters $\left\{ m^*_{0k}\right\}_{k=1}^K$ in Equations \ref{eq:MC0}--\ref{eq:MC1} with a single parameter $c$, leaving us with the same $2K$ equations but only $K+4$ unknowns.
+When $K=2$ (a binary instrument) we have 4 equations and 6 unknowns.
+So how can one identify $\beta$ in this case?
+The literature has imposed additional assumptions which, using our notation, can once again be mapped into restrictions on the $m_{tk}^*$.
+\cite{BBS}, \cite{KRS}, and \cite{Mahajan} make a \emph{joint} exogeneity assumption on $(T^*,z)$, namely $\mathbb{E}[\varepsilon|T^*,z]=0$.
+Notice that this is strictly stronger than assuming that the instrument is valid and the treatment is exogenous.
+In our notation, this joint exogeneity assumption is equivalent to imposing $m_{tk}^*=c$ for all $t,k$.
+This reduces the parameter count to 4 regardless of the value of $K$.
+Thus, when the instrument is binary, we have exactly as many equations as unknowns.
+The arguments in \cite{BBS}, \cite{KRS}, and \cite{Mahajan} are all equivalent to solving Equations \ref{eq:MC0IV} and \ref{eq:MC1IV} for $\beta$ under the added restriction that $m^*_{1k}=c$, establishing identification for this case.
+\cite{FL} use the same argument in a linear model with a potentially continuous instrument, but impose only the weaker conditions that the treatment is exogenous and the instrument is valid. 
+Nevertheless, a crucial step in their derivation implicitly assumes the stronger joint exogeneity assumption used by \cite{BBS}, \cite{KRS} and \cite{Mahajan}.
+Without this assumption, their proof does not in fact go through.
+%Add a footnote showing the gap between the two sets of assumptions and how it relates to the continuous case, triple moment, etc.
+
+If one wishes to allow for an endogenous treatment, the joint exogeneity assumption $m_{tk}^*=c$ is unusable and we have $2K$ equations in $K+4$ unknowns.
+Based on the identification arguments described above, there would seem to be two possible avenues for identification of the treatment effect when a valid instrument is available.
+One idea would be to impose alternative conditions on the $m^*_{tk}$ that are compatible with an endogenous treatment.
+If $z$ is binary, two additional restrictions would suffice to equate the counts of moments and unknowns.
+As we showed in Proposition \ref{pro:FirstStage}, however, this approach fails. 
+Another idea, inspired by \cite{Lewbel}, would be to rely on an instrument that takes on more than two values.
+Following this approach would suggest a 4-valued instrument, the smallest value of $K$ for which $2K = K+4$.
+Unfortunately this approach fails as well, as we now show.
+%\cite{FL} point out that an instrument can be used in place of a second measure of $T^*$ provided that $T^*$ is still exogenous.
+%Essentially the same estimator as in \cite{BBS} and \cite{KRS} but more general since the instrument need not be binary: can in fact be continuous.
+%But they make a mistake. 
+%They assume $E[zu]=0$, $E[T^*u]=0$ and non-differential measurement error and claim that this is sufficient to consistently estimate $\beta$.
+%However, this is incorrect: we need the additional assumption that $E[zT^*u]=0$ which is stronger.
+%(They seem to think that this term only appears when you have an endogenous $T^*$.)
+%While \cite{FL} are aware that there are some differences between two measures of $T^*$, as in \cite{BBS}, and an arbitrary instrument $z$, they seem to have missed one subtle point.
+%The assumptions in \cite{BBS} in fact imply that $E[u|T^*,z]=0$.\footnote{This follows from Assumptions A1 and A2 combined with Equation 3.}
+%From this it follows that $E[zT^*u]=E[zu]=E[T^*u]=0$. 
+%However, if one takes the non-differential measurement assumption literally it is in fact sufficient in the case of two measures to assume only that $E[zu]=E[T^*u]=0$:
+%\begin{align}
+%  E[zT^*u] &= E[(T^*+w)T^*u] = E[(T^*)^2u] + E[wuT^*]  \\
+%  &= E\left[ E\left( u|T^* \right)(T^*)^2 \right] + E\left[E\left( wu|T^* \right)T^*\right]\\
+%  &= 0 + E\left[ E(w|T^*)E(u|T^*)T^* \right] = 0
+%\end{align}
+%using the fact that $E[u|T^*]=0$ and $w$ is independent of $u$ conditional on $T^*$.
+%This argument does \emph{not} necessarily apply to an arbitrary instrument $z$: $E[zu]=E[T^*u]=0$ does not imply that $E[zT^*u]=0$.
+%\todo[inline]{Put in our simple binary example.}
+%While it might seem strange to assume in practice that $E[zu]=E[T^*u]=0$ are exogenous but not that $E[zT^*u]=0$ the point is merely that this is an additional assumption beyond the usual assumptions of lack of correlation. 
+%
+\begin{thm}[Lack of Identification]
+  \label{pro:Lack}
+  Suppose that Assumption \ref{assump:A2} holds and additionally that $\mathbb{E}[\varepsilon|T^*,T,z]=\mathbb{E}[\varepsilon|T^*,z]$ (non-differential measurement error).  
+  Then regardless of how many values $z$ takes on, generically $\beta$ is unidentified based on the observables contained in Table \ref{tab:observables}.
+\end{thm}
+The preceding argument establishes lack of identification by deriving a parametric relationship between $\beta$ and $\alpha_0, \alpha_1, \{m^*_{1k}\}_{k=1}^K$.
+So long as we adjust the other parameters according to this relationship, we are free to vary $\beta$ while leaving all observable moments unchanged.
+This holds regardless of the number of values, $K$, that the instrument takes on.

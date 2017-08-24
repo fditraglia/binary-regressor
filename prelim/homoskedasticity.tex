@@ -1,0 +1,48 @@
+%!TEX root = ./main.tex
+\subsection{Identification Based on Higher Moments}
+Having shown that the moment conditions from Table \ref{tab:observables} do not identify $\beta$ regardless of the value of $K$, we now consider exploiting the information contained in higher moments of $y$. 
+When $z$ is not merely mean-independent but in fact \emph{statistically} independent of $\varepsilon$, as in a randomized controlled trial or a true natural experiment, the following assumptions hold automatically.
+\begin{assump}[Second Moment Independence]
+  $\mathbb{E}[\varepsilon^2|z]=\mathbb{E}[\varepsilon^2]$
+  \label{assump:homosked}
+\end{assump}
+\begin{assump}[Third Moment Independence]
+  $\mathbb{E}[\varepsilon^3|z]=\mathbb{E}[\varepsilon^3]$
+  \label{assump:skew}
+\end{assump}
+%When combined with the usual IV assumption, $\mathbb{E}[u|z]=0$, Assumption \ref{assump:homosked} implies that $Var(\varepsilon|z) = Var(\varepsilon)$.
+%Whether this assumption is reasonable, naturally, depends on the application.
+%When $z$ is the offer of treatment in a randomized controlled trial, for example, Assumption \ref{assump:homosked} holds automatically as a consequence of the randomization.
+%Similarly, in studies based on a ``natural'' rather than a controlled experiment, one typically argues that the instrument is not merely uncorrelated with the error term but \emph{independent} of it, so that Assumption \ref{assump:homosked} follows.
+\begin{thm}
+  \label{pro:homosked}
+  Under Assumption \ref{assump:homosked} and the conditions of Theorem \ref{pro:Lack} the difference of mis-classification rates, $(\alpha_1 - \alpha_0)$ is identified provided that $z$ takes on at least two values.
+\end{thm}
+
+The preceding result can be used in several ways.
+One possibility is to test for the presence of mis-classification error.
+If the treatment is measured without error, then $\alpha_0$ must equal $\alpha_1$.
+By examining the identified quantities $\mathcal{R}$ and $\mathcal{W}$, one could possibly discover that this requirement it violated.\footnote{Note that Theorem \ref{pro:homosked} requires $\alpha_0 + \alpha_1 \neq 1$, since the Wald estimator would otherwise be undefined. Accordingly, we cannot test for measurement error in the non-generic case $\alpha_0 = \alpha_1 = 1/2$.}
+Moreover, in some settings mis-classification may be one-sided.
+In a smoking and birthweight example, it seems unlikely that mothers who did \emph{not} smoke during pregnancy would falsely claim to have smoked.
+If either of $\alpha_0, \alpha_1$ is known, Theorem \ref{pro:homosked} point identifies the unknown error rate and hence $\beta$, using the fact that $\beta=\mathcal{W}(1-\alpha_0-\alpha_1)$.
+When neither of the error rates is known \emph{a priori}, the same basic idea can be used to construct \emph{bounds} for $\beta$.
+We now show that by augmenting Theorem \ref{pro:homosked} with information on conditional \emph{third} moments, we can point identify $\beta$.
+
+\begin{thm}
+  \label{thm:skew}
+  Under Assumptions \ref{assump:homosked}-\ref{assump:skew} and the conditions of Theorem \ref{pro:Lack}, the mis-classification rates $\alpha_0$ and $\alpha_1$ and the treatment effect $\beta$ are identified provided that $\alpha_0 + \alpha_1 < 1$ and $z$ takes on at least two values.
+\end{thm}
+
+
+Note that, unlike Theorem \ref{pro:homosked}, Theorem \ref{thm:skew} requires the assumption that $\alpha_0 + \alpha_1 < 1$.
+Without this assumption, we identify $\beta$ only up to sign.
+
+\subsection{Estimation}
+We now briefly describe how the identification results from above can be applied in practice.\footnote{This draft has focused on proving identification in the simplest possible way. While our identification results can be used for estimation, other procedures may be more efficient. Work in progress explores this possibility. For further discussion, see our Conclusion below.}
+In our arguments above we suppressed dependence on the covariates $\mathbf{x}$. 
+We now make this dependence explicit to illustrate how one can estimate the ATE $\tau(\mathbf{x})$ and the mis-classification rates $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ non-parametrically as a function of $\mathbf{x}$.
+Our proofs, which appear below in the appendix, provide closed-form expressions for each of these quantities in terms of three objects: $\mathcal{W}(\mathbf{x})$, defined in Equation \ref{eq:wald}, $\mathcal{R}(\mathbf{x})$, defined in Equation \ref{eq:Rdef} and $\mathcal{S}(\mathbf{x})$, defined in Equation \ref{eq:Sdef}.
+Provided that $p_k(\mathbf{x}) \neq p_\ell(\mathbf{x})$ for all $k\neq \ell$, which follows from Assumption \ref{assump:A1}(ii) by Equation \ref{eq:pkstar},  $\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})$ and $\tau(\mathbf{x})$ are smooth functions of $\left(\mathcal{W}(\mathbf{x}), \mathcal{R}(\mathbf{x}), \mathcal{S}(\mathbf{x})\right)$.
+Under the same condition, these in turn are smooth functions of  the underlying conditional expectation functions $ \mathbb{E}\left[ T|z,\mathbf{x} \right], \mathbb{E}\left[y| z,\mathbf{x} \right]$, $\mathbb{E}\left[y^2| z,\mathbf{x} \right]$, $\mathbb{E}\left[y^3| z,\mathbf{x} \right]$, $\mathbb{E}\left[yT| z,\mathbf{x} \right]$, and  $\mathbb{E}\left[y^2T| z,\mathbf{x} \right]$.
+One could employ any number of existing nonparametric techniques to estimate these conditional expectation functions, at which point one is left with a standard, two-step method of moments estimation problem.\footnote{For more details of the implementation of such a procedure see, e.g., \cite{Mahajan} Section 4 or \cite{Lewbel} Section 4.}

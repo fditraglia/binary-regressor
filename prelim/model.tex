@@ -1,0 +1,83 @@
+%!TEX root = ./main.tex
+\section{Main Results}
+\subsection{Notation and Basic Properties of the Model}
+Consider the model described in Equations \ref{eq:model}--\ref{eq:nondiff}.
+Our arguments below, like those of \cite{Mahajan} and \cite{Lewbel}, proceed by holding the exogenous covariates \emph{fixed} at some level $\mathbf{x}_a$.
+As such, there is no loss of generality from suppressing dependence on $\mathbf{x}$ in our notation. 
+It should be understood throughout that any conditioning statements are evaluated at $\mathbf{x}=\mathbf{x}_a$.
+To this end let $c = h(0,\mathbf{x}_a)$ and define $\beta = h(1,\mathbf{x}_a) - h(0,\mathbf{x}_a)$.
+Using this notation, Equation \ref{eq:model} can be re-expressed as a simple linear model, namely 
+\begin{equation}
+  y = \beta T^* + u 
+  \label{eq:linear}
+\end{equation}
+where we define $u = c + \varepsilon$, an error term that need not be mean zero.
+We maintain throughout that $\beta \neq 0$.
+If $\beta = 0$ then there is no meaningful sense in which there is ``mis-classification'' since $T^*$ is irrelevant for $y$.
+Because the probability limit of the usual Wald IV estimator in this model is proportional to $\beta$, as we will discuss below, this condition can be directly assessed from the data.
+
+From the perspective of non-parametric identification, the observables in this problem are the conditional distribution of $y$ given $(T,z)$, the conditional probabilities of $T$ given $z$, and the marginal probabilities of $z$.
+For now, following the existing literature, we will restrict attention to the conditional mean of $y$.
+Below we consider using higher moments of $y$.
+Let $\bar{y}_{t,k}$ denote $\mathbb{E}[y|T=t,z=z_k]$, let $p_k$ denote $\mathbb{P}(T=1|z=z_k)$ and let $q_k$ denote $\mathbb{P}(z=z_k)$.
+Table \ref{tab:observables} depicts the observable first moments for this problem.
+
+\begin{table}
+  \centering
+  \begin{tabular}{c|c|c|c|c|}
+    \multicolumn{1}{c}{}& \multicolumn{1}{c}{$z=1$} &\multicolumn{1}{c}{$z=2$} & \multicolumn{1}{c}{\dots} &\multicolumn{1}{c}{$z=K$}\\
+    \cline{2-5}
+    $T=0$ & \diagbox[dir=NE]{$\bar{y}_{01}$}{$p_{01}$} & \diagbox[dir=NE]{$\bar{y}_{02}$}{$p_{02}$} & \dots &\diagbox[dir=NE]{$\bar{y}_{0K}$}{$p_{0K}$}\\
+    \cline{2-5}
+    $T=1$ & \diagbox[dir=NE]{$\bar{y}_{11}$}{$p_{11}$} & \diagbox[dir=NE]{$\bar{y}_{12}$}{$p_{12}$} & \dots &\diagbox[dir=NE]{$\bar{y}_{1K}$}{$p_{1K}$}\\
+    \cline{2-5}
+  \end{tabular}
+  \caption{Observables, using the shorthand $p_{0k}=q_k(1-p_k)$ and $p_{1k}=q_kp_k$.}
+  \label{tab:observables}
+\end{table}
+
+
+The observed cell means $\bar{y}_{tk}$ depend on a number of unobservable parameters which we now define. 
+Let $m^*_{tk}$ denote the conditional mean of $u$ given $T^*=t$ and $z=z_k$, $\mathbb{E}[u|T^*=t, z=z_k]$, and let $p^*_k$ denote $\mathbb{P}(T^*=1|z=z_k)$.
+These quantities are depicted in Table \ref{tab:unobservables}.
+By the Law of Total Probability and the definitions of $p_k$ and $p_k^*$,
+\begin{eqnarray*}
+  p_k &=&  \mathbb{P}(T=1|z=z_k,T^*=0)(1-p^*_{k}) + \mathbb{P}(T=1|z=z_k,T^*=1)p^*_k \\
+  &=& \alpha_0 (1-p^*_k) + (1 - \alpha_1) p_k^* 
+\end{eqnarray*}
+since the misclassification probabilities do not depend on $z$ by Equations \ref{eq:a0}--\ref{eq:a1}.
+Rearranging, 
+\begin{equation}
+  p_k^* = \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1}, \quad
+  1 -p_k^* = \frac{1 - p_k - \alpha_1}{1 - \alpha_0 - \alpha_1}. 
+  \label{eq:pkstar}
+\end{equation}
+Equation \ref{eq:pkstar} implies that $p_k^*$ is observable given knowledge of $\alpha_0$ and $\alpha_1$, since $p_k$ is observable.
+Note that for these equations to be meaningful, we require that $\alpha_0 + \alpha_1 \neq 1$.
+Indeed, the existing literature \citep{Mahajan,Lewbel,FL,BBS,KRS} imposes the stronger condition that $\alpha_0 + \alpha_1 < 1$, namely that the measurement error is not so severe that $1-T$ is a better predictor of $T^*$ than $T$ is, and vice-versa.
+In the absence of this assumption the treatment effect would only be identified up to sign.
+Our identification result, presented below, will require that $\alpha_0 + \alpha_1 < 1$ whereas our partial identification result will not.
+
+\begin{table}
+  \centering
+  \begin{tabular}{c|c|c|c|c|}
+    \multicolumn{1}{c}{}& \multicolumn{1}{c}{$z=1$} &\multicolumn{1}{c}{$z=2$} & \multicolumn{1}{c}{\dots} &\multicolumn{1}{c}{$z=K$}\\
+    \cline{2-5}
+    $T^*=0$ & \diagbox[dir=NE]{$m^*_{01}$}{$p^*_{01}$} & \diagbox[dir=NE]{$m^*_{02}$}{$p^*_{02}$} & \dots &\diagbox[dir=NE]{$m^*_{0K}$}{$p^*_{0K}$}\\
+    \cline{2-5}
+    $T^*=1$ & \diagbox[dir=NE]{$m^*_{11}$}{$p^*_{11}$} & \diagbox[dir=NE]{$m^*_{12}$}{$p^*_{12}$} & \dots &\diagbox[dir=NE]{$m^*_{1K}$}{$p^*_{1K}$}\\
+    \cline{2-5}
+  \end{tabular}
+  \caption{Unobservables, using the shorthand $p^*_{0k}=q_k(1-p^*_k)$ and $p^*_{1k}=q_kp_k^*$.}
+  \label{tab:unobservables}
+\end{table}
+
+A key assumption below will be the conditional mean independence of the error term and instrument, in other words $\mathbb{E}\left[ \varepsilon|z \right]=0$.
+Since we have defined $u = c + \varepsilon$, this assumption can be expressed in terms of $m^*_{tk}$ as
+\begin{equation}
+  (1 - p_k^*)m_{0k}^* + p_k^* m_{1k}^* = c 
+  \label{eq:IV}
+\end{equation}
+for all $k = 1, \dots, K$.
+This restriction imposes that a particular weighted sum over the rows of a given column of Table \ref{tab:unobservables} takes the same value \emph{across} columns.
+

@@ -1,7 +1,7 @@
 \documentclass[12pt]{article}
 \usepackage{frankstyle}
 
-\title{Estimating the Effect of a Mis-measured, Binary, Endogenous Regressor\footnote{We thank Daron Acemoglu, Manuel Arellano, Kristy Buzard, Xu Cheng, Bernardo da Silveira, Bo Honor\'{e}, Sophocles Mavroeidis, Yuya Takahashi, and seminar participants at Chicago Booth, Princeton, Penn State, CEMFI, Manchester, Cambridge, UCL, and Oxford for valuable comments and suggestions.}}
+\title{Mis-classified, Binary, Endogenous Regressors: Identification and Inference\footnote{We thank Daron Acemoglu, Manuel Arellano, Kristy Buzard, Xu Cheng, Bernardo da Silveira, Bo Honor\'{e}, Sophocles Mavroeidis, Yuya Takahashi, and seminar participants at Cambridge, CEMFI, Chicago Booth, Manchester, Northwestern, Oxford, Penn State, Princeton, UCL, and the 2017 North American Summer Meeting of the Econometric Society for valuable comments and suggestions. This document supersedes an earlier version entitled ``On Mis-measured Binary Regressors: New Results and Some Comments on the Literature.''}}
 
 \author[1]{Francis J.\ DiTraglia}
 \author[1,2]{Camilo Garc\'{i}a-Jimeno}
@@ -19,7 +19,7 @@
 	\input{abstract.tex}
 
   	\bigskip
-	\noindent\textbf{Keywords:} Instrumental variables, Measurement error, Endogeneity, Binary regressor, Partial identification, Weak identification, Non-standard Inference
+	\noindent\textbf{Keywords:} Instrumental variables, Measurement error, Endogeneity,  Weak identification, Moment inequalities 
 
 	\medskip
   \noindent\textbf{JEL Codes:} C10, C18, C25, C26
@@ -29,19 +29,19 @@
 
 %Body of the paper
 \input{introduction.tex}
-\input{literature.tex}
-%\input{model.tex}
-%\input{mahajan_approach.tex}
-%\input{nonidentification.tex}
-%\input{homoskedasticity.tex}
-%\input{conclusion.tex}
+\input{identification.tex}
+\input{inference.tex}
+\input{simulation.tex}
+\input{cover_width.tex}
+\input{conclusion.tex}
 %\input{bonf_vs_twostep_figs.tex}
 %\input{bonf_figs.tex}
-\input{cover_width.tex}
 
 %Proofs in the Appendix
-%\appendix
-%\input{proofs.tex}
+\appendix
+\singlespacing \small
+\input{proofs.tex}
+\input{mahajan_approach.tex}
 
 \bibliographystyle{elsarticle-harv}
 \bibliography{binary}
