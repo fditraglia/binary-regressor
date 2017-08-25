@@ -58,6 +58,26 @@ The failure of Assumption ??? in turn leads to a division by zero in the solutio
   Suppose that Assumptions ??? hold and $\mathbb{E}[\varepsilon|T^*]\neq0$. Then $\mathbb{P}(T^*=1|z_1) = \mathbb{P}(T^*=1|z_2)$, violating Assumption ???. 
 \end{pro}
 
+\begin{proof}
+  By the Law of Iterated Expectations,
+  \begin{equation}
+    \label{eq:NoSelection}
+    \mathbb{E}[\varepsilon|T^*,z] = \mathbb{E}_{T|T^*,z}\left[\mathbb{E}\left(\varepsilon|T^*,T,z \right)  \right] = \mathbb{E}_{T|T^*,z}\left[\mathbb{E}\left(\varepsilon|T^* \right)  \right]
+    = \mathbb{E}\left[ \varepsilon|T^* \right]
+  \end{equation}
+    where the second equality follows from Assumption \ref{assump:mahajan} and the final equality comes from the fact that $\mathbb{E}[\varepsilon|T^*]$ is $(T^*,z)$--measurable. 
+  Using our notation from above let $u = c + \varepsilon$ and define $m^*_{tk}=\mathbb{E}[u|T^*=t,z=z_k]$.
+  Since $c$ is a constant, by Equation ??? we see that $m^*_{01}=m^*_{02}$ and $m^*_{11}=m^*_{12}$.
+  Now, by Assumption ??? we have $\mathbb{E}[\varepsilon|z]=0$ so that $\mathbb{E}[u|z_1]= \mathbb{E}[u|z_2] =c$.
+  Again using iterated expectations, 
+  \begin{align*}
+    \mathbb{E}\left[u|z_1 \right] &= \mathbb{E}_{T^*|z_1}\left[\mathbb{E}\left( u|T^*,z_1 \right)  \right] = (1-p_1^*) m^*_{01} + p^*_1 m^*_{11}=c\\
+    \mathbb{E}\left[u|z_2 \right] &= \mathbb{E}_{T^*|z_2}\left[\mathbb{E}\left( u|T^*,z_2 \right)  \right] = (1-p_2^*) m^*_{02} + p^*_2 m^*_{12}=c
+  \end{align*}
+  The preceding two equations, combined with $m^*_{01}=m^*_{02}$ and $m^*_{11}=m^*_{12}$ imply that $p_1^* = p_2^*$ unless $m^*_{01} = m^*_{11} = m^*_{02} = m^*_{12} = c$.
+  But this four-way equality is ruled out by the assumption that $\mathbb{E}[\varepsilon|T^*]\neq0$. 
+\end{proof}
+
 To understand the economic intuition behind Proposition ???, consider a simple example in which we randomize the offer of a job training program to a sample of workers to study the impact on future earnings.
 In this context $z$ indicates whether a particular individual is \emph{offered} job training by the experimenter while $T^*$ indicates whether she actually \emph{obtains} job training from any source, inside or outside of the experiment.
 We observe not $T^*$ but a self-report $T$ that is measured with error.
@@ -74,4 +94,4 @@ This is exactly the opposite of what we would expect in the job training setting
 For example, individuals who are offered job training but refuse it, are likely to be very different from those who are not offered training and fail to obtain it from an outside source. 
 And herein lies the problem: Assumption ??? simultaneously allows endogeneity and rules out selection.
 Given that the offer of job training is randomly assigned, and hence a valid instrument, the only way to avoid a contradiction is if there is no first stage: the fraction of individuals who take up job training cannot depend on the offer of training.
-
+ 

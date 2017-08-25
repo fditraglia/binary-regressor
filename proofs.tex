@@ -96,7 +96,7 @@ we see that Assumption \ref{assump:model} (i) is satisfied if and only if $\math
 But since $p_k = \alpha_0$ in this case, $c = c + \beta (p_k - \alpha_0)/(1 - \alpha_0 - \alpha_1)$.
 
 \paragraph{Case III: $r_{1k}\neq 0, r_{0k} = 0$}
-By Equation \ref{eq:rtk} this requires $\alpha_1 = $ and $p_k^* \neq 0$.
+By Equation \ref{eq:rtk} this requires $\alpha_1 = 0$ and $p_k^* \neq 0$.
 By Equation \ref{eq:Ftk} we have $F^0_{0k} = F_{0k}$ and since $r_{1k} \neq 1$, we can solve to obtain
 \[
   F^1_{1k}(\tau) = \frac{1}{r_{1k}}\left[F_{1k}(\tau) - (1 - r_{1k})F^0_{1k}(\tau)\right]
@@ -301,23 +301,6 @@ Therefore  $(1 - \alpha_0 - \alpha_1) \mbox{Cov}(T^*\varepsilon,z) = \mbox{Cov}(
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{proof}[Proof of Corollary \ref{cor:theta_ident}]
-  For ease of notation we suppress dependence on $\mathbf{x}$ throughout this argument.
-  Lemmas ??? yield a triangular system of linear equations in $\theta_1, \theta_2, \theta_3$.
-%\begin{align*}
-% \pi\theta_1 &= \eta_1 \\
-% 2\tau_1 \theta_1 - \pi \theta_2 &= \eta_2 \\
-% 3\tau_2 \theta_1 - 3\tau_1 \theta_2 + \pi\theta_3 &= \eta_3
-%\end{align*}
-By inspection, the determinant of the system is $-\pi^3$ so a unique solution exists if and only if $\pi \neq 0$. 
-In particular,
-\begin{align*}
-  \theta_1 &= \eta_1 / \pi\\
-  \theta_2 &= 2\tau_1\eta_1/\pi^2 - \eta_2/\pi\\
-  \theta_3 &= \eta_3/\pi - 3(\tau_2\eta_1 + \tau_1\eta_2)/\pi^2 + 6\tau_1^2\eta_1/\pi^3.
-\end{align*}
-\end{proof}
-
 \begin{proof}[Proof of Lemma \ref{lem:eta3}]
   Throughout this argument we suppress dependence on $\mathbf{x}$ for simplicity.
   Since $T^*$ is binary, if follows from the basic properties of covariance that,
@@ -411,8 +394,16 @@ Therefore the coefficients of $\eta_3$ equal those of $3\tau_2 - 3\tau_1 \theta_
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{proof}[Proof of Theorem \ref{thm:main_ident}]
-  For ease of notation we suppress dependence on $\mathbf{x}$ throughout this argument.
-  So long as $\beta \neq 0$, we can rearrange Equations \ref{eq:theta2_def} and \ref{eq:theta3_def} to obtain 
+  For ease of notation we suppress dependence on $\mathbf{x}$ throughout.
+  Collecting the results of Lemmas \ref{lem:wald}--\ref{lem:eta3}, we have
+\begin{align*}
+ \eta_1 &= \pi\theta_1 \\
+  \eta_2 &=  2\tau_1 \theta_1 - \pi \theta_2 \\
+  \eta_3 &= 3\tau_2 \theta_1 - 3\tau_1 \theta_2 + \pi\theta_3
+\end{align*}
+which is a linear system in $\theta_1, \theta_2, \theta_3$ with determinant $-\pi^3$.
+Since $\pi \neq 0$ by assumption \ref{assump:model} (ii), $\theta_1, \theta_2$ and $\theta_3$ are identified.
+  Now, so long as $\beta \neq 0$, we can rearrange Equations \ref{eq:theta2_def} and \ref{eq:theta3_def} to obtain 
   \begin{align}
     \label{eq:quadraticA}
   A &= \theta_2/\theta_1^2 = 1 + (\alpha_0 - \alpha_1)  \\
