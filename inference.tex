@@ -46,7 +46,7 @@ Defining the observed data vector $\mathbf{w}' = (T, y, yT, y^2, y^2 T, y^3)$, c
 
 Equation \ref{eq:MCs_endog} is a just-identified, linear system of moment equalities in the reduced form parameters $(\boldsymbol{\theta},\boldsymbol{\kappa})$ and yields explicit GMM estimators $(\widehat{\boldsymbol{\kappa}},\widehat{\boldsymbol{\theta}})$.
 From Theorem \ref{thm:main_ident}, knowledge of $\boldsymbol{\theta}$ suffices to identify $\beta$.
-Notice from the definitions of $\boldsymbol{\kappa}$ above and $\boldsymbol{\theta}$  in Equations \ref{eq:theta1_def}--\ref{eq:theta3_def}, however, that the moment equalities from Equation \ref{eq:MCs_endog} do not depend on $(\alpha_0, \alpha_1)$ if $\beta$ equals zero.
+From the definitions of $\boldsymbol{\kappa}$ above and $\boldsymbol{\theta}$  in Equations \ref{eq:theta1_def}--\ref{eq:theta3_def}, however, the moment equalities from Equation \ref{eq:MCs_endog} do not depend on $(\alpha_0, \alpha_1)$ if $\beta$ equals zero.
 By continuity, they are \emph{nearly} uninformative about the mis-classification probabilities if $\beta$ is small.
 But unless $\beta = 0$, knowledge of $(\alpha_0, \alpha_1)$ is necessary to recover $\beta$, via Lemma \ref{lem:wald}. 
 Thus, we face a weak identification problem.
@@ -66,7 +66,7 @@ Exactly the same inferential difficulties arise in the case where $T^*$ and $z$ 
 This issue, however, has received little attention in the literature. 
 \cite{KRS} ensure that $(\alpha_0, \alpha_1)$ are valid probabilities by employing a logit specification.
 Frazis and Loewenstein employ a pseudo-Bayesian approach to ensure that $\alpha_0$ and $\alpha_1$ are valid probabilities, and to impose partial identification bounds related to those from our Theorem \ref{thm:sharpI}, i.e.\ without using the non-differential measurement error restrictions.
-Because they provide provide neither simulation evidence nor a theoretical justification for their procedure, it is difficult to assess whether this method will yield valid Frequentist coverage.
+Because they provide neither simulation evidence nor a theoretical justification for their procedure, however, it is difficult to assess whether this method will yield valid Frequentist coverage.
 We are unaware of any papers in the related literature that discuss the weak identification problem arising when $\beta$ is small.
 
 In the following sections we develop a procedure for uniformly valid inference in models with a mis-classified binary regressor.
