@@ -32,7 +32,7 @@ $\boldsymbol{\Psi} = \left[
   \begin{array}{ccc}
     \psi_1 & \psi_2 & \psi_3
 \end{array}\right]$.
-Defining the observed data vector $\mathbf{w}' = (T, y, yT, y^2, y^2 T, y^3)$, can re-write the moment equations in unconditional form as:
+Defining the observed data vector $\mathbf{w}_i' = (T_i, y_i, y_iT_i, y_i^2, y_i^2 T_i, y_i^3)$ for observation $i$, can re-write the moment equations as:
 \begin{equation}
 \mathbb{E}\left[
   \big(\boldsymbol{\Psi}'(\boldsymbol{\theta})\mathbf{w}_i - \boldsymbol{\kappa}\big) \otimes 
@@ -74,6 +74,62 @@ This procedure is computationally attractive, and can be applied to both the end
 
 
 \subsection{Unconditional Moment Inequalities}
+
+Bounds from Theorem \ref{thm:sharpI} 
+\begin{equation*}
+  p_k - \alpha_0 \geq 0, \quad \quad 1 - p_k - \alpha_1 \geq 0, \quad \mbox{for all } k 
+\end{equation*}
+where the first-stage probabilities $p_k$ are defined in Equation \ref{eq:pk_def}.
+Written as unconditional moment inequalities 
+\begin{equation}
+  \mathbb{E}\left[ m_1^I(\mathbf{w}_i,\boldsymbol{\alpha} ) \right] \geq \mathbf{0},  \quad
+m_1^I(\mathbf{w}_i, \boldsymbol{\alpha}) \equiv \left[
+  \begin{array}{l}
+    (1 - z_i)(T_i - \alpha_0) \\
+    (1 - z_i)(1 - T_i - \alpha_1) \\
+    z_i(T - \alpha_0) \\
+    z_i (1 - T_i - \alpha_1) 
+  \end{array}
+\right]
+\end{equation}
+where $\boldsymbol{\alpha} = (\alpha_0, \alpha_1)$.
+Bounds from Theorem \ref{thm:sharpII}, adding non-differential assumption:
+\begin{equation*}
+  \mu_k(\alpha_0) - \underline{\mu}_{tk}\big( \underline{q}_{tk}(\alpha_0, \alpha_1) \big) \geq 0, \quad \quad
+  \overline{\mu}_{tk}\big( \overline{q}_{tk}(\alpha_0, \alpha_1) \big) - \mu_k(\alpha_0) \geq 0, \quad \mbox{for all } t,k
+\end{equation*}
+where $\mu_k, \underline{\mu}_{tk}, \overline{\mu}_{tk}, \underline{q}_{tk}$ and $\overline{q}_{tk}$ are defined in the statement of the Theorem.
+Unconditional moment inequalities:
+\begin{equation}
+  \mathbb{E}[m_2^I(\mathbf{w}_i,\boldsymbol{\alpha}, \mathbf{q})] \geq \mathbf{0}, \quad 
+  m_2^I(\mathbf{w}_i,\boldsymbol{\alpha}, \mathbf{q}) \equiv \left[
+  \begin{array}{c}
+    m_{2,00}^I(\mathbf{w}_i,\boldsymbol{\alpha}, \mathbf{q})  \\ 
+    m_{2,10}^I(\mathbf{w}_i,\boldsymbol{\alpha}, \mathbf{q}) \\
+    m_{2,01}^I(\mathbf{w}_i,\boldsymbol{\alpha}, \mathbf{q})  \\ 
+    m_{2,11}^I(\mathbf{w}_i,\boldsymbol{\alpha}, \mathbf{q}) 
+  \end{array}
+\right] 
+\end{equation}
+where $\mathbf{q} = ( \underline{q}_{00}, \overline{q}_{00}, \underline{q}_{10}, \overline{q}_{10}, \underline{q}_{01}, \overline{q}_{01}, \underline{q}_{11}, \overline{q}_{11})$ and we define
+\begin{align}
+  m_{2,0k}^I(\mathbf{w}_i, \boldsymbol{\alpha}, \mathbf{q}) \equiv \left[
+  \begin{array}{r}
+    y_i \mathbf{1}\left( z_i=k \right)\left\{(T_i - \alpha_0) - \mathbf{1}(y_i \leq \underline{q}_{0k})  (1 - T_i)\left( \frac{1 - \alpha_0 - \alpha_1}{\alpha_1} \right)\right\} \\
+    - y_i \mathbf{1}(z_i=k) \left\{ (T_i - \alpha_0) -  \mathbf{1}(y_i > \overline{q}_{0k}) (1 - T_i) \left( \frac{1 - \alpha_0 - \alpha_1}{\alpha_1} \right) \right\} 
+\end{array}
+\right] \\\nonumber \\
+  m_{2,1k}^I(\mathbf{w}_i, \boldsymbol{\alpha}, \mathbf{q}) \equiv \left[
+  \begin{array}{r}
+    y_i \mathbf{1}\left( z_i=k \right)\left\{(T_i - \alpha_0) - \mathbf{1}(y_i \leq \underline{q}_{1k})  T_i\left( \frac{1 - \alpha_0 - \alpha_1}{1 - \alpha_1} \right)\right\} \\
+    - y_i \mathbf{1}(z_i=k) \left\{ (T_i - \alpha_0) -  \mathbf{1}(y_i > \overline{q}_{1k}) T_i \left( \frac{1 - \alpha_0 - \alpha_1}{1 - \alpha_1} \right) \right\} 
+\end{array}
+\right].
+\end{align}
+Now have all the inequalities but $\mathbf{q}$ is unknown and has to be estimated.
+Talk about this in the next section.
+
+
 
 \subsection{Preliminary Estimators of Strongly Identified Parameters}
 
