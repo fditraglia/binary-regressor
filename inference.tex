@@ -1,2 +1,83 @@
 %!TEX root = ./main.tex
 \section{Identification-Robust Inference}
+We now turn our attention to inference based on the identification results from above.
+As we explain below, inference under binary mis-classification is complicated by problems of weak identification and parameters on the boundary.
+For simplicity we fix the exogenous covariates at some specified level and suppress dependence on $\mathbf{x}$ in the notation.
+This is appropriate if the covariates have a discrete support.
+We discuss how to incorporate covariates more generally in Section \ref{sec:covariates}.
+
+\subsection{The Non-standard Inference Problem}
+Lemmas \ref{lem:wald}--\ref{lem:eta3} yield the following system of linear moment equalities in the reduced form parameters $\boldsymbol{\theta} = (\theta_1, \theta_2, \theta_3)$ from Equations \ref{eq:theta1_def}--\ref{eq:theta3_def}:
+\begin{align*}
+  \mbox{Cov}(y,z) - \mbox{Cov}(T,z) \theta_1 &= 0\\
+  \mbox{Cov}(y^2,z) - 2\mbox{Cov}(yT,z) \theta_1 + \mbox{Cov}(T,z)\theta_2 &= 0\\
+  \mbox{Cov}(y^3,z) - 3 \mbox{Cov}(y^2T,z) \theta_1 + 3\mbox{Cov}(yT,z) \theta_2 - \mbox{Cov}(T,z) \theta_3 &= 0
+\end{align*}
+Non-linearity arises solely through the relationship between the reduced from parameters $\boldsymbol{\theta}$ and the structural parameters $(\alpha_0, \alpha_1, \beta)$.
+To convert the preceding moment equations into unconditional moment equalities, we define the additional reduced form parameters $\boldsymbol{\kappa} = (\kappa_1, \kappa_2, \kappa_3)$ as follows:
+\begin{align*}
+\kappa_1 &= c - \alpha_0 \theta_1\\
+  \kappa_2 &= c^2 + \sigma_{\varepsilon\varepsilon} + \alpha_0 (\theta_2 - 2c \theta_1)\\
+  \kappa_3 &= c^3 + 3\left( c - \theta_1 \alpha_0 \right) \sigma_{\varepsilon\varepsilon} + \mathbb{E}[\varepsilon^3] - \alpha_0 \theta_3 - 3 c \alpha_0 \left[ \theta_1 \left( c + \beta \right) - 2\theta_1^2 (1 - \alpha_1) \right]
+\end{align*}
+Building on this notation, let
+\begin{equation}
+  \psi_1' = (-\theta_1, 1, 0, 0, 0, 0), \quad
+  \psi_2' = (\theta_2, 0, -2\theta_1, 1, 0, 0), \quad
+  \psi_3' = (-\theta_3, 0, 3\theta_2, 0, -3\theta_1, 1)
+  \label{eq:psi_def}
+\end{equation}
+and collect these in the matrix
+$\boldsymbol{\Psi} = \left[
+  \begin{array}{ccc}
+    \psi_1 & \psi_2 & \psi_3
+\end{array}\right]$.
+Defining the observed data vector $\mathbf{w}' = (T, y, yT, y^2, y^2 T, y^3)$, can re-write the moment equations in unconditional form as:
+\begin{equation}
+\mathbb{E}\left[
+  \big(\boldsymbol{\Psi}'(\boldsymbol{\theta})\mathbf{w}_i - \boldsymbol{\kappa}\big) \otimes 
+\left(
+\begin{array}{c}
+  1 \\ z_i
+\end{array}\right)
+\right] = \mathbf{0}
+\label{eq:MCs_endog}
+\end{equation}
+
+Equation \ref{eq:MCs_endog} is a just-identified, linear system of moment equalities in the reduced form parameters $(\boldsymbol{\theta},\boldsymbol{\kappa})$ and yields explicit GMM estimators $(\widehat{\boldsymbol{\kappa}},\widehat{\boldsymbol{\theta}})$.
+From Theorem \ref{thm:main_ident}, knowledge of $\boldsymbol{\theta}$ suffices to identify $\beta$.
+Notice from the definitions of $\boldsymbol{\kappa}$ above and $\boldsymbol{\theta}$  in Equations \ref{eq:theta1_def}--\ref{eq:theta3_def}, however, that the moment equalities from Equation \ref{eq:MCs_endog} do not depend on $(\alpha_0, \alpha_1)$ if $\beta$ equals zero.
+By continuity, they are \emph{nearly} uninformative about the mis-classification probabilities if $\beta$ is small.
+But unless $\beta = 0$, knowledge of $(\alpha_0, \alpha_1)$ is necessary to recover $\beta$, via Lemma \ref{lem:wald}. 
+Thus, we face a weak identification problem.
+This is essentially equivalent to the problem of estimating mixture probabilities when the means of the component distributions are very similar to each other.
+Indeed, the GMM estimator of $\widehat{\beta}$ based on Equation \ref{eq:MCs_endog} may even fail to exist.
+Using arguments from the proof of Theorem \ref{thm:main_ident}, this estimator is given by is
+\[
+  \widehat{\beta} = \mbox{sign}\big(\widehat{\theta}_1\big) \sqrt{3\left( \widehat{\theta}_2/\widehat{\theta}_1 \right)^2 - 2 \left(\widehat{\theta}_3/\widehat{\theta}_1 \right)}
+\]
+Under our assumptions, $3(\theta_2/\theta_1)^2 > 2 (\theta_3/\theta_1)$ provided that $\beta \neq 0$, but this may not be true of the sample analogue.
+Indeed, because $\widehat{\theta}_1$ appears in the denominator, the terms within the square root will be highly variable if $\beta$ is small.
+Even if the GMM estimator exists, it may violate the partial identification bounds for $(\alpha_0, \alpha_1)$ from Theorem \ref{thm:sharpII}, or imply that $(\alpha_0,\alpha_1)$ are not valid probabilities. 
+Importantly, the partial identification bounds remain informative even if $\beta$ is small or zero: so long as Assumption \ref{assump:model} (ii) holds, the first-stage probabilities bound $\alpha_0$ and $\alpha_1$ from above.
+
+
+Exactly the same inferential difficulties arise in the case where $T^*$ and $z$ are assumed to be jointly exogenous, as in \cite{KRS,BBS,FL,Mahajan,Lewbel}.\footnote{We provide details for \cite{FL} and \cite{Mahajan} in Appendix \ref{sec:FL_mahajan}.}
+This issue, however, has received little attention in the literature. 
+\cite{KRS} ensure that $(\alpha_0, \alpha_1)$ are valid probabilities by employing a logit specification.
+Frazis and Loewenstein employ a pseudo-Bayesian approach to ensure that $\alpha_0$ and $\alpha_1$ are valid probabilities, and to impose partial identification bounds related to those from our Theorem \ref{thm:sharpI}, i.e.\ without using the non-differential measurement error restrictions.
+Because they provide provide neither simulation evidence nor a theoretical justification for their procedure, it is difficult to assess whether this method will yield valid Frequentist coverage.
+We are unaware of any papers in the related literature that discuss the weak identification problem arising when $\beta$ is small.
+
+In the following sections we develop a procedure for uniformly valid inference in models with a mis-classified binary regressor.
+This procedure is computationally attractive, and can be applied to both the endogenous and exogenous regressor cases, under either point or partial identification.
+
+
+\subsection{Unconditional Moment Inequalities}
+
+\subsection{Preliminary Estimators of Strongly Identified Parameters}
+
+\subsection{Inference via Generalized Moment Selection}
+
+\subsection{Incorporating Covariates}
+\label{sec:covariates}
