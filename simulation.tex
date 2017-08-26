@@ -1,2 +1,25 @@
 %!TEX root = ./main.tex
 \section{Simulation Study}
+
+\begin{itemize}
+  \item Describe simulation DGP and reference the sections in the paper upon which our calculations are based.
+  \item GMM does a bad job for small $\beta$ but a good job for large $\beta$.
+    Note that we have changed our convention so we report coverage and width conditional on the interval existing!
+  \item GMS test for $(\alpha_0, \alpha_1)$ uniformly controls size except for a small distortion at $\beta=3,\alpha_0=0.1$ that we can't explain.
+  \item Now show the Bonferroni results:
+    \begin{itemize}
+      \item Uniformly controls size
+      \item There is basically no conservatism in the zero measurement error case
+      \item This comes from using the non-diff bounds (refer to the picture). Notice how these turn out to be very informative. They can only be informative from below, however, since $\alpha_0 = \alpha_1 = 0$ is always in the sharp identified set without our higher moment assumptions.
+      \item When measurement error isn't zero, the method is conservative. 
+      \item In the small $\beta$ cases, the conservatism is really a ``feature'' rather than a bug because there you are effectively not identified so we're really looking at an identified set.
+      \item The conservatism is severe when $\beta$ is large and there is a lot of measurement error.
+        The widths of the intervals are huge, although they do shrink with sample size.
+        In contrast, GMM is working fine here.
+      \item GMS doesn't seem to be able to ``detect'' the case where inference is standard. 
+        Interesting question that doesn't seem to have been studied much about transitioning between partial and point identification (or weak and strong identification).
+        We think the source of the conservatism is that we have an ellipse with a small variance in the beta direction and a large one in the alpha directions, so any kind of joint interval that we project will be very conservative for $\beta$. Maybe try to make a picture of this?
+      \item Propose two-step procedure to address the conservatism when $\beta$ is large. 
+        Explain the basic idea and show that it works perfectly and is essentially a free lunch. The end!
+    \end{itemize}
+\end{itemize}
