@@ -72,8 +72,7 @@ We are unaware of any papers in the related literature that discuss the weak ide
 
 \subsection{Overview of the Inference Procedure}
 In the following sections we develop a procedure for uniformly valid inference in models with a mis-classified binary regressor.
-This procedure is computationally attractive, and can be applied to both the endogenous and exogenous regressor cases, under either point or partial identification.
-
+%This procedure is computationally attractive, and can be applied to both the endogenous and exogenous regressor cases, under either point or partial identification.
 Our purpose is to construct a confidence interval for $\beta$ that is robust to possible weak identification, respects the restricted parameter space for $(\alpha_0, \alpha_1)$, and incorporates both the information in the equality moment conditions from Equation \ref{eq:MCs_endog} along with the partial identification bounds from Theorem \ref{thm:sharpII}.\footnote{Note that $\beta=0$ if and only if $\theta_1 = 0$. Thus, if one is merely interested in testing $H_0\colon \beta=0$, one can ignore the mis-classification error problem and test $H_0\colon \theta_1 = 0$ using the standard IV estimator and standard error, provided that $z$ is a strong instrument.}
 As argued in the preceding section, our partial identification bounds remain informative even when the equality moment conditions contain essentially no information about $\beta$.
 Before proceeding, we introduce some notation.
@@ -119,7 +118,7 @@ We proceed by inverting an Anderson-Rubin type test statistic, namely the modifi
   T_n(\boldsymbol{\vartheta}) = \sum_{j=1}^{J_1}\min\left\{ 0, \left( \frac{\sqrt{n}\; \bar{m}_n^I(\boldsymbol{\vartheta})}{\widehat{\sigma}_n(\boldsymbol{\vartheta})} \right)^2 \right\} + \sum_{j=J_1 + 1}^{J} \left( \frac{\sqrt{n}\; \bar{m}_n^E(\boldsymbol{\vartheta})}{\widehat{\sigma}_n(\boldsymbol{\vartheta})} \right)^2.
   \label{eq:MMM}
 \end{equation}
-To improve the power of the test while maintaining valid size, we employ the generalized moment selection (GMS) approach of ???\todo{Cite!}.
+To improve the power of the test while maintaining valid size, we employ the generalized moment selection (GMS) approach of \cite{AndrewsSoares}.
 In particular, when approximating the asymptotic distribution of $T_n$ under the null $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, we drop any inequality moment condition $m_j^I$ for which $\sqrt{n}\big[\bar{m}_n(\boldsymbol{\vartheta}_0)/ \widehat{\sigma}_n(\boldsymbol{\vartheta}_0)\big] > \sqrt{\log(n)}$.\footnote{Full details appear in Section \ref{sec:details} below.}
 The GMS procedure yields a uniformly valid test of the \emph{joint} null hypothesis for the full parameter vector $\boldsymbol{\vartheta}$. 
 In our model, this includes the parameter of interest $\beta$ along various nuisance parameters: the mis-classification probabilities $\alpha_0$ and $\alpha_1$, the reduced form parameters $\boldsymbol{\kappa}$, defined in Section \ref{sec:problem}, and a vector $\mathbf{q}$ of parameters that enter the moment inequalities.\footnote{These are defined below in Section \ref{sec:inequalities}.}
@@ -143,7 +142,7 @@ This method is more computationally demanding than our two-dimensional projectio
 From a practical perspective, the relevant question is whether the reduction in conservatism from projecting a lower dimensional set is outweighed by the additional conservatism induced by the Bonferroni correction. 
 In our experiments, the full three-dimensional projection and Bonferroni procedure produced broadly similar results: neither reliably dominated in terms of confidence interval width.
 Given its substantially lower computational burden, we prefer the Bonferroni procedure.
-We also experimented with two recently proposed methods for sub-vector inference: \todo[inline]{CITE CITE CITE!!!} In both cases we obtained size distortions, suggesting that our model may not satisfy the high-level regularity conditions required by these papers.}
+We also experimented with two recently proposed methods for sub-vector inference: \cite{kaido2016confidence} and \cite{BugniCanayShi}. In both cases we obtained significant size distortions, suggesting that our model may not satisfy the high-level regularity conditions required by these papers.}
 If desired, one could also carry out a valid test of the null hypothesis that there is no mis-classification, $\alpha_0 = \alpha_1 = 0$, using the joint test for $(\alpha_0, \alpha_1)$. 
 In the following sections we provide full details of our Bonferroni-based confidence interval procedure for $\beta$.
 We begin by defining the unconditional moment inequalities $m^I$ in Section \ref{sec:inequalities}.
