@@ -7,6 +7,7 @@ This is appropriate if the covariates have a discrete support.
 We discuss how to incorporate covariates more generally in Section \ref{sec:covariates}.
 
 \subsection{The Non-standard Inference Problem}
+\label{sec:problem}
 Lemmas \ref{lem:wald}--\ref{lem:eta3} yield the following system of linear moment equalities in the reduced form parameters $\boldsymbol{\theta} = (\theta_1, \theta_2, \theta_3)$ from Equations \ref{eq:theta1_def}--\ref{eq:theta3_def}:
 \begin{align*}
   \mbox{Cov}(y,z) - \mbox{Cov}(T,z) \theta_1 &= 0\\
@@ -119,40 +120,38 @@ We proceed by inverting an Anderson-Rubin type test statistic, namely the modifi
   \label{eq:MMM}
 \end{equation}
 To improve the power of the test while maintaining valid size, we employ the generalized moment selection (GMS) approach of ???\todo{Cite!}.
-In particular, when approximating the asymptotic distribution of $T_n$ under the null $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, we drop any inequality moment condition $m_j^I$ for which $\sqrt{n}\big[\bar{m}_n(\boldsymbol{\vartheta}_0)/ \widehat{\sigma}_n(\boldsymbol{\vartheta}_0)\big] > \sqrt{\log(n)}$. 
+In particular, when approximating the asymptotic distribution of $T_n$ under the null $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, we drop any inequality moment condition $m_j^I$ for which $\sqrt{n}\big[\bar{m}_n(\boldsymbol{\vartheta}_0)/ \widehat{\sigma}_n(\boldsymbol{\vartheta}_0)\big] > \sqrt{\log(n)}$.\footnote{Full details appear in Section \ref{sec:details} below.}
+The GMS procedure yields a uniformly valid test of the \emph{joint} null hypothesis for the full parameter vector $\boldsymbol{\vartheta}$. 
+In our model, this includes the parameter of interest $\beta$ along various nuisance parameters: the mis-classification probabilities $\alpha_0$ and $\alpha_1$, the reduced form parameters $\boldsymbol{\kappa}$, defined in Section \ref{sec:problem}, and a vector $\mathbf{q}$ of parameters that enter the moment inequalities.\footnote{These are defined below in Section \ref{sec:inequalities}.}
+Under a given joint null hypothesis for $(\beta, \alpha_0, \alpha_1)$, however, $\boldsymbol{\kappa}$ and $\mathbf{q}$ are strongly identified and lie on the interior their respective parameter spaces. 
+Accordingly, in Section \ref{sec:prelim} we explain how to concentrate these parameters out of the GMS procedure, by deriving an appropriate correction to the asymptotic variance matrix of the moment conditions.
+Note that we cannot concentrate out $\alpha_0$ and $\alpha_1$ as we did with $\boldsymbol{\kappa}$ and $\mathbf{q}$, because the mis-classification probabilities may be weakly identified or lie on the boundary of their parameter space.
+
+This leaves us with a uniformly valid test of any joint null hypothesis for $(\beta, \alpha_0, \alpha_1)$.
+To construct a marginal confidence interval for $\beta$ we proceed as follows.
+Suppose that $z$ is a strong instrument.
+Then the usual IV estimator provides a valid confidence interval for the reduced from parameter $\theta_1$.
+By Lemma \ref{lem:wald}, knowledge of $(1 - \alpha_0 - \alpha_1)$ suffices to determine $\beta$ from $\theta_1$.
+Thus, a valid confidence interval for $(1 - \alpha_0 - \alpha_1)$ can be combined with the IV interval for $\theta_1$ to yield a corresponding interval for $\beta$, via a Bonferroni-type correction.
+To construct the required interval for $(1 - \alpha_0 - \alpha_1)$, notice from Equations \ref{eq:theta1_def}--\ref{eq:theta3_def} that $\beta$ only enters $\bar{m}_n$ through $\theta_1$.
+But, again, provided that $z$ is a strong instrument, inference for $\theta_1$ is standard.
+We can thus pre-estimate it along with $\boldsymbol{\kappa}$ and $\mathbf{q}$, yielding a uniformly valid GMS test of any joint null hypothesis for $(\alpha_0, \alpha_1)$.
+A valid confidence interval for $(1 - \alpha_0 - \alpha_1)$ is easily obtained by projecting the joint confidence set.
+This is computationally trivial because the parameter space for $(\alpha_0, \alpha_1)$ is bounded and two-dimensional.\footnote{We considered two alternatives to the Bonferroni-based inference procedure described here.
+  The first constructs a marginal confidence interval for $\beta$ by projecting a joint confidence set for $(\beta, \alpha_1, \alpha_0)$, i.e.\ \emph{without} preliminary estimation of $\theta_1$.
+This method is more computationally demanding than our two-dimensional projection and involves a parameter space that is unbounded along the $\beta$-dimension.
+From a practical perspective, the relevant question is whether the reduction in conservatism from projecting a lower dimensional set is outweighed by the additional conservatism induced by the Bonferroni correction. 
+In our experiments, the full three-dimensional projection and Bonferroni procedure produced broadly similar results: neither reliably dominated in terms of confidence interval width.
+Given its substantially lower computational burden, we prefer the Bonferroni procedure.
+We also experimented with two recently proposed methods for sub-vector inference: \todo[inline]{CITE CITE CITE!!!} In both cases we obtained size distortions, suggesting that our model may not satisfy the high-level regularity conditions required by these papers.}
+If desired, one could also carry out a valid test of the null hypothesis that there is no mis-classification, $\alpha_0 = \alpha_1 = 0$, using the joint test for $(\alpha_0, \alpha_1)$. 
+In the following sections we provide full details of our Bonferroni-based confidence interval procedure for $\beta$.
+We begin by defining the unconditional moment inequalities $m^I$ in Section \ref{sec:inequalities}.
 
 
-\todo[inline]{Change from here down!}
-\begin{itemize}
-  \item Test is for joint null hypothesis concerning all parameters but we're only interested in inference for $\beta$.
-    Under a null for $(\beta, \alpha_0, \alpha_1)$, inference for $\kappa$ is completely standard.
-    Similarly, under a null for $(\alpha_0, \alpha_1)$, inference for certain nuisance parameters that enter our moment inequalities is also standard.
-    Derive asymptotic expansions that allow us to substitute preliminary consistent and asymptotically normal estimators of these quantities to reduce parameter space to $(\alpha_0, \alpha_0, \beta)$.
-  \item So what could you do now? Could try Molinari or Bungi to get marginal inference for $\beta$ directly.
-    We experimented with both methods using a simplified version of our model.
-    Results suggest that our problem may not satisfy the high level regularity conditions of these as we found substantial size distortions. 
-    Could also be something with the tuning parameter in Molinari or computational problem with optimizations in Bugni.
-  \item Could do 3-d projection inference for $\beta$.
-    Conservative.
-    Even in 3-d requires good starting values for optimizer. 
-    Parameter space for $\beta$ does not have \emph{a priori} bounds.
-  \item Some conservatism is inevitable but we propose alternative to 3-d projection that is much simpler and more stable computationally.
-    Suppose that $z$ is strong instrument: then $\theta_1$ is strongly identified.
-    Can pre-estimate this along with $\kappa$ etc.\ and get moment equalities and inequalities that only depend on $(\alpha_0, \alpha_1)$.
-    Bounded parameter space and only two dimensions so we can use a simple grid search to get joint inference for $(\alpha_0, \alpha_1)$.
-    Fast and robust.
-    The inference for alphas may be of interest itself, e.g.\ valid test for no measurement error even under weak identification.
-  \item Final step uses fact that knowledge of $\theta_1$ and $(1 - \alpha_0 - \alpha_1)$ identifies $\beta$.
-    Two dimensional projection to get confidence set for $(1 - \alpha_0 - \alpha_1)$ and Bonferroni interval for $\beta$ based on the standard IV interval for $\theta_1$.
-  \item Bonferroni introduces conservatism but we only project from 2 dimensions down to 1 which should entail less conservatism then going from 3 down to 1.
-    3-d projection is so much slower and less reliable that we don't report simulation results for it.
-    To get good starting values had to use Bonferroni anyway!
-    Neither full 3-d nor Bonferroni dominate on real datasets in terms of width.
-    Generally similar in our experiments but Bonferroni is faster and has some nice features.
-    Explicitly related to the standard IV interval so final interval will exclude zero if and only if the IV interval for $\theta_1$ excludes zero.
-\end{itemize}
 
 \subsection{Unconditional Moment Inequalities}
+\label{sec:inequalities}
 As noted above, the partial identification bounds from Theorems \ref{thm:sharpI} and \ref{thm:sharpII} remain informative about $(\alpha_0, \alpha_1)$ even when $\beta$ is small.
 To incorporate them in our inference procedure, we first express them as unconditional moment inequalities.
 The bounds from Theorem \ref{thm:sharpI} are given by
@@ -211,8 +210,10 @@ Notice that the second set of inequalities, $m_2^I$, depends on unknown paramete
 
 
 \subsection{Preliminary Estimators of Strongly Identified Parameters}
+\label{sec:prelim}
 
-\subsection{Inference via Generalized Moment Selection}
+\subsection{Details of Inference Procedure}
+\label{sec:details}
 
 \subsection{Incorporating Covariates}
 \label{sec:covariates}
