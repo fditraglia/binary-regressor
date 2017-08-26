@@ -70,19 +70,60 @@ We are unaware of any papers in the related literature that discuss the weak ide
 
 
 \subsection{Overview of the Inference Procedure}
-In following sections we develop a procedure for uniformly valid inference in models with a mis-classified binary regressor.
+In the following sections we develop a procedure for uniformly valid inference in models with a mis-classified binary regressor.
 This procedure is computationally attractive, and can be applied to both the endogenous and exogenous regressor cases, under either point or partial identification.
 
+Our purpose is to construct a confidence interval for $\beta$ that is robust to possible weak identification, respects the restricted parameter space for $(\alpha_0, \alpha_1)$, and incorporates both the information in the equality moment conditions from Equation \ref{eq:MCs_endog} along with the partial identification bounds from Theorem \ref{thm:sharpII}.\footnote{Note that $\beta=0$ if and only if $\theta_1 = 0$. Thus, if one is merely interested in testing $H_0\colon \beta=0$, one can ignore the mis-classification error problem and test $H_0\colon \theta_1 = 0$ using the standard IV estimator and standard error, provided that $z$ is a strong instrument.}
+As argued in the preceding section, our partial identification bounds remain informative even when the equality moment conditions contain essentially no information about $\beta$.
+Before proceeding, we introduce some notation.
+Let
+\begin{equation}
+  \mathbb{E} \left[ m^I_j(\mathbf{w}_i,\boldsymbol{\vartheta}_0) \right]
+  \geq \mathbf{0} \quad j = 1, \cdots, J_I; \quad \quad
+ \mathbb{E} \left[ m^E_j(\mathbf{w}_i,\boldsymbol{\vartheta}_0) \right]
+ = \mathbf{0} \quad  j = J_I + 1, \cdots,J  
+   \label{eq:mdefs}
+ \end{equation}
+ where $\boldsymbol{\vartheta}_0$ is the true parameter vector, $m_j^I$ corresponds to the $j$th inequality moment condition, $m_j^E$ corresponds to the $j$th equality moment condition, $J$ denotes the total number of moment conditions, $J_I$ denotes the number of moment equalities, and $J_E = J - J_I$ denotes the number of equality moment conditions.
+Further define 
+\begin{equation}
+  \bar{m}_n(\boldsymbol{\vartheta}) = \left[
+  \begin{array}{c}
+   \bar{m}_n^I(\boldsymbol{\vartheta}) \\
+   \bar{m}_n^E(\boldsymbol{\vartheta}) \\
+  \end{array}
+\right], \quad
+  \bar{m}_n^I(\boldsymbol{\vartheta}) = \left[
+  \begin{array}{c}
+    \bar{m}_{n,1}^I(\boldsymbol{\vartheta})\\
+    \vdots \\
+    \bar{m}_{n,J_I}^I(\boldsymbol{\vartheta})\\
+  \end{array}
+\right], \quad
+  \bar{m}_n^E(\boldsymbol{\vartheta}) = \left[
+  \begin{array}{c}
+    \bar{m}_{n,J_I+1}^E(\boldsymbol{\vartheta})\\
+    \vdots \\
+    \bar{m}_{n,J}^E(\boldsymbol{\vartheta})\\
+  \end{array}
+\right]
+\end{equation}
+where 
+$\bar{m}^I_{n,j}(\boldsymbol{\vartheta}) = n^{-1} \sum_{i=1}^{n} m_j^I(\mathbf{w}_i, \boldsymbol{\vartheta})$
+and $\bar{m}^E_{n,j}$ is defined analogously.
+Finally, let $\Sigma(\boldsymbol{\vartheta})$ denote the asymptotic variance matrix of $\sqrt{n}\; \bar{m}_n(\boldsymbol{\vartheta})$, with $j$th diagonal element $\sigma^2_j(\boldsymbol{\vartheta})$ along with the corresponding sample analogues $\widehat{\Sigma}_n(\boldsymbol{\vartheta})$ and $\widehat{\sigma}^2_j(\boldsymbol{\vartheta})$.
+
+We proceed by inverting an Anderson-Rubin type test statistic, namely the modified method of moments (MMM) statistic 
+\begin{equation}
+  T_n(\boldsymbol{\vartheta}) = \sum_{j=1}^{J_1}\min\left\{ 0, \left( \frac{\sqrt{n}\; \bar{m}_n^I(\boldsymbol{\vartheta})}{\widehat{\sigma}_n(\boldsymbol{\vartheta})} \right)^2 \right\} + \sum_{j=J_1 + 1}^{J} \left( \frac{\sqrt{n}\; \bar{m}_n^E(\boldsymbol{\vartheta})}{\widehat{\sigma}_n(\boldsymbol{\vartheta})} \right)^2.
+  \label{eq:MMM}
+\end{equation}
+To improve the power of the test while maintaining valid size, we employ the generalized moment selection (GMS) approach of ???\todo{Cite!}.
+In particular, when approximating the asymptotic distribution of $T_n$ under the null $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, we drop any inequality moment condition $m_j^I$ for which $\sqrt{n}\big[\bar{m}_n(\boldsymbol{\vartheta}_0)/ \widehat{\sigma}_n(\boldsymbol{\vartheta}_0)\big] > \sqrt{\log(n)}$. 
+
+
+\todo[inline]{Change from here down!}
 \begin{itemize}
-  \item If you want to test the null that $\beta = 0$ you can use the usual IV test.
-  \item We want to produce a confidence interval for $\beta$ that is robust to weak identification and incorporates the information in our moment equalities and the partial identification bounds while respecting parameter space.
-    Recall that the inequalities are still informative when the equalities are not.
-  \item Proceed by inverting the MMM test statistic (Romano \& Shaikh 2008 2010, Chern Hong Tamer 2007, Andrews Guggenberger 2009 ET, Andrews Soares etc) 
-    \[
-     S_1(m,\Sigma) = BLAHBLAHBLAH
-    \]
-  \item Want to use the inequalities in the setting where the equalities are uninformative.
-    To reduce the cost of including them when they are far from binding use generalized moment selection (Andrews and Soares).
   \item Test is for joint null hypothesis concerning all parameters but we're only interested in inference for $\beta$.
     Under a null for $(\beta, \alpha_0, \alpha_1)$, inference for $\kappa$ is completely standard.
     Similarly, under a null for $(\alpha_0, \alpha_1)$, inference for certain nuisance parameters that enter our moment inequalities is also standard.
