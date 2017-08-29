@@ -23,15 +23,15 @@ To convert the preceding moment equations into unconditional moment equalities, 
 \end{align*}
 Building on this notation, let
 \begin{equation}
-  \psi_1' = (-\theta_1, 1, 0, 0, 0, 0), \quad
-  \psi_2' = (\theta_2, 0, -2\theta_1, 1, 0, 0), \quad
-  \psi_3' = (-\theta_3, 0, 3\theta_2, 0, -3\theta_1, 1)
+  \boldsymbol{\psi}_1' = (-\theta_1, 1, 0, 0, 0, 0), \quad
+  \boldsymbol{\psi}_2' = (\theta_2, 0, -2\theta_1, 1, 0, 0), \quad
+  \boldsymbol{\psi}_3' = (-\theta_3, 0, 3\theta_2, 0, -3\theta_1, 1)
   \label{eq:psi_def}
 \end{equation}
 and collect these in the matrix
 $\boldsymbol{\Psi} = \left[
   \begin{array}{ccc}
-    \psi_1 & \psi_2 & \psi_3
+    \boldsymbol{\psi}_1 & \boldsymbol{\psi_2} & \boldsymbol{\psi_3}
 \end{array}\right]$.
 Defining the observed data vector $\mathbf{w}_i' = (T_i, y_i, y_iT_i, y_i^2, y_i^2 T_i, y_i^3)$ for observation $i$, can re-write the moment equations as:
 \begin{equation}
@@ -66,11 +66,12 @@ Exactly the same inferential difficulties arise in the case where $T^*$ and $z$ 
 This issue, however, has received little attention in the literature. 
 \cite{KRS} ensure that $(\alpha_0, \alpha_1)$ are valid probabilities by employing a logit specification.
 Frazis and Loewenstein employ a pseudo-Bayesian approach to ensure that $\alpha_0$ and $\alpha_1$ are valid probabilities, and to impose partial identification bounds related to those from our Theorem \ref{thm:sharpI}, i.e.\ without using the non-differential measurement error restrictions.
-Because they provide neither simulation evidence nor a theoretical justification for their procedure, however, it is difficult to assess whether this method will yield valid Frequentist coverage.
+Because they provide neither simulation evidence nor a theoretical justification for their procedure, however, it is unclear whether this method will yield valid Frequentist coverage.
 We are unaware of any papers in the related literature that discuss the weak identification problem arising when $\beta$ is small.
 
 
 \subsection{Overview of the Inference Procedure}
+\label{sec:overview}
 In the following sections we develop a procedure for uniformly valid inference in models with a mis-classified binary regressor.
 %This procedure is computationally attractive, and can be applied to both the endogenous and exogenous regressor cases, under either point or partial identification.
 Our purpose is to construct a confidence interval for $\beta$ that is robust to possible weak identification, respects the restricted parameter space for $(\alpha_0, \alpha_1)$, and incorporates both the information in the equality moment conditions from Equation \ref{eq:MCs_endog} along with the partial identification bounds from Theorem \ref{thm:sharpII}.\footnote{Note that $\beta=0$ if and only if $\theta_1 = 0$. Thus, if one is merely interested in testing $H_0\colon \beta=0$, one can ignore the mis-classification error problem and test $H_0\colon \theta_1 = 0$ using the standard IV estimator and standard error, provided that $z$ is a strong instrument.}
@@ -149,7 +150,7 @@ We begin by defining the unconditional moment inequalities $m^I$ in Section \ref
 
 
 
-\subsection{Unconditional Moment Inequalities}
+\subsection{Moment Inequalities from Partial Identification Results}
 \label{sec:inequalities}
 As noted above, the partial identification bounds from Theorems \ref{thm:sharpI} and \ref{thm:sharpII} remain informative about $(\alpha_0, \alpha_1)$ even when $\beta$ is small.
 To incorporate them in our inference procedure, we first express them as unconditional moment inequalities.
@@ -160,8 +161,8 @@ The bounds from Theorem \ref{thm:sharpI} are given by
 where the first-stage probabilities $p_k$ are defined in Equation \ref{eq:pk_def}.
 Written as unconditional moment inequalities, these become
 \begin{equation}
-  \mathbb{E}\left[ m_1^I(\mathbf{w}_i,\boldsymbol{\alpha} ) \right] \geq \mathbf{0},  \quad
-m_1^I(\mathbf{w}_i, \boldsymbol{\alpha}) \equiv \left[
+  \mathbb{E}\left[ m_1^I(\mathbf{w}_i,\boldsymbol{\vartheta} ) \right] \geq \mathbf{0},  \quad
+m_1^I(\mathbf{w}_i, \boldsymbol{\vartheta}) \equiv \left[
   \begin{array}{l}
     (1 - z_i)(T_i - \alpha_0) \\
     (1 - z_i)(1 - T_i - \alpha_1) \\
@@ -170,8 +171,7 @@ m_1^I(\mathbf{w}_i, \boldsymbol{\alpha}) \equiv \left[
   \end{array}
 \right]
 \end{equation}
-where $\boldsymbol{\alpha} \equiv (\alpha_0, \alpha_1)$.
-The additional bounds derived in Theorem \ref{thm:sharpII} that arise from imposing assumption \ref{assump:misclassification} (iii) are
+The bounds derived in Theorem \ref{thm:sharpII} by imposing assumption \ref{assump:misclassification} (iii) are
 \begin{equation*}
   \mu_k(\alpha_0) - \underline{\mu}_{tk}\big( \underline{q}_{tk}(\alpha_0, \alpha_1) \big) \geq 0, \quad \quad
   \overline{\mu}_{tk}\big( \overline{q}_{tk}(\alpha_0, \alpha_1) \big) - \mu_k(\alpha_0) \geq 0, \quad \mbox{for all } t,k
@@ -179,46 +179,89 @@ The additional bounds derived in Theorem \ref{thm:sharpII} that arise from impos
 where $\mu_k, \underline{\mu}_{tk}, \overline{\mu}_{tk}, \underline{q}_{tk}$ and $\overline{q}_{tk}$ are defined in the statement of the Theorem.
 Expressing these as unconditional moment inequalities, we have
 \begin{equation}
-  \mathbb{E}[m_2^I(\mathbf{w}_i,\boldsymbol{\alpha}, \mathbf{q})] \geq \mathbf{0}, \quad 
-  m_2^I(\mathbf{w}_i,\boldsymbol{\alpha}, \mathbf{q}) \equiv \left[
+  \mathbb{E}[m_2^I(\mathbf{w}_i,\boldsymbol{\vartheta}, \mathbf{q})] \geq \mathbf{0}, \quad 
+  m_2^I(\mathbf{w}_i,\boldsymbol{\vartheta}, \mathbf{q}) \equiv \left[
   \begin{array}{c}
-    m_{2,00}^I(\mathbf{w}_i,\boldsymbol{\alpha}, \mathbf{q})  \\ 
-    m_{2,10}^I(\mathbf{w}_i,\boldsymbol{\alpha}, \mathbf{q}) \\
-    m_{2,01}^I(\mathbf{w}_i,\boldsymbol{\alpha}, \mathbf{q})  \\ 
-    m_{2,11}^I(\mathbf{w}_i,\boldsymbol{\alpha}, \mathbf{q}) 
+    m_{2,00}^I(\mathbf{w}_i,\boldsymbol{\vartheta}, \mathbf{q})  \\ 
+    m_{2,10}^I(\mathbf{w}_i,\boldsymbol{\vartheta}, \mathbf{q}) \\
+    m_{2,01}^I(\mathbf{w}_i,\boldsymbol{\vartheta}, \mathbf{q})  \\ 
+    m_{2,11}^I(\mathbf{w}_i,\boldsymbol{\vartheta}, \mathbf{q}) 
   \end{array}
 \right] 
 \end{equation}
 where $\mathbf{q} \equiv ( \underline{q}_{00},\, \overline{q}_{00},\, \underline{q}_{10}, \,\overline{q}_{10},\, \underline{q}_{01}, \,\overline{q}_{01},\, \underline{q}_{11},\, \overline{q}_{11})$ and we define
 \begin{align}
-  m_{2,0k}^I\big(\mathbf{w}_i, \boldsymbol{\alpha}, \mathbf{q}) \equiv \left[
+  m_{2,0k}^I\big(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q}) \equiv \left[
   \begin{array}{r}
     y_i \mathbf{1}\left( z_i=k \right)\left\{(T_i - \alpha_0) - \mathbf{1}(y_i \leq \underline{q}_{0k})  (1 - T_i)\left( \frac{1 - \alpha_0 - \alpha_1}{\alpha_1} \right)\right\} \\
     - y_i \mathbf{1}(z_i=k) \left\{ (T_i - \alpha_0) -  \mathbf{1}(y_i > \overline{q}_{0k}) (1 - T_i) \left( \frac{1 - \alpha_0 - \alpha_1}{\alpha_1} \right) \right\} 
 \end{array}
 \right] \\\nonumber \\
-  m_{2,1k}^I(\mathbf{w}_i, \boldsymbol{\alpha}, \mathbf{q}) \equiv \left[
+  m_{2,1k}^I(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q}) \equiv \left[
   \begin{array}{r}
     y_i \mathbf{1}\left( z_i=k \right)\left\{(T_i - \alpha_0) - \mathbf{1}(y_i \leq \underline{q}_{1k})  T_i\left( \frac{1 - \alpha_0 - \alpha_1}{1 - \alpha_1} \right)\right\} \\
     - y_i \mathbf{1}(z_i=k) \left\{ (T_i - \alpha_0) -  \mathbf{1}(y_i > \overline{q}_{1k}) T_i \left( \frac{1 - \alpha_0 - \alpha_1}{1 - \alpha_1} \right) \right\} 
 \end{array}
 \right].
 \end{align}
-Notice that the second set of inequalities, $m_2^I$, depends on unknown parameter $\mathbf{q}$ which is in turn a function of $\boldsymbol{\alpha}$.
 Finally we define $m^I = (m_1^{I'}, m_2^{I'})'$.
+Notice that the second set of inequalities, $m_2^I$, depends on unknown parameter $\mathbf{q}$ which is in turn a function of $(\alpha_0, \alpha_1)$.
+In the next section we discuss how $\mathbf{q}$ can be estimated under a given null hypothesis for $(\alpha_0, \alpha_1)$. 
 
 
-
-\subsection{Preliminary Estimators of Strongly Identified Parameters}
+\subsection{Accounting for Preliminary Estimation}
 \label{sec:prelim}
 
-\paragraph{Generic Version of the Expansion}
 
-\paragraph{Moment Equalities for Preliminary Estimation of $\mathbf{q}$}
+Let $\boldsymbol{\vartheta} = (\alpha_0, \alpha_1)$, $\boldsymbol{\gamma} = (\boldsymbol{\kappa}, \theta_1)$ and $\boldsymbol{\tau} =  (\boldsymbol{\gamma}, \mathbf{q})$, where $\theta_1$ is defined in Equation \ref{eq:theta1_def}, $\boldsymbol{\kappa}$ in Section \ref{sec:problem}, and $\mathbf{q}$ in Section \ref{sec:inequalities}.
+Our moment conditions take the form 
+\begin{equation}
+  \mathbb{E}[m^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)] \geq \mathbf{0}, \quad 
+  \mathbb{E}[m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)] = \mathbf{0}
+  \label{eq:MCs_ineq_eq}
+\end{equation}
+where $m^I = (m_1^{I'}, m_2^{I'})'$, defined in Section \ref{sec:inequalities}, and 
+\begin{equation}
+  m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)= \left[
+  \begin{array}{c}
+ \left\{ \boldsymbol{\psi}_2'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_2 \right\}z_i \\
+ \left\{ \boldsymbol{\psi}_3'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_3 \right\}z_i 
+  \end{array}
+\right].
+\end{equation}
+Notice that we now write $\boldsymbol{\psi}_2$ and $\boldsymbol{\psi}_3$, defined in Equation \ref{eq:psi_def}, as explicit functions of $\theta_1, \alpha_0, \alpha_1$, using the definitions of $(\theta_2, \theta_3)$ from Equations \ref{eq:theta2_def}--\ref{eq:theta3_def}.
+To construct a GMS test of the null hypothesis $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta_0}$ based on Equation \ref{eq:MCs_ineq_eq}, we require a preliminary estimator $\widehat{\boldsymbol{\tau}}(\boldsymbol{\vartheta}_0)$ that is consistent and asymptotically normal \emph{under the null}.
+We now provide full details of the construction and derive the associated adjustment to the asymptotic variance matrix.
+
+Consider first the equality moment conditions $m^E$.
+For these we require preliminary estimators of $\theta_1$, $\kappa_2$, and $\kappa_3$.
+Recall that $\theta_1$ is simply the IV estimand: it can be consistently estimated directly from observations of $(y,T,z)$ without knowledge of $\alpha_0$ or $\alpha_1$.
+Note, moreover, from Equation \ref{eq:MCs_endog} that $\boldsymbol{\kappa}$ is simply a vector of \emph{intercepts}.
+These can be directly estimated from observations of $\mathbf{w}$ because $\boldsymbol{\Psi}(\theta_1, \alpha_0, \alpha_1)$ is consistently estimable under the $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$: the hypothesis specifies $\alpha_0$ and $\alpha_1$ and IV provides a consistent estimator of $\theta_1$.
+Accordingly, define 
+\begin{equation}
+  h^E(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\gamma})  =  \left[
+ \begin{array}{l}
+   \boldsymbol{\Psi}'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \boldsymbol{\kappa}\\
+   \left\{\boldsymbol{\psi}_1'(\theta_1)\mathbf{w}_i - \kappa_1\right\}z_i
+ \end{array}
+ \right].
+\end{equation}
+Under $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, the  just-identified GMM-estimator based on $\mathbb{E}[h^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)] = \mathbf{0}$ yields a consistent and asymptotically normal estimator of $\boldsymbol{\gamma}_0$.
+
+Now consider the inequality moment conditions $m^I$. 
+From Section \ref{sec:inequalities} we see that $\boldsymbol{\tau}$ only enters $m^I$ through the second block of moment inequalities, $m_2^I$, which depend on $\mathbf{q}$.
+The elements of $\mathbf{q}$ are the conditional quantiles $\overline{q}_{tk}$ and $\underline{q}_{tk}$ defined in Theorem \ref{thm:sharpII}.
+Under the assumption that $y$ is continuous, these can be expressed as conditional moment equalities as follows:
 \begin{align*}
-  &\mathbb{E}\left[ \mathbf{1}(y \leq \underline{q}_{tk}) |T=t,z=k \right] - r_{tk} = 0 \\
-  &\mathbb{E}\left[ \mathbf{1}(y \leq \overline{q}_{tk}) |T=t,z=k \right] - (1 - r_{tk}) = 0
+  &\mathbb{E}\left[ \mathbf{1}(y \leq \underline{q}_{tk}) |T=t,z=k \right] - r_{tk}(\alpha_0, \alpha_1) = 0 \\
+  &\mathbb{E}\left[ \mathbf{1}(y \leq \overline{q}_{tk}) |T=t,z=k \right] - \big(1 - r_{tk}(\alpha_0, \alpha_1)\big) = 0
 \end{align*}
+where $r_{tk}$ is defined in Theorem \ref{thm:sharpII} and $t,k = 0,1$.
+
+
+\todo[inline]{Sample mean to estimate $p_k$ and under null this gives consistent estimator of $r_{tk}$. Plug-in estimator based on this an sample quantiles is consistent by slight modification of usual quantile argument. See e.g.\ Serfling. Asymptotic normality is slightly more involved since $h^I$ depends non-smoothly on $\mathbf{q}$. See Andrews and Newey \& McFaddden section 7.}
+
 We can write these as 
 \[
   \mathbb{E}[h^I(W,\boldsymbol{\alpha}, \mathbf{q})] = \mathbb{E}
@@ -244,6 +287,34 @@ where
   \end{array}
 \right]
 \]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Generic Version of the Expansion}
+
+Let $g_1(\mathbf{w}_i,\boldsymbol{\vartheta}, \boldsymbol{\tau}_1)$ be a vector of functions that are continuously differentiable with respect to $\boldsymbol{\tau_1}$ and $g_2(\mathbf{w}_i,\boldsymbol{\vartheta}, \boldsymbol{\tau}_2)$ be a vector of functions that may not be continuous or differentiable in $\boldsymbol{\tau}_2$.
+
+
+\[
+  h  = \left[
+  \begin{array}{c}
+    h^I_0 \\ h^I_1 \\ h^E
+  \end{array}
+\right], \quad
+  h^E  =  \left[
+ \begin{array}{l}
+   \boldsymbol{\psi}'_1(\theta_1)\mathbf{w}_i - \kappa_1\\
+   \boldsymbol{\psi}'_2(\theta_1,\boldsymbol{\alpha}^0)\mathbf{w}_i - \kappa_2\\
+   \boldsymbol{\psi}'_3(\theta_1,\boldsymbol{\alpha}^0)\mathbf{w}_i - \kappa_3\\ 
+   \boldsymbol{\psi}'_1(\theta_1)\mathbf{w}_i z_i - \kappa_1 z_i
+ \end{array}
+ \right] = \left[
+ \begin{array}{l}
+   \boldsymbol{\Psi}'(\theta_1, \boldsymbol{\alpha}^0) \mathbf{w}_i - \boldsymbol{\kappa}\\
+   \left\{\boldsymbol{\psi}_1'(\theta_1)\mathbf{w}_i - \kappa_1\right\}z_i
+ \end{array}
+ \right]
+\]
+
 
 \paragraph{Accounting for Preliminary Estimation}
 \[
