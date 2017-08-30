@@ -430,7 +430,23 @@ In the following section we provide a step-by-step description of our inference 
 \subsection{Details of Inference Procedure}
 \label{sec:details}
 
-\todo[inline]{Give the full algorithm step-by-step, referencing the definitions from the preceding sections. Also say precisely how the Bonferroni interval is calculated, including the projection etc. Then give a Theorem under which we have valid inference. The proof can be just a sketch: go via the Lemma to get the variance matrix correction, then invoke the conditions in the Andrews \& Soares Appendix to get the valid joint confidence set for $\alpha_0, \alpha_1$ and finally argue that the Bonferroni correction gives valid inference for $\beta$. Say a few more things about Bonferroni such has how you can't reject $\beta=0$ unless the IV interval excludes this.}
+\begin{alg}[GMS Test for $(\alpha_0, \alpha_1)$ ]
+  Give the full description of the asymptotic test of $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, including drawing the normal simulations, etc, referencing the calculations and definitions from the preceding sections.
+\end{alg}
+
+\begin{alg}[Full inference procedure]
+  \begin{enumerate}
+    \item First get the joint set for $\alpha_0, \alpha_1$ by a grid search, using the GMS test described in the other algorithm
+    \item Do projection to get the set for $1 - \alpha_0 - \alpha_1$
+    \item Construct the Bonferroni interval
+  \end{enumerate}
+\end{alg}
+
+\begin{thm}
+Inference procedure gives valid coverage. First argue that GMS test gives uniformly valid inference and that we have a valid confidence interval for $\theta_1$. Then the Bonferroni interval gives us what we require for $\beta$. The statement of the result should refer to iid observations, the Lemma about preliminary estimation, and A3 of Andrews \& Soares.
+\end{thm}
+
+\todo[inline]{Say a few more things about Bonferroni such has how you can't reject $\beta=0$ unless the IV interval excludes this.}
 
 \subsection{Incorporating Covariates}
 \label{sec:covariates}
