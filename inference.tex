@@ -229,7 +229,7 @@ where $m^I = (m_1^{I'}, m_2^{I'})'$, defined in Section \ref{sec:inequalities}, 
   \end{array}
 \right].
 \end{equation}
-Notice that we now write $\boldsymbol{\psi}_2$ and $\boldsymbol{\psi}_3$, defined in Equation \ref{eq:psi_def}, as explicit functions of $\theta_1, \alpha_0, \alpha_1$, using the definitions of $(\theta_2, \theta_3)$ from Equations \ref{eq:theta2_def}--\ref{eq:theta3_def}.
+Notice that we now write $\boldsymbol{\psi}_2$ and $\boldsymbol{\psi}_3$, defined in Equation \ref{eq:psi_def}, as explicit functions of $(\theta_1, \alpha_0, \alpha_1)$, using the definitions of $(\theta_2, \theta_3)$ from Equations \ref{eq:theta2_def}--\ref{eq:theta3_def}.
 To construct a GMS test of the null hypothesis $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta_0}$ based on Equation \ref{eq:MCs_ineq_eq}, we require a preliminary estimator $\widehat{\boldsymbol{\tau}}(\boldsymbol{\vartheta}_0)$ that is consistent and asymptotically normal \emph{under the null}.
 We now provide full details of the construction and derive the associated adjustment to the asymptotic variance matrix.
 
@@ -293,232 +293,34 @@ Moreover, since $y|(T=t,z=k)$ is a continuous random variable, $\mathbb{E}[h^I(\
 Hence, $\widehat{\mathbf{q}}$ is asymptotically normal under mild regularity conditions.\footnote{\todo[inline]{Cite Andrews/Newey-McFadden.}}
 
 
-\todo[inline]{Collect full set of $h$ moments. Then state a theorem: given iid $\mathbf{w}_i$ and standard regularity conditions under the null we have $\sqrt{n}\, \bar{m}_n\left( \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}(\boldsymbol{\vartheta}_0) \right) = (MATRIX) \sqrt{n}(\text{All moments including h evaluated at theta0,tau0}) + o_p(1)$}
+\begin{lem}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{Generic Version of the Expansion}
-
-Let $g_1(\mathbf{w}_i,\boldsymbol{\vartheta}, \boldsymbol{\tau}_1)$ be a vector of functions that are continuously differentiable with respect to $\boldsymbol{\tau_1}$ and $g_2(\mathbf{w}_i,\boldsymbol{\vartheta}, \boldsymbol{\tau}_2)$ be a vector of functions that may not be continuous or differentiable in $\boldsymbol{\tau}_2$.
-
-
-\[
-  h  = \left[
-  \begin{array}{c}
-    h^I_0 \\ h^I_1 \\ h^E
-  \end{array}
-\right], \quad
-  h^E  =  \left[
- \begin{array}{l}
-   \boldsymbol{\psi}'_1(\theta_1)\mathbf{w}_i - \kappa_1\\
-   \boldsymbol{\psi}'_2(\theta_1,\boldsymbol{\alpha}^0)\mathbf{w}_i - \kappa_2\\
-   \boldsymbol{\psi}'_3(\theta_1,\boldsymbol{\alpha}^0)\mathbf{w}_i - \kappa_3\\ 
-   \boldsymbol{\psi}'_1(\theta_1)\mathbf{w}_i z_i - \kappa_1 z_i
- \end{array}
- \right] = \left[
- \begin{array}{l}
-   \boldsymbol{\Psi}'(\theta_1, \boldsymbol{\alpha}^0) \mathbf{w}_i - \boldsymbol{\kappa}\\
-   \left\{\boldsymbol{\psi}_1'(\theta_1)\mathbf{w}_i - \kappa_1\right\}z_i
- \end{array}
- \right]
-\]
-
-
-\paragraph{Accounting for Preliminary Estimation}
-\[
-m = \left[
-\begin{array}{c}
-  m^I \\ m^E
-\end{array}
-\right], \quad
-m^I = \left[
-\begin{array}{c}
-  m^I_1 \\ m^I_2
-\end{array}
-\right], \quad
-m^E = \left[
-  \begin{array}{cc}
-    m_2^E \\ m_3^E 
-  \end{array}
-\right], \quad m_j^E(\mathbf{w}_i, \cdots) = \left[ \boldsymbol{\psi}_j'(\theta_1, \boldsymbol{\alpha}^0) \mathbf{w}_i - \kappa_j \right]z_i 
-\]
-
-\[
-  m_1^I(\mathbf{w}_i, \alpha_0, \alpha_1) = \left[
-  \begin{array}{l}
-    (1 - z_i)(T_i - \alpha_0) \\
-    (1 - z_i)(1 - T_i - \alpha_1) \\
-    z_i(T - \alpha_0) \\
-    z_i (1 - T_i - \alpha_1) \\
-  \end{array}
-\right], \quad
-m^I_2(W, \boldsymbol{\alpha}, \mathbf{q}) = \left[
-\begin{array}{c}
-  m^I_{2,00}(W,\boldsymbol{\alpha},\mathbf{q})\\
-  m^I_{2,10}(W,\boldsymbol{\alpha},\mathbf{q})\\
-  m^I_{2,01}(W,\boldsymbol{\alpha},\mathbf{q})\\
-  m^I_{2,11}(W,\boldsymbol{\alpha},\mathbf{q}) \\
-\end{array}
-\right]
-\]
-\[
-  m_{2,tk}^I(W, \boldsymbol{\alpha}, \mathbf{q}) = \left[
-  \begin{array}{c}
-  \mu_k(\alpha_0) - \underline{\mu}_{tk}(\alpha_0, \alpha_1) \\
-  \overline{\mu}_{tk}(\alpha_0, \alpha_1) - \mu_k(\alpha_0)  
+  \[
+    \sqrt{n}\left[
+    \begin{array}{l}
+      \bar{m}_{1,n}^I\left( \boldsymbol{\vartheta}_0 \right)\\
+      \bar{m}_{2,n}^I\big( \boldsymbol{\vartheta}_0, \widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)\big)\\
+      \bar{m}_{n}^E\big( \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\vartheta}_0) \big)
+    \end{array}
+  \right] = 
+  \left[
+  \begin{array}{ccccc}
+    \mathbf{I}&\mathbf{0}&\mathbf{0} & \mathbf{0} & \mathbf{0} \\
+    \mathbf{0}&\mathbf{I}&\mathbf{0} & B^I & \mathbf{0} \\
+    \mathbf{0}&\mathbf{0}&\mathbf{I} &\mathbf{0} & B^E\\
   \end{array}
 \right] 
-\]
-
-
-
-\[
-  h  = \left[
-  \begin{array}{c}
-    h^I_0 \\ h^I_1 \\ h^E
-  \end{array}
-\right], \quad
-  h^E  =  \left[
- \begin{array}{l}
-   \boldsymbol{\psi}'_1(\theta_1)\mathbf{w}_i - \kappa_1\\
-   \boldsymbol{\psi}'_2(\theta_1,\boldsymbol{\alpha}^0)\mathbf{w}_i - \kappa_2\\
-   \boldsymbol{\psi}'_3(\theta_1,\boldsymbol{\alpha}^0)\mathbf{w}_i - \kappa_3\\ 
-   \boldsymbol{\psi}'_1(\theta_1)\mathbf{w}_i z_i - \kappa_1 z_i
- \end{array}
- \right] = \left[
- \begin{array}{l}
-   \boldsymbol{\Psi}'(\theta_1, \boldsymbol{\alpha}^0) \mathbf{w}_i - \boldsymbol{\kappa}\\
-   \left\{\boldsymbol{\psi}_1'(\theta_1)\mathbf{w}_i - \kappa_1\right\}z_i
- \end{array}
- \right]
-\]
-Now, let $\boldsymbol{\gamma}' = (\mathbf{q}', \boldsymbol{\kappa}', \theta_1)$ where $\mathbf{q}' = ( \underline{q}_{00}, \overline{q}_{00}, \underline{q}_{10}, \overline{q}_{10}, \underline{q}_{01}, \overline{q}_{01}, \underline{q}_{11}, \overline{q}_{11})$, and $\boldsymbol{\kappa}' = (\kappa_1, \kappa_2, \kappa_3)$.
-Now define,
-\begin{align*}
-  B^E &= -M^E (H^E)^{-1}\\
-  M^E &= \mathbb{E}\left[
-  \begin{array}{cc}
-    \displaystyle \frac{\partial m^E}{\partial \boldsymbol{\kappa}'} &
-    \displaystyle \frac{\partial m^E}{\partial \theta_1}
-  \end{array}
-\right]\\
-H^E &= \mathbb{E}\left[
-  \begin{array}{cc}
-    \displaystyle \frac{\partial h^E}{\partial \boldsymbol{\kappa}'} &
-    \displaystyle \frac{\partial h^E}{\partial \theta_1}
-  \end{array}
-\right] = \mathbf{R}
-\end{align*}
+    \sqrt{n}\left[
+    \begin{array}{l}
+      \bar{m}_{1,n}^I\left( \boldsymbol{\vartheta}_0 \right)\\
+      \bar{m}_{2,n}^I\left(\boldsymbol{\vartheta}_0,  \mathbf{q}_0\right)\\
+      \bar{m}_n^E\left(\boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0  \right)\\
+      \bar{h}^I_n\left(\boldsymbol{\vartheta}_0,  \mathbf{q}_0 \right)\\
+      \bar{h}^E_n\left(\boldsymbol{\vartheta}_0,  \boldsymbol{\gamma}_0 \right)
+    \end{array}
+  \right] + o_p(1)
+  \]
 where
-\[
-\mathbf{R} = \left[
-\begin{array}{rrrr}
-  -1 & 0 & 0 
-  & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
-   0 & -1 & 0 & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
-   0 & 0 & -1 & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
-   -q & 0 & 0 &  \displaystyle \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}z]\\
-\end{array}
-\right]
-\]
-and
-\[
-\mathbb{E}\left[\frac{\partial m^E}{\partial \boldsymbol{\kappa}'}\right] = \left[
-\begin{array}{ccc}
-  0 & -q & 0 \\
-  0 & 0 & -q
-\end{array}
-\right], \quad
-\mathbb{E}\left[\frac{\partial m^E}{\partial \theta_1}\right] =
-\left[
-\begin{array}{c}
-  \displaystyle\left( \frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1} \right)'\\ 
-  \displaystyle\left( \frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1} \right)' 
-\end{array}
-\right] \mathbb{E}[\mathbf{w}_iz_i]
-\]
-Now, the moment functions that are not differentiable must be treated differently.
-Define:
-\[
-  B^I = -{M}_2^I \left( H^I \right)^{-1}, \quad
-  M_2^I = \frac{\partial\mathbb{E}[m_2^I]}{\partial \mathbf{q}'} , \quad
-  H^I = \frac{\partial\mathbb{E}[h^I]}{\partial \mathbf{q}'} 
-\]
-Now, since
-\begin{align*}
-  \frac{\partial}{\partial q} \mathbb{E}\left[ y\mathbf{1}(y>q)\mathbf{1}(T=t)\mathbf{1}(z=k) \right] &= \mathbb{P}(T=t,z=k)\times -q f_{tk}(q)\\
-  \frac{\partial}{\partial q} \mathbb{E}\left[ y\mathbf{1}(y\leq q)\mathbf{1}(T=t)\mathbf{1}(z=k) \right] &= \mathbb{P}(T=t, z=k) \times q f_{tk}(q)\\
-  \frac{\partial}{\partial q} \mathbb{E}\left[ \mathbf{1}(y\leq q)\mathbf{1}(T=t)\mathbf{1}(z=k) \right] &= \mathbb{P}(T=t,z=k) \times f_{tk}(q)
-\end{align*}
-we see that
-\[
-  H^I_k = \mbox{diag} \left[
-  \begin{array}{c}
-    \mathbb{P}(T=0,z=k)\times f_{0k}(\underline{q}_{0k})\\
-    \mathbb{P}(T=0,z=k)\times f_{0k}(\overline{q}_{0k})\\
-    \mathbb{P}(T=1,z=k)\times f_{1k}(\underline{q}_{1k})\\
-    \mathbb{P}(T=1,z=k)\times f_{1k}(\overline{q}_{1k})\\
-  \end{array}
-\right]
-\]
-while
-\[
-  M_{2k}^I = -(1 - \alpha_0 - \alpha_1)\times \mbox{diag} \left[
-  \begin{array}{l}
-    \mathbb{P}(T=0,z=k) \times \underline{q}_{0k} f_{0k}(\underline{q}_{0k}) / \alpha_1\\
-    \mathbb{P}(T=0,z=k)\times \overline{q}_{0k} f_{0k}(\overline{q}_{0k}) / \alpha_1\\
-    \mathbb{P}(T=1,z=k)\times \underline{q}_{1k} f_{1k}(\underline{q}_{1k}) / (1 - \alpha_1)\\
-    \mathbb{P}(T=1,z=k)\times \overline{q}_{1k} f_{1k}(\overline{q}_{1k}) / (1 - \alpha_1)\\
-  \end{array}
-\right]
-\]
-and thus
-\[
-  B^I_k = (1 - \alpha_0 - \alpha_1) \times \mbox{diag} \left[
-  \begin{array}{l}
-    \underline{q}_{0k} / \alpha_1\\
-    \overline{q}_{0k} / \alpha_1\\
-    \underline{q}_{1k} / (1 - \alpha_1)\\
-    \overline{q}_{1k} / (1 - \alpha_1)
-  \end{array}
-\right]
-\]
-and we just need to stack $B^I_0$ on top of $B^I_1$ to construct $B^I$.
-
-\paragraph{Putting Everything Together}
-Finally, accounting for preliminary estimation of $\boldsymbol{\kappa}$ and $\theta_1$, the variance matrix estimator is $\widehat{\Sigma}_n\left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) = A \widehat{\mathcal{V}}_n \left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) A'$ where 
-\[
-  \underset{(14 \times 26)}{A} = \left[
-\begin{array}{cc}
-  \underset{(14\times 14)}{\mathbf{I}} & \underset{(14 \times 12)}{B}
-\end{array}
-\right], \quad
-  B = \left[
-  \begin{array}{cc}
-    \underset{(4\times 8)}{\mathbf{0}} & \underset{(4\times 4)}{\mathbf{0}} \\
-    \underset{(8\times 8)}{B^I} & \underset{(8\times 4)}{\mathbf{0}} \\
-    \underset{(2 \times 8)}{\mathbf{0}} & \underset{(2\times 4)}{B^E} \\
-  \end{array}
-\right]
-\]
-and $B^{E} = -M^E \mathbf{R}^{-1}$ with
-\[
-  M^E = \left[ 
-    \begin{array}{cccc} 
-      0 & -q & 0 & \displaystyle\left( \frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1} \right)' \mathbb{E}[\mathbf{w}_iz_i]\\ 
-      0 & 0 & -q & \displaystyle\left( \frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1} \right)' \mathbb{E}[\mathbf{w}_iz_i] 
-  \end{array} \right], \quad
-\mathbf{R} = \left[
-\begin{array}{rrrr}
-  -1 & 0 & 0 
-  & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
-   0 & -1 & 0 & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
-   0 & 0 & -1 & \displaystyle \left(\frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
-   -q & 0 & 0 &  \displaystyle \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}z]\\
-\end{array}
-\right]
-\]
-while $B^I = -M_2^{I}\left( H^I \right)^{-1}$ which simplifies to
 \[
   B^I = (1 - \alpha_0 - \alpha_1) \times \mbox{diag} \left[
   \begin{array}{llllllll}
@@ -533,55 +335,29 @@ while $B^I = -M_2^{I}\left( H^I \right)^{-1}$ which simplifies to
   \end{array}
 \right]
 \]
-and
+and $B^{E} = -M^E (H^E)^{-1}$, with
 \[
-  \widehat{\mathcal{V}}_n\left(\boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) = \frac{1}{n}\sum_{i=1}^n 
-  \left[
-  \begin{array}{c}
-    m(\mathbf{w}_i, \alpha^0, \widehat{\gamma}(\alpha^0)) - \bar{m}_n(\alpha^0, \widehat{\gamma}(\alpha^0))\\
-    h(\mathbf{w}_i, \alpha^0, \widehat{\gamma}(\alpha^0)) - \bar{h}_n(\alpha^0, \widehat{\gamma}(\alpha^0))
-  \end{array}
-\right]
-  \left[
-  \begin{array}{c}
-    m(\mathbf{w}_i, \alpha^0, \widehat{\gamma}(\alpha^0)) - \bar{m}_n(\alpha^0, \widehat{\gamma}(\alpha^0))\\
-    h(\mathbf{w}_i, \alpha^0, \widehat{\gamma}(\alpha^0)) - \bar{h}_n(\alpha^0, \widehat{\gamma}(\alpha^0))
-  \end{array}
-\right]'
-\]
-Where, 
-\begin{align*}
-  m_1^I(\mathbf{w}_i, \boldsymbol{\alpha}^0) &=
-  \left[
-  \begin{array}{r}
-  (T_i - \alpha_0)(1 - z_i) \\
-  (1 - T_i - \alpha_1)(1 - z_i) \\
-  (T_i - \alpha_0) z_i \\
-  (1 - T_i - \alpha_1) z_i
-  \end{array}
-\right]\\
-  m^E\left(\mathbf{w}_i, \boldsymbol{\alpha}^0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\alpha}^0)\right) &= 
-  \left[
-  \begin{array}{c}
- \widehat{\boldsymbol{\psi}}_2'(\boldsymbol{\alpha}^0)(\mathbf{w}_i - \bar{\mathbf{w}})z_i \\
-   \widehat{\boldsymbol{\psi}}_3'(\boldsymbol{\alpha}^0)(\mathbf{w}_i - \bar{\mathbf{w}})z_i 
-  \end{array}
-\right]\\
-  h^E\left(\mathbf{w}_i, \boldsymbol{\alpha}^0, \widehat{\gamma}(\boldsymbol{\alpha}^0)\right) &= \left[
-  \begin{array}{l}
-    \widehat{\boldsymbol{\psi}}'_1 (\mathbf{w}_i - \bar{\mathbf{w}})\\ 
-    \widehat{\boldsymbol{\psi}}'_2(\boldsymbol{\alpha}^0) (\mathbf{w}_i - \bar{\mathbf{w}})\\ 
-    \widehat{\boldsymbol{\psi}}'_3(\boldsymbol{\alpha}^0) (\mathbf{w}_i - \bar{\mathbf{w}})\\
-    \widehat{\boldsymbol{\psi}}'_1 (\mathbf{w}_i - \bar{\mathbf{w}})z_i
-  \end{array}
-\right] = \left[
-\begin{array}{l}
-  \widehat{\boldsymbol{\Psi}}'(\boldsymbol{\alpha}^0)(\mathbf{w}_i - \bar{\mathbf{w}})\\
-    \widehat{\boldsymbol{\psi}}'_1 (\mathbf{w}_i - \bar{\mathbf{w}})z_i
+  M^E = \left[ 
+    \begin{array}{cccc} 
+      0 & -\mathbb{E}[z_i] & 0 & \left( \frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1} \right)' \mathbb{E}[\mathbf{w}_iz_i]\\ 
+      0 & 0 & -\mathbb{E}[z_i] & \left( \frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1} \right)' \mathbb{E}[\mathbf{w}_iz_i] 
+  \end{array} \right], \,\,
+H^E = \left[
+\begin{array}{cccc}
+  -1 & 0 & 0 
+  & \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+   0 & -1 & 0 &  \left(\frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+   0 & 0 & -1 & \left(\frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
+   -\mathbb{E}[z_i] & 0 & 0 &  \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}z]
 \end{array}
 \right]
-\end{align*}
+\]
+\end{lem}
 
+\todo[inline]{Need to define the $\bar{h}_n$ and $\bar{m}_n$. Just say defined analogously to what we had above. Add some kind of assumptions to the lemma, add at least a proof sketch to the appendix, and discuss the result a bit. Allows us to adjust the asymptotic variance matrix given a joint CLT. Talk about the existence of $B^I$ and $B^E$: by direct calculation, the determinant of $H^E$ equals $\mbox{Cov}(T,z)$ so this is always invertible. Talk about what happens to $B^I$ when $\alpha_1 = 0$ but how this doesn't matter because the corresponding inequalities are trivially satisfied when testing that null so we just drop the corresponding conditions.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Details of Inference Procedure}
 \label{sec:details}
