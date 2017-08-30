@@ -362,7 +362,11 @@ These expansions, in turn, rely on the fact that $\mathbf{q}$ and $\boldsymbol{\
 
 Let $m' = (m_1^{I'}, m_{2}^{I'}, m^{E'})$, $h' = (h^{I'}, h^{E'})$, and define the shorthand $\boldsymbol{\tau}_0' = (\boldsymbol{\gamma}_0', \mathbf{q}_0')$ for the true parameter values and 
 $\widehat{\boldsymbol{\tau}}_0' = \big( \widehat{\boldsymbol{\gamma}}'(\boldsymbol{\theta}_0), \widehat{\mathbf{q}}'(\boldsymbol{\theta}_0) \big)$ for their estimators under the null.
+
+\todo[inline]{Suppose iid observations. Then standard conditions get a joint CLT. Now the asymptotic variance we need is BLAH, while is constructed from the FULL variance matrix THIS WAY and we define the following estimators. END OF SECTION!}
+
 \[
+  \Sigma(
   \mathcal{V}(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0) = \mbox{Var}\left[
   \begin{array}{c}
   m(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0) \\
@@ -385,22 +389,6 @@ $\widehat{\boldsymbol{\tau}}_0' = \big( \widehat{\boldsymbol{\gamma}}'(\boldsymb
 \end{array}
 \right]'
 \]
-
-Using Lemma \ref{lem:prelim}, we can carry out GMS inference for $\boldsymbol{\vartheta}$ directly using the 
- This allows us to reduce dimension of the parameter space over which we will carry out the GMS test, by relating 
-
-Define the full collection of auxiliary moment functions, $h$, as follows:
-\[
-  h(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\tau}) = \left[
-  \begin{array}{c}
-    h^I(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q})\\
-    h^E(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\gamma})\\
-  \end{array}
-\right]
-\]
-where $\boldsymbol{\tau} = (\boldsymbol{\gamma}, \mathbf{q})$
-
-\todo[inline]{Need to define the $\bar{h}_n$ and $\bar{m}_n$. Just say defined analogously to what we had above. Add some kind of assumptions to the lemma, add at least a proof sketch to the appendix, and discuss the result a bit. Allows us to adjust the asymptotic variance matrix given a joint CLT. Talk about the existence of $B^I$ and $B^E$: by direct calculation, the determinant of $H^E$ equals $\mbox{Cov}(T,z)$ so this is always invertible. Talk about what happens to $B^I$ when $\alpha_1 = 0$ but how this doesn't matter because the corresponding inequalities are trivially satisfied when testing that null so we just drop the corresponding conditions. Finally, talk about how you actually get the estimated covariance matrix: plug in the preliminary estimators for the $B$ matrices, and also plug in the null and the sample estimators to get the sample variance matrix $\widehat{\mathcal{V}}$. Probably worth saying something about the derivatives of $\psi$. Could create an appendix with the required derivatives: they should be in our notes.}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
