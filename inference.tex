@@ -213,16 +213,16 @@ In the next section we discuss how $\mathbf{q}$ can be estimated under a given n
 \label{sec:prelim}
 
 
-Let $\boldsymbol{\vartheta} = (\alpha_0, \alpha_1)$, $\boldsymbol{\gamma} = (\boldsymbol{\kappa}, \theta_1)$ and $\boldsymbol{\tau} =  (\boldsymbol{\gamma}, \mathbf{q})$, where $\theta_1$ is defined in Equation \ref{eq:theta1_def}, $\boldsymbol{\kappa}$ in Section \ref{sec:problem}, and $\mathbf{q}$ in Section \ref{sec:inequalities}.
+Let $\boldsymbol{\vartheta} = (\alpha_0, \alpha_1)$ and $\boldsymbol{\gamma} = (\boldsymbol{\kappa}, \theta_1)$ where $\theta_1$ is defined in Equation \ref{eq:theta1_def} and $\boldsymbol{\kappa}$ in Section \ref{sec:problem}.
 Our moment conditions take the form 
 \begin{equation}
-  \mathbb{E}[m^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)] \geq \mathbf{0}, \quad 
-  \mathbb{E}[m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)] = \mathbf{0}
+  \mathbb{E}[m^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \mathbf{q}_0)] \geq \mathbf{0}, \quad 
+  \mathbb{E}[m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)] = \mathbf{0}
   \label{eq:MCs_ineq_eq}
 \end{equation}
 where $m^I = (m_1^{I'}, m_2^{I'})'$, defined in Section \ref{sec:inequalities}, and 
 \begin{equation}
-  m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)= \left[
+  m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)= \left[
   \begin{array}{c}
  \left\{ \boldsymbol{\psi}_2'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_2 \right\}z_i \\
  \left\{ \boldsymbol{\psi}_3'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_3 \right\}z_i 
@@ -230,7 +230,7 @@ where $m^I = (m_1^{I'}, m_2^{I'})'$, defined in Section \ref{sec:inequalities}, 
 \right].
 \end{equation}
 Notice that we now write $\boldsymbol{\psi}_2$ and $\boldsymbol{\psi}_3$, defined in Equation \ref{eq:psi_def}, as explicit functions of $(\theta_1, \alpha_0, \alpha_1)$, using the definitions of $(\theta_2, \theta_3)$ from Equations \ref{eq:theta2_def}--\ref{eq:theta3_def}.
-To construct a GMS test of the null hypothesis $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta_0}$ based on Equation \ref{eq:MCs_ineq_eq}, we require a preliminary estimator $\widehat{\boldsymbol{\tau}}(\boldsymbol{\vartheta}_0)$ that is consistent and asymptotically normal \emph{under the null}.
+To construct a GMS test of the null hypothesis $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta_0}$ based on Equation \ref{eq:MCs_ineq_eq}, we require preliminary estimators $\widehat{\boldsymbol{\gamma}}(\boldsymbol{\vartheta}_0)$ and $\widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)$ that are consistent and asymptotically normal \emph{under the null}.
 We now provide full details of the construction and derive the associated adjustment to the asymptotic variance matrix.
 
 Consider first the equality moment conditions $m^E$.
@@ -259,8 +259,8 @@ Under the assumption that $y$ follows a continuous distribution, as maintained i
 \end{align*}
 where $r_{tk}$ is defined in Theorem \ref{thm:sharpII} and $t,k = 0,1$.
 Under $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, a consistent estimator $\widehat{r}_{tk}$ of $r_{tk}$ can be obtained directly from $\widehat{p}_k$, the sample analogue of $p_k$ based on iid observations of $\mathbf{w}_i$.
-In turn, the $(\widehat{r}_{tk})$\textsuperscript{th} and $(1 - \widehat{r}_{tk})$\textsuperscript{th} sample conditional quantiles of $y$ provide consistent estimates of $\underline{q}_{tk}$ and $\overline{q}_{tk}$.\footnote{Consistency of the sample quantiles requires $0 < r_{tk} < 1$. If $r_{tk} = 0$ or $1$ for some $(t,k)$, however, then the associated moment inequality is trivially satisfied and we no longer require estimates of $\underline{q}_{tk}, \overline{q}_{tk}$.}
-Collecting these for all $(t,k)$ gives $\widehat{\mathbf{q}}$.
+In turn, the $(\widehat{r}_{tk})$\textsuperscript{th} and $(1 - \widehat{r}_{tk})$\textsuperscript{th} sample conditional quantiles of $y$ provide consistent estimates of $\underline{q}_{tk}$ and $\overline{q}_{tk}$.\footnote{Consistency of the sample quantiles requires $0 < r_{tk} < 1$. If $r_{tk} = 0$ or $1$ for some $(t,k)$, however, then the associated moment inequality is trivially satisfied and we no longer require estimates of $\underline{q}_{tk}, \overline{q}_{tk}$.\label{foot:quantile}}
+Collecting these for all $(t,k)$ gives $\widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)$.
 Now, define
 \begin{equation}
 h^I(\mathbf{w}_i,\boldsymbol{\vartheta}, \mathbf{q}) = 
@@ -287,14 +287,15 @@ where
 \right].
 \end{equation}
 Under $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, we have
-$\widehat{\mathbf{q}} \rightarrow_p \mathbf{q}_0$ where $\mathbf{q}_0$ satisfies the just-identified collection of unconditional moment equalities $\mathbb{E}[h^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0,\mathbf{q}_0)] = \mathbf{0}$.
+$\widehat{\mathbf{q}}(\boldsymbol{\vartheta}) \rightarrow_p \mathbf{q}_0$ where $\mathbf{q}_0$ satisfies the just-identified collection of unconditional moment equalities $\mathbb{E}[h^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0,\mathbf{q}_0)] = \mathbf{0}$.
 Although $h^I$ is a discontinuous function of $\mathbf{q}$, it is bounded for any fixed $(\alpha_0, \alpha_1)$.
 Moreover, since $y|(T=t,z=k)$ is a continuous random variable, $\mathbb{E}[h^I(\mathbf{w}_i,\boldsymbol{\vartheta}, \mathbf{q})]$ is continuously differentiable with respect to $\mathbf{q}$.
 Hence, $\widehat{\mathbf{q}}$ is asymptotically normal under mild regularity conditions.\footnote{\todo[inline]{Cite Andrews/Newey-McFadden.}}
-
+To account for the effect of preliminary estimation of $\mathbf{q}$ and $\boldsymbol{\gamma}$ on the asymptotic variance matrix $\Sigma$ used in the GMS test, we rely on the following Lemma.
 
 \begin{lem}
-
+  Let $\bar{m}^I_{1,n}(\boldsymbol{\vartheta}) = n^{-1}\sum_{i=1}^n m_{1,n}^I(\mathbf{w}_i,\boldsymbol{\vartheta})$ and define $\bar{m}_{2,n}^I, \bar{m}_n^E, \bar{h}_n^I$ and $\bar{h}_n^E$ analogously.
+  Under standard regularity conditions,
   \[
     \sqrt{n}\left[
     \begin{array}{l}
@@ -320,21 +321,8 @@ Hence, $\widehat{\mathbf{q}}$ is asymptotically normal under mild regularity con
     \end{array}
   \right] + o_p(1)
   \]
-where
-\[
-  B^I = (1 - \alpha_0 - \alpha_1) \times \mbox{diag} \left[
-  \begin{array}{llllllll}
-    \displaystyle\frac{\underline{q}_{00}}{\alpha_1} &
-    \displaystyle\frac{\overline{q}_{00}}{\alpha_1} &
-    \displaystyle\frac{\underline{q}_{10}}{(1 - \alpha_1)} &
-    \displaystyle\frac{\overline{q}_{10}}{(1 - \alpha_1)} &
-    \displaystyle\frac{\underline{q}_{01}}{\alpha_1} &
-    \displaystyle\frac{\overline{q}_{01}}{\alpha_1} &
-    \displaystyle\frac{\underline{q}_{11}}{(1 - \alpha_1)} &
-    \displaystyle\frac{\overline{q}_{11}}{(1 - \alpha_1)}
-  \end{array}
-\right]
-\]
+  where $B^I = (1 - \alpha_0 - \alpha_1) \left[\mbox{diag}(\mathbf{a})  \right]^{-1} \mathbf{q}_0$ 
+  with $\mathbf{a}' = (\alpha_1, \alpha_1, 1 - \alpha_1, 1 - \alpha_1, \alpha_1, \alpha_1, 1 - \alpha_1, 1 - \alpha_1)$ 
 and $B^{E} = -M^E (H^E)^{-1}$, with
 \[
   M^E = \left[ 
@@ -345,16 +333,42 @@ and $B^{E} = -M^E (H^E)^{-1}$, with
 H^E = \left[
 \begin{array}{cccc}
   -1 & 0 & 0 
-  & \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
-   0 & -1 & 0 &  \left(\frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
-   0 & 0 & -1 & \left(\frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}]\\
-   -\mathbb{E}[z_i] & 0 & 0 &  \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}z]
+  & \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}_i]\\
+   0 & -1 & 0 &  \left(\frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}_i]\\
+   0 & 0 & -1 & \left(\frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}_i]\\
+   -\mathbb{E}[z_i] & 0 & 0 &  \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}_iz_i]
 \end{array}
 \right]
 \]
+\label{lem:prelim}
 \end{lem}
 
-\todo[inline]{Need to define the $\bar{h}_n$ and $\bar{m}_n$. Just say defined analogously to what we had above. Add some kind of assumptions to the lemma, add at least a proof sketch to the appendix, and discuss the result a bit. Allows us to adjust the asymptotic variance matrix given a joint CLT. Talk about the existence of $B^I$ and $B^E$: by direct calculation, the determinant of $H^E$ equals $\mbox{Cov}(T,z)$ so this is always invertible. Talk about what happens to $B^I$ when $\alpha_1 = 0$ but how this doesn't matter because the corresponding inequalities are trivially satisfied when testing that null so we just drop the corresponding conditions.}
+
+Lemma \ref{lem:prelim} relates the sample analogues $\bar{m}_{2,n}^I$ and $\bar{m}_n^E$ evaluated at the preliminary estimators $\widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)$ and $\widehat{\boldsymbol{\gamma}}(\boldsymbol{\vartheta}_0)$ to their counterparts evaluated at the true parameter values $\mathbf{q}_0$ and $\boldsymbol{\gamma}_0$ under $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$.
+ This relationship is determined by the sample analogues of the auxiliary moments, $\bar{h}_n^I$ and $\bar{h}_n^E$, via the matrices $B^I$ and $B^E$ defined in the Lemma.
+A few lines of matrix algebra using the definitions of $(\boldsymbol{\psi}_1,\boldsymbol{\psi}_2,\boldsymbol{\psi}_3)$ from Equation \ref{eq:psi_def} and $\mathbf{w}_i$ from Section \ref{sec:problem} establish that the determinant of $H^E$ equals $\mbox{Cov}(z,T)$.
+Hence, $B^E$ is well-defined if $z$ is a relevant instrument.
+Provided that $\mathbf{q}$ is well-defined under $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$ and $\alpha_1 \neq 0$, $B^I$ is likewise well-defined.
+If either of these conditions fails, however, we are in a case where some of the moment inequalities in $m_2^I$ are trivially satisfied and can be dropped (see Footnote \ref{foot:quantile}).
+After removing the corresponding elements of $\mathbf{q}$ and $\mathbf{a}$, $B^I$ becomes well-defined.
+
+\todo[inline]{Proof of Lemma \ref{lem:prelim} relies on mean value expansions: uses diff of certain functions or their expectations along with interiority. Need to at least comment on this although the functions we work with satisfy these conditions.}
+
+Using Lemma \ref{lem:prelim}, we can reduce the dimension of 
+ This allows us to reduce dimension of the parameter space over which we will carry out the GMS test, by relating 
+
+Define the full collection of auxiliary moment functions, $h$, as follows:
+\[
+  h(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\tau}) = \left[
+  \begin{array}{c}
+    h^I(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q})\\
+    h^E(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\gamma})\\
+  \end{array}
+\right]
+\]
+where $\boldsymbol{\tau} = (\boldsymbol{\gamma}, \mathbf{q})$
+
+\todo[inline]{Need to define the $\bar{h}_n$ and $\bar{m}_n$. Just say defined analogously to what we had above. Add some kind of assumptions to the lemma, add at least a proof sketch to the appendix, and discuss the result a bit. Allows us to adjust the asymptotic variance matrix given a joint CLT. Talk about the existence of $B^I$ and $B^E$: by direct calculation, the determinant of $H^E$ equals $\mbox{Cov}(T,z)$ so this is always invertible. Talk about what happens to $B^I$ when $\alpha_1 = 0$ but how this doesn't matter because the corresponding inequalities are trivially satisfied when testing that null so we just drop the corresponding conditions. Finally, talk about how you actually get the estimated covariance matrix: plug in the preliminary estimators for the $B$ matrices, and also plug in the null and the sample estimators to get the sample variance matrix $\widehat{\mathcal{V}}$. Probably worth saying something about the derivatives of $\psi$. Could create an appendix with the required derivatives: they should be in our notes.}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -362,5 +376,9 @@ H^E = \left[
 \subsection{Details of Inference Procedure}
 \label{sec:details}
 
+\todo[inline]{Give the full algorithm step-by-step, referencing the definitions from the preceding sections. Also say precisely how the Bonferroni interval is calculated, including the projection etc. Then give a Theorem under which we have valid inference. The proof can be just a sketch: go via the Lemma to get the variance matrix correction, then invoke the conditions in the Andrews \& Soares Appendix to get the valid joint confidence set for $\alpha_0, \alpha_1$ and finally argue that the Bonferroni correction gives valid inference for $\beta$. Say a few more things about Bonferroni such has how you can't reject $\beta=0$ unless the IV interval excludes this.}
+
 \subsection{Incorporating Covariates}
 \label{sec:covariates}
+
+\todo[inline]{Just give a quick overview of how one can handle them more generally. There several routes: one is to be more restrictive and do what FL do. The other is to try to be fully nonparametric. There's a paper by Andrews that gives some more details. This is likely to be complicated in general. There may be a ``halfway house'' using a semiparametric model. Perhaps look at what Lewbel said about this. This Section should really just be a paragraph or so.}
