@@ -294,8 +294,10 @@ Hence, $\widehat{\mathbf{q}}$ is asymptotically normal under mild regularity con
 To account for the effect of preliminary estimation of $\mathbf{q}$ and $\boldsymbol{\gamma}$ on the asymptotic variance matrix $\Sigma$ used in the GMS test, we rely on the following Lemma.
 
 \begin{lem}
-  Let $\bar{m}^I_{1,n}(\boldsymbol{\vartheta}) = n^{-1}\sum_{i=1}^n m_{1,n}^I(\mathbf{w}_i,\boldsymbol{\vartheta})$ and define $\bar{m}_{2,n}^I, \bar{m}_n^E, \bar{h}_n^I$ and $\bar{h}_n^E$ analogously.
-  Under standard regularity conditions,
+  Let $\bar{m}^I_{1,n}(\boldsymbol{\vartheta}) = n^{-1}\sum_{i=1}^n m_{1,n}^I(\mathbf{w}_i,\boldsymbol{\vartheta})$ and define $\bar{m}_{2,n}^I, \bar{m}_n^E, \bar{h}_n^I,\bar{h}_n^E$ analogously.
+  Further let $\widehat{\boldsymbol{\gamma}}(\boldsymbol{\vartheta}_0) = \arg \min_{\boldsymbol{\gamma}} \lVert \bar{h}_n^E(\boldsymbol{\vartheta}_0, \boldsymbol{\gamma}) \rVert$ and 
+    $\lVert h_n^I(\boldsymbol{\vartheta}_0, \widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0))\rVert \leq \inf_{\mathbf{q}} \lVert h_n^I(\boldsymbol{\vartheta}_0, \mathbf{q})\rVert + o_p(1)$.
+Then, under standard regularity conditions
   \[
     \sqrt{n}\left[
     \begin{array}{l}
@@ -329,7 +331,7 @@ and $B^{E} = -M^E (H^E)^{-1}$, with
     \begin{array}{cccc} 
       0 & -\mathbb{E}[z_i] & 0 & \left( \frac{\partial \boldsymbol{\psi}_2}{\partial \theta_1} \right)' \mathbb{E}[\mathbf{w}_iz_i]\\ 
       0 & 0 & -\mathbb{E}[z_i] & \left( \frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1} \right)' \mathbb{E}[\mathbf{w}_iz_i] 
-  \end{array} \right], \,\,
+  \end{array} \right], \,
 H^E = \left[
 \begin{array}{cccc}
   -1 & 0 & 0 
@@ -343,18 +345,48 @@ H^E = \left[
 \label{lem:prelim}
 \end{lem}
 
-
-Lemma \ref{lem:prelim} relates the sample analogues $\bar{m}_{2,n}^I$ and $\bar{m}_n^E$ evaluated at the preliminary estimators $\widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)$ and $\widehat{\boldsymbol{\gamma}}(\boldsymbol{\vartheta}_0)$ to their counterparts evaluated at the true parameter values $\mathbf{q}_0$ and $\boldsymbol{\gamma}_0$ under $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$.
- This relationship is determined by the sample analogues of the auxiliary moments, $\bar{h}_n^I$ and $\bar{h}_n^E$, via the matrices $B^I$ and $B^E$ defined in the Lemma.
-A few lines of matrix algebra using the definitions of $(\boldsymbol{\psi}_1,\boldsymbol{\psi}_2,\boldsymbol{\psi}_3)$ from Equation \ref{eq:psi_def} and $\mathbf{w}_i$ from Section \ref{sec:problem} establish that the determinant of $H^E$ equals $\mbox{Cov}(z,T)$.
+Lemma \ref{lem:prelim} relates the sample analogues $\bar{m}_{2,n}^I$ and $\bar{m}_n^E$ evaluated at the preliminary estimators $\widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)$ and $\widehat{\boldsymbol{\gamma}}(\boldsymbol{\vartheta}_0)$ to their counterparts evaluated at the true parameter values $\mathbf{q}_0$ and $\boldsymbol{\gamma}_0$.
+The estimator $\widehat{\boldsymbol{\gamma}}(\boldsymbol{\vartheta}_0)$ exactly solves $h_n^E(\boldsymbol{\vartheta}_0, \boldsymbol{\gamma})=0$ while $\widehat{q}(\boldsymbol{\vartheta}_0)$, constructed as described immediately before the statement of the Lemma, \emph{approximately} solves $\bar{h}_n^I(\boldsymbol{\vartheta}_0, \mathbf{q})=0$. 
+%This relationship is determined by the sample analogues of the auxiliary moments, $\bar{h}_n^I$ and $\bar{h}_n^E$, via the matrices $B^I$ and $B^E$ defined in the Lemma.
+A few lines of matrix algebra 
+%using the definitions of $(\boldsymbol{\psi}_1,\boldsymbol{\psi}_2,\boldsymbol{\psi}_3)$ from Equation \ref{eq:psi_def} and $\mathbf{w}_i$ from Section \ref{sec:problem} 
+show that the determinant of $H^E$ equals $\mbox{Cov}(z,T)$.
 Hence, $B^E$ is well-defined if $z$ is a relevant instrument.
-Provided that $\mathbf{q}$ is well-defined under $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$ and $\alpha_1 \neq 0$, $B^I$ is likewise well-defined.
-If either of these conditions fails, however, we are in a case where some of the moment inequalities in $m_2^I$ are trivially satisfied and can be dropped (see Footnote \ref{foot:quantile}).
+The matrix $B^I$ is likewise well-defined provided that $\alpha\neq 0$ and $\mathbf{q}$ is well-defined under $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$.
+If either of these conditions fails, however, some of the moment inequalities in $m_2^I$ are trivially satisfied and can be dropped (see Footnote \ref{foot:quantile}).
 After removing the corresponding elements of $\mathbf{q}$ and $\mathbf{a}$, $B^I$ becomes well-defined.
+The regularity conditions required for Lemma \ref{lem:prelim} are mild.
+The result relies on a number of mean-value expansions: $\bar{h}_n^E(\boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)$ and $\bar{m}_n^E(\boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)$ are expanded around $\boldsymbol{\gamma} = \widehat{\boldsymbol{\gamma}}(\boldsymbol{\vartheta}_0)$ while $\mathbb{E}[h^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \mathbf{q}_0)]$ and $\mathbb{E}[m^I_2(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \mathbf{q}_0)]$ are expanded around $\mathbf{q} = \widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)$.
+These expansions, in turn, rely on the fact that $\mathbf{q}$ and $\boldsymbol{\gamma}$ are interior to their respective parameter spaces and the relevant functions are all continuously differentiable in our example.
 
-\todo[inline]{Proof of Lemma \ref{lem:prelim} relies on mean value expansions: uses diff of certain functions or their expectations along with interiority. Need to at least comment on this although the functions we work with satisfy these conditions.}
 
-Using Lemma \ref{lem:prelim}, we can reduce the dimension of 
+Let $m' = (m_1^{I'}, m_{2}^{I'}, m^{E'})$, $h' = (h^{I'}, h^{E'})$, and define the shorthand $\boldsymbol{\tau}_0' = (\boldsymbol{\gamma}_0', \mathbf{q}_0')$ for the true parameter values and 
+$\widehat{\boldsymbol{\tau}}_0' = \big( \widehat{\boldsymbol{\gamma}}'(\boldsymbol{\theta}_0), \widehat{\mathbf{q}}'(\boldsymbol{\theta}_0) \big)$ for their estimators under the null.
+\[
+  \mathcal{V}(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0) = \mbox{Var}\left[
+  \begin{array}{c}
+  m(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0) \\
+  h(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)\\
+  \end{array}
+\right]
+\]
+\[
+\widehat{\mathcal{V}}_n(\boldsymbol{\vartheta}_0) = \frac{1}{n} \sum_{i=1}^n
+\left[
+\begin{array}{c}
+  m(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) -  \bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) \\
+  h(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) -  \bar{h}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) 
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+  m(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) -  \bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) \\
+  h(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) -  \bar{h}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) 
+\end{array}
+\right]'
+\]
+
+Using Lemma \ref{lem:prelim}, we can carry out GMS inference for $\boldsymbol{\vartheta}$ directly using the 
  This allows us to reduce dimension of the parameter space over which we will carry out the GMS test, by relating 
 
 Define the full collection of auxiliary moment functions, $h$, as follows:
