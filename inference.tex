@@ -33,7 +33,7 @@ $\boldsymbol{\Psi} = \left[
   \begin{array}{ccc}
     \boldsymbol{\psi}_1 & \boldsymbol{\psi_2} & \boldsymbol{\psi_3}
 \end{array}\right]$.
-Defining the observed data vector $\mathbf{w}_i' = (T_i, y_i, y_iT_i, y_i^2, y_i^2 T_i, y_i^3)$ for observation $i$, can re-write the moment equations as:
+Defining the observed data vector $\mathbf{w}_i' = (T_i, y_i, y_iT_i, y_i^2, y_i^2 T_i, y_i^3)$ for observation $i$, we can re-write the moment equations as:
 \begin{equation}
 \mathbb{E}\left[
   \big(\boldsymbol{\Psi}'(\boldsymbol{\theta})\mathbf{w}_i - \boldsymbol{\kappa}\big) \otimes 
@@ -41,7 +41,7 @@ Defining the observed data vector $\mathbf{w}_i' = (T_i, y_i, y_iT_i, y_i^2, y_i
 \begin{array}{c}
   1 \\ z_i
 \end{array}\right)
-\right] = \mathbf{0}
+\right] = \mathbf{0}.
 \label{eq:MCs_endog}
 \end{equation}
 
@@ -342,6 +342,7 @@ H^E = \left[
 \end{array}
 \right]
 \]
+where $B^I$ is evaluated at $(\boldsymbol{\vartheta}_0, \mathbf{q}_0)$ and $B^E$ at $(\boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)$.
 \label{lem:prelim}
 \end{lem}
 
@@ -352,33 +353,65 @@ A few lines of matrix algebra
 %using the definitions of $(\boldsymbol{\psi}_1,\boldsymbol{\psi}_2,\boldsymbol{\psi}_3)$ from Equation \ref{eq:psi_def} and $\mathbf{w}_i$ from Section \ref{sec:problem} 
 show that the determinant of $H^E$ equals $\mbox{Cov}(z,T)$.
 Hence, $B^E$ is well-defined if $z$ is a relevant instrument.
-The matrix $B^I$ is likewise well-defined provided that $\alpha\neq 0$ and $\mathbf{q}$ is well-defined under $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$.
+The matrix $B^I$ is likewise well-defined provided that $\alpha\neq 0$ and the elements of $\mathbf{q}_0$ are computed for probabilities strictly between zero and one.
 If either of these conditions fails, however, some of the moment inequalities in $m_2^I$ are trivially satisfied and can be dropped (see Footnote \ref{foot:quantile}).
-After removing the corresponding elements of $\mathbf{q}$ and $\mathbf{a}$, $B^I$ becomes well-defined.
+After removing the corresponding elements of $\mathbf{q}_0$ and $\mathbf{a}$, $B^I$ becomes well-defined.
 The regularity conditions required for Lemma \ref{lem:prelim} are mild.
 The result relies on a number of mean-value expansions: $\bar{h}_n^E(\boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)$ and $\bar{m}_n^E(\boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)$ are expanded around $\boldsymbol{\gamma} = \widehat{\boldsymbol{\gamma}}(\boldsymbol{\vartheta}_0)$ while $\mathbb{E}[h^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \mathbf{q}_0)]$ and $\mathbb{E}[m^I_2(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \mathbf{q}_0)]$ are expanded around $\mathbf{q} = \widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)$.
 These expansions, in turn, rely on the fact that $\mathbf{q}$ and $\boldsymbol{\gamma}$ are interior to their respective parameter spaces and the relevant functions are all continuously differentiable in our example.
 
 
-Let $m' = (m_1^{I'}, m_{2}^{I'}, m^{E'})$, $h' = (h^{I'}, h^{E'})$, and define the shorthand $\boldsymbol{\tau}_0' = (\boldsymbol{\gamma}_0', \mathbf{q}_0')$ for the true parameter values and 
-$\widehat{\boldsymbol{\tau}}_0' = \big( \widehat{\boldsymbol{\gamma}}'(\boldsymbol{\theta}_0), \widehat{\mathbf{q}}'(\boldsymbol{\theta}_0) \big)$ for their estimators under the null.
-
-\todo[inline]{Suppose iid observations. Then standard conditions get a joint CLT. Now the asymptotic variance we need is BLAH, while is constructed from the FULL variance matrix THIS WAY and we define the following estimators. END OF SECTION!}
-
-\[
-  \Sigma(
+We now have all the ingredients required to construct an asymptotic variance matrix for the GMS test that accounts for preliminary estimation of $\boldsymbol{\gamma}$ and $\mathbf{q}$. 
+Let $m' = (m_1^{I'}, m_{2}^{I'}, m^{E'})$, $h' = (h^{I'}, h^{E'})$, and define the shorthand $\boldsymbol{\tau}_0' = (\boldsymbol{\gamma}_0', \mathbf{q}_0')$ and 
+$\widehat{\boldsymbol{\tau}}_0' = \big( \widehat{\boldsymbol{\gamma}}'(\boldsymbol{\theta}_0), \widehat{\mathbf{q}}'(\boldsymbol{\theta}_0) \big)$.
+Given a collection of iid observations $(\mathbf{w}_1, \hdots, \mathbf{w}_n)$, we have
+\begin{equation}
+  \sqrt{n}\left[
+  \begin{array}{c}
+    \bar{m}_n(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)\\
+    \bar{h}_n(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)
+  \end{array}
+\right] \rightarrow_d N\big(\mathbf{0},  \mathcal{V}(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)\big), \quad
   \mathcal{V}(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0) = \mbox{Var}\left[
   \begin{array}{c}
   m(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0) \\
   h(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)\\
   \end{array}
 \right]
-\]
-\[
-\widehat{\mathcal{V}}_n(\boldsymbol{\vartheta}_0) = \frac{1}{n} \sum_{i=1}^n
+\label{eq:clt}
+\end{equation}
+under $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, by an appropriate central limit theorem.
+What we require for the test, however, is the asymptotic variance matrix of $\sqrt{n}\, \bar{m}_n(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0)$.
+Combining Equation \ref{eq:clt} with Lemma \ref{lem:prelim}, we obtain 
+\begin{equation}
+  \mbox{Avar}\big(\sqrt{n}\, \bar{m}_n(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0)\big) = \Xi(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)\, \mathcal{V}(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)\, \Xi'(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)
+\end{equation}
+with
+\begin{equation}
+  \Xi(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0) = \left[
+  \begin{array}{cc}
+    \mathbf{I} & B(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)
+  \end{array}
+\right], \quad
+  B(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)= \left[
+\begin{array}{cc}
+  \mathbf{0} & \mathbf{0}\\
+  B^I & \mathbf{0}\\
+  \mathbf{0} & B^E
+\end{array}
+\right]
+\end{equation}
+where $B^I$ and $B^E$ are defined in Lemma \ref{lem:prelim}.
+Finally, we construct a consistent estimator $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)$ of the asymptotic variance matrix of $\sqrt{n}\, \bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)$ under the null:
+\begin{equation}
+  \widehat{\Sigma}_n(\boldsymbol{\vartheta}_0) \equiv \Xi(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)\, \widehat{\mathcal{V}}_n(\boldsymbol{\vartheta}_0)\,\Xi'(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)
+\end{equation}
+where
+\begin{equation}
+\widehat{\mathcal{V}}_n(\boldsymbol{\vartheta}_0) \equiv \frac{1}{n} \sum_{i=1}^n
 \left[
 \begin{array}{c}
-  m(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) -  \bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) \\
+  m(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) - \bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) \\
   h(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) -  \bar{h}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) 
 \end{array}
 \right]
@@ -387,8 +420,9 @@ $\widehat{\boldsymbol{\tau}}_0' = \big( \widehat{\boldsymbol{\gamma}}'(\boldsymb
   m(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) -  \bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) \\
   h(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) -  \bar{h}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) 
 \end{array}
-\right]'
-\]
+\right]'.
+\end{equation}
+In the following section we provide a step-by-step description of our inference procedure.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
