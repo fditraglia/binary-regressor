@@ -240,12 +240,11 @@ where
   \end{array}
 \right].
 \end{equation}
-Under $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, we have
-$\widehat{\mathbf{q}}(\boldsymbol{\vartheta}) \rightarrow_p \mathbf{q}_0$ where $\mathbf{q}_0$ satisfies the just-identified collection of unconditional moment equalities $\mathbb{E}[h^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0,\mathbf{q}_0)] = \mathbf{0}$.
+Under the null $\widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)$ converges in probability to $\mathbf{q}_0$, which satisfies the just-identified collection of moment equalities $\mathbb{E}[h^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0,\mathbf{q}_0)] = \mathbf{0}$.
 Although $h^I$ is a discontinuous function of $\mathbf{q}$, it is bounded for any fixed $(\alpha_0, \alpha_1)$.
 Moreover, since $y|(T=t,z=k)$ is a continuous random variable, $\mathbb{E}[h^I(\mathbf{w}_i,\boldsymbol{\vartheta}, \mathbf{q})]$ is continuously differentiable with respect to $\mathbf{q}$.
 Hence, $\widehat{\mathbf{q}}$ is asymptotically normal under mild regularity conditions.\footnote{\todo[inline]{Cite Andrews/Newey-McFadden.}}
-To account for the effect of preliminary estimation of $\mathbf{q}$ and $\boldsymbol{\gamma}$ on the asymptotic variance matrix $\Sigma$ used in the GMS test, we rely on the following Lemma.
+To account for the effect of preliminary estimation of $\mathbf{q}$ and $\boldsymbol{\gamma}$ on the asymptotic variance matrix used in the GMS test, we rely on the following Lemma.
 
 \begin{lem}
   Let $\bar{m}^I_{1,n}(\boldsymbol{\vartheta}) = n^{-1}\sum_{i=1}^n m_{1,n}^I(\mathbf{w}_i,\boldsymbol{\vartheta})$ and define $\bar{m}_{2,n}^I, \bar{m}_n^E, \bar{h}_n^I,\bar{h}_n^E$ analogously.
@@ -383,6 +382,8 @@ In the following section we provide a step-by-step description of our inference 
 
 \subsection{Details of Inference Procedure}
 \label{sec:details}
+
+\todo[inline]{First define notation, test statistic, etc. I cut and pasted the following from above, where it formerly appeared.}
 
 Before proceeding, we introduce some notation.
 Let
