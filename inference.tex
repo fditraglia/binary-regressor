@@ -316,7 +316,7 @@ These expansions, in turn, rely on the fact that $\mathbf{q}$ and $\boldsymbol{\
 
 We now have all the ingredients required to construct an asymptotic variance matrix for the GMS test that accounts for preliminary estimation of $\boldsymbol{\gamma}$ and $\mathbf{q}$. 
 Let $m' = (m_1^{I'}, m_{2}^{I'}, m^{E'})$, $h' = (h^{I'}, h^{E'})$, and define the shorthand $\boldsymbol{\tau}_0' = (\boldsymbol{\gamma}_0', \mathbf{q}_0')$ and 
-$\widehat{\boldsymbol{\tau}}_0' = \big( \widehat{\boldsymbol{\gamma}}'(\boldsymbol{\theta}_0), \widehat{\mathbf{q}}'(\boldsymbol{\theta}_0) \big)$.
+$\widehat{\boldsymbol{\tau}}_0' = \big( \widehat{\boldsymbol{\gamma}}'(\boldsymbol{\vartheta}_0), \widehat{\mathbf{q}}'(\boldsymbol{\vartheta}_0) \big)$.
 Given a collection of iid observations $(\mathbf{w}_1, \hdots, \mathbf{w}_n)$, we have
 \begin{equation}
   \sqrt{n}\left[
@@ -357,11 +357,12 @@ with
 where $B^I$ and $B^E$ are defined in Lemma \ref{lem:prelim}.
 Finally, we construct a consistent estimator $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)$ of the asymptotic variance matrix of $\sqrt{n}\, \bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)$ under the null:
 \begin{equation}
-  \widehat{\Sigma}_n(\boldsymbol{\vartheta}_0) \equiv \Xi(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)\, \widehat{\mathcal{V}}_n(\boldsymbol{\vartheta}_0)\,\Xi'(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)
+  \widehat{\Sigma}_n(\boldsymbol{\vartheta}_0) \equiv \Xi(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)\, \widehat{\mathcal{V}}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}})\,\Xi'(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)
+  \label{eq:AvarEst}
 \end{equation}
 where
 \begin{equation}
-\widehat{\mathcal{V}}_n(\boldsymbol{\vartheta}_0) \equiv \frac{1}{n} \sum_{i=1}^n
+  \widehat{\mathcal{V}}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) \equiv \frac{1}{n} \sum_{i=1}^n
 \left[
 \begin{array}{c}
   m(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) - \bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) \\
@@ -426,16 +427,60 @@ Finally, let $\Sigma(\boldsymbol{\vartheta})$ denote the asymptotic variance mat
 namely the modified method of moments (MMM) statistic 
 \begin{equation}
   T_n(\boldsymbol{\vartheta}) = \sum_{j=1}^{J_1}\min\left\{ 0, \left( \frac{\sqrt{n}\; \bar{m}_n^I(\boldsymbol{\vartheta})}{\widehat{\sigma}_n(\boldsymbol{\vartheta})} \right)^2 \right\} + \sum_{j=J_1 + 1}^{J} \left( \frac{\sqrt{n}\; \bar{m}_n^E(\boldsymbol{\vartheta})}{\widehat{\sigma}_n(\boldsymbol{\vartheta})} \right)^2.
-  \label{eq:MMM}
 \end{equation}
 
 In particular, when approximating the asymptotic distribution of $T_n$ under the null $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, we drop any inequality moment condition $m_j^I$ for which $\sqrt{n}\big[\bar{m}_n(\boldsymbol{\vartheta}_0)/ \widehat{\sigma}_n(\boldsymbol{\vartheta}_0)\big] > \sqrt{\log(n)}$.\footnote{Full details appear in Section \ref{sec:details} below.}
 
-\begin{alg}[GMS Test for $(\alpha_0, \alpha_1)$ ]
-  Give the full description of the asymptotic test of $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, including drawing the normal simulations, etc, referencing the calculations and definitions from the preceding sections.
+\todo[inline]{Refer to the places where each of the $m$ functions is defined above}
+\begin{equation}
+  \bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)  = \frac{1}{n} \sum_{i=1}^n \left[
+  \begin{array}{c}
+    m^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\mathbf{q}}_0)  \\
+  m^E(\mathbf{w}_i,\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\gamma}}_0)  
+  \end{array}
+\right],\quad 
+m^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\mathbf{q}}) = \left[
+\begin{array}{l}
+  m_{1}^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0)\\
+  m_{2}^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\mathbf{q}}_0)
+\end{array}
+\right]
+\label{eq:mbar_def}
+\end{equation}
+
+\todo[inline]{Explain about the counts of inequalities and equalities: $J_I, J_E$ etc.}
+\begin{equation}
+  S(m, \Sigma) = \sum_{j=1}^{J_I}\min\left\{ 0, 
+    \left(m_j / \sigma_j\right)^2 \right\} + \sum_{j=J_1 + 1}^{J} \left(m_j/\sigma_j \right)^2
+    \label{eq:MMM}
+\end{equation}
+
+\begin{alg}[GMS Test for $\alpha_0$ and $\alpha_1$ ]
+  \mbox{} \\
+  Inputs: null hypothesis $H_0\colon\boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$ for $(\alpha_0, \alpha_1)$, normal draws $\zeta_1, \cdots, \zeta_R \sim \mbox{ iid } N(\mathbf{0}_J, \mathbf{I}_J)$
+  \begin{enumerate}
+    \item Calculate the test statistic $T_n(\boldsymbol{\vartheta}_0)$: 
+      \begin{enumerate}[(i)]
+    \item Caclulate the preliminary estimators:  $\widehat{\boldsymbol{\tau}}_0 = \big( \widehat{\boldsymbol{\gamma}}'(\boldsymbol{\vartheta}_0), \widehat{\mathbf{q}}'(\boldsymbol{\vartheta}_0) \big)$, from Section \ref{sec:prelim}.
+    \item Calculate $\bar{m}_n(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0)$ and  $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0)$ from Equations \ref{eq:mbar_def} and \ref{eq:AvarEst}.
+    \item Set $T_n(\boldsymbol{\vartheta}_0) = S\left( \sqrt{n}\, \bar{m}_n\left(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0 \right), \widehat{\Sigma}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) \right)$, using $S(\cdot, \cdot)$ from Equation \ref{eq:MMM}.
+  \end{enumerate}
+\item Determine which of the moment inequalities are far from binding: 
+      \begin{enumerate}[(i)]
+        \item For each $j=1, \hdots, J_I$ calculate the t-statistic $t_{n,j} = \sqrt{n}\, \bar{m}_j^I(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)/\widehat{\sigma}_{n,j}(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0)$
+        \item 
+      \end{enumerate}
+    \item Approximate the sampling distribution of $T_n(\boldsymbol{\vartheta}_0)$ under the null: 
+      \begin{enumerate}[(i)]
+        \item 
+      \end{enumerate}
+    \item Calculate the p-value of the test: 
+      \[\widehat{p}(\boldsymbol{\vartheta}_0) = \frac{1}{R}\sum_{r=1}^R \mathbf{1}\left\{T_{n}^{*(r)}() > T_n \right\}
+      \]
+  \end{enumerate}
 \end{alg}
 
-\begin{alg}[Full inference procedure] \mbox{}
+\begin{alg}[Bonferroni Confidence Interval for $\beta$] \mbox{}
   \begin{enumerate}
     \item First get the joint set for $\alpha_0, \alpha_1$ by a grid search, using the GMS test described in the other algorithm
     \item Do projection to get the set for $1 - \alpha_0 - \alpha_1$
