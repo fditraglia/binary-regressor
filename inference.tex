@@ -258,12 +258,12 @@ Then, under standard regularity conditions
       \bar{m}_{2,n}^I\big( \boldsymbol{\vartheta}_0, \widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)\big)\\
       \bar{m}_{n}^E\big( \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\gamma}}(\boldsymbol{\vartheta}_0) \big)
     \end{array}
-  \right] = 
+  \right] \rightarrow_p 
   \left[
   \begin{array}{ccccc}
     \mathbf{I}&\mathbf{0}&\mathbf{0} & \mathbf{0} & \mathbf{0} \\
-    \mathbf{0}&\mathbf{I}&\mathbf{0} & B^I & \mathbf{0} \\
-    \mathbf{0}&\mathbf{0}&\mathbf{I} &\mathbf{0} & B^E\\
+    \mathbf{0}&\mathbf{I}&\mathbf{0} & B^I( \boldsymbol{\vartheta}_0, \boldsymbol{q}_0)& \mathbf{0} \\
+    \mathbf{0}&\mathbf{0}&\mathbf{I} &\mathbf{0} & B^E(\boldsymbol{\vartheta}_0,\boldsymbol{\gamma}_0)\\
   \end{array}
 \right] 
     \sqrt{n}\left[
@@ -274,11 +274,14 @@ Then, under standard regularity conditions
       \bar{h}^I_n\left(\boldsymbol{\vartheta}_0,  \mathbf{q}_0 \right)\\
       \bar{h}^E_n\left(\boldsymbol{\vartheta}_0,  \boldsymbol{\gamma}_0 \right)
     \end{array}
-  \right] + o_p(1)
+  \right] 
   \]
-  where $B^I = (1 - \alpha_0 - \alpha_1) \left[\mbox{diag}(\mathbf{a})  \right]^{-1} \mathbf{q}_0$ 
-  with $\mathbf{a}' = (\alpha_1, \alpha_1, 1 - \alpha_1, 1 - \alpha_1, \alpha_1, \alpha_1, 1 - \alpha_1, 1 - \alpha_1)$ 
-and $B^{E} = -M^E (H^E)^{-1}$, with
+  where $B^I( \boldsymbol{\vartheta}, \boldsymbol{q}) = (1 - \alpha_0 - \alpha_1) \left[\mbox{diag}(\mathbf{a})  \right]^{-1} \mathbf{q}$ 
+  with 
+  \[
+  \mathbf{a}' = (\alpha_1, \alpha_1, 1 - \alpha_1, 1 - \alpha_1, \alpha_1, \alpha_1, 1 - \alpha_1, 1 - \alpha_1)
+\]
+and $B^E(\boldsymbol{\vartheta},\boldsymbol{\gamma}) = -M^E (H^E)^{-1}$, with
 \[
   M^E = \left[ 
     \begin{array}{cccc} 
@@ -293,9 +296,8 @@ H^E = \left[
    0 & 0 & -1 & \left(\frac{\partial \boldsymbol{\psi}_3}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}_i]\\
    -\mathbb{E}[z_i] & 0 & 0 &  \left(\frac{\partial \boldsymbol{\psi}_1}{\partial \theta_1}\right)'\mathbb{E}[\mathbf{w}_iz_i]
 \end{array}
-\right]
+\right].
 \]
-where $B^I$ is evaluated at $(\boldsymbol{\vartheta}_0, \mathbf{q}_0)$ and $B^E$ at $(\boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)$.
 \label{lem:prelim}
 \end{lem}
 
@@ -341,20 +343,21 @@ Combining Equation \ref{eq:clt} with Lemma \ref{lem:prelim}, we obtain
 \end{equation}
 with
 \begin{equation}
-  \Xi(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0) = \left[
+  \Xi(\boldsymbol{\vartheta}, \boldsymbol{\tau}) = \left[
   \begin{array}{cc}
-    \mathbf{I} & B(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)
+    \mathbf{I} & B(\boldsymbol{\vartheta}, \boldsymbol{\tau})
   \end{array}
 \right], \quad
-  B(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)= \left[
+  B(\boldsymbol{\vartheta}, \boldsymbol{\tau})= \left[
 \begin{array}{cc}
   \mathbf{0} & \mathbf{0}\\
-  B^I & \mathbf{0}\\
-  \mathbf{0} & B^E
+  B^I(\boldsymbol{\vartheta}, \mathbf{q}) & \mathbf{0}\\
+  \mathbf{0} & B^E(\boldsymbol{\vartheta}, \boldsymbol{\gamma})
 \end{array}
 \right]
+\label{eq:Xi}
 \end{equation}
-where $B^I$ and $B^E$ are defined in Lemma \ref{lem:prelim}.
+where $B^I(\cdot, \cdot)$ and $B^E(\cdot, \cdot)$ are defined in Lemma \ref{lem:prelim}.
 Finally, we construct a consistent estimator $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)$ of the asymptotic variance matrix of $\sqrt{n}\, \bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)$ under the null:
 \begin{equation}
   \widehat{\Sigma}_n(\boldsymbol{\vartheta}_0) \equiv \Xi(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)\, \widehat{\mathcal{V}}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}})\,\Xi'(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)
@@ -362,19 +365,20 @@ Finally, we construct a consistent estimator $\widehat{\Sigma}_n(\boldsymbol{\va
 \end{equation}
 where
 \begin{equation}
-  \widehat{\mathcal{V}}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) \equiv \frac{1}{n} \sum_{i=1}^n
+  \widehat{\mathcal{V}}_n(\boldsymbol{\vartheta}, \boldsymbol{\tau}) \equiv \frac{1}{n} \sum_{i=1}^n
 \left[
 \begin{array}{c}
-  m(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) - \bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) \\
-  h(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) -  \bar{h}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) 
+  m(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\tau}) - \bar{m}_n(\boldsymbol{\vartheta}, \boldsymbol{\tau}) \\
+  h(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\tau}) -  \bar{h}_n(\boldsymbol{\vartheta}, \boldsymbol{\tau}) 
 \end{array}
 \right]
 \left[
 \begin{array}{c}
-  m(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) -  \bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) \\
-  h(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) -  \bar{h}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) 
+  m(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\tau}) - \bar{m}_n(\boldsymbol{\vartheta}, \boldsymbol{\tau}) \\
+  h(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\tau}) -  \bar{h}_n(\boldsymbol{\vartheta}, \boldsymbol{\tau}) 
 \end{array}
 \right]'.
+\label{eq:fullVar}
 \end{equation}
 In the following section we provide a step-by-step description of our inference procedure.
 
@@ -450,19 +454,31 @@ m^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\mathbf{q}}) = \left[
 
 \todo[inline]{Explain about the counts of inequalities and equalities: $J_I, J_E$ etc.}
 \begin{equation}
-  S(m, \Sigma) = \sum_{j=1}^{J_I}\min\left\{ 0, 
-    \left(m_j / \sigma_j\right)^2 \right\} + \sum_{j=J_1 + 1}^{J} \left(m_j/\sigma_j \right)^2
+  S(\mathbf{x}, \mathbf{y}) = \sum_{j}\min\left\{ 0, 
+  x_j^2 \right\} + \mathbf{y}'\mathbf{y} 
     \label{eq:MMM}
 \end{equation}
+
+\[
+  \bar{\boldsymbol{\nu}}_n^I = , \quad
+  \bar{\boldsymbol{\nu}}_n^E = 
+\]
 
 \begin{alg}[GMS Test for $\alpha_0$ and $\alpha_1$ ]
   \mbox{} \\
   Inputs: null hypothesis $H_0\colon\boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$ for $(\alpha_0, \alpha_1)$, normal draws $\zeta_1, \cdots, \zeta_R \sim \mbox{ iid } N(\mathbf{0}_J, \mathbf{I}_J)$
   \begin{enumerate}
+    \item Calculate the variance matrix estimator: $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)$
+      \begin{enumerate}[(i)]
+        \item Calculate $\widehat{\boldsymbol{\tau}}_0 = (\widehat{\mathbf{q}}_0', \widehat{\boldsymbol{\gamma}}_0')'$ where $\widehat{\boldsymbol{\gamma}}_0 =  \widehat{\boldsymbol{\gamma}}(\boldsymbol{\vartheta}_0)$ and $\widehat{\mathbf{q}}_0 =  \widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)$ from Section \ref{sec:prelim}.
+        \item Calculate $\Xi(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0)$ using Equation \ref{eq:Xi}.
+        \item Calculate $\widehat{\mathcal{V}}_n(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0)$ using Equation \ref{eq:fullVar}.
+        \item Set $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0) = \Xi(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)\, \widehat{\mathcal{V}}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}})\,\Xi'(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)$
+      \end{enumerate}
     \item Calculate the test statistic $T_n(\boldsymbol{\vartheta}_0)$: 
       \begin{enumerate}[(i)]
-    \item Caclulate the preliminary estimators:  $\widehat{\boldsymbol{\tau}}_0 = \big( \widehat{\boldsymbol{\gamma}}'(\boldsymbol{\vartheta}_0), \widehat{\mathbf{q}}'(\boldsymbol{\vartheta}_0) \big)$, from Section \ref{sec:prelim}.
-    \item Calculate $\bar{m}_n(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0)$ and  $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0)$ from Equations \ref{eq:mbar_def} and \ref{eq:AvarEst}.
+    \item Calculate $\bar{m}_n^I(\boldsymbol{\vartheta}_0,\widehat{\mathbf{q}}_0)$ and $\bar{m}_n^E(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\gamma}}_0)$ from Equation \ref{eq:mbar_def}. 
+    %\item Calculate $\bar{m}_n(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0)$ and  $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0)$ from Equations \ref{eq:mbar_def} and \ref{eq:AvarEst}.
     \item Set $T_n(\boldsymbol{\vartheta}_0) = S\left( \sqrt{n}\, \bar{m}_n\left(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0 \right), \widehat{\Sigma}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) \right)$, using $S(\cdot, \cdot)$ from Equation \ref{eq:MMM}.
   \end{enumerate}
 \item Determine which of the moment inequalities are far from binding: 
