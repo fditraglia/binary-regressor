@@ -385,110 +385,116 @@ In the following section we provide a step-by-step description of our inference 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Details of Inference Procedure}
+\subsection{Details of the Inference Procedure}
 \label{sec:details}
 
-\todo[inline]{First define notation, test statistic, etc. I cut and pasted the following from above, where it formerly appeared.}
-
-Before proceeding, we introduce some notation.
-Let
+%\todo[inline]{First define notation, test statistic, etc. I cut and pasted the following from above, where it formerly appeared.}
+%
+%Before proceeding, we introduce some notation.
+%Let
+%\begin{equation}
+%  \mathbb{E} \left[ m^I_j(\mathbf{w}_i,\boldsymbol{\vartheta}_0) \right]
+%  \geq \mathbf{0} \quad j = 1, \cdots, J_I; \quad \quad
+% \mathbb{E} \left[ m^E_j(\mathbf{w}_i,\boldsymbol{\vartheta}_0) \right]
+% = \mathbf{0} \quad  j = J_I + 1, \cdots,J  
+%   \label{eq:mdefs}
+% \end{equation}
+% where $\boldsymbol{\vartheta}_0$ is the true parameter vector, $m_j^I$ corresponds to the $j$th inequality moment condition, $m_j^E$ corresponds to the $j$th equality moment condition, $J$ denotes the total number of moment conditions, $J_I$ denotes the number of moment equalities, and $J_E = J - J_I$ denotes the number of equality moment conditions.
+%Further define 
+%\begin{equation}
+%  \bar{m}_n(\boldsymbol{\vartheta}) = \left[
+%  \begin{array}{c}
+%   \bar{m}_n^I(\boldsymbol{\vartheta}) \\
+%   \bar{m}_n^E(\boldsymbol{\vartheta}) \\
+%  \end{array}
+%\right], \quad
+%  \bar{m}_n^I(\boldsymbol{\vartheta}) = \left[
+%  \begin{array}{c}
+%    \bar{m}_{n,1}^I(\boldsymbol{\vartheta})\\
+%    \vdots \\
+%    \bar{m}_{n,J_I}^I(\boldsymbol{\vartheta})\\
+%  \end{array}
+%\right], \quad
+%  \bar{m}_n^E(\boldsymbol{\vartheta}) = \left[
+%  \begin{array}{c}
+%    \bar{m}_{n,J_I+1}^E(\boldsymbol{\vartheta})\\
+%    \vdots \\
+%    \bar{m}_{n,J}^E(\boldsymbol{\vartheta})\\
+%  \end{array}
+%\right]
+%\end{equation}
+%where 
+%$\bar{m}^I_{n,j}(\boldsymbol{\vartheta}) = n^{-1} \sum_{i=1}^{n} m_j^I(\mathbf{w}_i, \boldsymbol{\vartheta})$
+%and $\bar{m}^E_{n,j}$ is defined analogously.
+%Finally, let $\Sigma(\boldsymbol{\vartheta})$ denote the asymptotic variance matrix of $\sqrt{n}\; \bar{m}_n(\boldsymbol{\vartheta})$, with $j$th diagonal element $\sigma^2_j(\boldsymbol{\vartheta})$ along with the corresponding sample analogues $\widehat{\Sigma}_n(\boldsymbol{\vartheta})$ and $\widehat{\sigma}^2_j(\boldsymbol{\vartheta})$.
+%
+%namely the modified method of moments (MMM) statistic 
+%\begin{equation}
+%  T_n(\boldsymbol{\vartheta}) = \sum_{j=1}^{J_1}\min\left\{ 0, \left( \frac{\sqrt{n}\; \bar{m}_n^I(\boldsymbol{\vartheta})}{\widehat{\sigma}_n(\boldsymbol{\vartheta})} \right)^2 \right\} + \sum_{j=J_1 + 1}^{J} \left( \frac{\sqrt{n}\; \bar{m}_n^E(\boldsymbol{\vartheta})}{\widehat{\sigma}_n(\boldsymbol{\vartheta})} \right)^2.
+%\end{equation}
+%
+%In particular, when approximating the asymptotic distribution of $T_n$ under the null $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, we drop any inequality moment condition $m_j^I$ for which $\sqrt{n}\big[\bar{m}_n(\boldsymbol{\vartheta}_0)/ \widehat{\sigma}_n(\boldsymbol{\vartheta}_0)\big] > \sqrt{\log(n)}$.\footnote{Full details appear in Section \ref{sec:details} below.}
+%
 \begin{equation}
-  \mathbb{E} \left[ m^I_j(\mathbf{w}_i,\boldsymbol{\vartheta}_0) \right]
-  \geq \mathbf{0} \quad j = 1, \cdots, J_I; \quad \quad
- \mathbb{E} \left[ m^E_j(\mathbf{w}_i,\boldsymbol{\vartheta}_0) \right]
- = \mathbf{0} \quad  j = J_I + 1, \cdots,J  
-   \label{eq:mdefs}
- \end{equation}
- where $\boldsymbol{\vartheta}_0$ is the true parameter vector, $m_j^I$ corresponds to the $j$th inequality moment condition, $m_j^E$ corresponds to the $j$th equality moment condition, $J$ denotes the total number of moment conditions, $J_I$ denotes the number of moment equalities, and $J_E = J - J_I$ denotes the number of equality moment conditions.
-Further define 
-\begin{equation}
-  \bar{m}_n(\boldsymbol{\vartheta}) = \left[
-  \begin{array}{c}
-   \bar{m}_n^I(\boldsymbol{\vartheta}) \\
-   \bar{m}_n^E(\boldsymbol{\vartheta}) \\
-  \end{array}
-\right], \quad
-  \bar{m}_n^I(\boldsymbol{\vartheta}) = \left[
-  \begin{array}{c}
-    \bar{m}_{n,1}^I(\boldsymbol{\vartheta})\\
-    \vdots \\
-    \bar{m}_{n,J_I}^I(\boldsymbol{\vartheta})\\
-  \end{array}
-\right], \quad
-  \bar{m}_n^E(\boldsymbol{\vartheta}) = \left[
-  \begin{array}{c}
-    \bar{m}_{n,J_I+1}^E(\boldsymbol{\vartheta})\\
-    \vdots \\
-    \bar{m}_{n,J}^E(\boldsymbol{\vartheta})\\
-  \end{array}
-\right]
-\end{equation}
-where 
-$\bar{m}^I_{n,j}(\boldsymbol{\vartheta}) = n^{-1} \sum_{i=1}^{n} m_j^I(\mathbf{w}_i, \boldsymbol{\vartheta})$
-and $\bar{m}^E_{n,j}$ is defined analogously.
-Finally, let $\Sigma(\boldsymbol{\vartheta})$ denote the asymptotic variance matrix of $\sqrt{n}\; \bar{m}_n(\boldsymbol{\vartheta})$, with $j$th diagonal element $\sigma^2_j(\boldsymbol{\vartheta})$ along with the corresponding sample analogues $\widehat{\Sigma}_n(\boldsymbol{\vartheta})$ and $\widehat{\sigma}^2_j(\boldsymbol{\vartheta})$.
-
-namely the modified method of moments (MMM) statistic 
-\begin{equation}
-  T_n(\boldsymbol{\vartheta}) = \sum_{j=1}^{J_1}\min\left\{ 0, \left( \frac{\sqrt{n}\; \bar{m}_n^I(\boldsymbol{\vartheta})}{\widehat{\sigma}_n(\boldsymbol{\vartheta})} \right)^2 \right\} + \sum_{j=J_1 + 1}^{J} \left( \frac{\sqrt{n}\; \bar{m}_n^E(\boldsymbol{\vartheta})}{\widehat{\sigma}_n(\boldsymbol{\vartheta})} \right)^2.
-\end{equation}
-
-In particular, when approximating the asymptotic distribution of $T_n$ under the null $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, we drop any inequality moment condition $m_j^I$ for which $\sqrt{n}\big[\bar{m}_n(\boldsymbol{\vartheta}_0)/ \widehat{\sigma}_n(\boldsymbol{\vartheta}_0)\big] > \sqrt{\log(n)}$.\footnote{Full details appear in Section \ref{sec:details} below.}
-
-\todo[inline]{Refer to the places where each of the $m$ functions is defined above}
-\begin{equation}
-  \bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)  = \frac{1}{n} \sum_{i=1}^n \left[
-  \begin{array}{c}
-    m^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\mathbf{q}}_0)  \\
-  m^E(\mathbf{w}_i,\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\gamma}}_0)  
-  \end{array}
-\right],\quad 
-m^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\mathbf{q}}) = \left[
-\begin{array}{l}
-  m_{1}^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0)\\
-  m_{2}^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \widehat{\mathbf{q}}_0)
+\bar{m}_n(\boldsymbol{\vartheta}, \boldsymbol{\tau}) = \left[
+\begin{array}{c}
+  \bar{m}_n^I(\boldsymbol{\vartheta}, \mathbf{q}) \\
+  \bar{m}_n^E(\boldsymbol{\vartheta}, \boldsymbol{\gamma}) 
 \end{array}
-\right]
+\right] = 
+\left[
+\begin{array}{l}
+  \bar{m}_{n,1}^I(\boldsymbol{\vartheta})\\
+  \bar{m}_{n,2}^I(\boldsymbol{\vartheta}, \mathbf{q}) \\
+  \bar{m}_n^E(\boldsymbol{\vartheta}, \boldsymbol{\gamma}) 
+\end{array}
+\right] = 
+\frac{1}{n} \sum_{i=1}^n
+\left[\begin{array}{l}
+    m^I_1(\mathbf{w}_i,\boldsymbol{\vartheta})\\
+    m^I_2(\mathbf{w}_i,\boldsymbol{\vartheta}, \mathbf{q}) \\
+    m^E(\mathbf{w}_i,\boldsymbol{\vartheta}, \boldsymbol{\gamma}) 
+\end{array}\right]
 \label{eq:mbar_def}
 \end{equation}
+where $m_1^I, m_2^I$, and $m^E$ are defined in Equations
 
-\todo[inline]{Explain about the counts of inequalities and equalities: $J_I, J_E$ etc.}
+Function $S$ of two arbitrary real vectors $\mathbf{x}, \mathbf{y}$ to compute modified method of moments (MMM) test statistic:
 \begin{equation}
   S(\mathbf{x}, \mathbf{y}) = \sum_{j}\min\left\{ 0, 
   x_j^2 \right\} + \mathbf{y}'\mathbf{y} 
     \label{eq:MMM}
 \end{equation}
+The argument $\mathbf{x}$ stands in for the moment inequalities, which only affect the test statistic when they are violated.
 
-\[
-  \bar{\boldsymbol{\nu}}_n^I = , \quad
-  \bar{\boldsymbol{\nu}}_n^E = 
-\]
 
 \begin{alg}[GMS Test for $\alpha_0$ and $\alpha_1$ ]
   \mbox{} \\
-  Inputs: null hypothesis $H_0\colon\boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$ for $(\alpha_0, \alpha_1)$, normal draws $\zeta_1, \cdots, \zeta_R \sim \mbox{ iid } N(\mathbf{0}_J, \mathbf{I}_J)$
+  \textbf{Inputs:} null hypothesis $H_0\colon\boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$ for $(\alpha_0, \alpha_1)$, draws $\zeta_1, \cdots, \zeta_R \sim \mbox{ iid } N(\mathbf{0}, \mathbf{I}_J)$
   \begin{enumerate}
-    \item Calculate the variance matrix estimator: $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)$
+    \item Calculate the variance matrix estimator $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)$.
       \begin{enumerate}[(i)]
         \item Calculate $\widehat{\boldsymbol{\tau}}_0 = (\widehat{\mathbf{q}}_0', \widehat{\boldsymbol{\gamma}}_0')'$ where $\widehat{\boldsymbol{\gamma}}_0 =  \widehat{\boldsymbol{\gamma}}(\boldsymbol{\vartheta}_0)$ and $\widehat{\mathbf{q}}_0 =  \widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)$ from Section \ref{sec:prelim}.
         \item Calculate $\Xi(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0)$ using Equation \ref{eq:Xi}.
         \item Calculate $\widehat{\mathcal{V}}_n(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0)$ using Equation \ref{eq:fullVar}.
-        \item Set $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0) = \Xi(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)\, \widehat{\mathcal{V}}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}})\,\Xi'(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)$
+        \item Set $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0) = \Xi(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)\, \widehat{\mathcal{V}}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}})\,\Xi'(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)$.
       \end{enumerate}
-    \item Calculate the test statistic $T_n(\boldsymbol{\vartheta}_0)$: 
+    \item Calculate the test statistic $T_n(\boldsymbol{\vartheta}_0)$.
       \begin{enumerate}[(i)]
-    \item Calculate $\bar{m}_n^I(\boldsymbol{\vartheta}_0,\widehat{\mathbf{q}}_0)$ and $\bar{m}_n^E(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\gamma}}_0)$ from Equation \ref{eq:mbar_def}. 
-    %\item Calculate $\bar{m}_n(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0)$ and  $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0)$ from Equations \ref{eq:mbar_def} and \ref{eq:AvarEst}.
-    \item Set $T_n(\boldsymbol{\vartheta}_0) = S\left( \sqrt{n}\, \bar{m}_n\left(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0 \right), \widehat{\Sigma}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) \right)$, using $S(\cdot, \cdot)$ from Equation \ref{eq:MMM}.
+        \item Calculate $\sqrt{n}\, \bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)$ using Equation \ref{eq:mbar_def}.
+        \item Set $\boldsymbol{\nu}_n(\boldsymbol{\vartheta}_0) = \left[ \mbox{diag}\left\{\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right\} \right]^{-1/2} \left[ \sqrt{n}\,\bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) \right]$.
+        \item Let $\boldsymbol{\nu}_n^I(\boldsymbol{\vartheta}_0)$ denote the first $J_I$ elements of $\boldsymbol{\nu}_n$ and  $\boldsymbol{\nu}_n^E(\boldsymbol{\vartheta}_0)$ the last $J_E$ elements.   
+        \item Set $T_n(\boldsymbol{\vartheta}_0) = S\big( \boldsymbol{\nu}_n^I(\boldsymbol{\vartheta}_0),\,\boldsymbol{\nu}_n^E(\boldsymbol{\vartheta}_0) \big)$ using Equation \ref{eq:MMM}.
   \end{enumerate}
-\item Determine which of the moment inequalities are far from binding: 
+\item Determine which inequalities are far from binding: 
       \begin{enumerate}[(i)]
-        \item For each $j=1, \hdots, J_I$ calculate the t-statistic $t_{n,j} = \sqrt{n}\, \bar{m}_j^I(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)/\widehat{\sigma}_{n,j}(\boldsymbol{\vartheta}_0,\widehat{\boldsymbol{\tau}}_0)$
-        \item 
+        \item define a selection matrix 
       \end{enumerate}
-    \item Approximate the sampling distribution of $T_n(\boldsymbol{\vartheta}_0)$ under the null: 
+    \item Simulate the sampling distribution of $T_n(\boldsymbol{\vartheta}_0)$ under the null: 
       \begin{enumerate}[(i)]
-        \item 
+        \item Set $\widehat{\Omega}_n(\boldsymbol{\vartheta}_0) = \left[ \mbox{diag}\left\{\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right\} \right]^{-1/2}\left[\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right]\left[ \mbox{diag}\left\{\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right\} \right]^{-1/2}$.
+        \item For each $r = 1, \hdots, R$ set $\boldsymbol{\xi}_r(\boldsymbol{\vartheta}_0) = \widehat{\Omega}_n^{1/2}(\boldsymbol{\vartheta}_0)\,\boldsymbol{\zeta}_r $.
+        \item Let $\boldsymbol{\xi}_r^I(\boldsymbol{\vartheta})$ denote the first $J_I$ elements of $\boldsymbol{\xi}_r$ and $\boldsymbol{\xi}_r^E(\boldsymbol{\vartheta})$ denote the last $J_E$ elements.
       \end{enumerate}
     \item Calculate the p-value of the test: 
       \[\widehat{p}(\boldsymbol{\vartheta}_0) = \frac{1}{R}\sum_{r=1}^R \mathbf{1}\left\{T_{n}^{*(r)}() > T_n \right\}
