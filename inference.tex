@@ -457,7 +457,9 @@ In the following section we provide a step-by-step description of our inference 
 \end{array}\right]
 \label{eq:mbar_def}
 \end{equation}
-where $m_1^I, m_2^I$, and $m^E$ are defined in Equations
+where $m_1^I, m_2^I$, and $m^E$ are defined in Equations ???
+
+Let $J$ denote the number of inequality moment conditions and $K$ denote the number of equality moment conditions
 
 Function $S$ of two arbitrary real vectors $\mathbf{x}, \mathbf{y}$ to compute modified method of moments (MMM) test statistic:
 \begin{equation}
@@ -470,7 +472,7 @@ The argument $\mathbf{x}$ stands in for the moment inequalities, which only affe
 
 \begin{alg}[GMS Test for $\alpha_0$ and $\alpha_1$ ]
   \mbox{} \\
-  \textbf{Inputs:} null hypothesis $H_0\colon\boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$ for $(\alpha_0, \alpha_1)$, draws $\zeta_1, \cdots, \zeta_R \sim \mbox{ iid } N(\mathbf{0}, \mathbf{I}_J)$
+  \textbf{Inputs:} null hypothesis $H_0\colon\boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$ for $(\alpha_0, \alpha_1)$, draws $\boldsymbol{\zeta}^{(1)}, \cdots, \boldsymbol{\zeta}^{(R)} \sim \mbox{ iid } N(\mathbf{0}, \mathbf{I}_J)$
   \begin{enumerate}
     \item Calculate the variance matrix estimator $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)$.
       \begin{enumerate}[(i)]
@@ -483,22 +485,25 @@ The argument $\mathbf{x}$ stands in for the moment inequalities, which only affe
       \begin{enumerate}[(i)]
         \item Calculate $\sqrt{n}\, \bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0)$ using Equation \ref{eq:mbar_def}.
         \item Set $\boldsymbol{\nu}_n(\boldsymbol{\vartheta}_0) = \left[ \mbox{diag}\left\{\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right\} \right]^{-1/2} \left[ \sqrt{n}\,\bar{m}_n(\boldsymbol{\vartheta}_0, \widehat{\boldsymbol{\tau}}_0) \right]$.
-        \item Let $\boldsymbol{\nu}_n^I(\boldsymbol{\vartheta}_0)$ denote the first $J_I$ elements of $\boldsymbol{\nu}_n$ and  $\boldsymbol{\nu}_n^E(\boldsymbol{\vartheta}_0)$ the last $J_E$ elements.   
+        \item Let $\boldsymbol{\nu}^I_n(\boldsymbol{\vartheta}_0)$ denote the first $J$ elements of $\boldsymbol{\nu}_n$ and  $\boldsymbol{\nu}_n^E(\boldsymbol{\vartheta}_0)$ the last $K$ elements.   
         \item Set $T_n(\boldsymbol{\vartheta}_0) = S\big( \boldsymbol{\nu}_n^I(\boldsymbol{\vartheta}_0),\,\boldsymbol{\nu}_n^E(\boldsymbol{\vartheta}_0) \big)$ using Equation \ref{eq:MMM}.
   \end{enumerate}
-\item Determine which inequalities are far from binding: 
+\item Construct the moment selection matrix $\Phi_0$.
       \begin{enumerate}[(i)]
-        \item define a selection matrix 
+        \item For $j = 1, \hdots, J$ set $\varphi_j^I(\boldsymbol{\vartheta}_0) = \mathbf{1}\left\{\nu_{n,j}^I(\boldsymbol{\vartheta}_0) \leq \sqrt{\log n} \right\}$.
+        \item Set $\widetilde{J} = \sum_{j=1}^J \varphi_j^I(\boldsymbol{\vartheta}_0)$.
+        \item Set $\boldsymbol{\varphi}(\boldsymbol{\vartheta}_0) = \big(\varphi_{1}^I(\boldsymbol{\vartheta}_0),\hdots, \varphi_{J}^I(\boldsymbol{\vartheta}_0), \boldsymbol{\iota}'_{K}\big)'$ where $\boldsymbol{\iota}$ is a $K$-vector of ones.
+        \item Let $\Phi_0$ be the $(\widetilde{J}+K)\times(J+K)$ matrix whose $j$\textsuperscript{th} column equals the zero vector if $\boldsymbol{\varphi}_j = 0$ and the $j$\textsuperscript{th} standard basis vector $\mathbf{e}_j$ otherwise.
       \end{enumerate}
-    \item Simulate the sampling distribution of $T_n(\boldsymbol{\vartheta}_0)$ under the null: 
+    \item Simulate the sampling distribution of $T_n(\boldsymbol{\vartheta}_0)$ under the null. 
       \begin{enumerate}[(i)]
         \item Set $\widehat{\Omega}_n(\boldsymbol{\vartheta}_0) = \left[ \mbox{diag}\left\{\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right\} \right]^{-1/2}\left[\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right]\left[ \mbox{diag}\left\{\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right\} \right]^{-1/2}$.
-        \item For each $r = 1, \hdots, R$ set $\boldsymbol{\xi}_r(\boldsymbol{\vartheta}_0) = \widehat{\Omega}_n^{1/2}(\boldsymbol{\vartheta}_0)\,\boldsymbol{\zeta}_r $.
-        \item Let $\boldsymbol{\xi}_r^I(\boldsymbol{\vartheta})$ denote the first $J_I$ elements of $\boldsymbol{\xi}_r$ and $\boldsymbol{\xi}_r^E(\boldsymbol{\vartheta})$ denote the last $J_E$ elements.
+        \item For each $r = 1, \hdots, R$ set $\boldsymbol{\nu}_n^{(r)}(\boldsymbol{\vartheta}_0) = \widehat{\Omega}_n^{1/2}(\boldsymbol{\vartheta}_0)\,\boldsymbol{\zeta}^{(r)}$.
+        \item Let $\boldsymbol{\nu}_n^{(r)I}(\boldsymbol{\vartheta}_0)$ denote the first $J$ and $\boldsymbol{\nu}_n^{(r)E}(\boldsymbol{\vartheta}_0)$ the last $K$ elements of $\boldsymbol{\nu}_n^{(r)}$.  
+        \item For each $r = 1, \hdots, R$ set $T^{(r)}_n(\boldsymbol{\vartheta}_0) = S\big( \boldsymbol{\nu}_n^{(r)I}(\boldsymbol{\vartheta}_0), \, \boldsymbol{\nu}_n^{(r)E}(\boldsymbol{\vartheta}_0)\big)$ using Equation \ref{eq:MMM}.
       \end{enumerate}
-    \item Calculate the p-value of the test: 
-      \[\widehat{p}(\boldsymbol{\vartheta}_0) = \frac{1}{R}\sum_{r=1}^R \mathbf{1}\left\{T_{n}^{*(r)}() > T_n \right\}
-      \]
+    \item Calculate the p-value of the test: $\displaystyle \widehat{p}(\boldsymbol{\vartheta}_0) = \frac{1}{R}\sum_{r=1}^R \mathbf{1}\left\{T_{n}^{(r)}(\boldsymbol{\vartheta}_0) > T_n \right\}$.
+
   \end{enumerate}
 \end{alg}
 
