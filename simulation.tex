@@ -2,7 +2,7 @@
 \section{Simulation Study}
 
 In this section we present results from a simulation study using the inference procedure described in Section \ref{sec:details} above.
-Unless otherwise specified, all results are based on $2000$ simulation replications with $n = 1000$ using Algorithm \ref{alg:Bonferroni} with $R = 5000$ simulation draws.
+Unless otherwise specified, all calculations are based on $2000$ simulation replications with $n = 1000$ using Algorithm \ref{alg:Bonferroni} with $R = 5000$ simulation draws.
 Supplementary simulation results appear in Appendix \ref{sec:simulation_supplement}.
 
 \subsection{Simulation DGP}
@@ -43,12 +43,51 @@ This DGP generates random variables that satisfy the conditions of Theorems \ref
 Thus $\beta$ is point identified, and all moment equalities and inequalities from Section \ref{sec:inference} hold at the true parameter values of the DGP.
 Note from step 1 that we hold \emph{condition} on the instrument $z$, holding it fixed in repeated samples.
 Our simulation varies the parameters $(\alpha_0, \alpha_1, \beta, n)$ over a grid.
+Because $\varepsilon$ has unit variance, values for $\beta$ are measured in standard deviations of the error.
 For simplicity we present results for $c = 0, d_0 = \Phi^{-1}(0.15)$, and  $d_1= \Phi^{-1}(0.85) - \Phi^{-1}(0.15)$, where $\Phi^{-1}(\cdot)$ denotes the quantile function of a standard normal random variable.
 Using these values for $(d_0, d_1)$ holds the unobserved first stage probabilities fixed: $p^*_0 = 0.15$ and $p^*_1 = 0.85$.
 In contrast the \emph{observed} first-stage probabilities $p_0$ and $p_1$ vary with $(\alpha_0, \alpha_1)$ according to Lemma \ref{lem:p_pstar}.
 
 
 \subsection{Simulation Results}
+
+As explained in Section \ref{sec:problem} above, the just-identified, unconstrained GMM estimator based on Equation \ref{eq:MCs_endog} suffers from weak identification and boundary value problems.
+Moreover, the estimator may not even exist in finite samples.
+Even when the GMM estimator exists, its asymptotic variance matrix could be numerically singular, so that the standard GMM confidence interval is undefined.
+Table \ref{tab:GMM_na_1000} reports the percentage of simulation draws for which the standard GMM confidence interval is undefined, while Table \ref{tab:GMM_cover_1000} reports the coverage probability and Table \ref{tab:GMM_width_1000} \emph{conditional} on the existence of the interval.
+
+\begin{table}[htbp]
+  \small
+  \centering
+  \input{./tab/GMM_CIs_na_1000.tex}
+  \caption{Percentage of replications for which the standard GMM confidence interval based on Equation \ref{eq:MCs_endog} fails to exist, either because the point estimate is NaN or the asymptotic covariance matrix is numerically singular. Calculations are based on  2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
+  \label{tab:GMM_na_1000}
+\end{table}
+
+\begin{table}[htbp]
+  \small
+  \centering
+  \input{./tab/GMM_CIs_cover_1000.tex}
+  \caption{Coverage (\%) of the standard nominal 95\% GMM confidence interval for $\beta$ based on the Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. (See Table \ref{tab:GMM_na_1000}.) Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
+  \label{tab:GMM_cover_1000}
+\end{table}
+
+\begin{table}[htbp]
+  \small
+  \centering
+  \input{./tab/GMM_CIs_width_1000.tex}
+  \caption{Median width of the standard nominal 95\% GMM confidence interval for $\beta$ based on the Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. (See Table \ref{tab:GMM_na_1000}.) Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
+  \label{tab:GMM_width_1000}
+\end{table}
+
+We see from Table \ref{tab:GMM_na_1000} that when $\beta$ is small compared to the error variance, the GMM confidence interval fails to exist with high probability.
+When $\beta = 0.5$, for example, the interval is undefined approximately 30\% of the time.
+As $\beta$ increases, however, it becomes less likely that the GMM interval is undefined.
+All else equal, larger amounts of mis-classification, i.e.\ higher values for $(\alpha_0, \alpha_1)$, increase the probability that the GMM interval fails to exist.
+Turning our attention to the simulation draws for which it is well-defined, we see from Tables \ref{tab:GMM_cover_1000} and \ref{tab:GMM_width_1000} that the GMM confidence interval performs extremely poorly when $\beta$ is small.
+Substantial size distortions persist until $\beta$ is 1.5 or larger.
+All else equal, the size distortions are more severe the larger the amount of mis-classification error.
+
 
 \todo[inline]{Change from here down!}
 \begin{itemize}
