@@ -497,12 +497,13 @@ The argument $\mathbf{x}$ stands in for the moment inequalities, which only affe
       \end{enumerate}
     \item Simulate the sampling distribution of $T_n(\boldsymbol{\vartheta}_0)$ under the null. 
       \begin{enumerate}[(i)]
-        \item Set $\widehat{\Omega} = \left[ \mbox{diag}\left\{\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right\} \right]^{-1/2}\left[\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right]\left[ \mbox{diag}\left\{\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right\} \right]^{-1/2}$.
+        \item Let $\widehat{\Omega}$ be the correlation matrix that corresponds to $\widehat{\Sigma}_n(\boldsymbol{\vartheta})$.
+        %\item Set $\widehat{\Omega} = \left[ \mbox{diag}\left\{\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right\} \right]^{-1/2}\left[\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right]\left[ \mbox{diag}\left\{\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right\} \right]^{-1/2}$.
         \item For each $r = 1, \hdots, R$ set $\boldsymbol{\xi}^{(r)} = \left[\Phi\,\widehat{\Omega}\,\Phi'\right]^{1/2}\,\Phi\boldsymbol{\zeta}^{(r)}$.
         \item Let $\boldsymbol{\xi}^{(r)}_I$ denote the first $\widetilde{J}$ and $\boldsymbol{\xi}_E^{(r)}$ the last $K$ elements of $\boldsymbol{\xi}^{(r)}$.  
         \item For each $r = 1, \hdots, R$ set $T^{(r)}_n(\boldsymbol{\vartheta}_0) = S\big( \boldsymbol{\xi}_{I}^{(r)}, \, \boldsymbol{\xi}^{(r)}_E\big)$ using Equation \ref{eq:MMM}.
       \end{enumerate}
-    \item Calculate the p-value of the test: $\displaystyle \widehat{p}(\boldsymbol{\vartheta}_0) = \frac{1}{R}\sum_{r=1}^R \mathbf{1}\left\{T_{n}^{(r)}(\boldsymbol{\vartheta}_0) > T_n \right\}$.
+    \item Calculate the p-value of the test: $\displaystyle \widehat{p}(\boldsymbol{\vartheta}_0) = \frac{1}{R}\sum_{r=1}^R \mathbf{1}\left\{T_{n}^{(r)}(\boldsymbol{\vartheta}_0) > T_n(\boldsymbol{\vartheta}_0)\right\}$.
 
   \end{enumerate}
 \end{alg}
