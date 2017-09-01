@@ -2,6 +2,7 @@
 \section{Simulation Study}
 
 In this section we present results from a simulation study using the inference procedure described in Section \ref{sec:details} above.
+Unless otherwise specified, all results are based on $2000$ simulation replications with $n = 1000$ using Algorithm \ref{alg:Bonferroni} with $R = 5000$ simulation draws.
 Supplementary simulation results appear in Appendix \ref{sec:simulation_supplement}.
 
 \subsection{Simulation DGP}
@@ -41,15 +42,15 @@ Our simulation design generates $n$ iid observations of the observables $(y_i, T
 This DGP generates random variables that satisfy the conditions of Theorems \ref{thm:sharpII} and \ref{thm:main_ident}.
 Thus $\beta$ is point identified, and all moment equalities and inequalities from Section \ref{sec:inference} hold at the true parameter values of the DGP.
 Note from step 1 that we hold \emph{condition} on the instrument $z$, holding it fixed in repeated samples.
+Our simulation varies the parameters $(\alpha_0, \alpha_1, \beta, n)$ over a grid.
+For simplicity we present results for $c = 0, d_0 = \Phi^{-1}(0.15)$, and  $d_1= \Phi^{-1}(0.85) - \Phi^{-1}(0.15)$, where $\Phi^{-1}(\cdot)$ denotes the quantile function of a standard normal random variable.
+Using these values for $(d_0, d_1)$ holds the unobserved first stage probabilities fixed: $p^*_0 = 0.15$ and $p^*_1 = 0.85$.
+In contrast the \emph{observed} first-stage probabilities $p_0$ and $p_1$ vary with $(\alpha_0, \alpha_1)$ according to Lemma \ref{lem:p_pstar}.
 
-\todo[inline]{Change from here down!}
-For simplicity we set $c = 0$ and $d_0 = \Phi^{-1}(?), \, d_1= \Phi^{-1}(1 - ?) - \Phi^{-1}(?)$ where $\Phi^{-1}$ denotes the quantile function of a standard normal random variable.
-Vary $(\alpha_0, \alpha_1, \beta, n)$ over a grid.
-Unless otherwise specified, all results are based on $2000$ simulation replications with $n = 1000$ using Algorithm \ref{alg:Bonferroni} with $R = 5000$ simulation draws.
-Results for $n = 1000$ appear in Appendix \ref{sec:simulation_supplement}.
 
 \subsection{Simulation Results}
 
+\todo[inline]{Change from here down!}
 \begin{itemize}
   \item GMM does a bad job for small $\beta$ but a good job for large $\beta$.
     Note that we have changed our convention so we report coverage and width conditional on the interval existing!
