@@ -1,31 +1,21 @@
 %!TEX root = ./main.tex
 \section{Simulation Study}
 
-In this section we present simulation results for the inference procedure described in Section \ref{sec:details} above.
-Our simulation design draws $n$ iid observations $(y_i, T_i, T_i^*, z)$ as follows.
-First, we set $z_i = 0$ for $1 \leq i \leq n/2$ and $z_i = 1$ for $n/2 < i \leq n$.
-In other words, we condition on the value of the instrument, holding it fixed in repeated sampling.
-We then draw $n$ iid standard normal errors $(\varepsilon_i, \eta_i)$ from a bivariate normal distribution with correlation $\rho$.
-The regressor $T^*$ is generated from $z$ and $\eta$ using the first-stage selection equation
-\begin{align}
-  T^*_i &= \mathbf{1}\left\{ d_0 + d_1 z_i + \eta_i > 0 \right\} \\
-  d_0 &= \\
-  d_1 &= 
-\end{align}
-where $\Phi(\cdot)$ denotes the cumulative distribution function of a standard normal random variable.
-
-\begin{align}
-  T_i|T^*_i=0 &\sim \mbox{ iid Bernoulli}(\alpha_0)\\
-  T_i|T^*_i=1 &\sim \mbox{ iid Bernoulli}(1 - \alpha_1)
-\end{align}
-
-\begin{equation}
-  y_i = c + \beta T^*_i + \varepsilon_i, \quad 
-  \left[
-  \begin{array}{c}
-   \varepsilon_i \\ \eta_i 
-  \end{array}
-\right] \sim \mbox{ iid } N\left( \left[
+In this section we present results from a simulation study using the inference procedure described in Section \ref{sec:details} above.
+Our simulation design generates $n$ iid observations of the observables $(y_i, T_i, z)$ as follows:
+\begin{enumerate}
+  \item Generate the instrumental variable $z$.
+    \begin{enumerate}[(i)]
+      \item For each $1 \leq i \leq n/2$ set $z_i = 0$.
+      \item For each $n/2 < i \leq n$, set $z_i = 1$.
+    \end{enumerate}
+  \item Generate the error terms: 
+    \[
+      \left[
+      \begin{array}{c}
+        \eta_i \\ \varepsilon_i
+      \end{array}
+    \right] \sim \mbox{iid N}\left( \left[
 \begin{array}{c}
   0 \\ 0
 \end{array}
@@ -34,8 +24,24 @@ where $\Phi(\cdot)$ denotes the cumulative distribution function of a standard n
   1 & \rho \\
   \rho & 1
 \end{array}
-\right]\right)
-\end{equation}
+\right]\right).
+\]
+  \item Generate the unobserved endogenous regressor $T^*$.
+    \begin{enumerate}[(i)]
+      \item Set $d_0 = \Phi^{-1}(?), \, d_1= \Phi^{-1}(1 - ?) - \Phi^{-1}(?)$ where $\Phi^{-1}$ denotes the quantile function of a standard normal random variable.
+      \item For each $i = 1, \hdots, n$ set $T^*_i = \mathbf{1}\left\{ d_0 + d_1 z_i + \eta_i > 0 \right\}$.
+    \end{enumerate}
+  \item Generate the outcome: $y_i = c + \beta T_i^* + \varepsilon_i$.  
+  \item Generate the observed, mis-classified regressor $T$.
+    \begin{enumerate}[(i)]
+      \item For all $i$ with $T^*_i = 0$ draw $T_i \sim \mbox{iid Bernoulli}(\alpha_0)$. 
+      \item For all $i$ with $T^*_i = 1$ draw $T_i \sim \mbox{iid Bernoulli}(1 - \alpha_1)$.
+    \end{enumerate}
+\end{enumerate}
+This DGP generates random variables that satisfy the conditions of Theorems \ref{thm:sharpII} and \ref{thm:main_ident}.
+Thus $\beta$ is point identified, and all moment equalities and inequalities from Section \ref{sec:inference} hold at the true parameter values of the DGP.
+Note from step 1 that we hold \emph{condition} on the instrument $z$, holding it fixed in repeated samples.
+
 
 \begin{itemize}
   \item Describe simulation DGP and reference the sections in the paper upon which our calculations are based.
