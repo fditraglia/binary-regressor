@@ -210,10 +210,10 @@ Now consider the inequality moment conditions $m^I$.
 From Section \ref{sec:inequalities} we see that $m_2^I$ depends on $\mathbf{q}$,
 the vector of conditional quantiles $\overline{q}_{tk}$ and $\underline{q}_{tk}$ defined in Theorem \ref{thm:sharpII}.
 Under the assumption that $y$ follows a continuous distribution, as maintained in Theorem \ref{thm:sharpII}, these can be expressed as conditional moment equalities as follows:
-\begin{align*}
-  &\mathbb{E}\left[ \mathbf{1}(y \leq \underline{q}_{tk}) |T=t,z=k \right] - r_{tk}(\alpha_0, \alpha_1) = 0 \\
-  &\mathbb{E}\left[ \mathbf{1}(y \leq \overline{q}_{tk}) |T=t,z=k \right] - \big(1 - r_{tk}(\alpha_0, \alpha_1)\big) = 0
-\end{align*}
+\begin{align}
+  &\mathbb{E}\left[ \mathbf{1}(y \leq \underline{q}_{tk}) |T=t,z=k \right] - r_{tk}(\alpha_0, \alpha_1) = 0 \label{eq:qunder}\\
+  &\mathbb{E}\left[ \mathbf{1}(y \leq \overline{q}_{tk}) |T=t,z=k \right] - \big(1 - r_{tk}(\alpha_0, \alpha_1)\big) = 0 \label{eq:qover}
+\end{align}
 where $r_{tk}$ is defined in Theorem \ref{thm:sharpII} and $t,k = 0,1$.
 Under $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, a consistent estimator $\widehat{r}_{tk}$ of $r_{tk}$ can be obtained directly from $\widehat{p}_k$, the sample analogue of $p_k$ based on iid observations of $\mathbf{w}_i$.
 In turn, the $(\widehat{r}_{tk})$\textsuperscript{th} and $(1 - \widehat{r}_{tk})$\textsuperscript{th} sample conditional quantiles of $y$ provide consistent estimates of $\underline{q}_{tk}$ and $\overline{q}_{tk}$.\footnote{Consistency of the sample quantiles requires $0 < r_{tk} < 1$. If $r_{tk} = 0$ or $1$ for some $(t,k)$, however, then the associated moment inequality is trivially satisfied and we no longer require estimates of $\underline{q}_{tk}, \overline{q}_{tk}$.\label{foot:quantile}}
@@ -241,9 +241,11 @@ where
     \mathbf{1}(y_i \leq \overline{q}_{1k}) \mathbf{1}(z_i=k)T_i 
     - \left( \frac{\alpha_0}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(1 - T_i-\alpha_1)
   \end{array}
+  \label{eq:hkI}
 \right].
 \end{equation}
-Under the null $\widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)$ converges in probability to $\mathbf{q}_0$, which satisfies the just-identified collection of moment equalities $\mathbb{E}[h^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0,\mathbf{q}_0)] = \mathbf{0}$.
+Equation \ref{eq:hkI} gives the unconditional version of Equations \ref{eq:qunder}--\ref{eq:qover}.
+Now, under the null $\widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)$ converges in probability to $\mathbf{q}_0$, which satisfies the just-identified collection of moment equalities $\mathbb{E}[h^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0,\mathbf{q}_0)] = \mathbf{0}$.
 Although $h^I$ is a discontinuous function of $\mathbf{q}$, it is bounded for any fixed $(\alpha_0, \alpha_1)$.
 Moreover, since $y|(T=t,z=k)$ is a continuous random variable, $\mathbb{E}[h^I(\mathbf{w}_i,\boldsymbol{\vartheta}, \mathbf{q})]$ is continuously differentiable with respect to $\mathbf{q}$.
 Hence, $\widehat{\mathbf{q}}$ is asymptotically normal under mild regularity conditions.\footnote{\todo[inline]{Cite Andrews/Newey-McFadden.}}
