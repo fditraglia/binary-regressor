@@ -480,23 +480,35 @@ Pre--multiplying a $(J + K)$--vector $\mathbf{x}$ by $\Phi$ results in a $(\wide
 Step 4 uses a collection of iid normal draws, $\{\boldsymbol{\zeta}^{(r)}\}_{r=1}^{R}$, to approximate the large-sample distribution of $T_n$ under the null.
 The appropriate multiplications by $\Phi$ ensure that this approximation includes all moment equalities, but excludes any moment inequality judged to be far from binding in step 3.
 Finally, step 5 computes the p-value of the test by comparing the actual test statistic $T_n(\boldsymbol{\vartheta}_0)$ to the collection of simulated test statistics $\{T_n^{(r)}(\boldsymbol{\vartheta}_0)\}_{r=1}^R$ from step 4.
+We now detail our procedure to construct a valid confidence interval for $\beta$.
 
-\todo[inline]{Update from here down!}
 \begin{alg}[Bonferroni-based Confidence Interval for $\beta$] \mbox{}\\
     Inputs: significance levels $(\delta_1,\delta_2)$; 
     iid dataset $\{\mathbf{w}_i\}_{i=1}^n$;
     simulations $\{\boldsymbol{\zeta}^{(r)}\}_{r=1}^R \sim \mbox{ iid } N_{J+K}(\mathbf{0}, \mathbf{I})$.
-  \begin{enumerate}
-    \item Construct a $(1 - \delta_1)\times 100\%$ joint confidence set $\mathcal{C}_\vartheta(\delta_1)$ for $\boldsymbol{\vartheta} = (\alpha_0, \alpha_1)'$. 
+    \begin{enumerate}
+    \item Construct a $(1 - \delta_1)\times 100\%$ joint confidence set $\mathcal{C}(\delta_1)$ for $\boldsymbol{\vartheta} = (\alpha_0, \alpha_1)'$. 
       \begin{enumerate}[(i)]
-        \item Let $\Lambda_N = \left\{0, \frac{1}{N}, \frac{2}{N}, \hdots, \frac{N-2}{N}, \frac{N-1}{N}\right\}$ where $N>1$ is an integer. 
+        \item Let $\Lambda_N = \left\{0, \frac{1}{N}, \frac{2}{N}, \hdots, \frac{N-2}{N}, \frac{N-1}{N}\right\}$ where $N>1$ is a natural number. 
         \item Set $\Delta_N = \left\{(\alpha_0, \alpha_1) \in (\Lambda_N \times \Lambda_N) \colon \alpha_0 + \alpha_1 < 1 \right\}$.
-        \item For each $\boldsymbol{\vartheta} \in \Delta_N$ calculate $\widehat{p}(\boldsymbol{\vartheta})$ using Algorithm \ref{alg:GMS}. 
-        \item Set $\mathcal{C}_{\vartheta}(\delta_1) = \left\{ \boldsymbol{\vartheta} \in \Delta_N \colon \widehat{p}(\boldsymbol{\vartheta}) \geq \delta_1\right\}$.
+        \item For each $\boldsymbol{\vartheta} \in \Delta_N$ calculate $\widehat{p}(\boldsymbol{\vartheta})$ using Algorithm \ref{alg:GMS}, holding $\{ \boldsymbol{\zeta}^{(r)} \}_{r=1}^R$ \emph{fixed}. 
+        \item Set $\mathcal{C}(\delta_1) = \left\{ \boldsymbol{\vartheta} \in \Delta_N \colon \widehat{p}(\boldsymbol{\vartheta}) \geq \delta_1\right\}$.
       \end{enumerate}
-    \item Do projection to get the set for $1 - \alpha_0 - \alpha_1$
-    \item Construct a $(1 - \delta_2)\times 100\%$ confidence interval for $\theta_1$.
-    \item Construct the Bonferroni interval
+    \item Construct a $(1 - \delta_1)\times 100\%$ confidence interval $\left[\underline{s}(\delta_1), \overline{s}(\delta_1) \right]$ for $s \equiv (1 - \alpha_0 - \alpha_1)$.
+      \begin{enumerate}[(i)]
+        \item Set $\underline{s}(\delta_1) = \min \left\{ (1 - \alpha_0 - \alpha_1) \colon (\alpha_0, \alpha_1) \in \mathcal{C}(\delta_1) \right\}$.
+        \item Set $\overline{s}(\delta_1) = \max \left\{ (1 - \alpha_0 - \alpha_1) \colon (\alpha_0, \alpha_1) \in \mathcal{C}(\delta_1) \right\}$.
+      \end{enumerate}
+    \item Construct a $(1 - \delta_2)\times 100\%$ confidence interval $\left[\underline{\theta}_1(\delta_2), \overline{\theta}_1(\delta_2)\right]$ for $\theta_1$.
+      \begin{enumerate}[(i)]
+        \item Use the standard IV interval from a regression of $y$ on $T$ with instrument $z$.
+      \end{enumerate}
+    \item Construct the $(1 - \delta)\times 100\%$ Bonferroni-based confidence interval $\left[ \underline{\beta}(\delta), \overline{\beta}(\delta) \right]$ for $\beta$.
+      \begin{enumerate}[(i)]
+        \item Let $\delta = \delta_1 + \delta_2$
+        \item Set $\underline{\beta}(\delta) = \min \left\{ \underline{s}(\delta_1) \underline{\theta}_1(\delta_2), \overline{s}(\delta_1)\underline{\theta}_1(\delta_2) \right\}$.
+        \item Set $\overline{\beta}(\delta) = \min \left\{ \underline{s}(\delta_1) \overline{\theta}_1(\delta_2), \overline{s}(\delta_1)\overline{\theta}_1(\delta_2) \right\}$.
+      \end{enumerate}
   \end{enumerate}
 \end{alg}
 
@@ -504,7 +516,7 @@ Finally, step 5 computes the p-value of the test by comparing the actual test st
 Inference procedure gives valid coverage. First argue that GMS test gives uniformly valid inference and that we have a valid confidence interval for $\theta_1$. Then the Bonferroni interval gives us what we require for $\beta$. The statement of the result should refer to iid observations, the Lemma about preliminary estimation, and A3 of Andrews \& Soares.
 \end{thm}
 
-\todo[inline]{Say a few more things about Bonferroni such has how you can't reject $\beta=0$ unless the IV interval excludes this.}
+\todo[inline]{Say a few more things about Bonferroni such has how you can't reject $\beta=0$ unless the IV interval excludes this. Also talk about how you could proceed for the exogenous case (same moment inequalities!) or if you only wanted to use the inequalities and do partial identification}
 
 \subsection{Incorporating Covariates}
 \label{sec:covariates}
