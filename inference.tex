@@ -75,11 +75,11 @@ We are unaware of any papers in the related literature that discuss the weak ide
 In the following sections we develop a procedure for uniformly valid inference in models with a mis-classified binary regressor.
 %This procedure is computationally attractive, and can be applied to both the endogenous and exogenous regressor cases, under either point or partial identification.
 Our purpose is to construct a confidence interval for $\beta$ that is robust to possible weak identification, respects the restricted parameter space for $(\alpha_0, \alpha_1)$, and incorporates both the information in the equality moment conditions from Equation \ref{eq:MCs_endog} along with the partial identification bounds from Theorem \ref{thm:sharpII}.\footnote{Note that $\beta=0$ if and only if $\theta_1 = 0$. Thus, if one is merely interested in testing $H_0\colon \beta=0$, one can ignore the mis-classification error problem and test $H_0\colon \theta_1 = 0$ using the standard IV estimator and standard error, provided that $z$ is a strong instrument.}
-As argued in the preceding section, our partial identification bounds remain informative even when the equality moment conditions contain essentially no information about $\beta$.
+As argued in the preceding section, our partial identification bounds remain informative even when the equality moment conditions contain essentially no information about $(\alpha_0, \alpha_1)$.
 
 To carry out identification-robust inference combining equality and inequality moment conditions, we adopt the generalized moment selection (GMS) approach of \cite{AndrewsSoares}.
 This procedure provides a uniformly valid test of a \emph{joint} null hypothesis for the full parameter vector.
-In our model, this includes the parameter of interest $\beta$ along various nuisance parameters: the mis-classification probabilities $\alpha_0$ and $\alpha_1$, the reduced form parameters $\boldsymbol{\kappa}$, defined in Section \ref{sec:problem}, and a vector $\mathbf{q}$ of parameters that enter the moment inequalities.\footnote{These are defined below in Section \ref{sec:inequalities}.}
+In our model, this includes the parameter of interest $\beta$ along with various nuisance parameters: the mis-classification probabilities $\alpha_0$ and $\alpha_1$, the reduced form parameters $\boldsymbol{\kappa}$, defined in Section \ref{sec:problem}, and a vector $\mathbf{q}$ of parameters that enter the moment inequalities.\footnote{These are defined below in Section \ref{sec:inequalities}.}
 Under a given joint null hypothesis for $(\beta, \alpha_0, \alpha_1)$, however, $\boldsymbol{\kappa}$ and $\mathbf{q}$ are strongly identified and lie on the interior their respective parameter spaces. 
 Accordingly, in Section \ref{sec:prelim} we explain how to concentrate these parameters out of the GMS procedure, by deriving an appropriate correction to the asymptotic variance matrix for the test.\footnote{Note that we cannot take the same approach to concentrate out $\alpha_0$ and $\alpha_1$ because the mis-classification probabilities may be weakly identified or lie on the boundary of their parameter space.}
 
@@ -92,7 +92,7 @@ Thus, a valid confidence interval for $(1 - \alpha_0 - \alpha_1)$ can be combine
 To construct the required interval for $(1 - \alpha_0 - \alpha_1)$, we note from Equations \ref{eq:theta1_def}--\ref{eq:theta3_def}  that $\beta$ only enters the moment equality conditions in Equation \ref{eq:MCs_endog} through $\theta_1$.
 But, again, inference for $\theta_1$ is standard provided that $z$ is a strong instrument.
 We can thus pre-estimate $\theta_1$ along with $\boldsymbol{\kappa}$ and $\mathbf{q}$, yielding a uniformly valid GMS test of any joint null hypothesis for $(\alpha_0, \alpha_1)$.
-By inverting this test, we construct a joint confidence set for $(\alpha_0, \alpha_1)$ which we then project to obtain a confidence interval $(1 - \alpha_0 - \alpha_1)$. 
+By inverting this test, we construct a joint confidence set for $(\alpha_0, \alpha_1)$ which we then project to obtain a confidence interval for $(1 - \alpha_0 - \alpha_1)$. 
 Because the parameter space for $(\alpha_0, \alpha_1)$ is bounded and two-dimensional, the projection step is computationally trivial.\footnote{We considered two alternatives to the Bonferroni-based inference procedure described here.
   The first constructs a marginal confidence interval for $\beta$ by projecting a joint confidence set for $(\beta, \alpha_1, \alpha_0)$, i.e.\ \emph{without} preliminary estimation of $\theta_1$.
 This method is more computationally demanding than our two-dimensional projection and involves a parameter space that is unbounded along the $\beta$-dimension.
@@ -161,7 +161,7 @@ where $\mathbf{q} \equiv ( \underline{q}_{00},\, \overline{q}_{00},\, \underline
 \right].
 \end{align}
 Finally we define $m^I = (m_1^{I'}, m_2^{I'})'$.
-Notice that the second set of inequalities, $m_2^I$, depends on unknown parameter $\mathbf{q}$ which is in turn a function of $(\alpha_0, \alpha_1)$.
+Notice that the second set of inequalities, $m_2^I$, depends on the unknown parameter $\mathbf{q}$ which is in turn a function of $(\alpha_0, \alpha_1)$.
 In the next section we discuss how $\mathbf{q}$ can be estimated under a given null hypothesis for $(\alpha_0, \alpha_1)$. 
 
 
@@ -194,7 +194,7 @@ Consider first the equality moment conditions $m^E$.
 For these we require preliminary estimators of $\theta_1$, $\kappa_2$, and $\kappa_3$.
 Recall that $\theta_1$ is simply the IV estimand: it can be consistently estimated directly from observations of $(y,T,z)$ without knowledge of $\alpha_0$ or $\alpha_1$.
 Note, moreover, from Equation \ref{eq:MCs_endog} that $\boldsymbol{\kappa}$ is simply a vector of \emph{intercepts}.
-These can be directly estimated from observations of $\mathbf{w}$ because $\boldsymbol{\Psi}(\theta_1, \alpha_0, \alpha_1)$ is consistently estimable under the $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$: the hypothesis specifies $\alpha_0$ and $\alpha_1$ and IV provides a consistent estimator of $\theta_1$.
+These can be directly estimated from observations of $\mathbf{w}$ because $\boldsymbol{\Psi}(\theta_1, \alpha_0, \alpha_1)$ is consistently estimable under the null $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$: the hypothesis specifies $\alpha_0$ and $\alpha_1$ and IV provides a consistent estimator of $\theta_1$.
 Accordingly, define 
 \begin{equation}
   h^E(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\gamma})  =  \left[
@@ -207,8 +207,8 @@ Accordingly, define
 Under $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, the  just-identified GMM-estimator based on $\mathbb{E}[h^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)] = \mathbf{0}$ yields a consistent and asymptotically normal estimator of $\boldsymbol{\gamma}_0$ under the usual regularity conditions.
 
 Now consider the inequality moment conditions $m^I$. 
-From Section \ref{sec:inequalities} we see that $\boldsymbol{\tau}$ only enters $m^I$ through the second block of moment inequalities, $m_2^I$, which depend on $\mathbf{q}$.
-The elements of $\mathbf{q}$ are the conditional quantiles $\overline{q}_{tk}$ and $\underline{q}_{tk}$ defined in Theorem \ref{thm:sharpII}.
+From Section \ref{sec:inequalities} we see that $m_2^I$ depends on $\mathbf{q}$,
+the vector of conditional quantiles $\overline{q}_{tk}$ and $\underline{q}_{tk}$ defined in Theorem \ref{thm:sharpII}.
 Under the assumption that $y$ follows a continuous distribution, as maintained in Theorem \ref{thm:sharpII}, these can be expressed as conditional moment equalities as follows:
 \begin{align*}
   &\mathbb{E}\left[ \mathbf{1}(y \leq \underline{q}_{tk}) |T=t,z=k \right] - r_{tk}(\alpha_0, \alpha_1) = 0 \\
@@ -311,7 +311,7 @@ A few lines of matrix algebra
 %using the definitions of $(\boldsymbol{\psi}_1,\boldsymbol{\psi}_2,\boldsymbol{\psi}_3)$ from Equation \ref{eq:psi_def} and $\mathbf{w}_i$ from Section \ref{sec:problem} 
 show that the determinant of $H^E$ equals $\mbox{Cov}(z,T)$.
 Hence, $B^E$ is well-defined if $z$ is a relevant instrument.
-The matrix $B^I$ is likewise well-defined provided that $\alpha\neq 0$ and the elements of $\mathbf{q}_0$ are computed for probabilities strictly between zero and one.
+The matrix $B^I$ is likewise well-defined provided that $\alpha_1\neq 0$ and the elements of $\mathbf{q}_0$ are computed for probabilities strictly between zero and one.
 If either of these conditions fails, however, some of the moment inequalities in $m_2^I$ are trivially satisfied and can be dropped (see Footnote \ref{foot:quantile}).
 After removing the corresponding elements of $\mathbf{q}_0$ and $\mathbf{a}$, $B^I$ becomes well-defined.
 The regularity conditions required for Lemma \ref{lem:prelim} are mild.
@@ -474,13 +474,13 @@ In step 2, we calculate the observed value of the MMM test statistic.
 Note that this test statistic uses only the diagonal elements of $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)$.
 Moreover, the moment inequalities only contribute to $T_n$ if they are violated, i.e.\ if they take on a negative value.
 In step 3 we determine which moment inequalities are ``far from binding,'' defined as having a t-ratio greater than $\sqrt{\log n}$.
-These moment inequalities will be excluded when approximating the large-sample distribution of test statistic.
+These moment inequalities will be excluded when approximating the large-sample distribution of the test statistic.
 The matrix $\Phi$ encodes the results of the moment selection step.
 Pre--multiplying a $(J + K)$--vector $\mathbf{x}$ by $\Phi$ results in a $(\widetilde{J}\times K)$--vector $\widetilde{\mathbf{x}}$ whose last $K$ elements match the last $K$ elements of $\mathbf{x}$ but whose first $\widetilde{J}$ elements contain the subset of $(x_1, \dots, x_J)$ whose indices match those of the moment inequalities with t-ratios less than or equal to $\sqrt{\log n}$, i.e.\ those that are \emph{not} far from binding.\footnote{Although this does not affect the results of the procedure, notice that Algorithm \ref{alg:GMS} carries out moment selection in a slightly different way from the steps given by \cite{AndrewsSoares}. In particular, before carrying out any further calculations, we \emph{subset} the correlation matrix $\widehat{\Omega}$ and normal vectors $\boldsymbol{\zeta}^{(r)}$ to remove elements corresponding to moment inequalities deemed far from binding. In contrast, \cite{AndrewsSoares} carry along the full set of inequalities throughout, but add $+\infty$ to the appropriate elements when computing $T_n^{(r)}$ to ensure that only the moment inequalities that are not far from binding affect the results. Although it requires more notation to describe, sub-setting is substantially faster, as it avoids carrying out computations for inequalities that cannot affect the result.}
 Step 4 uses a collection of iid normal draws, $\{\boldsymbol{\zeta}^{(r)}\}_{r=1}^{R}$, to approximate the large-sample distribution of $T_n$ under the null.
 The appropriate multiplications by $\Phi$ ensure that this approximation includes all moment equalities, but excludes any moment inequality judged to be far from binding in step 3.
 Finally, step 5 computes the p-value of the test by comparing the actual test statistic $T_n(\boldsymbol{\vartheta}_0)$ to the collection of simulated test statistics $\{T_n^{(r)}(\boldsymbol{\vartheta}_0)\}_{r=1}^R$ from step 4.
-We now detail our procedure to construct a valid confidence interval for $\beta$.
+We now detail our Bonferroni-based confidence interval for $\beta$.
 
 \begin{alg}[Bonferroni-based Confidence Interval for $\beta$] \mbox{}\\
     Inputs: significance levels $(\delta_1,\delta_2)$; 
@@ -505,16 +505,17 @@ We now detail our procedure to construct a valid confidence interval for $\beta$
       \end{enumerate}
     \item Construct the $(1 - \delta)\times 100\%$ Bonferroni-based confidence interval $\left[ \underline{\beta}(\delta), \overline{\beta}(\delta) \right]$ for $\beta$.
       \begin{enumerate}[(i)]
-        \item Let $\delta = \delta_1 + \delta_2$
-        \item Set $\underline{\beta}(\delta) = \min \left\{ \underline{s}(\delta_1) \underline{\theta}_1(\delta_2), \overline{s}(\delta_1)\underline{\theta}_1(\delta_2) \right\}$.
-        \item Set $\overline{\beta}(\delta) = \min \left\{ \underline{s}(\delta_1) \overline{\theta}_1(\delta_2), \overline{s}(\delta_1)\overline{\theta}_1(\delta_2) \right\}$.
+        \item Let $\delta = \delta_1 + \delta_2$.
+        \item Set $\underline{\beta}(\delta) = \min \left\{ \underline{s}(\delta_1)\times \underline{\theta}_1(\delta_2),\, \overline{s}(\delta_1)\times \underline{\theta}_1(\delta_2) \right\}$.
+        \item Set $\overline{\beta}(\delta) = \min \left\{ \underline{s}(\delta_1)\times \overline{\theta}_1(\delta_2),\, \overline{s}(\delta_1)\times \overline{\theta}_1(\delta_2) \right\}$.
       \end{enumerate}
   \end{enumerate}
   \label{alg:Bonferroni}
 \end{alg}
 
 Step 1 of Algorithm \ref{alg:Bonferroni} constructs a $(1 - \delta_1)\times 100\%$ joint confidence set $\mathcal{C}(\delta_1)$ for $\boldsymbol{\vartheta} = (\alpha_0, \alpha_1)$ by inverting the GMS test from Algorithm \ref{alg:GMS} over a discretized parameter space $\Delta_N$.
-Because the parameter space for $(\alpha_0, \alpha_1)$ is bounded this is computationally straightforward.
+Because the parameter space for $(\alpha_0, \alpha_1)$ is bounded, this is computationally straightforward.
+Note that the \emph{same} normal draws $\{\boldsymbol{\zeta}^{(r)}\}_{r=1}^R$ are used to test each null hypothesis contained in $\Delta_N$.
 Step 2 projects $\mathcal{C}(\delta_1)$ to yield a $(1 - \delta_1)\times 100\%$ confidence interval for $s \equiv (1 - \alpha_0 - \alpha_1)$, simply taking the maximum and minimum values of $s$ in the discrete set  $\mathcal{C}(\delta_1)$.
 Step 3 constructs the usual IV confidence interval for the reduced form parameter $\theta_1$, and step 4 combines the results of steps 2--3 with Bonferroni's inequality to yield a $(1 - \delta_1 - \delta_2) \times 100\%$ confidence interval for $\beta$.
 For some discussion of alternatives to Algorithm \ref{alg:Bonferroni}, see Footnote \ref{foot:alternatives}.
@@ -522,18 +523,22 @@ Under mild regularity conditions, the confidence interval from Algorithm \ref{al
 
 \begin{thm}
   Let $\mathbf{w}_1, \hdots, \mathbf{w}_n$ be an iid collection of observations satisfying the conditions of Theorems \ref{thm:sharpII} and \ref{thm:main_ident}, and let $z$ be a strong instrument.
-  Then, under standard regularity conditions, the confidence interval for $\beta$ described in Algorithm \ref{alg:Bonferroni} has asymptotic coverage probability of no less than $1 - (\delta_1 + \delta_2)$ as $R,N,n\rightarrow \infty$ uniformly over the parameter space.
+  Then, under standard regularity conditions, the confidence interval for $\beta$ from Algorithm \ref{alg:Bonferroni} has asymptotic coverage probability no less than $1 - (\delta_1 + \delta_2)$ as $R,N,n\rightarrow \infty$ uniformly over the parameter space.
   \label{thm:uniform}
 \end{thm}
 
 Theorem \ref{thm:uniform} is effectively a corollary of Theorem 1 from \cite{AndrewsSoares}, which establishes the uniform asymptotic validity of the GMS test, and \ref{lem:prelim}, which accounts for preliminary estimation of $\boldsymbol{\gamma}$ and $\mathbf{q}$.
 Given iid observations $\mathbf{w}_i$, the only substantive condition required for Theorem \ref{thm:uniform} is the joint asymptotic normality of $\sqrt{n} \,\bar{m}_n(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)$ and $\bar{h}_n(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)$, where $\bar{h}_n$ denotes the sample analogues for full set of auxiliary moment conditions $(h^I, h^E)$ defined in Section \ref{sec:prelim}.
-For more details see Appendix A3 of \cite{AndrewsSoares}.
+For further discussion of the regularity conditions required for the GMS procedure, see Appendix A3 of \cite{AndrewsSoares}.
 For some discussion of the regularity conditions required for Lemma \ref{lem:prelim}, see Section \ref{sec:prelim}.
 
+Theorem \ref{thm:uniform} invokes the higher-moment assumptions (Assumptions \ref{assump:2ndMoment}--\ref{assump:3rdMoment}) under which we establish global identification of $\beta$ in Theorem \ref{thm:main_ident}, and Algorithm \ref{alg:GMS} likewise incorporates the higher-moment equality conditions that arise from this result.
+To proceed without these conditions, simply remove $m^E$ from the set of moment conditions used in the algorithm and leave the steps unchanged.
+In this case $\beta$ is no longer point identified but the inference procedure provides valid inference for the points in the sharp identified set from Theorem \ref{thm:sharpII}.
+Algorithm \ref{alg:Bonferroni} can likewise be used in the case of an exogenous $T^*$, as in \cite{Mahajan} and \cite{FL}.
+As mentioned above in Section \ref{sec:problem}, the exogenous regressor case is subject to the same inferential difficulties and the endogenous case on which we focuse in this paper.
+To accommodate an exogenous regressor,simply replace $m^E$ with the moment equalities described in Appendix \ref{sec:FL_mahajan}.
 
-
-\todo[inline]{Talk about how you could proceed for the exogenous case (same moment inequalities!) or if you only wanted to use the inequalities and do partial identification}
 
 \subsection{Incorporating Covariates}
 \label{sec:covariates}
