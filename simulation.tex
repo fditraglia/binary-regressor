@@ -1,6 +1,42 @@
 %!TEX root = ./main.tex
 \section{Simulation Study}
 
+In this section we present simulation results for the inference procedure described in Section \ref{sec:details} above.
+Our simulation design draws $n$ iid observations $(y_i, T_i, T_i^*, z)$ as follows.
+First, we set $z_i = 0$ for $1 \leq i \leq n/2$ and $z_i = 1$ for $n/2 < i \leq n$.
+In other words, we condition on the value of the instrument, holding it fixed in repeated sampling.
+We then draw $n$ iid standard normal errors $(\varepsilon_i, \eta_i)$ from a bivariate normal distribution with correlation $\rho$.
+The regressor $T^*$ is generated from $z$ and $\eta$ using the first-stage selection equation
+\begin{align}
+  T^*_i &= \mathbf{1}\left\{ d_0 + d_1 z_i + \eta_i > 0 \right\} \\
+  d_0 &= \\
+  d_1 &= 
+\end{align}
+where $\Phi(\cdot)$ denotes the cumulative distribution function of a standard normal random variable.
+
+\begin{align}
+  T_i|T^*_i=0 &\sim \mbox{ iid Bernoulli}(\alpha_0)\\
+  T_i|T^*_i=1 &\sim \mbox{ iid Bernoulli}(1 - \alpha_1)
+\end{align}
+
+\begin{equation}
+  y_i = c + \beta T^*_i + \varepsilon_i, \quad 
+  \left[
+  \begin{array}{c}
+   \varepsilon_i \\ \eta_i 
+  \end{array}
+\right] \sim \mbox{ iid } N\left( \left[
+\begin{array}{c}
+  0 \\ 0
+\end{array}
+\right], \left[
+\begin{array}{cc}
+  1 & \rho \\
+  \rho & 1
+\end{array}
+\right]\right)
+\end{equation}
+
 \begin{itemize}
   \item Describe simulation DGP and reference the sections in the paper upon which our calculations are based.
   \item GMM does a bad job for small $\beta$ but a good job for large $\beta$.
