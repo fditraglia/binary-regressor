@@ -99,7 +99,7 @@ This method is more computationally demanding than our two-dimensional projectio
 From a practical perspective, the relevant question is whether the reduction in conservatism from projecting a lower dimensional set is outweighed by the additional conservatism induced by the Bonferroni correction. 
 In our experiments, the full three-dimensional projection and Bonferroni procedure produced broadly similar results: neither reliably dominated in terms of confidence interval width.
 Given its substantially lower computational burden, we prefer the Bonferroni procedure.
-We also experimented with two recently proposed methods for sub-vector inference: \cite{kaido2016confidence} and \cite{BugniCanayShi}. In both cases we obtained significant size distortions, suggesting that our model may not satisfy the high-level regularity conditions required by these papers.}
+We also experimented with two recently proposed methods for sub-vector inference: \cite{kaido2016confidence} and \cite{BugniCanayShi}. In both cases we obtained significant size distortions, suggesting that our model may not satisfy the high-level regularity conditions required by these papers.\label{foot:alternatives}}
 If desired, one could also carry out a valid test of the null hypothesis that there is no mis-classification, $\alpha_0 = \alpha_1 = 0$, using the joint test for $(\alpha_0, \alpha_1)$. 
 In the following sections we provide full details of our Bonferroni-based confidence interval procedure for $\beta$.
 
@@ -510,13 +510,30 @@ We now detail our procedure to construct a valid confidence interval for $\beta$
         \item Set $\overline{\beta}(\delta) = \min \left\{ \underline{s}(\delta_1) \overline{\theta}_1(\delta_2), \overline{s}(\delta_1)\overline{\theta}_1(\delta_2) \right\}$.
       \end{enumerate}
   \end{enumerate}
+  \label{alg:Bonferroni}
 \end{alg}
 
+Step 1 of Algorithm \ref{alg:Bonferroni} constructs a $(1 - \delta_1)\times 100\%$ joint confidence set $\mathcal{C}(\delta_1)$ for $\boldsymbol{\vartheta} = (\alpha_0, \alpha_1)$ by inverting the GMS test from Algorithm \ref{alg:GMS} over a discretized parameter space $\Delta_N$.
+Because the parameter space for $(\alpha_0, \alpha_1)$ is bounded this is computationally straightforward.
+Step 2 projects $\mathcal{C}(\delta_1)$ to yield a $(1 - \delta_1)\times 100\%$ confidence interval for $s \equiv (1 - \alpha_0 - \alpha_1)$, simply taking the maximum and minimum values of $s$ in the discrete set  $\mathcal{C}(\delta_1)$.
+Step 3 constructs the usual IV confidence interval for the reduced form parameter $\theta_1$, and step 4 combines the results of steps 2--3 with Bonferroni's inequality to yield a $(1 - \delta_1 - \delta_2) \times 100\%$ confidence interval for $\beta$.
+For some discussion of alternatives to Algorithm \ref{alg:Bonferroni}, see Footnote \ref{foot:alternatives}.
+Under mild regularity conditions, the confidence interval from Algorithm \ref{alg:Bonferroni} is uniformly asymptotically valid.
+
 \begin{thm}
-Inference procedure gives valid coverage. First argue that GMS test gives uniformly valid inference and that we have a valid confidence interval for $\theta_1$. Then the Bonferroni interval gives us what we require for $\beta$. The statement of the result should refer to iid observations, the Lemma about preliminary estimation, and A3 of Andrews \& Soares.
+  Let $\mathbf{w}_1, \hdots, \mathbf{w}_n$ be an iid collection of observations satisfying the conditions of Theorems \ref{thm:sharpII} and \ref{thm:main_ident}, and let $z$ be a strong instrument.
+  Then, under standard regularity conditions, the confidence interval for $\beta$ described in Algorithm \ref{alg:Bonferroni} has asymptotic coverage probability of no less than $1 - (\delta_1 + \delta_2)$ as $R,N,n\rightarrow \infty$ uniformly over the parameter space.
+  \label{thm:uniform}
 \end{thm}
 
-\todo[inline]{Say a few more things about Bonferroni such has how you can't reject $\beta=0$ unless the IV interval excludes this. Also talk about how you could proceed for the exogenous case (same moment inequalities!) or if you only wanted to use the inequalities and do partial identification}
+Theorem \ref{thm:uniform} is effectively a corollary of Theorem 1 from \cite{AndrewsSoares}, which establishes the uniform asymptotic validity of the GMS test, and \ref{lem:prelim}, which accounts for preliminary estimation of $\boldsymbol{\gamma}$ and $\mathbf{q}$.
+Given iid observations $\mathbf{w}_i$, the only substantive condition required for Theorem \ref{thm:uniform} is the joint asymptotic normality of $\sqrt{n} \,\bar{m}_n(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)$ and $\bar{h}_n(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)$, where $\bar{h}_n$ denotes the sample analogues for full set of auxiliary moment conditions $(h^I, h^E)$ defined in Section \ref{sec:prelim}.
+For more details see Appendix A3 of \cite{AndrewsSoares}.
+For some discussion of the regularity conditions required for Lemma \ref{lem:prelim}, see Section \ref{sec:prelim}.
+
+
+
+\todo[inline]{Talk about how you could proceed for the exogenous case (same moment inequalities!) or if you only wanted to use the inequalities and do partial identification}
 
 \subsection{Incorporating Covariates}
 \label{sec:covariates}
