@@ -475,14 +475,12 @@ In step 2, we calculate the observed value of the MMM test statistic.
 Note that this test statistic uses only the diagonal elements of $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)$.
 Moreover, the moment inequalities only contribute to $T_n$ if they are violated, i.e.\ if they take on a negative value.
 In step 3 we determine which moment inequalities are ``far from binding,'' defined as having a t-ratio greater than $\sqrt{\log n}$.
-These moment inequalities will be \emph{dropped} when approximating the large-sample distribution of test statistic.\footnote{Although this does not affect the results of the procedure, notice that Algorithm \ref{alg:GMS} carries out moment selection in a slightly different way from the steps given by \cite{AndrewsSoares}. In particular, before carrying out any further calculations, we \emph{subset} the correlation matrix $\widehat{\Omega}$ and normal vectors $\boldsymbol{\zeta}^{(r)}$ to remove elements corresponding to moment inequalities deemed far from binding. In contrast, \cite{AndrewsSoares} carry along the full set of inequalities throughout, but add $+\infty$ to the appropriate elements when computing $T_n^{(r)}$ to ensure that only the moment inequalities that are not far from binding affect the results. Although it requires more notation to describe, sub-setting is substantially faster, as it avoids carrying out computations for inequalities that cannot affect the result.}
-
-
-
-This test uses a collection of iid normal draws to approximate the large-sample distribution of the test statistic under the null after first excluding 
-
-
-
+These moment inequalities will be excluded when approximating the large-sample distribution of test statistic.
+The matrix $\Phi$ encodes the results of the moment selection step.
+Pre--multiplying a $(J + K)$--vector $\mathbf{x}$ by $\Phi$ results in a $(\widetilde{J}\times K)$--vector $\widetilde{\mathbf{x}}$ whose last $K$ elements match the last $K$ elements of $\mathbf{x}$ but whose first $\widetilde{J}$ elements contain the subset of $(x_1, \dots, x_J)$ whose indices match those of the moment inequalities with t-ratios less than or equal to $\sqrt{\log n}$, i.e.\ those that are \emph{not} far from binding.\footnote{Although this does not affect the results of the procedure, notice that Algorithm \ref{alg:GMS} carries out moment selection in a slightly different way from the steps given by \cite{AndrewsSoares}. In particular, before carrying out any further calculations, we \emph{subset} the correlation matrix $\widehat{\Omega}$ and normal vectors $\boldsymbol{\zeta}^{(r)}$ to remove elements corresponding to moment inequalities deemed far from binding. In contrast, \cite{AndrewsSoares} carry along the full set of inequalities throughout, but add $+\infty$ to the appropriate elements when computing $T_n^{(r)}$ to ensure that only the moment inequalities that are not far from binding affect the results. Although it requires more notation to describe, sub-setting is substantially faster, as it avoids carrying out computations for inequalities that cannot affect the result.}
+Step 4 uses a collection of iid normal draws, $\{\boldsymbol{\zeta}^{(r)}\}_{r=1}^{R}$, to approximate the large-sample distribution of $T_n$ under the null.
+The appropriate multiplications by $\Phi$ ensure that this approximation includes all moment equalities, but excludes any moment inequality judged to be far from binding in step 3.
+Finally, step 5 computes the p-value of the test by comparing the actual test statistic $T_n(\boldsymbol{\vartheta}_0)$ to the collection of simulated test statistics $\{T_n^{(r)}(\boldsymbol{\vartheta}_0)\}_{r=1}^R$ from step 4.
 
 \todo[inline]{Update from here down!}
 \begin{alg}[Bonferroni Confidence Interval for $\beta$] \mbox{}
