@@ -2,6 +2,10 @@
 \section{Simulation Study}
 
 In this section we present results from a simulation study using the inference procedure described in Section \ref{sec:details} above.
+Supplementary simulation results appear in Appendix \ref{sec:simulation_supplement}.
+
+\subsection{Simulation DGP}
+\label{sec:DGP}
 Our simulation design generates $n$ iid observations of the observables $(y_i, T_i, z)$ as follows:
 \begin{enumerate}
   \item Generate the instrumental variable $z$.
@@ -26,11 +30,7 @@ Our simulation design generates $n$ iid observations of the observables $(y_i, T
 \end{array}
 \right]\right).
 \]
-  \item Generate the unobserved endogenous regressor $T^*$.
-    \begin{enumerate}[(i)]
-      \item Set $d_0 = \Phi^{-1}(?), \, d_1= \Phi^{-1}(1 - ?) - \Phi^{-1}(?)$ where $\Phi^{-1}$ denotes the quantile function of a standard normal random variable.
-      \item For each $i = 1, \hdots, n$ set $T^*_i = \mathbf{1}\left\{ d_0 + d_1 z_i + \eta_i > 0 \right\}$.
-    \end{enumerate}
+  \item Generate the unobserved regressor: $T^*_i = \mathbf{1}\left\{ d_0 + d_1 z_i + \eta_i > 0 \right\}$.
   \item Generate the outcome: $y_i = c + \beta T_i^* + \varepsilon_i$.  
   \item Generate the observed, mis-classified regressor $T$.
     \begin{enumerate}[(i)]
@@ -42,9 +42,15 @@ This DGP generates random variables that satisfy the conditions of Theorems \ref
 Thus $\beta$ is point identified, and all moment equalities and inequalities from Section \ref{sec:inference} hold at the true parameter values of the DGP.
 Note from step 1 that we hold \emph{condition} on the instrument $z$, holding it fixed in repeated samples.
 
+\todo[inline]{Change from here down!}
+For simplicity we set $c = 0$ and $d_0 = \Phi^{-1}(?), \, d_1= \Phi^{-1}(1 - ?) - \Phi^{-1}(?)$ where $\Phi^{-1}$ denotes the quantile function of a standard normal random variable.
+Vary $(\alpha_0, \alpha_1, \beta, n)$ over a grid.
+Unless otherwise specified, all results are based on $2000$ simulation replications with $n = 1000$ using Algorithm \ref{alg:Bonferroni} with $R = 5000$ simulation draws.
+Results for $n = 1000$ appear in Appendix \ref{sec:simulation_supplement}.
+
+\subsection{Simulation Results}
 
 \begin{itemize}
-  \item Describe simulation DGP and reference the sections in the paper upon which our calculations are based.
   \item GMM does a bad job for small $\beta$ but a good job for large $\beta$.
     Note that we have changed our convention so we report coverage and width conditional on the interval existing!
   \item GMS test for $(\alpha_0, \alpha_1)$ uniformly controls size except for a small distortion at $\beta=3,\alpha_0=0.1$ that we can't explain.
