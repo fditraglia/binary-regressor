@@ -488,19 +488,19 @@ The argument $\mathbf{x}$ stands in for the moment inequalities, which only affe
         \item Let $\boldsymbol{\nu}^I_n(\boldsymbol{\vartheta}_0)$ denote the first $J$ elements of $\boldsymbol{\nu}_n$ and  $\boldsymbol{\nu}_n^E(\boldsymbol{\vartheta}_0)$ the last $K$ elements.   
         \item Set $T_n(\boldsymbol{\vartheta}_0) = S\big( \boldsymbol{\nu}_n^I(\boldsymbol{\vartheta}_0),\,\boldsymbol{\nu}_n^E(\boldsymbol{\vartheta}_0) \big)$ using Equation \ref{eq:MMM}.
   \end{enumerate}
-\item Construct the moment selection matrix $\Phi_0$.
+\item Construct the moment selection matrix $\Phi$.
       \begin{enumerate}[(i)]
-        \item For $j = 1, \hdots, J$ set $\varphi_j^I(\boldsymbol{\vartheta}_0) = \mathbf{1}\left\{\nu_{n,j}^I(\boldsymbol{\vartheta}_0) \leq \sqrt{\log n} \right\}$.
-        \item Set $\widetilde{J} = \sum_{j=1}^J \varphi_j^I(\boldsymbol{\vartheta}_0)$.
-        \item Set $\boldsymbol{\varphi}(\boldsymbol{\vartheta}_0) = \big(\varphi_{1}^I(\boldsymbol{\vartheta}_0),\hdots, \varphi_{J}^I(\boldsymbol{\vartheta}_0), \boldsymbol{\iota}'_{K}\big)'$ where $\boldsymbol{\iota}$ is a $K$-vector of ones.
-        \item Let $\Phi_0$ be the $(\widetilde{J}+K)\times(J+K)$ matrix whose $j$\textsuperscript{th} column equals the zero vector if $\boldsymbol{\varphi}_j = 0$ and the $j$\textsuperscript{th} standard basis vector $\mathbf{e}_j$ otherwise.
+        \item For $j = 1, \hdots, J$ set $\varphi_j^I = \mathbf{1}\left\{\nu_{n,j}^I(\boldsymbol{\vartheta}_0) \leq \sqrt{\log n} \right\}$ and let  $\widetilde{J} = \sum_{j=1}^J \varphi_j^I$.
+        \item For $j = 1, \hdots, K$ set $\varphi_j^E = 1$.
+        \item Set $\boldsymbol{\varphi} = (\varphi_{1}^I,\hdots, \varphi_{J}^I,\varphi_1^E,\hdots, \varphi_K^E)'$.
+        \item Let $\Phi$ be the $(\widetilde{J}+K)\times(J+K)$ of zeros and ones that selects those elements $x_j$ of an arbitrary vector $\mathbf{x}$ that correspond to $\varphi_j = 1$. 
       \end{enumerate}
     \item Simulate the sampling distribution of $T_n(\boldsymbol{\vartheta}_0)$ under the null. 
       \begin{enumerate}[(i)]
-        \item Set $\widehat{\Omega}_n(\boldsymbol{\vartheta}_0) = \left[ \mbox{diag}\left\{\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right\} \right]^{-1/2}\left[\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right]\left[ \mbox{diag}\left\{\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right\} \right]^{-1/2}$.
-        \item For each $r = 1, \hdots, R$ set $\boldsymbol{\nu}_n^{(r)}(\boldsymbol{\vartheta}_0) = \widehat{\Omega}_n^{1/2}(\boldsymbol{\vartheta}_0)\,\boldsymbol{\zeta}^{(r)}$.
-        \item Let $\boldsymbol{\nu}_n^{(r)I}(\boldsymbol{\vartheta}_0)$ denote the first $J$ and $\boldsymbol{\nu}_n^{(r)E}(\boldsymbol{\vartheta}_0)$ the last $K$ elements of $\boldsymbol{\nu}_n^{(r)}$.  
-        \item For each $r = 1, \hdots, R$ set $T^{(r)}_n(\boldsymbol{\vartheta}_0) = S\big( \boldsymbol{\nu}_n^{(r)I}(\boldsymbol{\vartheta}_0), \, \boldsymbol{\nu}_n^{(r)E}(\boldsymbol{\vartheta}_0)\big)$ using Equation \ref{eq:MMM}.
+        \item Set $\widehat{\Omega} = \left[ \mbox{diag}\left\{\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right\} \right]^{-1/2}\left[\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right]\left[ \mbox{diag}\left\{\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right\} \right]^{-1/2}$.
+        \item For each $r = 1, \hdots, R$ set $\boldsymbol{\xi}^{(r)} = \left[\Phi\,\widehat{\Omega}\,\Phi'\right]^{1/2}\,\Phi\boldsymbol{\zeta}^{(r)}$.
+        \item Let $\boldsymbol{\xi}^{(r)}_I$ denote the first $\widetilde{J}$ and $\boldsymbol{\xi}_E^{(r)}$ the last $K$ elements of $\boldsymbol{\xi}^{(r)}$.  
+        \item For each $r = 1, \hdots, R$ set $T^{(r)}_n(\boldsymbol{\vartheta}_0) = S\big( \boldsymbol{\xi}_{I}^{(r)}, \, \boldsymbol{\xi}^{(r)}_E\big)$ using Equation \ref{eq:MMM}.
       \end{enumerate}
     \item Calculate the p-value of the test: $\displaystyle \widehat{p}(\boldsymbol{\vartheta}_0) = \frac{1}{R}\sum_{r=1}^R \mathbf{1}\left\{T_{n}^{(r)}(\boldsymbol{\vartheta}_0) > T_n \right\}$.
 
