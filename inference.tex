@@ -124,6 +124,7 @@ m_1^I(\mathbf{w}_i, \boldsymbol{\vartheta}) \equiv \left[
     z_i (1 - T_i - \alpha_1) 
   \end{array}
 \right]
+\label{eq:m1I}
 \end{equation}
 The bounds derived in Theorem \ref{thm:sharpII} by imposing assumption \ref{assump:misclassification} (iii) are
 \begin{equation*}
@@ -141,6 +142,7 @@ Expressing these as unconditional moment inequalities, we have
     m_{2,01}^I(\mathbf{w}_i,\boldsymbol{\vartheta}, \mathbf{q})  \\ 
     m_{2,11}^I(\mathbf{w}_i,\boldsymbol{\vartheta}, \mathbf{q}) 
   \end{array}
+  \label{eq:m2I}
 \right] 
 \end{equation}
 where $\mathbf{q} \equiv ( \underline{q}_{00},\, \overline{q}_{00},\, \underline{q}_{10}, \,\overline{q}_{10},\, \underline{q}_{01}, \,\overline{q}_{01},\, \underline{q}_{11},\, \overline{q}_{11})$ and we define
@@ -150,11 +152,11 @@ where $\mathbf{q} \equiv ( \underline{q}_{00},\, \overline{q}_{00},\, \underline
     y_i \mathbf{1}\left( z_i=k \right)\left\{(T_i - \alpha_0) - \mathbf{1}(y_i \leq \underline{q}_{0k})  (1 - T_i)\left( \frac{1 - \alpha_0 - \alpha_1}{\alpha_1} \right)\right\} \\
     - y_i \mathbf{1}(z_i=k) \left\{ (T_i - \alpha_0) -  \mathbf{1}(y_i > \overline{q}_{0k}) (1 - T_i) \left( \frac{1 - \alpha_0 - \alpha_1}{\alpha_1} \right) \right\} 
 \end{array}
-\right] \\\nonumber \\
+\right] \label{eq:m2I_0k} \\\nonumber \\
   m_{2,1k}^I(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q}) \equiv \left[
   \begin{array}{r}
     y_i \mathbf{1}\left( z_i=k \right)\left\{(T_i - \alpha_0) - \mathbf{1}(y_i \leq \underline{q}_{1k})  T_i\left( \frac{1 - \alpha_0 - \alpha_1}{1 - \alpha_1} \right)\right\} \\
-    - y_i \mathbf{1}(z_i=k) \left\{ (T_i - \alpha_0) -  \mathbf{1}(y_i > \overline{q}_{1k}) T_i \left( \frac{1 - \alpha_0 - \alpha_1}{1 - \alpha_1} \right) \right\} 
+    - y_i \mathbf{1}(z_i=k) \left\{ (T_i - \alpha_0) -  \mathbf{1}(y_i > \overline{q}_{1k}) T_i \left( \frac{1 - \alpha_0 - \alpha_1}{1 - \alpha_1} \right) \right\} \label{eq:m2I_1k}
 \end{array}
 \right].
 \end{align}
@@ -182,6 +184,7 @@ where $m^I = (m_1^{I'}, m_2^{I'})'$, defined in Section \ref{sec:inequalities}, 
  \left\{ \boldsymbol{\psi}_3'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_3 \right\}z_i 
   \end{array}
 \right].
+\label{eq:mE}
 \end{equation}
 Notice that we now write $\boldsymbol{\psi}_2$ and $\boldsymbol{\psi}_3$, defined in Equation \ref{eq:psi_def}, as explicit functions of $(\theta_1, \alpha_0, \alpha_1)$, using the definitions of $(\theta_2, \theta_3)$ from Equations \ref{eq:theta2_def}--\ref{eq:theta3_def}.
 To construct a GMS test of the null hypothesis $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta_0}$ based on Equation \ref{eq:MCs_ineq_eq}, we require preliminary estimators $\widehat{\boldsymbol{\gamma}}(\boldsymbol{\vartheta}_0)$ and $\widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)$ that are consistent and asymptotically normal \emph{under the null}.
@@ -387,54 +390,9 @@ In the following section we provide a step-by-step description of our inference 
 
 \subsection{Details of the Inference Procedure}
 \label{sec:details}
-
-%\todo[inline]{First define notation, test statistic, etc. I cut and pasted the following from above, where it formerly appeared.}
-%
-%Before proceeding, we introduce some notation.
-%Let
-%\begin{equation}
-%  \mathbb{E} \left[ m^I_j(\mathbf{w}_i,\boldsymbol{\vartheta}_0) \right]
-%  \geq \mathbf{0} \quad j = 1, \cdots, J_I; \quad \quad
-% \mathbb{E} \left[ m^E_j(\mathbf{w}_i,\boldsymbol{\vartheta}_0) \right]
-% = \mathbf{0} \quad  j = J_I + 1, \cdots,J  
-%   \label{eq:mdefs}
-% \end{equation}
-% where $\boldsymbol{\vartheta}_0$ is the true parameter vector, $m_j^I$ corresponds to the $j$th inequality moment condition, $m_j^E$ corresponds to the $j$th equality moment condition, $J$ denotes the total number of moment conditions, $J_I$ denotes the number of moment equalities, and $J_E = J - J_I$ denotes the number of equality moment conditions.
-%Further define 
-%\begin{equation}
-%  \bar{m}_n(\boldsymbol{\vartheta}) = \left[
-%  \begin{array}{c}
-%   \bar{m}_n^I(\boldsymbol{\vartheta}) \\
-%   \bar{m}_n^E(\boldsymbol{\vartheta}) \\
-%  \end{array}
-%\right], \quad
-%  \bar{m}_n^I(\boldsymbol{\vartheta}) = \left[
-%  \begin{array}{c}
-%    \bar{m}_{n,1}^I(\boldsymbol{\vartheta})\\
-%    \vdots \\
-%    \bar{m}_{n,J_I}^I(\boldsymbol{\vartheta})\\
-%  \end{array}
-%\right], \quad
-%  \bar{m}_n^E(\boldsymbol{\vartheta}) = \left[
-%  \begin{array}{c}
-%    \bar{m}_{n,J_I+1}^E(\boldsymbol{\vartheta})\\
-%    \vdots \\
-%    \bar{m}_{n,J}^E(\boldsymbol{\vartheta})\\
-%  \end{array}
-%\right]
-%\end{equation}
-%where 
-%$\bar{m}^I_{n,j}(\boldsymbol{\vartheta}) = n^{-1} \sum_{i=1}^{n} m_j^I(\mathbf{w}_i, \boldsymbol{\vartheta})$
-%and $\bar{m}^E_{n,j}$ is defined analogously.
-%Finally, let $\Sigma(\boldsymbol{\vartheta})$ denote the asymptotic variance matrix of $\sqrt{n}\; \bar{m}_n(\boldsymbol{\vartheta})$, with $j$th diagonal element $\sigma^2_j(\boldsymbol{\vartheta})$ along with the corresponding sample analogues $\widehat{\Sigma}_n(\boldsymbol{\vartheta})$ and $\widehat{\sigma}^2_j(\boldsymbol{\vartheta})$.
-%
-%namely the modified method of moments (MMM) statistic 
-%\begin{equation}
-%  T_n(\boldsymbol{\vartheta}) = \sum_{j=1}^{J_1}\min\left\{ 0, \left( \frac{\sqrt{n}\; \bar{m}_n^I(\boldsymbol{\vartheta})}{\widehat{\sigma}_n(\boldsymbol{\vartheta})} \right)^2 \right\} + \sum_{j=J_1 + 1}^{J} \left( \frac{\sqrt{n}\; \bar{m}_n^E(\boldsymbol{\vartheta})}{\widehat{\sigma}_n(\boldsymbol{\vartheta})} \right)^2.
-%\end{equation}
-%
-%In particular, when approximating the asymptotic distribution of $T_n$ under the null $H_0\colon \boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$, we drop any inequality moment condition $m_j^I$ for which $\sqrt{n}\big[\bar{m}_n(\boldsymbol{\vartheta}_0)/ \widehat{\sigma}_n(\boldsymbol{\vartheta}_0)\big] > \sqrt{\log(n)}$.\footnote{Full details appear in Section \ref{sec:details} below.}
-%
+In this section we provide full details of our Bonferroni-based inference procedure.
+We begin by defining some notation.
+Let $J$ denote the total number of inequality moment conditions, $K$ denote the total number of equality moment conditions, and define
 \begin{equation}
 \bar{m}_n(\boldsymbol{\vartheta}, \boldsymbol{\tau}) = \left[
 \begin{array}{c}
@@ -457,22 +415,24 @@ In the following section we provide a step-by-step description of our inference 
 \end{array}\right]
 \label{eq:mbar_def}
 \end{equation}
-where $m_1^I, m_2^I$, and $m^E$ are defined in Equations ???
-
-Let $J$ denote the number of inequality moment conditions and $K$ denote the number of equality moment conditions
-
-Function $S$ of two arbitrary real vectors $\mathbf{x}, \mathbf{y}$ to compute modified method of moments (MMM) test statistic:
+with $m_1^I$ as defined in Equation \ref{eq:m1I}, $m_2^I$ in Equations \ref{eq:m2I}--\ref{eq:m2I_1k} and $m^E$ in Equation \ref{eq:mE}.\footnote{In our problem $K=2$ and $J$ is at most 12. Under certain nulls for $(\alpha_0, \alpha_1)$, however, we drop components of $m^I_2$ as they are trivially satisfied. See footnote \ref{foot:quantile} and Section \ref{sec:prelim} for further discussion.}
+Now let $S$ be the function
 \begin{equation}
   S(\mathbf{x}, \mathbf{y}) = \sum_{j}\min\left\{ 0, 
   x_j^2 \right\} + \mathbf{y}'\mathbf{y} 
     \label{eq:MMM}
 \end{equation}
-The argument $\mathbf{x}$ stands in for the moment inequalities, which only affect the test statistic when they are violated.
+where $\mathbf{x}, \mathbf{y}$ are two arbitrary real vectors.
+This function will be used to calculate the modified method of moments (MMM) test statistic as part of the GMS test below.
+The argument $\mathbf{x}$ stands in for the moment inequalities, which only contribute to the test statistic when they are violated, i.e.\ take on a \emph{negative} value.
+Using this notation, we now detail the first step of our inference procedure: a GMS test for $\boldsymbol{\vartheta} = (\alpha_0, \alpha_1)$ with preliminary estimation of $\mathbf{q}$ and $\boldsymbol{\gamma}$ under the null.
 
 
 \begin{alg}[GMS Test for $\alpha_0$ and $\alpha_1$ ]
   \mbox{} \\
-  \textbf{Inputs:} null hypothesis $H_0\colon\boldsymbol{\vartheta} = \boldsymbol{\vartheta}_0$ for $(\alpha_0, \alpha_1)$, draws $\boldsymbol{\zeta}^{(1)}, \cdots, \boldsymbol{\zeta}^{(R)} \sim \mbox{ iid } N(\mathbf{0}, \mathbf{I}_J)$
+    Inputs: hypothesis $\boldsymbol{\vartheta}_0$; 
+    iid dataset $\{\mathbf{w}_i\}_{i=1}^n$;
+    simulations $\{\boldsymbol{\zeta}^{(r)}\}_{r=1}^R \sim \mbox{ iid } N_{J+K}(\mathbf{0}, \mathbf{I})$.
   \begin{enumerate}
     \item Calculate the variance matrix estimator $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)$.
       \begin{enumerate}[(i)]
@@ -497,17 +457,34 @@ The argument $\mathbf{x}$ stands in for the moment inequalities, which only affe
       \end{enumerate}
     \item Simulate the sampling distribution of $T_n(\boldsymbol{\vartheta}_0)$ under the null. 
       \begin{enumerate}[(i)]
-        \item Let $\widehat{\Omega}$ be the correlation matrix that corresponds to $\widehat{\Sigma}_n(\boldsymbol{\vartheta})$.
+        \item Let $\widehat{\Omega}$ be the correlation matrix that corresponds to $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)$.
         %\item Set $\widehat{\Omega} = \left[ \mbox{diag}\left\{\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right\} \right]^{-1/2}\left[\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right]\left[ \mbox{diag}\left\{\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)\right\} \right]^{-1/2}$.
         \item For each $r = 1, \hdots, R$ set $\boldsymbol{\xi}^{(r)} = \left[\Phi\,\widehat{\Omega}\,\Phi'\right]^{1/2}\,\Phi\boldsymbol{\zeta}^{(r)}$.
         \item Let $\boldsymbol{\xi}^{(r)}_I$ denote the first $\widetilde{J}$ and $\boldsymbol{\xi}_E^{(r)}$ the last $K$ elements of $\boldsymbol{\xi}^{(r)}$.  
         \item For each $r = 1, \hdots, R$ set $T^{(r)}_n(\boldsymbol{\vartheta}_0) = S\big( \boldsymbol{\xi}_{I}^{(r)}, \, \boldsymbol{\xi}^{(r)}_E\big)$ using Equation \ref{eq:MMM}.
       \end{enumerate}
     \item Calculate the p-value of the test: $\displaystyle \widehat{p}(\boldsymbol{\vartheta}_0) = \frac{1}{R}\sum_{r=1}^R \mathbf{1}\left\{T_{n}^{(r)}(\boldsymbol{\vartheta}_0) > T_n(\boldsymbol{\vartheta}_0)\right\}$.
-
   \end{enumerate}
+  \label{alg:GMS}
 \end{alg}
 
+Algorithm \ref{alg:GMS} corresponds to the asymptotic version of the GMS test from \cite{AndrewsSoares}, based on the MMM test statistic -- $S_1$ in \cite{AndrewsSoares} -- and the ``BIC choice'' $\kappa_n = \sqrt{\log n}$ for the sequence of constants $\kappa_n$ used for moment selection.   
+The procedure is as follows.
+In Step 1, we compute a consistent estimator of the asymptotic variance matrix of the full set of moment conditions, under the null, accounting for preliminary estimation of $\mathbf{q}$ and $\boldsymbol{\gamma}$ as explained in Section \ref{sec:prelim}.
+In step 2, we calculate the observed value of the MMM test statistic.
+Note that this test statistic uses only the diagonal elements of $\widehat{\Sigma}_n(\boldsymbol{\vartheta}_0)$.
+Moreover, the moment inequalities only contribute to $T_n$ if they are violated, i.e.\ if they take on a negative value.
+In step 3 we determine which moment inequalities are ``far from binding,'' defined as having a t-ratio greater than $\sqrt{\log n}$.
+These moment inequalities will be \emph{dropped} when approximating the large-sample distribution of test statistic.\footnote{Although this does not affect the results of the procedure, notice that Algorithm \ref{alg:GMS} carries out moment selection in a slightly different way from the steps given by \cite{AndrewsSoares}. In particular, before carrying out any further calculations, we \emph{subset} the correlation matrix $\widehat{\Omega}$ and normal vectors $\boldsymbol{\zeta}^{(r)}$ to remove elements corresponding to moment inequalities deemed far from binding. In contrast, \cite{AndrewsSoares} carry along the full set of inequalities throughout, but add $+\infty$ to the appropriate elements when computing $T_n^{(r)}$ to ensure that only the moment inequalities that are not far from binding affect the results. Although it requires more notation to describe, sub-setting is substantially faster, as it avoids carrying out computations for inequalities that cannot affect the result.}
+
+
+
+This test uses a collection of iid normal draws to approximate the large-sample distribution of the test statistic under the null after first excluding 
+
+
+
+
+\todo[inline]{Update from here down!}
 \begin{alg}[Bonferroni Confidence Interval for $\beta$] \mbox{}
   \begin{enumerate}
     \item First get the joint set for $\alpha_0, \alpha_1$ by a grid search, using the GMS test described in the other algorithm
