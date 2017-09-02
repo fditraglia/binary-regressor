@@ -88,10 +88,10 @@ We now examine the performance of the Bonferroni-based confidence interval from 
 Table \ref{tab:alphas_cover_97point5_1000} presents coverage probabilities for a nominal 97.5\% GMS confidence set for $(\alpha_0, \alpha_1)$.
 Because these results are extremely fast to compute, Table \ref{tab:alphas_cover_97point5_1000} is based on 10,000 simulation replications. 
 Aside from some slight under-coverage at intermediate values of $(\alpha_0, \alpha_1)$ when $\beta = 3$, the GMS interval makes good on its promise of uniformly valid inference.
-It tends, however, to be fairly conservative, particularly for larger values of $(\alpha_0, \alpha_1)$.
+As shown in Appendix \ref{sec:simulation_supplement}, the under-coverage problem appears to be a finite-sample artifact: if we increase $n$ to 2000, the maximum size distortion becomes negligible.
+The GMS test tends, however, to be fairly conservative, particularly for larger values of $(\alpha_0, \alpha_1)$.
 When there is no mis-classification error, the GMS confidence sets are very nearly exact.
-Results for nominal 95\% and 90\% intervals, both with $n = 1000$ and $n=2000$ are given in Appendix \ref{sec:simulation_supplement}.
-These are qualitatively similar to the results discussed here.
+Results for nominal 95\% and 90\% intervals are qualitatively similar: see Appendix \ref{sec:simulation_supplement}.
 
 \begin{table}
   \small
@@ -102,10 +102,8 @@ These are qualitatively similar to the results discussed here.
 \end{table}
 
 We now present results for the Bonferroni interval from Algorithm \ref{alg:Bonferroni}, setting $\delta_1 = \delta_2 = 0.025$ to yield an interval with asymptotic coverage no less that $95\%$.\footnote{In principle, one could optimize the choice of $\delta_1$ subject to the constraint $\delta_1 + \delta_2 = 0.95$ to reduce the width of the resulting interval. In our experiments, there was no choice of $\delta_1$ that uniformly dominated for all values of $(\alpha_0, \alpha_1, \beta)$ so we report only results for $\delta_1 = \delta_2$ here.}
-Table \ref{tab:bonf_cover_1000} presents coverage probabilities in percentage point for the full simulation grid, while Figures \ref{fig:bonf_point5_1000}--\ref{fig:bonf_3_1000} plot coverage functions (1 - Power) at selected parameter values.
-The solid curves in the figures correspond to using the full set of inequality moment conditions from \ref{sec:inequalities}, while the dashed curves use only $m_{1}^I$, i.e.\ they do not impose the restrictions implied by non-differential measurement error.
-In each figure, the dashed horizontal line gives the nominal coverage probability, $95\%$, while the dashed vertical lines are the reduced from and instrumental variables estimands: for $\beta \geq 0$ the reduced form is always smaller than the IV.
-Coverage curves for additional parameter values appear in Appendix \ref{sec:simulation_supplement}. 
+Table \ref{tab:bonf_cover_1000} presents coverage probabilities in percentage points and Table \ref{tab:bonf_cover_1000} median widths.
+
 
 \begin{table}[htbp]
   \centering
@@ -115,32 +113,52 @@ Coverage curves for additional parameter values appear in Appendix \ref{sec:simu
   \label{tab:bonf_cover_1000}
 \end{table}
 
+\begin{table}
+  \small
+  \centering
+  \input{./tab/bonf_CIs_width_1000.tex}
+  \caption{Median Width of nominal $>95\%$ Bonferroni Intervals with $n = 1000$}
+  \label{tab:bonf_width_1000}
+\end{table}
+
+The Bonferroni interval achieves its stated minimum coverage uniformly over the parameter space.
+When there is no mis-classification, $\alpha_0 = \alpha_1$, its actual coverage is close or equal to $95\%$.
+In the presence of mis-classification, however, the interval can be quite conservative, particularly for larger values of $\beta$.
+In spite of this conservatism, the Bonferroni interval is informative, as we see from the median widths in Table \ref{tab:bonf_width_1000}. 
+Because median widths provide only a limited pictures of the behavior of a confidence interval, Figures \ref{fig:bonf_point5_1000}--\ref{fig:bonf_3_1000} present further evidence in the form of coverage functions (1 - power) for selected parameter values.
+Each figure holds the true value of $\beta$ fixed and varies $(\alpha_0, \alpha_1)$ over a grid. 
+The plots within each Figure give coverage in percentage points as a function of the specified alternative for $\beta$.
+Solid curves are computed using the full set of inequality moment conditions from \ref{sec:inequalities}, while dashed curves use only $m_{1}^I$, i.e.\ they do not impose the restrictions implied by non-differential measurement error.
+In each figure, the dashed horizontal line gives the nominal coverage probability, $95\%$, while the dashed vertical lines are the reduced from  and instrumental variables estimands: for $\beta \geq 0$ the reduced form is always smaller than the IV.
+Coverage curves for additional parameter values appear in Appendix \ref{sec:simulation_supplement}. 
+
+
 \begin{figure}[h]
   \centering
-  \input{./fig/bonf_point5_1000.tex}
+  %\input{./fig/bonf_point5_1000.tex}
   \caption{$\beta = 0.5, n = 1000$}
   \label{fig:bonf_point5_1000}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  \input{./fig/bonf_1_1000.tex}
+  %\input{./fig/bonf_1_1000.tex}
   \caption{$\beta = 1, n = 1000$}
   \label{fig:bonf_1_1000}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  \input{./fig/bonf_3_1000.tex}
+  %\input{./fig/bonf_3_1000.tex}
   \caption{$\beta = 3, n = 1000$}
   \label{fig:bonf_3_1000}
 \end{figure}
 
-The Bonferroni interval achieves its stated minimum coverage uniformly over the parameter space.
-When there is no mis-classification, $\alpha_0 = \alpha_1$, its actual coverage is close or equal to $95\%$.
-In the presence of mis-classification, however, the interval can be quite conservative, particularly for larger values of $\beta$.
-In spite of this conservatism, the Bonferroni interval is still informative, as we see from Figures \ref{fig:bonf_point5_1000}--\ref{fig:bonf_3_1000}.
-For smaller values of $(\alpha_0, \alpha_1)$ and larger values of 
+As seen from Figures \ref{fig:bonf_point5_1000}--\ref{fig:bonf_3_1000}, and their counterparts in Appendix \ref{sec:simulation_supplement}, the Bonferroni procedure has power against the alternative that $\beta = 0$, even when the true value of $\beta$ is small.
+As described in Section \ref{sec:details}, the Bonferroni interval excludes zero if and only if the confidence interval for $\theta_1$ from which it is constructed also excludes zero.
+These figures also indicate the gains from including $m_2^I$, the moment inequalities that emerge from assuming non-differential measurement error: substantial increases in power against alternatives between the true parameter value and zero, particularly for larger values of $\beta$.
+Note moreover that the excellent performance of Bonferroni in the zero mis-classification case $(\alpha_0, \alpha_1)$ depends crucially on imposing the assumption of non-differential measurement error.
+As the true value of $\beta$ increases, the Bonferroni interval begins to have power against both the reduced form and IV estimands.
 
 \begin{table}[htbp]
   \small
@@ -154,7 +172,6 @@ For smaller values of $(\alpha_0, \alpha_1)$ and larger values of
 \begin{itemize}
   \item Now show the Bonferroni results:
     \begin{itemize}
-      \item Uniformly controls size
       \item There is basically no conservatism in the zero measurement error case
       \item This comes from using the non-diff bounds (refer to the picture). Notice how these turn out to be very informative. They can only be informative from below, however, since $\alpha_0 = \alpha_1 = 0$ is always in the sharp identified set without our higher moment assumptions.
       \item When measurement error isn't zero, the method is conservative. 
