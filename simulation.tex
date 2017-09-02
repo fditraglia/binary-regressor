@@ -124,7 +124,9 @@ Table \ref{tab:bonf_cover_1000} presents coverage probabilities in percentage po
 The Bonferroni interval achieves its stated minimum coverage uniformly over the parameter space.
 When there is no mis-classification, $\alpha_0 = \alpha_1$, its actual coverage is close or equal to $95\%$.
 In the presence of mis-classification, however, the interval can be quite conservative, particularly for larger values of $\beta$.
-In spite of this conservatism, the Bonferroni interval is informative, as we see from the median widths in Table \ref{tab:bonf_width_1000}. 
+For smaller but nonzero values of $\beta$, this conservatism reflects the fact that the model is \emph{effectively} partially identified: although Theorem \ref{thm:main_ident} shows that $(\alpha_0, \alpha_1)$ are point identified for any $\beta\neq 0$, the amount of data required to distinguish one pair of alphas from another when $\beta$ is small would be astronomical.
+
+In spite of its conservatism, the Bonferroni interval is informative, as we see from the median widths in Table \ref{tab:bonf_width_1000}. 
 Because median widths provide only a limited pictures of the behavior of a confidence interval, Figures \ref{fig:bonf_point5_1000}--\ref{fig:bonf_3_1000} present further evidence in the form of coverage functions (1 - power) for selected parameter values.
 Each figure holds the true value of $\beta$ fixed and varies $(\alpha_0, \alpha_1)$ over a grid. 
 The plots within each Figure give coverage in percentage points as a function of the specified alternative for $\beta$.
@@ -154,11 +156,18 @@ Coverage curves for additional parameter values appear in Appendix \ref{sec:simu
   \label{fig:bonf_3_1000}
 \end{figure}
 
-As seen from Figures \ref{fig:bonf_point5_1000}--\ref{fig:bonf_3_1000}, and their counterparts in Appendix \ref{sec:simulation_supplement}, the Bonferroni procedure has power against the alternative that $\beta = 0$, even when the true value of $\beta$ is small.
+As seen from Figures \ref{fig:bonf_point5_1000}--\ref{fig:bonf_3_1000}, and their counterparts in Appendix \ref{sec:simulation_supplement}, the Bonferroni procedure has power against the alternative $\beta = 0$, even when the true value of $\beta$ is small.
 As described in Section \ref{sec:details}, the Bonferroni interval excludes zero if and only if the confidence interval for $\theta_1$ from which it is constructed also excludes zero.
 These figures also indicate the gains from including $m_2^I$, the moment inequalities that emerge from assuming non-differential measurement error: substantial increases in power against alternatives between the true parameter value and zero, particularly for larger values of $\beta$.
 Note moreover that the excellent performance of Bonferroni in the zero mis-classification case $(\alpha_0, \alpha_1)$ depends crucially on imposing the assumption of non-differential measurement error.
 As the true value of $\beta$ increases, the Bonferroni interval begins to have power against both the reduced form and IV estimands.
+
+A drawback of the identification-robust inference procedure from \ref{alg:Bonferroni} becomes apparent when both $\beta$ and the mis-classification probabilities are large.
+In this case the confidence interval for $\beta$ is excessively wide, as we see from Table \ref{tab:bonf_width_1000} and Figure \ref{fig:bonf_3_1000}.\footnote{Of course the widths do shrink as sample size increases: see the results for $n = 2000$ in Appendix \ref{sec:simulation_supplement}.}
+Note from Tables \ref{tab:GMM_na_1000} and \ref{tab:GMM_cover_1000}, that this is a region of the parameter space in which the plain-vanilla GMM confidence interval yields valid inference.
+Moreover, we see from Table \ref{tab:GMM_width_1000} that the median width of the GMM interval is far more reasonable when $\beta$ is large, even in the presence of large amounts of mis-classification.
+It is important to stress that the source of this excess width is \emph{not} Bonferroni: the same behavior emerges if one projects a joint GMS confidence set for $(\alpha_0, \alpha_1, \beta)$ to yield marginal inference for $\beta$.
+Rather, it is the inevitable cost of applying a robust inference procedure in a region of the parameter space where standard inference performs well.
 
 \begin{table}[htbp]
   \small
@@ -168,20 +177,14 @@ As the true value of $\beta$ increases, the Bonferroni interval begins to have p
   \label{tab:GMM_width_1000}
 \end{table}
 
+While a detailed theoretical investigation of this problem is beyond the scope of the present paper, we now explore the performance of a simple method for ``transitioning'' between robust and standard inference.
+Although somewhat different in its details, this idea bears some similarity to
+\todo[inline]{Cite that Isaiah Andrews paper}
+
 \todo[inline]{Change from here down!}
 \begin{itemize}
   \item Now show the Bonferroni results:
     \begin{itemize}
-      \item There is basically no conservatism in the zero measurement error case
-      \item This comes from using the non-diff bounds (refer to the picture). Notice how these turn out to be very informative. They can only be informative from below, however, since $\alpha_0 = \alpha_1 = 0$ is always in the sharp identified set without our higher moment assumptions.
-      \item When measurement error isn't zero, the method is conservative. 
-      \item In the small $\beta$ cases, the conservatism is really a ``feature'' rather than a bug because there you are effectively not identified so we're really looking at an identified set.
-      \item The conservatism is severe when $\beta$ is large and there is a lot of measurement error.
-        The widths of the intervals are huge, although they do shrink with sample size.
-        In contrast, GMM is working fine here.
-      \item GMS doesn't seem to be able to ``detect'' the case where inference is standard. 
-        Interesting question that doesn't seem to have been studied much about transitioning between partial and point identification (or weak and strong identification).
-        We think the source of the conservatism is that we have an ellipse with a small variance in the beta direction and a large one in the alpha directions, so any kind of joint interval that we project will be very conservative for $\beta$. Maybe try to make a picture of this?
       \item Propose two-step procedure to address the conservatism when $\beta$ is large. 
         Explain the basic idea and show that it works perfectly and is essentially a free lunch. 
         There is one slight size distortion at $n = 1000,\beta = 1, \alpha_0 = \alpha_1 = 0.3$ but it disappears when $n = 2000$. Even small distortion at $\beta = 3, \alpha_0 = \alpha_1 = 0$ for both $n =1000, 2000$.
