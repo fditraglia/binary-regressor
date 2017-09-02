@@ -56,6 +56,7 @@ Moreover, the estimator may not even exist in finite samples.
 Even when the GMM estimator exists, its asymptotic variance matrix could be numerically singular, so that the standard GMM confidence interval is undefined.
 Table \ref{tab:GMM_na_1000} reports the percentage of simulation draws for which the standard GMM confidence interval is undefined, while Table \ref{tab:GMM_cover_1000} reports the coverage probability of a nominal 95\% GMM confidence interval, conditional on its existence.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[htbp]
   \small
   \centering
@@ -68,9 +69,10 @@ Table \ref{tab:GMM_na_1000} reports the percentage of simulation draws for which
   \small
   \centering
   \input{./tab/GMM_CIs_cover_1000.tex}
-  \caption{Coverage (\%) of the standard nominal 95\% GMM confidence interval for $\beta$ based on the Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. (See Table \ref{tab:GMM_na_1000}.) Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
+  \caption{Coverage (\%) of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. (See Table \ref{tab:GMM_na_1000}.) Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
   \label{tab:GMM_cover_1000}
 \end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 We see from Table \ref{tab:GMM_na_1000} that when $\beta$ is small compared to the error variance, the GMM confidence interval fails to exist with high probability.
@@ -93,23 +95,25 @@ The GMS test tends, however, to be fairly conservative, particularly for larger 
 When there is no mis-classification error, the GMS confidence sets are very nearly exact.
 Results for nominal 95\% and 90\% intervals are qualitatively similar: see Appendix \ref{sec:simulation_supplement}.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}
   \small
   \centering
   \input{./tab/alphas_cover_97point5_1000.tex}
-  \caption{Coverage (1 - size) of 97.5\% GMS joint test for $\alpha_0$ and $\alpha_1$: $n = 1000$}
+  \caption{Coverage probability (1 - size) in percentage points of a 97.5\% GMS joint test for $\alpha_0$ and $\alpha_1$ using Algorithm \ref{alg:GMS} with $n = 1000$. Calculations are based on 10,000 replications of the DGP from Section \ref{sec:DGP}.}
   \label{tab:alphas_cover_97point5_1000}
 \end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 We now present results for the Bonferroni interval from Algorithm \ref{alg:Bonferroni}, setting $\delta_1 = \delta_2 = 0.025$ to yield an interval with asymptotic coverage no less that $95\%$.\footnote{In principle, one could optimize the choice of $\delta_1$ subject to the constraint $\delta_1 + \delta_2 = 0.95$ to reduce the width of the resulting interval. In our experiments, there was no choice of $\delta_1$ that uniformly dominated for all values of $(\alpha_0, \alpha_1, \beta)$ so we report only results for $\delta_1 = \delta_2$ here.}
 Table \ref{tab:bonf_cover_1000} presents coverage probabilities in percentage points and Table \ref{tab:bonf_cover_1000} median widths.
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[htbp]
   \centering
   \small
   \input{./tab/bonf_CIs_cover_1000.tex}
-  \caption{Coverage of nominal $>95\%$ Bonferroni Intervals with $n = 1000$}
+  \caption{Coverage of probability in percentage points of a nominal $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
   \label{tab:bonf_cover_1000}
 \end{table}
 
@@ -117,9 +121,10 @@ Table \ref{tab:bonf_cover_1000} presents coverage probabilities in percentage po
   \small
   \centering
   \input{./tab/bonf_CIs_width_1000.tex}
-  \caption{Median Width of nominal $>95\%$ Bonferroni Intervals with $n = 1000$}
+  \caption{Median width of a nominal $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
   \label{tab:bonf_width_1000}
 \end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The Bonferroni interval achieves its stated minimum coverage uniformly over the parameter space.
 When there is no mis-classification, $\alpha_0 = \alpha_1$, its actual coverage is close or equal to $95\%$.
@@ -135,26 +140,28 @@ Solid curves are computed using the full set of inequality moment conditions fro
 In each figure, the dashed horizontal line gives the nominal coverage probability, $95\%$, while the dashed vertical lines are the reduced from  and instrumental variables estimands: for $\beta \geq 0$ the reduced form is always smaller than the IV.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[h]
   \centering
-  %\input{./fig/bonf_point5_1000.tex}
-  \caption{$\beta = 0.5, n = 1000$}
+  \input{./fig/bonf_point5_1000.tex}
+  \caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 0.5$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
   \label{fig:bonf_point5_1000}
 \end{figure}
 
 \begin{figure}[h]
   \centering
   %\input{./fig/bonf_1_1000.tex}
-  \caption{$\beta = 1, n = 1000$}
+  \caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 1$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
   \label{fig:bonf_1_1000}
 \end{figure}
 
 \begin{figure}[h]
   \centering
   %\input{./fig/bonf_3_1000.tex}
-  \caption{$\beta = 3, n = 1000$}
+  \caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 3$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
   \label{fig:bonf_3_1000}
 \end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 As seen from Figures \ref{fig:bonf_point5_1000}--\ref{fig:bonf_3_1000}, and their counterparts in Appendix \ref{sec:simulation_supplement}, the Bonferroni procedure has power against the alternative $\beta = 0$, even when the true value of $\beta$ is small.
 As described in Section \ref{sec:details}, the Bonferroni interval excludes zero if and only if the confidence interval for $\theta_1$ from which it is constructed also excludes zero.
@@ -166,17 +173,17 @@ As the true value of $\beta$ increases, the Bonferroni interval begins to have p
   \small
   \centering
   \input{./tab/GMM_CIs_width_1000.tex}
-  \caption{Median width of the standard nominal 95\% GMM confidence interval for $\beta$ based on the Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. (See Table \ref{tab:GMM_na_1000}.) Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
+  \caption{Median width of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. (See Table \ref{tab:GMM_na_1000}.) Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
   \label{tab:GMM_width_1000}
 \end{table}
 
 A drawback of the identification-robust inference procedure from \ref{alg:Bonferroni} becomes apparent when both $\beta$ and the mis-classification probabilities are large.
-In this case the confidence interval for $\beta$ is excessively wide, as we see from Table \ref{tab:bonf_width_1000} and Figure \ref{fig:bonf_3_1000}.\footnote{Of course the widths do shrink as sample size increases: see the results for $n = 2000$ in Appendix \ref{sec:simulation_supplement}.}
+In this case the confidence interval for $\beta$ is excessively wide, as we see from Table \ref{tab:bonf_width_1000} and Figure \ref{fig:bonf_3_1000}.\footnote{As expected, median widths decrease with sample size: see the results for $n = 2000$ in Appendix \ref{sec:simulation_supplement}.}
 Note from Tables \ref{tab:GMM_na_1000} and \ref{tab:GMM_cover_1000}, that this is a region of the parameter space in which the plain-vanilla GMM confidence interval yields valid inference.
 Moreover, we see from Table \ref{tab:GMM_width_1000} that the median width of the GMM interval is far more reasonable when $\beta$ is large, even in the presence of large amounts of mis-classification.
 It is important to stress that the source of this excess width is \emph{not} Bonferroni: the same behavior emerges if one projects a joint GMS confidence set for $(\alpha_0, \alpha_1, \beta)$ to yield marginal inference for $\beta$.
 Rather, it is the inevitable cost of applying a robust inference procedure in a region of the parameter space where standard inference performs well.
-While a detailed theoretical investigation of this problem is beyond the scope of the present paper, we now explore the performance of a ``hybrid'' confidence interval that uses a simple heuristic to transition between robust and standard inference.\footnote{Although different in its details, this idea bears some similarity to Andrews (2017).\todo[inline]{cite!}.}
+While a detailed theoretical investigation of this problem is beyond the scope of the present paper, we now explore the performance of a ``hybrid'' confidence interval that uses a simple heuristic to transition between robust and standard inference.\footnote{Although different in its details, this idea bears some similarity to Andrews (2017).\todo[inline]{cite!}}
 The procedure for constructing the hybrid interval is as follows.
 First compute the robust confidence interval based on Algorithm \ref{alg:Bonferroni}.
 Next, determine whether the GMM interval is well-defined: if so, determine whether it is contained within the robust interval.
@@ -186,20 +193,27 @@ Coverage plots for $\beta = 1, 2, 3$ appear in Figures \ref{fig:2step_1_1000}--\
 Plots for additional values of $\beta$ and $n$ appear in Appendix \ref{sec:simulation_supplement}.
 The conventions of these figures are identical to those of Figures \ref{fig:bonf_point5_1000}--\ref{fig:bonf_3_1000} with one exception: in Figures \ref{fig:2step_1_1000}--\ref{fig:2step_3_1000} the dashed curves correspond to the hybrid confidence interval.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}
   \centering
   \input{./tab/twostep_CIs_cover_1000.tex}
-  \caption{Coverage of hybrid CI constructed from nominal 95\% GMM and nominal $>95\%$ Bonferroni intervals: $n = 1000$}
+  \caption{Coverage probabilities (\%) a hybrid confidence interval constructed from the nominal $95\%$ standard GMM interval and the $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. The hybrid interval reports Bonferroni unless the GMM interval exists and is contained within the Bonferroni interval. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
   \label{tab:twostep_cover_1000}
 \end{table}
 
 \begin{table}
   \centering
   \input{./tab/twostep_CIs_width_1000.tex}
-  \caption{Median width of hybrid CI constructed from nominal 95\% GMM and nominal $>95\%$ Bonferroni intervals: $n = 1000$}
+  \caption{Median width of a hybrid confidence interval constructed from the nominal $95\%$ standard GMM interval and the $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. The hybrid interval reports Bonferroni unless the GMM interval exists and is contained within the Bonferroni interval. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
   \label{tab:twostep_width_1000}
 \end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+The hybrid interval performs extremely well: with the exception of a slight size distortion at $(\alpha_0 = \alpha_1 = 0.3, \beta = 1)$ and $(\alpha_0 = \alpha_1 = 0, \beta = 3)$, it is effectively a free lunch.\footnote{The distortion at $(\alpha_0 = \alpha_1 = 0.3, \beta = 1)$ disappears when $n$ increases to 2000: see Appendix \ref{sec:simulation_supplement}.}
+Note in particular that the coverage curves for the hybrid interval from Figures \ref{fig:2step_1_1000}--\ref{fig:2step_3_1000} (dashed curves) lie uniformly below those of the Bonferroni interval (solid curves) while still maintaining correct coverage at the true value of $\beta$.
+It could be interesting to investigate this idea further in future work.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}
   \centering
   %\input{./fig/bonf_vs_twostep_1_1000.tex}
@@ -220,7 +234,4 @@ The conventions of these figures are identical to those of Figures \ref{fig:bonf
   \caption{Two-step vs Bonferroni $\beta = 3, n = 1000$}
   \label{fig:2step_3_1000}
 \end{figure}
-
-The hybrid interval performs extremely well: with the exception of a slight size distortion at $(\alpha_0 = \alpha_1 = 0.3, \beta = 1)$ and $(\alpha_0 = \alpha_1 = 0, \beta = 3)$, it is effectively a free lunch.\footnote{The distortion at $(\alpha_0 = \alpha_1 = 0.3, \beta = 1)$ disappears when $n$ increases to 2000: see Appendix \ref{sec:simulation_supplement}.}
-Note in particular that the coverage curves for the hybrid interval from Figures \ref{fig:2step_1_1000}--\ref{fig:2step_3_1000} (dashed curves) lie uniformly below those of the Bonferroni interval (solid curves) while still maintaining correct coverage at the true value of $\beta$.
-It could be interesting to investigate this idea further in future work.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
