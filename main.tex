@@ -33,19 +33,34 @@
 \input{inference.tex}
 \input{simulation.tex}
 \input{conclusion.tex}
-%\input{bonf_figs.tex}
-%\input{bonf_vs_twostep_figs.tex}
 
 %Proofs in the Appendix
 \appendix
+\numberwithin{equation}{section}
+\numberwithin{table}{section}
+\numberwithin{figure}{section}
 \singlespacing \small
 \input{proofs.tex}
+
+% Additional Appendices
+\normalsize
 \input{mahajan_approach.tex}
 \input{heterog.tex}
 \input{FL_mahajan_moments.tex}
-\input{simulation_supplement.tex}
 
+% References
 \bibliographystyle{elsarticle-harv}
 \bibliography{binary}
+
+% Supplementary Simulation Results: Online Only
+\normalsize
+\clearpage
+\pagenumbering{arabic}% resets `page` counter to 1
+\renewcommand*{\thepage}{A-\arabic{page}}
+
+\input{simulation_supplement.tex}
+%\input{bonf_figs.tex}
+%\input{bonf_vs_twostep_figs.tex}
+
 
 \end{document}

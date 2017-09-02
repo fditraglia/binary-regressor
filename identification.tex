@@ -1,5 +1,6 @@
 %!TEX root = ./main.tex
 \section{Identification Results}
+\label{sec:identification}
 
 \subsection{Baseline Assumptions}
 As defined in the preceding section, our model is $y = c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon$, where $\varepsilon$ is a mean-zero error term, and the parameter of interest is $\beta(\mathbf{x})$ -- the effect of an unobserved, binary, endogenous regressor $T^*$.
@@ -14,7 +15,7 @@ We assume that the model and instrument satisfy the following conditions:
   \end{enumerate}
 \end{assump}
 
-Assumptions \ref{assump:model}(ii) and (iii) are the standard instrument relevance and mean independence assumptions.\footnote{Point out that even though Assumption \ref{assump:model} (ii) refers to the unobserved $T^*$, under Assumptions \ref{assump:misclassification} (i) and (ii) we have $(p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1) = p_k - p_\ell$ so it suffices for an \emph{observed} first-stage to exist.}
+Assumptions \ref{assump:model}(ii) and (iii) are the standard instrument relevance and mean independence assumptions.\footnote{\todo[inline]{Point out that even though Assumption \ref{assump:model} (ii) refers to the unobserved $T^*$, under Assumptions \ref{assump:misclassification} (i) and (ii) we have $(p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1) = p_k - p_\ell$ so it suffices for an \emph{observed} first-stage to exist.}}
 If $T^*$ were observed, Assumption \ref{assump:model} would suffice to identify  $\beta(\mathbf{x})$.  
 Unfortunately we observe not $T^*$ but a mis-classified binary surrogate $T$.  
 Define the following mis-classification probabilities:
@@ -42,6 +43,7 @@ Intuitively, it maintains that $T$ provides no additional information about $\va
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Point Identification Results from the Literature}
+\label{sec:ident_literature}
 
 Existing results from the literature -- see for example \cite{FL} and \cite{Mahajan} -- establish that $\beta(\mathbf{x})$ is point identified if Assumptions \ref{assump:model}--\ref{assump:misclassification} are augmented to include the following condition:
 \begin{assump}[Joint Exogeneity] \mbox{}

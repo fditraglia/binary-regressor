@@ -1,11 +1,50 @@
 %!TEX root = ./main.tex
-\section{Mahajan's Approach}
+\section{Comment on \cite{Mahajan} A.2}
 \label{sec:mahajan}
-Here we show that \citeauthor{Mahajan}'s proof of identification for an endogenous treatment is incorrect.
-The problem is subtle so we give his argument in full detail.
-We continue to supress dependence on the exogenous covariates $\mathbf{x}$.
+Expanding on our discussion from Section \ref{sec:ident_literature} above, we now show that \citeauthor{Mahajan}'s identification argument for an endogenous regressor in an additively separable model (A.2) is incorrect.
+Unless otherwise indicated, all notation used below is as defined in Section \ref{sec:identification}.
 
-The first step of \citeauthor{Mahajan}'s argument is to show that if one could recover the conditional mean function of $y$ given $T^*$, then a valid and relevant binary instrument would suffice to identify the treatment effect.  
+The first step of \cite{Mahajan} A.2 argues (correctly) that under Assumptions \ref{assump:model} and \ref{assump:misclassification} (i)--(ii), knowledge of $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ is sufficient to identify $\beta(\mathbf{x})$. 
+This step is equivalent to our Lemma \ref{lem:wald} above.
+The second step appeals to \cite{Mahajan} Theorem 1 to argue that $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ are point identified under an additional condition 
+\begin{equation}
+  \mathbb{E}(y|\mathbf{x},z,T^*,T) = \mathbb{E}(y|\mathbf{x},T^*)
+  \label{eq:mahajan11}
+\end{equation}
+that is not imposed in the proof of Theorem 1.
+Equation \ref{eq:mahajan11} appears in Equation (11) of \cite{Mahajan}.
+Because \cite{Mahajan} A.2 assumes an additively separable model -- our Assumption \ref{assump:model} (i) -- Equation \ref{eq:mahajan11} is equivalent to $\mathbb{E}(\varepsilon|\mathbf{x},z,T^*,T)=\mathbb{E}(\varepsilon|\mathbf{x},T^*)$.
+
+To understand the role of Equation \ref{eq:mahajan11} and the logic of this second step, we first re-state \cite{Mahajan} Theorem 1 in our notation.
+As in Section \ref{sec:identification}, $T^*$ denotes an unobserved binary random variable, $z$ is a instrument, $T$ an observed binary surrogate for $T^*$, $y$ an outcome of interest, and $\mathbf{x}$ a vector covariates.
+
+\begin{assump}[\cite{Mahajan} Theorem 1]
+  Let $g(T^*, \mathbf{x}) = \mathbb{E}[y|\mathbf{x}]$ and $v = y - g(T^*,\mathbf{x})$.
+  Suppose that knowledge of $(y,T^*,\mathbf{x})$ is sufficient to identify $g$ and further that
+  \begin{enumerate}[(i)]
+    \item $\mathbb{P}(T^*=1|\mathbf{x},z=0) \neq \mathbb{P}(T^*=1|\mathbf{x},z=1)$.
+    \item $T$ is conditionally independent of $z$ given $(\mathbf{x}, T^*)$.
+    \item $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) < 1$
+    \item $\mathbb{E}[v|\mathbf{x},z,T^*,T] = 0$
+    \item $g(1,\mathbf{x}) \neq g(0, \mathbf{x})$
+  \end{enumerate}
+  \label{assump:mahajan1}
+\end{assump}
+
+\begin{thm}[\cite{Mahajan} Theorem 1]
+  Under Assumption \ref{assump:mahajan1} $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ are point identified, as is $g(T^*,\mathbf{x})$.
+  \label{thm:mahajan1}
+\end{thm}
+
+Assumption \ref{assump:mahajan1} (i) is equivalent to our Assumption \ref{assump:model} (ii), while Assumptions \ref{assump:mahajan1} (ii)--(iii) are equivalent to our Assumptions \ref{assump:misclassification} (i)--(ii).
+Assumption \ref{assump:mahajan1} (v) serves the same purpose as $\beta(\mathbf{x}) \neq 0$ in our Theorem \ref{thm:main_ident}: unless $T^*$ affects $y$, we cannot identify the mis-classification probabilities.
+The key difference between Theorem \ref{thm:mahajan1} and the setting we consider in Section \ref{sec:identification} comes from Assumption \ref{assump:mahajan1} (iv). 
+This is essentially a stronger version of our Assumptions \ref{assump:model} (iii) and \ref{assump:misclassification} (iii) but applies to the \emph{projection error} $v$, defined in Assumption \ref{assump:mahajan1} rather than the structural error $\varepsilon$, defined in Assumption \ref{assump:model} (i).
+Accordingly, Theorem \ref{thm:mahajan1} identifies the conditional mean function $g$ rather than the causal effect $\beta(\mathbf{x})$.
+
+
+\newpage
+
 \begin{assump}[Mahajan A2]\mbox{}
   Suppose that $y = c+ \beta T^* + \varepsilon$ where
   \begin{enumerate}[(i)]
