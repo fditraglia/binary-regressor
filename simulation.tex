@@ -54,7 +54,7 @@ In contrast the \emph{observed} first-stage probabilities $p_0$ and $p_1$ vary w
 As explained in Section \ref{sec:problem} above, the just-identified, unconstrained GMM estimator based on Equation \ref{eq:MCs_endog} suffers from weak identification and boundary value problems.
 Moreover, the estimator may not even exist in finite samples.
 Even when the GMM estimator exists, its asymptotic variance matrix could be numerically singular, so that the standard GMM confidence interval is undefined.
-Table \ref{tab:GMM_na_1000} reports the percentage of simulation draws for which the standard GMM confidence interval is undefined, while Table \ref{tab:GMM_cover_1000} reports the coverage probability and Table \ref{tab:GMM_width_1000} \emph{conditional} on the existence of the interval.
+Table \ref{tab:GMM_na_1000} reports the percentage of simulation draws for which the standard GMM confidence interval is undefined, while Table \ref{tab:GMM_cover_1000} reports the coverage probability of a nominal 95\% GMM confidence interval, conditional on its existence.
 
 \begin{table}[htbp]
   \small
@@ -72,13 +72,6 @@ Table \ref{tab:GMM_na_1000} reports the percentage of simulation draws for which
   \label{tab:GMM_cover_1000}
 \end{table}
 
-\begin{table}[htbp]
-  \small
-  \centering
-  \input{./tab/GMM_CIs_width_1000.tex}
-  \caption{Median width of the standard nominal 95\% GMM confidence interval for $\beta$ based on the Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. (See Table \ref{tab:GMM_na_1000}.) Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
-  \label{tab:GMM_width_1000}
-\end{table}
 
 We see from Table \ref{tab:GMM_na_1000} that when $\beta$ is small compared to the error variance, the GMM confidence interval fails to exist with high probability.
 When $\beta = 0.5$, for example, the interval is undefined approximately 30\% of the time.
@@ -87,13 +80,48 @@ All else equal, larger amounts of mis-classification, i.e.\ higher values for $(
 Turning our attention to the simulation draws for which it is well-defined, we see from Tables \ref{tab:GMM_cover_1000} and \ref{tab:GMM_width_1000} that the GMM confidence interval performs extremely poorly when $\beta$ is small.
 Substantial size distortions persist until $\beta$ is 1.5 or larger.
 All else equal, the size distortions are more severe the larger the amount of mis-classification error.
+For sufficiently large $\beta$, however, standard GMM inference performs well.
+As $\beta$ grows, the weak identification problem vanishes.
+For large enough $\beta$ the inference problem in effect becomes standard.
 
+We now examine the performance of the Bonferroni-based confidence interval from Algorithm \ref{alg:Bonferroni}, beginning with its first step: a joint GMS confidence set for $(\alpha_0, \alpha_1)$.
+Table \ref{tab:alphas_cover_97point5_1000} presents coverage probabilities for a nominal 97.5\% GMS confidence set for $(\alpha_0, \alpha_1)$.
+Because these results are extremely fast to compute, Table \ref{tab:alphas_cover_97point5_1000} is based on 10,000 simulation replications. 
+Aside from some slight under-coverage at intermediate values of $(\alpha_0, \alpha_1)$ when $\beta = 3$, the GMS interval makes good on its promise of uniformly valid inference.
+It tends, however, to be fairly conservative, particularly for larger values of $(\alpha_0, \alpha_1)$.
+When there is no mis-classification error, the GMS confidence sets are very nearly exact.
+Results for nominal 95\% and 90\% intervals, both with $n = 1000$ and $n=2000$ are given in Appendix \ref{sec:simulation_supplement}.
+These are qualitatively similar to the results discussed here.
+
+\begin{table}
+  \small
+  \centering
+  \input{./tab/alphas_cover_97point5_1000.tex}
+  \caption{Coverage (1 - size) of 97.5\% GMS joint test for $\alpha_0$ and $\alpha_1$: $n = 1000$}
+  \label{tab:alphas_cover_97point5_1000}
+\end{table}
+
+We now present results for the Bonferroni interval from Algorithm \ref{alg:Bonferroni}, setting $\delta_1 = \delta_2 = 0.025$ to yield an interval with asymptotic coverage no less that $95\%$.\footnote{In principle, one could optimize the choice of $\delta_1$ subject to the constraint $\delta_1 + \delta_2 = 0.95$ to reduce the width of the resulting interval. In our experiments, there was no choice of $\delta_1$ that uniformly dominated for all values of $(\alpha_0, \alpha_1, \beta)$ so we report only results for $\delta_1 = \delta_2$ here.}
+Table \ref{tab:bonf_cover_1000} presents coverage probabilities in percentage point for the full simulation grid, while Figures ???--??? plot coverage functions (1 - Power) at selected parameter values.
+The solid curves in the figures correspond to using the full set of inequality moment conditions from \ref{sec:inequalities}, while the dashed curves use only $m_{1}^I$, i.e.\ they do not impose the restrictions implied by non-differential measurement error.
+
+\begin{table}[htbp]
+  \centering
+  \input{./tab/bonf_CIs_cover_1000.tex}
+  \caption{Coverage of nominal $>95\%$ Bonferroni Intervals with $n = 1000$}
+  \label{tab:bonf_cover_1000}
+\end{table}
+
+\begin{table}[htbp]
+  \small
+  \centering
+  \input{./tab/GMM_CIs_width_1000.tex}
+  \caption{Median width of the standard nominal 95\% GMM confidence interval for $\beta$ based on the Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. (See Table \ref{tab:GMM_na_1000}.) Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
+  \label{tab:GMM_width_1000}
+\end{table}
 
 \todo[inline]{Change from here down!}
 \begin{itemize}
-  \item GMM does a bad job for small $\beta$ but a good job for large $\beta$.
-    Note that we have changed our convention so we report coverage and width conditional on the interval existing!
-  \item GMS test for $(\alpha_0, \alpha_1)$ uniformly controls size except for a small distortion at $\beta=3,\alpha_0=0.1$ that we can't explain.
   \item Now show the Bonferroni results:
     \begin{itemize}
       \item Uniformly controls size
