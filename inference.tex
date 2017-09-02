@@ -524,6 +524,8 @@ Step 3 constructs the usual IV confidence interval for the reduced form paramete
 For some discussion of alternatives to Algorithm \ref{alg:Bonferroni}, see Footnote \ref{foot:alternatives}.
 Under mild regularity conditions, the confidence interval from Algorithm \ref{alg:Bonferroni} is uniformly asymptotically valid.
 
+\todo[inline]{Should add at least a couple of sentences about how Bonferroni relates to the IV interval: in particular it only excludes zero if the CI for $\theta_1$ excludes zero.}
+
 \begin{thm}
   Let $\mathbf{w}_1, \hdots, \mathbf{w}_n$ be an iid collection of observations satisfying the conditions of Theorems \ref{thm:sharpII} and \ref{thm:main_ident}, and let $z$ be a strong instrument.
   Then, under standard regularity conditions, the confidence interval for $\beta$ from Algorithm \ref{alg:Bonferroni} has asymptotic coverage probability no less than $1 - (\delta_1 + \delta_2)$ as $R,N,n\rightarrow \infty$ uniformly over the parameter space.
