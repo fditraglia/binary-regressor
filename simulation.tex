@@ -127,12 +127,12 @@ In the presence of mis-classification, however, the interval can be quite conser
 For smaller but nonzero values of $\beta$, this conservatism reflects the fact that the model is \emph{effectively} partially identified: although Theorem \ref{thm:main_ident} shows that $(\alpha_0, \alpha_1)$ are point identified for any $\beta\neq 0$, the amount of data required to distinguish one pair of alphas from another when $\beta$ is small would be astronomical.
 
 In spite of its conservatism, the Bonferroni interval is informative, as we see from the median widths in Table \ref{tab:bonf_width_1000}. 
-Because median widths provide only a limited pictures of the behavior of a confidence interval, Figures \ref{fig:bonf_point5_1000}--\ref{fig:bonf_3_1000} present further evidence in the form of coverage functions (1 - power) for selected parameter values.
-Each figure holds the true value of $\beta$ fixed and varies $(\alpha_0, \alpha_1)$ over a grid. 
+Because median widths provide only a limited pictures of the behavior of a confidence interval, Figures \ref{fig:bonf_point5_1000}--\ref{fig:bonf_3_1000} present further evidence in the form of coverage functions (1 - power) for $\beta = 0.5, 1, 3$.
+Coverage curves for additional values of $\beta$ and $n$ appear in Appendix \ref{sec:simulation_supplement}. 
+Each figure holds the true value of $\beta$ fixed and varies $(\alpha_0, \alpha_1)$ over the grid $\left\{ 0, 0.1, 0.2 \right\}\times \left\{ 0, 0.2, 0.2 \right\}$. 
 The plots within each Figure give coverage in percentage points as a function of the specified alternative for $\beta$.
 Solid curves are computed using the full set of inequality moment conditions from \ref{sec:inequalities}, while dashed curves use only $m_{1}^I$, i.e.\ they do not impose the restrictions implied by non-differential measurement error.
 In each figure, the dashed horizontal line gives the nominal coverage probability, $95\%$, while the dashed vertical lines are the reduced from  and instrumental variables estimands: for $\beta \geq 0$ the reduced form is always smaller than the IV.
-Coverage curves for additional parameter values appear in Appendix \ref{sec:simulation_supplement}. 
 
 
 \begin{figure}[h]
@@ -162,13 +162,6 @@ These figures also indicate the gains from including $m_2^I$, the moment inequal
 Note moreover that the excellent performance of Bonferroni in the zero mis-classification case $(\alpha_0, \alpha_1)$ depends crucially on imposing the assumption of non-differential measurement error.
 As the true value of $\beta$ increases, the Bonferroni interval begins to have power against both the reduced form and IV estimands.
 
-A drawback of the identification-robust inference procedure from \ref{alg:Bonferroni} becomes apparent when both $\beta$ and the mis-classification probabilities are large.
-In this case the confidence interval for $\beta$ is excessively wide, as we see from Table \ref{tab:bonf_width_1000} and Figure \ref{fig:bonf_3_1000}.\footnote{Of course the widths do shrink as sample size increases: see the results for $n = 2000$ in Appendix \ref{sec:simulation_supplement}.}
-Note from Tables \ref{tab:GMM_na_1000} and \ref{tab:GMM_cover_1000}, that this is a region of the parameter space in which the plain-vanilla GMM confidence interval yields valid inference.
-Moreover, we see from Table \ref{tab:GMM_width_1000} that the median width of the GMM interval is far more reasonable when $\beta$ is large, even in the presence of large amounts of mis-classification.
-It is important to stress that the source of this excess width is \emph{not} Bonferroni: the same behavior emerges if one projects a joint GMS confidence set for $(\alpha_0, \alpha_1, \beta)$ to yield marginal inference for $\beta$.
-Rather, it is the inevitable cost of applying a robust inference procedure in a region of the parameter space where standard inference performs well.
-
 \begin{table}[htbp]
   \small
   \centering
@@ -177,16 +170,57 @@ Rather, it is the inevitable cost of applying a robust inference procedure in a 
   \label{tab:GMM_width_1000}
 \end{table}
 
-While a detailed theoretical investigation of this problem is beyond the scope of the present paper, we now explore the performance of a simple method for ``transitioning'' between robust and standard inference.
-Although somewhat different in its details, this idea bears some similarity to
-\todo[inline]{Cite that Isaiah Andrews paper}
+A drawback of the identification-robust inference procedure from \ref{alg:Bonferroni} becomes apparent when both $\beta$ and the mis-classification probabilities are large.
+In this case the confidence interval for $\beta$ is excessively wide, as we see from Table \ref{tab:bonf_width_1000} and Figure \ref{fig:bonf_3_1000}.\footnote{Of course the widths do shrink as sample size increases: see the results for $n = 2000$ in Appendix \ref{sec:simulation_supplement}.}
+Note from Tables \ref{tab:GMM_na_1000} and \ref{tab:GMM_cover_1000}, that this is a region of the parameter space in which the plain-vanilla GMM confidence interval yields valid inference.
+Moreover, we see from Table \ref{tab:GMM_width_1000} that the median width of the GMM interval is far more reasonable when $\beta$ is large, even in the presence of large amounts of mis-classification.
+It is important to stress that the source of this excess width is \emph{not} Bonferroni: the same behavior emerges if one projects a joint GMS confidence set for $(\alpha_0, \alpha_1, \beta)$ to yield marginal inference for $\beta$.
+Rather, it is the inevitable cost of applying a robust inference procedure in a region of the parameter space where standard inference performs well.
+While a detailed theoretical investigation of this problem is beyond the scope of the present paper, we now explore the performance of a ``hybrid'' confidence interval that uses a simple heuristic to transition between robust and standard inference.\footnote{Although different in its details, this idea bears some similarity to Andrews (2017).\todo[inline]{cite!}.}
+The procedure for constructing the hybrid interval is as follows.
+First compute the robust confidence interval based on Algorithm \ref{alg:Bonferroni}.
+Next, determine whether the GMM interval is well-defined: if so, determine whether it is contained within the robust interval.
+If the GMM interval exists and lies within the robust interval, report GMM; otherwise report the robust interval.
+Table \ref{tab:twostep_cover_1000} presents coverage probabilities (in percentage points) and Table \ref{tab:twostep_width_1000} median widths for the resulting hybrid confidence interval.
+Coverage plots for $\beta = 1, 2, 3$ appear in Figures \ref{fig:2step_1_1000}--\ref{fig:2step_3_1000}.
+Plots for additional values of $\beta$ and $n$ appear in Appendix \ref{sec:simulation_supplement}.
+The conventions of these figures are identical to those of Figures \ref{fig:bonf_point5_1000}--\ref{fig:bonf_3_1000} with one exception: in Figures \ref{fig:2step_1_1000}--\ref{fig:2step_3_1000} the dashed curves correspond to the hybrid confidence interval.
 
-\todo[inline]{Change from here down!}
-\begin{itemize}
-  \item Now show the Bonferroni results:
-    \begin{itemize}
-      \item Propose two-step procedure to address the conservatism when $\beta$ is large. 
-        Explain the basic idea and show that it works perfectly and is essentially a free lunch. 
-        There is one slight size distortion at $n = 1000,\beta = 1, \alpha_0 = \alpha_1 = 0.3$ but it disappears when $n = 2000$. Even small distortion at $\beta = 3, \alpha_0 = \alpha_1 = 0$ for both $n =1000, 2000$.
-    \end{itemize}
-\end{itemize}
+\begin{table}
+  \centering
+  \input{./tab/twostep_CIs_cover_1000.tex}
+  \caption{Coverage of hybrid CI constructed from nominal 95\% GMM and nominal $>95\%$ Bonferroni intervals: $n = 1000$}
+  \label{tab:twostep_cover_1000}
+\end{table}
+
+\begin{table}
+  \centering
+  \input{./tab/twostep_CIs_width_1000.tex}
+  \caption{Median width of hybrid CI constructed from nominal 95\% GMM and nominal $>95\%$ Bonferroni intervals: $n = 1000$}
+  \label{tab:twostep_width_1000}
+\end{table}
+
+\begin{figure}
+  \centering
+  %\input{./fig/bonf_vs_twostep_1_1000.tex}
+  \caption{Hybrid vs Bonferroni $\beta = 1, n = 1000$}
+  \label{fig:2step_1_1000}
+\end{figure}
+
+\begin{figure}
+  \centering
+  %\input{./fig/bonf_vs_twostep_2_1000.tex}
+  \caption{Hybrid vs Bonferroni $\beta = 2, n = 1000$}
+  \label{fig:2step_2_1000}
+\end{figure}
+
+\begin{figure}
+  \centering
+  %\input{./fig/bonf_vs_twostep_3_1000.tex}
+  \caption{Two-step vs Bonferroni $\beta = 3, n = 1000$}
+  \label{fig:2step_3_1000}
+\end{figure}
+
+The hybrid interval performs extremely well: with the exception of a slight size distortion at $(\alpha_0 = \alpha_1 = 0.3, \beta = 1)$ and $(\alpha_0 = \alpha_1 = 0, \beta = 3)$, it is effectively a free lunch.\footnote{The distortion at $(\alpha_0 = \alpha_1 = 0.3, \beta = 1)$ disappears when $n$ increases to 2000: see Appendix \ref{sec:simulation_supplement}.}
+Note in particular that the coverage curves for the hybrid interval from Figures \ref{fig:2step_1_1000}--\ref{fig:2step_3_1000} (dashed curves) lie uniformly below those of the Bonferroni interval (solid curves) while still maintaining correct coverage at the true value of $\beta$.
+It could be interesting to investigate this idea further in future work.
