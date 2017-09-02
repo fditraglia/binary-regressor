@@ -102,15 +102,45 @@ These are qualitatively similar to the results discussed here.
 \end{table}
 
 We now present results for the Bonferroni interval from Algorithm \ref{alg:Bonferroni}, setting $\delta_1 = \delta_2 = 0.025$ to yield an interval with asymptotic coverage no less that $95\%$.\footnote{In principle, one could optimize the choice of $\delta_1$ subject to the constraint $\delta_1 + \delta_2 = 0.95$ to reduce the width of the resulting interval. In our experiments, there was no choice of $\delta_1$ that uniformly dominated for all values of $(\alpha_0, \alpha_1, \beta)$ so we report only results for $\delta_1 = \delta_2$ here.}
-Table \ref{tab:bonf_cover_1000} presents coverage probabilities in percentage point for the full simulation grid, while Figures ???--??? plot coverage functions (1 - Power) at selected parameter values.
+Table \ref{tab:bonf_cover_1000} presents coverage probabilities in percentage point for the full simulation grid, while Figures \ref{fig:bonf_point5_1000}--\ref{fig:bonf_3_1000} plot coverage functions (1 - Power) at selected parameter values.
 The solid curves in the figures correspond to using the full set of inequality moment conditions from \ref{sec:inequalities}, while the dashed curves use only $m_{1}^I$, i.e.\ they do not impose the restrictions implied by non-differential measurement error.
+In each figure, the dashed horizontal line gives the nominal coverage probability, $95\%$, while the dashed vertical lines are the reduced from and instrumental variables estimands: for $\beta \geq 0$ the reduced form is always smaller than the IV.
+Coverage curves for additional parameter values appear in Appendix \ref{sec:simulation_supplement}. 
 
 \begin{table}[htbp]
   \centering
+  \small
   \input{./tab/bonf_CIs_cover_1000.tex}
   \caption{Coverage of nominal $>95\%$ Bonferroni Intervals with $n = 1000$}
   \label{tab:bonf_cover_1000}
 \end{table}
+
+\begin{figure}[h]
+  \centering
+  \input{./fig/bonf_point5_1000.tex}
+  \caption{$\beta = 0.5, n = 1000$}
+  \label{fig:bonf_point5_1000}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \input{./fig/bonf_1_1000.tex}
+  \caption{$\beta = 1, n = 1000$}
+  \label{fig:bonf_1_1000}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \input{./fig/bonf_3_1000.tex}
+  \caption{$\beta = 3, n = 1000$}
+  \label{fig:bonf_3_1000}
+\end{figure}
+
+The Bonferroni interval achieves its stated minimum coverage uniformly over the parameter space.
+When there is no mis-classification, $\alpha_0 = \alpha_1$, its actual coverage is close or equal to $95\%$.
+In the presence of mis-classification, however, the interval can be quite conservative, particularly for larger values of $\beta$.
+In spite of this conservatism, the Bonferroni interval is still informative, as we see from Figures \ref{fig:bonf_point5_1000}--\ref{fig:bonf_3_1000}.
+For smaller values of $(\alpha_0, \alpha_1)$ and larger values of 
 
 \begin{table}[htbp]
   \small
