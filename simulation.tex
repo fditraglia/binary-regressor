@@ -72,6 +72,14 @@ Table \ref{tab:GMM_na_1000} reports the percentage of simulation draws for which
   \caption{Coverage (\%) of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. (See Table \ref{tab:GMM_na_1000}.) Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
   \label{tab:GMM_cover_1000}
 \end{table}
+
+\begin{table}[htbp]
+  \small
+  \centering
+  \input{./tab/GMM_CIs_width_1000.tex}
+  \caption{Median width of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
+  \label{tab:GMM_width_1000}
+\end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -143,7 +151,7 @@ In each figure, the dashed horizontal line gives the nominal coverage probabilit
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[h]
   \centering
-  \input{./fig/bonf_point5_1000.tex}
+  %\input{./fig/bonf_point5_1000.tex}
   \caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 0.5$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
   \label{fig:bonf_point5_1000}
 \end{figure}
@@ -169,13 +177,6 @@ These figures also indicate the gains from including $m_2^I$, the moment inequal
 Note moreover that the excellent performance of Bonferroni in the zero mis-classification case $(\alpha_0, \alpha_1)$ depends crucially on imposing the assumption of non-differential measurement error.
 As the true value of $\beta$ increases, the Bonferroni interval begins to have power against both the reduced form and IV estimands.
 
-\begin{table}[htbp]
-  \small
-  \centering
-  \input{./tab/GMM_CIs_width_1000.tex}
-  \caption{Median width of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. (See Table \ref{tab:GMM_na_1000}.) Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
-  \label{tab:GMM_width_1000}
-\end{table}
 
 A drawback of the identification-robust inference procedure from \ref{alg:Bonferroni} becomes apparent when both $\beta$ and the mis-classification probabilities are large.
 In this case the confidence interval for $\beta$ is excessively wide, as we see from Table \ref{tab:bonf_width_1000} and Figure \ref{fig:bonf_3_1000}.\footnote{As expected, median widths decrease with sample size: see the results for $n = 2000$ in Appendix \ref{sec:simulation_supplement}.}
@@ -195,6 +196,7 @@ The conventions of these figures are identical to those of Figures \ref{fig:bonf
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}
+  \small
   \centering
   \input{./tab/twostep_CIs_cover_1000.tex}
   \caption{Coverage probabilities (\%) a hybrid confidence interval constructed from the nominal $95\%$ standard GMM interval and the $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. The hybrid interval reports Bonferroni unless the GMM interval exists and is contained within the Bonferroni interval. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
@@ -202,6 +204,7 @@ The conventions of these figures are identical to those of Figures \ref{fig:bonf
 \end{table}
 
 \begin{table}
+  \small
   \centering
   \input{./tab/twostep_CIs_width_1000.tex}
   \caption{Median width of a hybrid confidence interval constructed from the nominal $95\%$ standard GMM interval and the $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. The hybrid interval reports Bonferroni unless the GMM interval exists and is contained within the Bonferroni interval. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
@@ -217,21 +220,21 @@ It could be interesting to investigate this idea further in future work.
 \begin{figure}
   \centering
   %\input{./fig/bonf_vs_twostep_1_1000.tex}
-  \caption{Hybrid vs Bonferroni $\beta = 1, n = 1000$}
+  \caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 1$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
   \label{fig:2step_1_1000}
 \end{figure}
 
 \begin{figure}
   \centering
   %\input{./fig/bonf_vs_twostep_2_1000.tex}
-  \caption{Hybrid vs Bonferroni $\beta = 2, n = 1000$}
+  \caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 2$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
   \label{fig:2step_2_1000}
 \end{figure}
 
 \begin{figure}
   \centering
   %\input{./fig/bonf_vs_twostep_3_1000.tex}
-  \caption{Two-step vs Bonferroni $\beta = 3, n = 1000$}
+  \caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 3$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
   \label{fig:2step_3_1000}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
