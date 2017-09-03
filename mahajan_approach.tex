@@ -11,7 +11,7 @@ To understand the logic of this second step, we first re-state \cite{Mahajan} Th
 As in Section \ref{sec:identification} above, $T^*$ denotes an unobserved binary random variable, $z$ is a instrument, $T$ an observed binary surrogate for $T^*$, $y$ an outcome of interest, and $\mathbf{x}$ a vector covariates.
 
 \begin{assump}[\cite{Mahajan} Theorem 1]
-  Let $g(T^*, \mathbf{x}) = \mathbb{E}[y|\mathbf{x}]$ and $v = y - g(T^*,\mathbf{x})$.
+  Let $g(T^*, \mathbf{x}) \equiv \mathbb{E}[y|\mathbf{x}]$ and $v \equiv y - g(T^*,\mathbf{x})$.
   Suppose that knowledge of $(y,T^*,\mathbf{x})$ is sufficient to identify $g$ and further that
   \begin{enumerate}[(i)]
     \item $\mathbb{P}(T^*=1|\mathbf{x},z=0) \neq \mathbb{P}(T^*=1|\mathbf{x},z=1)$.
@@ -34,104 +34,70 @@ The key difference between Theorem \ref{thm:mahajan1} and the setting we conside
 This is essentially a stronger version of our Assumptions \ref{assump:model} (iii) and \ref{assump:misclassification} (iii) but applies to the \emph{projection error} $v$, defined in Assumption \ref{assump:mahajan1} rather than the structural error $\varepsilon$, defined in Assumption \ref{assump:model} (i).
 Accordingly, Theorem \ref{thm:mahajan1} identifies the conditional mean function $g$ rather than the causal effect $\beta(\mathbf{x})$.
 
-Although the meaning of the error term changes when we move from a structural to a reduced form model, the meaning of the mis-classification error rates does not: $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ are simply conditional probabilities of $T^*$ given $T$ and $\mathbf{x}$.  
+Although the meaning of the error term changes when we move from a structural to a reduced form model, the meaning of the mis-classification error rates does not: $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ are simply conditional probabilities for $T$ given $(T^*,\mathbf{x})$.
 Step 2 of \cite{Mahajan} A.2 relies on this insight.
-
+%The idea is to find an additional condition under which Assumptions \ref{assump:model} (iii) and \ref{assump:misclassification} (iii) imply Assumption \ref{assump:mahajan1} (iv) while allowing $T^*$ to be endogenous.
+The idea is to find a way to satisfy Assumption \ref{assump:mahajan1} (iv) \emph{simultaneously} with Assumptions \ref{assump:model} (iii) and \ref{assump:misclassification} (iii), while allowing $T^*$ to be endogenous.
+If this can be achieved, then $\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})$ will be identified via Theorem \ref{thm:mahajan1}, and identification of $\beta(\mathbf{x})$ will follow from step 1 of A.2 (our Lemma \ref{lem:wald}).
+To this end, \cite{Mahajan} invokes the condition 
 \begin{equation}
-  \mathbb{E}(y|\mathbf{x},z,T^*,T) = \mathbb{E}(y|\mathbf{x},T^*)
+  \mathbb{E}(y|\mathbf{x},z,T^*,T) = \mathbb{E}(y|\mathbf{x},T^*).
   \label{eq:mahajan11}
 \end{equation}
-Because \cite{Mahajan} A.2 assumes an additively separable model -- our Assumption \ref{assump:model} (i) -- Equation \ref{eq:mahajan11} is equivalent to $\mathbb{E}(\varepsilon|\mathbf{x},z,T^*,T)=\mathbb{E}(\varepsilon|\mathbf{x},T^*)$.
+Because \cite{Mahajan} A.2 assumes an additively separable model -- our Assumption \ref{assump:model} (i) -- we see that
+\[
+  \mathbb{E}(y|\mathbf{x},z,T^*,T) = c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \mathbb{E}(\varepsilon|\mathbf{x},z,T^*,T)
+\]
+so Equation \ref{eq:mahajan11} is equivalent to $\mathbb{E}(\varepsilon|\mathbf{x},z,T^*,T)=\mathbb{E}(\varepsilon|\mathbf{x},T^*)$.
+Note that this allows $T^*$ to be endogenous, as it does not require $\mathbb{E}(\varepsilon|\mathbf{x},T^*)=0$.
+Now, applying Equation \ref{eq:mahajan11} to the definition of $v$ from Assumption \ref{assump:mahajan1}, we have
+\[
+  \mathbb{E}(v|\mathbf{x},z,T^*,T) = \mathbb{E}\left[ y - \mathbb{E}(y|\mathbf{x},T^*)\left. \right|\mathbf{x},z,T^*,T \right] = 0
+\]
+which satisfies Assumption \ref{assump:mahajan1} (iv) as required.
+Based on this reasoning, \cite{Mahajan} claims that Equation \ref{eq:mahajan11} along with Assumptions \ref{assump:model}, \ref{assump:misclassification} (i)--(ii), and \ref{assump:mahajan1} suffice to identify the effect $\beta(\mathbf{x})$ of an endogenous $T^*$, so long as $g(1,\mathbf{x}) \neq g(0,\mathbf{x})$.
+As we now show, however, these Assumptions are contradictory unless $T^*$ is exogenous.
 
+By Equation \ref{eq:mahajan11} and Assumption \ref{assump:model} (i), $\mathbb{E}(\varepsilon|\mathbf{x},z,T^*,T)=\mathbb{E}(\varepsilon|\mathbf{x},T^*)$ and thus by iterated expectations, we obtain
+\begin{equation}
+  \mathbb{E}(\varepsilon|\mathbf{x},T^*,z) = \mathbb{E}_{T|\mathbf{x},T^*,z}\left[ \mathbb{E}(\varepsilon|\mathbf{x},T^*,T,z) \right] = \mathbb{E}_{T|\mathbf{x},T^*,z}\left[ \mathbb{E}(\varepsilon|\mathbf{x},T^*) \right] = \mathbb{E}(\varepsilon|\mathbf{x}, T^*).
+  \label{eq:zdiffs}
+\end{equation}
+Now, let $m^*_{tk}(\mathbf{x}) = \mathbb{E}(\varepsilon|\mathbf{x}, T^*=t,z=k)$.
+Using this notation, Equation \ref{eq:zdiffs} is equivalent to $m^*_{t0}(\mathbf{x}) = m^*_{t1}(\mathbf{x})$ for $t = 0, 1$.
+Combining iterated expectations with Assumption \ref{assump:model} (iii), 
+\begin{equation}
+  \mathbb{E}(\varepsilon|\mathbf{x},z=k) = [1 - p^*_k(\mathbf{x})] m^*_{0k}(\mathbf{x}) + p^*_k(\mathbf{x}) m^*_{1k}(\mathbf{x}) = 0 
+  \label{eq:eps}
+\end{equation}
+for $k = 0,1$ where $p^*_k(\mathbf{x}) \equiv \mathbb{P}(T^*=1|\mathbf{x}, z=k)$.
+But substituting $m^*_{t0}(\mathbf{x}) = m^*_{t1}(\mathbf{x})$ into Equation \ref{eq:eps} for $k=0,1$, we obtain 
+\begin{align*}
+  [1 - p^*_0(\mathbf{x})] m^*_{00}(\mathbf{x}) + p^*_0(\mathbf{x}) m^*_{10}(\mathbf{x}) &= 0\\ 
+  [1 - p^*_1(\mathbf{x})] m^*_{00}(\mathbf{x}) + p^*_1(\mathbf{x}) m^*_{10}(\mathbf{x}) &= 0
+\end{align*}
+Both of the preceding two equalities are convex combinations of $m^*_{00}$ and $m^*_{10}$.
+The only way that both can equal zero simultaneously is if either $p^*_0(\mathbf{x}) = p^*_1(\mathbf{x})$, contradicting Assumption \ref{assump:model} (ii), or if $m^*_{tk}(\mathbf{x}) = 0$ for all $(t,k)$, which implies that $T^*$ is exogenous.
+Hence \cite{Mahajan} A.2 fails.
 
-\newpage
+The root of the problem with A.2 is the attempt to use \emph{one} instrument to satisfy both the assumptions of Theorem \ref{thm:mahajan1} and Lemma \ref{lem:wald}.
+If one had access to a second instrument $w$, or equivalently a second mis-measured surrogate for $T^*$, that satisfied Assumptions \ref{assump:mahajan1}, one could use $w$  to recover $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ via Theorem \ref{thm:mahajan1} and $z$ to recover the IV estimand $\beta(\mathbf{x}) / [1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})]$ via Lemma \ref{lem:wald}.
+This is effectively the approach used by \cite{Batt} to evaluate the returns to schooling in a setting with multiple misreported measures of educational qualifications.
 
-\begin{assump}[Mahajan A2]\mbox{}
-  Suppose that $y = c+ \beta T^* + \varepsilon$ where
-  \begin{enumerate}[(i)]
-    \item $\mathbb{E}[\varepsilon|z]=0$
-    \item $\mathbb{P}(T^*=1|z_k)\neq \mathbb{P}(T^*=1|z_\ell)$ for all $k\neq \ell$
-    \item $\mathbb{P}(T = 1| T^* = 0, z) = \alpha_0$, $\mathbb{P}(T = 0| T^* = 1, z) = \alpha_1$
-    \item $\alpha_0 + \alpha_1 \neq 1$
-    \item $\beta \neq 0$
-  \end{enumerate}
-\end{assump}
-
-\begin{lem}[Mahajan A2]
-Under Assumption ???, knowledge of the mis-classification error rates $\alpha_0, \alpha_1$ suffices to identify $\beta$.
-\end{lem}
-
-In his Theorem 1, \cite{Mahajan} proves that $\alpha_0, \alpha_1$ can in fact be identified under the following assumptions.\footnote{Technically, one additional assumption is required, namely that the conditional mean of $y$ given $T^*$ and any covariates would be identified if $T^*$ were observed.}
-\begin{assump}[Mahajan A1] Define $\nu = y - \mathbb{E}[y|T^*]$ so that by construction we have $\mathbb{E}[\nu|T^*]=0$. Assume that
-  \begin{enumerate}[(i)]
-    \item $\mathbb{E}[\nu|T^*,T,z] = 0$.\footnote{This is \citeauthor{Mahajan}'s Equation (I).}
-    \item $\mathbb{P}(T^*=1|z_k)\neq \mathbb{P}(T^*=1|z_\ell)$ for all $k\neq \ell$
-    \item $\mathbb{P}(T = 1| T^* = 0, z) = \alpha_0$,  $\mathbb{P}(T = 0| T^* = 1, z) = \alpha_1$
-    \item $\alpha_0 + \alpha_1 < 1$
-    \item $\mathbb{E}[y|T^*=0]\neq \mathbb{E}[y|T^*=1]$
-  \end{enumerate}
-\end{assump}
-\begin{lem}[Mahajan Theorem 1]
-  Under Assumptions ???, the error rates $\alpha_0, \alpha_1$ are identified as is the conditional mean function $\mathbb{E}[y|T^*]$.
-\end{lem}
-
-Notice that the identification of the error rates in Lemma ??? does not depend on the interpretation of the conditional mean function $\mathbb{E}[y|T^*]$.
-If $T^*$ is an exogenous treatment, the conditional mean coincides with the treatment effect; if it is endogenous, this is not the case.
-Either way, the meaning of $\alpha_0, \alpha_1$ is unchanged: these parameters simply characterize the mis-classification process. 
-Based on this observation, \cite{Mahajan} claims that he can rely on Lemma ??? to identify $\alpha_0,\alpha_1$ and thus the causal effect $\beta$ when the treatment is endogenous via Lemma ???.
-To do this, he must build a bridge between Assumption ??? and Assumption ??? that allows $T^*$ to be endogenous.
-\cite{Mahajan} does this by imposing one additional assumption: Equation 11 in his paper.
-\begin{assump}[Mahajan Equation 11]
-  Let $y = c + \beta T^* + \varepsilon$ where $\mathbb{E}[\varepsilon|T^*]$ may not be zero and suppose that 
-  \[\mathbb{E}[\varepsilon|T^*,T,z] = \mathbb{E}[\varepsilon|T^*].\]
-\end{assump}
-\begin{lem}
-  Suppose that $y = c + \beta T^* + \varepsilon$ where $E[\varepsilon|z]=0$ and define the unobserved projection error $\nu = y - \mathbb{E}[y|T^*]$.
-  Then Assumption ??? implies that $E[\nu|T^*,T,z]=0$, which is Assumption ???.
-\end{lem}
-
-To summarize, \citeauthor{Mahajan}'s claim is equivalent to the proposition that under Assumptions ??? $\beta$ is identified even if $T^*$ is endogenous.
-although Lemmas ??? are all correct, \citeauthor{Mahajan}'s claim is not.\footnote{Our Lemma ??? does not in fact appear in \cite{Mahajan}, but it is an implicit step in his proof in Appendix A2.}
-While Assumption ??? does guarantee that Assumption ??? holds, when combined with Assumption ??? it also implies that ??? fails if $T^*$ is endogenous.
-The failure of Assumption ??? in turn leads to a division by zero in the solution to the linear system following \citeauthor{Mahajan}'s displayed Equation 26: the system no longer has a unique solution so identification fails.\footnote{Notice that the root of the problem is the attempt to use \emph{one} instrument to solve both the measurement error and endogeneity problems. In a setting where one had a second mis-measured surrogate for $T^*$ \emph{in addition} to an instrument that is conditionally mean independent of $\varepsilon$ one could use the second surrogate as an instrument for the first to estimate $\alpha_0$ and $\alpha_1$ via Lemma ??? and then use the additional instrumental variable to estimate $\beta/(1 - \alpha_0 - \alpha_1)$ via the familiar Wald IV estimator. This is effectively the approach used by \cite{Batt} to evaluate the returns to schooling in a setting with multiple misreported measures of educational qualifications.}
-\begin{pro}[Lack of a First Stage]
-  Suppose that Assumptions ??? hold and $\mathbb{E}[\varepsilon|T^*]\neq0$. Then $\mathbb{P}(T^*=1|z_1) = \mathbb{P}(T^*=1|z_2)$, violating Assumption ???. 
-\end{pro}
-
-\begin{proof}
-  By the Law of Iterated Expectations,
-  \begin{equation}
-    \label{eq:NoSelection}
-    \mathbb{E}[\varepsilon|T^*,z] = \mathbb{E}_{T|T^*,z}\left[\mathbb{E}\left(\varepsilon|T^*,T,z \right)  \right] = \mathbb{E}_{T|T^*,z}\left[\mathbb{E}\left(\varepsilon|T^* \right)  \right]
-    = \mathbb{E}\left[ \varepsilon|T^* \right]
-  \end{equation}
-    where the second equality follows from Assumption \ref{assump:mahajan} and the final equality comes from the fact that $\mathbb{E}[\varepsilon|T^*]$ is $(T^*,z)$--measurable. 
-  Using our notation from above let $u = c + \varepsilon$ and define $m^*_{tk}=\mathbb{E}[u|T^*=t,z=z_k]$.
-  Since $c$ is a constant, by Equation ??? we see that $m^*_{01}=m^*_{02}$ and $m^*_{11}=m^*_{12}$.
-  Now, by Assumption ??? we have $\mathbb{E}[\varepsilon|z]=0$ so that $\mathbb{E}[u|z_1]= \mathbb{E}[u|z_2] =c$.
-  Again using iterated expectations, 
-  \begin{align*}
-    \mathbb{E}\left[u|z_1 \right] &= \mathbb{E}_{T^*|z_1}\left[\mathbb{E}\left( u|T^*,z_1 \right)  \right] = (1-p_1^*) m^*_{01} + p^*_1 m^*_{11}=c\\
-    \mathbb{E}\left[u|z_2 \right] &= \mathbb{E}_{T^*|z_2}\left[\mathbb{E}\left( u|T^*,z_2 \right)  \right] = (1-p_2^*) m^*_{02} + p^*_2 m^*_{12}=c
-  \end{align*}
-  The preceding two equations, combined with $m^*_{01}=m^*_{02}$ and $m^*_{11}=m^*_{12}$ imply that $p_1^* = p_2^*$ unless $m^*_{01} = m^*_{11} = m^*_{02} = m^*_{12} = c$.
-  But this four-way equality is ruled out by the assumption that $\mathbb{E}[\varepsilon|T^*]\neq0$. 
-\end{proof}
-
-To understand the economic intuition behind Proposition ???, consider a simple example in which we randomize the offer of a job training program to a sample of workers to study the impact on future earnings.
-In this context $z$ indicates whether a particular individual is \emph{offered} job training by the experimenter while $T^*$ indicates whether she actually \emph{obtains} job training from any source, inside or outside of the experiment.
-We observe not $T^*$ but a self-report $T$ that is measured with error.
-In this example $u$ contains all of the unobservable factors that determine an individual's wage.
-
-Assumption ??? allows for endogenous treatment receipt: $\mathbb{E}[u|T^*=1]$ may be different from $\mathbb{E}[u|T^*=0]$.
-We might expect, for example, that individuals who obtain job training are more motivated than those who do not, and hence earn higher wages on average. 
-However, Assumption ??? imposes that $\mathbb{E}\left[u|T^*=t,z_1 \right]=\mathbb{E}\left[ u|T^*=t,z_2 \right]$ for $t=0,1$.
-This has two implications.
-First, it means that, among those who do not obtain job training, the average value of $u$ is the same for those who were offered training and those who were not.
-Second, it means that, among those who \emph{did} obtain job training, the average value of $u$ is the same for those who were offered training and those who were not.
-In other words, Assumption ??? requires that there is \emph{no selection on unobservables}.
-This is exactly the opposite of what we would expect in the job training setting.
-For example, individuals who are offered job training but refuse it, are likely to be very different from those who are not offered training and fail to obtain it from an outside source. 
-And herein lies the problem: Assumption ??? simultaneously allows endogeneity and rules out selection.
-Given that the offer of job training is randomly assigned, and hence a valid instrument, the only way to avoid a contradiction is if there is no first stage: the fraction of individuals who take up job training cannot depend on the offer of training.
- 
+%To understand the economic intuition behind Proposition ???, consider a simple example in which we randomize the offer of a job training program to a sample of workers to study the impact on future earnings.
+%In this context $z$ indicates whether a particular individual is \emph{offered} job training by the experimenter while $T^*$ indicates whether she actually \emph{obtains} job training from any source, inside or outside of the experiment.
+%We observe not $T^*$ but a self-report $T$ that is measured with error.
+%In this example $u$ contains all of the unobservable factors that determine an individual's wage.
+%
+%Assumption ??? allows for endogenous treatment receipt: $\mathbb{E}[u|T^*=1]$ may be different from $\mathbb{E}[u|T^*=0]$.
+%We might expect, for example, that individuals who obtain job training are more motivated than those who do not, and hence earn higher wages on average. 
+%However, Assumption ??? imposes that $\mathbb{E}\left[u|T^*=t,z_1 \right]=\mathbb{E}\left[ u|T^*=t,z_2 \right]$ for $t=0,1$.
+%This has two implications.
+%First, it means that, among those who do not obtain job training, the average value of $u$ is the same for those who were offered training and those who were not.
+%Second, it means that, among those who \emph{did} obtain job training, the average value of $u$ is the same for those who were offered training and those who were not.
+%In other words, Assumption ??? requires that there is \emph{no selection on unobservables}.
+%This is exactly the opposite of what we would expect in the job training setting.
+%For example, individuals who are offered job training but refuse it, are likely to be very different from those who are not offered training and fail to obtain it from an outside source. 
+%And herein lies the problem: Assumption ??? simultaneously allows endogeneity and rules out selection.
+%Given that the offer of job training is randomly assigned, and hence a valid instrument, the only way to avoid a contradiction is if there is no first stage: the fraction of individuals who take up job training cannot depend on the offer of training.
+% 
