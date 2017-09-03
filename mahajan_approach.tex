@@ -11,8 +11,8 @@ To understand the logic of this second step, we first re-state \cite{Mahajan} Th
 As in Section \ref{sec:identification} above, $T^*$ denotes an unobserved binary random variable, $z$ is a instrument, $T$ an observed binary surrogate for $T^*$, $y$ an outcome of interest, and $\mathbf{x}$ a vector covariates.
 
 \begin{assump}[\cite{Mahajan} Theorem 1]
-  Let $g(T^*, \mathbf{x}) \equiv \mathbb{E}[y|\mathbf{x}]$ and $v \equiv y - g(T^*,\mathbf{x})$.
-  Suppose that knowledge of $(y,T^*,\mathbf{x})$ is sufficient to identify $g$ and further that
+  Define $g(T^*, \mathbf{x}) \equiv \mathbb{E}[y|\mathbf{x},T^*]$ and $v \equiv y - g(T^*,\mathbf{x})$.
+  Suppose that knowledge of $(y,T^*,\mathbf{x})$ is sufficient to identify $g$ and that:
   \begin{enumerate}[(i)]
     \item $\mathbb{P}(T^*=1|\mathbf{x},z=0) \neq \mathbb{P}(T^*=1|\mathbf{x},z=1)$.
     \item $T$ is conditionally independent of $z$ given $(\mathbf{x}, T^*)$.
@@ -37,8 +37,8 @@ Accordingly, Theorem \ref{thm:mahajan1} identifies the conditional mean function
 Although the meaning of the error term changes when we move from a structural to a reduced form model, the meaning of the mis-classification error rates does not: $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ are simply conditional probabilities for $T$ given $(T^*,\mathbf{x})$.
 Step 2 of \cite{Mahajan} A.2 relies on this insight.
 %The idea is to find an additional condition under which Assumptions \ref{assump:model} (iii) and \ref{assump:misclassification} (iii) imply Assumption \ref{assump:mahajan1} (iv) while allowing $T^*$ to be endogenous.
-The idea is to find a way to satisfy Assumption \ref{assump:mahajan1} (iv) \emph{simultaneously} with Assumptions \ref{assump:model} (iii) and \ref{assump:misclassification} (iii), while allowing $T^*$ to be endogenous.
-If this can be achieved, then $\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})$ will be identified via Theorem \ref{thm:mahajan1}, and identification of $\beta(\mathbf{x})$ will follow from step 1 of A.2 (our Lemma \ref{lem:wald}).
+The idea is to find a way to satisfy Assumption \ref{assump:mahajan1} (iv) simultaneously with Assumptions \ref{assump:model} (iii) and \ref{assump:misclassification} (iii), while allowing $T^*$ to be endogenous.
+If this can be achieved, $\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})$ will be identified via Theorem \ref{thm:mahajan1}, and identification of $\beta(\mathbf{x})$ will follow from step 1 of A.2 (our Lemma \ref{lem:wald}).
 To this end, \cite{Mahajan} invokes the condition 
 \begin{equation}
   \mathbb{E}(y|\mathbf{x},z,T^*,T) = \mathbb{E}(y|\mathbf{x},T^*).
@@ -78,7 +78,7 @@ But substituting $m^*_{t0}(\mathbf{x}) = m^*_{t1}(\mathbf{x})$ into Equation \re
 \end{align*}
 Both of the preceding two equalities are convex combinations of $m^*_{00}$ and $m^*_{10}$.
 The only way that both can equal zero simultaneously is if either $p^*_0(\mathbf{x}) = p^*_1(\mathbf{x})$, contradicting Assumption \ref{assump:model} (ii), or if $m^*_{tk}(\mathbf{x}) = 0$ for all $(t,k)$, which implies that $T^*$ is exogenous.
-Hence \cite{Mahajan} A.2 fails.
+Hence \cite{Mahajan} A.2 fails: given the assumption that $z$ is a valid instrument for $\varepsilon$, Equation \ref{eq:mahajan11} implies that either there is no first-stage relationship between $z$ and $T^*$ or that $T^*$ is exogenous.
 
 The root of the problem with A.2 is the attempt to use \emph{one} instrument to satisfy both the assumptions of Theorem \ref{thm:mahajan1} and Lemma \ref{lem:wald}.
 If one had access to a second instrument $w$, or equivalently a second mis-measured surrogate for $T^*$, that satisfied Assumptions \ref{assump:mahajan1}, one could use $w$  to recover $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ via Theorem \ref{thm:mahajan1} and $z$ to recover the IV estimand $\beta(\mathbf{x}) / [1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})]$ via Lemma \ref{lem:wald}.

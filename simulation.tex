@@ -7,7 +7,7 @@ Supplementary simulation results appear in Appendix \ref{sec:simulation_suppleme
 
 \subsection{Simulation DGP}
 \label{sec:DGP}
-Our simulation design generates $n$ iid observations of the observables $(y_i, T_i, z)$ as follows:
+Our simulation design generates $n$ iid draws of the observables $(y_i, T_i, z_i)$ as follows:
 \begin{enumerate}
   \item Generate the instrumental variable $z$.
     \begin{enumerate}[(i)]
@@ -41,7 +41,7 @@ Our simulation design generates $n$ iid observations of the observables $(y_i, T
 \end{enumerate}
 This DGP generates random variables that satisfy the conditions of Theorems \ref{thm:sharpII} and \ref{thm:main_ident}.
 Thus $\beta$ is point identified, and all moment equalities and inequalities from Section \ref{sec:inference} hold at the true parameter values of the DGP.
-Note from step 1 that we hold \emph{condition} on the instrument $z$, holding it fixed in repeated samples.
+Note from step 1 that we \emph{condition} on the instrument $z$, holding it fixed in repeated samples.
 Our simulation varies the parameters $(\alpha_0, \alpha_1, \beta, n)$ over a grid.
 Because $\varepsilon$ has unit variance, values for $\beta$ are measured in standard deviations of the error.
 For simplicity we present results for $c = 0, d_0 = \Phi^{-1}(0.15)$, and  $d_1= \Phi^{-1}(0.85) - \Phi^{-1}(0.15)$, where $\Phi^{-1}(\cdot)$ denotes the quantile function of a standard normal random variable.
@@ -121,7 +121,7 @@ Table \ref{tab:bonf_cover_1000} presents coverage probabilities in percentage po
   \centering
   \small
   \input{./tab/bonf_CIs_cover_1000.tex}
-  \caption{Coverage of probability in percentage points of a nominal $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
+  \caption{Coverage probability in percentage points of a nominal $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
   \label{tab:bonf_cover_1000}
 \end{table}
 
@@ -140,11 +140,11 @@ In the presence of mis-classification, however, the interval can be quite conser
 For smaller but nonzero values of $\beta$, this conservatism reflects the fact that the model is \emph{effectively} partially identified: although Theorem \ref{thm:main_ident} shows that $(\alpha_0, \alpha_1)$ are point identified for any $\beta\neq 0$, the amount of data required to distinguish one pair of alphas from another when $\beta$ is small would be astronomical.
 
 In spite of its conservatism, the Bonferroni interval is informative, as we see from the median widths in Table \ref{tab:bonf_width_1000}. 
-Because median widths provide only a limited pictures of the behavior of a confidence interval, Figures \ref{fig:bonf_point5_1000}--\ref{fig:bonf_3_1000} present further evidence in the form of coverage functions (1 - power) for $\beta = 0.5, 1, 3$.
+Because median widths provide only a limited picture of the behavior of a confidence interval, Figures \ref{fig:bonf_point5_1000}--\ref{fig:bonf_3_1000} present further evidence in the form of coverage functions (1 - power) for $\beta = 0.5, 1, 3$.
 Coverage curves for additional values of $\beta$ and $n$ appear in Appendix \ref{sec:simulation_supplement}. 
 Each figure holds the true value of $\beta$ fixed and varies $(\alpha_0, \alpha_1)$ over the grid $\left\{ 0, 0.1, 0.2 \right\}\times \left\{ 0, 0.2, 0.2 \right\}$. 
 The plots within each Figure give coverage in percentage points as a function of the specified alternative for $\beta$.
-Solid curves are computed using the full set of inequality moment conditions from \ref{sec:inequalities}, while dashed curves use only $m_{1}^I$, i.e.\ they do not impose the restrictions implied by non-differential measurement error.
+Solid curves are computed using the full set of inequality moment conditions from  Section \ref{sec:inequalities}, while dashed curves use only $m_{1}^I$, i.e.\ they do not impose the restrictions implied by non-differential measurement error.
 In each figure, the dashed horizontal line gives the nominal coverage probability, $95\%$, while the dashed vertical lines are the reduced from  and instrumental variables estimands: for $\beta \geq 0$ the reduced form is always smaller than the IV.
 
 
@@ -182,7 +182,7 @@ A drawback of the identification-robust inference procedure from \ref{alg:Bonfer
 In this case the confidence interval for $\beta$ is excessively wide, as we see from Table \ref{tab:bonf_width_1000} and Figure \ref{fig:bonf_3_1000}.\footnote{As expected, median widths decrease with sample size: see the results for $n = 2000$ in Appendix \ref{sec:simulation_supplement}.}
 Note from Tables \ref{tab:GMM_na_1000} and \ref{tab:GMM_cover_1000}, that this is a region of the parameter space in which the plain-vanilla GMM confidence interval yields valid inference.
 Moreover, we see from Table \ref{tab:GMM_width_1000} that the median width of the GMM interval is far more reasonable when $\beta$ is large, even in the presence of large amounts of mis-classification.
-It is important to stress that the source of this excess width is \emph{not} Bonferroni: the same behavior emerges if one projects a joint GMS confidence set for $(\alpha_0, \alpha_1, \beta)$ to yield marginal inference for $\beta$.
+It is important to stress that the source of this excess width is \emph{not} the Bonferroni correction: the same behavior emerges if one projects a joint GMS confidence set for $(\alpha_0, \alpha_1, \beta)$ to yield marginal inference for $\beta$.
 Rather, it is the inevitable cost of applying a robust inference procedure in a region of the parameter space where standard inference performs well.
 While a detailed theoretical investigation of this problem is beyond the scope of the present paper, we now explore the performance of a ``hybrid'' confidence interval that uses a simple heuristic to transition between robust and standard inference.\footnote{Although different in its details, this idea bears some similarity to Andrews (2017).\todo[inline]{cite!}}
 The procedure for constructing the hybrid interval is as follows.
