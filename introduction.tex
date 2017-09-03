@@ -13,13 +13,23 @@ Since $T^*$ is binary, we can re-write this as linear in $T^*$ conditional on $\
 \end{align*}
 Goal is to use an instrumental variable $z$ to identify $\beta(\mathbf{x})$ when we observe not $T^*$ but a mis-measured binary surrogate $T$. 
 
-
+\todo[inline]{Some updated comments on related papers}
 \paragraph{How are we different from Ura?}
 \begin{enumerate}
   \item We maintain nondifferential measurement error assumption throughout; Ura's main purpose is to relax it.
   \item We focus on an additively separable model; Ura explicitly studies at LATE setting
   \item We obtain point and partial identification results; Ura present only partial identification results
 \end{enumerate}
+
+\paragraph{What about Denteh et al?}
+\cite{nguimkeu2016estimation} parametric model of endogenous participation with one-sided endogenous mis-reporting (false negatives).
+True participation is a normal linear threshold model with covariates $z$ and parameter $\gamma$, and mis-reporting is also a normal linear threshold model with covariates $w$ and parameter $\theta$.
+Requires $z$ to be exogenous wrt to all error terms (essentially an instrument) but do not require $w$ to be exogenous.
+Need $z$ and $w$ to be different, although there can be overlap.
+Definitely a parametric model, although they say normality isn't needed you do need to specify the joint distribution of the error terms.
+Requires exclusion restrictions for both participation and measurement error.
+Basically they're using parametric assumptions plus exclusion restrictions to get identification in a one-sided mis-classification model.
+In contrast we study the problem non-parametrically and allow mis-reporting to depend arbitrarily on $\mathbf{x}$.
 
 \paragraph{Old Introduction:} Many treatments of interest in applied work are binary.
 To take a particularly prominent example, consider treatment status in a randomized controlled trial.

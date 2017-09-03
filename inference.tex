@@ -249,7 +249,7 @@ Equation \ref{eq:hkI} gives the unconditional version of Equations \ref{eq:qunde
 Now, under the null $\widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)$ converges in probability to $\mathbf{q}_0$, which satisfies the just-identified collection of moment equalities $\mathbb{E}[h^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0,\mathbf{q}_0)] = \mathbf{0}$.
 Although $h^I$ is a discontinuous function of $\mathbf{q}$, it is bounded for any fixed $(\alpha_0, \alpha_1)$.
 Moreover, since $y|(T=t,z=k)$ is a continuous random variable, $\mathbb{E}[h^I(\mathbf{w}_i,\boldsymbol{\vartheta}, \mathbf{q})]$ is continuously differentiable with respect to $\mathbf{q}$.
-Hence, $\widehat{\mathbf{q}}$ is asymptotically normal under mild regularity conditions.\footnote{\todo[inline]{Cite Andrews/Newey-McFadden.}}
+Hence, $\widehat{\mathbf{q}}$ is asymptotically normal under mild regularity conditions.\footnote{For details, see \cite{andrews1994empirical} and \cite{newey1994large} Section 7.}
 To account for the effect of preliminary estimation of $\mathbf{q}$ and $\boldsymbol{\gamma}$ on the asymptotic variance matrix used in the GMS test, we rely on the following Lemma.
 
 \begin{lem}
@@ -545,7 +545,15 @@ As mentioned above in Section \ref{sec:problem}, the exogenous regressor case is
 To accommodate an exogenous regressor,simply replace $m^E$ with the moment equalities described in Appendix \ref{sec:FL_mahajan}.
 
 
-\subsection{Incorporating Covariates}
+\subsection{Incorporating Continuous Covariates}
 \label{sec:covariates}
 
-\todo[inline]{Just give a quick overview of how one can handle them more generally. There several routes: one is to be more restrictive and do what FL do. The other is to try to be fully nonparametric. There's a paper by Andrews that gives some more details. This is likely to be complicated in general. There may be a ``halfway house'' using a semiparametric model. Perhaps look at what Lewbel said about this. This Section should really just be a paragraph or so.}
+\todo[inline]{Flesh out the following outline: should only be a paragraph or so}
+\begin{itemize}
+  \item Results above work if $\mathbf{x}$ is held fixed, e.g.\ discrete covariates
+  \item Give valid inference at a particular configuration of $\mathbf{x}$
+  \item What if you want to handle continuous covariates?
+  \item At one extreme suppose $\alpha_0, \alpha_1$ do not vary with $\mathbf{x}$ and the model can be written as $y = c + \beta T^* + h(\mathbf{x}; \boldsymbol{\phi}) + \varepsilon$. In this case can just do as in \cite{FL}
+  \item Another extreme is \cite{andrews2014nonparametric}, although this is pretty complicated and requires a lot of data
+  \item Intermediate, perhaps something semi-parametric like what \cite{Lewbel} suggests.
+\end{itemize}

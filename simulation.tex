@@ -184,7 +184,7 @@ Note from Tables \ref{tab:GMM_na_1000} and \ref{tab:GMM_cover_1000}, that this i
 Moreover, we see from Table \ref{tab:GMM_width_1000} that the median width of the GMM interval is far more reasonable when $\beta$ is large, even in the presence of large amounts of mis-classification.
 It is important to stress that the source of this excess width is \emph{not} the Bonferroni correction: the same behavior emerges if one projects a joint GMS confidence set for $(\alpha_0, \alpha_1, \beta)$ to yield marginal inference for $\beta$.
 Rather, it is the inevitable cost of applying a robust inference procedure in a region of the parameter space where standard inference performs well.
-While a detailed theoretical investigation of this problem is beyond the scope of the present paper, we now explore the performance of a ``hybrid'' confidence interval that uses a simple heuristic to transition between robust and standard inference.\footnote{Although different in its details, this idea bears some similarity to Andrews (2017).\todo[inline]{cite!}}
+While a detailed theoretical investigation of this problem is beyond the scope of the present paper, we now explore the performance of a ``hybrid'' confidence interval that uses a simple heuristic to transition between robust and standard inference.\footnote{This idea is related to \cite{andrews2016valid}, although somewhat different in its details.}
 The procedure for constructing the hybrid interval is as follows.
 First compute the robust confidence interval based on Algorithm \ref{alg:Bonferroni}.
 Next, determine whether the GMM interval is well-defined: if so, determine whether it is contained within the robust interval.
