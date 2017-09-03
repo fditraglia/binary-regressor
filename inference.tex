@@ -543,15 +543,13 @@ As mentioned above in Section \ref{sec:problem}, the exogenous regressor case is
 To accommodate an exogenous regressor,simply replace $m^E$ with the moment equalities described in Appendix \ref{sec:FL_mahajan}.
 
 
-\subsection{Incorporating Continuous Covariates}
+\subsection{Further Details Regarding Covariates}
 \label{sec:covariates}
 
-\todo[inline]{Flesh out the following outline: should only be a paragraph or so}
-\begin{itemize}
-  \item Results above work if $\mathbf{x}$ is held fixed, e.g.\ discrete covariates
-  \item Give valid inference at a particular configuration of $\mathbf{x}$
-  \item What if you want to handle continuous covariates?
-  \item At one extreme suppose $\alpha_0, \alpha_1$ do not vary with $\mathbf{x}$ and the model can be written as $y = c + \beta T^* + h(\mathbf{x}; \boldsymbol{\phi}) + \varepsilon$. In this case can just do as in \cite{FL}
-  \item Another extreme is \cite{andrews2014nonparametric}, although this is pretty complicated and requires a lot of data
-  \item Intermediate, perhaps something semi-parametric like what \cite{Lewbel} suggests.
-\end{itemize}
+The inference procedure described in the preceding sections holds $\mathbf{x}$ fixed, and is thus appropriate for examples with discrete covariates.
+To accommodate covariates more generally, there are several possible approaches.
+At one extreme, suppose one were willing to assume that $(\alpha_0, \alpha_1)$ did not vary with $\mathbf{x}$ and that $y = c + \beta T^* + \mathbf{x}'\boldsymbol{\phi} + \varepsilon$, as in \cite{FL}.
+In this case, the standard IV estimator identifies $\boldsymbol{\phi}$ and one could simply augment the moment equalities $m^E$ from Equation \ref{eq:mE} above to provide a preliminary estimator of $\boldsymbol{\phi}$ in Algorithm \ref{alg:GMS}.
+At the other extreme, if one wished to remain fully non-parametric, one could adopt the approach of \cite{andrews2014nonparametric}, based on a Cram\'{e}r-von-Mises type test statistic.
+As a compromise between these two extremes, one could alternatively specify a semi-parametric model, perhaps along the lines of Section 4 of \cite{Lewbel}, and follow the approach of \cite{andrews2013inference}, also based on a Cram\'{e}r-von-Mises type test statistic.
+Both of these latter two possibilities could be an interesting extension of the method described above.
