@@ -100,7 +100,7 @@ This method is more computationally demanding than our two-dimensional projectio
 From a practical perspective, the relevant question is whether the reduction in conservatism from projecting a lower dimensional set is outweighed by the additional conservatism induced by the Bonferroni correction. 
 In our experiments, the full three-dimensional projection and Bonferroni procedure produced broadly similar results: neither reliably dominated in terms of confidence interval width.
 Given its substantially lower computational burden, we prefer the Bonferroni procedure.
-We also experimented with two recently proposed methods for sub-vector inference: \cite{kaido2016confidence} and \cite{BugniCanayShi}. In both cases we obtained significant size distortions, suggesting that our model may not satisfy the high-level regularity conditions required by these papers.\label{foot:alternatives}}
+We also experimented with two recently proposed methods for sub-vector inference: \cite{kaido2016confidence} and \cite{BugniCanayShi}. In both cases we obtained significant size distortions, suggesting that our model may not satisfy the regularity conditions required by these papers.\label{foot:alternatives}}
 If desired, one could also carry out a valid test of the null hypothesis that there is no mis-classification, $\alpha_0 = \alpha_1 = 0$, using the joint test for $(\alpha_0, \alpha_1)$. 
 In the following sections we provide full details of our Bonferroni-based confidence interval procedure for $\beta$.
 
@@ -282,12 +282,10 @@ Then, under standard regularity conditions
     \end{array}
   \right] 
   \]
-  where $B^I( \boldsymbol{\vartheta}, \boldsymbol{q}) = (1 - \alpha_0 - \alpha_1) \left[\mbox{diag}(\mathbf{a})  \right]^{-1} \mathbf{q}$ 
-  with 
-  \[
-  \mathbf{a}' = (\alpha_1, \alpha_1, 1 - \alpha_1, 1 - \alpha_1, \alpha_1, \alpha_1, 1 - \alpha_1, 1 - \alpha_1)
-\]
-and $B^E(\boldsymbol{\vartheta},\boldsymbol{\gamma}) = -M^E (H^E)^{-1}$, with
+  where we define $B^I( \boldsymbol{\vartheta}, \boldsymbol{q}) = (1 - \alpha_0 - \alpha_1) \left[\mbox{diag}(\mathbf{a})  \right]^{-1} \mathbf{q}$ and
+$B^E(\boldsymbol{\vartheta},\boldsymbol{\gamma}) = -M^E (H^E)^{-1}$
+  with $\mathbf{a}' = (\alpha_1, \alpha_1, 1 - \alpha_1, 1 - \alpha_1, \alpha_1, \alpha_1, 1 - \alpha_1, 1 - \alpha_1)$ 
+and 
 \[
   M^E = \left[ 
     \begin{array}{cccc} 
@@ -522,9 +520,8 @@ Note that the \emph{same} normal draws $\{\boldsymbol{\zeta}^{(r)}\}_{r=1}^R$ ar
 Step 2 projects $\mathcal{C}(\delta_1)$ to yield a $(1 - \delta_1)\times 100\%$ confidence interval for $s \equiv (1 - \alpha_0 - \alpha_1)$, simply taking the maximum and minimum values of $s$ in the discrete set  $\mathcal{C}(\delta_1)$.
 Step 3 constructs the usual IV confidence interval for the reduced form parameter $\theta_1$, and step 4 combines the results of steps 2--3 with Bonferroni's inequality to yield a $(1 - \delta_1 - \delta_2) \times 100\%$ confidence interval for $\beta$.
 For some discussion of alternatives to Algorithm \ref{alg:Bonferroni}, see Footnote \ref{foot:alternatives}.
+Notice that, by construction, the Bonferroni interval for $\beta$ excludes zero if and only if the confidence interval for $\theta_1$ from step 3 of Algorithm \ref{alg:Bonferroni} excludes zero.
 Under mild regularity conditions, the confidence interval from Algorithm \ref{alg:Bonferroni} is uniformly asymptotically valid.
-
-\todo[inline]{Should add at least a couple of sentences about how Bonferroni relates to the IV interval: in particular it only excludes zero if the CI for $\theta_1$ excludes zero.}
 
 \begin{thm}
   Let $\mathbf{w}_1, \hdots, \mathbf{w}_n$ be an iid collection of observations satisfying the conditions of Theorems \ref{thm:sharpII} and \ref{thm:main_ident}, and let $z$ be a strong instrument.
