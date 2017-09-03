@@ -1,30 +1,28 @@
 %!TEX root = ./main.tex
 \section{Proofs}
+Throughout the following arguments, we suppress dependence on $\mathbf{x}$ for simplicity.
 
-\begin{lem}[Lemma for Appendix only with Bayes' Rule]
-For mis-classification probabilities
-\begin{align*}
-  P(T^*=1|T=1, Z=k) &= P(T=1 | T^*=1) \left(\frac{p_k^*}{p_k}\right) = (1 - \alpha_1)\left( \frac{p_k^*}{p_k} \right)\\
-  P(T^*=1|T=0, Z=k) &= P(T=0 | T^*=1) \left(\frac{p_k^*}{1 - p_k}\right) = \alpha_1 \left( \frac{p_k^*}{1 - p_k} \right)\\
-  P(T^*=0|T=1, Z=k) &= P(T=1 | T^*=0) \left(\frac{1 - p_k^*}{p_k}\right) = \alpha_0 \left( \frac{1 - p_k^*}{p_k} \right)\\
-  P(T^*=0|T=0, Z=k) &= P(T=0 | T^*=0) \left(\frac{1 - p_k^*}{1 - p_k}\right) = (1 - \alpha_0)\left( \frac{1 - p_k^*}{1 - p_k} \right)
-\end{align*}
-\end{lem}
+%\begin{lem}
+%For mis-classification probabilities
+%\begin{align*}
+%  P(T^*=1|T=1, Z=k) &= P(T=1 | T^*=1) \left(\frac{p_k^*}{p_k}\right) = (1 - \alpha_1)\left( \frac{p_k^*}{p_k} \right)\\
+%  P(T^*=1|T=0, Z=k) &= P(T=0 | T^*=1) \left(\frac{p_k^*}{1 - p_k}\right) = \alpha_1 \left( \frac{p_k^*}{1 - p_k} \right)\\
+%  P(T^*=0|T=1, Z=k) &= P(T=1 | T^*=0) \left(\frac{1 - p_k^*}{p_k}\right) = \alpha_0 \left( \frac{1 - p_k^*}{p_k} \right)\\
+%  P(T^*=0|T=0, Z=k) &= P(T=0 | T^*=0) \left(\frac{1 - p_k^*}{1 - p_k}\right) = (1 - \alpha_0)\left( \frac{1 - p_k^*}{1 - p_k} \right)
+%\end{align*}
+%\end{lem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{proof}[Proof of Lemma \ref{lem:p_pstar}]
-  The result follows from a simple calculation using the law of total probability.
+  Follows from a simple calculation using the law of total probability.
 \end{proof}
 
 \begin{proof}[Proof of Lemma \ref{lem:wald}]
-  Immediate since $\mbox{Cov}(T,y|\mathbf{x}) = \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right] \mbox{Cov}(T^*,z|\mathbf{x})$ by Lemma \ref{lem:p_pstar}.
+  Immediate since $\mbox{Cov}(T,y) = (1 - \alpha_0 - \alpha_1) \mbox{Cov}(T^*,z)$ by Lemma \ref{lem:p_pstar}.
 \end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{proof}[Proof of Theorem \ref{thm:sharpI}]
-  Throughout this argument we suppress dependence on $\mathbf{x}$ for simplicity. 
-  Define $p_k = \mathbb{P}(T=1|z=k)$ and $p_k^* = \mathbb{P}(T^*=1|z_k)$.
-
 We first show that so long as $\alpha_0 \leq p_k \leq 1 - \alpha_1$ then we can construct a valid joint probability distribution for $(T^*, T, z)$ that satisfies our assumptions.
 First decompose the joint probability mass function as
 \[
@@ -33,12 +31,8 @@ First decompose the joint probability mass function as
 By Assumption \ref{assump:misclassification} (ii), $p(T|T^*,z) = p(T|T^*)$ and thus $\alpha_0$ and $\alpha_1$ fully determine $p(T|T^*,z)$.  
 Under the proposed bounds, $\alpha_0$ and $\alpha_1$ are clearly valid probabilities.
 Since $p(z)$ is observed, it thus suffices to ensure that $p(T^*|z)$ is a valid probability mass function.
-By the law of total probability and Assumption \ref{assump:misclassification} (ii), 
-\[
-  p_k^* = \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1}.
-\]
-and $0 \leq p_k^* \leq 1$ if and only if $\alpha_0 \leq p_k \leq 1 - \alpha_1$.
-Since $(p_k - p_\ell) = (p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1)$, provided that $p_k - p_\ell \neq 0$ we have $p^*_k \neq p^*_\ell$. 
+By Lemma \ref{lem:p_pstar}, $p_k^* = (p_k - \alpha_0) / (1 - \alpha_0 - \alpha_1)$ and hence $0 \leq p_k^* \leq 1$ if and only if $\alpha_0 \leq p_k \leq 1 - \alpha_1$.
+Since $(p_k - p_\ell) = (p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1)$, we have $p^*_k \neq p^*_\ell$ provided that $p_k - p_\ell \neq 0$ 
 
 We now show how to construct a valid conditional distribution for $y$ given $(T^*,T,z)$ that satisfies our assumptions if $\beta (p_k - \alpha_0) = (1 - \alpha_0 - \alpha_1)[\mathbb{E}(y|z_k) - c]$ for all $k$.
 Define
@@ -139,9 +133,9 @@ Since $G_k(\tau)$ is the conditional CDF of $\varepsilon$ given $z=k$, we see th
    &\quad + (1 - p_k)(1 - r_{0k})\left[ \mathbb{E}(\varepsilon|T^*=0,T=0,z=k) - \mathbb{E}(\varepsilon - \beta|T^*=0,T=0,z=k) \right]\\
    0 &= \mathbb{E}[y - c - \beta|z=k] + \beta\left[p_k(1 - r_{1k}) + (1 - p_k)(1 - r_{0k})\right]
 \end{align*}
-But since $\left[p_k(1 - r_{1k}) + (1 - p_k)(1 - r_{0k})\right] = (1 - p_k^*)$ and $p_k^* = (p_k - \alpha_0) /(1 - \alpha_0 - \alpha_1)$, this simplifies to 
+But since $\left[p_k(1 - r_{1k}) + (1 - p_k)(1 - r_{0k})\right] = (1 - p_k^*)$ and $p_k^* = (p_k - \alpha_0) /(1 - \alpha_0 - \alpha_1)$, this becomes 
 \[
-\mathbb{E}[y|z=k] = c + \beta\left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right).
+\mathbb{E}[y|z=k] = c + \beta\left[ (p_k - \alpha_0)(1 - \alpha_0 - \alpha_1) \right].
 \]
 Thus, in this case we are free to choose \emph{any} distributions for $F^{0}_{tk}$ and $F^1_{tk}$ that satisfy Equation \ref{eq:Ftk}.
 For example we could take $F^0_{tk} = F^1_{tk} = F_{tk}$.
@@ -200,14 +194,14 @@ In this case $F^1_{tk}$ is undefined.
 \paragraph{Case II: $0 < r_{tk} < 1$} 
 Define
 \begin{align*}
-  m_{tk}(\xi) &= \mathbb{E}[y|y\in I_{tk}(\xi), T=t, z=k]\\
+  \mu_{tk}(\xi) &= \mathbb{E}[y|y\in I_{tk}(\xi), T=t, z=k]\\
   I_{tk}(\xi) &= \left[ F^{-1}_{tk}(1 - \xi - r_{tk}), F^{-1}_{tk}(1 - \xi) \right]
 \end{align*}
 for $t,k = 0,1$ where $0 \leq \xi \leq 1 - r_{tk}$ and $F^{-1}_{tk}$ is the quantile function of $y$ given $(T=t, z=k)$.
-We see that $m_{tk}$ is a decreasing function of $\xi$ that attains its maximum at $\xi = 0$ and minimum at $\xi = 1 - r_{tk}$.
-Define these extrema as $\underline{m}_{tk} = m_{tk}(1 - r_{tk})$ and $\overline{m}_{tk} = m_{tk}(0)$.
+We see that $\mu_{tk}$ is a decreasing function of $\xi$ that attains its maximum at $\xi = 0$ and minimum at $\xi = 1 - r_{tk}$.
+Define these extrema as $\underline{\mu}_{tk} = \mu_{tk}(1 - r_{tk})$ and $\overline{\mu}_{tk} = \mu_{tk}(0)$.
 
-Suppose first that $\mu^1_{k}$ does \emph{not} lie in the interval $[\underline{m}_{tk}, \overline{m}_{tk}]$.
+Suppose first that $\mu^1_{k}$ does \emph{not} lie in the interval $[\underline{\mu}_{tk}, \overline{\mu}_{tk}]$.
 We show that it is impossible to construct valid CDFs $F^0_{tk}$ and $F^{1}_{tk}$ that satisfy $F_{tk}(\tau) = r_{tk} F^1_{tk}(\tau) + (1 - r_{tk}) F^0_{tk}(\tau)$ where $F_{tk}$ and $F^{t^*}_{tk}$ are as defined in the proof of Theorem \ref{thm:sharpII}.
 Since $r_{tk} \neq 1$, we can solve the expression for $F_{tk}$ to yield 
   $F^{0}_{tk}(\tau) = \left[ F_{tk}(\tau) - r_{tk} F^1_{tk}(\tau)\right] / (1 - r_{tk})$.
@@ -232,15 +226,15 @@ It follows that
 \]
 But notice that 
 \[
-  \underline{m}_{tk} = \int \tau \underline{F}_{tk}^1(d\tau), \quad 
+  \underline{\mu}_{tk} = \int \tau \underline{F}_{tk}^1(d\tau), \quad 
   \mu^1_{k} = \int \tau F^{1}_{tk}(d\tau), \quad 
-  \overline{m}_{tk} = \int \tau\overline{F}_{tk}^1(d\tau)
+  \overline{\mu}_{tk} = \int \tau\overline{F}_{tk}^1(d\tau)
 \]
-so we have $\underline{m}_{tk} \leq \mu^1_{k} \leq \overline{m}_{tk}$ which contradicts $\mu^1_{k} \notin [\underline{m}_{tk}, \overline{m}_{tk}]$.
+so we have $\underline{\mu}_{tk} \leq \mu^1_{k} \leq \overline{\mu}_{tk}$ which contradicts $\mu^1_{k} \notin [\underline{\mu}_{tk}, \overline{\mu}_{tk}]$.
 
-Now suppose that $\mu^1_{k} \in \left[\underline{m}_{tk}, \overline{m}_{tk} \right]$.
-Since $y$ is assumed to follow a continuous distribution conditional on $(T,z)$, $m_{tk}$ is continuous on its domain and takes on all values in $\left[ \underline{m}_{tk}, \overline{m}_{tk} \right]$ by the intermediate value theorem.
-Thus, there exists a $\xi^*$ such that $m_{tk}(\xi^*) = \mu^1_{k}$.
+Now suppose that $\mu^1_{k} \in \left[\underline{\mu}_{tk}, \overline{\mu}_{tk} \right]$.
+Since $y$ is assumed to follow a continuous distribution conditional on $(T,z)$, $\mu_{tk}$ is continuous on its domain and takes on all values in $\left[ \underline{\mu}_{tk}, \overline{\mu}_{tk} \right]$ by the intermediate value theorem.
+Thus, there exists a $\xi^*$ such that $\mu_{tk}(\xi^*) = \mu^1_{k}$.
 Now let $f_{tk}(\tau) = dF_{tk}(\tau)/d\tau$ which is non-negative by the assumption that $y$ is continuously distributed.
 Define the densities
 \[
@@ -261,17 +255,15 @@ And, by construction
 for any set $A$. 
 Finally,
 \[
-  \int_{\mathbb{R}} \tau f_{tk}^1(\tau) \; d\tau = \frac{1}{r_{tk}} \int_{I_{tk}(\xi^*)} \tau f_{tk}(\tau)\; d\tau = m(\xi^*) = \mu_{tk}.
+  \int_{\mathbb{R}} \tau f_{tk}^1(\tau) \; d\tau = \frac{1}{r_{tk}} \int_{I_{tk}(\xi^*)} \tau f_{tk}(\tau)\; d\tau = \mu_{tk}(\xi^*) = \mu^1_{k}.
 \]
-
-\todo[inline]{Some discussion putting all of the pieces together and explaining what the identified set looks like. In particular, what are the ``edge'' cases? Can't rule out $\alpha_0 = \alpha_1 = 0$.}
+The result now follows by appealing to the proof of Theorem \ref{thm:sharpI}.
 
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{proof}[Proof of Lemma \ref{lem:eta2}]
-  Throughout this argument we suppress dependence on $\mathbf{x}$ for simplicity. 
   By Assumption \ref{assump:model} (i) and the basic properties of covariance, 
 \begin{align*}
     \eta_2 &= \beta^2 \mbox{Cov}(T^*,z) + 2 \beta\left[ c\, \mbox{Cov}(T^*,z) + \mbox{Cov}(T^*\varepsilon,z)  \right] + 2c \, \mbox{Cov}(\varepsilon,z) + \mbox{Cov}(\varepsilon^2,z)\\
@@ -302,7 +294,6 @@ Therefore  $(1 - \alpha_0 - \alpha_1) \mbox{Cov}(T^*\varepsilon,z) = \mbox{Cov}(
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{proof}[Proof of Lemma \ref{lem:eta3}]
-  Throughout this argument we suppress dependence on $\mathbf{x}$ for simplicity.
   Since $T^*$ is binary, if follows from the basic properties of covariance that,
 \begin{align*}
   \eta_3 &= \mbox{Cov}\left[ (c + \varepsilon)^3,z \right] + 3 \beta \mbox{Cov}[(c + \varepsilon)^2 T^*, z] + 3 \beta^2 \mbox{Cov}[(c + \varepsilon)T^*,z] + \beta^3 \mbox{Cov}(T^*,z)\\
@@ -394,7 +385,6 @@ Therefore the coefficients of $\eta_3$ equal those of $3\tau_2 - 3\tau_1 \theta_
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{proof}[Proof of Theorem \ref{thm:main_ident}]
-  For ease of notation we suppress dependence on $\mathbf{x}$ throughout.
   Collecting the results of Lemmas \ref{lem:wald}--\ref{lem:eta3}, we have
 \begin{align*}
  \eta_1 &= \pi\theta_1 \\
