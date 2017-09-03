@@ -18,7 +18,7 @@ Throughout the following arguments, we suppress dependence on $\mathbf{x}$ for s
 \end{proof}
 
 \begin{proof}[Proof of Lemma \ref{lem:wald}]
-  Immediate since $\mbox{Cov}(T,y) = (1 - \alpha_0 - \alpha_1) \mbox{Cov}(T^*,z)$ by Lemma \ref{lem:p_pstar}.
+  Immediate since $\mbox{Cov}(z,T) = (1 - \alpha_0 - \alpha_1) \mbox{Cov}(z,T^*)$ by Lemma \ref{lem:p_pstar}.
 \end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -34,7 +34,7 @@ Since $p(z)$ is observed, it thus suffices to ensure that $p(T^*|z)$ is a valid 
 By Lemma \ref{lem:p_pstar}, $p_k^* = (p_k - \alpha_0) / (1 - \alpha_0 - \alpha_1)$ and hence $0 \leq p_k^* \leq 1$ if and only if $\alpha_0 \leq p_k \leq 1 - \alpha_1$.
 Since $(p_k - p_\ell) = (p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1)$, we have $p^*_k \neq p^*_\ell$ provided that $p_k - p_\ell \neq 0$ 
 
-We now show how to construct a valid conditional distribution for $y$ given $(T^*,T,z)$ that satisfies our assumptions if $\beta (p_k - \alpha_0) = (1 - \alpha_0 - \alpha_1)[\mathbb{E}(y|z_k) - c]$ for all $k$.
+We now show how to construct a valid conditional distribution for $y$ given $(T^*,T,z)$ that satisfies our assumptions if $\beta (p_k - \alpha_0) = (1 - \alpha_0 - \alpha_1)[\mathbb{E}(y|z=k) - c]$ for all $k$.
 Define
 \begin{align*}
 r_{tk} &\equiv \mathbb{P}(T^*=1|T=t,z=k) &
@@ -167,8 +167,8 @@ By our assumption that $\mathbb{E}[y|T=0,z=k] \neq \mathbb{E}[y|T=1,z=k]$, the s
 Thus, Assumption \ref{assump:misclassification} (iii) rules out $\alpha_0 = p_k$ and $\alpha_1 = 1-p_k$.
 Solving,
 \begin{align*}
-  \mu^0_{k} \equiv \mathbb{E}(y|T^*=0,z=k) &= \left(\frac{1}{1 - p_k - \alpha_1}\right)\left[ (1 - p_k)\mathbb{E}(y|T=0,z_k) - \alpha_1 \mathbb{E}(y|z=k) \right]\\
-  \mu^1_{k} \equiv \mathbb{E}(y|T^*=1,z=k) &= \left(\frac{1}{p_k - \alpha_0}\right)\left[ p_k\mathbb{E}(y|T=1,z_k) - \alpha_0 \mathbb{E}(y|z=k) \right]
+  \mu^0_{k} \equiv \mathbb{E}(y|T^*=0,z=k) &= \left(\frac{1}{1 - p_k - \alpha_1}\right)\left[ (1 - p_k)\mathbb{E}(y|T=0,z=k) - \alpha_1 \mathbb{E}(y|z=k) \right]\\
+  \mu^1_{k} \equiv \mathbb{E}(y|T^*=1,z=k) &= \left(\frac{1}{p_k - \alpha_0}\right)\left[ p_k\mathbb{E}(y|T=1,z=k) - \alpha_0 \mathbb{E}(y|z=k) \right]
 \end{align*}
 Given $(\alpha_0, \alpha_1)$, we see that $r_{tk}, \mu^0_k$, and $\mu^1_{k}$ are fixed.
 The question is whether, for a given pair $(\alpha_0, \alpha_1)$ and observed CDFs $F_{tk}$, we can construct valid CDFs $F_{tk}^0, F_{tk}^1$ such that 
