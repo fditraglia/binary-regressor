@@ -42,7 +42,7 @@ The discriminant is
 so that both roots are real as long as $\alpha_0 + \alpha_1 \neq 0$.
 To solve for $\alpha_0$ and $\alpha_1$ we need to calculate the roots of $x^2 - Ax + B =0$, namely
 \[
-  x = \frac{1}{2}\left( A \pm \sqrt{D} \right)
+  x = \frac{1}{2}\left( A \pm \sqrt{A^2 - 4B} \right)
 \]
 One of these roots is $\alpha_0$ and the other is $1 - \alpha_1$.
 By assumption, however, $\alpha_0 + \alpha_1 < 1$ and thus $\alpha_0 < 1 - \alpha_1$ so we know that the smaller of the two roots is $\alpha_0$ and the larger is $1 - \alpha_1$.
@@ -68,8 +68,8 @@ First, $m^E$ and $h^E$ from Equations \ref{eq:mE}--\ref{eq:hE} are replaced by
   \end{array}
 \right]
 \]
-because in this case we only require preliminary estimators of $\kappa_1$ and $\theta_1$.
-Accordingly $H^E$ and $M^E$ from Lemma \ref{lem:prelim} become
+where in this case we require preliminary estimators of $\kappa_1$ and $\theta_1$.
+Accordingly, $H^E$ and $M^E$ from Lemma \ref{lem:prelim} become
 \[
   H^E = \left[
 \begin{array}{cc}
