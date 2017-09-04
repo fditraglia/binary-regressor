@@ -3,11 +3,7 @@
 \label{sec:FL_mahajan}
 In this Section we discuss the moment equalities that replace Equation \ref{eq:MCs_endog} under joint exogeneity: Assumption \ref{assump:jointExog}.
 Because the moment inequalities from Section \ref{sec:inequalities} are unchanged under this assumption, we do not discuss them further here.
-Define $\theta_1$ as in Equation \ref{eq:theta1_def}, $\kappa_1$ as in Section \ref{sec:problem}, and let
-\begin{align*}
-  \rho &= -\theta_1 \alpha_0 (1 - \alpha_1)\\
-  \eta &= \theta_1 (1 + \alpha_0 - \alpha_1).
-\end{align*}
+Define $\theta_1$ as in Equation \ref{eq:theta1_def}, $\kappa_1$ as in Section \ref{sec:problem}, and let $\rho = -\theta_1 \alpha_0 (1 - \alpha_1)$ and $\eta = \theta_1 (1 + \alpha_0 - \alpha_1)$.
 Now, under Assumptions \ref{assump:model}, \ref{assump:misclassification}, and \ref{assump:jointExog}:
 \begin{equation}
   \mathbb{E}\left\{ \left[
@@ -25,31 +21,31 @@ Now, under Assumptions \ref{assump:model}, \ref{assump:misclassification}, and \
 where the equalities involving $\rho$ and $\eta$ follow from an argument similar to one of the steps from the proof of Lemma \ref{lem:eta2} -- see, e.g., \cite{FL} and \cite{Mahajan}.
 The moment equalities from \ref{eq:MCs_exog} point identify the reduced form parameters $(\theta_1, \kappa_1, \rho,\eta)$ and lead to a just-identified method of moments estimator of the same.
 To see why knowledge of $(\theta_1, \kappa_1, \rho,\eta)$ suffices to identify $(\beta, \alpha_0, \alpha_1)$, define
-\begin{align*}
-  A \equiv \eta/\theta_1 &= 1 + \alpha_0 - \alpha_1 \\
-  B \equiv -\rho/\theta_1 &= \alpha_0 (1 - \alpha_1)
-\end{align*}
+\[
+  A \equiv \eta/\theta_1 = 1 + \alpha_0 - \alpha_1, \quad \quad
+  B \equiv -\rho/\theta_1 = \alpha_0 (1 - \alpha_1)
+\]
 Eliminating $(1 - \alpha_1)$ and $\alpha_0$, respectively, we obtain:
-\begin{align*}
-  \alpha_0^2 - A\alpha_0 + B &= 0\\
-  (1 - \alpha_1)^2 - A(1 - \alpha_1) + B &= 0
-\end{align*}
-These are exactly the same quadratic, namely $x^2 - Ax + B = 0$ so one root of this equation is $\alpha_0$ while the other is $(1 - \alpha_1)$.
+\[
+  \alpha_0^2 - A\alpha_0 + B = 0, \quad \quad
+  (1 - \alpha_1)^2 - A(1 - \alpha_1) + B = 0
+\]
+These are exactly the same quadratic, namely $x^2 - Ax + B = 0$.
+Hence one root is $\alpha_0$ while the other is $(1 - \alpha_1)$.
 The discriminant is
 \[
   A^2 - 4 B = \left[ (1 - \alpha_1) + \alpha_0 \right]^2 - 4\left[ \alpha_0 (1 - \alpha_1) \right] = (1 - \alpha_0 - \alpha_1)^2
 \]
 so that both roots are real as long as $\alpha_0 + \alpha_1 \neq 0$.
-To solve for $\alpha_0$ and $\alpha_1$ we need to calculate the roots of $x^2 - Ax + B =0$, namely
-\[
-  x = \frac{1}{2}\left( A \pm \sqrt{A^2 - 4B} \right)
-\]
+To solve for $\alpha_0$ and $\alpha_1$ we need to calculate the roots of $x^2 - Ax + B =0$, namely $x = \frac{1}{2}\left( A \pm \sqrt{A^2 - 4B} \right)$.
 One of these roots is $\alpha_0$ and the other is $1 - \alpha_1$.
-By assumption, however, $\alpha_0 + \alpha_1 < 1$ and thus $\alpha_0 < 1 - \alpha_1$ so we know that the smaller of the two roots is $\alpha_0$ and the larger is $1 - \alpha_1$.
+By assumption, however, $\alpha_0 + \alpha_1 < 1$ and thus $\alpha_0 < 1 - \alpha_1$.
+It follows that the smaller of the two roots is $\alpha_0$ and the larger is $1 - \alpha_1$.
 Given that $(\alpha_0, \alpha_1)$ are identified, identification of $\beta$ follows by Lemma \ref{lem:wald}.
 
-Inference based on the moment equalities from Equation \ref{eq:MCs_exog} only depend on $\beta$ through $\theta_1$ suffers from the same difficulties as that based on Equation \ref{eq:MCs_endog} above.
-First, note that, while $A^2 > 4B$ in population, the same may not hold in sample, so that the GMM estimator of $\beta$ fails to exist.
+Inference based on the moment equalities from Equation \ref{eq:MCs_exog} suffers from the same difficulties as that based on Equation \ref{eq:MCs_endog} above.
+First, note that, while $A^2 > 4B$ in population since $\alpha_0 + \alpha_1 <1$ by assumption, the same may not hold in sample.
+In this case the GMM estimator of $\beta$ will fail to exist.
 Second, notice that the moment equalities from Equation \ref{eq:MCs_exog} only depend on $\beta$ through $\theta_1$ and are completely uninformative about $(\alpha_0, \alpha_1)$ if $\beta = 0$.
 
 Substituting Equation \ref{eq:MCs_exog} for Equation \ref{eq:MCs_endog} in Algorithm \ref{alg:GMS} requires some small changes.

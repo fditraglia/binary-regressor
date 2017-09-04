@@ -550,6 +550,6 @@ The inference procedure described in the preceding sections holds $\mathbf{x}$ f
 To accommodate covariates more generally, there are several possible approaches.
 At one extreme, suppose one were willing to assume that $(\alpha_0, \alpha_1)$ did not vary with $\mathbf{x}$ and that $y = c + \beta T^* + \mathbf{x}'\boldsymbol{\phi} + \varepsilon$, as in \cite{FL}.
 In this case, the standard IV estimator identifies $\boldsymbol{\phi}$ and one could simply augment the moment equalities $m^E$ from Equation \ref{eq:mE} above to provide a preliminary estimator of $\boldsymbol{\phi}$ in Algorithm \ref{alg:GMS}.
-At the other extreme, if one wished to remain fully non-parametric, one could adopt the approach of \cite{andrews2014nonparametric}, based on a Cram\'{e}r-von-Mises type test statistic.
-As a compromise between these two extremes, one could alternatively specify a semi-parametric model, perhaps along the lines of Section 4 of \cite{Lewbel}, and follow the approach of \cite{andrews2013inference}, also based on a Cram\'{e}r-von-Mises type test statistic.
+At the other extreme, if one wished to remain fully non-parametric, one could adopt the approach of \cite{andrews2014nonparametric}, based on kernel averaging near a fixed covariate value $\mathbf{x} = \mathbf{x}_0$.
+As a compromise between these two extremes, one could alternatively specify a semi-parametric model, perhaps along the lines of Section 4 of \cite{Lewbel}, and follow the approach of \cite{andrews2013inference}.
 Both of these latter two possibilities could be an interesting extension of the method described above.
