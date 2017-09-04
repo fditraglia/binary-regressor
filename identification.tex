@@ -232,15 +232,6 @@ We begin by defining the following functions of the model parameters:
   \label{eq:theta3_def}
   \theta_3(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^3\left[ \left\{ 1 -\alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right\}^2 + 6\alpha_0(\mathbf{x})\left\{ 1 - \alpha_1(\mathbf{x}) \right\} \right]
 \end{align}
-along with the observable quantities
-\begin{equation}
-  \pi(\mathbf{x}) = \mbox{Cov}(T,z|\mathbf{x}), \quad
-  \eta_j(\mathbf{x}) = \mbox{Cov}(y^j,z|\mathbf{x}), \quad
-  \tau_j(\mathbf{x}) = \mbox{Cov}(Ty^j,z|\mathbf{x})
-  \label{eq:observables}
-\end{equation}
-for $j = 1, 2, 3$.
-Using this notation, Lemma \ref{lem:wald} can be written as $\eta_1(\mathbf{x}) = \pi(\mathbf{x})\theta_1(\mathbf{x})$.
 Now consider the following additional assumption:
 \begin{assump} \mbox{}
   \label{assump:2ndMoment}
@@ -251,13 +242,16 @@ It requires that the conditional variance of the error term given the covariates
 Notice that this assumption does not require homoskedasticity with respect to $\mathbf{x}, T^*$ or $T$.
 Assumption \ref{assump:2ndMoment} allows us to derive the following lemma:
 
-\begin{lem} Under Assumptions \ref{assump:model}, \ref{assump:misclassification} and \ref{assump:2ndMoment}, $\eta_2(\mathbf{x}) =  2\tau_1(\mathbf{x}) \theta_1(\mathbf{x}) - \pi(\mathbf{x})\theta_2(\mathbf{x})$,
-  where $\pi(\mathbf{x}), \tau_1(\mathbf{x}), \eta_1(\mathbf{x})$ and $\eta_2(\mathbf{x})$ are defined in Equation \ref{eq:observables}, and $\theta_1(\mathbf{x}),\theta_2(\mathbf{x})$ in Equations \ref{eq:theta1_def}--\ref{eq:theta2_def}.
+\begin{lem} Under Assumptions \ref{assump:model}, \ref{assump:misclassification} and \ref{assump:2ndMoment}, 
+\[
+  \mbox{Cov}(y^2,z|\mathbf{x}) = 2\mbox{Cov}(yT,z|\mathbf{x}) \theta_1(\mathbf{x}) -\mbox{Cov}(T,z|\mathbf{x})\theta_2(\mathbf{x}) 
+\]
+  where $\theta_1(\mathbf{x})$ and $\theta_2(\mathbf{x})$ in Equations \ref{eq:theta1_def}--\ref{eq:theta2_def}.
   \label{lem:eta2}
 \end{lem}
 
 Lemma \ref{lem:wald} identifies $\theta_1(\mathbf{x})$.
-Since $\pi(\mathbf{x}) \neq 0$ by Assumption \ref{assump:model} (ii), we can solve for $\theta_2(\mathbf{x})$ in terms of observables only, using Lemma \ref{lem:eta2}.
+Since $\mbox{Cov}(z,T|\mathbf{x}) \neq 0$ by Assumption \ref{assump:model} (ii), we can solve for $\theta_2(\mathbf{x})$ in terms of observables only, using Lemma \ref{lem:eta2}.
 Given knowledge of $\theta_1(\mathbf{x})$, we can solve Equation \ref{eq:theta2_def} for the difference of mis-classification rates so long as $\beta(\mathbf{x}) \neq 0$.
 
 \begin{cor}
@@ -295,9 +289,9 @@ Assumption \ref{assump:3rdMoment} allows us to derive the following Lemma which,
 \begin{lem}
   Under Assumptions \ref{assump:model}--\ref{assump:misclassification} and \ref{assump:2ndMoment}--\ref{assump:3rdMoment}, 
 \[
-  \eta_3(\mathbf{x}) =  3\tau_2(\mathbf{x}) \theta_1(\mathbf{x}) - 3\tau_1(\mathbf{x}) \theta_2(\mathbf{x}) + \pi(\mathbf{x})\theta_3(\mathbf{x})
+    \mbox{Cov}(y^3,z|\mathbf{x}) = 3 \mbox{Cov}(y^2T,z|\mathbf{x}) \theta_1(\mathbf{x}) -3\mbox{Cov}(yT,z|\mathbf{x}) \theta_2(\mathbf{x}) + \mbox{Cov}(T,z|\mathbf{x}) \theta_3(\mathbf{x})
 \]
-where $\pi(\mathbf{x}), \tau_1(\mathbf{x}), \eta_1(\mathbf{x}), \eta_2(\mathbf{x}),$ and $\eta_3(\mathbf{x})$ are defined in Equation \ref{eq:observables}, and $\theta_1(\mathbf{x}),\theta_2(\mathbf{x}),\theta_3(\mathbf{x})$ are defined in Equations \ref{eq:theta1_def}--\ref{eq:theta2_def}.
+where $\theta_1(\mathbf{x}),\theta_2(\mathbf{x})$ and $\theta_3(\mathbf{x})$ are defined in Equations \ref{eq:theta1_def}--\ref{eq:theta2_def}.
 \label{lem:eta3}
 \end{lem}
 
@@ -307,7 +301,7 @@ where $\pi(\mathbf{x}), \tau_1(\mathbf{x}), \eta_1(\mathbf{x}), \eta_2(\mathbf{x
   \label{thm:main_ident}
 \end{thm}
 
-Lemmas \ref{lem:wald}--\ref{lem:eta3} yield a linear system of three equations in three unknowns.
+Lemmas \ref{lem:wald}--\ref{lem:eta3} yield a linear system of three equations in $\theta_1(\mathbf{x}), \theta_2(\mathbf{x})$ and $\theta_3(\mathbf{x})$.
 Under Assumption \ref{assump:model} (ii), the system has a unique solution so $\theta_1(\mathbf{x}), \theta_2(\mathbf{x})$ and $\theta_3(\mathbf{x})$ are identified.
 The proof of Theorem \ref{thm:main_ident} shows that, so long as $\beta(\mathbf{x})\neq 0$, Equations \ref{eq:theta1_def}--\ref{eq:theta3_def} can be solved for $\beta(\mathbf{x})$, $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
 If we relax Assumption \ref{assump:misclassification} (ii) and assume $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) \neq 1$ only, $\beta(\mathbf{x})$ is only identified up to sign.

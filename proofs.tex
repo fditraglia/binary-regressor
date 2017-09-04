@@ -11,7 +11,7 @@ Throughout the following arguments, we suppress dependence on $\mathbf{x}$ for s
 %  P(T^*=0|T=0, Z=k) &= P(T=0 | T^*=0) \left(\frac{1 - p_k^*}{1 - p_k}\right) = (1 - \alpha_0)\left( \frac{1 - p_k^*}{1 - p_k} \right)
 %\end{align*}
 %\end{lem}
-
+\subsection{Partial Identification Results}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{proof}[Proof of Lemma \ref{lem:p_pstar}]
   Follows from a simple calculation using the law of total probability.
@@ -262,6 +262,16 @@ The result now follows by appealing to the proof of Theorem \ref{thm:sharpI}.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Point Identification Results}
+In the proofs of Lemma \ref{lem:eta2}, Lemma \ref{lem:eta3}, and Theorem \ref{thm:main_ident}, we use the shorthand
+\[
+  \pi \equiv \mbox{Cov}(T,z), \quad
+  \eta_j \equiv \mbox{Cov}(y^j,z), \quad
+  \tau_j \equiv \mbox{Cov}(Ty^j,z)
+\]
+for $j = 1, 2, 3$.
+Using this notation, Lemma \ref{lem:wald} becomes $\eta_1 = \pi\theta_1$, while Lemma \ref{lem:eta2} becomes $\eta_2 =  2\tau_1 \theta_1 - \pi \theta_2$, 
+and Lemma \ref{lem:eta3} becomes $\eta_3 = 3\tau_2 \theta_1 - 3\tau_1 \theta_2 + \pi\theta_3$.
 
 \begin{proof}[Proof of Lemma \ref{lem:eta2}]
   By Assumption \ref{assump:model} (i) and the basic properties of covariance, 
@@ -348,9 +358,9 @@ Thus,
 \[
   3\tau_2 \theta_1 - 3 \tau_1 \theta_2 + \pi \theta_3 = K_1 \mbox{Cov}(T^*\varepsilon^2,z) + K_2 \mbox{Cov}(T^*\varepsilon, z) + K_3 \mbox{Cov}(T^*,z)
 \]
-where
+where $K_1 \equiv 3 \theta_1(1 - \alpha_0 - \alpha_1) = 3 \beta$ and
 \begin{align*}
-  K_1 &\equiv 3 \theta_1(1 - \alpha_0 - \alpha_1)\\ 
+  %K_1 &\equiv 3 \theta_1(1 - \alpha_0 - \alpha_1)\\ 
   K_2 &\equiv 6\theta_1 \left[(1 - \alpha_1)(c +\beta) - c\alpha_0\right] - 3\theta_2 (1 - \alpha_0 - \alpha_1) \\
   %&= (1 - \alpha_0 - \alpha_1) \left\{6\theta_1\left[c + \theta_1 (1 - \alpha_1)\right] - 3\theta_2 \right\}\\
   %&= (1 - \alpha_0 - \alpha_1) \theta_1\left\{6\left[c + \theta_1 (1 - \alpha_1)\right] - 3\theta_1\left[(1 - \alpha_1) + \alpha_0\right]\right\}\\
@@ -377,8 +387,7 @@ where
 %&= \beta( 3 c^2 + 3c\beta + \beta^2)\\
 %&= \beta^3 + 3c\beta^2 + 3c^2\beta
 \end{align*}
-Clearly $K_1 = 3\beta$.
-Substituting the definitions of $\theta_1, \theta_2$, and $\theta_3$ from Equations \ref{eq:theta1_def}--\ref{eq:theta3_def}, tedious but straightforward algebra likewise shows that $K_2 = 3\beta^2 + 6c\beta$ and $K_3 = \beta^3 + 3c\beta^2 + 3c^2\beta$.
+Substituting the definitions of $\theta_1, \theta_2$, and $\theta_3$ from Equations \ref{eq:theta1_def}--\ref{eq:theta3_def}, tedious but straightforward algebra shows that $K_2 = 3\beta^2 + 6c\beta$ and $K_3 = \beta^3 + 3c\beta^2 + 3c^2\beta$.
 Therefore the coefficients of $\eta_3$ equal those of $3\tau_2 - 3\tau_1 \theta_2 + \pi \theta_3$ and the result follows.
 \end{proof}
 
