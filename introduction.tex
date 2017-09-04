@@ -59,25 +59,32 @@ Subsequently, \cite{FL} note that an instrumental variable can take the place of
 When the $T^*$ is in fact exogenous, this coincides with the causal effect.
 \cite{hu2008} derives related results when the mis-classified discrete regressor may take on more than two values.
 \cite{Lewbel} provides an identification result for the same model as \cite{Mahajan} under different assumptions.
-In particular, the variable that plays the role of the ``instrument'' need not satisfy the exclusion restriction provided that it does not interact with the treatment and takes on at least three distinct values. 
+In particular, ``instrument-like variable'' need not satisfy the exclusion restriction so long as it does not interact with $T^*$ and takes on three or more values.
 
-Much less is known about the case in which a binary, or discrete, regressor is not only mis-measured but endogenous.
+Much less is known about the case in which a binary, or discrete, regressor is not only mis-classified but endogenous.
 The first paper to provide a formal result for this case is \cite{Mahajan}.
 He extends his main result to the case of an endogenous treatment, providing an explicit proof of identification under the usual IV assumption in a model with additively separable errors.
-As we show below, however, \citeauthor{Mahajan}'s proof is incorrect.
+As we show below, however, this argument is incorrect.
+Several more recent papers also consider the case of a mis-classified, endogenous, binary regressor.
+\cite{kreider2012}, partially identify the effects of food stamps on health outcomes of children under weak measurement error assumptions by relying on auxiliary data.
+Similarly, \cite{Battistin} study the returns to schooling in a setting with multiple mis-reported measures of educational qualifications.
+Unlike these two papers, our approach does not depend on the availability of auxiliary data: we rely only on the availability of a binary instrumental variable. 
+In a different vein, \cite{shiu2015} uses an exclusion restriction for the participation equation and an additional valid instrument to address mis-classification in a semi-parametric selection model.
+Similarly, \cite{nguimkeu2016estimation} use exclusion restrictions for both the participation equation and measurement error equation to identify a parametric model with endogenous participation and one-sided endogenous mis-reporting. 
+Unlike those of the preceding two papers, our results rely neither on parametric assumptions nor additional exclusion restrictions.
+Other than \cite{Mahajan}, paper most closely related to our own is that of \cite{Ura}, who derives partial identification results for a local average treatment effect without assuming non-differential measurement error.
+Unlike \cite{Ura} we study an additively separable model under non-differential measurement error and derive both partial and point identification results.
 
-\todo[inline]{Update from here down}
 
-Unlike \cite{kreider2012}, who partially identify the effects of food stamps on health outcomes of children under weak measurement error assumptions, we do not rely on auxiliary data. 
-Unlike \cite{shiu2015}, who considers a sample selection model with a discrete, mis-measured, endogenous regressor, we do not rely on a parametric assumption about the form of the first-stage.
+\todo[inline]{Change from here DOWNWARDS}
+
+
 Finally unlike \cite{Ura}, who studies local average treatment effects without assuming non-differential measurement error but presents only partial identification results, we 
 
 point identify treatment effect under non-differential measurement error.
 
 Moreover, unlike the identification strategies from the existing literature described above, we do not rely upon continuity of the instrument, a large support condition, or restrictions on the relationship between the true, unmeasured treatment and its observed surrogate, subject to the condition that the measurement error process is non-differential.
 
-
-\todo[inline]{Some updated comments on related papers}
 \paragraph{How are we different from Ura?}
 \begin{enumerate}
   \item We maintain nondifferential measurement error assumption throughout; Ura's main purpose is to relax it.
