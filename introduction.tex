@@ -1,65 +1,43 @@
 %!TEX root = ./main.tex
 \section{Introduction}
 
-Additively separable model
-\[
-  y = h(T^*,\mathbf{x})+\varepsilon
-\]
-where $\varepsilon$ is a mean-zero error term, $T^*$ is an endogenous binary regressor of interest and $\mathbf{x}$ is a vector of exogenous controls.
-Since $T^*$ is binary, we can re-write this as linear in $T^*$ conditional on $\mathbf{x}$
-\begin{align*}
-  y &= c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon\\
-  \beta(\mathbf{x}) &= h(1,\mathbf{x}) - h(0,\mathbf{x})\\
-  c(\mathbf{x}) &= h(0,\mathbf{x})
-\end{align*}
-Goal is to use an instrumental variable $z$ to identify $\beta(\mathbf{x})$ when we observe not $T^*$ but a mis-measured binary surrogate $T$. 
+Measurement error and endogeneity are pervasive features of economic data.
+Conveniently, a valid instrumental variable corrects for both problems when the measurement error is classical, i.e.\ uncorrelated with the truth.
+Many regressors of interest in applied work, however, are binary and thus cannot be subject to classical measurement error.\footnote{The only way to mis-classify a true one is downwards, as a zero, while the only way to mis-classify a true zero is upwards, as a one. This creates negative dependence between the truth and the error.}
+When faced with non-classical measurement error, the instrumental variables estimator can be severely biased.
+In this paper, we study an additively separable model of the form
+\begin{equation}
+  y = c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon
+  \label{eq:model}
+\end{equation}
+where $\varepsilon$ is a mean-zero error term, $T^*$ is a binary regressor of interest and $\mathbf{x}$ is a vector of exogenous controls.\footnote{Because $T^*$ is binary, there is no loss of generality from writing the model in this form rather than the more familiar $y = h(T^*,\mathbf{x})+\varepsilon$. Simply define $\beta(\mathbf{x}) = h(1,\mathbf{x}) - h(0,\mathbf{x})$ and $c(\mathbf{x}) = h(0,\mathbf{x})$.}
+Our question is whether, and if so under what conditions, a discrete instrumental variable $z$ suffices to non-parametrically identify the causal effect $\beta(\mathbf{x})$ of $T^*$, when we observe not $T^*$ itself but a mis-classified binary surrogate $T$. 
 
-\begin{enumerate}
-  \item Study nonparametric identification of effect of binary regressor in additively separable model ??? when endogenous and mis-measured
-  \item Footnote relating the way we've written here to a more general additively separable model and pointing out that there's no loss of generality when $T^*$ is binary
-  \item Measurement error in this case has to be non-classical: say why. We work under non-diff assumption. Say what this is.
-  \item Even in this simple setting, identification remains an open question. We show that the only existing identification result for this model is incorrect
-  \item Now say what our main results are: not identified under the standard first-moment assumptions. Derive sharp identified set.
-  \item Motivates us to consider slightly stronger assumptions: turns out that second and third moments do the trick: we obtain point identification
-  \item Then turn our attention to inference: point out that models with mis-classification (not just us but also the exogneous case from existing literature) suffer from a weak identification problem. Also boundary parameter problem making inference challenging.
-  \item We propose uniformly valid inference procedure combining moment inequalities with our moment equalities. Computationally attractive, and can also be used with only the inequalities or with exogenous equalities.
-  \item Show that it works well in simulations. 
-  \item Then give the literature review.
-\end{enumerate}
+We proceed under the assumption of non-differential measurement error.
+This condition has been widely used in the existing literature and imposes, roughly speaking, that $T$ provides no additional information beyond that contained in $(T^*,\mathbf{x})$.
+Even in this fairly standard setting, identification remains an open question.
+We begin by showing that the only existing identification result for this model is incorrect.
+We then go on to derive the sharp identified set under the standard first-moment assumptions from the related literature.
+We show that regardless of the number of values that $z$ takes on, the model is not point identified.
+This motivates us to consider alternative, and slightly stronger assumptions.
+We show that, given a binary instrument, the addition of a second moment independence assumption suffices to identify a model with one-sided mis-classification.
+Adding a second moment restriction on the measurement error along with a third moment independence assumption for the instrument suffices to identify the model in general.
+This result likewise requires only a binary $z$.
 
+We then turn our attention to inference, showing that both our model and related models from the literature that assume an exogenous regressor suffer from a weak identification problem. 
+In essence, binary mis-classification creates a mixture model and to correct the bias in the instrumental variables estimator, we must estimate the mixing probabilities.
+But when $\beta(\mathbf{x})$ is small the ``mixture modes'' are nearly indistinguishable, so that it becomes impossible to reliably estimate these probabilities.
+To address this difficulty, we exploit the inequality moment restrictions that emerge from our derivation of the sharp identified set.
+These restrictions remain informative even when $\beta(\mathbf{x})$ is small or zero.
+Combining them with the moment equalities that emerge from our identification result, we propose a robust inference procedure using tools from the moment inequality literature.
+Our procedure is computationally attractive and performs well in simulations.
+Moreover, it can be used both in our model and related models from the literature that assume an exogenous $T^*$. 
 
+\todo[inline]{update from here down!}
+Our work relates to a large literature studying departures from the textbook linear, classical measurement error setting.
 
-\paragraph{Old Introduction:} Many treatments of interest in applied work are binary.
-To take a particularly prominent example, consider treatment status in a randomized controlled trial.
-Even if the randomization is pristine, which yields a valid binary instrument (the offer of treatment), subjects may select into treatment based on unobservables, and given the many real-world complications that arise in the field, measurement error may be an important concern.
-This paper studies the use of a discrete instrumental variable to identify the causal effect of an endogenous, mis-measured, binary treatment in a model with additively separable errors.
-
-Although a relevant case for applied work, the setting we consider here has received little attention in the literature.
-The only existing result for the case of an endogenous treatment appears in an important paper by \cite{Mahajan}, who is primarily concerned with the case of an exogenous treatment.
-As we show below, \citeauthor{Mahajan}'s identification result for the endogenous treatment case is incorrect.
-As far as we are aware, this leaves the problem considered in this paper completely unsolved.
-
-\todo[inline]{Some updated comments on related papers}
-\paragraph{How are we different from Ura?}
-\begin{enumerate}
-  \item We maintain nondifferential measurement error assumption throughout; Ura's main purpose is to relax it.
-  \item We focus on an additively separable model; Ura explicitly studies at LATE setting
-  \item We obtain point and partial identification results; Ura present only partial identification results
-\end{enumerate}
-
-\paragraph{What about Denteh et al?}
-\cite{nguimkeu2016estimation} parametric model of endogenous participation with one-sided endogenous mis-reporting (false negatives).
-True participation is a normal linear threshold model with covariates $z$ and parameter $\gamma$, and mis-reporting is also a normal linear threshold model with covariates $w$ and parameter $\theta$.
-Requires $z$ to be exogenous wrt to all error terms (essentially an instrument) but do not require $w$ to be exogenous.
-Need $z$ and $w$ to be different, although there can be overlap.
-Definitely a parametric model, although they say normality isn't needed you do need to specify the joint distribution of the error terms.
-Requires exclusion restrictions for both participation and measurement error.
-Basically they're using parametric assumptions plus exclusion restrictions to get identification in a one-sided mis-classification model.
-In contrast we study the problem non-parametrically and allow mis-reporting to depend arbitrarily on $\mathbf{x}$.
-
-\paragraph{Old Literature Review:}
-Measurement error is a pervasive feature of economic data, motivating a long tradition of measurement error modelling in econometrics. 
-The textbook case considers a continuous regressor (treatment) subject to classical measurement error in a linear model.
+Measurement error modelling has a long history in econometrics.
+The textbook case considers a continuous regressor subject to classical measurement error in a linear model.
 In this setting, the measurement error is assumed to be unrelated to the true, unobserved, value of the treatment of interest.
 Regardless of whether this unobserved treatment is exogenous or endogenous, a single valid instrument suffices to identify its effect.
 When an instrument is unavailable, \cite{lewbel1997} shows that higher moment assumptions can be used to construct one, provided that the mis-measured treatment is exogenous.
@@ -114,6 +92,29 @@ Unlike \cite{kreider2012}, who partially identify the effects of food stamps on 
 Unlike \cite{shiu2015}, who considers a sample selection model with a discrete, mis-measured, endogenous regressor, we do not rely on a parametric assumption about the form of the first-stage.
 Finally unlike \cite{Ura}, who studies local average treatment effects under very general forms of mis-classification but presents only partial identification results, we point identify an average treatment effect under non-differential measurement error.
 Moreover, unlike the identification strategies from the existing literature described above, we do not rely upon continuity of the instrument, a large support condition, or restrictions on the relationship between the true, unmeasured treatment and its observed surrogate, subject to the condition that the measurement error process is non-differential.
+
+
+\todo[inline]{Some updated comments on related papers}
+\paragraph{How are we different from Ura?}
+\begin{enumerate}
+  \item We maintain nondifferential measurement error assumption throughout; Ura's main purpose is to relax it.
+  \item We focus on an additively separable model; Ura explicitly studies at LATE setting
+  \item We obtain point and partial identification results; Ura present only partial identification results
+\end{enumerate}
+
+\paragraph{What about Denteh et al?}
+\cite{nguimkeu2016estimation} parametric model of endogenous participation with one-sided endogenous mis-reporting (false negatives).
+True participation is a normal linear threshold model with covariates $z$ and parameter $\gamma$, and mis-reporting is also a normal linear threshold model with covariates $w$ and parameter $\theta$.
+Requires $z$ to be exogenous wrt to all error terms (essentially an instrument) but do not require $w$ to be exogenous.
+Need $z$ and $w$ to be different, although there can be overlap.
+Definitely a parametric model, although they say normality isn't needed you do need to specify the joint distribution of the error terms.
+Requires exclusion restrictions for both participation and measurement error.
+Basically they're using parametric assumptions plus exclusion restrictions to get identification in a one-sided mis-classification model.
+In contrast we study the problem non-parametrically and allow mis-reporting to depend arbitrarily on $\mathbf{x}$.
+
+Should say that we also relate to a large literature on moment inequalities.
+We use the GMS procedure from Andrews and Soares.
+And though we don't take the approach that they do, our idea of combining the inequalities with equalities is related to Moon and Schorfheide.
 
 \todo[inline]{Change from here UPWARDS}
 
