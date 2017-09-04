@@ -98,7 +98,7 @@ where the first-stage probabilities $p_k^*(\mathbf{x})$ and $p_k(\mathbf{x})$ ar
 
 Lemma \ref{lem:p_pstar} relates the observed first-stage probabilities $p_k(\mathbf{x})$ to their unobserved counterparts $p^*_k(\mathbf{x})$ in terms of the mis-classification probabilities $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
 By Assumption \ref{assump:misclassification} (ii), $1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) > 0$ so that Lemma \ref{lem:p_pstar} provides non-trivial bounds for $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ in terms of the observed first-stage probabilities.
-Lemma \ref{lem:wald} relates the instrumental variables (IV) estimand, $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T)$, to the mis-classification probabilities.
+Lemma \ref{lem:wald} relates the instrumental variables (IV) estimand, $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T|\mathbf{x})$, to the mis-classification probabilities.
 Since $1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) > 0$, IV is biased \emph{upwards} in the presence of mis-classification.
 Combining the two lemmas yields a well-known bound, namely that $\beta(\mathbf{x})$ lies between the reduced form and IV estimators.
 Our first result shows that \emph{without} Assumption \ref{assump:misclassification} (non-differential measurement error) these bounds are sharp.
@@ -114,8 +114,7 @@ and $\alpha_0(\mathbf{x}) \leq p_k(\mathbf{x}) \leq 1 -  \alpha_1(\mathbf{x})$ f
 \end{thm}
 
 \begin{cor}
-  Under the conditions of Theorem \ref{thm:sharpI} the sharp identified set for $\beta(\mathbf{x})$ is the closed interval between $\Delta^y(\mathbf{x})$ and $\Delta^y(\mathbf{x})/\Delta^T(\mathbf{x})$ 
-  where $\Delta^y(\mathbf{x}) \equiv \mathbb{E}(y|\mathbf{x},z=1) - \mathbb{E}(y|\mathbf{x},z=0)$ and $\Delta^T(\mathbf{x})= p_1(\mathbf{x}) - p_0(\mathbf{x})$, with $p_k(\mathbf{x})$ as defined in Equation \ref{eq:pk_def} for $k = 0,1$. 
+  Under the conditions of Theorem \ref{thm:sharpI} the sharp identified set for $\beta(\mathbf{x})$ is the closed interval between the reduced form estimand $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Var}(z|\mathbf{x})$ and the IV estimand $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T|\mathbf{x})$.
 \label{cor:sharpBeta1}
 \end{cor}
 
@@ -125,13 +124,12 @@ The following corollary collects results for two common cases: one-sided misclas
 
 \begin{cor}
   \label{cor:onsided}
-  Under the conditions of Theorem \ref{thm:sharpI}, restrictions on the misclassification probabilities shrink the sharp identified set for $\beta(\mathbf{x})$ to the closed interval between $B\Delta^y(\mathbf{x})/\Delta^T(\mathbf{x})$ and $\Delta^y(\mathbf{x})/\Delta^T(\mathbf{x})$ where
+  Under the conditions of Theorem \ref{thm:sharpI}, the following restrictions on the misclassification probabilities $\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})$ shrink the sharp identified set for $\beta(\mathbf{x})$ to the closed interval between $\Delta \times \left[\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T|\mathbf{x})\right]$ and $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T|\mathbf{x})$.
   \begin{enumerate}[(i)]
-    \item $\alpha_0(\mathbf{x})=0$ implies $B = \max_k \mathbb{P}(T=1|\mathbf{x},z=k)$ 
-    \item $\alpha_1(\mathbf{x})=0$ implies $B = 1 - \min_k \mathbb{P}(T=1|\mathbf{x},z=k)$ 
-    \item $\alpha_0(\mathbf{x})=\alpha_1(\mathbf{x})$ implies $B =  1 - 2 \min\left\{ \min_k \mathbb{P}(T=1|\mathbf{x},z=k), 1 - \max_k \mathbb{P}(T=1|\mathbf{x},z=k) \right\}$ 
+    \item If $\alpha_0(\mathbf{x})=0$ then $\Delta = \max_k \,p_k(\mathbf{x})$. 
+    \item If $\alpha_1(\mathbf{x})=0$ then $\Delta = 1 - \min_k\, p_k(\mathbf{x})$. 
+    \item If $\alpha_0(\mathbf{x})=\alpha_1(\mathbf{x})$ then $\Delta =  1 - 2 \min\left\{ \min_k \, p_k(\mathbf{x}), 1 - \max_k \, p_k(\mathbf{x}) \right\}$.
   \end{enumerate}
-  for $k = 0,1$, where $\Delta^T(\mathbf{x})$ and $\Delta^y(\mathbf{x})$ are as defined in Corollary \ref{cor:sharpBeta1}.
 \end{cor}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
