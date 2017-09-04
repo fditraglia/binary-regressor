@@ -67,9 +67,9 @@ He extends his main result to the case of an endogenous treatment, providing an 
 As we show below, however, this argument is incorrect.
 Several more recent papers also consider the case of a mis-classified, endogenous, binary regressor.
 \cite{kreider2012}, partially identify the effects of food stamps on health outcomes of children under weak measurement error assumptions by relying on auxiliary data.
-Similarly, \cite{Battistin} study the returns to schooling in a setting with multiple mis-reported measures of educational qualifications.
-Unlike these two papers, our approach does not depend on the availability of auxiliary data: we rely only on the availability of a binary instrumental variable. 
-In a different vein, \cite{shiu2015} uses an exclusion restriction for the participation equation and an additional valid instrument to address mis-classification in a semi-parametric selection model.
+Similarly, \cite{Batt} study the returns to schooling in a setting with multiple mis-reported measures of educational qualifications.
+Unlike these two papers, our approach does not depend on the availability of auxiliary data.
+In a different vein, \cite{shiu2015} uses an exclusion restriction for the participation equation and an additional valid instrument to identify the effect of a discrete, mis-classified endogenous regressor in a semi-parametric selection model.
 Similarly, \cite{nguimkeu2016estimation} use exclusion restrictions for both the participation equation and measurement error equation to identify a parametric model with endogenous participation and one-sided endogenous mis-reporting. 
 Unlike those of the preceding two papers, our results rely neither on parametric assumptions nor additional exclusion restrictions.
 Other than \cite{Mahajan}, paper most closely related to our own is that of \cite{Ura}, who derives partial identification results for a local average treatment effect without assuming non-differential measurement error.
@@ -78,29 +78,9 @@ Unlike \cite{Ura} we study an additively separable model under non-differential 
 
 \todo[inline]{Change from here DOWNWARDS}
 
+Although several of the papers described above provide point identification results for an exog  results under mis-classification, e.g.\ \cite{FL,Mahajan}we are unaware of any work pointing out the intrinsic weak identification problem to which 
+Our work also relates to a large literature on inference using inequality moment conditions.
 
-Finally unlike \cite{Ura}, who studies local average treatment effects without assuming non-differential measurement error but presents only partial identification results, we 
-
-point identify treatment effect under non-differential measurement error.
-
-Moreover, unlike the identification strategies from the existing literature described above, we do not rely upon continuity of the instrument, a large support condition, or restrictions on the relationship between the true, unmeasured treatment and its observed surrogate, subject to the condition that the measurement error process is non-differential.
-
-\paragraph{How are we different from Ura?}
-\begin{enumerate}
-  \item We maintain nondifferential measurement error assumption throughout; Ura's main purpose is to relax it.
-  \item We focus on an additively separable model; Ura explicitly studies at LATE setting
-  \item We obtain point and partial identification results; Ura present only partial identification results
-\end{enumerate}
-
-\paragraph{What about Denteh et al?}
-\cite{nguimkeu2016estimation} parametric model of endogenous participation with one-sided endogenous mis-reporting (false negatives).
-True participation is a normal linear threshold model with covariates $z$ and parameter $\gamma$, and mis-reporting is also a normal linear threshold model with covariates $w$ and parameter $\theta$.
-Requires $z$ to be exogenous wrt to all error terms (essentially an instrument) but do not require $w$ to be exogenous.
-Need $z$ and $w$ to be different, although there can be overlap.
-Definitely a parametric model, although they say normality isn't needed you do need to specify the joint distribution of the error terms.
-Requires exclusion restrictions for both participation and measurement error.
-Basically they're using parametric assumptions plus exclusion restrictions to get identification in a one-sided mis-classification model.
-In contrast we study the problem non-parametrically and allow mis-reporting to depend arbitrarily on $\mathbf{x}$.
 
 Should say that we also relate to a large literature on moment inequalities.
 We use the GMS procedure from Andrews and Soares.
