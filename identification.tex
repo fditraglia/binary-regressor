@@ -3,6 +3,7 @@
 \label{sec:identification}
 
 \subsection{Baseline Assumptions}
+\label{sec:baseline}
 As defined in the preceding section, our model is $y = c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon$, where $\varepsilon$ is a mean-zero error term, and the parameter of interest is $\beta(\mathbf{x})$ -- the effect of an unobserved, binary, endogenous regressor $T^*$.
 Suppose we observe a valid and relevant binary instrument $z$.
 We assume that the model and instrument satisfy the following conditions:
@@ -70,6 +71,7 @@ As such, identification in the case where $T^*$ is endogenous is an open questio
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Partial Identification}
+\label{sec:partial}
 
 In this section we derive the sharp identified set under Assumptions \ref{assump:model}--\ref{assump:misclassification} and show that  $\beta(\mathbf{x})$ is not point identified.
 To simplify the notation, define the following shorthand for the observed and unobserved first stage probabilities
@@ -220,6 +222,7 @@ If $z$ takes on more than two values, our results in Theorems \ref{thm:sharpI}--
 
 
 \subsection{Point Identification}
+\label{sec:point}
 The results of the preceding section establish that $\beta(\mathbf{x})$ is not point identified under Assumptions \ref{assump:model} and \ref{assump:misclassification}.
 In light of this, there are two possible ways to proceed: either one can report partial identification bounds based on our characterization of the sharp identified set from Theorem \ref{thm:sharpII}, or one can attempt to impose stronger assumptions to obtain point identification.
 In this section we consider the second possibility.
