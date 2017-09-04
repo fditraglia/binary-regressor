@@ -55,7 +55,7 @@ Now, applying Equation \ref{eq:mahajan11} to the definition of $v$ from Assumpti
   \mathbb{E}(v|\mathbf{x},z,T^*,T) = \mathbb{E}\left[ y - \mathbb{E}(y|\mathbf{x},T^*)\left. \right|\mathbf{x},z,T^*,T \right] = 0
 \]
 which satisfies Assumption \ref{assump:mahajan1} (iv) as required.
-Based on this reasoning, \cite{Mahajan} claims that Equation \ref{eq:mahajan11} along with Assumptions \ref{assump:model}, \ref{assump:misclassification} (i)--(ii), and \ref{assump:mahajan1} suffice to identify the effect $\beta(\mathbf{x})$ of an endogenous $T^*$, so long as $g(1,\mathbf{x}) \neq g(0,\mathbf{x})$.
+Based on this reasoning, \cite{Mahajan} claims that Equation \ref{eq:mahajan11} along with Assumptions \ref{assump:mahajan1} (iv), \ref{assump:model}, and \ref{assump:misclassification} (i)--(ii) suffice to identify the effect $\beta(\mathbf{x})$ of an endogenous $T^*$, so long as $g(1,\mathbf{x}) \neq g(0,\mathbf{x})$.
 As we now show, however, these Assumptions are contradictory unless $T^*$ is exogenous.
 
 By Equation \ref{eq:mahajan11} and Assumption \ref{assump:model} (i), $\mathbb{E}(\varepsilon|\mathbf{x},z,T^*,T)=\mathbb{E}(\varepsilon|\mathbf{x},T^*)$ and thus by iterated expectations, we obtain
@@ -76,7 +76,7 @@ But substituting $m^*_{t0}(\mathbf{x}) = m^*_{t1}(\mathbf{x})$ into Equation \re
   [1 - p^*_0(\mathbf{x})] m^*_{00}(\mathbf{x}) + p^*_0(\mathbf{x}) m^*_{10}(\mathbf{x}) &= 0\\ 
   [1 - p^*_1(\mathbf{x})] m^*_{00}(\mathbf{x}) + p^*_1(\mathbf{x}) m^*_{10}(\mathbf{x}) &= 0
 \end{align*}
-Both of the preceding two equalities are convex combinations of $m^*_{00}$ and $m^*_{10}$.
+The preceding two equalities are convex combinations of $m^*_{00}$ and $m^*_{10}$.
 The only way that both can equal zero simultaneously is if either $p^*_0(\mathbf{x}) = p^*_1(\mathbf{x})$, contradicting Assumption \ref{assump:model} (ii), or if $m^*_{tk}(\mathbf{x}) = 0$ for all $(t,k)$, which implies that $T^*$ is exogenous.
 Hence \cite{Mahajan} A.2 fails: given the assumption that $z$ is a valid instrument for $\varepsilon$, Equation \ref{eq:mahajan11} implies that either there is no first-stage relationship between $z$ and $T^*$ or that $T^*$ is exogenous.
 
