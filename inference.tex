@@ -53,7 +53,7 @@ By continuity, they are \emph{nearly} uninformative about the mis-classification
 But unless $\beta = 0$, knowledge of $(\alpha_0, \alpha_1)$ is necessary to recover $\beta$, via Lemma \ref{lem:wald}. 
 Thus, we face a weak identification problem.\footnote{This is essentially equivalent to the problem of estimating mixture probabilities when the means of the component distributions are very similar to each other.}
 Indeed, the GMM estimator of $\widehat{\beta}$ based on Equation \ref{eq:MCs_endog} may even fail to exist.
-Using arguments from the proof of Theorem \ref{thm:main_ident}, this estimator is given by is
+Using arguments from the proof of Theorem \ref{thm:main_ident}, this estimator is given by 
 \[
   \widehat{\beta} = \mbox{sign}\big(\widehat{\theta}_1\big) \sqrt{3\left( \widehat{\theta}_2/\widehat{\theta}_1 \right)^2 - 2 \left(\widehat{\theta}_3/\widehat{\theta}_1 \right)}
 \]
@@ -114,7 +114,7 @@ The bounds from Theorem \ref{thm:sharpI} are given by
   p_k - \alpha_0 \geq 0, \quad \quad 1 - p_k - \alpha_1 \geq 0, \quad \mbox{for all } k 
 \end{equation*}
 where the first-stage probabilities $p_k$ are defined in Equation \ref{eq:pk_def}.
-We write these as 
+We write these inequalities as 
 \begin{equation}
   \mathbb{E}\left[ m_1^I(\mathbf{w}_i,\boldsymbol{\vartheta} ) \right] \geq \mathbf{0},  \quad
 m_1^I(\mathbf{w}_i, \boldsymbol{\vartheta}) \equiv \left[
@@ -251,7 +251,7 @@ Now, under the null $\widehat{\mathbf{q}}(\boldsymbol{\vartheta}_0)$ converges i
 Although $h^I$ is a discontinuous function of $\mathbf{q}$, it is bounded for any fixed $(\alpha_0, \alpha_1)$.
 Moreover, since $y|(T=t,z=k)$ is a continuous random variable, $\mathbb{E}[h^I(\mathbf{w}_i,\boldsymbol{\vartheta}, \mathbf{q})]$ is continuously differentiable with respect to $\mathbf{q}$.
 Hence, $\widehat{\mathbf{q}}$ is asymptotically normal under mild regularity conditions.\footnote{For details, see \cite{andrews1994empirical} and \cite{newey1994large} Section 7.}
-To account for the effect of preliminary estimation of $\mathbf{q}$ and $\boldsymbol{\gamma}$ on the asymptotic variance matrix used in the GMS test, we rely on the following Lemma.
+To account for the effect of preliminary estimation of $\mathbf{q}$ and $\boldsymbol{\gamma}$ on the asymptotic variance matrix used in the GMS test, we rely on the following Lemma:
 
 \begin{lem}
   Let $\bar{m}^I_{1,n}(\boldsymbol{\vartheta}) = n^{-1}\sum_{i=1}^n m_{1,n}^I(\mathbf{w}_i,\boldsymbol{\vartheta})$ and define $\bar{m}_{2,n}^I, \bar{m}_n^E, \bar{h}_n^I,\bar{h}_n^E$ analogously.
@@ -509,7 +509,7 @@ We now detail our Bonferroni-based confidence interval for $\beta$.
       \begin{enumerate}[(i)]
         \item Let $\delta = \delta_1 + \delta_2$.
         \item Set $\underline{\beta}(\delta) = \min \left\{ \underline{s}(\delta_1)\times \underline{\theta}_1(\delta_2),\, \overline{s}(\delta_1)\times \underline{\theta}_1(\delta_2) \right\}$.
-        \item Set $\overline{\beta}(\delta) = \min \left\{ \underline{s}(\delta_1)\times \overline{\theta}_1(\delta_2),\, \overline{s}(\delta_1)\times \overline{\theta}_1(\delta_2) \right\}$.
+        \item Set $\overline{\beta}(\delta) = \max \left\{ \underline{s}(\delta_1)\times \overline{\theta}_1(\delta_2),\, \overline{s}(\delta_1)\times \overline{\theta}_1(\delta_2) \right\}$.
       \end{enumerate}
   \end{enumerate}
   \label{alg:Bonferroni}
@@ -531,7 +531,7 @@ Under mild regularity conditions, the confidence interval from Algorithm \ref{al
 \end{thm}
 
 Theorem \ref{thm:uniform} is effectively a corollary of Theorem 1 from \cite{AndrewsSoares}, which establishes the uniform asymptotic validity of the GMS test, and Lemma \ref{lem:prelim}, which accounts for preliminary estimation of $\boldsymbol{\gamma}$ and $\mathbf{q}$.
-Given iid observations $\mathbf{w}_i$, the only substantive condition required for Theorem \ref{thm:uniform} is the joint asymptotic normality of $\sqrt{n} \,\bar{m}_n(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)$ and $\sqrt{n}\bar{h}_n(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)$, where $\bar{h}_n$ denotes the sample analogues for full set of auxiliary moment conditions $(h^I, h^E)$ defined in Section \ref{sec:prelim}.
+Given iid observations $\mathbf{w}_i$, the only substantive condition required for Theorem \ref{thm:uniform} is the joint asymptotic normality of $\sqrt{n} \,\bar{m}_n(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)$ and $\sqrt{n}\bar{h}_n(\boldsymbol{\vartheta}_0, \boldsymbol{\tau}_0)$, where $\bar{h}_n$ denotes the sample analogues for the full set of auxiliary moment conditions $(h^I, h^E)$ defined in Section \ref{sec:prelim}.
 For further discussion of the regularity conditions required for the GMS procedure, see Appendix A3 of \cite{AndrewsSoares}.
 For some discussion of the regularity conditions required for Lemma \ref{lem:prelim}, see Section \ref{sec:prelim}.
 
@@ -539,8 +539,8 @@ Theorem \ref{thm:uniform} invokes the higher-moment assumptions (Assumptions \re
 To proceed without these conditions, simply remove $m^E$ from the set of moment conditions used in the algorithm and leave the steps unchanged.
 In this case $\beta$ is no longer point identified but the inference procedure provides valid inference for the points in the sharp identified set from Theorem \ref{thm:sharpII}.
 Algorithm \ref{alg:Bonferroni} can likewise be used in the case of an exogenous $T^*$, as in \cite{Mahajan} and \cite{FL}.
-As mentioned above in Section \ref{sec:problem}, the exogenous regressor case is subject to the same inferential difficulties and the endogenous case on which we focuse in this paper.
-To accommodate an exogenous regressor,simply replace $m^E$ with the moment equalities described in Appendix \ref{sec:FL_mahajan}.
+As mentioned above in Section \ref{sec:problem}, the exogenous regressor case is subject to the same inferential difficulties as the endogenous case on which we focus in this paper.
+To accommodate an exogenous regressor, simply replace $m^E$ with the moment equalities described in Appendix \ref{sec:FL_mahajan}.
 
 
 \subsection{Further Details Regarding Covariates}
@@ -552,4 +552,4 @@ At one extreme, suppose one were willing to assume that $(\alpha_0, \alpha_1)$ d
 In this case, the standard IV estimator identifies $\boldsymbol{\phi}$ and one could simply augment the moment equalities $m^E$ from Equation \ref{eq:mE} above to provide a preliminary estimator of $\boldsymbol{\phi}$ in Algorithm \ref{alg:GMS}.
 At the other extreme, if one wished to remain fully non-parametric, one could adopt the approach of \cite{andrews2014nonparametric}, based on kernel averaging near a fixed covariate value $\mathbf{x} = \mathbf{x}_0$.
 As a compromise between these two extremes, one could alternatively specify a semi-parametric model, perhaps along the lines of Section 4 of \cite{Lewbel}, and follow the approach of \cite{andrews2013inference}.
-Both of these latter two possibilities could be an interesting extension of the method described above.
+Both of these latter possibilities could be an interesting extension of the method described above.

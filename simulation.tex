@@ -115,7 +115,7 @@ Results for nominal 95\% and 90\% intervals are qualitatively similar: see Appen
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 We now present results for the Bonferroni interval from Algorithm \ref{alg:Bonferroni}, setting $\delta_1 = \delta_2 = 0.025$ to yield an interval with asymptotic coverage no less that $95\%$.\footnote{In principle, one could optimize the choice of $\delta_1$ subject to the constraint $\delta_1 + \delta_2 = 0.95$ to reduce the width of the resulting interval. In our experiments, there was no choice of $\delta_1$ that uniformly dominated for all values of $(\alpha_0, \alpha_1, \beta)$ so we report only results for $\delta_1 = \delta_2$ here.}
-Table \ref{tab:bonf_cover_1000} presents coverage probabilities in percentage points and Table \ref{tab:bonf_cover_1000} median widths.
+Table \ref{tab:bonf_cover_1000} presents coverage probabilities in percentage points and Table \ref{tab:bonf_cover_1000} presents median widths.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[htbp]
@@ -179,7 +179,7 @@ Note moreover that the excellent performance of Bonferroni in the zero mis-class
 As the true value of $\beta$ increases, the Bonferroni interval begins to have power against both the reduced form and IV estimands.
 
 
-A drawback of the identification-robust inference procedure from \ref{alg:Bonferroni} becomes apparent when both $\beta$ and the mis-classification probabilities are large.
+A drawback of the identification-robust inference procedure from Algorithm \ref{alg:Bonferroni} becomes apparent when both $\beta$ and the mis-classification probabilities are large.
 In this case the confidence interval for $\beta$ is excessively wide, as we see from Table \ref{tab:bonf_width_1000} and Figure \ref{fig:bonf_3_1000}.\footnote{As expected, median widths decrease with sample size: see the results for $n = 2000$ in Appendix \ref{sec:simulation_supplement}.}
 Note from Tables \ref{tab:GMM_na_1000} and \ref{tab:GMM_cover_1000}, that this is a region of the parameter space in which the plain-vanilla GMM confidence interval yields valid inference.
 Moreover, we see from Table \ref{tab:GMM_width_1000} that the median width of the GMM interval is far more reasonable when $\beta$ is large, even in the presence of large amounts of mis-classification.

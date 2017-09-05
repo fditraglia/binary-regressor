@@ -2,7 +2,7 @@
 \section{Introduction}
 
 Measurement error and endogeneity are pervasive features of economic data.
-Conveniently, a valid instrumental variable corrects for both problems when the measurement error is classical, i.e.\ uncorrelated with the truth value of the regressor.
+Conveniently, a valid instrumental variable corrects for both problems when the measurement error is classical, i.e.\ uncorrelated with the true value of the regressor.
 Many regressors of interest in applied work, however, are binary and thus cannot be subject to classical measurement error.\footnote{The only way to mis-classify a true one is downwards, as a zero, while the only way to mis-classify a true zero is upwards, as a one. This creates negative dependence between the true value of the regressor and the error.}
 When faced with non-classical measurement error, the instrumental variables estimator can be severely biased.
 In this paper, we study an additively separable model of the form
@@ -11,12 +11,11 @@ In this paper, we study an additively separable model of the form
   \label{eq:model}
 \end{equation}
 where $\varepsilon$ is a mean-zero error term, $T^*$ is a binary, potentially endogenous regressor of interest, and $\mathbf{x}$ is a vector of exogenous controls.\footnote{Because $T^*$ is binary, there is no loss of generality from writing the model in this form rather than the more familiar $y = h(T^*,\mathbf{x})+\varepsilon$. Simply define $\beta(\mathbf{x}) = h(1,\mathbf{x}) - h(0,\mathbf{x})$ and $c(\mathbf{x}) = h(0,\mathbf{x})$.}
-Our question is whether, and if so under what conditions, a discrete instrumental variable $z$ suffices to non-parametrically identify the causal effect $\beta(\mathbf{x})$ of $T^*$, when we observe not $T^*$ itself but a mis-classified binary surrogate $T$. 
+Our question is whether, and if so under what conditions, a discrete instrumental variable $z$ suffices to non-parametrically identify the causal effect $\beta(\mathbf{x})$ of $T^*$, when we observe not $T^*$ but a mis-classified binary surrogate $T$. 
 
 We proceed under the assumption of non-differential measurement error.
 This condition has been widely used in the existing literature and imposes  that $T$ provides no additional information beyond that contained in $(T^*,\mathbf{x})$.
-Even in this fairly standard setting, identification remains an open question.
-We begin by showing that the only existing identification result for this model is incorrect.
+Even in this fairly standard setting, identification remains an open question: we begin by showing that the only existing identification result for this model is incorrect.
 We then go on to derive the sharp identified set under the standard first-moment assumptions from the related literature.
 We show that regardless of the number of values that $z$ takes on, the model is not point identified.
 This motivates us to consider alternative, and slightly stronger assumptions.
@@ -56,7 +55,7 @@ Continuing under the assumption of exogeneity and non-differential measurement e
 \cite{BBS} and \cite{KRS} consider a linear model and show that when \emph{two} alternative measures $T_1$ and $T_2$ of $T^*$ are available, a non-linear GMM estimator can be used to recover the effect of interest.
 Subsequently, \cite{FL} note that an instrumental variable can take the place of one of the measures.
 \cite{Mahajan} extends the results of \cite{BBS} and \cite{KRS} to a more general setting using a binary instrument in place of one of the treatment measures, establishing non-parametric identification of the conditional mean function.
-When the $T^*$ is in fact exogenous, this coincides with the causal effect.
+When $T^*$ is in fact exogenous, this coincides with the causal effect.
 \cite{hu2008} derives related results when the mis-classified discrete regressor may take on more than two values.
 \cite{Lewbel} provides an identification result for the same model as \cite{Mahajan} under different assumptions.
 In particular, his ``instrument-like variable'' need not satisfy the usual  exclusion restriction so long as it does not interact with $T^*$ and takes on three or more values.
@@ -72,7 +71,7 @@ Unlike these two papers, our approach does not depend on the availability of aux
 In a different vein, \cite{shiu2015} uses an exclusion restriction for the participation equation and an additional valid instrument to identify the effect of a discrete, mis-classified endogenous regressor in a semi-parametric selection model.
 Similarly, \cite{nguimkeu2016estimation} use exclusion restrictions for both the participation equation and measurement error equation to identify a parametric model with endogenous participation and one-sided endogenous mis-reporting. 
 Unlike those of the preceding two papers, our results rely neither on parametric assumptions nor additional exclusion restrictions.
-Other than \cite{Mahajan}, paper most closely related to our own is that of \cite{Ura}, who derives partial identification results for a local average treatment effect without assuming non-differential measurement error.
+Other than \cite{Mahajan}, the paper most closely related to our own is that of \cite{Ura}, who derives partial identification results for a local average treatment effect without assuming non-differential measurement error.
 Unlike \cite{Ura} we study an additively separable model under non-differential measurement error and derive both partial and point identification results.
 
 Our work also relates to a large literature on inference using inequality moment conditions.

@@ -17,7 +17,7 @@ We assume that the model and instrument satisfy the following conditions:
   \end{enumerate}
 \end{assump}
 
-Assumptions \ref{assump:model}(ii) and (iii) are the standard instrument relevance and mean independence assumptions.\footnote{Assumption \ref{assump:model} (ii) states that $z$ is a relevant instrument for the unobserved regressor $T^*$. Under Assumption \ref{assump:misclassification}, however, this is equivalent to assuming that $z$ is a relevant instrument for the observed regressor $T$ by Lemma \ref{lem:p_pstar}.}
+Assumptions \ref{assump:model}(ii) and (iii) are the standard instrument relevance and mean independence assumptions.\footnote{Assumption \ref{assump:model} (ii) states that $z$ is a relevant instrument for the unobserved regressor $T^*$. Under Assumption \ref{assump:misclassification}, however, this is equivalent to assuming that $z$ is a relevant instrument for the observed regressor $T$ by Lemma \ref{lem:p_pstar} below.}
 If $T^*$ were observed, Assumption \ref{assump:model} would suffice to identify  $\beta(\mathbf{x})$.  
 Unfortunately we observe not $T^*$ but a mis-classified binary surrogate $T$.  
 Define the following mis-classification probabilities:
@@ -75,7 +75,7 @@ As such, identification in the case where $T^*$ is endogenous is an open questio
 \label{sec:partial}
 
 In this section we derive the sharp identified set under Assumptions \ref{assump:model}--\ref{assump:misclassification} and show that  $\beta(\mathbf{x})$ is not point identified.
-To simplify the notation, define the following shorthand for the observed and unobserved first stage probabilities
+To simplify the notation, define the following shorthand for the unobserved and observed first stage probabilities
 \begin{align}
   \label{eq:pkstar_def}
   p^*_k(\mathbf{x}) &= \mathbb{P}(T^*=1|\mathbf{x},z=k)\\
@@ -117,7 +117,7 @@ and $\alpha_0(\mathbf{x}) \leq p_k(\mathbf{x}) \leq 1 -  \alpha_1(\mathbf{x})$ f
 \end{thm}
 
 \begin{cor}
-  Under the conditions of Theorem \ref{thm:sharpI} the sharp identified set for $\beta(\mathbf{x})$ is the closed interval between the reduced form estimand $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Var}(z|\mathbf{x})$ and the IV estimand $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T|\mathbf{x})$.
+  Under the conditions of Theorem \ref{thm:sharpI}, the sharp identified set for $\beta(\mathbf{x})$ is the closed interval between the reduced form estimand $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Var}(z|\mathbf{x})$ and the IV estimand $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T|\mathbf{x})$.
 \label{cor:sharpBeta1}
 \end{cor}
 
@@ -250,7 +250,7 @@ Assumption \ref{assump:2ndMoment} allows us to derive the following lemma:
 \[
   \mbox{Cov}(y^2,z|\mathbf{x}) = 2\mbox{Cov}(yT,z|\mathbf{x}) \theta_1(\mathbf{x}) -\mbox{Cov}(T,z|\mathbf{x})\theta_2(\mathbf{x}) 
 \]
-  where $\theta_1(\mathbf{x})$ and $\theta_2(\mathbf{x})$ in Equations \ref{eq:theta1_def}--\ref{eq:theta2_def}.
+  where $\theta_1(\mathbf{x})$ and $\theta_2(\mathbf{x})$ are defined in Equations \ref{eq:theta1_def}--\ref{eq:theta2_def}.
   \label{lem:eta2}
 \end{lem}
 
@@ -287,7 +287,7 @@ This condition neither requires nor excludes skewness in the error term conditio
 While Assumptions \ref{assump:2ndMoment} and \ref{assump:3rdMoment} may appear unfamiliar, we consider them to be fairly natural in the context of an additively separable model in which one has already assumed that $\mathbb{E}[\varepsilon|z]=0$ and $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\mathbf{x},z,T^*]$ -- Assumptions \ref{assump:model} (iii) and \ref{assump:misclassification} (iii) from above.\footnote{If one wishes to weaken our Assumption \ref{assump:model} (i) to allow for some form of unobserved heterogeneity, our higher moment assumptions may impose additional restrictions.}
 For example, if an applied researcher reports results both for an outcome in logs and levels, she has implicitly assumed \emph{independence} rather than first moment exclusion. 
 Assumptions \ref{assump:model} (iii), \ref{assump:2ndMoment} and \ref{assump:3rdMoment} (ii) are of course implied by $\varepsilon \perp z |\mathbf{x}$ while Assumptions \ref{assump:misclassification} (iii) and \ref{assump:3rdMoment} (i) are implied by $\varepsilon\perp T | (\mathbf{x}, T^*, z)$.
-Of course, achieving identification via Assumptions \ref{assump:2ndMoment}--\ref{assump:3rdMoment} will involve using information beyond first moments and as such places higher demands on the data.
+Achieving identification via Assumptions \ref{assump:2ndMoment}--\ref{assump:3rdMoment} involves using information beyond first moments and as such does places higher demands on the data.
 Assumption \ref{assump:3rdMoment} allows us to derive the following Lemma which, combined with Lemma \ref{lem:eta2}, leads to point identification: 
 
 \begin{lem}
@@ -300,7 +300,7 @@ where $\theta_1(\mathbf{x}),\theta_2(\mathbf{x})$ and $\theta_3(\mathbf{x})$ are
 \end{lem}
 
 \begin{thm}
-  Under Assumptions \ref{assump:model}--\ref{assump:misclassification} and \ref{assump:2ndMoment}--\ref{assump:3rdMoment} $\beta(\mathbf{x})$ is identified.
+  Under Assumptions \ref{assump:model}--\ref{assump:misclassification} and \ref{assump:2ndMoment}--\ref{assump:3rdMoment}, $\beta(\mathbf{x})$ is identified.
   If $\mathbf{\beta}(\mathbf{x}) \neq 0$, then $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ are likewise identified.
   \label{thm:main_ident}
 \end{thm}
