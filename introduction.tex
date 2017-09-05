@@ -2,19 +2,19 @@
 \section{Introduction}
 
 Measurement error and endogeneity are pervasive features of economic data.
-Conveniently, a valid instrumental variable corrects for both problems when the measurement error is classical, i.e.\ uncorrelated with the truth.
-Many regressors of interest in applied work, however, are binary and thus cannot be subject to classical measurement error.\footnote{The only way to mis-classify a true one is downwards, as a zero, while the only way to mis-classify a true zero is upwards, as a one. This creates negative dependence between the truth and the error.}
+Conveniently, a valid instrumental variable corrects for both problems when the measurement error is classical, i.e.\ uncorrelated with the truth value of the regressor.
+Many regressors of interest in applied work, however, are binary and thus cannot be subject to classical measurement error.\footnote{The only way to mis-classify a true one is downwards, as a zero, while the only way to mis-classify a true zero is upwards, as a one. This creates negative dependence between the true value of the regressor and the error.}
 When faced with non-classical measurement error, the instrumental variables estimator can be severely biased.
 In this paper, we study an additively separable model of the form
 \begin{equation}
   y = c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon
   \label{eq:model}
 \end{equation}
-where $\varepsilon$ is a mean-zero error term, $T^*$ is a binary regressor of interest and $\mathbf{x}$ is a vector of exogenous controls.\footnote{Because $T^*$ is binary, there is no loss of generality from writing the model in this form rather than the more familiar $y = h(T^*,\mathbf{x})+\varepsilon$. Simply define $\beta(\mathbf{x}) = h(1,\mathbf{x}) - h(0,\mathbf{x})$ and $c(\mathbf{x}) = h(0,\mathbf{x})$.}
+where $\varepsilon$ is a mean-zero error term, $T^*$ is a binary, potentially endogenous regressor of interest, and $\mathbf{x}$ is a vector of exogenous controls.\footnote{Because $T^*$ is binary, there is no loss of generality from writing the model in this form rather than the more familiar $y = h(T^*,\mathbf{x})+\varepsilon$. Simply define $\beta(\mathbf{x}) = h(1,\mathbf{x}) - h(0,\mathbf{x})$ and $c(\mathbf{x}) = h(0,\mathbf{x})$.}
 Our question is whether, and if so under what conditions, a discrete instrumental variable $z$ suffices to non-parametrically identify the causal effect $\beta(\mathbf{x})$ of $T^*$, when we observe not $T^*$ itself but a mis-classified binary surrogate $T$. 
 
 We proceed under the assumption of non-differential measurement error.
-This condition has been widely used in the existing literature and imposes, roughly speaking, that $T$ provides no additional information beyond that contained in $(T^*,\mathbf{x})$.
+This condition has been widely used in the existing literature and imposes  that $T$ provides no additional information beyond that contained in $(T^*,\mathbf{x})$.
 Even in this fairly standard setting, identification remains an open question.
 We begin by showing that the only existing identification result for this model is incorrect.
 We then go on to derive the sharp identified set under the standard first-moment assumptions from the related literature.
@@ -24,12 +24,12 @@ We show that, given a binary instrument, the addition of a second moment indepen
 Adding a second moment restriction on the measurement error along with a third moment independence assumption for the instrument suffices to identify the model in general.
 This result likewise requires only a binary $z$.
 
-We then turn our attention to inference, showing that both our model and related models from the literature that assume an exogenous regressor suffer from a weak identification problem. 
+We then turn our attention to inference, showing that both our model and related models from the literature suffer from a weak identification problem. 
 In essence, binary mis-classification creates a mixture model and to correct the bias in the instrumental variables estimator, we must estimate the mixing probabilities.
-But when $\beta(\mathbf{x})$ is small the ``mixture modes'' are nearly indistinguishable, so that it becomes impossible to reliably estimate these probabilities.
+But when $\beta(\mathbf{x})$ is small the ``mixture modes'' are nearly indistinguishable, making it impossible to reliably estimate these probabilities.
 To address this difficulty, we exploit the inequality moment restrictions that emerge from our derivation of the sharp identified set.
 These restrictions remain informative even when $\beta(\mathbf{x})$ is small or zero.
-Combining them with the moment equalities that emerge from our identification result, we propose a robust inference procedure using tools from the moment inequality literature.
+Combining them with the moment equalities that emerge from our identification result, we propose an identification robust procedure for uniformly valid inference using tools from the moment inequality literature.
 Our procedure is computationally attractive and performs well in simulations.
 Moreover, it can be used both in our model and related models from the literature that assume an exogenous $T^*$. 
 
@@ -44,7 +44,7 @@ In contrast, \cite{HuSchennach} and \cite{song2015} rely on an instrumental vari
 More recently, \cite{HuShiuWoutersen} use a continuous instrument to identify the ratio of partial effects of two continuous regressors, one measured with error, in a linear single index model.
 Unfortunately, these approaches cannot be applied to the case of a mis-measured binary regressor.
 
-A number of papers have studied models with an exogenous binary regressor subject to non-differential measurement error.\footnote{As defined above, non-differential measurement error assumes that $T$ provides no additional information beyond that already contained in $(T^*,\mathbf{x})$.}
+A number of papers have studied models with an exogenous binary regressor subject to non-differential measurement error.
 One group of papers asks what can be learned without recourse to an instrumental variable.
 An early contribution by \cite{Aigner} characterizes the asymptotic bias of OLS in this setting, and proposes a correction using outside information on the mis-classification process.
 Related work by \cite{Bollinger} provides partial identification bounds.
@@ -64,7 +64,7 @@ In particular, his ``instrument-like variable'' need not satisfy the usual  excl
 Much less is known about the case in which a binary, or discrete, regressor is not only mis-classified but endogenous.
 The first paper to provide a formal result for this case is \cite{Mahajan}.
 He extends his main result to the case of an endogenous treatment, providing an explicit proof of identification under the usual IV assumption in a model with additively separable errors.
-As we show below, however, this argument is incorrect.
+As we show below, however, this result is false.\footnote{Appendix \ref{sec:mahajan} provides a detailed explanation of the error in \citeauthor{Mahajan}'s proof.}
 Several more recent papers also consider the case of a mis-classified, endogenous, binary regressor.
 \cite{kreider2012}, partially identify the effects of food stamps on health outcomes of children under weak measurement error assumptions by relying on auxiliary data.
 Similarly, \cite{Batt} study the returns to schooling in a setting with multiple mis-reported measures of educational qualifications.
