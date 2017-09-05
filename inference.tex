@@ -485,7 +485,7 @@ Pre--multiplying a $(J + K)$--vector $\mathbf{x}$ by $\Phi$ results in a $(\wide
 Step 4 uses a collection of iid normal draws, $\{\boldsymbol{\zeta}^{(r)}\}_{r=1}^{R}$, to approximate the large-sample distribution of $T_n$ under the null.
 The appropriate multiplications by $\Phi$ ensure that this approximation includes all moment equalities, but excludes any moment inequality judged to be far from binding in step 3.
 Finally, step 5 computes the p-value of the test by comparing the actual test statistic $T_n(\boldsymbol{\vartheta}_0)$ to the collection of simulated test statistics $\{T_n^{(r)}(\boldsymbol{\vartheta}_0)\}_{r=1}^R$ from step 4.
-We now detail our Bonferroni-based confidence interval for $\beta$.
+We now detail our Bonferroni-based confidence interval for $\beta$.\footnote{Code implementing this procedure is available at \url{https://github.com/fditraglia/mbereg}.} 
 
 \begin{alg}[Bonferroni-based Confidence Interval for $\beta$] \mbox{}\\
     Inputs: significance levels $(\delta_1,\delta_2)$; 
