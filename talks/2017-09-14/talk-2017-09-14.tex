@@ -192,25 +192,175 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 
   \begin{block}{Mahajan (2006) A.2}
     $\mathbb{E}[\varepsilon|\mathbf{x}, z, T^*, T] = \mathbb{E}[\varepsilon|\mathbf{x},T^*]$, plus ``Baseline'' $\implies \beta(\mathbf{x})$ identified\\
-    \hfill \alert{Allows $T^*$ endogenous, but the claim is false.}
+    \hfill \alert{Allows $T^*$ endogenous, but we prove this claim is false.}
   \end{block}
 
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+  \frametitle{First-stage Probabilities} 
+
+  \begin{table}[h]
+    \centering
+  \begin{tabular}[h]{|c|c|}
+    \hline
+   Unobserved & Observed \\
+    $p^*_k(\mathbf{x}) \equiv \mathbb{P}(T^*=1|\mathbf{x}, z=k)$ & 
+    $p_k(\mathbf{x}) \equiv \mathbb{P}(T=1|\mathbf{x}, z=k)$\\
+    \hline
+  \end{tabular}
+\end{table}
+
+
+  \begin{block}{Relationship}
+    \vspace{-1em}
+   \[
+     p_k^*(\mathbf{x}) = \frac{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}, \quad k = 0,1
+   \]
+   \hfill\alert{\footnotesize $z$ does not affect $(\alpha_0, \alpha_1)$; denominator $\neq 0$}
+  \end{block}
+
+  \normalsize
+  \begin{block}{Bounds for Mis-classification}
+    \vspace{-1em}
+    \[
+      \alpha_0(\mathbf{x}) \leq p_k(\mathbf{x}) \leq 1 - \alpha_1(\mathbf{x}), \quad k = 0,1
+    \]
+   \hfill \alert{\footnotesize$\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) <1$}
+  \end{block}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[plain, c]
+  \frametitle{$\alpha_0 \leq \min_k \left\{p_k\right\}, \; \; \alpha_1 \leq \min_k \left\{1 - p_k\right\}$}
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[scale=5]
+    \draw [fill = lightgray] (0.66,0.75) rectangle (1,1);
+    \draw [fill = cyan] (0,0) rectangle (0.25, 0.34);
+    \draw [thick, <->] (0,1.1)
+    node[above] {$\alpha_1$} -- (0,0) 
+    node [below left] {$(0,0)$} -- (1.1,0) 
+    node [right] {$\alpha_0$};
+    \draw [thick] (0.25,0.02) -- (0.25,-0.02) node [below] {$p_\ell$}; 
+    \draw [thick] (0.02,0.75) -- (-0.02,0.75) node [left] {$1 - p_\ell$}; 
+    \draw [thick] (0.66,0.02) -- (0.66,-0.02) node [below] {$p_k$}; 
+    \draw [thick] (0.02,0.34) -- (-0.02,0.34) node [left] {$1 - p_k$}; 
+    \draw [thick, red] (0,1) to (1,0); 
+    \node [right, red] at (0.06,0.95) {$\alpha_0 + \alpha_1 = 1$};
+    \draw [thick] (0,1) -- (1,1) -- (1,0);
+    \node [above right] at (1,1) {$(1,1)$};
+    \end{tikzpicture}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Instrumental Variable (Wald) Estimands}
+  \begin{block}{Unobserved}
+  \[
+    \beta(\mathbf{x}) = \frac{\mathbb{E}[y|\mathbf{x},z=1] - \mathbb{E}[y|\mathbf{x},z=0]}{p^*_1(\mathbf{x}) - p^*_0(\mathbf{x})} 
+  \]
+  \end{block}
+
+  \begin{block}{Observed}
+    \vspace{-1em}
+    \small
+    \[
+      \frac{\mathbb{E}[y|\mathbf{x},z=1] - \mathbb{E}[y|\mathbf{x},z=0]}{p_1(\mathbf{x}) - p_0(\mathbf{x})} = \beta(\mathbf{x})\left[ \frac{p_1^*(\mathbf{x}) - p_0^*(\mathbf{x})}{p_1(\mathbf{x}) - p_0(\mathbf{x})} \right] = \alert{\frac{\beta(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})} }
+    \]
+   
+    \vspace{2em}
+    \scriptsize
+    \[
+      \boxed{p_1^*(\mathbf{x}) - p_0^*(\mathbf{x}) = \frac{p_1(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0 - \alpha_1(\mathbf{x})} -   \frac{p_0(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0 - \alpha_1(\mathbf{x})} = \frac{p_1(\mathbf{x}) - p_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}}
+    \]
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Partial Identification Bounds for $\beta(\mathbf{x})$}
+
+    \footnotesize
+    \[
+      \boxed{ \beta(\mathbf{x}) = \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right] 
+     \left[\frac{\mathbb{E}\left[y|\mathbf{x},z=1\right] - \mathbb{E}\left[y|\mathbf{x},z=0\right]}{p_1(\mathbf{x}) - p_0(\mathbf{x})}\right] }
+    \]
+
+    \footnotesize
+    \[
+      \boxed{ 0 \leq \alpha_0 \leq \min_k \{p_k(\mathbf{x})\}, \quad 0 \leq \alpha_1 \leq \min_k \{1 - p_k(\mathbf{x})\}}
+    \]
+
+    \normalsize
+    \begin{block}{No Mis-classification}
+      $\alpha_0(\mathbf{x}) =  \alpha_1(\mathbf{x}) = 0 \implies \alert{\beta(\mathbf{x}) = }$ \alert{Observed Wald Estimand}
+    \end{block}
+
+    \begin{block}{Maximum Mis-classification}
+      $\alpha_0(\mathbf{x}) = p_{\min}(\mathbf{x}), \, \alpha_1(\mathbf{x}) = 1 - p_{\max}(\mathbf{x})$
+
+      \vspace{-0.5em}
+      \begin{align*}
+        \implies 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) = p_{\max}(\mathbf{x}) - p_{\min}(\mathbf{x})
+      = |p_1(\mathbf{x}) - p_0(\mathbf{x})|\\
+      \implies \alert{\beta(\mathbf{x}) =\mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\}\times (\mbox{Reduced Form})}
+    \end{align*}
+      
+    \end{block}
+  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Partial Identification Bounds for $\beta(\mathbf{x})$}
+
+    \begin{block}{No Mis-classification}
+      $\beta(\mathbf{x}) = $ Observed Wald Estimand
+    \end{block}
+
+    \begin{block}{Maximum Mis-classification}
+      \vspace{-1.5em}
+      \begin{align*}
+        \beta(\mathbf{x}) &=\mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\}\times (\mbox{Reduced Form})\\
+        &=\mbox{sign}\left\{ \mbox{Observed Wald} \right\} \times |\mbox{Reduced Form}|
+      \end{align*}
+      
+      \vspace{1em}
+    \footnotesize Observed Wald $> 0\iff \mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\} = \mbox{sign}\left\{ \mbox{Reduced Form} \right\}$ \\
+    \footnotesize Observed Wald $< 0\iff \mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\} \neq \mbox{sign}\left\{ \mbox{Reduced Form} \right\}$ 
+    \end{block}
+
+    \vspace{1em}
+    \begin{alertblock}{
+        $\beta(\mathbf{x})$ has the same sign as the observed Wald and its magnitude is between that of Wald and Reduced Form.}
+    \end{alertblock}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Sharp Bounds?}
+
+  \begin{itemize}
+    \item Bounds from the preceding slide are known in the literature.
+    \item We prove that they are \emph{not} sharp under the baseline assumptions from above.
+      \item $\mathbb{E}[\varepsilon|\mathbf{x},T^*,T,z] = \mathbb{E}[\varepsilon|\mathbf{x},T^*,z]$ restricts $(\alpha_0,\alpha_1)$ hence $\beta$.
+    \item Description of the sharp set is complicated (see paper). 
+    \item Corollary: $\beta$ is not point identified regardless of how many (discrete) values $z$ takes on.
+  \end{itemize}
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
   \frametitle{Identification from Stronger Assumptions?}
 
   \begin{block}{Second Moment Assumption}
-    \begin{enumerate}[(i)]
-    \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^2|\mathbf{x},z, T^*]$
-    \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z] = \mathbb{E}[\varepsilon^2|\mathbf{x}]$
-  \end{enumerate}
+    $\mathbb{E}[\varepsilon^2|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^2|\mathbf{x},z, T^*]$
   \end{block}
 
   \begin{block}{Third Moment Assumption}
     \begin{enumerate}[(i)]
-    \item $\mathbb{E}[\varepsilon^3|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^3|\mathbf{x},z, T^*]$
+    \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^2|\mathbf{x},z, T^*]$
     \item $\mathbb{E}[\varepsilon^3|\mathbf{x},z] = \mathbb{E}[\varepsilon^3|\mathbf{x}]$
   \end{enumerate}
   \end{block}
