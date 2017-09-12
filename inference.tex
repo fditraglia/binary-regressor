@@ -2,7 +2,10 @@
 \section{Identification-Robust Inference}
 \label{sec:inference}
 We now turn our attention to inference based on the identification results from above.
-As we explain below, inference under binary mis-classification is complicated by problems of weak identification and parameters on the boundary.
+We begin by expressing Lemmas \ref{lem:wald}, \ref{lem:eta2} and \ref{lem:eta3} as unconditional equality moment conditions, and describing the resulting just-identified GMM estimator. 
+As we explain in Section \ref{sec:problem}, inference under binary mis-classification is complicated by problems of weak identification and parameters on the boundary.
+Section \ref{sec:overview} provides an overview of our inference procedure.
+Full details appear in Sections \ref{sec:inequalities}--\ref{sec:details}.
 For simplicity we fix the exogenous covariates at some specified level and suppress dependence on $\mathbf{x}$ in the notation.
 This is appropriate if the covariates have a discrete support.
 We discuss how to incorporate covariates more generally in Section \ref{sec:covariates}.
@@ -482,7 +485,7 @@ Pre--multiplying a $(J + K)$--vector $\mathbf{x}$ by $\Phi$ results in a $(\wide
 Step 4 uses a collection of iid normal draws, $\{\boldsymbol{\zeta}^{(r)}\}_{r=1}^{R}$, to approximate the large-sample distribution of $T_n$ under the null.
 The appropriate multiplications by $\Phi$ ensure that this approximation includes all moment equalities, but excludes any moment inequality judged to be far from binding in step 3.
 Finally, step 5 computes the p-value of the test by comparing the actual test statistic $T_n(\boldsymbol{\vartheta}_0)$ to the collection of simulated test statistics $\{T_n^{(r)}(\boldsymbol{\vartheta}_0)\}_{r=1}^R$ from step 4.
-We now detail our Bonferroni-based confidence interval for $\beta$.
+We now detail our Bonferroni-based confidence interval for $\beta$.\footnote{Code implementing this procedure is available at \url{https://github.com/fditraglia/mbereg}.} 
 
 \begin{alg}[Bonferroni-based Confidence Interval for $\beta$] \mbox{}\\
     Inputs: significance levels $(\delta_1,\delta_2)$; 
