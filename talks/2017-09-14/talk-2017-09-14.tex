@@ -456,7 +456,7 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Just-Identified GMM Estimator: Part I}
+  \frametitle{Just-Identified System of Moment Equalities}
   \framesubtitle{Suppress dependence on $\mathbf{x}$ to simplify the notation from here on\dots}
 
   \begin{block}{Collect Lemmas from Above:}
@@ -478,7 +478,7 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Just-Identified GMM Estimator: Part II}
+  \frametitle{Just-Identified System of Moment Equalities}
 
 \[
 \boxed{\mathbb{E}\left[
@@ -529,6 +529,51 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+  \frametitle{Simulation DGP: $y = \beta T^* + \varepsilon$}
+  \framesubtitle{Sample Size = 1000;  Simulation Replications = 2000} 
+  \begin{block}{Errors}
+      $(\varepsilon, \eta) \sim $ jointly normal, mean 0, variance 1, correlation 0.5.
+  \end{block}
+  \begin{block}{First-Stage}
+      \begin{itemize}
+        \item Half of individuals have $z=1$, the rest have $z=0$.
+        \item $T^* = \mathbf{1}\left\{ \gamma_0 + \gamma_1 z + \eta > 0 \right\}$
+        \item $\mathbb{P}(T^* = 0|z =1) = \mathbb{P}(T^*=1|z=0) = 0.15$
+      \end{itemize}
+  \end{block}
+  \vspace{-1em}
+
+
+  \begin{block}{Mis-classification}
+      \begin{itemize}
+        \item $T|T^*=0 \sim \mbox{Bernoulli}(\alpha_0)$
+        \item $T|T^*=1 \sim \mbox{Bernoulli}(1-\alpha_1)$
+      \end{itemize}
+  \end{block}
+  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{table}[htbp]
+  \scriptsize
+  \centering
+  \input{../../tab/GMM_CIs_na_1000.tex}
+  \caption{Percentage of simulation replications for which the standard GMM CI fails to exist.}
+  %\caption{Percentage of replications for which the standard GMM confidence interval based on Equation \ref{eq:MCs_endog} fails to exist, either because the point estimate is NaN or the asymptotic covariance matrix is numerically singular. Calculations are based on  2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
+\end{table}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{table}[htbp]
+  \scriptsize
+  \centering
+  \input{../../tab/GMM_CIs_cover_1000.tex}
+  \caption{Coverge of nominal 95\% GMM CI, conditional on existence.} 
+  %\caption{Coverage (\%) of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. (See Table \ref{tab:GMM_na_1000}.) Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
+\end{table}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
   \frametitle{Weak Identification Problem}
 
 \begin{itemize}
@@ -543,6 +588,101 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{What we do}
+  \begin{itemize}
+    \item Explain our multi-step procedure
+    \item Key ingredient is the preliminary estimation of strongly identified parameters
+    \item Details of the steps involved along with the inequalities we use and why it's ok to eliminate some parameters but not others $(\alpha_0, \alpha_1)$
+    \item Then explain about Bonferroni and projection etc
+    \item Projection to get inference for $\beta$, but can be conservative
+      
+  \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Moment Inequalities: Part I}
+
+  $\alpha_0(\mathbf{x}) \leq p_k \leq 1 - \alpha_1$ becomes $\alert{\mathbb{E}\left[ m_{1k}^I(\mathbf{w}_i,\boldsymbol{\vartheta} ) \right] \geq \mathbf{0}}$ for all $k$ where
+\[
+  m_{1k}^I(\mathbf{w}_i, \boldsymbol{\vartheta}) \equiv \left[
+  \begin{array}{l}
+    \mathbf{1}(z_i=k)(T - \alpha_0) \\
+    \mathbf{1}(z_i = k) (1 - T_i - \alpha_1) 
+  \end{array}
+\right]
+\]
+  
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Moment Inequalities: Part II}
+
+  \scriptsize
+
+  For all $k$, we have $\alert{\mathbb{E}[m_{2k}^I\big(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q}_k)]\geq 0}$ where
+\[
+  m_{2k}^I\big(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q}_k) \equiv \left[
+  \begin{array}{r}
+    y_i \mathbf{1}\left( z_i=k \right)\left\{(T_i - \alpha_0) - \mathbf{1}(y_i \leq \underline{q}_{0k})  (1 - T_i)\left( \frac{1 - \alpha_0 - \alpha_1}{\alpha_1} \right)\right\} \\
+    - y_i \mathbf{1}(z_i=k) \left\{ (T_i - \alpha_0) -  \mathbf{1}(y_i > \overline{q}_{0k}) (1 - T_i) \left( \frac{1 - \alpha_0 - \alpha_1}{\alpha_1} \right) \right\} \\
+    y_i \mathbf{1}\left( z_i=k \right)\left\{(T_i - \alpha_0) - \mathbf{1}(y_i \leq \underline{q}_{1k})  T_i\left( \frac{1 - \alpha_0 - \alpha_1}{1 - \alpha_1} \right)\right\} \\
+    - y_i \mathbf{1}(z_i=k) \left\{ (T_i - \alpha_0) -  \mathbf{1}(y_i > \overline{q}_{1k}) T_i \left( \frac{1 - \alpha_0 - \alpha_1}{1 - \alpha_1} \right) \right\} 
+\end{array}
+\right] 
+\]
+and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \underline{q}_{1k}, \,\overline{q}_{1k})'}$ defined by $\alert{\mathbb{E}[h_k^I(\mathbf{w}_i,\boldsymbol{\vartheta},\mathbf{q}_k)]=0}$ with
+\[
+  h_k^I(\mathbf{w}_i,\boldsymbol{\vartheta},\mathbf{q}_k) = \left[
+  \begin{array}{l}
+    \mathbf{1}(y_i \leq \underline{q}_{0k}) \mathbf{1}(z_i=k)(1 - T_i) 
+    - \left( \frac{\alpha_1}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(T_i-\alpha_0)\\ 
+    \mathbf{1}(y_i \leq \overline{q}_{0k}) \mathbf{1}(z_i=k)(1 - T_i)
+    - \left( \frac{1 - \alpha_0}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(1 - T_i-\alpha_1)\\
+    \mathbf{1}(y_i \leq \underline{q}_{1k}) \mathbf{1}(z_i=k)T_i
+    - \left( \frac{1 - \alpha_1}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(T_i-\alpha_0)\\ 
+    \mathbf{1}(y_i \leq \overline{q}_{1k}) \mathbf{1}(z_i=k)T_i 
+    - \left( \frac{\alpha_0}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(1 - T_i-\alpha_1)
+  \end{array}
+\right]
+\]
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Moment Equalities}
+Let $\boldsymbol{\vartheta} = (\alpha_0, \alpha_1)$ and $\boldsymbol{\gamma} = (\boldsymbol{\kappa}, \theta_1)$ 
+
+\begin{equation}
+  \mathbb{E}[m^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \mathbf{q}_0)] \geq \mathbf{0}, \quad 
+  \mathbb{E}[m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)] = \mathbf{0}
+  \label{eq:MCs_ineq_eq}
+\end{equation}
+where $m^I = (m_1^{I'}, m_2^{I'})'$ and 
+\begin{equation}
+  m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)= \left[
+  \begin{array}{c}
+ \left\{ \boldsymbol{\psi}_2'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_2 \right\}z_i \\
+ \left\{ \boldsymbol{\psi}_3'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_3 \right\}z_i 
+  \end{array}
+\right].
+\label{eq:mE}
+\end{equation}
+
+\begin{equation}
+  h^E(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\gamma})  =  \left[
+ \begin{array}{l}
+   \boldsymbol{\Psi}'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \boldsymbol{\kappa}\\
+   \left\{\boldsymbol{\psi}_1'(\theta_1)\mathbf{w}_i - \kappa_1\right\}z_i
+ \end{array}
+ \right].
+ \label{eq:hE}
+\end{equation}
+
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
@@ -593,47 +733,63 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{What we do}
-  \begin{itemize}
-    \item Explain our multi-step procedure
-    \item Key ingredient is the preliminary estimation of strongly identified parameters
-    \item Details of the steps involved along with the inequalities we use and why it's ok to eliminate some parameters but not others $(\alpha_0, \alpha_1)$
-    \item Then explain about Bonferroni and projection etc
-    \item Projection to get inference for $\beta$, but can be conservative
-      
-  \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Simulation DGP: $y = \beta T^* + \varepsilon$}
-  \begin{block}{Errors}
-      $(\varepsilon, \eta) \sim $ jointly normal, mean 0, variance 1, correlation 0.5.
-  \end{block}
-  \begin{block}{First-Stage}
-      \begin{itemize}
-        \item Half of individuals have $z=1$, the rest have $z=0$.
-        \item $T^* = \mathbf{1}\left\{ \gamma_0 + \gamma_1 z + \eta > 0 \right\}$
-        \item $\delta = \mathbb{P}(T^* = 0|z =1) = \mathbb{P}(T^*=1|z=0) = 0.15$
-          %\begin{itemize}
-        %\item $\gamma_0 = \Phi^{-1}(\delta)$
-        %\item $\gamma_1 = \Phi^{-1}(1-\delta) - \Phi(\delta)$   
-      %\end{itemize}
-      \end{itemize}
-  \end{block}
-  \vspace{-1em}
-
-
-  \begin{block}{Mis-classification}
-      \begin{itemize}
-        \item $T|T^*=0 \sim \mbox{Bernoulli}(\alpha_0)$
-        \item $T|T^*=1 \sim \mbox{Bernoulli}(1-\alpha_1)$
-      \end{itemize}
-  \end{block}
-  
+\begin{table}
+  \scriptsize
+  \centering
+  \input{../../tab/alphas_cover_97point5_1000.tex}
+  \caption{Coverage (1 - size) of nominal 97.5\% GMS joint test for $(\alpha_0, \alpha_1)$.}
+  %\caption{Coverage probability (1 - size) in percentage points of a 97.5\% GMS joint test for $\alpha_0$ and $\alpha_1$ using Algorithm \ref{alg:GMS} with $n = 1000$. Calculations are based on 10,000 replications of the DGP from Section \ref{sec:DGP}.}
+\end{table}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  Simulation results!
+\begin{table}[htbp]
+  \centering
+  \scriptsize
+  \input{../../tab/bonf_CIs_cover_1000.tex}
+  \caption{Coverage of nominal $>95\%$ Bonferroni CI for $\beta$}
+  %\caption{Coverage probability in percentage points of a nominal $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
+\end{table}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{table}
+  \scriptsize
+  \centering
+  \input{../../tab/bonf_CIs_width_1000.tex}
+  \caption{Median width of nominal $>95\%$ Bonferroni CI for $\beta$.}
+  %\caption{Median width of a nominal $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
+  %\label{tab:bonf_width_1000}
+\end{table}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+  \scriptsize
+  \centering
+\resizebox{0.75\textwidth}{!}{%
+  \input{../../fig/bonf_point5_1000.tex}
+}
+\caption{Coverage of nominal $>95\%$ Bonferroni CI for $\beta$: with and without non-differential assumption, $\beta = 0.5$} 
+  
+  %\caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 0.5$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+  \scriptsize
+  \centering
+\resizebox{0.75\textwidth}{!}{%
+  \input{../../fig/bonf_1_1000.tex}
+}
+\caption{Coverage of nominal $>95\%$ Bonferroni CI for $\beta$: with and without non-differential assumption, $\beta = 1$} 
+  
+  %\caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 1$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
+\end{figure}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
