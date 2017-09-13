@@ -102,21 +102,7 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 %\end{itemize}
 %\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%  \frametitle{Example: Returns to Schooling} 
-%\framesubtitle{Oreopoulos (2006, AER)}
-%Fuzzy RD: minimum school-leaving age in UK increased from 14 to 15 in 1947 but some already stayed until 15 before the law and others failed to comply after it.
-%\begin{itemize}
-%  \item $y$ -- Log wage 
-%  \item $T^*$ -- School attendance at age 15
-%  \item $T$ -- Self-report of school attendance at age 15
-%  \item $\mathbf{x}$ -- Individual characteristics
-%  \item $z$ -- Indicator: born in or after 1933
-%\end{itemize}
-%   
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[label=MAHAJAN_BODY]
+\begin{frame}
   \frametitle{Related Literature}
  
   \begin{block}{Continuous Regressor}
@@ -126,7 +112,7 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 
   \begin{block}{Binary, Exogenous Regressor}
     \small
-   Aigner (1973), Bollinger (1996), Kane et al. (1999), Black et al. (2000), Frazis \& Loewenstein (2003), Mahajan (2006), Lewbel (2007), Hu (2008)
+   Aigner (1973), Bollinger (1996), Kane et al. (1999), Black et al. (2000), Frazis \& Loewenstein (2003), Mahajan (2006), Lewbel (2007), Hu (2008), Molinari (2008)
   \end{block}
 
   \begin{block}{Binary, Endogenous Regressor}
@@ -536,7 +522,7 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
   \end{block}
   \begin{block}{First-Stage}
       \begin{itemize}
-        \item Half of individuals have $z=1$, the rest have $z=0$.
+        \item Half of observations have $z=1$, the rest have $z=0$.
         \item $T^* = \mathbf{1}\left\{ \gamma_0 + \gamma_1 z + \eta > 0 \right\}$
         \item $\mathbb{P}(T^* = 0|z =1) = \mathbb{P}(T^*=1|z=0) = 0.15$
       \end{itemize}
@@ -571,6 +557,18 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
   \caption{Coverge of nominal 95\% GMM CI, conditional on existence.} 
   %\caption{Coverage (\%) of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. (See Table \ref{tab:GMM_na_1000}.) Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
 \end{table}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\begin{table}[htbp]
+  \scriptsize
+  \centering
+  \input{../../tab/GMM_CIs_width_1000.tex}
+  \caption{Median width of nominal 95\% GMM CI, conditional on existence.}
+  %\caption{Median width of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
+\end{table}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -690,15 +688,15 @@ where $m^I = (m_1^{I'}, m_2^{I'})'$ and
   \small
 
 \begin{block}{Moment Conditions}
-  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\vartheta_0) \right] \geq 0, \quad j = 1, \cdots, p$\\
-  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\vartheta_0) \right]  = 0, \quad j = p+1, \cdots, p + v$
+  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\vartheta_0) \right] \geq 0, \quad j = 1, \cdots, J$\\
+  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\vartheta_0) \right]  = 0, \quad j = J+1, \cdots, J + K$
 \end{block}
 
 
 \begin{block}{Test Statistic}
   \vspace{-1em}
 \[
-  T_n(\vartheta) = \sum_{j=1}^p \left[\frac{\sqrt{n}\; \bar{m}_{n,j}(\vartheta)}{\widehat{\sigma}_{n,j}(\vartheta)}\right]^2_- + \sum_{j=p+1}^{p+v} \left[\frac{\sqrt{n}\; \bar{m}_{n,j}(\vartheta)}{\widehat{\sigma}_{n,j}(\vartheta)}\right]^2
+  T_n(\vartheta) = \sum_{j=1}^J \left[\frac{\sqrt{n}\; \bar{m}_{n,j}(\vartheta)}{\widehat{\sigma}_{n,j}(\vartheta)}\right]^2_- + \sum_{j=J+1}^{J+K} \left[\frac{\sqrt{n}\; \bar{m}_{n,j}(\vartheta)}{\widehat{\sigma}_{n,j}(\vartheta)}\right]^2
 \]
 \footnotesize
 \begin{align*}
@@ -766,7 +764,6 @@ where $m^I = (m_1^{I'}, m_2^{I'})'$ and
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \begin{figure}[h]
-  \scriptsize
   \centering
 \resizebox{0.75\textwidth}{!}{%
   \input{../../fig/bonf_point5_1000.tex}
@@ -780,7 +777,6 @@ where $m^I = (m_1^{I'}, m_2^{I'})'$ and
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \begin{figure}[h]
-  \scriptsize
   \centering
 \resizebox{0.75\textwidth}{!}{%
   \input{../../fig/bonf_1_1000.tex}
@@ -788,6 +784,90 @@ where $m^I = (m_1^{I'}, m_2^{I'})'$ and
 \caption{Coverage of nominal $>95\%$ Bonferroni CI for $\beta$: with and without non-differential assumption, $\beta = 1$} 
   
   %\caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 1$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{table}
+  \scriptsize
+  \centering
+  \input{../../tab/bonf_CIs_width_1000.tex}
+  \caption{Median width of nominal $>95\%$ Bonferroni CI for $\beta$.}
+  %\caption{Median width of a nominal $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
+  %\label{tab:bonf_width_1000}
+\end{table}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\begin{table}[htbp]
+  \scriptsize
+  \centering
+  \input{../../tab/GMM_CIs_width_1000.tex}
+  \caption{Median width of nominal 95\% GMM CI, conditional on existence.}
+  %\caption{Median width of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
+\end{table}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\begin{table}
+  \scriptsize
+  \centering
+  \input{../../tab/twostep_CIs_cover_1000.tex}
+  \caption{Coverage of hybrid CI constructed from nominal 95\% GMM and $>95\%$ Bonferroni intervals.}
+  %\caption{Coverage probabilities (\%) of a hybrid confidence interval constructed from the nominal $95\%$ standard GMM interval and the $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. The hybrid interval reports Bonferroni unless the GMM interval exists and is contained within the Bonferroni interval. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
+\end{table}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{table}
+  \scriptsize
+  \centering
+  \input{../../tab/twostep_CIs_width_1000.tex}
+  \caption{Median width of hybrid CI constructed from nominal 95\% GMM and $>95\%$ Bonferroni intervals.}
+  %\caption{Median width of a hybrid confidence interval constructed from the nominal $95\%$ standard GMM interval and the $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. The hybrid interval reports Bonferroni unless the GMM interval exists and is contained within the Bonferroni interval. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
+\end{table}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+  \centering
+\resizebox{0.75\textwidth}{!}{%
+  \input{../../fig/bonf_vs_twostep_1_1000.tex}
+}
+  
+  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 1$}
+  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 1$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+  \centering
+\resizebox{0.75\textwidth}{!}{%
+  \input{../../fig/bonf_vs_twostep_2_1000.tex}
+}
+  
+  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 2$}
+  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 2$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+  \centering
+\resizebox{0.75\textwidth}{!}{%
+  \input{../../fig/bonf_vs_twostep_3_1000.tex}
+}
+  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 3$}
+  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 3$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
+  
 \end{figure}
 
 \end{frame}
@@ -802,8 +882,9 @@ where $m^I = (m_1^{I'}, m_2^{I'})'$ and
     \item Endogenous, mis-measured binary treatment.
     \item Important in applied work but no solution in the literature.
       \item Usual (1st moment) IV assumption fails to identify $\beta$
-      \item Higher moment / independence restrictions identify $\beta$
-      \item Identification-Robust Inference incorportating additional inequality moment conditions.
+    \item Derive sharp identified set.
+      \item Stronger assumptions point identify $\beta$
+      \item Identification-Robust Inference incorportating equality and inequality moment conditions.
    \end{itemize}
 
 \end{frame}
