@@ -344,28 +344,76 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
     \item Bounds from the preceding slide are known in the literature.
     \item We prove that they are \emph{not} sharp under the baseline assumptions from above.
       \item $\mathbb{E}[\varepsilon|\mathbf{x},T^*,T,z] = \mathbb{E}[\varepsilon|\mathbf{x},T^*,z]$ restricts $(\alpha_0,\alpha_1)$ hence $\beta$.
-    \item Description of the sharp set is complicated (see paper). 
+    \item Description of the sharp set is somewhat complicated\dots
     \item Corollary: $\beta$ is not point identified regardless of how many (discrete) values $z$ takes on.
   \end{itemize}
 
+  \begin{alertblock}{Point identification from slightly stronger assumptions?}
+  \end{alertblock}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Identification from Stronger Assumptions?}
+  \frametitle{Point Identification: Part I}
 
-  \begin{block}{Second Moment Assumption}
-    $\mathbb{E}[\varepsilon^2|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^2|\mathbf{x},z, T^*]$
+
+  \vspace{-1em}
+
+  \begin{block}{Reparameterization}
+    \vspace{-1em}
+\begin{align*}
+  \theta_1(\mathbf{x}) &= \beta(\mathbf{x})/\left[ 1 - \alpha_0(\mathbf{x}) - \mathbf{\alpha}_1(\mathbf{x})  \right]\\
+  \theta_2(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^2 \left[ 1 + \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})\right] \\
+  \theta_3(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^3\left[ \left\{ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right\}^2 + 6\alpha_0(\mathbf{x})\left\{ 1 - \alpha_1(\mathbf{x}) \right\} \right]
+\end{align*}
+
+\[\boxed{\beta(\mathbf{x}) = 0 \iff \theta_1(\mathbf{x}) = \theta_2(\mathbf{x}) = \theta_3(\mathbf{x}) = 0}\]
   \end{block}
 
-  \begin{block}{Third Moment Assumption}
+  \vspace{-1.5em}
+
+  \begin{block}{Lemma}
+    Baseline Assumptions $\implies \mbox{Cov}(y,z|\mathbf{x}) - \theta_1(\mathbf{x}) \mbox{Cov}(z,T|\mathbf{x}) = 0$.
+  \end{block}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Point Identification: Part II}
+
+  \begin{block}{Assumption (\spadesuit)}
+    $\mathbb{E}[\varepsilon^2|\mathbf{x},z] = \mathbb{E}[\varepsilon^2|\mathbf{x}]$
+  \end{block}
+
+  \begin{block}{Lemma}
+    (Baseline) + (\spadesuit) $\implies$ 
+    \[
+      \alert{\mbox{Cov}(y^2,z|\mathbf{x}) = 2\mbox{Cov}(yT,z|\mathbf{x}) \theta_1(\mathbf{x}) -\mbox{Cov}(T,z|\mathbf{x})\theta_2(\mathbf{x})}
+    \]
+  \end{block}
+
+  \begin{block}{Corollary}
+    (Baseline) + (\spadesuit) + $[\beta(\mathbf{x})\neq 0] \implies \left[ \alpha_1(\mathbf{x}) - \alpha_0(\mathbf{x}) \right]$ is identified. Hence, $\beta(\mathbf{x})$ is identified if mis-classification is one-sided.
+  \end{block}
+    
+
+  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Point Identification: Part III}
+
+  \begin{block}{Assumption (\clubsuit)}
     \begin{enumerate}[(i)]
     \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^2|\mathbf{x},z, T^*]$
     \item $\mathbb{E}[\varepsilon^3|\mathbf{x},z] = \mathbb{E}[\varepsilon^3|\mathbf{x}]$
   \end{enumerate}
   \end{block}
-
-  \begin{alertblock}{Sufficient Condition}
+  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \begin{alertblock}{Sufficient Conditions for (\spadesuit) and (\clubsuit)}
     \begin{enumerate}[(i)]
       \item $T$ is conditionally independent of $(\varepsilon,z)$ given $(T^*,\mathbf{x})$
       \item $z$ is conditionally independent of $\varepsilon$ given $\mathbf{x}$
