@@ -502,7 +502,7 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 
 \begin{alertblock}{Weak Identification Problem}
   Moment conditions are uninformative about $(\alpha_0,\alpha_1)$ when $\beta$ is small.
-  Moreover, $(\alpha_0,\alpha_1)$ could be on the boundary of the parameter space.
+  %Moreover, $(\alpha_0,\alpha_1)$ could be on the boundary of the parameter space.
 \end{alertblock}
 
 %\begin{align*}
@@ -572,31 +572,46 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Weak Identification Problem}
+  \frametitle{Non-standard Inference Problem}
 
 \begin{itemize}
-  \item $\beta$ small $\Rightarrow$ moment equalities uninformative about $\alpha_1$
-  \item Same problem for other estimators from the literature but hasn't been pointed out.
-  \item Identification robust inference: GMM Anderson-Rubin statistic
-  \item \alert{But we can do better\ldots}
-    \item Bounds for $(\alpha_0, \alpha_1)$ immune to weak identification problem: remain informative if $\beta$ is small or zero.
-    \item Inference using Generalized Moment Selection (Andrews \& Soares, 2010)
+  \item $\beta$ small $\Rightarrow$ moment equalities uninformative about $(\alpha_0, \alpha_1)$
+  \item $(\alpha_0, \alpha_1)$ could be on the boundary of the parameter space
+  \item Partial identification bounds remain informative even if $\beta$ is small or zero
+  \item Same problem for other estimators from the literature but hasn't been pointed out\ldots
 \end{itemize}
 
+\begin{alertblock}{Our Approach}
+ Identification-robust inference combining equality and inequality moment conditions based on generalized moment selection (GMS)
+\end{alertblock}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}
-  \frametitle{What we do}
-  \begin{itemize}
-    \item Explain our multi-step procedure
-    \item Key ingredient is the preliminary estimation of strongly identified parameters
-    \item Details of the steps involved along with the inequalities we use and why it's ok to eliminate some parameters but not others $(\alpha_0, \alpha_1)$
-    \item Then explain about Bonferroni and projection etc
-    \item Projection to get inference for $\beta$, but can be conservative
-      
-  \end{itemize}
+  \frametitle{Inference With Moment Equalities and Inequalities}
+  \small
+
+\begin{block}{Moment Conditions}
+  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\vartheta_0) \right] \geq 0, \quad j = 1, \cdots, J$\\
+  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\vartheta_0) \right]  = 0, \quad j = J+1, \cdots, J + K$
+\end{block}
+
+
+\begin{block}{Test Statistic}
+  \vspace{-1em}
+\[
+  T_n(\vartheta) = \sum_{j=1}^J \left[\frac{\sqrt{n}\; \bar{m}_{n,j}(\vartheta)}{\widehat{\sigma}_{n,j}(\vartheta)}\right]^2_- + \sum_{j=J+1}^{J+K} \left[\frac{\sqrt{n}\; \bar{m}_{n,j}(\vartheta)}{\widehat{\sigma}_{n,j}(\vartheta)}\right]^2
+\]
+\footnotesize
+\begin{align*}
+[x]_- &= \min\left\{ x, 0 \right\}\\
+\bar{m}_{n,j}(\vartheta) &= n^{-1} \sum_{i=1}^{n} m_j(\mathbf{w}_i, \vartheta)\\
+\widehat{\sigma}^2_{n,j}(\vartheta) &=  \mbox{consistent est.\ of } \mbox{AVAR}\left[  \sqrt{n}\; \bar{m}_{n,j}(\vartheta)\right]
+\end{align*}
+\end{block}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -647,70 +662,13 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 \right]
 \]
 
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Moment Equalities}
-Let $\boldsymbol{\vartheta} = (\alpha_0, \alpha_1)$ and $\boldsymbol{\gamma} = (\boldsymbol{\kappa}, \theta_1)$ 
-
-\begin{equation}
-  \mathbb{E}[m^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \mathbf{q}_0)] \geq \mathbf{0}, \quad 
-  \mathbb{E}[m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)] = \mathbf{0}
-  \label{eq:MCs_ineq_eq}
-\end{equation}
-where $m^I = (m_1^{I'}, m_2^{I'})'$ and 
-\begin{equation}
-  m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)= \left[
-  \begin{array}{c}
- \left\{ \boldsymbol{\psi}_2'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_2 \right\}z_i \\
- \left\{ \boldsymbol{\psi}_3'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_3 \right\}z_i 
-  \end{array}
-\right].
-\label{eq:mE}
-\end{equation}
-
-\begin{equation}
-  h^E(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\gamma})  =  \left[
- \begin{array}{l}
-   \boldsymbol{\Psi}'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \boldsymbol{\kappa}\\
-   \left\{\boldsymbol{\psi}_1'(\theta_1)\mathbf{w}_i - \kappa_1\right\}z_i
- \end{array}
- \right].
- \label{eq:hE}
-\end{equation}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-  \frametitle{Inference With Moment Equalities and Inequalities}
-  \small
-
-\begin{block}{Moment Conditions}
-  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\vartheta_0) \right] \geq 0, \quad j = 1, \cdots, J$\\
-  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\vartheta_0) \right]  = 0, \quad j = J+1, \cdots, J + K$
-\end{block}
-
-
-\begin{block}{Test Statistic}
-  \vspace{-1em}
-\[
-  T_n(\vartheta) = \sum_{j=1}^J \left[\frac{\sqrt{n}\; \bar{m}_{n,j}(\vartheta)}{\widehat{\sigma}_{n,j}(\vartheta)}\right]^2_- + \sum_{j=J+1}^{J+K} \left[\frac{\sqrt{n}\; \bar{m}_{n,j}(\vartheta)}{\widehat{\sigma}_{n,j}(\vartheta)}\right]^2
-\]
-\footnotesize
-\begin{align*}
-[x]_- &= \min\left\{ x, 0 \right\}\\
-\bar{m}_{n,j}(\vartheta) &= n^{-1} \sum_{i=1}^{n} m_j(\mathbf{w}_i, \vartheta)\\
-\widehat{\sigma}^2_{n,j}(\vartheta) &=  \mbox{consistent est.\ of } \mbox{AVAR}\left[  \sqrt{n}\; \bar{m}_{n,j}(\vartheta)\right]
-\end{align*}
-\end{block}
-
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Inference via Generalized Moment Selection}
   \framesubtitle{Andrews \& Soares (2010)}
+
+  \small
 
   \begin{block}{Moment Selection Step}
     If $\displaystyle\frac{\sqrt{n}\,\bar{m}_{n,j}(\vartheta_0)}{\widehat{\sigma}_{n,j}(\vartheta_0)} > \sqrt{\log n}$ then drop inequality $j$
@@ -728,6 +686,67 @@ where $m^I = (m_1^{I'}, m_2^{I'})'$ and
     Not asymptotically conservative.
   \end{block}
 
+  \begin{block}{Drawback}
+   \emph{Joint test} for the whole parameter vector but we're only interested in $\beta$
+  \end{block}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Moment Equalities}
+%Let $\boldsymbol{\vartheta} = (\alpha_0, \alpha_1)$ and $\boldsymbol{\gamma} = (\boldsymbol{\kappa}, \theta_1)$ 
+%
+%\begin{equation}
+%  \mathbb{E}[m^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \mathbf{q}_0)] \geq \mathbf{0}, \quad 
+%  \mathbb{E}[m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)] = \mathbf{0}
+%  \label{eq:MCs_ineq_eq}
+%\end{equation}
+%where $m^I = (m_1^{I'}, m_2^{I'})'$ and 
+%\begin{equation}
+%  m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)= \left[
+%  \begin{array}{c}
+% \left\{ \boldsymbol{\psi}_2'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_2 \right\}z_i \\
+% \left\{ \boldsymbol{\psi}_3'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_3 \right\}z_i 
+%  \end{array}
+%\right].
+%\label{eq:mE}
+%\end{equation}
+%
+%\begin{equation}
+%  h^E(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\gamma})  =  \left[
+% \begin{array}{l}
+%   \boldsymbol{\Psi}'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \boldsymbol{\kappa}\\
+%   \left\{\boldsymbol{\psi}_1'(\theta_1)\mathbf{w}_i - \kappa_1\right\}z_i
+% \end{array}
+% \right].
+% \label{eq:hE}
+%\end{equation}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Bonferroni-Based Inference Procedure}
+  
+
+  \begin{block}{Leverage Special Structure of Model}
+    \begin{itemize}
+      \item $\beta$ only enters MCs through $\theta_1 = \beta/ (1 - \alpha_0 - \alpha_1)$
+      \item Inference for $\theta_1$ is standard if $z$ is a strong IV. 
+      \item $(\boldsymbol{\kappa}, \mathbf{q})$ strongly identified under null for $(\alpha_0, \alpha_1)$
+    \end{itemize}
+
+    \begin{block}{Procedure}
+      \begin{enumerate}
+        \item Concentrate out $(\theta_1, \boldsymbol{\kappa}, \boldsymbol{q}) \implies$ joint GMS test for $(\alpha_0, \alpha_1)$ 
+        \item Invert $\implies (1 - \delta_1)\times 100\%$ confidence set for $(\alpha_0, \alpha_1)$
+        \item Project $\implies$ CI for $(1 - \alpha_0 - \alpha_1)$
+        \item Construct standard $(1 - \delta_2)\times 100\%$ IV CI for $\theta_1$
+        \item Bonferroni $\implies (1 - \delta - \delta_2)\times 100\%$ CI for $\beta$
+      \end{enumerate}
+    \end{block}
+    
+  \end{block}
+  
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
