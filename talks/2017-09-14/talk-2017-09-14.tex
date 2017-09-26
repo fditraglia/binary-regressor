@@ -14,7 +14,7 @@
 \title[Binary Regressors]{Mis-Classified, Binary, Endogenous Regressors: Identification and Inference}
 \author[FJ DiTraglia]{Francis J.\ DiTraglia\\ Camilo Garc\'{i}a-Jimeno}
 \institute{University of Pennsylvania}
-\date{September 22nd, 2017}
+\date{September 26th, 2017}
 \begin{document} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -327,14 +327,15 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Sharp Bounds?}
+\begin{frame}[label=SHARP_BODY]
+  \frametitle{Sharp Bounds}
 
   \begin{itemize}
     \item Bounds from the preceding slide are known in the literature.
     \item We prove that they are \emph{not} sharp under the baseline assumptions from above.
       \item $\mathbb{E}[\varepsilon|\mathbf{x},T^*,T,z] = \mathbb{E}[\varepsilon|\mathbf{x},T^*,z]$ restricts $(\alpha_0,\alpha_1)$ hence $\beta$.
-    \item Description of the sharp set is somewhat complicated\dots
+    \item Description of the sharp set is somewhat complicated 
+      \hyperlink{SHARP_APPEND}{\beamergotobutton{Details}}
     \item Corollary: $\beta$ is not point identified regardless of how many (discrete) values $z$ takes on.
   \end{itemize}
 
@@ -781,31 +782,31 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 \end{table}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\begin{figure}[h]
-  \centering
-\resizebox{0.75\textwidth}{!}{%
-  \input{../../fig/bonf_point5_1000.tex}
-}
-\caption{Coverage of nominal $>95\%$ Bonferroni CI for $\beta$: with and without non-differential assumption, $\beta = 0.5$} 
-  
-  %\caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 0.5$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
-\end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\begin{figure}[h]
-  \centering
-\resizebox{0.75\textwidth}{!}{%
-  \input{../../fig/bonf_1_1000.tex}
-}
-\caption{Coverage of nominal $>95\%$ Bonferroni CI for $\beta$: with and without non-differential assumption, $\beta = 1$} 
-  
-  %\caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 1$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
-\end{figure}
-
-\end{frame}
+%\begin{frame}
+%\begin{figure}[h]
+%  \centering
+%\resizebox{0.75\textwidth}{!}{%
+%  \input{../../fig/bonf_point5_1000.tex}
+%}
+%\caption{Coverage of nominal $>95\%$ Bonferroni CI for $\beta$: with and without non-differential assumption, $\beta = 0.5$} 
+%  
+%  %\caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 0.5$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
+%\end{figure}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%\begin{figure}[h]
+%  \centering
+%\resizebox{0.75\textwidth}{!}{%
+%  \input{../../fig/bonf_1_1000.tex}
+%}
+%\caption{Coverage of nominal $>95\%$ Bonferroni CI for $\beta$: with and without non-differential assumption, $\beta = 1$} 
+%  
+%  %\caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 1$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
+%\end{figure}
+%
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \begin{table}
@@ -852,44 +853,44 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 \end{table}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\begin{figure}[h]
-  \centering
-\resizebox{0.75\textwidth}{!}{%
-  \input{../../fig/bonf_vs_twostep_1_1000.tex}
-}
-  
-  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 1$}
-  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 1$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
-\end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\begin{figure}[h]
-  \centering
-\resizebox{0.75\textwidth}{!}{%
-  \input{../../fig/bonf_vs_twostep_2_1000.tex}
-}
-  
-  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 2$}
-  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 2$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
-\end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\begin{figure}[h]
-  \centering
-\resizebox{0.75\textwidth}{!}{%
-  \input{../../fig/bonf_vs_twostep_3_1000.tex}
-}
-  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 3$}
-  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 3$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
-  
-\end{figure}
-
-\end{frame}
+%\begin{frame}
+%\begin{figure}[h]
+%  \centering
+%\resizebox{0.75\textwidth}{!}{%
+%  \input{../../fig/bonf_vs_twostep_1_1000.tex}
+%}
+%  
+%  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 1$}
+%  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 1$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
+%\end{figure}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%\begin{figure}[h]
+%  \centering
+%\resizebox{0.75\textwidth}{!}{%
+%  \input{../../fig/bonf_vs_twostep_2_1000.tex}
+%}
+%  
+%  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 2$}
+%  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 2$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
+%\end{figure}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%\begin{figure}[h]
+%  \centering
+%\resizebox{0.75\textwidth}{!}{%
+%  \input{../../fig/bonf_vs_twostep_3_1000.tex}
+%}
+%  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 3$}
+%  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 3$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
+%  
+%\end{figure}
+%
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
@@ -908,4 +909,113 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+
+\begin{frame}[plain,label=SHARP_APPEND]
+  \frametitle{Restrictions from Non-differential Mis-classification}
+  \framesubtitle{Suppress $\mathbf{x}$ for simplicity}
+
+  \small
+  \begin{block}{Notation}
+    \begin{itemize}
+      \item $\textcolor{blue}{F_{tk}} \equiv$ \textcolor{blue}{Observed} conditional CDF of $y|(T=t,z=k)$
+      \item $\alert{F^{t^*}_{tk}} \equiv$ \alert{Unobserved} conditional CDF of $y|(T^*=t^*,T=t,z=k)$
+      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ observed given $(\alpha_0, \alpha_1)$
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Law of Total Probability}
+    \vspace{-1em}
+  \[
+    \textcolor{blue}{F_{tk}} = (1 - r_{tk}) \alert{F^{0}_{tk}} + r_{tk}\alert{F^{1}_{tk}}
+  \]
+  \end{block}
+
+  Given $(\alpha_0, \alpha_1)$ can we construct  $(F_{tk}^0, F_{tk}^1)$ to satisfy the mixture model?
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[plain,t]
+  \frametitle{Restrictions from Non-differential Mis-classification}
+
+  \footnotesize
+
+  \begin{block}{Notation}
+    \begin{itemize}
+      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ observed given $(\alpha_0, \alpha_1)$ 
+      \item $z_k$ as shorthand for $z =k$\\
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Iterated Expectations over $T^*$}
+    \vspace{-1em}
+  \begin{align*}
+    \mathbb{E}(y|T=0,z_k) &= (1 - r_{0k})\mathbb{E}(y|T^*=0,T=0,z_k) + r_{0k}\mathbb{E}(y|T^*=1,T=0,z_k)\\
+    \mathbb{E}(y|T=1,z_k) &= (1 - r_{1k}) \mathbb{E}(y|T^*=0,T=1,z_k) + r_{1k}\mathbb{E}(y|T^*=1,T=1,z_k)
+  \end{align*}
+  \end{block}
+
+  \vspace{1em}
+
+  \begin{itemize}
+    \item $(\alpha_0, \alpha_1)$ pin down $r_{tk}$
+  \end{itemize}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[plain,t]
+  \frametitle{Restrictions from Non-differential Mis-classification}
+
+
+  \footnotesize
+
+  \begin{block}{Notation}
+    \begin{itemize}
+      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ observed given $(\alpha_0, \alpha_1)$ 
+      \item $z_k$ as shorthand for $z =k$\\
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Iterated Expectations over $T^*$ and Non-diff.}
+    \vspace{-1em}
+  \begin{align*}
+    \mathbb{E}(y|T=0,z_k) &= (1 - r_{0k})\mathbb{E}(y|T^*=0,z_k) + r_{0k} \mathbb{E}(y|T^*=1,z_k)\\
+    \mathbb{E}(y|T=1,z_k) &= (1 - r_{1k}) \mathbb{E}(y|T^*=0,z_k) + r_{1k}\mathbb{E}(y|T^*=1,z_k)
+  \end{align*}
+
+  \vspace{1em}
+
+  \begin{itemize}
+    \item $(\alpha_0, \alpha_1)$ pin down $r_{tk}$
+    \item Non-diff.\ $\implies (\alpha_0, \alpha_1)$ pin down $\mathbb{E}(y|T^*=t^*,z=k)$
+    \item $\mathbb{E}(y|T^*,z=k)$ are the means of $(F^0_{tk}, F^{1}_{tk})$
+    \item \alert{Can we satisfy the mixture model?}
+  \end{itemize}
+  \end{block}
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[plain]
+  \frametitle{Restrictions from Non-differential Mis-classification}
+
+  \begin{block}{Equivalent Problem}
+   Given an observed CDF $F$ and a probability $p$, do there exist CDFs $(G,H)$ such that $F = (1-p)G + pH$ and the mean of $H$ is $\mu$? 
+  \end{block}
+
+  \begin{alertblock}{Necessary and Sufficient Condition if $F$ is Continuous}
+   \[
+     \int_{-\infty}^{F^{-1}(p)} x\; f(x) \; dx \leq \; p \mu \; \leq \int_{F^{-1}(1-p)}^{+\infty} x \; f(x)\; dx
+   \]
+  \end{alertblock}
+
+  \begin{block}{Sharp Identified Set}
+    Includes only those $(\alpha_0, \alpha_1)$ at which the preceding condition is satisfied jointly for the mixtures $F_{tk} = (1 - r_{tk})F_{tk}^0 + r_{tk} F_{tk}^1$.
+  \hyperlink{SHARP_BODY}{\beamergotobutton{Back}}
+  \end{block}
+
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
