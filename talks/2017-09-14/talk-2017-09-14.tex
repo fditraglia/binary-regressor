@@ -110,13 +110,15 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
   Lewbel (1997, 2012), Schennach (2004, 2007), Chen et al. (2005), Hu \& Schennach (2008), Song (2015), Hu et al.\ (2015)\ldots 
   \end{block}
 
-  \begin{block}{Binary, Exogenous Regressor}
+  \begin{block}{Binary/Discrete, ``Exogenous''} 
     \small
    Aigner (1973), Bollinger (1996), Kane et al. (1999), Black et al. (2000), Frazis \& Loewenstein (2003), Mahajan (2006), Lewbel (2007), Hu (2008), Molinari (2008)
   \end{block}
 
+
   \begin{block}{Binary, Endogenous Regressor}
-    \alert{Mahajan (2006)}, \small Shiu (2015), Ura (2015), Denteh et al.\ (2016)  
+    \alert{Mahajan (2006)}, \small Shiu (2015), Ura (2015), Denteh et al.\ (2016)
+    %Calvi \& Lewbel (2017)
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -331,11 +333,10 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
   \frametitle{Sharp Bounds}
 
   \begin{itemize}
-    \item Bounds from the preceding slide are known in the literature.
-    \item We prove that they are \emph{not} sharp under the baseline assumptions from above.
+    \item Preceding bounds are known in the literature. We show that they are not sharp under the baseline assumptions.
       \item $\mathbb{E}[\varepsilon|\mathbf{x},T^*,T,z] = \mathbb{E}[\varepsilon|\mathbf{x},T^*,z]$ restricts $(\alpha_0,\alpha_1)$ hence $\beta$.
-    \item Description of the sharp set is somewhat complicated 
-      \hyperlink{SHARP_APPEND}{\beamergotobutton{Details}}
+      \hyperlink{SHARP_APPEND}{\beamergotobutton{Overview}}
+    %\item Description of the sharp set is more complicated 
     \item Corollary: $\beta$ is not point identified regardless of how many (discrete) values $z$ takes on.
   \end{itemize}
 
@@ -693,38 +694,38 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%  \frametitle{Moment Equalities}
-%Let $\boldsymbol{\vartheta} = (\alpha_0, \alpha_1)$ and $\boldsymbol{\gamma} = (\boldsymbol{\kappa}, \theta_1)$ 
-%
-%\begin{equation}
-%  \mathbb{E}[m^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \mathbf{q}_0)] \geq \mathbf{0}, \quad 
-%  \mathbb{E}[m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)] = \mathbf{0}
-%  \label{eq:MCs_ineq_eq}
-%\end{equation}
-%where $m^I = (m_1^{I'}, m_2^{I'})'$ and 
-%\begin{equation}
-%  m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)= \left[
-%  \begin{array}{c}
-% \left\{ \boldsymbol{\psi}_2'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_2 \right\}z_i \\
-% \left\{ \boldsymbol{\psi}_3'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_3 \right\}z_i 
-%  \end{array}
-%\right].
-%\label{eq:mE}
-%\end{equation}
-%
-%\begin{equation}
-%  h^E(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\gamma})  =  \left[
-% \begin{array}{l}
-%   \boldsymbol{\Psi}'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \boldsymbol{\kappa}\\
-%   \left\{\boldsymbol{\psi}_1'(\theta_1)\mathbf{w}_i - \kappa_1\right\}z_i
-% \end{array}
-% \right].
-% \label{eq:hE}
-%\end{equation}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Moment Equalities}
+Let $\boldsymbol{\vartheta} = (\alpha_0, \alpha_1)$ and $\boldsymbol{\gamma} = (\boldsymbol{\kappa}, \theta_1)$ 
+
+\begin{equation}
+  \mathbb{E}[m^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \mathbf{q}_0)] \geq \mathbf{0}, \quad 
+  \mathbb{E}[m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)] = \mathbf{0}
+  \label{eq:MCs_ineq_eq}
+\end{equation}
+where $m^I = (m_1^{I'}, m_2^{I'})'$ and 
+\begin{equation}
+  m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)= \left[
+  \begin{array}{c}
+ \left\{ \boldsymbol{\psi}_2'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_2 \right\}z_i \\
+ \left\{ \boldsymbol{\psi}_3'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_3 \right\}z_i 
+  \end{array}
+\right].
+\label{eq:mE}
+\end{equation}
+
+\begin{equation}
+  h^E(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\gamma})  =  \left[
+ \begin{array}{l}
+   \boldsymbol{\Psi}'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \boldsymbol{\kappa}\\
+   \left\{\boldsymbol{\psi}_1'(\theta_1)\mathbf{w}_i - \kappa_1\right\}z_i
+ \end{array}
+ \right].
+ \label{eq:hE}
+\end{equation}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Bonferroni-Based Inference Procedure}
   
@@ -852,60 +853,69 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
   %\caption{Median width of a hybrid confidence interval constructed from the nominal $95\%$ standard GMM interval and the $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. The hybrid interval reports Bonferroni unless the GMM interval exists and is contained within the Bonferroni interval. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
 \end{table}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+  \centering
+\resizebox{0.75\textwidth}{!}{%
+  \input{../../fig/bonf_vs_twostep_1_1000.tex}
+}
+  
+  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 1$}
+  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 1$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
+\end{figure}
+
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.75\textwidth}{!}{%
-%  \input{../../fig/bonf_vs_twostep_1_1000.tex}
-%}
-%  
-%  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 1$}
-%  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 1$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
-%\end{figure}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.75\textwidth}{!}{%
-%  \input{../../fig/bonf_vs_twostep_2_1000.tex}
-%}
-%  
-%  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 2$}
-%  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 2$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
-%\end{figure}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.75\textwidth}{!}{%
-%  \input{../../fig/bonf_vs_twostep_3_1000.tex}
-%}
-%  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 3$}
-%  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 3$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
-%  
-%\end{figure}
-%
-%\end{frame}
+\begin{frame}
+\begin{figure}[h]
+  \centering
+\resizebox{0.75\textwidth}{!}{%
+  \input{../../fig/bonf_vs_twostep_2_1000.tex}
+}
+  
+  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 2$}
+  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 2$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
+\end{figure}
+
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+  \centering
+\resizebox{0.75\textwidth}{!}{%
+  \input{../../fig/bonf_vs_twostep_3_1000.tex}
+}
+  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 3$}
+  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 3$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
+  
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
   \frametitle{Conclusion}
   %\singlespacing
   %\small
 
+  \begin{block}{Summary}
   \begin{itemize}
-    \item Endogenous, mis-measured binary treatment.
-    \item Important in applied work but no solution in the literature.
+    \item Endogenous, mis-classified binary treatment.
+    %\item Important in applied work but no solution in the literature.
       \item Usual (1st moment) IV assumption fails to identify $\beta$
     \item Derive sharp identified set.
       \item Stronger assumptions point identify $\beta$
       \item Identification-Robust Inference incorportating equality and inequality moment conditions.
    \end{itemize}
+ \end{block}
+
+ \begin{block}{Extensions / Future Work}
+   \begin{itemize}
+ \item Arbitrary discrete $T^*$
+ \item Relax additive separability in panel setting?
+ \end{itemize}
+ \end{block}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
