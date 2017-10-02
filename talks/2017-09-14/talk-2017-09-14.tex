@@ -372,19 +372,19 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 \begin{frame}
   \frametitle{Point Identification: 2nd Ingredient}
 
-  \begin{block}{Assumption (\spadesuit)}
+  \begin{block}{Assumption (II)}
     $\mathbb{E}[\varepsilon^2|\mathbf{x},z] = \mathbb{E}[\varepsilon^2|\mathbf{x}]$
   \end{block}
 
   \begin{block}{Lemma}
-    (Baseline) + (\spadesuit) $\implies$ 
+    (Baseline) + (II) $\implies$ 
     \[
       \alert{\mbox{Cov}(y^2,z|\mathbf{x}) = 2\mbox{Cov}(yT,z|\mathbf{x}) \theta_1(\mathbf{x}) -\mbox{Cov}(T,z|\mathbf{x})\theta_2(\mathbf{x})}
     \]
   \end{block}
 
   \begin{block}{Corollary}
-    (Baseline) + (\spadesuit) + $[\beta(\mathbf{x})\neq 0] \implies \left[ \alpha_1(\mathbf{x}) - \alpha_0(\mathbf{x}) \right]$ is identified. Hence, $\beta(\mathbf{x})$ is identified if mis-classification is one-sided.
+    (Baseline) + (II) + $[\beta(\mathbf{x})\neq 0] \implies \left[ \alpha_1(\mathbf{x}) - \alpha_0(\mathbf{x}) \right]$ is identified. Hence, $\beta(\mathbf{x})$ is identified if mis-classification is one-sided.
   \end{block}
     
 
@@ -394,7 +394,7 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 \begin{frame}
   \frametitle{Point Identification: 1st Ingredient}
 
-  \begin{block}{Assumption (\clubsuit)}
+  \begin{block}{Assumption (III)}
     \begin{enumerate}[(i)]
     \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^2|\mathbf{x},z, T^*]$
     \item $\mathbb{E}[\varepsilon^3|\mathbf{x},z] = \mathbb{E}[\varepsilon^3|\mathbf{x}]$
@@ -402,7 +402,7 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
   \end{block}
  
   \begin{block}{Lemma}
-    (Baseline) + (\spadesuit) + (\clubsuit) $\implies$ 
+    (Baseline) + (II) + (III) $\implies$ 
   \small
 \[
   \alert{\mbox{Cov}(y^3,z|\mathbf{x}) = 3 \mbox{Cov}(y^2T,z|\mathbf{x}) \theta_1(\mathbf{x}) -3\mbox{Cov}(yT,z|\mathbf{x}) \theta_2(\mathbf{x}) + \mbox{Cov}(T,z|\mathbf{x}) \theta_3(\mathbf{x})}
@@ -416,7 +416,7 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
   \small 
 
   \begin{alertblock}{Theorem}
-    (Baseline) + (\spadesuit) + (\clubsuit) $\implies \beta(\mathbf{x})$ is point identified.
+    (Baseline) + (II) + (III) $\implies \beta(\mathbf{x})$ is point identified.
     If $\beta(\mathbf{x}) \neq 0$, then $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ are likewise point identified.
   \end{alertblock}
 
@@ -432,7 +432,7 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 
   \vspace{-0.5em}
 
-  \begin{block}{Sufficient Conditions for (\spadesuit) and (\clubsuit)}
+  \begin{block}{Sufficient Conditions for (II) and (III)}
     \vspace{-0.5em}
     \begin{enumerate}[(i)]
       \item $T$ is conditionally independent of $(\varepsilon,z)$ given $(T^*,\mathbf{x})$
