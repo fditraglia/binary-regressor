@@ -103,7 +103,7 @@ plot(pseq, mu_lower, type = 'l', ylim = c(min(mu_lower), max(mu_upper)),
      xlab = '$p$', ylab = '$\\mu$')
 points(pseq, mu_upper, type = 'l')
 polygon(x = c(0, pseq, rev(pseq), 0),
-        y = c(-10000, mu_lower, rev(mu_upper), 10000),
+        y = c(-10, mu_lower, rev(mu_upper), 10),
         density = 20,
         col = 'blue')
 par(mar = c(5.1, 4.1, 4.1, 2.1),
