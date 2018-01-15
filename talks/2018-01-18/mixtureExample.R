@@ -1,4 +1,5 @@
 library(mbereg)
+library(tikzDevice)
 
 mu_L <- -2
 mu_H <- 2
@@ -37,7 +38,10 @@ densityPlot <- function(p) {
   par(mfrow = c(3, 1),
       mar = c(3, 3, 2, 1),
       mgp = c(2, 0.7, 0),
-      tck = -0.01)
+      tck = -0.01,
+      lwd = 2,
+      cex = 1.05,
+      las = 1)
   qupper <- quantile(sims, p)
   mlower <- mean(sims[sims < qupper])
   qlower <- quantile(sims, 1 - p)
@@ -48,7 +52,8 @@ densityPlot <- function(p) {
        '$\\underline{h}(x) = p^{-1}f(x) 1\\{x < F^{-1}(p)\\}$',
        col = 'red')
   abline(v = mlower, lty = 2, col = 'red')
-  text(mlower, 0, pos = 2, paste0('$\\underline{\\mu} = ', round(mlower, 2), '$'),
+  text(mlower, 0 + 0.05 * max(flower), 
+       pos = 2, paste0('$\\underline{\\mu} = ', round(mlower, 2), '$'),
        col = 'red')
   plot(xseq, ftrue, type = 'l', #ylim = c(0, fmax),
        xlab = '', ylab = '')
@@ -65,16 +70,22 @@ densityPlot <- function(p) {
   plot(xseq, fupper, type = 'l', #ylim = c(0, fmax),
        xlab = '', ylab = '',
        col = 'blue')
-  text(-5.4, max(fupper) * 0.9, pos = 4,
+  text(5.4 * ifelse(mupper > 1, -1, 1), 
+       max(fupper) * 0.9, 
+       pos = ifelse(mupper > 1, 4, 2),
        '$\\bar{h}(x)=p^{-1}f(x)1\\{x > F^{-1}(1-p)\\}$',
        col = 'blue')
   abline(v = mupper, lty = 2, col = 'blue')
-  text(mupper, 0, pos = 4, paste0('$\\bar{\\mu} = ', round(mupper, 2), '$'),
+  text(mupper, 0 + 0.05 * max(fupper), 
+       pos = 4, paste0('$\\bar{\\mu} = ', round(mupper, 2), '$'),
        col = 'blue')
   par(mfrow = c(1, 1),
       mar = c(5.1, 4.1, 4.1, 2.1),
       mgp = c(3, 1, 0),
-      tck = NA)
+      tck = NA,
+      lwd = 1,
+      cex = 1, 
+      las = 0)
 }
 
 # Should make it clear how the quantiles in the middle plot lead to the
@@ -98,7 +109,11 @@ mu_upper <- Vget_mu_upper(pseq)
 
 par(mar = c(3, 3, 2, 1),
     mgp = c(2, 0.7, 0),
-    tck = -0.01)
+    tck = -0.01,
+    lwd = 2, 
+    cex = 1.05,
+    las = 1)
+tikz('~/binary-regressor/talks/2018-01-18/identified_set.tex')
 plot(pseq, mu_lower, type = 'l', ylim = c(min(mu_lower), max(mu_upper)),
      xlab = '$p$', ylab = '$\\mu$')
 points(pseq, mu_upper, type = 'l')
@@ -108,5 +123,37 @@ polygon(x = c(0, pseq, rev(pseq), 0),
         col = 'blue')
 par(mar = c(5.1, 4.1, 4.1, 2.1),
     mgp = c(3, 1, 0),
-    tck = NA)
+    tck = NA,
+    lwd = 1,
+    cex = 1,
+    las = 0)
+dev.off()
 
+
+tikz('~/binary-regressor/talks/2018-01-18/densities_point1.tex')
+densityPlot(0.1)
+dev.off()
+
+tikz('~/binary-regressor/talks/2018-01-18/densities_point2.tex')
+densityPlot(0.2)
+dev.off()
+
+tikz('~/binary-regressor/talks/2018-01-18/densities_point3.tex')
+densityPlot(0.3)
+dev.off()
+
+tikz('~/binary-regressor/talks/2018-01-18/densities_point4.tex')
+densityPlot(0.4)
+dev.off()
+
+tikz('~/binary-regressor/talks/2018-01-18/densities_point5.tex')
+densityPlot(0.5)
+dev.off()
+
+tikz('~/binary-regressor/talks/2018-01-18/densities_point6.tex')
+densityPlot(0.6)
+dev.off()
+
+tikz('~/binary-regressor/talks/2018-01-18/densities_point7.tex')
+densityPlot(0.7)
+dev.off()

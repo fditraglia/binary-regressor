@@ -370,7 +370,7 @@
         \item $\mathbb{E}[\varepsilon|\mathbf{x},T^*,T,z] = \mathbb{E}[\varepsilon|\mathbf{x},T^*,z]$
         \item Used in literature to identify $\beta(\mathbf{x})$ when $T^*$ is exogenous. 
         \item Does it restrict the identified set when $T^*$ is \alert{endogenous}? 
-        \item Is $\beta(\mathbf{x})$ identified under the baseline assumptions?
+        %\item Is $\beta(\mathbf{x})$ identified under the baseline assumptions?
       \end{itemize}
     \end{alertblock}
 
@@ -384,7 +384,7 @@
 
   \begin{block}{Notation}
     \begin{itemize}
-      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ 
+      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$, function of $(\alpha_0, \alpha_1)$ and observables only 
       \item $z_k$ is shorthand for $z =k$\\
     \end{itemize}
   \end{block}
@@ -397,11 +397,6 @@
   \end{align*}
   \end{block}
 
-
-  \begin{itemize}
-    \item $r_{tk}$ is a function of $(\alpha_0, \alpha_1)$ and observables only.
-  \end{itemize}
-
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[t,noframenumbering]
@@ -412,7 +407,7 @@
 
   \begin{block}{Notation}
     \begin{itemize}
-      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ 
+      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$, function of $(\alpha_0, \alpha_1)$ and observables only 
       \item $z_k$ is shorthand for $z =k$\\
     \end{itemize}
   \end{block}
@@ -423,39 +418,170 @@
     \mathbb{E}(y|T=0,z_k) &= (1 - r_{0k})\textcolor{blue}{\mathbb{E}(y|T^*=0,z_k)}\phantom{,T=0} + r_{0k}\textcolor{red}{\mathbb{E}(y|T^*=1,z_k)}\phantom{,T=0}\\
     \mathbb{E}(y|T=1,z_k) &= (1 - r_{1k}) \textcolor{blue}{\mathbb{E}(y|T^*=0,z_k)}\phantom{,T=1} + r_{1k}\textcolor{red}{\mathbb{E}(y|T^*=1,z_k)}\phantom{,T=1}
   \end{align*}
+
+  \vspace{1em}
+  \fbox{2 equations in 2 unknowns $\Rightarrow$ solve for $\mathbb{E}(y|T^*=t^*,z=k)$ given $(\alpha_0, \alpha_1)$.}
+
   \end{block}
-
-
-  \begin{itemize}
-    \item $r_{tk}$ is a function of $(\alpha_0, \alpha_1)$ and observables only.
-    \item \alert{Non-differential assumption $\Rightarrow$ 2 equations in 2 unknowns $\Rightarrow$\\ solve for $\mathbb{E}(y|T^*=t^*,z=k)$ given $(\alpha_0, \alpha_1)$.}
-  \end{itemize}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Restrictions from Non-differential Mis-classification?}
 
-  \small
-  \begin{block}{Notation}
-    \begin{itemize}
-      \item $\textcolor{blue}{F_{tk}} \equiv$ \textcolor{blue}{Observed} CDF of $y|(T=t,z=k)$
-      \item $\alert{F^{t^*}_{tk}} \equiv$ \alert{Unobserved} CDF of $y|(T^*=t^*,T=t,z=k)$
-      %\item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ observed given $(\alpha_0, \alpha_1)$
-    \end{itemize}
-  \end{block}
-
   \begin{block}{Law of Total Probability}
-    \vspace{-1em}
+    \vspace{-1.5em}
   \[
-    \textcolor{blue}{F_{tk}} = (1 - r_{tk}) \alert{F^{0}_{tk}} + r_{tk}\alert{F^{1}_{tk}}
+    \boxed{\textcolor{blue}{F_{tk}} = (1 - r_{tk}) \alert{F^{0}_{tk}} + r_{tk}\alert{F^{1}_{tk}}}
   \]
+  \scriptsize
+
+  \vspace{-1em}
+    \begin{align*}
+    \textcolor{blue}{F_{tk}} &\equiv \mbox{\textcolor{blue}{Observed} CDF: } y|(T=t,z=k) \\
+    \alert{F^{t^*}_{tk}} &\equiv \mbox{\alert{Unobserved} CDF: } y|(T^*=t^*,T=t,z=k)
+    \end{align*}
   \end{block}
 
-  \begin{block}{Preceding Slide}
-
+  \begin{block}{Previous Slide}
+    \begin{itemize} 
+    \small
+      \item $r_{tk}$ observable given $(\alpha_0, \alpha_1)$
+      \item $\mathbb{E}(T^*,T,z) = \mathbb{E}(T^*,z)$ observable given $(\alpha_0, \alpha_1)$
+    \end{itemize}
+    
   \end{block}
-  %Given $(\alpha_0, \alpha_1)$ can we construct  $(F_{tk}^0, F_{tk}^1)$ to satisfy the mixture model?
+
+  \begin{alertblock}{Key Question}
+    \small
+  Given $(\alpha_0, \alpha_1)$ can we always find $(F_{tk}^0, F_{tk}^1)$ to satisfy the mixture model? 
+  \end{alertblock}
+    
+
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Restrictions from Non-differential Mis-classification?}
+
+  \begin{block}{Equivalent Problem}
+    Given a specified CDF $F$, probability $p$ and mean $\mu$, do there exist valid CDFs $(G,H)$ with $F = (1 - p) G + p H$ and $\mu = \mbox{mean}(H)$? 
+\end{block}
+
+%  \begin{block}{Equivalent Problem}
+%    Given a specified CDF $\textcolor{red}{F}$, probability $\textcolor{red}{p}$ and mean $\textcolor{red}{\mu}$, do there exist valid CDFs $\textcolor{red}{(G,H)}$ with $\textcolor{red}{F = (1 - p) G + p H}$ and $\textcolor{red}{\mu = \mbox{mean}(H)}$? 
+%  \end{block}
+
+\begin{block}{Solve to Eliminate $G$}
+  $G = (F - p H) / (1 - p)$
+\end{block}
+
+\begin{block}{Valid CDFS}
+  \vspace{-1em}
+  \scriptsize
+  \begin{align*}
+    0 \leq H \leq 1 & \\
+    0 \leq G \leq 1 & \quad \iff \quad [F - (1 - p)]/p \leq H \leq F/p
+  \end{align*}
+
+  \normalsize
+  \[
+    \alert{\boxed{\max\left\{ 0, \, \frac{F(x)}{p} - \frac{1-p}{p} \right\}\leq H(x) \leq \min\left\{ 1, \frac{F(x)}{p} \right\}}}
+  \]
+\end{block}
+
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point1.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point2.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point3.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point4.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point5.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point6.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point7.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./identified_set.tex}
+}
+\end{figure}
+
+\note{As $p$ approaches 1, the mean of $H$ is more tightly constrained: must be close to the mean of the observed distribution $F$, namely $-0.8$. As $p$ approaches zero, it is less and less constrained: since it contributes very little to the overall mixture, it can take on nearly any mean.}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -463,12 +589,12 @@
   \frametitle{Restrictions from Non-differential Mis-classification}
 
   \begin{block}{Equivalent Problem}
-   Given an observed CDF $F$ and a probability $p$, do there exist CDFs $(G,H)$ such that $F = (1-p)G + pH$ and the mean of $H$ is $\mu$? 
-  \end{block}
+    Given a specified CDF $F$, probability $p$ and mean $\mu$, do there exist valid CDFs $(G,H)$ with $F = (1 - p) G + p H$ and $\mu = \mbox{mean}(H)$? 
+\end{block}
 
   \begin{alertblock}{Necessary and Sufficient Condition if $F$ is Continuous}
    \[
-     \int_{-\infty}^{F^{-1}(p)} x\; f(x) \; dx \leq \; p \mu \; \leq \int_{F^{-1}(1-p)}^{+\infty} x \; f(x)\; dx
+     \int_{-\infty}^{F^{-1}(p)} \frac{x}{p}\; f(x) \; dx \leq \;  \mu \; \leq \int_{F^{-1}(1-p)}^{+\infty} \frac{x}{p} \; f(x)\; dx
    \]
   \end{alertblock}
 
@@ -477,6 +603,19 @@
   \end{block}
 
 
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Sharp Identified Set under Baseline Assumptions}
+
+  \begin{alertblock}{Theorem}
+    Under baseline assumptions, sharp identified set for $\beta(\mathbf{x})$ is never a singleton, regardless of how many (discrete) values $z$ takes on.
+  \end{alertblock}
+
+  \vspace{2em}
+  \begin{block}{Point identification from stronger assumptions?}
+  \end{block}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -556,7 +695,7 @@
     If $\beta(\mathbf{x}) \neq 0$, then $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ are likewise point identified.
   \end{alertblock}
 
-  \begin{alertblock}{Proof Sketch}
+  \begin{block}{Proof Sketch}
     \vspace{-0.5em}
     \begin{enumerate}
       \item $\beta(\mathbf{x})=0 \iff \theta_1(\mathbf{x}) =0$ so suppose this is not the case.  
@@ -564,10 +703,12 @@
       \item Non-linear eqs.\ relating $\theta_1(\mathbf{x}),\theta_2(\mathbf{x}), \theta_3(\mathbf{x})$ to  $\beta(\mathbf{x})$ and $\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})$. 
         Show that solution exists and is unique.
     \end{enumerate}
-  \end{alertblock}
+  \end{block}
 
-  \vspace{-0.5em}
+\end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
   \begin{block}{Sufficient Conditions for (II) and (III)}
     \vspace{-0.5em}
     \begin{enumerate}[(i)]
@@ -576,6 +717,8 @@
     \end{enumerate}
   \end{block}
   
+  MENTION THE ANGRIST ARGUMENT\ldots
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
