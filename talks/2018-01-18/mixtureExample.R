@@ -110,12 +110,10 @@ mu_upper <- Vget_mu_upper(pseq)
 par(mar = c(3, 3, 2, 1),
     mgp = c(2, 0.7, 0),
     tck = -0.01,
-    lwd = 2, 
-    cex = 1.05,
-    las = 1)
+    lwd = 2) 
 tikz('~/binary-regressor/talks/2018-01-18/identified_set.tex')
 plot(pseq, mu_lower, type = 'l', ylim = c(min(mu_lower), max(mu_upper)),
-     xlab = '$p$', ylab = '$\\mu$')
+     xlab = '$p$', ylab = '$\\mu$', las = 1, cex = 1.3)
 points(pseq, mu_upper, type = 'l')
 polygon(x = c(0, pseq, rev(pseq), 0),
         y = c(-10, mu_lower, rev(mu_upper), 10),
@@ -124,9 +122,7 @@ polygon(x = c(0, pseq, rev(pseq), 0),
 par(mar = c(5.1, 4.1, 4.1, 2.1),
     mgp = c(3, 1, 0),
     tck = NA,
-    lwd = 1,
-    cex = 1,
-    las = 0)
+    lwd = 1)
 dev.off()
 
 
