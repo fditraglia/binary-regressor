@@ -62,7 +62,7 @@
 
 \begin{alertblock}{Constributions of This Paper}
   \begin{enumerate}
-    \item Show that only existing point identification result is incorrect.
+    \item Show that only existing point identification result for mis-classified, endogenous $T^*$ is incorrect.
     \item Derive sharp identified set for $\beta(\mathbf{x})$ under standard assumptions.
     \item Prove point identification of $\beta(\mathbf{x})$ under slightly stronger assumptions.
     \item Point out problem of weak identification in mis-classification models, develop identification-robust inference for $\beta(\mathbf{x})$. 
@@ -466,6 +466,7 @@
   \frametitle{Restrictions from Non-differential Mis-classification?}
 
   \begin{block}{Equivalent Problem}
+    \small
     Given a specified CDF $F$, probability $p$ and mean $\mu$, do there exist valid CDFs $(G,H)$ with $F = (1 - p) G + p H$ and $\mu = \mbox{mean}(H)$? 
 \end{block}
 
@@ -473,9 +474,10 @@
 %    Given a specified CDF $\textcolor{red}{F}$, probability $\textcolor{red}{p}$ and mean $\textcolor{red}{\mu}$, do there exist valid CDFs $\textcolor{red}{(G,H)}$ with $\textcolor{red}{F = (1 - p) G + p H}$ and $\textcolor{red}{\mu = \mbox{mean}(H)}$? 
 %  \end{block}
 
-\begin{block}{Solve to Eliminate $G$}
-  $G = (F - p H) / (1 - p)$
-\end{block}
+%\begin{block}{Solve to Eliminate $G$}
+%  \small
+%  $G = (F - p H) / (1 - p)$
+%\end{block}
 
 \begin{block}{Valid CDFS}
   \vspace{-1em}
@@ -491,8 +493,35 @@
   \]
 \end{block}
 
+\note{Explain how we solve to eliminate $G$ and get conditions on $H$ only!}
 
 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Restrictions from Non-differential Mis-classification?}
+  \begin{block}{Notation}
+    \footnotesize
+    \vspace{-1em}
+    \[
+      \overline{H} \equiv \max\left\{ 0, \, \frac{F(x)}{p} - \frac{1-p}{p} \right\}, \quad
+      \underline{H} \equiv \min\left\{ 1, \frac{F(x)}{p} \right\}
+    \]
+  \end{block}
+  
+  \begin{alertblock}{1\textsuperscript{st} Order Stochastic Dominance}
+    \vspace{-1em}
+      \[
+        \overline{H}(x) \leq H(x) \leq \underline{H}(x) \quad \mbox{for all } x
+      \]
+
+      \vspace{-1em}
+      \[
+        \alert{\implies \underbrace{\int_{\mathbb{R}} x\, \underline{H}(dx)}_{\underline{\mu}(p,F)} \leq \underbrace{\int_{\mathbb{R}} x\, H(dx)}_{\mu} \leq \underbrace{\int_{\mathbb{R}} x\, \overline{H}(dx)}_{\overline{\mu}(p,F)}}
+      \]
+  \end{alertblock}
+
+  \note{Explain the somewhat odd-looking convention for $\underline{H}$ and $\overline{H}$. Constraint from preceding slide is a stochastic dominance relationship. It implies an inequality for means.}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -589,19 +618,23 @@
   \frametitle{Restrictions from Non-differential Mis-classification}
 
   \begin{block}{Equivalent Problem}
+    \small
     Given a specified CDF $F$, probability $p$ and mean $\mu$, do there exist valid CDFs $(G,H)$ with $F = (1 - p) G + p H$ and $\mu = \mbox{mean}(H)$? 
 \end{block}
 
   \begin{alertblock}{Necessary and Sufficient Condition if $F$ is Continuous}
+    \small
    \[
      \int_{-\infty}^{F^{-1}(p)} \frac{x}{p}\; f(x) \; dx \leq \;  \mu \; \leq \int_{F^{-1}(1-p)}^{+\infty} \frac{x}{p} \; f(x)\; dx
    \]
   \end{alertblock}
 
   \begin{block}{Sharp Identified Set}
+    \small
     Includes only those $(\alpha_0, \alpha_1)$ at which the preceding condition is satisfied jointly for the mixtures $F_{tk} = (1 - r_{tk})F_{tk}^0 + r_{tk} F_{tk}^1$.
   \end{block}
 
+  \note{Explain that we have to step back and realize that we have several of these mixture decompositions, corresponding to different values of $T$ and $z$. For each the $p$ and $\mu$ are determined from observables and $(\alpha_0, \alpha_1)$. This yields restrictions on the mis-classification probabilities, and since we know how they are related to $\beta$ via the Wald estimator, we obtain restrictions on $\beta$ as well.}
 
 
 \end{frame}
@@ -809,6 +842,9 @@
  Identification-robust inference combining equality and inequality moment conditions based on generalized moment selection (GMS)
 \end{alertblock}
 
+
+SHOW FULL CONTINUUM OF MOMENTS? (TO ILLUSTRATE THAT IT'S NOT JUST A PROBLEM WITH THE MOMENTS WE HAPPEN TO USE)
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -970,40 +1006,31 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
     \end{block}
     
   \end{block}
+
+  \note{Explain that the procedure works well in simulations etc. Possibly add link to simulation here.}
   
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-Short empirical illustration using Burde \& Linden.
+Short empirical illustration using Burde \& Linden, including picture of joint confidence region for $(\alpha_0, \alpha_1)$ etc.
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}
   \frametitle{Conclusion}
-  %\singlespacing
-  %\small
 
-  \begin{block}{Summary}
-  \begin{itemize}
-    \item Endogenous, mis-classified binary treatment.
-    %\item Important in applied work but no solution in the literature.
-      \item Usual (1st moment) IV assumption fails to identify $\beta$
-    \item Derive sharp identified set.
-      \item Stronger assumptions point identify $\beta$
-      \item Identification-Robust Inference incorportating equality and inequality moment conditions.
-   \end{itemize}
- \end{block}
+  \begin{enumerate}
+    \item Identification and inference for effect of binary, mis-classified, endogenous regressor.
+    \item Show that only existing point identification result is incorrect. 
+    \item Derive sharp identified set for $\beta(\mathbf{x})$ under standard assumptions.
+    \item Prove point identification of $\beta(\mathbf{x})$ under slightly stronger assumptions.
+    \item Point out problem of weak identification in mis-classification models, develop identification-robust inference for $\beta(\mathbf{x})$. 
+  \end{enumerate}
 
- \begin{block}{Extensions / Future Work}
-   \begin{itemize}
- \item Arbitrary discrete $T^*$
- \item Relax additive separability in panel setting?
- \end{itemize}
- \end{block}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+  \frametitle{Related Past and Current Research}
   Talk about how this paper fits into a research agenda concerning measurement error: the beliefs paper, this paper, returns to lying (with Arthur), and biased measurements of displacement in the paper with Camilo.
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
