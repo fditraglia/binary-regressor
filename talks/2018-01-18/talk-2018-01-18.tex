@@ -2,7 +2,7 @@
 \usepackage{../slides}
 \usepackage{cancel}
 \usepackage{appendixnumberbeamer}
-\setbeameroption{hide notes}
+\setbeameroption{show notes}
 \defbeamertemplate{description item}{align left}{\insertdescriptionitem\hfill}
 
 %%%%%%%%%%%%%%%%%%%% Not needed at home!
@@ -20,60 +20,72 @@
 
 \begin{frame}[plain]
 	\titlepage 
+  \note{Thanks for inviting me etc. Very nice meeting with so many of you today. For those I haven't spoken with, let me introduce myself. Applied econometrician. Interested in issues related to model selection, instrumental variables, inference in non-standard settings, and measurement error. Also do applied work, particularly in structural empirical micro. This paper is part of a research agenda on measurement error. Joint work with my co-author Camilo.}
 \end{frame} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Additively Separable Model}
+  \frametitle{What is the effect of $T^*$?}
 \[
-  y = h(T^*, \mathbf{x}) + \varepsilon
+  y = c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon
 \]
 \vspace{-1em}
     \begin{itemize}    
     \item $y$ -- Outcome of interest
-    \item $h$ -- Known or unknown function 
     \item $T^*$ -- Unobserved, endogenous binary regressor
     \item $T$ -- Observed, mis-measured binary surrogate for $T^*$
     \item $\mathbf{x}$ -- Exogenous covariates
-    \item $\varepsilon$ -- Mean-zero error term
-    %\item $z$ -- Discrete (typically binary) instrumental variable
+    \item $z$ -- Discrete (typically binary) instrumental variable
+    %\item $\varepsilon$ -- Mean-zero error term
   \end{itemize}
 
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{What is the Effect of $T^*$?}
- 
-  \begin{block}{Re-write the Model}
+  \vspace{2em}
+  \alert{(Additively Separable $\varepsilon$ and binary $T^*$ $\Rightarrow$ linear model \alert{given $\mathbf{x}$})}
+
+  \note{No loss of generality from conditionally linear model provided $\varepsilon$ is additively separable:
 \begin{align*}
+  y &= h(T^*,\mathbf{x}) + \varepsilon \\
   y &= c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon\\
   &\beta(\mathbf{x}) = h(1,\mathbf{x}) - h(0,\mathbf{x})\\
   &c(\mathbf{x}) = h(0,\mathbf{x})
 \end{align*}
-  \end{block}
+}
 
-  \begin{alertblock}{This Paper:}
-    \begin{itemize}
-      \item Does a discrete instrument $z$ (typically binary) identify $\beta(\mathbf{x})$? 
-      \item What assumptions are required for $z$ and the surrogate $T$?
-      \item How to carry out inference for a mis-classified regressor?
-    \end{itemize}
-  \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Example: Job Training Partnership Act (JTPA)}
-\framesubtitle{Heckman et al.\ (2000, QJE)}
-Randomized offer of job training, but about $30\%$ of those \emph{not} offered also obtain training and about $40\%$ of those offered training don't attend. Estimate causal effect of \emph{training} rather than \emph{offer} of training.
+  \frametitle{Using a discrete IV to learn about $\beta(\mathbf{x})$}
+ 
+\[
+  y = c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon
+\]
 
-\begin{itemize}
-  \item $y$ -- Log wage 
-  \item $T^*$ -- True training attendence
-  \item $T$ -- Self-reported training attendance
-  \item $\mathbf{x}$ -- Individual characteristics
-  \item $z$ -- Offer of job training
-\end{itemize}
-   
+\begin{alertblock}{Constributions of This Paper}
+  \begin{enumerate}
+    \item Show that only existing point identification result is incorrect.
+    \item Derive sharp identified set for $\beta(\mathbf{x})$ under standard assumptions.
+    \item Prove point identification of $\beta(\mathbf{x})$ under slightly stronger assumptions.
+    \item Point out problem of weak identification in mis-classification models, develop identification-robust inference for $\beta(\mathbf{x})$. 
+  \end{enumerate}
+\end{alertblock}
+
+    \note{Questions this paper sets out to answer. Simple model. If $T^*$ were continuous and measurement error were classical, this would be trivially easy. But, as we'll see things are much more complicated when $T^*$ is binary. First some motivating examples.}
+
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Example: Job Training Partnership Act (JTPA)}
+%\framesubtitle{Heckman et al.\ (2000, QJE)}
+%Randomized offer of job training, but about $30\%$ of those \emph{not} offered also obtain training and about $40\%$ of those offered training don't attend. Estimate causal effect of \emph{training} rather than \emph{offer} of training.
+%
+%\begin{itemize}
+%  \item $y$ -- Log wage 
+%  \item $T^*$ -- True training attendence
+%  \item $T$ -- Self-reported training attendance
+%  \item $\mathbf{x}$ -- Individual characteristics
+%  \item $z$ -- Offer of job training
+%\end{itemize}
+%   
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Example: Smoking and Birthweight (SNAP Trial)}
@@ -88,19 +100,21 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%  \frametitle{Example: Schooling and Test Scores}
-%\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
-%  RCT in Afghanistan: 32 villages divided into 11 clusters. Randomly choose 6 and set up school in each village of these clusters.
-%
-%\begin{itemize}
-%  \item $y$ -- Girl's score on math and language test 
-%  \item $T^*$ -- Girl's true school attendance
-%  \item $T$ -- Parent's report of child's school attendance
-%  \item $\mathbf{x}$ -- Child and household characteristics
-%  \item $z$ -- School built in village
-%\end{itemize}
-%\end{frame}
+\begin{frame}
+  \frametitle{Example: Schooling and Test Scores}
+\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
+  RCT in Afghanistan: schools built in randomly selected villages.
+  In treatment villages only some girls attend school; in control villages some girls attend school elsewhere.
+  %32 villages divided into 11 clusters. Randomly choose 6 and set up school in each village of these clusters.
+
+\begin{itemize}
+  \item $y$ -- Girl's score on math and language test 
+  \item $T^*$ -- Girl's true school attendance
+  \item $T$ -- Parent's report of child's school attendance
+  \item $\mathbf{x}$ -- Child and household characteristics
+  \item $z$ -- School built in village
+\end{itemize}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Related Literature}
@@ -115,10 +129,18 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
    Aigner (1973), Bollinger (1996), Kane et al. (1999), Black et al. (2000), Frazis \& Loewenstein (2003), Mahajan (2006), Lewbel (2007), Hu (2008), Molinari (2008)
   \end{block}
 
-
   \begin{block}{Binary, Endogenous Regressor}
     \alert{Mahajan (2006)},\\ \small Shiu (2015), Denteh et al.\ (2016), Ura (2016), Calvi et al.\ (2017)
   \end{block}
+
+  \note{Very large literature on measurement error. Can't summarize everything here. But I want to draw out a few themes that will be relevant later and point out one paper in particular:
+    \begin{itemize}
+      \item Continuous vs.\ discrete
+      \item Classical vs.\ non-classical
+      \item Exogenous vs.\ endogenous
+    \end{itemize}
+  Don't spend too much time on other papers. Just say there was almost no work on the endogenous case when we started this. Recently some work that complements but doesn't overlap with ours. Focus on Mahajan paper and give the capsule explanation.}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -184,8 +206,10 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 
 
   \begin{block}{Open Question}
-    Do the baseline assumptions identify $\beta(\mathbf{x})$ when $T^*$ is endogenous?
+    Can we identify $\beta(\mathbf{x})$ when $T^*$ is endogenous? If so, how?
   \end{block}
+
+  \note{Next: show you two known results that will play a role in what comes later: (1) simple bounds for mis-classification using only assumption that $z$ doesn't change $\alpha_0, \alpha_1$; (2) effect of mis-classification on IV estimator.}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -247,7 +271,7 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Instrumental Variable Estimands}
+  \frametitle{What does IV estimate under mis-classification?}
   \begin{block}{Unobserved}
   \[
     \beta(\mathbf{x}) = \frac{\mathbb{E}[y|\mathbf{x},z=1] - \mathbb{E}[y|\mathbf{x},z=0]}{p^*_1(\mathbf{x}) - p^*_0(\mathbf{x})} 
@@ -269,81 +293,194 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Partial Identification Bounds for $\beta(\mathbf{x})$}
-
-    \footnotesize
-    \[
-      \boxed{ \beta(\mathbf{x}) = \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right] 
-     \left[\frac{\mathbb{E}\left[y|\mathbf{x},z=1\right] - \mathbb{E}\left[y|\mathbf{x},z=0\right]}{p_1(\mathbf{x}) - p_0(\mathbf{x})}\right] }
-    \]
-
-    \footnotesize
-    \[
-      \boxed{ 0 \leq \alpha_0 \leq \min_k \{p_k(\mathbf{x})\}, \quad 0 \leq \alpha_1 \leq \min_k \{1 - p_k(\mathbf{x})\}}
-    \]
-
-    \normalsize
-    \begin{block}{No Mis-classification}
-      $\alpha_0(\mathbf{x}) =  \alpha_1(\mathbf{x}) = 0 \implies \alert{\beta(\mathbf{x}) = }$ \alert{Wald}
-    \end{block}
-
-    \begin{block}{Maximum Mis-classification}
-      $\alpha_0(\mathbf{x}) = p_{\min}(\mathbf{x}), \, \alpha_1(\mathbf{x}) = 1 - p_{\max}(\mathbf{x})$
-
-      \vspace{-0.5em}
-      \begin{align*}
-        \implies 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) = p_{\max}(\mathbf{x}) - p_{\min}(\mathbf{x})
-      = |p_1(\mathbf{x}) - p_0(\mathbf{x})|\\
-      \implies \alert{\beta(\mathbf{x}) =\mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\}\times (\mbox{Reduced Form})}
-    \end{align*}
-      
-    \end{block}
-  
-\end{frame}
+%\begin{frame}
+%  \frametitle{Partial Identification Bounds for $\beta(\mathbf{x})$}
+%
+%    \footnotesize
+%    \[
+%      \boxed{ \beta(\mathbf{x}) = \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right] 
+%     \left[\frac{\mathbb{E}\left[y|\mathbf{x},z=1\right] - \mathbb{E}\left[y|\mathbf{x},z=0\right]}{p_1(\mathbf{x}) - p_0(\mathbf{x})}\right] }
+%    \]
+%
+%    \footnotesize
+%    \[
+%      \boxed{ 0 \leq \alpha_0 \leq \min_k \{p_k(\mathbf{x})\}, \quad 0 \leq \alpha_1 \leq \min_k \{1 - p_k(\mathbf{x})\}}
+%    \]
+%
+%    \normalsize
+%    \begin{block}{No Mis-classification}
+%      $\alpha_0(\mathbf{x}) =  \alpha_1(\mathbf{x}) = 0 \implies \alert{\beta(\mathbf{x}) = }$ \alert{Wald}
+%    \end{block}
+%
+%    \begin{block}{Maximum Mis-classification}
+%      $\alpha_0(\mathbf{x}) = p_{\min}(\mathbf{x}), \, \alpha_1(\mathbf{x}) = 1 - p_{\max}(\mathbf{x})$
+%
+%      \vspace{-0.5em}
+%      \begin{align*}
+%        \implies 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) = p_{\max}(\mathbf{x}) - p_{\min}(\mathbf{x})
+%      = |p_1(\mathbf{x}) - p_0(\mathbf{x})|\\
+%      \implies \alert{\beta(\mathbf{x}) =\mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\}\times (\mbox{Reduced Form})}
+%    \end{align*}
+%      
+%    \end{block}
+%  
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Partial Identification Bounds for $\beta(\mathbf{x})$}
+%
+%    \begin{block}{No Mis-classification}
+%      $\beta(\mathbf{x}) = $ Wald 
+%    \end{block}
+%
+%    \begin{block}{Maximum Mis-classification}
+%      \vspace{-1.5em}
+%      \begin{align*}
+%        \beta(\mathbf{x}) &=\mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\}\times (\mbox{Reduced Form})\\
+%        &=\mbox{sign}\left\{ \mbox{Wald} \right\} \times |\mbox{Reduced Form}|
+%      \end{align*}
+%      
+%      \vspace{1em}
+%    \footnotesize Wald $> 0\iff \mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\} = \mbox{sign}\left\{ \mbox{Reduced Form} \right\}$ \\
+%    \footnotesize Wald $< 0\iff \mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\} \neq \mbox{sign}\left\{ \mbox{Reduced Form} \right\}$ 
+%    \end{block}
+%
+%    \vspace{1em}
+%    \begin{alertblock}{
+%        $\beta(\mathbf{x})$ has the same sign as the Wald and its magnitude is between that of Wald and Reduced Form.}
+%    \end{alertblock}
+%
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Partial Identification Bounds for $\beta(\mathbf{x})$}
+\begin{frame}[label=SHARP_BODY]
+  \frametitle{Partial Identification for $\beta(\mathbf{x})$}
 
-    \begin{block}{No Mis-classification}
-      $\beta(\mathbf{x}) = $ Wald 
+  \begin{block}{Known Result}
+    \begin{itemize}
+      \item $\beta(\mathbf{x})$ is between Wald and Reduced form; same sign as Wald.
+      \item Doesn't rely on non-differential assumption or additive sep.\
+      \item Frazis \& Loewenstein (2003), Ura (2016), \ldots
+    \end{itemize}
     \end{block}
 
-    \begin{block}{Maximum Mis-classification}
-      \vspace{-1.5em}
-      \begin{align*}
-        \beta(\mathbf{x}) &=\mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\}\times (\mbox{Reduced Form})\\
-        &=\mbox{sign}\left\{ \mbox{Wald} \right\} \times |\mbox{Reduced Form}|
-      \end{align*}
-      
-      \vspace{1em}
-    \footnotesize Wald $> 0\iff \mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\} = \mbox{sign}\left\{ \mbox{Reduced Form} \right\}$ \\
-    \footnotesize Wald $< 0\iff \mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\} \neq \mbox{sign}\left\{ \mbox{Reduced Form} \right\}$ 
-    \end{block}
-
-    \vspace{1em}
-    \begin{alertblock}{
-        $\beta(\mathbf{x})$ has the same sign as the Wald and its magnitude is between that of Wald and Reduced Form.}
+    \begin{alertblock}{Non-differential Assumption}
+      \begin{itemize}
+        \item $\mathbb{E}[\varepsilon|\mathbf{x},T^*,T,z] = \mathbb{E}[\varepsilon|\mathbf{x},T^*,z]$
+        \item Used in literature to identify $\beta(\mathbf{x})$ when $T^*$ is exogenous. 
+        \item Does it restrict the identified set when $T^*$ is \alert{endogenous}? 
+        \item Is $\beta(\mathbf{x})$ identified under the baseline assumptions?
+      \end{itemize}
     \end{alertblock}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[label=SHARP_BODY]
-  \frametitle{Sharp Bounds}
 
-  \begin{itemize}
-    \item Preceding bounds are known in the literature. We show that they are not sharp under the baseline assumptions.
-      \item $\mathbb{E}[\varepsilon|\mathbf{x},T^*,T,z] = \mathbb{E}[\varepsilon|\mathbf{x},T^*,z]$ restricts $(\alpha_0,\alpha_1)$ hence $\beta$.
-      \hyperlink{SHARP_APPEND}{\beamergotobutton{Overview}}
-    %\item Description of the sharp set is more complicated 
-    \item Corollary: $\beta$ is not point identified regardless of how many (discrete) values $z$ takes on.
-  \end{itemize}
+\begin{frame}
+  \frametitle{Restrictions from Non-differential Mis-classification}
+  \framesubtitle{Suppress $\mathbf{x}$ for simplicity}
 
-  \begin{alertblock}{Point identification from slightly stronger assumptions?}
-  \end{alertblock}
+  \small
+  \begin{block}{Notation}
+    \begin{itemize}
+      \item $\textcolor{blue}{F_{tk}} \equiv$ \textcolor{blue}{Observed} conditional CDF of $y|(T=t,z=k)$
+      \item $\alert{F^{t^*}_{tk}} \equiv$ \alert{Unobserved} conditional CDF of $y|(T^*=t^*,T=t,z=k)$
+      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ observed given $(\alpha_0, \alpha_1)$
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Law of Total Probability}
+    \vspace{-1em}
+  \[
+    \textcolor{blue}{F_{tk}} = (1 - r_{tk}) \alert{F^{0}_{tk}} + r_{tk}\alert{F^{1}_{tk}}
+  \]
+  \end{block}
+
+  Given $(\alpha_0, \alpha_1)$ can we construct  $(F_{tk}^0, F_{tk}^1)$ to satisfy the mixture model?
 
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Restrictions from Non-differential Mis-classification}
+
+  \footnotesize
+
+  \begin{block}{Notation}
+    \begin{itemize}
+      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ observed given $(\alpha_0, \alpha_1)$ 
+      \item $z_k$ as shorthand for $z =k$\\
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Iterated Expectations over $T^*$}
+    \vspace{-1em}
+  \begin{align*}
+    \mathbb{E}(y|T=0,z_k) &= (1 - r_{0k})\mathbb{E}(y|T^*=0,T=0,z_k) + r_{0k}\mathbb{E}(y|T^*=1,T=0,z_k)\\
+    \mathbb{E}(y|T=1,z_k) &= (1 - r_{1k}) \mathbb{E}(y|T^*=0,T=1,z_k) + r_{1k}\mathbb{E}(y|T^*=1,T=1,z_k)
+  \end{align*}
+  \end{block}
+
+  \vspace{1em}
+
+  \begin{itemize}
+    \item $(\alpha_0, \alpha_1)$ pin down $r_{tk}$
+  \end{itemize}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Restrictions from Non-differential Mis-classification}
+
+
+  \footnotesize
+
+  \begin{block}{Notation}
+    \begin{itemize}
+      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ observed given $(\alpha_0, \alpha_1)$ 
+      \item $z_k$ as shorthand for $z =k$\\
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Iterated Expectations over $T^*$ and Non-diff.}
+    \vspace{-1em}
+  \begin{align*}
+    \mathbb{E}(y|T=0,z_k) &= (1 - r_{0k})\mathbb{E}(y|T^*=0,z_k) + r_{0k} \mathbb{E}(y|T^*=1,z_k)\\
+    \mathbb{E}(y|T=1,z_k) &= (1 - r_{1k}) \mathbb{E}(y|T^*=0,z_k) + r_{1k}\mathbb{E}(y|T^*=1,z_k)
+  \end{align*}
+
+  \vspace{1em}
+
+  \begin{itemize}
+    \item $(\alpha_0, \alpha_1)$ pin down $r_{tk}$
+    \item Non-diff.\ $\implies (\alpha_0, \alpha_1)$ pin down $\mathbb{E}(y|T^*=t^*,z=k)$
+    \item $\mathbb{E}(y|T^*,z=k)$ are the means of $(F^0_{tk}, F^{1}_{tk})$
+    \item \alert{Can we satisfy the mixture model?}
+  \end{itemize}
+  \end{block}
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Restrictions from Non-differential Mis-classification}
+
+  \begin{block}{Equivalent Problem}
+   Given an observed CDF $F$ and a probability $p$, do there exist CDFs $(G,H)$ such that $F = (1-p)G + pH$ and the mean of $H$ is $\mu$? 
+  \end{block}
+
+  \begin{alertblock}{Necessary and Sufficient Condition if $F$ is Continuous}
+   \[
+     \int_{-\infty}^{F^{-1}(p)} x\; f(x) \; dx \leq \; p \mu \; \leq \int_{F^{-1}(1-p)}^{+\infty} x \; f(x)\; dx
+   \]
+  \end{alertblock}
+
+  \begin{block}{Sharp Identified Set}
+    Includes only those $(\alpha_0, \alpha_1)$ at which the preceding condition is satisfied jointly for the mixtures $F_{tk} = (1 - r_{tk})F_{tk}^0 + r_{tk} F_{tk}^1$.
+  \end{block}
+
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Point Identification: 1st Ingredient}
 
@@ -515,62 +652,6 @@ Randomized offer of job training, but about $30\%$ of those \emph{not} offered a
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Simulation DGP: $y = \beta T^* + \varepsilon$}
-  \framesubtitle{Sample Size = 1000;  Simulation Replications = 2000} 
-  \begin{block}{Errors}
-      $(\varepsilon, \eta) \sim $ jointly normal, mean 0, variance 1, correlation 0.5.
-  \end{block}
-  \begin{block}{First-Stage}
-      \begin{itemize}
-        \item Half of observations have $z=1$, the rest have $z=0$.
-        \item $T^* = \mathbf{1}\left\{ \gamma_0 + \gamma_1 z + \eta > 0 \right\}$
-        \item $\mathbb{P}(T^* = 0|z =1) = \mathbb{P}(T^*=1|z=0) = 0.15$
-      \end{itemize}
-  \end{block}
-  \vspace{-1em}
-
-
-  \begin{block}{Mis-classification}
-      \begin{itemize}
-        \item $T|T^*=0 \sim \mbox{Bernoulli}(\alpha_0)$
-        \item $T|T^*=1 \sim \mbox{Bernoulli}(1-\alpha_1)$
-      \end{itemize}
-  \end{block}
-  
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\begin{table}[htbp]
-  \scriptsize
-  \centering
-  \input{../../tab/GMM_CIs_na_1000.tex}
-  \caption{Percentage of simulation replications for which the standard GMM CI fails to exist.}
-  %\caption{Percentage of replications for which the standard GMM confidence interval based on Equation \ref{eq:MCs_endog} fails to exist, either because the point estimate is NaN or the asymptotic covariance matrix is numerically singular. Calculations are based on  2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
-\end{table}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\begin{table}[htbp]
-  \scriptsize
-  \centering
-  \input{../../tab/GMM_CIs_cover_1000.tex}
-  \caption{Coverge of nominal 95\% GMM CI, conditional on existence.} 
-  %\caption{Coverage (\%) of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. (See Table \ref{tab:GMM_na_1000}.) Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
-\end{table}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-
-\begin{table}[htbp]
-  \scriptsize
-  \centering
-  \input{../../tab/GMM_CIs_width_1000.tex}
-  \caption{Median width of nominal 95\% GMM CI, conditional on existence.}
-  %\caption{Median width of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
-\end{table}
-
-\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Non-standard Inference Problem}
@@ -751,6 +832,100 @@ where $m^I = (m_1^{I'}, m_2^{I'})'$ and
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+Short empirical illustration using Burde \& Linden.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Conclusion}
+  %\singlespacing
+  %\small
+
+  \begin{block}{Summary}
+  \begin{itemize}
+    \item Endogenous, mis-classified binary treatment.
+    %\item Important in applied work but no solution in the literature.
+      \item Usual (1st moment) IV assumption fails to identify $\beta$
+    \item Derive sharp identified set.
+      \item Stronger assumptions point identify $\beta$
+      \item Identification-Robust Inference incorportating equality and inequality moment conditions.
+   \end{itemize}
+ \end{block}
+
+ \begin{block}{Extensions / Future Work}
+   \begin{itemize}
+ \item Arbitrary discrete $T^*$
+ \item Relax additive separability in panel setting?
+ \end{itemize}
+ \end{block}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  Talk about how this paper fits into a research agenda concerning measurement error: the beliefs paper, this paper, returns to lying (with Arthur), and biased measurements of displacement in the paper with Camilo.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Simulation DGP: $y = \beta T^* + \varepsilon$}
+  \framesubtitle{Sample Size = 1000;  Simulation Replications = 2000} 
+  \begin{block}{Errors}
+      $(\varepsilon, \eta) \sim $ jointly normal, mean 0, variance 1, correlation 0.5.
+  \end{block}
+  \begin{block}{First-Stage}
+      \begin{itemize}
+        \item Half of observations have $z=1$, the rest have $z=0$.
+        \item $T^* = \mathbf{1}\left\{ \gamma_0 + \gamma_1 z + \eta > 0 \right\}$
+        \item $\mathbb{P}(T^* = 0|z =1) = \mathbb{P}(T^*=1|z=0) = 0.15$
+      \end{itemize}
+  \end{block}
+  \vspace{-1em}
+
+
+  \begin{block}{Mis-classification}
+      \begin{itemize}
+        \item $T|T^*=0 \sim \mbox{Bernoulli}(\alpha_0)$
+        \item $T|T^*=1 \sim \mbox{Bernoulli}(1-\alpha_1)$
+      \end{itemize}
+  \end{block}
+  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{table}[htbp]
+  \scriptsize
+  \centering
+  \input{../../tab/GMM_CIs_na_1000.tex}
+  \caption{Percentage of simulation replications for which the standard GMM CI fails to exist.}
+  %\caption{Percentage of replications for which the standard GMM confidence interval based on Equation \ref{eq:MCs_endog} fails to exist, either because the point estimate is NaN or the asymptotic covariance matrix is numerically singular. Calculations are based on  2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
+\end{table}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{table}[htbp]
+  \scriptsize
+  \centering
+  \input{../../tab/GMM_CIs_cover_1000.tex}
+  \caption{Coverge of nominal 95\% GMM CI, conditional on existence.} 
+  %\caption{Coverage (\%) of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. (See Table \ref{tab:GMM_na_1000}.) Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
+\end{table}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\begin{table}[htbp]
+  \scriptsize
+  \centering
+  \input{../../tab/GMM_CIs_width_1000.tex}
+  \caption{Median width of nominal 95\% GMM CI, conditional on existence.}
+  %\caption{Median width of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
+\end{table}
+
+\end{frame}
+\begin{frame}
 \begin{table}
   \scriptsize
   \centering
@@ -889,142 +1064,6 @@ where $m^I = (m_1^{I'}, m_2^{I'})'$ and
   %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 3$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
   
 \end{figure}
-
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-  \frametitle{Conclusion}
-  %\singlespacing
-  %\small
-
-  \begin{block}{Summary}
-  \begin{itemize}
-    \item Endogenous, mis-classified binary treatment.
-    %\item Important in applied work but no solution in the literature.
-      \item Usual (1st moment) IV assumption fails to identify $\beta$
-    \item Derive sharp identified set.
-      \item Stronger assumptions point identify $\beta$
-      \item Identification-Robust Inference incorportating equality and inequality moment conditions.
-   \end{itemize}
- \end{block}
-
- \begin{block}{Extensions / Future Work}
-   \begin{itemize}
- \item Arbitrary discrete $T^*$
- \item Relax additive separability in panel setting?
- \end{itemize}
- \end{block}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\appendix
-
-\begin{frame}[plain,label=SHARP_APPEND]
-  \frametitle{Restrictions from Non-differential Mis-classification}
-  \framesubtitle{Suppress $\mathbf{x}$ for simplicity}
-
-  \small
-  \begin{block}{Notation}
-    \begin{itemize}
-      \item $\textcolor{blue}{F_{tk}} \equiv$ \textcolor{blue}{Observed} conditional CDF of $y|(T=t,z=k)$
-      \item $\alert{F^{t^*}_{tk}} \equiv$ \alert{Unobserved} conditional CDF of $y|(T^*=t^*,T=t,z=k)$
-      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ observed given $(\alpha_0, \alpha_1)$
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Law of Total Probability}
-    \vspace{-1em}
-  \[
-    \textcolor{blue}{F_{tk}} = (1 - r_{tk}) \alert{F^{0}_{tk}} + r_{tk}\alert{F^{1}_{tk}}
-  \]
-  \end{block}
-
-  Given $(\alpha_0, \alpha_1)$ can we construct  $(F_{tk}^0, F_{tk}^1)$ to satisfy the mixture model?
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[plain,t]
-  \frametitle{Restrictions from Non-differential Mis-classification}
-
-  \footnotesize
-
-  \begin{block}{Notation}
-    \begin{itemize}
-      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ observed given $(\alpha_0, \alpha_1)$ 
-      \item $z_k$ as shorthand for $z =k$\\
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Iterated Expectations over $T^*$}
-    \vspace{-1em}
-  \begin{align*}
-    \mathbb{E}(y|T=0,z_k) &= (1 - r_{0k})\mathbb{E}(y|T^*=0,T=0,z_k) + r_{0k}\mathbb{E}(y|T^*=1,T=0,z_k)\\
-    \mathbb{E}(y|T=1,z_k) &= (1 - r_{1k}) \mathbb{E}(y|T^*=0,T=1,z_k) + r_{1k}\mathbb{E}(y|T^*=1,T=1,z_k)
-  \end{align*}
-  \end{block}
-
-  \vspace{1em}
-
-  \begin{itemize}
-    \item $(\alpha_0, \alpha_1)$ pin down $r_{tk}$
-  \end{itemize}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[plain,t]
-  \frametitle{Restrictions from Non-differential Mis-classification}
-
-
-  \footnotesize
-
-  \begin{block}{Notation}
-    \begin{itemize}
-      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ observed given $(\alpha_0, \alpha_1)$ 
-      \item $z_k$ as shorthand for $z =k$\\
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Iterated Expectations over $T^*$ and Non-diff.}
-    \vspace{-1em}
-  \begin{align*}
-    \mathbb{E}(y|T=0,z_k) &= (1 - r_{0k})\mathbb{E}(y|T^*=0,z_k) + r_{0k} \mathbb{E}(y|T^*=1,z_k)\\
-    \mathbb{E}(y|T=1,z_k) &= (1 - r_{1k}) \mathbb{E}(y|T^*=0,z_k) + r_{1k}\mathbb{E}(y|T^*=1,z_k)
-  \end{align*}
-
-  \vspace{1em}
-
-  \begin{itemize}
-    \item $(\alpha_0, \alpha_1)$ pin down $r_{tk}$
-    \item Non-diff.\ $\implies (\alpha_0, \alpha_1)$ pin down $\mathbb{E}(y|T^*=t^*,z=k)$
-    \item $\mathbb{E}(y|T^*,z=k)$ are the means of $(F^0_{tk}, F^{1}_{tk})$
-    \item \alert{Can we satisfy the mixture model?}
-  \end{itemize}
-  \end{block}
-
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[plain]
-  \frametitle{Restrictions from Non-differential Mis-classification}
-
-  \begin{block}{Equivalent Problem}
-   Given an observed CDF $F$ and a probability $p$, do there exist CDFs $(G,H)$ such that $F = (1-p)G + pH$ and the mean of $H$ is $\mu$? 
-  \end{block}
-
-  \begin{alertblock}{Necessary and Sufficient Condition if $F$ is Continuous}
-   \[
-     \int_{-\infty}^{F^{-1}(p)} x\; f(x) \; dx \leq \; p \mu \; \leq \int_{F^{-1}(1-p)}^{+\infty} x \; f(x)\; dx
-   \]
-  \end{alertblock}
-
-  \begin{block}{Sharp Identified Set}
-    Includes only those $(\alpha_0, \alpha_1)$ at which the preceding condition is satisfied jointly for the mixtures $F_{tk} = (1 - r_{tk})F_{tk}^0 + r_{tk} F_{tk}^1$.
-  \hyperlink{SHARP_BODY}{\beamergotobutton{Back}}
-  \end{block}
-
-
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
