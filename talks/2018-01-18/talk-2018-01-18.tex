@@ -2,7 +2,8 @@
 \usepackage{../slides}
 \usepackage{cancel}
 \usepackage{appendixnumberbeamer}
-\setbeameroption{show notes}
+%\setbeameroption{show notes}
+\setbeameroption{hide notes}
 \defbeamertemplate{description item}{align left}{\insertdescriptionitem\hfill}
 
 %%%%%%%%%%%%%%%%%%%% Not needed at home!
@@ -90,7 +91,8 @@
 \begin{frame}
   \frametitle{Example: Smoking and Birthweight (SNAP Trial)}
 \framesubtitle{Coleman et al.\ (N Engl J Med, 2012)}
-  RCT with 1050 pregnant smokers in England: 521 given nicotine patches, the rest given placebo patches.
+  RCT with pregnant smokers in England: half given nicotine patches, the rest given placebo patches.
+  Some given nicotine fail to quit; some given placebo quit.
 \begin{itemize}
   \item $y$ -- Birthweight 
   \item $T^*$ -- True smoking behavior 
@@ -352,8 +354,8 @@
 %
 %\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[label=SHARP_BODY]
-  \frametitle{Partial Identification for $\beta(\mathbf{x})$}
+\begin{frame}
+  \frametitle{Partial Identification Bounds for $\beta(\mathbf{x})$}
 
   \begin{block}{Known Result}
     \begin{itemize}
@@ -373,41 +375,17 @@
     \end{alertblock}
 
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-  \frametitle{Restrictions from Non-differential Mis-classification}
-  \framesubtitle{Suppress $\mathbf{x}$ for simplicity}
-
-  \small
-  \begin{block}{Notation}
-    \begin{itemize}
-      \item $\textcolor{blue}{F_{tk}} \equiv$ \textcolor{blue}{Observed} conditional CDF of $y|(T=t,z=k)$
-      \item $\alert{F^{t^*}_{tk}} \equiv$ \alert{Unobserved} conditional CDF of $y|(T^*=t^*,T=t,z=k)$
-      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ observed given $(\alpha_0, \alpha_1)$
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Law of Total Probability}
-    \vspace{-1em}
-  \[
-    \textcolor{blue}{F_{tk}} = (1 - r_{tk}) \alert{F^{0}_{tk}} + r_{tk}\alert{F^{1}_{tk}}
-  \]
-  \end{block}
-
-  Given $(\alpha_0, \alpha_1)$ can we construct  $(F_{tk}^0, F_{tk}^1)$ to satisfy the mixture model?
-
-\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Restrictions from Non-differential Mis-classification}
+\begin{frame}[t]
+  \frametitle{Restrictions from Non-differential Mis-classification?}
+  \framesubtitle{(Suppress $\mathbf{x}$ for simplicity)}
 
   \footnotesize
 
   \begin{block}{Notation}
     \begin{itemize}
-      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ observed given $(\alpha_0, \alpha_1)$ 
-      \item $z_k$ as shorthand for $z =k$\\
+      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ 
+      \item $z_k$ is shorthand for $z =k$\\
     \end{itemize}
   \end{block}
 
@@ -419,44 +397,65 @@
   \end{align*}
   \end{block}
 
-  \vspace{1em}
 
   \begin{itemize}
-    \item $(\alpha_0, \alpha_1)$ pin down $r_{tk}$
+    \item $r_{tk}$ is a function of $(\alpha_0, \alpha_1)$ and observables only.
   \end{itemize}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Restrictions from Non-differential Mis-classification}
-
+\begin{frame}[t,noframenumbering]
+  \frametitle{Restrictions from Non-differential Mis-classification?}
+  \framesubtitle{(Suppress $\mathbf{x}$ for simplicity)}
 
   \footnotesize
 
   \begin{block}{Notation}
     \begin{itemize}
-      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ observed given $(\alpha_0, \alpha_1)$ 
-      \item $z_k$ as shorthand for $z =k$\\
+      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ 
+      \item $z_k$ is shorthand for $z =k$\\
+    \end{itemize}
+  \end{block}
+  
+  \begin{block}{Adding Non-differential Assumption}
+    \vspace{-1em}
+  \begin{align*}
+    \mathbb{E}(y|T=0,z_k) &= (1 - r_{0k})\textcolor{blue}{\mathbb{E}(y|T^*=0,z_k)}\phantom{,T=0} + r_{0k}\textcolor{red}{\mathbb{E}(y|T^*=1,z_k)}\phantom{,T=0}\\
+    \mathbb{E}(y|T=1,z_k) &= (1 - r_{1k}) \textcolor{blue}{\mathbb{E}(y|T^*=0,z_k)}\phantom{,T=1} + r_{1k}\textcolor{red}{\mathbb{E}(y|T^*=1,z_k)}\phantom{,T=1}
+  \end{align*}
+  \end{block}
+
+
+  \begin{itemize}
+    \item $r_{tk}$ is a function of $(\alpha_0, \alpha_1)$ and observables only.
+    \item \alert{Non-differential assumption $\Rightarrow$ 2 equations in 2 unknowns $\Rightarrow$\\ solve for $\mathbb{E}(y|T^*=t^*,z=k)$ given $(\alpha_0, \alpha_1)$.}
+  \end{itemize}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Restrictions from Non-differential Mis-classification?}
+
+  \small
+  \begin{block}{Notation}
+    \begin{itemize}
+      \item $\textcolor{blue}{F_{tk}} \equiv$ \textcolor{blue}{Observed} CDF of $y|(T=t,z=k)$
+      \item $\alert{F^{t^*}_{tk}} \equiv$ \alert{Unobserved} CDF of $y|(T^*=t^*,T=t,z=k)$
+      %\item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$ observed given $(\alpha_0, \alpha_1)$
     \end{itemize}
   \end{block}
 
-  \begin{block}{Iterated Expectations over $T^*$ and Non-diff.}
+  \begin{block}{Law of Total Probability}
     \vspace{-1em}
-  \begin{align*}
-    \mathbb{E}(y|T=0,z_k) &= (1 - r_{0k})\mathbb{E}(y|T^*=0,z_k) + r_{0k} \mathbb{E}(y|T^*=1,z_k)\\
-    \mathbb{E}(y|T=1,z_k) &= (1 - r_{1k}) \mathbb{E}(y|T^*=0,z_k) + r_{1k}\mathbb{E}(y|T^*=1,z_k)
-  \end{align*}
-
-  \vspace{1em}
-
-  \begin{itemize}
-    \item $(\alpha_0, \alpha_1)$ pin down $r_{tk}$
-    \item Non-diff.\ $\implies (\alpha_0, \alpha_1)$ pin down $\mathbb{E}(y|T^*=t^*,z=k)$
-    \item $\mathbb{E}(y|T^*,z=k)$ are the means of $(F^0_{tk}, F^{1}_{tk})$
-    \item \alert{Can we satisfy the mixture model?}
-  \end{itemize}
+  \[
+    \textcolor{blue}{F_{tk}} = (1 - r_{tk}) \alert{F^{0}_{tk}} + r_{tk}\alert{F^{1}_{tk}}
+  \]
   \end{block}
 
+  \begin{block}{Preceding Slide}
+
+  \end{block}
+  %Given $(\alpha_0, \alpha_1)$ can we construct  $(F_{tk}^0, F_{tk}^1)$ to satisfy the mixture model?
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -529,7 +528,7 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Point Identification: 1st Ingredient}
+  \frametitle{Point Identification: 3rd Ingredient}
 
   \begin{block}{Assumption (III)}
     \begin{enumerate}[(i)]
@@ -640,7 +639,8 @@
 
 \begin{alertblock}{Weak Identification Problem}
   Moment conditions are uninformative about $(\alpha_0,\alpha_1)$ when $\beta$ is small.
-  %Moreover, $(\alpha_0,\alpha_1)$ could be on the boundary of the parameter space.
+  Moreover, $(\alpha_0,\alpha_1)$ could be on the boundary of the parameter space.
+  LINK TO SIMULATION RESULTS!!!
 \end{alertblock}
 
 %\begin{align*}
@@ -651,7 +651,6 @@
 
 
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Non-standard Inference Problem}
@@ -774,37 +773,37 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Moment Equalities}
-Let $\boldsymbol{\vartheta} = (\alpha_0, \alpha_1)$ and $\boldsymbol{\gamma} = (\boldsymbol{\kappa}, \theta_1)$ 
-
-\begin{equation}
-  \mathbb{E}[m^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \mathbf{q}_0)] \geq \mathbf{0}, \quad 
-  \mathbb{E}[m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)] = \mathbf{0}
-  \label{eq:MCs_ineq_eq}
-\end{equation}
-where $m^I = (m_1^{I'}, m_2^{I'})'$ and 
-\begin{equation}
-  m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)= \left[
-  \begin{array}{c}
- \left\{ \boldsymbol{\psi}_2'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_2 \right\}z_i \\
- \left\{ \boldsymbol{\psi}_3'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_3 \right\}z_i 
-  \end{array}
-\right].
-\label{eq:mE}
-\end{equation}
-
-\begin{equation}
-  h^E(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\gamma})  =  \left[
- \begin{array}{l}
-   \boldsymbol{\Psi}'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \boldsymbol{\kappa}\\
-   \left\{\boldsymbol{\psi}_1'(\theta_1)\mathbf{w}_i - \kappa_1\right\}z_i
- \end{array}
- \right].
- \label{eq:hE}
-\end{equation}
-
-\end{frame}
+%\begin{frame}
+%  \frametitle{Moment Equalities}
+%Let $\boldsymbol{\vartheta} = (\alpha_0, \alpha_1)$ and $\boldsymbol{\gamma} = (\boldsymbol{\kappa}, \theta_1)$ 
+%
+%\begin{equation}
+%  \mathbb{E}[m^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \mathbf{q}_0)] \geq \mathbf{0}, \quad 
+%  \mathbb{E}[m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)] = \mathbf{0}
+%  \label{eq:MCs_ineq_eq}
+%\end{equation}
+%where $m^I = (m_1^{I'}, m_2^{I'})'$ and 
+%\begin{equation}
+%  m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)= \left[
+%  \begin{array}{c}
+% \left\{ \boldsymbol{\psi}_2'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_2 \right\}z_i \\
+% \left\{ \boldsymbol{\psi}_3'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_3 \right\}z_i 
+%  \end{array}
+%\right].
+%\label{eq:mE}
+%\end{equation}
+%
+%\begin{equation}
+%  h^E(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\gamma})  =  \left[
+% \begin{array}{l}
+%   \boldsymbol{\Psi}'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \boldsymbol{\kappa}\\
+%   \left\{\boldsymbol{\psi}_1'(\theta_1)\mathbf{w}_i - \kappa_1\right\}z_i
+% \end{array}
+% \right].
+% \label{eq:hE}
+%\end{equation}
+%
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Bonferroni-Based Inference Procedure}
