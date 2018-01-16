@@ -447,7 +447,7 @@
     \begin{itemize} 
     \small
       \item $r_{tk}$ observable given $(\alpha_0, \alpha_1)$
-      \item $\mathbb{E}(T^*,T,z) = \mathbb{E}(T^*,z)$ observable given $(\alpha_0, \alpha_1)$
+      \item $\mathbb{E}(y|T^*,T,z) = \mathbb{E}(y|T^*,z)$ observable given $(\alpha_0, \alpha_1)$
     \end{itemize}
     
   \end{block}
@@ -467,7 +467,7 @@
 
   \begin{block}{Equivalent Problem}
     \small
-    Given a specified CDF $F$, probability $p$ and mean $\mu$, do there exist valid CDFs $(G,H)$ with $F = (1 - p) G + p H$ and $\mu = \mbox{mean}(H)$? 
+    Given a specified CDF $F$, for what values of $p$ and $\mu$ do there exist valid CDFs $(G,H)$ with $F = (1 - p) G + p H$ and $\mu = \mbox{mean}(H)$? 
 \end{block}
 
 %  \begin{block}{Equivalent Problem}
@@ -532,6 +532,9 @@
   \input{./densities_point1.tex}
 }
 \end{figure}
+
+
+\note{Picture very simple: for given weight $p$ on $H$, top panel shows the smallest mean that $H$ can have and the bottom shows the largest mean it can take to yield a valid mixture in which H has weight $p$. As you change $p$, you change the range of values that the mean of $H$ can take. In this example the observed distribution $F$ is a simple mixture of normals. If it were a different distribution we'd get different restrictions: picture shows how shape of $F$ leads to the upper and lower bounds for $\mu$.}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -617,10 +620,10 @@
 \begin{frame}
   \frametitle{Restrictions from Non-differential Mis-classification}
 
-  \begin{block}{Equivalent Problem}
-    \small
-    Given a specified CDF $F$, probability $p$ and mean $\mu$, do there exist valid CDFs $(G,H)$ with $F = (1 - p) G + p H$ and $\mu = \mbox{mean}(H)$? 
-\end{block}
+  %\begin{block}{Equivalent Problem}
+  %  \small
+  %  Given a specified CDF $F$, for what values of $p$ and $\mu$ do there exist valid CDFs $(G,H)$ with $F = (1 - p) G + p H$ and $\mu = \mbox{mean}(H)$? 
+%\end{block}
 
   \begin{alertblock}{Necessary and Sufficient Condition if $F$ is Continuous}
     \small
@@ -629,12 +632,21 @@
    \]
   \end{alertblock}
 
-  \begin{block}{Sharp Identified Set}
+  \begin{block}{Back to Our Original Problem}
     \small
-    Includes only those $(\alpha_0, \alpha_1)$ at which the preceding condition is satisfied jointly for the mixtures $F_{tk} = (1 - r_{tk})F_{tk}^0 + r_{tk} F_{tk}^1$.
+    \vspace{-1em}
+    \begin{itemize}
+      \item Observe $F_{tk}$ for all $(t,k)$ 
+      \item $r_{tk}$ pinned down by $(\alpha_0, \alpha_1)$
+      \item Can we find $F_{tk}^{t^*}$ so that $F_{tk} = (1 - r_{tk})F_{tk}^0 + r_{tk} F_{tk}^1$?
+      \item Non-diff.\ assumption $\Rightarrow$ mean of $F_{tk}^1$ pinned down by $(\alpha_0, \alpha_1)$.
+      \item Implies joint restrictions on $(\alpha_0,\alpha_1)$, hence $\beta$.
+    \end{itemize}
   \end{block}
 
-  \note{Explain that we have to step back and realize that we have several of these mixture decompositions, corresponding to different values of $T$ and $z$. For each the $p$ and $\mu$ are determined from observables and $(\alpha_0, \alpha_1)$. This yields restrictions on the mis-classification probabilities, and since we know how they are related to $\beta$ via the Wald estimator, we obtain restrictions on $\beta$ as well.}
+
+  \note{I just showed you necessary conditions, but it turns out that they're also sufficient if $F$ is continuous, so we've solved the problem of when a valid mixture decomposition exists. How does this relate to the original question: does non-differential measurement error further restrict $\alpha_0,\alpha_1$?}
+
 
 
 \end{frame}
@@ -646,9 +658,14 @@
     Under baseline assumptions, sharp identified set for $\beta(\mathbf{x})$ is never a singleton, regardless of how many (discrete) values $z$ takes on.
   \end{alertblock}
 
-  \vspace{2em}
+  \begin{block}{Intuition}
+    No mis-classification $\Rightarrow r_{tk} = 0 \mbox{ or } 1$ and we can always form a valid mixture in this case. Hence the Wald estimand is always in the sharp identified set for $\beta$. 
+  \end{block}
+
   \begin{block}{Point identification from stronger assumptions?}
   \end{block}
+
+  \note{Also want to point out that the restrictions from non-differential measurement error can be very informative in practice! Now transition to point identification argument.}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -750,7 +767,7 @@
     \end{enumerate}
   \end{block}
   
-  MENTION THE ANGRIST ARGUMENT\ldots
+  MENTION THE ANGRIST ARGUMENT BUT DON'T NEED TO CITE ANGRIST!\ldots
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -843,7 +860,7 @@
 \end{alertblock}
 
 
-SHOW FULL CONTINUUM OF MOMENTS? (TO ILLUSTRATE THAT IT'S NOT JUST A PROBLEM WITH THE MOMENTS WE HAPPEN TO USE)
+LINK TO A SLIDE SHOWING FULL CONTINUUM OF MOMENTS
 
 \end{frame}
 
