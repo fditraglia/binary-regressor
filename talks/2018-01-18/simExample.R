@@ -79,12 +79,11 @@ text(0.17, 0.20, pos = 4,
      labels = paste0('$\\alpha_0 + \\alpha_1 = ', round(alphaSums[2], 2), '$'))
 dev.off()
 
-BBS_CI <- with(alphaCI, range(1 - a0 - a1))
 
 theta1 <- ivreg(x = dat$Tobs, y = dat$y, z = dat$z, alpha = 0.025)
 UCL <- theta1$upper
 LCL <- theta1$lower
-s_CI <- with(CI_alphas, range(1 - a0 - a1))
+s_CI <- with(alphaCI, range(1 - a0 - a1))
 bonf_LCL <- min(LCL * min(s_CI), LCL * max(s_CI))
 bonf_UCL <- max(UCL * min(s_CI), UCL * max(s_CI))
 bonf_CI <- c(bonf_LCL, bonf_UCL)
