@@ -779,15 +779,17 @@
     If $\beta(\mathbf{x}) \neq 0$, then $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ are likewise point identified.
   \end{alertblock}
 
-  \begin{block}{Proof Sketch}
-    \vspace{-0.5em}
-    \begin{enumerate}
-      \item $\beta(\mathbf{x})=0 \iff \theta_1(\mathbf{x}) =0$ so suppose this is not the case.  
-      \item Lemmas: full-rank linear system in $\theta_1(\mathbf{x}), \theta_2(\mathbf{x}), \theta_3(\mathbf{x})$ \& observables.
-      \item Non-linear eqs.\ relating $\theta_1(\mathbf{x}),\theta_2(\mathbf{x}), \theta_3(\mathbf{x})$ to  $\beta(\mathbf{x})$ and $\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})$. 
-        Show that solution exists and is unique.
-    \end{enumerate}
-  \end{block}
+ % \begin{block}{Proof Sketch}
+ %   \vspace{-0.5em}
+ %   \begin{enumerate}
+ %     \item $\beta(\mathbf{x})=0 \iff \theta_1(\mathbf{x}) =0$ so suppose this is not the case.  
+ %     \item Lemmas: full-rank linear system in $\theta_1(\mathbf{x}), \theta_2(\mathbf{x}), \theta_3(\mathbf{x})$ \& observables.
+ %     \item Non-linear eqs.\ relating $\theta_1(\mathbf{x}),\theta_2(\mathbf{x}), \theta_3(\mathbf{x})$ to  $\beta(\mathbf{x})$ and $\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})$. 
+ %       Show that solution exists and is unique.
+ %   \end{enumerate}
+ % \end{block}
+
+\vspace{1em}
 
   \begin{block}{Sufficient Conditions for (II) and (III)}
     \vspace{-0.5em}
@@ -901,9 +903,9 @@
 \begin{frame}
   \frametitle{Moment Inequalities I -- First-stage Probabilities}
 
-  $\alpha_0 \leq p_k \leq 1 - \alpha_1$ becomes $\alert{\mathbb{E}\left[ m_{1k}^I(\mathbf{w}_i,\boldsymbol{\vartheta} ) \right] \geq \mathbf{0}}$ for all $k$ where
+  $\alpha_0 \leq p_k \leq 1 - \alpha_1$ becomes $\alert{\mathbb{E}\left[ m_(\mathbf{w}_i,\boldsymbol{\vartheta} ) \right] \geq \mathbf{0}}$ for all $k$ where
 \[
-  m_{1k}^I(\mathbf{w}_i, \boldsymbol{\vartheta}) \equiv \left[
+  m(\mathbf{w}_i, \boldsymbol{\vartheta}) \equiv \left[
   \begin{array}{l}
     \mathbf{1}(z_i=k)(T - \alpha_0) \\
     \mathbf{1}(z_i = k) (1 - T_i - \alpha_1) 
@@ -919,9 +921,9 @@
 
   \scriptsize
 
-  For all $k$, we have $\alert{\mathbb{E}[m_{2k}^I\big(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q}_k)]\geq 0}$ where
+  For all $k$, we have $\alert{\mathbb{E}[m\big(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q}_k)]\geq 0}$ where
 \[
-  m_{2k}^I\big(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q}_k) \equiv \left[
+  m\big(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q}_k) \equiv \left[
   \begin{array}{r}
     y_i \mathbf{1}\left( z_i=k \right)\left\{(T_i - \alpha_0) - \mathbf{1}(y_i \leq \underline{q}_{0k})  (1 - T_i)\left( \frac{1 - \alpha_0 - \alpha_1}{\alpha_1} \right)\right\} \\
     - y_i \mathbf{1}(z_i=k) \left\{ (T_i - \alpha_0) -  \mathbf{1}(y_i > \overline{q}_{0k}) (1 - T_i) \left( \frac{1 - \alpha_0 - \alpha_1}{\alpha_1} \right) \right\} \\
@@ -930,9 +932,9 @@
 \end{array}
 \right] 
 \]
-and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \underline{q}_{1k}, \,\overline{q}_{1k})'}$ defined by $\alert{\mathbb{E}[h_k^I(\mathbf{w}_i,\boldsymbol{\vartheta},\mathbf{q}_k)]=0}$ with
+and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \underline{q}_{1k}, \,\overline{q}_{1k})'}$ defined by $\alert{\mathbb{E}[h(\mathbf{w}_i,\boldsymbol{\vartheta},\mathbf{q}_k)]=0}$ with
 \[
-  h_k^I(\mathbf{w}_i,\boldsymbol{\vartheta},\mathbf{q}_k) = \left[
+  h(\mathbf{w}_i,\boldsymbol{\vartheta},\mathbf{q}_k) = \left[
   \begin{array}{l}
     \mathbf{1}(y_i \leq \underline{q}_{0k}) \mathbf{1}(z_i=k)(1 - T_i) 
     - \left( \frac{\alpha_1}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(T_i-\alpha_0)\\ 
@@ -1065,7 +1067,7 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Simulation Example \hfill \small{($\beta = 1, \alpha_0 = 0.1, \alpha_1 = 0.2, n = 5000$)}}
+  \frametitle{Example \hfill \small{(sim data: $\beta = 1, \alpha_0 = 0.1, \alpha_1 = 0.2, n = 5000$)}}
 
 \begin{block}{Results if $T^*$ were observed}
 \begin{figure}[h]
@@ -1079,7 +1081,7 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[noframenumbering]
-  \frametitle{Simulation Example \hfill \small{($\beta = 1, \alpha_0 = 0.1, \alpha_1 = 0.2, n = 5000$)}}
+  \frametitle{Example \hfill \small{(sim data: $\beta = 1, \alpha_0 = 0.1, \alpha_1 = 0.2, n = 5000$)}}
 
   \begin{alertblock}{Results using $T$ instead of $T^*$}
 \begin{figure}[h]
@@ -1093,7 +1095,7 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Simulation Example \hfill \small{($\beta = 1, \alpha_0 = 0.1, \alpha_1 = 0.2, n = 5000$)}}
+  \frametitle{Example \hfill \small{(sim data: $\beta = 1, \alpha_0 = 0.1, \alpha_1 = 0.2, n = 5000$)}}
 
 \begin{columns}
   \column{0.6\textwidth}
@@ -1131,13 +1133,13 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 \begin{frame}
   \frametitle{Conclusion}
 
-  \begin{enumerate}
+  \begin{itemize}
     \item Identification and inference for effect of binary, mis-classified, endogenous regressor.
     \item Show that only existing point identification result is incorrect. 
     \item Derive sharp identified set for $\beta(\mathbf{x})$ under standard assumptions.
     \item Prove point identification of $\beta(\mathbf{x})$ under slightly stronger assumptions.
     \item Point out problem of weak identification in mis-classification models, develop identification-robust inference for $\beta(\mathbf{x})$. 
-  \end{enumerate}
+  \end{itemize}
 
 
 \end{frame}
@@ -1283,32 +1285,32 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 \end{table}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.75\textwidth}{!}{%
-%  \input{../../fig/bonf_point5_1000.tex}
-%}
-%\caption{Coverage of nominal $>95\%$ Bonferroni CI for $\beta$: with and without non-differential assumption, $\beta = 0.5$} 
-%  
-%  %\caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 0.5$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
-%\end{figure}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.75\textwidth}{!}{%
-%  \input{../../fig/bonf_1_1000.tex}
-%}
-%\caption{Coverage of nominal $>95\%$ Bonferroni CI for $\beta$: with and without non-differential assumption, $\beta = 1$} 
-%  
-%  %\caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 1$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
-%\end{figure}
-%
-%\end{frame}
+\begin{frame}
+\begin{figure}[h]
+  \centering
+\resizebox{0.75\textwidth}{!}{%
+  \input{../../fig/bonf_point5_1000.tex}
+}
+\caption{Coverage of nominal $>95\%$ Bonferroni CI for $\beta$: with and without non-differential assumption, $\beta = 0.5$} 
+  
+  %\caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 0.5$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
+\end{figure}
+
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+  \centering
+\resizebox{0.75\textwidth}{!}{%
+  \input{../../fig/bonf_1_1000.tex}
+}
+\caption{Coverage of nominal $>95\%$ Bonferroni CI for $\beta$: with and without non-differential assumption, $\beta = 1$} 
+  
+  %\caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 1$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \begin{table}
   \scriptsize
@@ -1357,9 +1359,9 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 \begin{frame}
 \begin{figure}[h]
   \centering
-%\resizebox{0.75\textwidth}{!}{%
-%  \input{../../fig/bonf_vs_twostep_1_1000.tex}
-%}
+\resizebox{0.75\textwidth}{!}{%
+  \input{../../fig/bonf_vs_twostep_1_1000.tex}
+}
   
   \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 1$}
   %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 1$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
@@ -1370,9 +1372,9 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 \begin{frame}
 \begin{figure}[h]
   \centering
-%\resizebox{0.75\textwidth}{!}{%
-%  \input{../../fig/bonf_vs_twostep_2_1000.tex}
-%}
+\resizebox{0.75\textwidth}{!}{%
+  \input{../../fig/bonf_vs_twostep_2_1000.tex}
+}
   
   \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 2$}
   %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 2$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
@@ -1383,9 +1385,9 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 \begin{frame}
 \begin{figure}[h]
   \centering
-%\resizebox{0.75\textwidth}{!}{%
-%  \input{../../fig/bonf_vs_twostep_3_1000.tex}
-%}
+\resizebox{0.75\textwidth}{!}{%
+  \input{../../fig/bonf_vs_twostep_3_1000.tex}
+}
   \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 3$}
   %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 3$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
   
