@@ -950,7 +950,7 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-  \frametitle{Inference With Moment Equalities and Inequalities}
+  \frametitle{Inference with Moment Equalities and Inequalities}
   \small
 
 \begin{block}{Moment Conditions}
@@ -983,25 +983,23 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Generalized Moment Selection: Andrews \& Soares (2010)}
+  \frametitle{Inference with Moment Equalities and Inequalities}
 
   \small
 
-  \begin{block}{Moment Selection Step}
-    \vspace{0.4em}
-    If $\boxed{\displaystyle\frac{\sqrt{n}\,\bar{m}_{n,j}(\vartheta_0)}{\widehat{\sigma}_{n,j}(\vartheta_0)} > \sqrt{\log n}}$, ignore ineq.\ $j$ when calculating critical value.
+  \begin{block}{Generalized Moment Selection -- Andrews \& Soares (2010)}
+    \begin{itemize}
+      \item Inequalities that don't bind reduce power of test, so eliminate those that are ``far from binding'' before calculating critical value.
+      \item Specifically: drop inequality $j$ if  $\alert{\displaystyle\frac{\sqrt{n}\,\bar{m}_{n,j}(\vartheta_0)}{\widehat{\sigma}_{n,j}(\vartheta_0)} > \sqrt{\log n}}$
+      \item Uniformly valid test of $H_0\colon \vartheta = \vartheta_0$ even if $\vartheta_0$ is not point identified. 
+      \item Not asymptotically conservative.
+    \end{itemize}
   \end{block}
 
-  \vspace{0.4em}
 
-
-  \begin{block}{Theoretical Guarantees}
-    Uniformly valid test of $H_0\colon \vartheta = \vartheta_0$ \alert{regardless of whether $\vartheta_0$ is identified}.
-    Not asymptotically conservative.
-  \end{block}
-
-  \begin{block}{Drawback}
-   \emph{Joint test} for the whole parameter vector but we're only interested in $\beta$
+  \begin{block}{Problem}
+   \emph{Joint test} for the whole parameter vector but we're only interested in $\beta$.
+   Projection is conservative and computationally intensive.
   \end{block}
 
 \end{frame}
@@ -1039,13 +1037,13 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 %\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Bonferroni-Based Inference Procedure}
+  \frametitle{Our Solution: Bonferroni-Based Inference}
   
 
   \begin{block}{Leverage Special Structure of Model}
     \begin{itemize}
       \item $\beta$ only enters MCs through $\theta_1 = \beta/ (1 - \alpha_0 - \alpha_1)$
-      \item Inference for $\theta_1$ is standard if $z$ is a strong IV. 
+      \item If $z$ is a strong instrument, inference for $\theta_1$ is standard.
       \item $(\boldsymbol{\kappa}, \mathbf{q})$ strongly identified under null for $(\alpha_0, \alpha_1)$
     \end{itemize}
 
@@ -1083,9 +1081,23 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Related Past and Current Research}
-  Talk about how this paper fits into a research agenda concerning measurement error: the beliefs paper, this paper, returns to lying (with Arthur), and biased measurements of displacement in the paper with Camilo.
+\begin{frame}[noframenumbering,plain]
+  \frametitle{Related Past and Current Research on Measurement Error}
+  \small
+  \begin{block}{DiTraglia \& Garcia--Jimeno (2017b)} 
+    What if $z$ is invalid?
+    Bayesian sensitivity analysis using joint restrictions on measurement error, regressor endogeneity, and instrument invalidity.
+  \end{block}
+
+  \begin{block}{DiTraglia \& Lewbel (in progress)}
+    What if $T$ can affect on $y$ \emph{separately} from $T^*$? (E.g.\ higher wage by claiming to have college degree.) 
+   Estimate the ``returns to lying.''
+  \end{block}
+
+  \begin{block}{DiTraglia \& Garcia-Jimeno (in progress)}
+    Structual model of forced migration and de facto land reform during the Columbian civil conflict (1990s--2000s). 
+    How to exploit multiple biased measures of migration?
+  \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
