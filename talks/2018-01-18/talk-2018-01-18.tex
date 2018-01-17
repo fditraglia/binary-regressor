@@ -562,84 +562,84 @@
 \end{figure}
 
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}[noframenumbering]
-%
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.85\textwidth}{!}{%
-%  \input{./densities_point3.tex}
-%}
-%\end{figure}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}[noframenumbering]
-%
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.85\textwidth}{!}{%
-%  \input{./densities_point4.tex}
-%}
-%\end{figure}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}[noframenumbering]
-%
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.85\textwidth}{!}{%
-%  \input{./densities_point5.tex}
-%}
-%\end{figure}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}[noframenumbering]
-%
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.85\textwidth}{!}{%
-%  \input{./densities_point6.tex}
-%}
-%\end{figure}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}[noframenumbering]
-%
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.85\textwidth}{!}{%
-%  \input{./densities_point7.tex}
-%}
-%\end{figure}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}[noframenumbering]
-%
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.85\textwidth}{!}{%
-%  \input{./densities_point8.tex}
-%}
-%\end{figure}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}[noframenumbering]
-%
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.85\textwidth}{!}{%
-%  \input{./densities_point9.tex}
-%}
-%\end{figure}
-%
-%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point3.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point4.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point5.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point6.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point7.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point8.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point9.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 
 \begin{figure}[h]
@@ -1046,14 +1046,15 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
       \item If $z$ is a strong instrument, inference for $\theta_1$ is standard.
       \item $(\boldsymbol{\kappa}, \mathbf{q})$ strongly identified under null for $(\alpha_0, \alpha_1)$
     \end{itemize}
+    \pause
 
     \begin{block}{Procedure}
       \begin{enumerate}
-        \item Concentrate out $(\theta_1, \boldsymbol{\kappa}, \boldsymbol{q}) \implies$ joint GMS test for $(\alpha_0, \alpha_1)$ 
-        \item Invert $\implies (1 - \delta_1)\times 100\%$ confidence set for $(\alpha_0, \alpha_1)$
-        \item Project $\implies$ CI for $(1 - \alpha_0 - \alpha_1)$
-        \item Construct standard $(1 - \delta_2)\times 100\%$ IV CI for $\theta_1$
-        \item Bonferroni $\implies (1 - \delta - \delta_2)\times 100\%$ CI for $\beta$
+        \item Concentrate out $(\theta_1, \boldsymbol{\kappa}, \boldsymbol{q}) \Rightarrow$ joint GMS test for $(\alpha_0, \alpha_1)$ \pause 
+        \item Invert test $\Rightarrow (1 - \delta_1)\times 100\%$ confidence set for $(\alpha_0, \alpha_1)$ \pause
+        \item Project $\Rightarrow$ CI for $(1 - \alpha_0 - \alpha_1)$ \pause
+        \item Construct standard $(1 - \delta_2)\times 100\%$ IV CI for $\theta_1$ \pause
+        \item Bonferroni $\Rightarrow (1 - \delta - \delta_2)\times 100\%$ CI for $\beta$
       \end{enumerate}
     \end{block}
     
@@ -1089,6 +1090,42 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 \end{figure}
 \[\alert{\widehat{\beta}_{IV} = 1.34, \quad \mbox{95\% CI } = (1.22, 1.45)}\]
 \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Simulation Example \hfill \small{($\beta = 1, \alpha_0 = 0.1, \alpha_1 = 0.2, n = 5000$)}}
+
+\begin{columns}
+  \column{0.6\textwidth}
+  \vspace{-2em}
+\begin{figure}[h]
+  \centering
+\resizebox{\textwidth}{!}{%
+  \input{./GMS_CI.tex}
+}
+\end{figure}
+  \column{0.6\textwidth}
+  \scriptsize
+  \pause
+  \begin{alertblock}{\small Bonferroni Interval}
+  \begin{enumerate}
+    \item $97.5\% \mbox{ CI for } (1 - \alpha_0 - \alpha_1) = (0.64, 0.82)$
+      \pause
+    \item $97.5\% \mbox{ CI for } \theta_1 = (1.20, 1.47)$ 
+      \pause
+    \item $> 95\%$ CI for $\beta$: \\
+      $(0.64 \times 1.20, 0.82 \times 1.47) = \alert{(0.77,1.21)} $
+  \end{enumerate}
+    \end{alertblock}
+\pause
+  \begin{block}{\small Comparisons}
+    \begin{itemize}
+      \item (0.88, 1.04) for IV if $T^*$ were observed
+      \item (1.22,1.45) for naive IV interval using $T$
+    \end{itemize}
+\end{block}
+
+\end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}

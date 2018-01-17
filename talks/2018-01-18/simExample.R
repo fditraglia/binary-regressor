@@ -63,16 +63,30 @@ pvalues <- sapply(1:nrow(alpha_grid),
 
 delta1 <- 0.025
 alphaCI <- subset(alpha_grid, pvalues > delta1)
+
+tikz('~/binary-regressor/talks/2018-01-18/GMS_CI.tex',
+     width = 4, height = 4)
 plot(alphaCI, pch = 15, col = 'red', xlim = c(0, 0.3), ylim = c(0, 0.3),
      xlab = '$\\alpha_0$', ylab = '$\\alpha_1$', pty = 's', 
-     main = '97.5\\% GMS Confidence Region for $(\\alpha_0, \\alpha_0)$')
+     main = '97.5\\% GMS Confidence Region for $(\\alpha_0, \\alpha_1)$',
+     las = 1)
 alphaSums <- with(alphaCI, range(a0 + a1))
 abline(alphaSums[1], -1, lty = 2, lwd = 2)
 text(0.12, 0.05, pos = 2, 
-     labels = paste0('$\\alpha_0 + \\alpha_1 = ', alphaSums[1], '$'))
+     labels = paste0('$\\alpha_0 + \\alpha_1 = ', round(alphaSums[1], 2), '$'))
 abline(alphaSums[2], -1, lty = 2, lwd = 2)
 text(0.17, 0.20, pos = 4, 
-     labels = paste0('$\\alpha_0 + \\alpha_1 = ', alphaSums[2], '$'))
+     labels = paste0('$\\alpha_0 + \\alpha_1 = ', round(alphaSums[2], 2), '$'))
+dev.off()
 
 BBS_CI <- with(alphaCI, range(1 - a0 - a1))
+
+theta1 <- ivreg(x = dat$Tobs, y = dat$y, z = dat$z, alpha = 0.025)
+UCL <- theta1$upper
+LCL <- theta1$lower
+s_CI <- with(CI_alphas, range(1 - a0 - a1))
+bonf_LCL <- min(LCL * min(s_CI), LCL * max(s_CI))
+bonf_UCL <- max(UCL * min(s_CI), UCL * max(s_CI))
+bonf_CI <- c(bonf_LCL, bonf_UCL)
+
 
