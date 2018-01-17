@@ -153,3 +153,11 @@ dev.off()
 tikz('~/binary-regressor/talks/2018-01-18/densities_point7.tex')
 densityPlot(0.7)
 dev.off()
+
+tikz('~/binary-regressor/talks/2018-01-18/densities_point8.tex')
+densityPlot(0.8)
+dev.off()
+
+tikz('~/binary-regressor/talks/2018-01-18/densities_point9.tex')
+densityPlot(0.9)
+dev.off()

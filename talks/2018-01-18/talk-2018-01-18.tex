@@ -69,7 +69,7 @@
   \end{enumerate}
 \end{alertblock}
 
-    \note{Questions this paper sets out to answer. Simple model. If $T^*$ were continuous and measurement error were classical, this would be trivially easy. But, as we'll see things are much more complicated when $T^*$ is binary. First some motivating examples.}
+    \note{Questions this paper sets out to answer. Simple model. If $T^*$ were continuous and measurement error were classical, this would be trivially easy. But, as we'll see things are much more complicated when $T^*$ is binary. SAY WHAT A SHARP IDENTIFIED SET IS! SAY WHAT POINT IDENTIFICATION IS! First a motivating example.}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -102,21 +102,21 @@
 \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Example: Schooling and Test Scores}
-\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
-  RCT in Afghanistan: schools built in randomly selected villages.
-  In treatment villages only some girls attend school; in control villages some girls attend school elsewhere.
-  %32 villages divided into 11 clusters. Randomly choose 6 and set up school in each village of these clusters.
-
-\begin{itemize}
-  \item $y$ -- Girl's score on math and language test 
-  \item $T^*$ -- Girl's true school attendance
-  \item $T$ -- Parent's report of child's school attendance
-  \item $\mathbf{x}$ -- Child and household characteristics
-  \item $z$ -- School built in village
-\end{itemize}
-\end{frame}
+%\begin{frame}
+%  \frametitle{Example: Schooling and Test Scores}
+%\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
+%  RCT in Afghanistan: schools built in randomly selected villages.
+%  In treatment villages only some girls attend school; in control villages some girls attend school elsewhere.
+%  %32 villages divided into 11 clusters. Randomly choose 6 and set up school in each village of these clusters.
+%
+%\begin{itemize}
+%  \item $y$ -- Girl's score on math and language test 
+%  \item $T^*$ -- Girl's true school attendance
+%  \item $T$ -- Parent's report of child's school attendance
+%  \item $\mathbf{x}$ -- Child and household characteristics
+%  \item $z$ -- School built in village
+%\end{itemize}
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Related Literature}
@@ -135,13 +135,15 @@
     \alert{Mahajan (2006)},\\ \small Shiu (2015), Denteh et al.\ (2016), Ura (2016), Calvi et al.\ (2017)
   \end{block}
 
-  \note{Very large literature on measurement error. Can't summarize everything here. But I want to draw out a few themes that will be relevant later and point out one paper in particular:
+  \note{\small \singlespacing Large literature on measurement error. Can't summarize everything here. Draw out a few themes:
     \begin{itemize}
       \item Continuous vs.\ discrete
       \item Classical vs.\ non-classical
       \item Exogenous vs.\ endogenous
-    \end{itemize}
-  Don't spend too much time on other papers. Just say there was almost no work on the endogenous case when we started this. Recently some work that complements but doesn't overlap with ours. Focus on Mahajan paper and give the capsule explanation.}
+      \item Point out that identification has been established when $T^*$ is exogenous.
+      \item Distinguish between the two results in Mahajan.
+      \item Say very little on the other papers: just that there was almost no work on the endogenous case until very recently. A number of more recent papers that complement but don't overlap with ours. I'll say a bit more about the most closely related one later.
+    \end{itemize}}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -194,29 +196,39 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Identification Results from the Literature}
+  \frametitle{Existing Result for Endogenous $T^*$ is Incorrect}
 
-  \begin{block}{Mahajan (2006) Theorem 1, Frazis \& Loewenstein (2003)}
-    $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*] = 0$, plus ``Baseline'' $\implies \beta(\mathbf{x})$ identified\\
-   \hfill \alert{Requires $(T^*,z)$ jointly exogenous.}
+  %\begin{block}{Correct Result -- $T^*$ Exogenous}
+    %Mahajan (2006) Theorem 1, Frazis \& Loewenstein (2003)
+  %  $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*] = 0$, plus ``Baseline'' $\implies \beta(\mathbf{x})$ identified\\
+   %\hfill \alert{Requires $(T^*,z)$ jointly exogenous.}
+  %\end{block}
+
+  \begin{block}{Mahajan (2006; Ecta) A.2}
+    $\mathbb{E}[\varepsilon|\mathbf{x}, z, T^*, T] = \mathbb{E}[\varepsilon|\mathbf{x},T^*]$, plus ``Baseline'' $\Rightarrow \beta(\mathbf{x})$ point identified when $T^*$ is endogenous.
+    %\hfill \alert{Allows $T^*$ endogenous, but we prove this claim is false.}
   \end{block}
 
-  \begin{block}{Mahajan (2006) A.2}
-    $\mathbb{E}[\varepsilon|\mathbf{x}, z, T^*, T] = \mathbb{E}[\varepsilon|\mathbf{x},T^*]$, plus ``Baseline'' $\implies \beta(\mathbf{x})$ identified\\
-    \hfill \alert{Allows $T^*$ endogenous, but we prove this claim is false.}
-  \end{block}
+  \begin{alertblock}{This is incorrect\ldots}
+    We prove that, under Mahajan's assumptions, the instrument must be uncorrelated with  $T^*$ unless $T^*$ is in fact \emph{exogenous}.
+  \end{alertblock}
 
 
-  \begin{block}{Open Question}
-    Can we identify $\beta(\mathbf{x})$ when $T^*$ is endogenous? If so, how?
-  \end{block}
-
-  \note{Next: show you two known results that will play a role in what comes later: (1) simple bounds for mis-classification using only assumption that $z$ doesn't change $\alpha_0, \alpha_1$; (2) effect of mis-classification on IV estimator.}
+  \note{\singlespacing \footnotesize
+    \begin{itemize}
+      \item 1st contribution: show that only existing point identification result for mis-measured, binary, endog.\ regressor is false
+      \item As mentioned a few minutes ago, main result from Mahajan (2006; Ecta) is for $T^*$, but paper also contains a result for the endogenous case [READ THE RESULT]
+      \item Exotic--looking assumption is needed to leverage Mahajan's result for the exogenous case. Unfortunately we show that it leads to a contradiction. [READ THE RESULT]
+      \item Identification in this model is an open question: though Mahajan's proof fails, this does not establish that $\beta$ is unidentified under the baseline assumptions.
+      \item Next step show you two known results: simple bounds for $\alpha_0, \alpha_1$, and relationship between IV estimator and $\alpha_0,\alpha_1$, yielding bounds for $\beta$
+      \item Then our 2nd contribution: sharp identified set for $\beta$ under baseline assumptions. Improve upon simple bounds.
+    \end{itemize}
+  Next: show you two known results that will play a role in what comes later: (1) simple bounds for mis-classification using only assumption that $z$ doesn't change $\alpha_0, \alpha_1$; (2) effect of mis-classification on IV estimator.}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{First-stage Probabilities \& Mis-classification Bounds} 
+  \frametitle{Simple Bounds for Mis-classification from First-stage} 
 
   \begin{table}[h]
     \centering
@@ -373,6 +385,8 @@
         %\item Is $\beta(\mathbf{x})$ identified under the baseline assumptions?
       \end{itemize}
     \end{alertblock}
+
+    \note{Answer turns out to be yes. Now talk about our 2nd contribution: deriving the so-called ``sharp'' identified set }
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -548,61 +562,83 @@
 \end{figure}
 
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[noframenumbering]
-
-\begin{figure}[h]
-  \centering
-\resizebox{0.85\textwidth}{!}{%
-  \input{./densities_point3.tex}
-}
-\end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[noframenumbering]
-
-\begin{figure}[h]
-  \centering
-\resizebox{0.85\textwidth}{!}{%
-  \input{./densities_point4.tex}
-}
-\end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[noframenumbering]
-
-\begin{figure}[h]
-  \centering
-\resizebox{0.85\textwidth}{!}{%
-  \input{./densities_point5.tex}
-}
-\end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[noframenumbering]
-
-\begin{figure}[h]
-  \centering
-\resizebox{0.85\textwidth}{!}{%
-  \input{./densities_point6.tex}
-}
-\end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[noframenumbering]
-
-\begin{figure}[h]
-  \centering
-\resizebox{0.85\textwidth}{!}{%
-  \input{./densities_point7.tex}
-}
-\end{figure}
-
-\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[noframenumbering]
+%
+%\begin{figure}[h]
+%  \centering
+%\resizebox{0.85\textwidth}{!}{%
+%  \input{./densities_point3.tex}
+%}
+%\end{figure}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[noframenumbering]
+%
+%\begin{figure}[h]
+%  \centering
+%\resizebox{0.85\textwidth}{!}{%
+%  \input{./densities_point4.tex}
+%}
+%\end{figure}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[noframenumbering]
+%
+%\begin{figure}[h]
+%  \centering
+%\resizebox{0.85\textwidth}{!}{%
+%  \input{./densities_point5.tex}
+%}
+%\end{figure}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[noframenumbering]
+%
+%\begin{figure}[h]
+%  \centering
+%\resizebox{0.85\textwidth}{!}{%
+%  \input{./densities_point6.tex}
+%}
+%\end{figure}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[noframenumbering]
+%
+%\begin{figure}[h]
+%  \centering
+%\resizebox{0.85\textwidth}{!}{%
+%  \input{./densities_point7.tex}
+%}
+%\end{figure}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[noframenumbering]
+%
+%\begin{figure}[h]
+%  \centering
+%\resizebox{0.85\textwidth}{!}{%
+%  \input{./densities_point8.tex}
+%}
+%\end{figure}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[noframenumbering]
+%
+%\begin{figure}[h]
+%  \centering
+%\resizebox{0.85\textwidth}{!}{%
+%  \input{./densities_point9.tex}
+%}
+%\end{figure}
+%
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 
@@ -659,13 +695,11 @@
   \end{alertblock}
 
   \begin{block}{Intuition}
-    No mis-classification $\Rightarrow r_{tk} = 0 \mbox{ or } 1$ and we can always form a valid mixture in this case. Hence the Wald estimand is always in the sharp identified set for $\beta$. 
+    No mis-classification $\Rightarrow r_{tk} = 0 \mbox{ or } 1$ and we can always form a valid mixture in this case. Show that Wald estimand always lies within the sharp identified set for $\beta$. 
   \end{block}
 
-  \begin{block}{Point identification from stronger assumptions?}
-  \end{block}
 
-  \note{Also want to point out that the restrictions from non-differential measurement error can be very informative in practice! Now transition to point identification argument.}
+  \note{Second contribution. Simple bounds I showed you earlier are not sharp: in other words, they're not the best bounds you can get under our assumptions. Even when we get the best bounds (the ``sharp'' bounds) they're not enough to point identify $\beta$. Also want to point out that the restrictions from non-differential measurement error can be very informative in practice! Now transition to point identification argument. Can we obtain point identification under stronger but credible assumptions?}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -755,10 +789,6 @@
     \end{enumerate}
   \end{block}
 
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
   \begin{block}{Sufficient Conditions for (II) and (III)}
     \vspace{-0.5em}
     \begin{enumerate}[(i)]
@@ -766,10 +796,8 @@
       \item $z$ is conditionally independent of $\varepsilon$ given $\mathbf{x}$
     \end{enumerate}
   \end{block}
-  
-  MENTION THE ANGRIST ARGUMENT BUT DON'T NEED TO CITE ANGRIST!\ldots
-
 \end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Just-Identified System of Moment Equalities}
@@ -793,7 +821,7 @@
 \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[label=WEAK_BODY]
   \frametitle{Just-Identified System of Moment Equalities}
 
 \[
@@ -831,9 +859,8 @@
 \end{align*}
 
 \begin{alertblock}{Weak Identification Problem}
-  Moment conditions are uninformative about $(\alpha_0,\alpha_1)$ when $\beta$ is small.
-  Moreover, $(\alpha_0,\alpha_1)$ could be on the boundary of the parameter space.
-  LINK TO SIMULATION RESULTS!!!
+  Moment are conditions uninformative about $(\alpha_0,\alpha_1)$ when $\beta$ is small: GMM performs very badly.
+  \hyperlink{SIM_APPEND}{\beamergotobutton{sims}}
 \end{alertblock}
 
 %\begin{align*}
@@ -845,56 +872,36 @@
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Non-standard Inference Problem}
+\begin{frame}[label=WEAK_BODY2]
+  \frametitle{Inference for a Mis-classified Regressor}
+  \small
 
+  \begin{block}{The Problem}
 \begin{itemize}
-  \item $\beta$ small $\Rightarrow$ moment equalities uninformative about $(\alpha_0, \alpha_1)$
+  \item $\beta$ small $\Rightarrow$ moment equalities uninformative about $(\alpha_0, \alpha_1)$ \hyperlink{INDEP_APPEND}{\beamergotobutton{more}}
   \item $(\alpha_0, \alpha_1)$ could be on the boundary of the parameter space
-  \item Partial identification bounds remain informative even if $\beta$ is small or zero
-  \item Same problem for other estimators from the literature but hasn't been pointed out\ldots
+  \item Also true of existing estimators that assume $T^*$ exogenous
 \end{itemize}
+\end{block}
 
-\begin{alertblock}{Our Approach}
- Identification-robust inference combining equality and inequality moment conditions based on generalized moment selection (GMS)
+\begin{alertblock}{Our Solution}
+
+  \begin{itemize}
+    \item Sharp identified set result from above remains informative even if $\beta$ is small or zero.
+    \item Implies a number of \emph{inequality} moment conditions
+    \item Identification-robust inference combining equality and inequality moment conditions based on generalized moment selection (GMS)
+  \end{itemize}
 \end{alertblock}
 
 
-LINK TO A SLIDE SHOWING FULL CONTINUUM OF MOMENTS
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}
-  \frametitle{Inference With Moment Equalities and Inequalities}
-  \small
+  \frametitle{Moment Inequalities I -- First-stage Probabilities}
 
-\begin{block}{Moment Conditions}
-  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\vartheta_0) \right] \geq 0, \quad j = 1, \cdots, J$\\
-  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\vartheta_0) \right]  = 0, \quad j = J+1, \cdots, J + K$
-\end{block}
-
-
-\begin{block}{Test Statistic}
-  \vspace{-1em}
-\[
-  T_n(\vartheta) = \sum_{j=1}^J \left[\frac{\sqrt{n}\; \bar{m}_{n,j}(\vartheta)}{\widehat{\sigma}_{n,j}(\vartheta)}\right]^2_- + \sum_{j=J+1}^{J+K} \left[\frac{\sqrt{n}\; \bar{m}_{n,j}(\vartheta)}{\widehat{\sigma}_{n,j}(\vartheta)}\right]^2
-\]
-\footnotesize
-\begin{align*}
-[x]_- &= \min\left\{ x, 0 \right\}\\
-\bar{m}_{n,j}(\vartheta) &= n^{-1} \sum_{i=1}^{n} m_j(\mathbf{w}_i, \vartheta)\\
-\widehat{\sigma}^2_{n,j}(\vartheta) &=  \mbox{consistent est.\ of } \mbox{AVAR}\left[  \sqrt{n}\; \bar{m}_{n,j}(\vartheta)\right]
-\end{align*}
-\end{block}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Moment Inequalities: Part I}
-
-  $\alpha_0(\mathbf{x}) \leq p_k \leq 1 - \alpha_1$ becomes $\alert{\mathbb{E}\left[ m_{1k}^I(\mathbf{w}_i,\boldsymbol{\vartheta} ) \right] \geq \mathbf{0}}$ for all $k$ where
+  $\alpha_0 \leq p_k \leq 1 - \alpha_1$ becomes $\alert{\mathbb{E}\left[ m_{1k}^I(\mathbf{w}_i,\boldsymbol{\vartheta} ) \right] \geq \mathbf{0}}$ for all $k$ where
 \[
   m_{1k}^I(\mathbf{w}_i, \boldsymbol{\vartheta}) \equiv \left[
   \begin{array}{l}
@@ -908,7 +915,7 @@ LINK TO A SLIDE SHOWING FULL CONTINUUM OF MOMENTS
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Moment Inequalities: Part II}
+  \frametitle{Moment Inequalities II -- Non-differential Assumption}
 
   \scriptsize
 
@@ -941,22 +948,52 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Inference via Generalized Moment Selection}
-  \framesubtitle{Andrews \& Soares (2010)}
 
+\begin{frame}
+  \frametitle{Inference With Moment Equalities and Inequalities}
   \small
 
-  \begin{block}{Moment Selection Step}
-    If $\displaystyle\frac{\sqrt{n}\,\bar{m}_{n,j}(\vartheta_0)}{\widehat{\sigma}_{n,j}(\vartheta_0)} > \sqrt{\log n}$ then drop inequality $j$
-  \end{block}
+\begin{block}{Moment Conditions}
+  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\vartheta_0) \right] \geq 0, \quad j = 1, \cdots, J$\\
+  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\vartheta_0) \right]  = 0, \quad j = J+1, \cdots, J + K$
+\end{block}
+
+
+\begin{block}{Test Statistic}
+  \vspace{-1em}
+\[
+  T_n(\vartheta) = \sum_{j=1}^J \left[\frac{\sqrt{n}\; \bar{m}_{n,j}(\vartheta)}{\widehat{\sigma}_{n,j}(\vartheta)}\right]^2_- + \sum_{j=J+1}^{J+K} \left[\frac{\sqrt{n}\; \bar{m}_{n,j}(\vartheta)}{\widehat{\sigma}_{n,j}(\vartheta)}\right]^2
+\]
+\scriptsize
+%\[
+%[x]_- = \min\left\{ x, 0 \right\}, \quad
+%\bar{m}_{n,j}(\vartheta) = n^{-1} \sum_{i=1}^{n} m_j(\mathbf{w}_i, \vartheta), \quad \widehat{\sigma}^2_{n,j}(\vartheta) \rightarrow^p \mbox{AVAR}\left[  \sqrt{n}\; \bar{m}_{n,j}(\vartheta)\right]
+%\]
+\end{block}
 
   \begin{block}{Critical Value} 
     \begin{itemize}
       \item $\sqrt{n}\, \bar{m}_n(\vartheta_0) \rightarrow_d$ normal limit with covariance matrix $\Sigma(\vartheta_0)$
-      \item Use this to bootstrap the limit distribution of the test statistic.
+    \item Use this to bootstrap the limit dist.\ of  $T_n(\vartheta)$ under $H_0\colon \vartheta = \vartheta_0$
     \end{itemize}
   \end{block}
+  
+  \note{Explain about the meaning of the m-var, the sigma-hat and the ``minus'' subscript}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Generalized Moment Selection: Andrews \& Soares (2010)}
+
+  \small
+
+  \begin{block}{Moment Selection Step}
+    \vspace{0.4em}
+    If $\boxed{\displaystyle\frac{\sqrt{n}\,\bar{m}_{n,j}(\vartheta_0)}{\widehat{\sigma}_{n,j}(\vartheta_0)} > \sqrt{\log n}}$, ignore ineq.\ $j$ when calculating critical value.
+  \end{block}
+
+  \vspace{0.4em}
+
 
   \begin{block}{Theoretical Guarantees}
     Uniformly valid test of $H_0\colon \vartheta = \vartheta_0$ \alert{regardless of whether $\vartheta_0$ is identified}.
@@ -1029,7 +1066,7 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-Short empirical illustration using Burde \& Linden, including picture of joint confidence region for $(\alpha_0, \alpha_1)$ etc.
+  Simple example with a simulated dataset.
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -1055,7 +1092,36 @@ Short empirical illustration using Burde \& Linden, including picture of joint c
 \appendix
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[label=INDEP_APPEND]
+  \frametitle{Full Independence $\implies$ Continuum of Moment Equalities}
+  \begin{block}{Suppose that}
+    \begin{enumerate}[(i)]
+      \item $T$ is conditionally independent of $(\varepsilon,z)$ given $(T^*,\mathbf{x})$
+      \item $z$ is conditionally independent of $\varepsilon$ given $\mathbf{x}$
+    \end{enumerate}
+  \end{block}
+
+  \begin{block}{Then for all $\tau$ we have}
+    \vspace{-1em}
+\[
+    \widetilde{\Delta}_1(\tau+\beta) - \widetilde{\Delta}_1(\tau) = \alpha_0 \Delta(\tau + \beta) - (1 - \alpha_1) \Delta(\tau)
+\]
+\begin{align*}
+  \Delta(\tau) &= F_k(\tau) - F_\ell(\tau)\\
+  \widetilde{\Delta}_1(\tau) &= p_k F_{1k}(\tau) - p_\ell F_{1\ell}(\tau)
+\end{align*}
+\end{block}
+
+\begin{alertblock}{But if $\beta = 0$ this reduces to $F_k(\tau) - F_\ell(\tau) = 0$}
+\end{alertblock}
+\vspace{-1em}
+  \hyperlink{WEAK_BODY2}{\beamergotobutton{back}}
+
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[label=SIM_APPEND]
   \frametitle{Simulation DGP: $y = \beta T^* + \varepsilon$}
   \framesubtitle{Sample Size = 1000;  Simulation Replications = 2000} 
   \begin{block}{Errors}
@@ -1095,7 +1161,7 @@ Short empirical illustration using Burde \& Linden, including picture of joint c
   \scriptsize
   \centering
   \input{../../tab/GMM_CIs_cover_1000.tex}
-  \caption{Coverge of nominal 95\% GMM CI, conditional on existence.} 
+  \caption{Coverge of nominal 95\% GMM CI, conditional on existence.}
   %\caption{Coverage (\%) of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. (See Table \ref{tab:GMM_na_1000}.) Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
 \end{table}
 \end{frame}
@@ -1106,7 +1172,8 @@ Short empirical illustration using Burde \& Linden, including picture of joint c
   \scriptsize
   \centering
   \input{../../tab/GMM_CIs_width_1000.tex}
-  \caption{Median width of nominal 95\% GMM CI, conditional on existence.}
+  \caption{Median width of nominal 95\% GMM CI, conditional on existence.
+  \hyperlink{WEAK_BODY}{\beamergotobutton{back}}}
   %\caption{Median width of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
 \end{table}
 
