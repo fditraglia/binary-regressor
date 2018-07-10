@@ -3,7 +3,7 @@
 
 Measurement error and endogeneity are pervasive features of economic data.
 Conveniently, a valid instrumental variable corrects for both problems when the measurement error is classical, i.e.\ uncorrelated with the true value of the regressor.
-Many regressors of interest in applied work, however, are binary and thus cannot be subject to classical measurement error.\footnote{The only way to mis-classify a true one is downwards, as a zero, while the only way to mis-classify a true zero is upwards, as a one. This creates negative dependence between the true value of the regressor and the error.}
+Many regressors of interest in applied work, however, are binary and thus cannot be subject to classical measurement error.\footnote{The only way to mis-classify a true one is downwards, as a zero, while the only way to mis-classify a true zero is upwards, as a one. This creates negative dependence between the truth and measurement error.}
 When faced with non-classical measurement error, the instrumental variables estimator can be severely biased.
 In this paper, we study an additively separable model of the form
 \begin{equation}
@@ -11,7 +11,7 @@ In this paper, we study an additively separable model of the form
   \label{eq:model}
 \end{equation}
 where $\varepsilon$ is a mean-zero error term, $T^*$ is a binary, potentially endogenous regressor of interest, and $\mathbf{x}$ is a vector of exogenous controls.\footnote{Because $T^*$ is binary, there is no loss of generality from writing the model in this form rather than the more familiar $y = h(T^*,\mathbf{x})+\varepsilon$. Simply define $\beta(\mathbf{x}) = h(1,\mathbf{x}) - h(0,\mathbf{x})$ and $c(\mathbf{x}) = h(0,\mathbf{x})$.}
-Our question is whether, and if so under what conditions, a discrete instrumental variable $z$ suffices to non-parametrically identify the causal effect $\beta(\mathbf{x})$ of $T^*$, when we observe not $T^*$ but a mis-classified binary surrogate $T$. 
+We ask whether, and if so under what conditions, a discrete instrumental variable $z$ suffices to non-parametrically identify the causal effect $\beta(\mathbf{x})$ of $T^*$, when we observe not $T^*$ but a mis-classified binary surrogate $T$. 
 
 We proceed under the assumption of non-differential measurement error.
 This condition has been widely used in the existing literature and imposes  that $T$ provides no additional information beyond that contained in $(T^*,\mathbf{x})$.
@@ -22,15 +22,6 @@ This motivates us to consider alternative, and slightly stronger assumptions.
 We show that, given a binary instrument, the addition of a second moment independence assumption suffices to identify a model with one-sided mis-classification.
 Adding a second moment restriction on the measurement error along with a third moment independence assumption for the instrument suffices to identify the model in general.
 This result likewise requires only a binary $z$.
-
-We then turn our attention to inference, showing that both our model and related models from the literature suffer from a weak identification problem. 
-In essence, binary mis-classification creates a mixture model and to correct the bias in the instrumental variables estimator, we must estimate the mixing probabilities.
-But when $\beta(\mathbf{x})$ is small the ``mixture modes'' are nearly indistinguishable, making it impossible to reliably estimate these probabilities.
-To address this difficulty, we exploit the inequality moment restrictions that emerge from our derivation of the sharp identified set.
-These restrictions remain informative even when $\beta(\mathbf{x})$ is small or zero.
-Combining them with the moment equalities that emerge from our identification result, we propose an identification robust procedure for uniformly valid inference using tools from the moment inequality literature.
-Our procedure is computationally attractive and performs well in simulations.
-Moreover, it can be used both in our model and related models from the literature that assume an exogenous $T^*$. 
 
 Our work relates to a large literature studying departures from the textbook linear, classical measurement error setting.
 One strand of this literature considers relaxing the assumption of linearity while maintaining that of classical measurement error.
@@ -74,18 +65,9 @@ Unlike those of the preceding two papers, our results rely neither on parametric
 Other than \cite{Mahajan}, the paper most closely related to our own is that of \cite{Ura}, who derives partial identification results for a local average treatment effect without assuming non-differential measurement error.
 Unlike \cite{Ura} we study an additively separable model under non-differential measurement error and derive both partial and point identification results.
 
-Our work also relates to a large literature on inference using inequality moment conditions.
-In particular, we adopt the generalized moment selection (GMS) approach of \cite{AndrewsSoares} to construct a procedure for identification-robust inference that combines the moment equalities from our point identification results with inequalities from our partial identification results.
-Although the equalities alone globally identify our model, the inequalities turn out to be extremely valuable in settings where $\beta(\mathbf{x})$ may be small. 
-Although our specific approach differs from theirs, the idea of including moment inequalities in a model that is already point identified by a collection of moment equalities relates to work by \cite{moon2009estimation}. 
-While the weak identification problem that we point out and address here also emerges in several closely related models, e.g.\ \citep{Mahajan} and \cite{FL}, we are unaware of any other work from the literature that acknowledges or addresses it.
-As shown in Appendix \ref{sec:FL_mahajan}, our inference procedure can be applied to the case of an exogenous regressor with only minor modifications.
-
 The remainder of the paper is organized as follows.
 Section \ref{sec:baseline} describes our model and assumptions, Section \ref{sec:ident_literature} relates our results to existing work, and Sections \ref{sec:partial}--\ref{sec:point} present our identification results.
-Section \ref{sec:problem} points out the special inferential difficulties that arise in models with mis-classification while Section \ref{sec:overview} gives a high-level overview of our proposed inference procedure.
-Full details of the procedure follow in Sections \ref{sec:inequalities}--\ref{sec:details}.
-Section \ref{sec:simulation} presents simulation results, and Section \ref{sec:conclusion} concludes.
+Section \ref{sec:inference} provides a brief discussion of how to carry out inference using our identification results, and Section \ref{sec:conclusion} concludes.
 Proofs appear in Appendix \ref{sec:proofs}, and we give a detailed explanation of the error in \cite{Mahajan} in Appendix \ref{sec:mahajan}.
 
 
