@@ -85,8 +85,7 @@ To simplify the notation, define the following shorthand for the unobserved and 
   p_k(\mathbf{x}) = \mathbb{P}(T=1|\mathbf{x},z=k).
   \label{eq:pk_def}
 \end{equation}
-We first state two lemmas that have appeared in various guises throughout the literature. 
-These will be used repeatedly below.
+We first state two lemmas that that will be used repeatedly below.
 \begin{lem}
 \label{lem:p_pstar}
   Under Assumption \ref{assump:misclassification} (i),
@@ -103,14 +102,14 @@ where the first-stage probabilities $p_k^*(\mathbf{x})$ and $p_k(\mathbf{x})$ ar
 \end{lem}
 
 Lemma \ref{lem:p_pstar} relates the observed first-stage probabilities $p_k(\mathbf{x})$ to their unobserved counterparts $p^*_k(\mathbf{x})$ in terms of the mis-classification probabilities $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
-By Assumption \ref{assump:misclassification} (ii), $1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) > 0$ so that Lemma \ref{lem:p_pstar} provides non-trivial bounds for $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ in terms of the observed first-stage probabilities.
+By Assumption \ref{assump:misclassification} (ii), $1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) > 0$ so that Lemma \ref{lem:p_pstar} bounds $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ in terms of the observed first-stage probabilities.
 Lemma \ref{lem:wald} relates the instrumental variables (IV) estimand, $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T|\mathbf{x})$, to the mis-classification probabilities.
 Since $1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) > 0$, IV is biased \emph{upwards} in the presence of mis-classification.
-Combining the two lemmas yields a well-known bound, namely that $\beta(\mathbf{x})$ lies between the reduced form and IV estimators.
-Our first result shows that \emph{without} Assumption \ref{assump:misclassification} (non-differential measurement error) these bounds are sharp.
+Together these lemmas bound the causal effect of interest: $\beta(\mathbf{x})$ lies between the reduced form and IV estimators.
+Without Assumption \ref{assump:misclassification} (non-differential measurement error) these bounds are sharp.
 
 \begin{thm}
-  Under Assumptions \ref{assump:model} and \ref{assump:misclassification} (i)--(ii), the sharp identified set is characterized by 
+  Under Assumptions \ref{assump:model} and \ref{assump:misclassification} (i)--(ii), the sharp identified set for $c(\mathbf{x})$, $\beta(\mathbf{x})$, $\alpha_0(\mathbf{x})$, and $\alpha_1(\mathbf{x})$ is characterized by 
   \begin{equation}
     \mathbb{E}[y|\mathbf{x},z=k] = c(\mathbf{x}) + \beta(\mathbf{x}) \left[\frac{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}\right]
     \label{eq:identsetI}
@@ -125,6 +124,7 @@ and $\alpha_0(\mathbf{x}) \leq p_k(\mathbf{x}) \leq 1 -  \alpha_1(\mathbf{x})$ f
 \end{cor}
 
 Corollary \ref{cor:sharpBeta1} follows by taking differences of the expression for $\mathbb{E}[y|\mathbf{x},z=k]$ across $k=1$ and $k=0$, and substituting the maximum and minimum value for $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x})$ consistent with the observed first-stage probabilities.
+While \cite{FL} point out that the IV estimand provides an upper bound for $\beta(\mathbf{x})$ and Lemmas \ref{lem:p_pstar}--\ref{lem:wald} are well-known in the literature \citep[see e.g.][]{FL,Mahajan}, we are unaware of any published result that explicitly states both bounds from Corollary \ref{cor:sharpBeta1} or proves that they are sharp.
 %When the mis-classification probabilities are known \emph{a priori} to satisfy additional restrictions, these bounds can be tightened.\footnote{\cite{FL} consider a model in which $\alpha_0$ and $\alpha_1$ do not depend on the exogenous covariates $\mathbf{x}$. In this case $\alpha_0 \leq \mathbb{P}(T=1|\mathbf{x},z)\leq 1 - \alpha_1$ and they suggest minimizing the bounds over $\mathbf{x}$.}
 %The following corollary collects results for two common cases: one-sided misclassification (either $\alpha_0(\mathbf{x})$ or $\alpha_1(\mathbf{x})$ equals zero), and symmetric mis-classification ($\alpha_0(\mathbf{x}) = \alpha_1(\mathbf{x})$).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -139,10 +139,11 @@ Corollary \ref{cor:sharpBeta1} follows by taking differences of the expression f
 %\end{cor}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Theorem \ref{thm:sharpI} and Corollaries \ref{cor:sharpBeta1}--\ref{cor:onsided} do not impose Assumption \ref{assump:misclassification} (iii) -- non-differential measurement error.
-Neither Theorem \ref{thm:sharpI} nor Corollary \ref{cor:sharpBeta1} imposes Assumption \ref{assump:misclassification} (iii), non-differential measurement error.
-We now show that this assumption yields further restrictions on the mis-classification probabilities $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
-While these restrictions are more complicated to describe than those from Theorem \ref{thm:sharpI}, they are straightforward to implement in practice and can be extremely informative, as we will show in our simulation exercises below.
-To the best of our knowledge, the sharp bounds that we derive by adding Assumption \ref{assump:misclassification} (iii) are new to the literature.
+Neither Theorem \ref{thm:sharpI} nor Corollary \ref{cor:sharpBeta1}, however, imposes Assumption \ref{assump:misclassification} (iii) -- non-differential measurement error.
+We now show that this assumption yields further restrictions on probabilities $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$, but fails to point identify $\beta(\mathbf{x})$.
+%While these restrictions are more complicated to describe than those from Theorem \ref{thm:sharpI}, they are straightforward to implement in practice and can be extremely informative, as we will show in our simulation exercises below.
+The sharp bounds that we derive under Assumption \ref{assump:misclassification} (iii) are new to the literature.
+
 Our result uses two additional conditions to simplify the proof of sharpness.
 First, we assume that $y$ is continuously distributed.
 This is natural in an additively separable model and holds in our simulation examples below. 
