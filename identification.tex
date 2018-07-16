@@ -17,15 +17,19 @@ We assume that the model and instrument satisfy the following conditions:
   \end{enumerate}
 \end{assump}
 
-Assumptions \ref{assump:model}(ii) and (iii) are the standard instrument relevance and mean independence assumptions.\footnote{Assumption \ref{assump:model} (ii) states that $z$ is a relevant instrument for the unobserved regressor $T^*$. Under Assumption \ref{assump:misclassification}, however, this is equivalent to assuming that $z$ is a relevant instrument for the observed regressor $T$ by Lemma \ref{lem:p_pstar} below.}
+Assumptions \ref{assump:model}(ii) and (iii) are the standard instrument relevance and validity assumptions. 
+Note that Assumption \ref{assump:model} (ii) states that $z$ is relevant for the unobserved regressor $T^*$. 
+Under Assumption \ref{assump:misclassification}, however, this is equivalent to assuming that $z$ is relevant for the \emph{observed} regressor $T$ (see Lemma \ref{lem:p_pstar} below).
+Hence, Assumption \ref{assump:model} (ii) is testable.
 If $T^*$ were observed, Assumption \ref{assump:model} would suffice to identify  $\beta(\mathbf{x})$.  
 Unfortunately we observe not $T^*$ but a mis-classified binary surrogate $T$.  
 Define the following mis-classification probabilities:
-\begin{equation}
-\label{eq:adef}
-  \alpha_0(\mathbf{x},z) = \mathbb{P}\left(T=1|T^*=0,\mathbf{x},z  \right), \quad
-  \alpha_1(\mathbf{x},z) = \mathbb{P}\left(T=0|T^*=1,\mathbf{x},z  \right).
-\end{equation}
+\begin{align*}
+  \alpha_0(\mathbf{x},z) &= \mathbb{P}\left(T=1|T^*=0,\mathbf{x},z  \right) &
+  \alpha_0(\mathbf{x}) &= \mathbb{P}\left(T=1|T^*=0,\mathbf{x}  \right)\\ 
+  \alpha_1(\mathbf{x},z) &= \mathbb{P}\left(T=0|T^*=1,\mathbf{x},z  \right) &
+  \alpha_1(\mathbf{x}) &= \mathbb{P}\left(T=0|T^*=1,\mathbf{x}  \right).
+\end{align*}
 Following the existing literature for the case of an exogenous regressor \citep{Mahajan,BBS,FL,KRS,Lewbel}, we impose the following conditions on the mis-classification process.
 
 \begin{assump} \mbox{}
@@ -76,12 +80,11 @@ As such, identification in the case where $T^*$ is endogenous is an open questio
 
 In this section we derive the sharp identified set under Assumptions \ref{assump:model}--\ref{assump:misclassification} and show that  $\beta(\mathbf{x})$ is not point identified.
 To simplify the notation, define the following shorthand for the unobserved and observed first stage probabilities
-\begin{align}
-  \label{eq:pkstar_def}
-  p^*_k(\mathbf{x}) &= \mathbb{P}(T^*=1|\mathbf{x},z=k)\\
+\begin{equation}
+  p^*_k(\mathbf{x}) = \mathbb{P}(T^*=1|\mathbf{x},z=k), \quad
+  p_k(\mathbf{x}) = \mathbb{P}(T=1|\mathbf{x},z=k).
   \label{eq:pk_def}
-  p_k(\mathbf{x}) &= \mathbb{P}(T=1|\mathbf{x},z=k).
-\end{align}
+\end{equation}
 We first state two lemmas that have appeared in various guises throughout the literature. 
 These will be used repeatedly below.
 \begin{lem}
@@ -91,7 +94,7 @@ These will be used repeatedly below.
   \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right]p^*_k(\mathbf{x}) &= p_k(\mathbf{x}) - \alpha_0(\mathbf{x})\\
   \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right]\left[1 - p^*_k(\mathbf{x}) \right]&= 1 - p_k(\mathbf{x}) - \alpha_1(\mathbf{x})
 \end{align*}
-where the first-stage probabilities $p_k^*(\mathbf{x})$ and $p_k(\mathbf{x})$ are as defined in Equations \ref{eq:pkstar_def}--\ref{eq:pk_def}.
+where the first-stage probabilities $p_k^*(\mathbf{x})$ and $p_k(\mathbf{x})$ are as defined in Equation \ref{eq:pk_def}.
 \end{lem} 
 
 \begin{lem}

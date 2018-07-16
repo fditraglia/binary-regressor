@@ -1,30 +1,27 @@
 %!TEX root = ./main.tex
 \section{Estimation and Inference}
 \label{sec:inference}
-We now briefly outline how the identification results from Section \ref{sec:identification} can be used to estimate and carry out statistical inference for the structural parameters of interest: $\big(\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x}), \beta(\mathbf{x})\big)$.
+We now briefly outline how the identification results from Section \ref{sec:identification} can be used to estimate and carry out statistical inference for the parameters of interest: $\big(\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x}), \beta(\mathbf{x})\big)$.
 Lemmas \ref{lem:wald}--\ref{lem:eta3} yield a system of linear moment equations in the reduced form parameters $\boldsymbol{\theta}'(\mathbf{x}) = \big(\theta_1(\mathbf{x}), \theta_2(\mathbf{x}),\theta_3(\mathbf{x})\big)$.
 Defining a vector of intercepts $\boldsymbol{\kappa}'(\mathbf{x}) = \big(\kappa_1(\mathbf{x}), \kappa_2(\mathbf{x}), \kappa_3(\mathbf{x})\big)$,
 and a vector of observables $\mathbf{w}' = (T, y, yT, y^2, y^2 T, y^3)$, we can write this system as
-\begin{equation}
-\mathbb{E}\left[
+\begin{align}
+&\mathbb{E}\left[
   \bigg\{\boldsymbol{\Psi}\big(\boldsymbol{\theta}(\mathbf{x})\big)\mathbf{w}_i - \boldsymbol{\kappa}(\mathbf{x})\bigg\} \otimes 
 \left(
 \begin{array}{c}
   1 \\ z
 \end{array}\right)\Bigg| \mathbf{x} = \boldsymbol{x}
 \right] = \mathbf{0}
-\label{eq:MCs_endog}
-\end{equation}
-where the matrix of functions $\boldsymbol{\Psi}\big(\boldsymbol{\theta}(\mathbf{x})\big)$ is given by 
-\[
-  \boldsymbol{\Psi}\big(\boldsymbol{\theta}(\mathbf{x})\big) = 
+\label{eq:MCs_endog}\\
+  &\boldsymbol{\Psi}\big(\boldsymbol{\theta}(\mathbf{x})\big) \equiv 
   \left[
   \begin{array}{rrrrrr}
     -\theta_1(\mathbf{x}) & 1 & 0 & 0 & 0 & 0\\
     \theta_2(\mathbf{x}) & 0 & -2\theta_1(\mathbf{x}) & 1 & 0 & 0\\ 
     -\theta_3(\mathbf{x}) & 0 & 3\theta_2(\mathbf{x}) & 0 & -3\theta_1(\mathbf{x}) & 1
 \end{array}\right].
-\]
+\end{align}
 Using Equations \ref{eq:theta1_def}--\ref{eq:theta3_def}, we can re-write  $\mathbf{\Psi}$ as a function of $\big(\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x}), \beta(\mathbf{x})\big)$, leaving us with a just-identified, non-parametric conditional moment problem.
 Because the conditioning variables in Equation \ref{eq:MCs_endog} are the same as the arguments of the unknown functions $(\alpha_0, \alpha_1, \beta)$, this problem fits within the framework of \cite{Lewbel2007}, permitting straightforward estimation and inference via a local GMM procedure. 
 If $\beta(\mathbf{x})$ is close to zero, however, this procedure can perform poorly; in this case the moment conditions from Equations \ref{eq:MCs_endog}, are only weakly informative about $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
