@@ -91,20 +91,21 @@ for all $t,k \in \left\{ 0,1 \right\}$, and by Bayes' rule,
   \label{eq:rtk}
 \end{equation}
 There are four cases, corresponding to different possibilities for the  $r_{tk}$.
+The first case violates one of our model assumptions.
+For each of the remaining cases, we show that it is possible to construct the required distributions $F_{tk}^0, F_{tk}^1$ if and only if $\mathbb{E}(y|z=k) = c + \beta(p_k - \alpha_0)/(1 - \alpha_0 - \alpha_1)$.
 
 \paragraph{Case I: $r_{1k} = 0, r_{0k} \neq 0$}
-By Equation \ref{eq:rtk}, this requires $\alpha_1 = 1$ which is ruled out by Assumption \ref{assump:misclassification} (ii).
+By Equation \ref{eq:rtk} this requires $\alpha_1 = 1$, violating Assumption \ref{assump:misclassification} (ii).
 
 \paragraph{Case II: $r_{0k} = r_{1k} = 0$}
 By Equation \ref{eq:rtk}, this requires $p_k^* = 0$ which in turn requires $p_k = \alpha_0$.
-Moreover, by Equation \ref{eq:Ftk} we have $F^0_{tk} = F_{tk}$, while $F^1_{tk}$ is undefined.
-Substituting into Equation \ref{eq:Gk},
+By Equation \ref{eq:Ftk} we have $F^0_{tk} = F_{tk}$, while $F^1_{tk}$ is unrestricted.
+Substituting into \ref{eq:Gk},
 \[
   G_k(\tau) = p_k F_{1k}(\tau + c) + (1 - p_k) F_{0k}(\tau + c) = F_k(\tau + c)
 \]
 Now, since $F_k(\tau + c)$ is the conditional CDF of $y-c$ given that $z=k$, and $G_k$ is the conditional CDF of $\varepsilon$ given $z=k$,
-we see that Assumption \ref{assump:model} (i) is satisfied if and only if $\mathbb{E}(y|z=k) = c$.
-But since $p_k = \alpha_0$ in this case, $c = c + \beta (p_k - \alpha_0)/(1 - \alpha_0 - \alpha_1)$.
+we see that Assumption \ref{assump:model} (i) is satisfied if and only if $\mathbb{E}(y|z=k) = c$, which is equal to $c + \beta(p_k - \alpha_0) / (1 - \alpha_0 - \alpha_1)$ since $p_k - \alpha_0 = 0$.
 
 \paragraph{Case III: $r_{1k}\neq 0, r_{0k} = 0$}
 By Equation \ref{eq:rtk} this requires $\alpha_1 = 0$ and $p_k^* \neq 0$.
