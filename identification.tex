@@ -125,21 +125,21 @@ and $\alpha_0(\mathbf{x}) \leq p_k(\mathbf{x}) \leq 1 -  \alpha_1(\mathbf{x})$ f
 \end{cor}
 
 Corollary \ref{cor:sharpBeta1} follows by taking differences of the expression for $\mathbb{E}[y|\mathbf{x},z=k]$ across $k=1$ and $k=0$, and substituting the maximum and minimum value for $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x})$ consistent with the observed first-stage probabilities.
-When the mis-classification probabilities are known \emph{a priori} to satisfy additional restrictions, these bounds can be tightened.\footnote{\cite{FL} consider a model in which $\alpha_0$ and $\alpha_1$ do not depend on the exogenous covariates $\mathbf{x}$. In this case $\alpha_0 \leq \mathbb{P}(T=1|\mathbf{x},z)\leq 1 - \alpha_1$ and they suggest minimizing the bounds over $\mathbf{x}$.}
-The following corollary collects results for two common cases: one-sided misclassification (either $\alpha_0(\mathbf{x})$ or $\alpha_1(\mathbf{x})$ equals zero), and symmetric mis-classification ($\alpha_0(\mathbf{x}) = \alpha_1(\mathbf{x})$).
-
-\begin{cor}
-  \label{cor:onsided}
-  Under the conditions of Theorem \ref{thm:sharpI}, the following restrictions on the misclassification probabilities $\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})$ shrink the sharp identified set for $\beta(\mathbf{x})$ to the closed interval between $\Delta \times \left[\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T|\mathbf{x})\right]$ and $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T|\mathbf{x})$.
-  \begin{enumerate}[(i)]
-    \item If $\alpha_0(\mathbf{x})=0$ then $\Delta = \max_k \,p_k(\mathbf{x})$. 
-    \item If $\alpha_1(\mathbf{x})=0$ then $\Delta = 1 - \min_k\, p_k(\mathbf{x})$. 
-    \item If $\alpha_0(\mathbf{x})=\alpha_1(\mathbf{x})$ then $\Delta =  1 - 2 \min\left\{ \min_k \, p_k(\mathbf{x}), 1 - \max_k \, p_k(\mathbf{x}) \right\}$.
-  \end{enumerate}
-\end{cor}
+%When the mis-classification probabilities are known \emph{a priori} to satisfy additional restrictions, these bounds can be tightened.\footnote{\cite{FL} consider a model in which $\alpha_0$ and $\alpha_1$ do not depend on the exogenous covariates $\mathbf{x}$. In this case $\alpha_0 \leq \mathbb{P}(T=1|\mathbf{x},z)\leq 1 - \alpha_1$ and they suggest minimizing the bounds over $\mathbf{x}$.}
+%The following corollary collects results for two common cases: one-sided misclassification (either $\alpha_0(\mathbf{x})$ or $\alpha_1(\mathbf{x})$ equals zero), and symmetric mis-classification ($\alpha_0(\mathbf{x}) = \alpha_1(\mathbf{x})$).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Theorem \ref{thm:sharpI} and Corollaries \ref{cor:sharpBeta1}--\ref{cor:onsided} do not impose Assumption \ref{assump:misclassification} (iii) -- non-differential measurement error.
+%\begin{cor}
+%  \label{cor:onsided}
+%  Under the conditions of Theorem \ref{thm:sharpI}, the following restrictions on the misclassification probabilities $\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})$ shrink the sharp identified set for $\beta(\mathbf{x})$ to the closed interval between $\Delta \times \left[\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T|\mathbf{x})\right]$ and $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T|\mathbf{x})$.
+%  \begin{enumerate}[(i)]
+%    \item If $\alpha_0(\mathbf{x})=0$ then $\Delta = \max_k \,p_k(\mathbf{x})$. 
+%    \item If $\alpha_1(\mathbf{x})=0$ then $\Delta = 1 - \min_k\, p_k(\mathbf{x})$. 
+%    \item If $\alpha_0(\mathbf{x})=\alpha_1(\mathbf{x})$ then $\Delta =  1 - 2 \min\left\{ \min_k \, p_k(\mathbf{x}), 1 - \max_k \, p_k(\mathbf{x}) \right\}$.
+%  \end{enumerate}
+%\end{cor}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Theorem \ref{thm:sharpI} and Corollaries \ref{cor:sharpBeta1}--\ref{cor:onsided} do not impose Assumption \ref{assump:misclassification} (iii) -- non-differential measurement error.
+Neither Theorem \ref{thm:sharpI} nor Corollary \ref{cor:sharpBeta1} imposes Assumption \ref{assump:misclassification} (iii), non-differential measurement error.
 We now show that this assumption yields further restrictions on the mis-classification probabilities $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
 While these restrictions are more complicated to describe than those from Theorem \ref{thm:sharpI}, they are straightforward to implement in practice and can be extremely informative, as we will show in our simulation exercises below.
 To the best of our knowledge, the sharp bounds that we derive by adding Assumption \ref{assump:misclassification} (iii) are new to the literature.
