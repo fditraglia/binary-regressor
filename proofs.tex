@@ -419,34 +419,8 @@ Solving,
   \begin{equation}
     r = \frac{A}{2} \pm \sqrt{3 A^2 - 2B} = \frac{1}{\theta_1^2}\left(\frac{\theta_2}{2} \pm  \sqrt{3\theta_2^2  - 2\theta_1 \theta_3}\right).
   \end{equation}
-By Equations \ref{eq:theta2_def} and \ref{eq:theta3_def}, 
-  \begin{align*}
-    3\theta^2_2 - 2\theta_1 \theta_3 &= 3 \left[ \theta_1^2 \left( 1 + \alpha_0 - \alpha_1 \right) \right]^2 - 2 \theta_1 \left\{ \theta_1^3 \left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0 (1 - \alpha_1) \right] \right\} \\
-    &= \theta_1^4 \left\{ 3(1 + \alpha_0 - \alpha_1)^2 - 2 \left[ (1 - \alpha_0 - \alpha_1)^2 + 6 \alpha_0 (1 - \alpha_1) \right] \right\}.
-  \end{align*}
-Expanding the first term we find that 
-  \begin{align*}
-    3(1 + \alpha_0 - \alpha_1)^2 
-    %&= 3\left[ 1 + (\alpha_0 - \alpha_1) \right]^2 
-    &= 3\left[ 1 + 2(\alpha_0 - \alpha_1) + (\alpha_0 - \alpha_1)^2 \right]\\
-    &= 3 + 6\alpha_0 - 6\alpha_1 + 3 \alpha_0^2 + 3 \alpha_1^2 - 6\alpha_0\alpha_1 
-  \end{align*}
-and expanding the second 
-  \begin{align*}
-    2\left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0(1 - \alpha_1) \right]
-    %&= 2\left\{ \left[ 1 - (\alpha_0 + \alpha_1) \right]^2 + 6\alpha_0(1 - \alpha_1) \right\}\\
-  &=2\left[ 1 - 2(\alpha_0 + \alpha_1) + (\alpha_0 + \alpha_1)^2 + 6\alpha_0 - 6 \alpha_0 \alpha_1 \right]\\
-    %&= 2 - 4(\alpha_0 + \alpha_1) + 2(\alpha_0 + \alpha_1)^2 + 12\alpha_0 - 12 \alpha_0 \alpha_1 \\
-    &= 2 + 8\alpha_0 - 4\alpha_1 + 2\alpha_0^2 +  2\alpha_1^2 - 8 \alpha_0 \alpha_1.
-  \end{align*}
-Therefore
-  \begin{align*}
-    3\theta^2_2 - 2\theta_1 \theta_3 
-    %&= \theta_1^4 \left\{ 3(1 + \alpha_0 - \alpha_1)^2 - 2 \left[ (1 - \alpha_0 - \alpha_1)^2 + 6 \alpha_0 (1 - \alpha_1) \right] \right\}\\
-    &= \theta_1^4 \left\{ 1 - 2 \alpha_0 - 2 \alpha_1 + \alpha_0^2 - \alpha_1^2 + 2\alpha_0 \alpha_1 \right\}\\
-    &= \theta_1^4 \left[ (1 - \alpha_0 - \alpha_1)^2 \right]
-  \end{align*}
-which is strictly greater than zero since $\theta_1 \neq 0$ and $\alpha_0 + \alpha_1 \neq 1$.
+Substituting Equations \ref{eq:theta2_def} and \ref{eq:theta3_def}, simple algebra shows that $3\theta_2^2 - 2 \theta_1\theta_3 = \theta_1^2(1 - \alpha_0 - \alpha_1)^2$.
+This quantity is strictly greater than zero since $\theta_1 \neq 0$ and $\alpha_0 + \alpha_1 \neq 1$.
 It follows that both roots of the quadratic are real.
 Moreover, $3\theta_2^2/\theta_1^4 - 2\theta_3/\theta_1^3$ identifies $(1 - \alpha_0 - \alpha_1)^2$.
 Substituting into Equation \ref{eq:theta1_def}, it follows that $\beta$ is identified up to sign.
