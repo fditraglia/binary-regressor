@@ -1,7 +1,10 @@
 %!TEX root = ./main.tex
 \section{Proofs}
 \label{sec:proofs}
-Throughout the following arguments, we suppress dependence on $\mathbf{x}$ for simplicity.
+All of the results in this hold the covariates $\mathbf{x}$ \emph{fixed}.
+This allows us to completely ignore the presence of covariates in the proofs that follow.
+Accordingly we work in terms of scalars $\alpha_0, \alpha_1, \beta, p_k$, etc.\ rather than functions $\alpha(\mathbf{x})$, $\alpha_1(\mathbf{x})$, $\beta(\mathbf{x}), p_k(\mathbf{x})$.
+The former should be understood as the value of the latter evaluated at some particular $\mathbf{x}$.
 
 %\begin{lem}
 %For mis-classification probabilities
@@ -24,13 +27,26 @@ Throughout the following arguments, we suppress dependence on $\mathbf{x}$ for s
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{proof}[Proof of Theorem \ref{thm:sharpI}]
-We first show that so long as $\alpha_0 \leq p_k \leq 1 - \alpha_1$ then we can construct a valid joint probability distribution for $(T^*, T, z)$ that satisfies our assumptions.
-First decompose the joint probability mass function as
+  To prove sharpness, we need to show that under Assumptions \ref{assump:model} and \ref{assump:mahajan} (i)--(ii) there exists a valid joint distribution for $(y,T,T^*,z)$ that is compatible with the observed joint distribution $(y,T,z)$ if and only if $(c, \beta, \alpha_0, \alpha_1)$ satisfy the conditions of the Theorem.
+To establish this result, we factorize the joint distribution of $(y,T,T^*,z)$ into the product of a conditional $y|(T,T^*,z)$ and marginal $(T,T^*,z)$.
+Our argument proceeds in two steps.
+First, we show that it is only possible to construct a valid joint distribution for $(T,T^*,z)$ that is compatible with the observed distribution for $(T,z)$, given our assumptions, if $\alpha_0 \leq p_k \leq 1 - \alpha_1$ for $k = 0,1$.
+Next we show that it is only possible to construct a valid conditional distribution for $y$ given $(T,T^*,z)$ that is compatible with the observed conditional distribution of $y$ given $(T,z)$, given our assumptions, if 
+  \[
+    \mathbb{E}[y|z=k] = c + \beta \left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right), \mbox{for } k = 0,1.
+  \]
+
+  For the first step, we need to construct a valid joint probability mass function $p(T^*,T,z)$ with support set $\left\{ 0,1 \right\} \times \left\{ 0,1 \right\} \times \left\{ 0,1 \right\}$.
+
+  \todo[inline]{There are actually two requirements: the probabilities need to lie within $[0,1]$ and the sum of all six needs to equal 1. I don't think we ever checked this second condition explicitly\dots}
+ By Assumption \ref{assump:misclassification} (i), $p(T|T^*,z) = p(T|T^*)$ which implies
 \[
-  p(T^*,T,z) = p(T|T^*,z)p(T^*|z)p(z).
+  p(T^*,T,z) = p(T|T^*)p(T^*|z)p(z).
 \]
+ 
+ To this end, writing the distribution of $(T^*,T,z)$ as follows:
 By Assumption \ref{assump:misclassification} (i), $p(T|T^*,z) = p(T|T^*)$ and thus $\alpha_0$ and $\alpha_1$ fully determine $p(T|T^*,z)$.  
-Under the proposed bounds, $\alpha_0$ and $\alpha_1$ are clearly valid probabilities.
+If $\alpha_0 \leq p_k \leq 1 - \alpha_1$ , $\alpha_0$ and $\alpha_1$ are guaranteed to lie between zero and one.
 Since $p(z)$ is observed, it thus suffices to ensure that $p(T^*|z)$ is a valid probability mass function.
 By Lemma \ref{lem:p_pstar}, $p_k^* = (p_k - \alpha_0) / (1 - \alpha_0 - \alpha_1)$ and hence $0 \leq p_k^* \leq 1$ if and only if $\alpha_0 \leq p_k \leq 1 - \alpha_1$.
 Since $(p_k - p_\ell) = (p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1)$, we have $p^*_k \neq p^*_\ell$ provided that $p_k - p_\ell \neq 0$ 
