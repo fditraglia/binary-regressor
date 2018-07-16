@@ -1,10 +1,10 @@
 %!TEX root = ./main.tex
-\section{GMM Inference}
+\section{Estimation and Inference}
 \label{sec:inference}
-
-Lemmas \ref{lem:wald}--\ref{lem:eta3} yield a system of linear moment equations in $\boldsymbol{\theta}(\mathbf{x}) = \big(\theta_1(\mathbf{x}), \theta_2(\mathbf{x}),\theta_3(\mathbf{x})\big)$.
-Defining a vector of intercepts $\boldsymbol{\kappa}(\mathbf{x}) = \big(\kappa_1(\mathbf{x}), \kappa_2(\mathbf{x}), \kappa_3(\mathbf{x})\big)$,
-and a vector of observables $\mathbf{w}' = (T, y, yT, y^2, y^2 T, y^3)$ we can write this system as
+In this section we briefly outline how the identification results from Section \ref{sec:identification} can be used to estimate and carry out statistical inference for the structural parameters of interest: $\big(\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x}), \beta(\mathbf{x})\big)$.
+Lemmas \ref{lem:wald}--\ref{lem:eta3} yield a system of linear moment equations in the reduced form parameters $\boldsymbol{\theta}'(\mathbf{x}) = \big(\theta_1(\mathbf{x}), \theta_2(\mathbf{x}),\theta_3(\mathbf{x})\big)$.
+Defining a vector of intercepts $\boldsymbol{\kappa}'(\mathbf{x}) = \big(\kappa_1(\mathbf{x}), \kappa_2(\mathbf{x}), \kappa_3(\mathbf{x})\big)$,
+and a vector of observables $\mathbf{w}' = (T, y, yT, y^2, y^2 T, y^3)$, we can write this system as
 \begin{equation}
 \mathbb{E}\left[
   \bigg\{\boldsymbol{\Psi}\big(\boldsymbol{\theta}(\mathbf{x})\big)\mathbf{w}_i - \boldsymbol{\kappa}(\mathbf{x})\bigg\} \otimes 
@@ -15,7 +15,7 @@ and a vector of observables $\mathbf{w}' = (T, y, yT, y^2, y^2 T, y^3)$ we can w
 \right] = \mathbf{0}
 \label{eq:MCs_endog}
 \end{equation}
-where we define the matrix of functions $\boldsymbol{\Psi}\big(\boldsymbol{\theta}(\mathbf{x})\big)$ as follows:
+where the matrix of functions $\boldsymbol{\Psi}\big(\boldsymbol{\theta}(\mathbf{x})\big)$ is given by 
 \[
   \boldsymbol{\Psi}\big(\boldsymbol{\theta}(\mathbf{x})\big) = 
   \left[
@@ -25,67 +25,8 @@ where we define the matrix of functions $\boldsymbol{\Psi}\big(\boldsymbol{\thet
     -\theta_3(\mathbf{x}) & 0 & 3\theta_2(\mathbf{x}) & 0 & -3\theta_1(\mathbf{x}) & 1
 \end{array}\right].
 \]
-Via the mapping from reduced form to structural parameters from  Equations \ref{eq:theta1_def}--\ref{eq:theta3_def}
-
-$\boldsymbol{\theta}(\mathbf{x})$
-where, suppressing dependence on $\mathbf{x}$ for simplicity, $\boldsymbol{\Psi} = \left[
-  \begin{array}{ccc}
-    \boldsymbol{\psi}_1 & \boldsymbol{\psi_2} & \boldsymbol{\psi_3}
-\end{array}\right]$ and
-\begin{equation}
-  \boldsymbol{\psi}_1' = (-\theta_1, 1, 0, 0, 0, 0), \quad
-  \boldsymbol{\psi}_2' = (\theta_2, 0, -2\theta_1, 1, 0, 0), \quad
-  \boldsymbol{\psi}_3' = (-\theta_3, 0, 3\theta_2, 0, -3\theta_1, 1)
-  \label{eq:psi_def}
-\end{equation}
-
-
-
-Non-linearity arises solely through the relationship between the reduced from parameters $\boldsymbol{\theta}$ and the structural parameters $(\alpha_0, \alpha_1, \beta)$.
-To convert the preceding moment equations into unconditional moment equalities, we define the additional reduced form parameters $\boldsymbol{\kappa} = (\kappa_1, \kappa_2, \kappa_3)$ and observables 
-
-\begin{align*}
-\kappa_1 &= c - \alpha_0 \theta_1\\
-  \kappa_2 &= c^2 + \sigma_{\varepsilon\varepsilon} + \alpha_0 (\theta_2 - 2c \theta_1)\\
-  \kappa_3 &= c^3 + 3\left( c - \theta_1 \alpha_0 \right) \sigma_{\varepsilon\varepsilon} + \mathbb{E}[\varepsilon^3] - \alpha_0 \theta_3 - 3 c \alpha_0 \left[ \theta_1 \left( c + \beta \right) - 2\theta_1^2 (1 - \alpha_1) \right]
-\end{align*}
-Building on this notation, let
-\begin{equation}
-  \boldsymbol{\psi}_1' = (-\theta_1, 1, 0, 0, 0, 0), \quad
-  \boldsymbol{\psi}_2' = (\theta_2, 0, -2\theta_1, 1, 0, 0), \quad
-  \boldsymbol{\psi}_3' = (-\theta_3, 0, 3\theta_2, 0, -3\theta_1, 1)
-\end{equation}
-and collect these in the matrix
-$\boldsymbol{\Psi} = \left[
-  \begin{array}{ccc}
-    \boldsymbol{\psi}_1 & \boldsymbol{\psi_2} & \boldsymbol{\psi_3}
-\end{array}\right]$.
-Defining the observed data vector $\mathbf{w}_i' = (T_i, y_i, y_iT_i, y_i^2, y_i^2 T_i, y_i^3)$ for observation $i$, we can re-write the moment equations as:
-\begin{equation}
-\mathbb{E}\left[
-  \big(\boldsymbol{\Psi}'(\boldsymbol{\theta})\mathbf{w}_i - \boldsymbol{\kappa}\big) \otimes 
-\left(
-\begin{array}{c}
-  1 \\ z_i
-\end{array}\right)
-\right] = \mathbf{0}.
-\end{equation}
-
-Equation \ref{eq:MCs_endog} is a just-identified, linear system of moment equalities in the reduced form parameters $(\boldsymbol{\theta},\boldsymbol{\kappa})$ and yields explicit GMM estimators $(\widehat{\boldsymbol{\kappa}},\widehat{\boldsymbol{\theta}})$.
-From Theorem \ref{thm:main_ident}, knowledge of $\boldsymbol{\theta}$ suffices to identify $\beta$.
-
-\begin{equation}
-\mathbb{E}\left[
-  \bigg\{\boldsymbol{\Psi}\big(\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x}), \beta(\mathbf{x})\big)' \mathbf{w}_i - \boldsymbol{\kappa}(\mathbf{x})\bigg\} \otimes 
-\left(
-\begin{array}{c}
-  1 \\ z_i
-\end{array}\right)\Bigg| \mathbf{x}_i = \boldsymbol{x}
-\right] = \mathbf{0}.
-\end{equation}
-
-\todo[inline]{Just a short section sketching how to carry out inference. Show the GMM conditions, talk about how to use them. Perhaps cite Lewbel (2005) so that we can handle covariates. Mention that there is a weak identification problem when $\beta$ is small. Mention that one possible way to address this is to use tools from the moment inequality literature. Refer to our NBER working paper for more details.}
-
-\cite{DiTragliaGarciaWP2017} for more details
-
-\cite{Lewbel2007} proposes blah
+Using Equations \ref{eq:theta1_def}--\ref{eq:theta3_def}, we can re-write  $\mathbf{\Psi}$ as a function of $\big(\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x}), \beta(\mathbf{x})\big)$, leaving us with a just-identified, non-parametric conditional moment problem.
+Because the conditioning variables in Equation \ref{eq:MCs_endog} are the same as the arguments of the unknown functions $(\alpha_0, \alpha_1, \beta)$, this problem fits within the framework of \cite{Lewbel2007}, permitting straightforward estimation and inference via a local GMM procedure. 
+If $\beta(\mathbf{x})$ is close to zero, however, this procedure can perform poorly; in this case the moment conditions from Equations \ref{eq:MCs_endog}, are only weakly informative about $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
+This is effectively the same problem that arises in the estimation of mixture distributions: when the means of the mixture components are very similar, it is difficult to identify the mixing probabilities.  
+For more discussion of this problem, along with a proposal for how to address it using tools from the moment inequality literature, see  \cite{DiTragliaGarciaWP2017}.
