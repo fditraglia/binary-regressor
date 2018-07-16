@@ -188,7 +188,7 @@ and $p_k(\mathbf{x})$ is defined in Equation \ref{eq:pk_def}.
 The intuition for Theorem \ref{thm:sharpII} is as follows.
 For simplicity, suppress dependence on $\mathbf{x}$.
 Now, fix $(T=t, z=k)$ and $(\alpha_0, \alpha_1)$.
-The observed distribution of $y$ given $(T=t,z=k)$, call it $F_{tk}$, is a mixture of two unobserved distributions: the distribution of $y$ given $(T=1,z=k,T^*=1)$, call it $F^1_{tk}$, and the distribution of $y$ given $(T=t,z=k,T^*=0)$, call it $F^{0}_{tk}$.
+The observed distribution of $y$ given $(T=t,z=k)$, call it $F_{tk}$, is a mixture of two unobserved distributions: the distribution of $y$ given $(T=k,z=k,T^*=1)$, call it $F^1_{tk}$, and the distribution of $y$ given $(T=t,z=k,T^*=0)$, call it $F^{0}_{tk}$.
 The mixing probabilities are $r_{tk}$ and $1-r_{tk}$ from the statement of Theorem \ref{thm:sharpII} and are fully determined by $(\alpha_0, \alpha_1)$ and $p_k$.
 Assumptions \ref{assump:model} (i) and \ref{assump:misclassification} (ii) imply that the unobserved means $\mathbb{E}[y|T^*,T,z]$  are fully determined by $(\alpha_0, \alpha_1)$ given the observed means $\mathbb{E}[y|T,z]$.
 The question is whether it is possible, given the observed distribution $F_{tk}$, to construct $F^1_{tk}$ and $F^{0}_{tk}$ with the required values for $\mathbb{E}[y|T^*,T,z]$ such that $F_{tk} = r_{tk} F^{1}_{tk} + (1 - r_{tk}) F^{0}_{tk}$ for all combinations $(t,k)$. 
