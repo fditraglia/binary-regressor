@@ -205,7 +205,6 @@ While these restrictions can be very informative in practice, they do not yield 
 
 Corollary \ref{cor:nonident} follows by Lemma \ref{lem:wald} because $\alpha_0(\mathbf{x})=\alpha_1(\mathbf{x})=0$ always belongs to the sharp identified set from Theorem \ref{thm:sharpII}.
 Non-differential measurement error cannot exclude the possibility that there is no mis-classification because in this case it is trivial to construct the required mixtures.
-
 Although we focus throughout this paper on the case of a binary instrument, one might wonder whether point identification can be achieved by increasing the support of $z$, perhaps along the lines of \cite{Lewbel}.
 The answer turns out to be no.
 Suppose that we were to modify Assumptions \ref{assump:model} and \ref{assump:misclassification} to hold for all values of $z$ in some discrete support set.
@@ -214,7 +213,7 @@ It follows that \emph{any} pair of values $(k,\ell)$ in the support set of $z$ i
 Accordingly, to identify $\beta(\mathbf{x})$ it is necessary and sufficient to identify the mis-classification probabilities.
 A binary instrument fails to identify these probabilities because we can never exclude the possibility of zero mis-classification.
 The same is true of a discrete $K$-valued instrument. 
-Increasing the support of $z$ does, however, shrink the identified set by increasing the number of restrictions available: in this case our results in Theorems \ref{thm:sharpI}--\ref{thm:sharpII} continue to apply replacing ``$k=0,1$'' with ``for all $k$.''
+Increasing the support of $z$ does, however, shrink the identified set by increasing the number of restrictions available: in this case Theorems \ref{thm:sharpI}--\ref{thm:sharpII} continue to apply replacing ``$k=0,1$'' with ``for all $k$.''
 
 
 
@@ -241,8 +240,7 @@ Now consider the following additional assumption:
     $\mathbb{E}[\varepsilon^2|\mathbf{x},z] = \mathbb{E}[\varepsilon^2|\mathbf{x}]$ 
 \end{assump}
 Assumption \ref{assump:2ndMoment} is a \emph{second moment} version of the standard mean exclusion restriction for the instrument $z$ -- Assumption \ref{assump:model} (iii).
-It requires that the conditional variance of the error term given the covariates $\mathbf{x}$ does not depend on $z$.
-Notice that this assumption does not require homoskedasticity with respect to $\mathbf{x}, T^*$ or $T$.
+It requires that the conditional variance of the error term given the covariates $\mathbf{x}$ does not depend on $z$, but does \emph{not} require homoskedasticity with respect to $\mathbf{x}, T^*$ or $T$.
 Assumption \ref{assump:2ndMoment} allows us to derive the following lemma:
 
 \begin{lem} Under Assumptions \ref{assump:model}, \ref{assump:misclassification} and \ref{assump:2ndMoment}, 

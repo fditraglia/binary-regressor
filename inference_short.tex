@@ -1,7 +1,7 @@
 %!TEX root = ./main.tex
 \section{Estimation and Inference}
 \label{sec:inference}
-In this section we briefly outline how the identification results from Section \ref{sec:identification} can be used to estimate and carry out statistical inference for the structural parameters of interest: $\big(\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x}), \beta(\mathbf{x})\big)$.
+We now briefly outline how the identification results from Section \ref{sec:identification} can be used to estimate and carry out statistical inference for the structural parameters of interest: $\big(\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x}), \beta(\mathbf{x})\big)$.
 Lemmas \ref{lem:wald}--\ref{lem:eta3} yield a system of linear moment equations in the reduced form parameters $\boldsymbol{\theta}'(\mathbf{x}) = \big(\theta_1(\mathbf{x}), \theta_2(\mathbf{x}),\theta_3(\mathbf{x})\big)$.
 Defining a vector of intercepts $\boldsymbol{\kappa}'(\mathbf{x}) = \big(\kappa_1(\mathbf{x}), \kappa_2(\mathbf{x}), \kappa_3(\mathbf{x})\big)$,
 and a vector of observables $\mathbf{w}' = (T, y, yT, y^2, y^2 T, y^3)$, we can write this system as
@@ -28,5 +28,5 @@ where the matrix of functions $\boldsymbol{\Psi}\big(\boldsymbol{\theta}(\mathbf
 Using Equations \ref{eq:theta1_def}--\ref{eq:theta3_def}, we can re-write  $\mathbf{\Psi}$ as a function of $\big(\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x}), \beta(\mathbf{x})\big)$, leaving us with a just-identified, non-parametric conditional moment problem.
 Because the conditioning variables in Equation \ref{eq:MCs_endog} are the same as the arguments of the unknown functions $(\alpha_0, \alpha_1, \beta)$, this problem fits within the framework of \cite{Lewbel2007}, permitting straightforward estimation and inference via a local GMM procedure. 
 If $\beta(\mathbf{x})$ is close to zero, however, this procedure can perform poorly; in this case the moment conditions from Equations \ref{eq:MCs_endog}, are only weakly informative about $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
-This is effectively the same problem that arises in the estimation of mixture distributions: when the means of the mixture components are very similar, it is difficult to identify the mixing probabilities.  
-For more discussion of this problem, along with a proposal for how to address it using tools from the moment inequality literature, see  \cite{DiTragliaGarciaWP2017}.
+%This is effectively the same problem that arises in the estimation of mixture distributions: when the means of the mixture components are very similar, it is difficult to identify the mixing probabilities.  
+For more discussion of this problem, along with proposed solution combining the partial identification bounds from Section \ref{sec:partial} with tools from the moment inequality literature, see  \cite{DiTragliaGarciaWP2017}.
