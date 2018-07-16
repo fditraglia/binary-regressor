@@ -29,7 +29,7 @@ First decompose the joint probability mass function as
 \[
   p(T^*,T,z) = p(T|T^*,z)p(T^*|z)p(z).
 \]
-By Assumption \ref{assump:misclassification} (ii), $p(T|T^*,z) = p(T|T^*)$ and thus $\alpha_0$ and $\alpha_1$ fully determine $p(T|T^*,z)$.  
+By Assumption \ref{assump:misclassification} (i), $p(T|T^*,z) = p(T|T^*)$ and thus $\alpha_0$ and $\alpha_1$ fully determine $p(T|T^*,z)$.  
 Under the proposed bounds, $\alpha_0$ and $\alpha_1$ are clearly valid probabilities.
 Since $p(z)$ is observed, it thus suffices to ensure that $p(T^*|z)$ is a valid probability mass function.
 By Lemma \ref{lem:p_pstar}, $p_k^* = (p_k - \alpha_0) / (1 - \alpha_0 - \alpha_1)$ and hence $0 \leq p_k^* \leq 1$ if and only if $\alpha_0 \leq p_k \leq 1 - \alpha_1$.
@@ -446,7 +446,7 @@ Therefore
     &= \theta_1^4 \left\{ 1 - 2 \alpha_0 - 2 \alpha_1 + \alpha_0^2 - \alpha_1^2 + 2\alpha_0 \alpha_1 \right\}\\
     &= \theta_1^4 \left[ (1 - \alpha_0 - \alpha_1)^2 \right]
   \end{align*}
-which is strictly greater than zero since $\theta_1 \neq 0$ and $\alpha_0 + \alpha_1 \neq 0$.
+which is strictly greater than zero since $\theta_1 \neq 0$ and $\alpha_0 + \alpha_1 \neq 1$.
 It follows that both roots of the quadratic are real.
 Moreover, $3\theta_2^2/\theta_1^4 - 2\theta_3/\theta_1^3$ identifies $(1 - \alpha_0 - \alpha_1)^2$.
 Substituting into Equation \ref{eq:theta1_def}, it follows that $\beta$ is identified up to sign.
