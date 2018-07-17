@@ -27,22 +27,23 @@ The former should be understood as the value of the latter evaluated at some par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{proof}[Proof of Theorem \ref{thm:sharpI}]
-  To prove sharpness, we need to show that under Assumptions \ref{assump:model} and \ref{assump:mahajan} (i)--(ii) there exists a valid joint distribution for $(y,T,T^*,z)$ that is compatible with the observed joint distribution $(y,T,z)$ if and only if $(c, \beta, \alpha_0, \alpha_1)$ satisfy the conditions of the Theorem.
+  To prove sharpness, we need to show that under Assumptions \ref{assump:model} and \ref{assump:misclassification} (i)--(ii) there exists a valid joint distribution for $(y,T,T^*,z)$ that is compatible with the observed joint distribution $(y,T,z)$ if and only if $(c, \beta, \alpha_0, \alpha_1)$ satisfy the conditions of the Theorem.
 To establish this result, we factorize the joint distribution of $(y,T,T^*,z)$ into the product of a conditional $y|(T,T^*,z)$ and marginal $(T,T^*,z)$.
 Our argument proceeds in two steps.
-First, we show that it is only possible to construct a valid joint distribution for $(T,T^*,z)$ that is compatible with the observed distribution for $(T,z)$, given our assumptions, if $\alpha_0 \leq p_k \leq 1 - \alpha_1$ for $k = 0,1$.
-Next we show that it is only possible to construct a valid conditional distribution for $y$ given $(T,T^*,z)$ that is compatible with the observed conditional distribution of $y$ given $(T,z)$, given our assumptions, if 
-  \[
-    \mathbb{E}[y|z=k] = c + \beta \left( \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right), \mbox{for } k = 0,1.
-  \]
+In the first step, we rely on the fact that Assumptions \ref{assump:model} (ii) and \ref{assump:misclassification} (i)--(ii) constrain only the distribution of $(T,T^*,z)$.
+We show that, under these assumptions, it is only possible to construct a valid joint distribution for $(T,T^*,z)$ that is compatible with the observed distribution for $(T,z)$ if $\alpha_0 \leq p_k \leq 1 - \alpha_1$ for $k = 0,1$.
+Next we show that, under Assumptions \ref{assump:model} (i) and (iii) it is only possible to construct a valid conditional distribution for $y$ given $(T,T^*,z)$ that is compatible with the observed conditional distribution of $y$ given $(T,z)$ if $\mathbb{E}[y|z=k] = c + \beta (p_k - \alpha_0)(1 - \alpha_0 - \alpha_1)$ for $k = 0,1$.
+Combining the two steps gives the required joint distribution for $(y,T^*,T,z)$.
 
   For the first step, we need to construct a valid joint probability mass function $p(T^*,T,z)$ with support set $\left\{ 0,1 \right\} \times \left\{ 0,1 \right\} \times \left\{ 0,1 \right\}$.
-
-  \todo[inline]{There are actually two requirements: the probabilities need to lie within $[0,1]$ and the sum of all six needs to equal 1. I don't think we ever checked this second condition explicitly\dots}
- By Assumption \ref{assump:misclassification} (i), $p(T|T^*,z) = p(T|T^*)$ which implies
+ By Assumption \ref{assump:misclassification} (i), $p(T|T^*,z) = p(T|T^*)$ and hence 
 \[
   p(T^*,T,z) = p(T|T^*)p(T^*|z)p(z).
 \]
+Since $p(z)$ is observed, this decomposition shows that we can only construct a valid joint probability mass function $p(T^*,T,z)$ if we can construct valid \emph{conditional} probability mass functions $p(T|T^*)$ and $p(T^*|z)$.
+
+so long as we construct valid \emph{conditional} probability mass function 
+the preceding decomposition automatically yields a valid joint probability mass function $p(T^*,T,z)$.
  
  To this end, writing the distribution of $(T^*,T,z)$ as follows:
 By Assumption \ref{assump:misclassification} (i), $p(T|T^*,z) = p(T|T^*)$ and thus $\alpha_0$ and $\alpha_1$ fully determine $p(T|T^*,z)$.  
@@ -50,6 +51,7 @@ If $\alpha_0 \leq p_k \leq 1 - \alpha_1$ , $\alpha_0$ and $\alpha_1$ are guarant
 Since $p(z)$ is observed, it thus suffices to ensure that $p(T^*|z)$ is a valid probability mass function.
 By Lemma \ref{lem:p_pstar}, $p_k^* = (p_k - \alpha_0) / (1 - \alpha_0 - \alpha_1)$ and hence $0 \leq p_k^* \leq 1$ if and only if $\alpha_0 \leq p_k \leq 1 - \alpha_1$.
 Since $(p_k - p_\ell) = (p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1)$, we have $p^*_k \neq p^*_\ell$ provided that $p_k - p_\ell \neq 0$ 
+
 
 We now show how to construct a valid conditional distribution for $y$ given $(T^*,T,z)$ that satisfies our assumptions if $\beta (p_k - \alpha_0) = (1 - \alpha_0 - \alpha_1)[\mathbb{E}(y|z=k) - c]$ for all $k$.
 Define
@@ -79,20 +81,20 @@ and thus we see that
   \label{eq:Gk}
 \end{align}
 applying the law of total probability and Bayes' rule.
-Moreover, again applying the law of total probability, 
+Moreover,
 \begin{equation}
   F_{tk}(\tau) = r_{tk} F_{tk}^1(\tau) + (1 - r_{tk}) F_{tk}^0(\tau)
   \label{eq:Ftk}
 \end{equation}
 for all $t,k \in \left\{ 0,1 \right\}$, and by Bayes' rule,
 \begin{equation}
-  r_{1k} = \frac{(1 - \alpha_1)p_k^*}{p_k}, \quad
-  r_{0k} = \frac{\alpha_1p_k^*}{1 - p_k}.
+  r_{1k} = (1 - \alpha_1)p_k^*/p_k, \quad
+  r_{0k} = \alpha_1p_k^*/(1 - p_k).
   \label{eq:rtk}
 \end{equation}
 There are four cases, corresponding to different possibilities for the  $r_{tk}$.
 The first case violates one of our model assumptions.
-For each of the remaining cases, we show that it is possible to construct the required distributions $F_{tk}^0, F_{tk}^1$ if and only if $\mathbb{E}(y|z=k) = c + \beta(p_k - \alpha_0)/(1 - \alpha_0 - \alpha_1)$.
+For each of the remaining cases, we show that it is possible to construct the required distributions $F_{tk}^0, F_{tk}^1$ while satisfying our model assumptions if and only if $\mathbb{E}(y|z=k) = c + \beta(p_k - \alpha_0)/(1 - \alpha_0 - \alpha_1)$.
 
 \paragraph{Case I: $r_{1k} = 0, r_{0k} \neq 0$}
 By Equation \ref{eq:rtk} this requires $\alpha_1 = 1$, violating Assumption \ref{assump:misclassification} (ii).
@@ -281,14 +283,8 @@ The result now follows by appealing to the proof of Theorem \ref{thm:sharpI}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Point Identification Results}
-In the proofs of Lemma \ref{lem:eta2}, Lemma \ref{lem:eta3}, and Theorem \ref{thm:main_ident}, we use the shorthand
-\[
-  \pi \equiv \mbox{Cov}(T,z), \quad
-  \eta_j \equiv \mbox{Cov}(y^j,z), \quad
-  \tau_j \equiv \mbox{Cov}(Ty^j,z)
-\]
-for $j = 1, 2, 3$.
-Using this notation, Lemma \ref{lem:wald} becomes $\eta_1 = \pi\theta_1$, while Lemma \ref{lem:eta2} becomes $\eta_2 =  2\tau_1 \theta_1 - \pi \theta_2$, 
+In the proofs of Lemma \ref{lem:eta2}, Lemma \ref{lem:eta3}, and Theorem \ref{thm:main_ident}, we use the shorthand $\pi \equiv \mbox{Cov}(T,z)$, $\eta_j \equiv \mbox{Cov}(y^j,z)$, and $\tau_j \equiv \mbox{Cov}(Ty^j,z)$ for $j = 1, 2, 3$.
+Hence Lemma \ref{lem:wald} becomes $\eta_1 = \pi\theta_1$, while Lemma \ref{lem:eta2} becomes $\eta_2 =  2\tau_1 \theta_1 - \pi \theta_2$, 
 and Lemma \ref{lem:eta3} becomes $\eta_3 = 3\tau_2 \theta_1 - 3\tau_1 \theta_2 + \pi\theta_3$.
 
 \begin{proof}[Proof of Lemma \ref{lem:eta2}]
@@ -361,9 +357,9 @@ Similarly by iterated expectations and Assumptions \ref{assump:misclassification
 where $m_{tk}^*$ is defined as in the proof of Lemma \ref{lem:eta2}.
 As shown in the proof of Lemma \ref{lem:eta2}, 
 \begin{align*}
-  \mbox{Cov}(TT^*,z) &= (1 - \alpha_1) \mbox{Cov}(T^*,z)\\ 
-  \mbox{Cov}(T^*,z) &= \pi / (1 - \alpha_0 - \alpha_1)\\
-  \mbox{Cov}(T^*\varepsilon,z) &= \mbox{Cov}(T\varepsilon,z) / (1 - \alpha_0 - \alpha_1)
+  \mbox{Cov}(TT^*,z) = (1 - \alpha_1) \mbox{Cov}(T^*,z), \quad
+  \mbox{Cov}(T^*,z) = \frac{\pi}{1 - \alpha_0 - \alpha_1}, \quad
+  \mbox{Cov}(T^*\varepsilon,z) = \frac{\mbox{Cov}(T\varepsilon,z)}{1 - \alpha_0 - \alpha_1}
 \end{align*}
 and combining these equalities with Equations \ref{eq:TEpsilonSquared} and \ref{eq:TTstarEpsilon}, it follows that
 \begin{align*}
