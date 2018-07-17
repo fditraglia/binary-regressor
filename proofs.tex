@@ -27,11 +27,18 @@ The former should be understood as the value of the latter evaluated at some par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{proof}[Proof of Theorem \ref{thm:sharpI}]
-  To prove sharpness, we need to show that under Assumptions \ref{assump:model} and \ref{assump:misclassification} (i)--(ii) there exists a valid joint distribution for $(y,T,T^*,z)$ that is compatible with the observed joint distribution $(y,T,z)$ if and only if $(c, \beta, \alpha_0, \alpha_1)$ satisfy the conditions of the Theorem.
+  To show that $\alpha_0 \leq p_k \leq 1 - \alpha_1$,  substitute $p_k^*=0$ and $p_k^*=1$, respectively, into Lemma \ref{lem:p_pstar} and rearrange.
+  To show that $\mathbb{E}[y|z=k] = c + \beta(p_k - \alpha_0) / (1 - \alpha_0 - \alpha_1)$, take conditional expectations of Equation \ref{eq:model} and apply Assumption \ref{assump:model} (iii) and Lemma \ref{lem:p_pstar}.
+
+To prove sharpness we need to show that for any $(c,\beta, \alpha_0, \alpha_1)$ that satisfy $\alpha_0 \leq p_k \leq 1 - \alpha_1$ and $\mathbb{E}[y|z=k] = c + \beta(p_k - \alpha_0)/(1 - \alpha_0 - \alpha_1)$  we can construct a valid joint distribution for $(y,T,T^*,z)$ that is compatible with the observed distribution of $(y,T,z)$, provided that $p_1 \neq p_0$.
 To establish this result, we factorize the joint distribution of $(y,T,T^*,z)$ into the product of a conditional $y|(T,T^*,z)$ and marginal $(T,T^*,z)$.
-Our argument proceeds in two steps.
-In the first step, we rely on the fact that Assumptions \ref{assump:model} (ii) and \ref{assump:misclassification} (i)--(ii) constrain only the distribution of $(T,T^*,z)$.
-We show that, under these assumptions, it is only possible to construct a valid joint distribution for $(T,T^*,z)$ that is compatible with the observed distribution for $(T,z)$ if $\alpha_0 \leq p_k \leq 1 - \alpha_1$ for $k = 0,1$.
+The argument proceeds in two steps.
+Our first step relies on the fact that Assumptions \ref{assump:model} (ii) and \ref{assump:misclassification} (i)--(ii) constrain only the distribution of $(T,T^*,z)$.
+Under these assumptions, we show how to construct a valid joint distribution for $(T,T^*,z)$ that is compatible with the observed distribution of $(T,z)$ for any $(\alpha_0,\alpha_1)$ satisfying $\alpha_0 \leq p_k \leq 1 - \alpha_1$.
+Our second step shows 
+
+\todo[inline]{Update from here down!}
+
 Next we show that, under Assumptions \ref{assump:model} (i) and (iii) it is only possible to construct a valid conditional distribution for $y$ given $(T,T^*,z)$ that is compatible with the observed conditional distribution of $y$ given $(T,z)$ if $\mathbb{E}[y|z=k] = c + \beta (p_k - \alpha_0)(1 - \alpha_0 - \alpha_1)$ for $k = 0,1$.
 Combining the two steps gives the required joint distribution for $(y,T^*,T,z)$.
 
@@ -42,15 +49,11 @@ Combining the two steps gives the required joint distribution for $(y,T^*,T,z)$.
 \]
 Since $p(z)$ is observed, this decomposition shows that we can only construct a valid joint probability mass function $p(T^*,T,z)$ if we can construct valid \emph{conditional} probability mass functions $p(T|T^*)$ and $p(T^*|z)$.
 
-so long as we construct valid \emph{conditional} probability mass function 
-the preceding decomposition automatically yields a valid joint probability mass function $p(T^*,T,z)$.
- 
- To this end, writing the distribution of $(T^*,T,z)$ as follows:
-By Assumption \ref{assump:misclassification} (i), $p(T|T^*,z) = p(T|T^*)$ and thus $\alpha_0$ and $\alpha_1$ fully determine $p(T|T^*,z)$.  
 If $\alpha_0 \leq p_k \leq 1 - \alpha_1$ , $\alpha_0$ and $\alpha_1$ are guaranteed to lie between zero and one.
 Since $p(z)$ is observed, it thus suffices to ensure that $p(T^*|z)$ is a valid probability mass function.
 By Lemma \ref{lem:p_pstar}, $p_k^* = (p_k - \alpha_0) / (1 - \alpha_0 - \alpha_1)$ and hence $0 \leq p_k^* \leq 1$ if and only if $\alpha_0 \leq p_k \leq 1 - \alpha_1$.
 Since $(p_k - p_\ell) = (p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1)$, we have $p^*_k \neq p^*_\ell$ provided that $p_k - p_\ell \neq 0$ 
+\todo[inline]{Also need to show that it agrees with the observed joint distribution of $(T,z)$ which, of course, can be factorized as $p(T,z) = p(T|z)p(z)$.}
 
 
 We now show how to construct a valid conditional distribution for $y$ given $(T^*,T,z)$ that satisfies our assumptions if $\beta (p_k - \alpha_0) = (1 - \alpha_0 - \alpha_1)[\mathbb{E}(y|z=k) - c]$ for all $k$.

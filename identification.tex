@@ -109,14 +109,16 @@ Together these lemmas bound the causal effect of interest: $\beta(\mathbf{x})$ l
 Without Assumption \ref{assump:misclassification} (non-differential measurement error) these bounds are sharp.
 
 \begin{thm}
-  Under Assumptions \ref{assump:model} and \ref{assump:misclassification} (i)--(ii), the sharp identified set for $c(\mathbf{x})$, $\beta(\mathbf{x})$, $\alpha_0(\mathbf{x})$, and $\alpha_1(\mathbf{x})$ is characterized by 
+  Under Assumptions \ref{assump:model} and \ref{assump:misclassification} (i)--(ii), $\alpha_0(\mathbf{x}) \leq p_k(\mathbf{x}) \leq 1 -  \alpha_1(\mathbf{x})$ for  $k = 0, 1$ and
   \begin{equation}
-    \mathbb{E}[y|\mathbf{x},z=k] = c(\mathbf{x}) + \beta(\mathbf{x}) \left[\frac{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}\right]
+    \mathbb{E}[y|\mathbf{x},z=k] = c(\mathbf{x}) + \beta(\mathbf{x}) \left[\frac{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}\right].
     \label{eq:identsetI}
   \end{equation}
-and $\alpha_0(\mathbf{x}) \leq p_k(\mathbf{x}) \leq 1 -  \alpha_1(\mathbf{x})$ for  $k = 0, 1$ where $p_k(\mathbf{x})$ is defined in Equation \ref{eq:pk_def}.
+Provided that $p_0(\mathbf{x}) \neq p_1(\mathbf{x})$, these expressions characterize the sharp identified set for $c(\mathbf{x})$, $\beta(\mathbf{x})$, $\alpha_0(\mathbf{x})$, and $\alpha_1(\mathbf{x})$.
+%where $p_k(\mathbf{x})$ is defined in Equation \ref{eq:pk_def}.
   \label{thm:sharpI}
 \end{thm}
+
 
 \begin{cor}
   Under the conditions of Theorem \ref{thm:sharpI}, the sharp identified set for $\beta(\mathbf{x})$ is the closed interval between the reduced form estimand $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Var}(z|\mathbf{x})$ and the IV estimand $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T|\mathbf{x})$.
