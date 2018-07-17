@@ -33,31 +33,25 @@ The former should be understood as the value of the latter evaluated at some par
 To prove sharpness we need to show that for any $(c,\beta, \alpha_0, \alpha_1)$ that satisfy $\alpha_0 \leq p_k \leq 1 - \alpha_1$ and $\mathbb{E}[y|z=k] = c + \beta(p_k - \alpha_0)/(1 - \alpha_0 - \alpha_1)$  we can construct a valid joint distribution for $(y,T,T^*,z)$ that is compatible with the observed distribution of $(y,T,z)$, provided that $p_1 \neq p_0$.
 To establish this result, we factorize the joint distribution of $(y,T,T^*,z)$ into the product of a conditional $y|(T,T^*,z)$ and marginal $(T,T^*,z)$.
 The argument proceeds in two steps.
-Our first step relies on the fact that Assumptions \ref{assump:model} (ii) and \ref{assump:misclassification} (i)--(ii) constrain only the distribution of $(T,T^*,z)$.
-Under these assumptions, we show how to construct a valid joint distribution for $(T,T^*,z)$ that is compatible with the observed distribution of $(T,z)$ for any $(\alpha_0,\alpha_1)$ satisfying $\alpha_0 \leq p_k \leq 1 - \alpha_1$.
-Our second step shows 
-
-\todo[inline]{Update from here down!}
-
-Next we show that, under Assumptions \ref{assump:model} (i) and (iii) it is only possible to construct a valid conditional distribution for $y$ given $(T,T^*,z)$ that is compatible with the observed conditional distribution of $y$ given $(T,z)$ if $\mathbb{E}[y|z=k] = c + \beta (p_k - \alpha_0)(1 - \alpha_0 - \alpha_1)$ for $k = 0,1$.
+Our first step relies on the fact that Assumptions \ref{assump:model} (i) and (iii) do not constrain the distribution of $(T,T^*,z)$ while \ref{assump:model} (ii) and \ref{assump:misclassification} (i)--(ii) constrain \emph{only} the distribution of $(T,T^*,z)$.
+Under these latter three assumptions, we show how to construct a valid joint distribution for $(T,T^*,z)$ that is compatible with the observed distribution of $(T,z)$ for any $(\alpha_0,\alpha_1)$ satisfying $\alpha_0 \leq p_k \leq 1 - \alpha_1$.
+Our second step shows how to construct a valid conditional distribution for $y$ given $(T,T^*,z)$ under Assumptions \ref{assump:model} (i) and (iii) that is compatible with the observed conditional distribution of $y$ given $(T,z)$ for any $(c,\beta,\alpha_0, \alpha_1)$ satisfying $\mathbb{E}[y|z=k] = c + \beta (p_k - \alpha_0)(1 - \alpha_0 - \alpha_1)$.
 Combining the two steps gives the required joint distribution for $(y,T^*,T,z)$.
 
-  For the first step, we need to construct a valid joint probability mass function $p(T^*,T,z)$ with support set $\left\{ 0,1 \right\} \times \left\{ 0,1 \right\} \times \left\{ 0,1 \right\}$.
+For the first step, we need to construct a valid joint probability mass function $p(T^*,T,z)$ with support set $\left\{ 0,1 \right\} \times \left\{ 0,1 \right\} \times \left\{ 0,1 \right\}$.
  By Assumption \ref{assump:misclassification} (i), $p(T|T^*,z) = p(T|T^*)$ and hence 
 \[
   p(T^*,T,z) = p(T|T^*)p(T^*|z)p(z).
 \]
-Since $p(z)$ is observed, this decomposition shows that we can only construct a valid joint probability mass function $p(T^*,T,z)$ if we can construct valid \emph{conditional} probability mass functions $p(T|T^*)$ and $p(T^*|z)$.
+Since $p(z)$ is observed, to construct a valid joint probability mass function $p(T^*,T,z)$ it suffices to construct valid \emph{conditional} probability mass functions $p(T|T^*)$ and $p(T^*|z)$.
+Since $\alpha_0 \leq p_k \leq 1 - \alpha_1$, both $\alpha_0$ and $\alpha_1$ are guaranteed to lie between zero and one.
+This gives a valid construction of $p(T|T^*)$.
+Moreover the corresponding values of $p_k^*$ implied by Lemma \ref{lem:p_pstar} are also guaranteed to lie between zero and one.
+This gives a valid construction of $p(T^*|z)$ that satisfies Assumption \ref{assump:model} (ii), since $p_1 \neq p_0$ by assumption and $(p_k - p_\ell) = (p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1)$ by Lemma \ref{lem:p_pstar}.
+Because Lemma \ref{lem:p_pstar} is simply an application of the law of total probability, the resulting construction of $p(T,T^*,z)$ is automatically compatible with the observed distribution $p(T,z) = p(T|z)p(z)$.
 
-If $\alpha_0 \leq p_k \leq 1 - \alpha_1$ , $\alpha_0$ and $\alpha_1$ are guaranteed to lie between zero and one.
-Since $p(z)$ is observed, it thus suffices to ensure that $p(T^*|z)$ is a valid probability mass function.
-By Lemma \ref{lem:p_pstar}, $p_k^* = (p_k - \alpha_0) / (1 - \alpha_0 - \alpha_1)$ and hence $0 \leq p_k^* \leq 1$ if and only if $\alpha_0 \leq p_k \leq 1 - \alpha_1$.
-Since $(p_k - p_\ell) = (p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1)$, we have $p^*_k \neq p^*_\ell$ provided that $p_k - p_\ell \neq 0$ 
-\todo[inline]{Also need to show that it agrees with the observed joint distribution of $(T,z)$ which, of course, can be factorized as $p(T,z) = p(T|z)p(z)$.}
-
-
-We now show how to construct a valid conditional distribution for $y$ given $(T^*,T,z)$ that satisfies our assumptions if $\beta (p_k - \alpha_0) = (1 - \alpha_0 - \alpha_1)[\mathbb{E}(y|z=k) - c]$ for all $k$.
-Define
+For the second step, we need to construct a valid conditional distribution for $y$ given $(T,T^*,z)$.
+To begin we define the following notation:
 \begin{align*}
 r_{tk} &\equiv \mathbb{P}(T^*=1|T=t,z=k) &
 F_{t}(\tau) &\equiv \mathbb{P}(y \leq \tau|z=k) \\
@@ -97,7 +91,7 @@ for all $t,k \in \left\{ 0,1 \right\}$, and by Bayes' rule,
 \end{equation}
 There are four cases, corresponding to different possibilities for the  $r_{tk}$.
 The first case violates one of our model assumptions.
-For each of the remaining cases, we show that it is possible to construct the required distributions $F_{tk}^0, F_{tk}^1$ while satisfying our model assumptions if and only if $\mathbb{E}(y|z=k) = c + \beta(p_k - \alpha_0)/(1 - \alpha_0 - \alpha_1)$.
+For each of the remaining cases, we show that it is possible to construct the required distributions $F_{tk}^0, F_{tk}^1$ under Assumptions \ref{assump:model} (i) and (iii) for any $(c,\beta,\alpha_0, \alpha_1)$ such that $\mathbb{E}(y|z=k) = c + \beta(p_k - \alpha_0)/(1 - \alpha_0 - \alpha_1)$.
 
 \paragraph{Case I: $r_{1k} = 0, r_{0k} \neq 0$}
 By Equation \ref{eq:rtk} this requires $\alpha_1 = 1$, violating Assumption \ref{assump:misclassification} (ii).
