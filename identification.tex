@@ -125,7 +125,7 @@ Provided that $p_0(\mathbf{x}) \neq p_1(\mathbf{x})$, these expressions characte
 \label{cor:sharpBeta1}
 \end{cor}
 
-Corollary \ref{cor:sharpBeta1} follows by taking differences of the expression for $\mathbb{E}[y|\mathbf{x},z=k]$ across $k=1$ and $k=0$, and substituting the maximum and minimum value for $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x})$ consistent with the observed first-stage probabilities.
+Corollary \ref{cor:sharpBeta1} follows by taking differences of the expression for $\mathbb{E}[y|\mathbf{x},z=k]$ across $k=1$ and $k=0$, and substituting the maximum and minimum value for $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x})$ consistent with the observed first-stage probabilities.\footnote{If \emph{a priori} restrictions on $\alpha_0$ and $\alpha_1$ are available, e.g.\ $\alpha_0 = 0$, $\alpha_1 = 0$, or $\alpha_0 = \alpha_1$, these bounds can be improved. For more discussion, see Corollary 2.2 of \cite{DiTragliaGarciaWP2017}.}
 While \cite{FL} point out that the IV estimand provides an upper bound for $\beta(\mathbf{x})$ and Lemmas \ref{lem:p_pstar}--\ref{lem:wald} are well-known in the literature \citep[see e.g.][]{FL,Mahajan}, we are unaware of any published result that explicitly states both bounds from Corollary \ref{cor:sharpBeta1} or proves that they are sharp.
 %When the mis-classification probabilities are known \emph{a priori} to satisfy additional restrictions, these bounds can be tightened.\footnote{\cite{FL} consider a model in which $\alpha_0$ and $\alpha_1$ do not depend on the exogenous covariates $\mathbf{x}$. In this case $\alpha_0 \leq \mathbb{P}(T=1|\mathbf{x},z)\leq 1 - \alpha_1$ and they suggest minimizing the bounds over $\mathbf{x}$.}
 %The following corollary collects results for two common cases: one-sided misclassification (either $\alpha_0(\mathbf{x})$ or $\alpha_1(\mathbf{x})$ equals zero), and symmetric mis-classification ($\alpha_0(\mathbf{x}) = \alpha_1(\mathbf{x})$).
@@ -311,5 +311,9 @@ where $\theta_1(\mathbf{x}),\theta_2(\mathbf{x})$ and $\theta_3(\mathbf{x})$ are
 Lemmas \ref{lem:wald}--\ref{lem:eta3} yield a linear system of three equations in $\theta_1(\mathbf{x}), \theta_2(\mathbf{x})$ and $\theta_3(\mathbf{x})$.
 Under Assumption \ref{assump:model} (ii), the system has a unique solution so $\theta_1(\mathbf{x}), \theta_2(\mathbf{x})$ and $\theta_3(\mathbf{x})$ are identified.
 The proof of Theorem \ref{thm:main_ident} shows that, so long as $\beta(\mathbf{x})\neq 0$, Equations \ref{eq:theta1_def}--\ref{eq:theta3_def} can be solved for $\beta(\mathbf{x})$, $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
-If we relax Assumption \ref{assump:misclassification} (ii) and assume $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) \neq 1$ only, $\beta(\mathbf{x})$ is only identified up to sign.
+In particular, using steps from the proof of Theorem \ref{thm:main_ident}
+\[
+  \beta(\mathbf{x}) = \mbox{sign}\big[ \theta_1(\mathbf{x}) \big] \sqrt{3 \big[ \theta_2(\mathbf{x})/\theta_1(\mathbf{x}) \big]^2 - 2\big[\theta_3(\mathbf{x})/\theta_1(\mathbf{x})\big]}.
+\]
+If we relax Assumption \ref{assump:misclassification} (ii) and assume $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) \neq 1$ only, $\beta(\mathbf{x})$ is only identified up to sign: in this case the sign of $\theta_1(\mathbf{x})$ need not equal that of $\beta(\mathbf{x})$.
 

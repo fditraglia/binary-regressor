@@ -1,7 +1,7 @@
 %!TEX root = ./main.tex
 \section{Proofs}
 \label{sec:proofs}
-All of the results in this hold the covariates $\mathbf{x}$ \emph{fixed}.
+All of the results in this paper hold $\mathbf{x}$ \emph{fixed}.
 This allows us to completely ignore the presence of covariates in the proofs that follow.
 Accordingly we work in terms of scalars $\alpha_0, \alpha_1, \beta, p_k$, etc.\ rather than functions $\alpha(\mathbf{x})$, $\alpha_1(\mathbf{x})$, $\beta(\mathbf{x}), p_k(\mathbf{x})$.
 The former should be understood as the value of the latter evaluated at some particular $\mathbf{x}$.
@@ -160,7 +160,7 @@ For example we could take $F^0_{tk} = F^1_{tk} = F_{tk}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{proof}[Proof of Corollary \ref{cor:sharpBeta1}]
-Follows by plugging in the largest and smallest possible values for $\alpha_0 + \alpha_1$ and taking the difference of the expressions for $\mathbb{E}[y|z=k]$
+The result follows by substituting the largest and smallest possible values for $\alpha_0 + \alpha_1$ and taking the difference of the expressions for $\mathbb{E}[y|z=k]$
 \end{proof}
 
 
@@ -280,7 +280,7 @@ The result now follows by appealing to the proof of Theorem \ref{thm:sharpI}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Point Identification Results}
-In the proofs of Lemma \ref{lem:eta2}, Lemma \ref{lem:eta3}, and Theorem \ref{thm:main_ident}, we use the shorthand $\pi \equiv \mbox{Cov}(T,z)$, $\eta_j \equiv \mbox{Cov}(y^j,z)$, and $\tau_j \equiv \mbox{Cov}(Ty^j,z)$ for $j = 1, 2, 3$.
+In the proofs of Lemma \ref{lem:eta2}, Lemma \ref{lem:eta3}, and Theorem \ref{thm:main_ident}, we employ the shorthand $\pi \equiv \mbox{Cov}(T,z)$, $\eta_j \equiv \mbox{Cov}(y^j,z)$, and $\tau_j \equiv \mbox{Cov}(Ty^j,z)$ for $j = 1, 2, 3$.
 Hence Lemma \ref{lem:wald} becomes $\eta_1 = \pi\theta_1$, while Lemma \ref{lem:eta2} becomes $\eta_2 =  2\tau_1 \theta_1 - \pi \theta_2$, 
 and Lemma \ref{lem:eta3} becomes $\eta_3 = 3\tau_2 \theta_1 - 3\tau_1 \theta_2 + \pi\theta_3$.
 
