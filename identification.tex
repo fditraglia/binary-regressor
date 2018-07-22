@@ -106,7 +106,7 @@ By Assumption \ref{assump:misclassification} (ii), $1 - \alpha_0(\mathbf{x}) - \
 Lemma \ref{lem:wald} relates the instrumental variables (IV) estimand, $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T|\mathbf{x})$, to the mis-classification probabilities.
 Since $1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) > 0$, IV is biased \emph{upwards} in the presence of mis-classification.
 Together these lemmas bound the causal effect of interest: $\beta(\mathbf{x})$ lies between the reduced form and IV estimators.
-Without Assumption \ref{assump:misclassification} (non-differential measurement error) these bounds are sharp.
+Without Assumption \ref{assump:misclassification} (iii), non-differential measurement error, these bounds are sharp.
 
 \begin{thm}
   Under Assumptions \ref{assump:model} and \ref{assump:misclassification} (i)--(ii), $\alpha_0(\mathbf{x}) \leq p_k(\mathbf{x}) \leq 1 -  \alpha_1(\mathbf{x})$ for  $k = 0, 1$ and
@@ -126,7 +126,8 @@ Provided that $p_0(\mathbf{x}) \neq p_1(\mathbf{x})$, these expressions characte
 \end{cor}
 
 Corollary \ref{cor:sharpBeta1} follows by taking differences of the expression for $\mathbb{E}[y|\mathbf{x},z=k]$ across $k=1$ and $k=0$, and substituting the maximum and minimum value for $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x})$ consistent with the observed first-stage probabilities.\footnote{If \emph{a priori} restrictions on $\alpha_0$ and $\alpha_1$ are available, e.g.\ $\alpha_0 = 0$, $\alpha_1 = 0$, or $\alpha_0 = \alpha_1$, these bounds can be improved. For more discussion, see Corollary 2.2 of \cite{DiTragliaGarciaWP2017}.}
-While \cite{FL} point out that the IV estimand provides an upper bound for $\beta(\mathbf{x})$ and Lemmas \ref{lem:p_pstar}--\ref{lem:wald} are well-known in the literature \citep[see e.g.][]{FL,Mahajan}, we are unaware of any published result that explicitly states both bounds from Corollary \ref{cor:sharpBeta1} or proves that they are sharp.
+\cite{FL} point out that the IV estimand provides an upper bound for $\beta(\mathbf{x})$, and Lemmas \ref{lem:p_pstar}--\ref{lem:wald} are well-known in the literature \citep[see e.g.][]{FL,Mahajan}.
+Nevertheless, we are unaware of any published result that explicitly states both bounds from Corollary \ref{cor:sharpBeta1} or proves that they are sharp under Assumptions \ref{assump:model} and \ref{assump:misclassification} (i)--(ii).
 %When the mis-classification probabilities are known \emph{a priori} to satisfy additional restrictions, these bounds can be tightened.\footnote{\cite{FL} consider a model in which $\alpha_0$ and $\alpha_1$ do not depend on the exogenous covariates $\mathbf{x}$. In this case $\alpha_0 \leq \mathbb{P}(T=1|\mathbf{x},z)\leq 1 - \alpha_1$ and they suggest minimizing the bounds over $\mathbf{x}$.}
 %The following corollary collects results for two common cases: one-sided misclassification (either $\alpha_0(\mathbf{x})$ or $\alpha_1(\mathbf{x})$ equals zero), and symmetric mis-classification ($\alpha_0(\mathbf{x}) = \alpha_1(\mathbf{x})$).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -140,11 +141,29 @@ While \cite{FL} point out that the IV estimand provides an upper bound for $\bet
 %  \end{enumerate}
 %\end{cor}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Theorem \ref{thm:sharpI} and Corollaries \ref{cor:sharpBeta1}--\ref{cor:onsided} do not impose Assumption \ref{assump:misclassification} (iii) -- non-differential measurement error.
 Neither Theorem \ref{thm:sharpI} nor Corollary \ref{cor:sharpBeta1}, however, imposes Assumption \ref{assump:misclassification} (iii) -- non-differential measurement error.
-We now show that this assumption yields further restrictions on probabilities $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$, but fails to point identify $\beta(\mathbf{x})$.
-%While these restrictions are more complicated to describe than those from Theorem \ref{thm:sharpI}, they are straightforward to implement in practice and can be extremely informative, as we will show in our simulation exercises below.
+While this assumption plays an important role in existing identification results for an exogenous $T^*$ (see Section \ref{sec:ident_literature}), its identifying power under endogneneity has not been addressed in the literature.\footnote{The only exception is the incorrect result of \cite{Mahajan} described in Section \ref{sec:ident_literature} and Appendix \ref{sec:mahajan}.}
+Our remaining results impose Assumption \ref{assump:misclassification} (iii). 
+We begin by showing that this assumption generically shrinks the identified set from Theorem \ref{thm:sharpI}.
+
+
+\todo[inline]{Need to make this clearer: the point should be that the assumption \emph{only} has the potential to rule out some values of $\alpha_0, \alpha_1$ and that it strictly improves at least one of the bounds if the mean restriction holds for at least one $k$. It improves both bounds if it holds for both.}
+
+\begin{thm}
+  Assumption \ref{assump:misclassification} (iii) strictly improves the bounds for $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ from Theorem \ref{thm:sharpI} if and only if
+  $\mathbb{E}\left[y|\mathbf{x},T=0,z=k  \right] \neq \mathbb{E}\left[ y|\mathbf{x},T=1,z=k \right]$ for some $k = 0,1$.
+  \label{thm:shrink}
+\end{thm}
+
+
+
+  The proof of this lemma forms the basis of the sharp identified set result in the next Theorem.
+
+We now show that this assumption in general yields further restrictions on probabilities $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$, but fails to point identify $\beta(\mathbf{x})$.
+The following results
 The sharp bounds that we derive under Assumption \ref{assump:misclassification} (iii) are new to the literature.
+
+%While these restrictions are more complicated to describe than those from Theorem \ref{thm:sharpI}, they are straightforward to implement in practice and can be extremely informative, as we will show in our simulation exercises below.
 
 Our result uses two additional conditions to simplify the proof of sharpness.
 First, we assume that $y$ is continuously distributed.

@@ -47,8 +47,8 @@ Since $p(z)$ is observed, to construct a valid joint probability mass function $
 Since $\alpha_0 \leq p_k \leq 1 - \alpha_1$, both $\alpha_0$ and $\alpha_1$ are guaranteed to lie between zero and one.
 This gives a valid construction of $p(T|T^*)$.
 Moreover the corresponding values of $p_k^*$ implied by Lemma \ref{lem:p_pstar} are also guaranteed to lie between zero and one.
-This gives a valid construction of $p(T^*|z)$ that satisfies Assumption \ref{assump:model} (ii), since $p_1 \neq p_0$ by assumption and $(p_k - p_\ell) = (p_k^* - p_\ell^*)(1 - \alpha_0 - \alpha_1)$ by Lemma \ref{lem:p_pstar}.
-Because Lemma \ref{lem:p_pstar} is simply an application of the law of total probability, the resulting construction of $p(T,T^*,z)$ is automatically compatible with the observed distribution $p(T,z) = p(T|z)p(z)$.
+This gives a valid construction of $p(T^*|z)$ that satisfies Assumption \ref{assump:model} (ii), since $p_1 \neq p_0$ by assumption and $(p_1 - p_0) = (p_1^* - p_0^*)(1 - \alpha_0 - \alpha_1)$ by Lemma \ref{lem:p_pstar}.
+Because our construction relies on Lemma \ref{lem:p_pstar}, which is simply an application of the law of total probability, the resulting distribution $p(T,T^*,z)$ is automatically compatible with $p(T,z) = p(T|z)p(z)$.
 
 For the second step, we need to construct a valid conditional distribution for $y$ given $(T,T^*,z)$.
 To begin we define the following notation:
@@ -60,7 +60,7 @@ F_{tk}^{t^*}(\tau) &\equiv \mathbb{P}(y \leq \tau|T^*=t^*,T=t, z=k)\\
 G_k(\tau) &\equiv \mathbb{P}(\varepsilon \leq \tau|z=k) &
 G^{t^*}_{tk}(\tau) &\equiv \mathbb{P}(\varepsilon \leq \tau|T^*=t^*, T=t,z=k).
 \end{align*}
-Assumption \ref{assump:model} (i) implies a relationship between $G^{t^*}_{tk}$ and $F^{t^*}_{tk}$ for each $t^*$, namely 
+Assumption \ref{assump:model} (i) imposes a relationship between $G^{t^*}_{tk}$ and $F^{t^*}_{tk}$ for each $t^*$, namely 
 \begin{equation}
   G^0_{tk}(\tau) = F^0_{tk}(\tau + c), \quad
   G^1_{tk}(\tau) = F^1_{tk}(\tau + c + \beta)
@@ -89,7 +89,7 @@ for all $t,k \in \left\{ 0,1 \right\}$, and by Bayes' rule,
   r_{0k} = \alpha_1p_k^*/(1 - p_k).
   \label{eq:rtk}
 \end{equation}
-There are four cases, corresponding to different possibilities for the  $r_{tk}$.
+There are four cases, corresponding to different possibilities for the $r_{tk}$.
 The first case violates one of our model assumptions.
 For each of the remaining cases, we show that it is possible to construct the required distributions $F_{tk}^0, F_{tk}^1$ under Assumptions \ref{assump:model} (i) and (iii) for any $(c,\beta,\alpha_0, \alpha_1)$ such that $\mathbb{E}(y|z=k) = c + \beta(p_k - \alpha_0)/(1 - \alpha_0 - \alpha_1)$.
 
@@ -167,6 +167,7 @@ The result follows by substituting the largest and smallest possible values for 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{proof}[Proof of Theorem \ref{thm:sharpII}]
+\todo[inline]{Add introductory paragraph explaining that this proof relies on the proof of Theorem \ref{thm:sharpI}. All that we prove here is a characterization of the additional information provided by the non-differential assumption. Explain how this builds on what we have to further restrict $\alpha_0, \alpha_1$ but why it doesn't restrict anything else.}
 Under Assumption \ref{assump:model} (i) and Assumption \ref{assump:misclassification} (iii), we obtain $\mathbb{E}(y|T^*,T,z) = \mathbb{E}(y|T^*,z)$.
 Hence, by iterated expectations
   \begin{align*}
