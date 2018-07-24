@@ -102,7 +102,7 @@ where the first-stage probabilities $p_k^*(\mathbf{x})$ and $p_k(\mathbf{x})$ ar
 Lemma \ref{lem:p_pstar} relates the observed first-stage probabilities $p_k(\mathbf{x})$ to their unobserved counterparts $p^*_k(\mathbf{x})$ in terms of the mis-classification probabilities $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
 By Assumption \ref{assump:misclassification} (ii), $1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) > 0$ so that Lemma \ref{lem:p_pstar} bounds $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ in terms of the observed first-stage probabilities.
 Moreover, by taking differences evaluated at $k=1$ and $k=0$, this Lemma shows that $p_0^*(\mathbf{x}) = p_1^*(\mathbf{x})$ if and only if $p_0(\mathbf{x})=p_1(\mathbf{x})$.
-In other words, Assumption \ref{assump:model} (ii) is testable under assumption \ref{assump:misclassification} (ii).
+In other words, Assumption \ref{assump:model} (ii) is testable under Assumption \ref{assump:misclassification} (ii).
 Lemma \ref{lem:wald} relates the instrumental variables (IV) estimand, $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T|\mathbf{x})$, to the mis-classification probabilities.
 Since $1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) > 0$, IV is biased \emph{upwards} in the presence of mis-classification.
 Together these lemmas bound the causal effect of interest: $\beta(\mathbf{x})$ lies between the reduced form and IV estimators.
@@ -142,46 +142,29 @@ Nevertheless, we are unaware of any published result that explicitly states both
 %  \end{enumerate}
 %\end{cor}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Neither Theorem \ref{thm:sharpI} nor Corollary \ref{cor:sharpBeta1}, however, imposes Assumption \ref{assump:misclassification} (iii) -- non-differential measurement error.
-While this assumption plays an important role in existing identification results for an exogenous $T^*$ (see Section \ref{sec:ident_literature}), its identifying power under endogneneity has not been addressed in the literature.\footnote{The only exception is the incorrect result of \cite{Mahajan} described in Section \ref{sec:ident_literature} and Appendix \ref{sec:mahajan}.}
-Our remaining results impose Assumption \ref{assump:misclassification} (iii). 
-We begin by showing that this assumption generically shrinks the identified set from Theorem \ref{thm:sharpI} by further restricting $\alpha_0$ and $\alpha_1$.
 
-\begin{thm}
-  Under the conditions of Theorem \ref{thm:sharpI}, imposing Assumption \ref{assump:misclassification} (iii) only changes the sharp identified set for $c(\mathbf{x})$, $\beta(\mathbf{x})$, $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ by potentially restricting the latter two parameters. 
-  In particular, adding Assumption \ref{assump:misclassification} (iii) strictly improves upon the bound $\alpha_0(\mathbf{x}) \leq p_k(\mathbf{x}) \leq 1 - \alpha_1(\mathbf{x})$ if and only if
-  $\mathbb{E}\left[y|\mathbf{x},T=0,z=k  \right] \neq \mathbb{E}\left[ y|\mathbf{x},T=1,z=k \right]$. 
-  \label{thm:shrink}
-\end{thm}
-
-\todo[inline]{Talk about the new assumption and why it is generic.}
-
-%We now show that this assumption in general yields further restrictions on probabilities $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$, but fails to point identify $\beta(\mathbf{x})$.
+Neither Theorem \ref{thm:sharpI} nor Corollary \ref{cor:sharpBeta1} imposes Assumption \ref{assump:misclassification} (iii) -- non-differential measurement error.
+While this assumption plays an important role in existing identification results for an exogenous $T^*$ (see Section \ref{sec:ident_literature}), its identifying power under endogeneity has not been addressed in the literature.\footnote{The only exception is the incorrect result of \cite{Mahajan} described in Section \ref{sec:ident_literature} and Appendix \ref{sec:mahajan}.}
+%Our remaining results impose Assumption \ref{assump:misclassification} (iii). 
+We now show that this assumption in general yields further restrictions on probabilities $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$, but fails to point identify $\beta(\mathbf{x})$.
 %The sharp bounds that we derive under Assumption \ref{assump:misclassification} (iii) are new to the literature.
 %While these restrictions are more complicated to describe than those from Theorem \ref{thm:sharpI}, they are straightforward to implement in practice and can be extremely informative, as we will show in our simulation exercises below.
-Our result uses two additional conditions to simplify the proof of sharpness.
-Our result uses two additional conditions to simplify the proof of sharpness.
-First, we assume that $y$ is continuously distributed.
-This is natural in an additively separable model and holds in our simulation examples below. 
+To simplify the proof of sharpness, we assume that $y$ is continuously distributed, which is natural in an additively separable model.
 Without this assumption, the bounds that we derive are still valid, but may not be sharp. 
 Nevertheless, the reasoning from our proof can be generalized to cases in which $y$ does not have a continuous support set.
-We also impose $\mathbb{E}[y|\mathbf{x},T = 0, z=k] \neq \mathbb{E}[y|\mathbf{x},T=1, z=k]$ for any $k$.
-This holds generically and is not essential to the proof: it merely simplifies the description of the identified set.
-
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{thm}
   \label{thm:sharpII}
-  Suppose that the conditional distribution of $y$ given $(\mathbf{x}, T,z)$ is continuous for any values of the conditioning variables and $\mathbb{E}\left[ y|\mathbf{x},T=0,z=k \right] \neq \mathbb{E}\left[ y|\mathbf{x},T=1,z=k \right]$ for all $k$.
-  Then, under Assumptions \ref{assump:model} and \ref{assump:misclassification}, the sharp identified set is characterized by Equation \ref{eq:identsetI} from Theorem \ref{thm:sharpI} along with $\alpha_0(\mathbf{x}) < p_k(\mathbf{x}) < 1 -  \alpha_1(\mathbf{x})$ for $k = 0,1$ and
+  Suppose that the conditional distribution of $y$ given $(\mathbf{x}, T,z)$ is continuous.
+  Further suppose that the conditions of Theorem \ref{thm:sharpI} and Assumption \ref{assump:misclassification} (iii) hold.
+  For any $k$ such that $\mathbb{E}\left[ y|\mathbf{x},T=0,z=k \right] \neq \mathbb{E}\left[ y|\mathbf{x},T=1,z=k \right]$, let $\mathcal{A}_k$ be the set of pairs $\big(\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x}) \big)$ such that  $\alpha_0(\mathbf{x}) < p_k(\mathbf{x}) < 1 -  \alpha_1(\mathbf{x})$ and
 \[
   \underline{\mu}_{tk}\bigg( \underline{q}_{tk}\big( \alpha_0(\mathbf{x}), \alpha_1(\mathbf{x}), \mathbf{x}\big) , \,\mathbf{x} \bigg)\leq 
   \mu_{k}\big( \alpha_0(\mathbf{x}),\mathbf{x} \big)\leq 
   \overline{\mu}_{tk}\bigg(\overline{q}_{tk}\big( \alpha_0(\mathbf{x}), \alpha_1(\mathbf{x}), \mathbf{x}\big), \,\mathbf{x} \bigg)
 \]
-for all pairs $(t,k)$ where
+for all $t = 0,1$ where
 \begin{align*}
   \underline{\mu}_{tk}\big( q,\mathbf{x} \big) = \mathbb{E}\left[ y\left|\right.y\leq q, \mathbf{x},T=t, z=k\right], \quad \quad
   \overline{\mu}_{tk}\big(q,\mathbf{x} \big) = \mathbb{E}\left[ y\left|\right. y > q, \mathbf{x}, T=t, z=k\right]
@@ -201,10 +184,22 @@ where $F_{tk}^{-1}(\cdot|\mathbf{x})$ is the conditional quantile function of $y
   r_{1k}\big(\alpha_0(\mathbf{x}),\alpha_1(\mathbf{x}),\mathbf{x}\big) &= \frac{1 - \alpha_1(\mathbf{x})}{p_k(\mathbf{x})} \left[ \frac{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})} \right]
 \end{align*}
 and $p_k(\mathbf{x})$ is defined in Equation \ref{eq:pk_def}.
+The sharp identified set for $c(\mathbf{x})$, $\beta(\mathbf{x})$, $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ is characterized by Equation
+\ref{eq:identsetI} and $\big(\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})\big) \in \mathcal{A}^*$ where
+\begin{enumerate}[(i)]
+  \item $\mathcal{A}^* \equiv \mathcal{A}_0 \cap \mathcal{A}_1$ if $\mathbb{E}[y|\mathbf{x},T=0,z=k] \neq \mathbb{E}[y|\mathbf{x},T=1,z=k]$ for all $k=0,1$;
+  \item $\mathcal{A}^* \equiv \mathcal{A}_k$ if $\mathbb{E}[y|\mathbf{x},T=0,z=k] \neq \mathbb{E}[y|\mathbf{x},T=1,z=k]$ and $\mathbb{E}[y|\mathbf{x},T=0,z=\ell] = \mathbb{E}[y|\mathbf{x},T=1,z=\ell]$;
+  \item $\mathcal{A}^* \equiv \left\{ \big(\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})\big)\colon \alpha_0(\mathbf{x}) \leq p_k(\mathbf{x}) \leq 1 - \alpha_1(\mathbf{x}) \mbox{ for all } k \right\}$ if $\mathbb{E}[y|\mathbf{x},T=0,z=k] = \mathbb{E}[y|\mathbf{x},T=1,z=k]$ for all $k=0,1$.
+\end{enumerate}
 \end{thm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+Imposing Assumption \ref{assump:misclassification} (iii) strictly improves upon the identified set from Theorem \ref{thm:sharpI} unless $\mathbb{E}[y|\mathbf{x},T=0,z=k]=\mathbb{E}[y|\mathbf{x},T=1,z=k]$ for all $k$. 
+Even if $\beta(\mathbf{x}) = 0$, the difference of these observable means is generically nonzero.\footnote{Suppress dependence on $\mathbf{x}$ for simplicity.
+There are only two settings in which $\mathbb{E}[y|T=0,z=k] = \mathbb{E}[y|T=1,z=k]$.
+The first is if the true value of either $\alpha_0$ or $\alpha_1$ or $\alpha_1$ lies at the upper boundary of the identified set from Theorem \ref{thm:sharpI}.
+The second is if $\beta = \mathbb{E}[\varepsilon|T^*=0,z=k] - \mathbb{E}[\varepsilon|T^*=0,z=k]$.}
 The intuition for Theorem \ref{thm:sharpII} is as follows.
 For simplicity, suppress dependence on $\mathbf{x}$.
 Now, fix $(T=t, z=k)$ and $(\alpha_0, \alpha_1)$.
@@ -216,7 +211,7 @@ If not, then $(\alpha_0, \alpha_1)$ does not belong to the identified set.
 Our proof provides necessary and sufficient conditions for such a mixture to exist at a given point $(\alpha_0, \alpha_1)$.
 We can then appeal to the reasoning from Theorem \ref{thm:sharpI} to complete the argument.
 By ruling out values for $\alpha_0$ and $\alpha_1$, Theorem \ref{thm:sharpII} restricts $\beta$ via Lemma \ref{lem:wald}. 
-While these restrictions can be very informative in practice, they do not yield point identification.
+While these restrictions can be very informative,  they do not yield point identification.
 
 \begin{cor}
   Under Assumptions \ref{assump:model} and \ref{assump:misclassification} the identified set for $\beta(\mathbf{x})$ contains both the IV estimand $\mbox{Cov}(y,z|\mathbf{x})/\mbox{Cov}(z,T|\mathbf{x})$ and the true coefficient $\beta(\mathbf{x})$.
