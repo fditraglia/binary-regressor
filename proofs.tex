@@ -167,7 +167,13 @@ The result follows by substituting the largest and smallest possible values for 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{proof}[Proof of Theorem \ref{thm:sharpII}]
-\todo[inline]{Add introductory paragraph explaining that this proof relies on the proof of Theorem \ref{thm:sharpI}. All that we prove here is a characterization of the additional information provided by the non-differential assumption. Explain how this builds on what we have to further restrict $\alpha_0, \alpha_1$ but why it doesn't restrict anything else.}
+The only difference between the conditions of Theorem \ref{thm:sharpI} and those of \ref{thm:sharpII} is that the latter imposes Assumption \ref{assump:misclassification} (iii) while the former does not.
+Accordingly, the present argument builds on the proof of Theorem \ref{thm:sharpI} given above.
+Under Assumption \ref{assump:model} (i), Assumption \ref{assump:misclassification} (iii) is equivalent to $\mathbb{E}[y|z,T,T^*] = \mathbb{E}[y|z,T^*]$.
+Hence, non-differential measurement error constrains only the conditional distribution of $y$ given $(T,T^*,z)$.
+For this reason, we need only revisit the second step of the proof of Theorem \ref{thm:sharpI}.
+
+\todo[inline]{Update from here down!}
 Under Assumption \ref{assump:model} (i) and Assumption \ref{assump:misclassification} (iii), we obtain $\mathbb{E}(y|T^*,T,z) = \mathbb{E}(y|T^*,z)$.
 Hence, by iterated expectations
   \begin{align*}
