@@ -251,10 +251,11 @@ But notice that
 so we have $\underline{\mu}_{tk} \leq \mu^1_{k} \leq \overline{\mu}_{tk}$ which contradicts $\mu^1_{k} \notin [\underline{\mu}_{tk}, \overline{\mu}_{tk}]$.
 
 Now suppose that $\mu^1_{k} \in \left[\underline{\mu}_{tk}, \overline{\mu}_{tk} \right]$.
-Since $y$ is assumed to follow a continuous distribution conditional on $(T,z)$, $\mu_{tk}$ is continuous on its domain and takes on all values in $\left[ \underline{\mu}_{tk}, \overline{\mu}_{tk} \right]$ by the intermediate value theorem.
+We show how to construct densities $f_{tk}^1$ and $f_{tk}^0$ that yield CDFs $F_{tk}^0$ $F_{tk}^1$ satisfying the requirements described above.
+Since the conditional distribution of $y$ given $(T,z)$ is continuous, $\mu_{tk}$ is continuous on its domain and takes on all values in $\left[ \underline{\mu}_{tk}, \overline{\mu}_{tk} \right]$ by the intermediate value theorem.
 Thus, there exists a $\xi^*$ such that $\mu_{tk}(\xi^*) = \mu^1_{k}$.
-Now let $f_{tk}(\tau) = dF_{tk}(\tau)/d\tau$ which is non-negative by the assumption that $y$ is continuously distributed.
-Define 
+Let $f_{tk}(\tau) = dF_{tk}(\tau)/d\tau$ which is non-negative by the assumption that $y$ is continuously distributed.
+Now, define
 \[
   f^1_{tk}(\tau) = \frac{f_{tk}(\tau)\times \mathbf{1}\left\{ \tau \in I_{tk}(\xi^*) \right\}}{r_{tk}}, \quad
   f^0_{tk}(\tau) = \frac{f_{tk}(\tau) \times \mathbf{1}\left\{ \tau \in I_{tk}(\xi^*) \right\}}{1 - r_{tk}}.
@@ -266,7 +267,7 @@ Integrating,
   \int_{\mathbb{R}} f_{tk}^0(\tau) \; d\tau = \frac{1}{1 - r_{tk}}\int_{I^C_{tk}(\xi^*)} f_{tk}(\tau)\; d\tau = 1
 \end{align*}
 where $I_{tk}^C$ is the complement of $I_{tk}$.
-And, by construction
+By construction
 \[
   r_{tk} \int_A f_{tk}^1(\tau) \; d\tau + (1 - r_{tk}) \int_A f_{tk}^0(\tau) \; d\tau = \int_A f_{tk}(\tau)\; d\tau
 \]
