@@ -1,10 +1,44 @@
 %!TEX root = ./main.tex
 \section{Unobserved Heterogeneity}
 \label{sec:het}
-While allowing for arbitrary observed heterogeneity through the covariates $\mathbf{x}$, the results from Section \ref{sec:identification} assume an additively separable model: Assumption \ref{assump:model} (i).
-In this section we briefly discuss the implications of this assumption for unobserved heterogeneity in a local average treatment effects (LATE) setting.
+While allowing for arbitrary observed heterogeneity through the covariates $\mathbf{x}$, all of the results presented above assume an additively separable model -- Assumption \ref{assump:model} (i).
+In this section we briefly discuss how our results can be interpreted in a local average treatment effects (LATE) setting.
+For simplicity, we suppress explicit conditioning on the covariates $\mathbf{x}$ throughout this discussion.
 
+In lieu of Assumption \ref{assump:model} (i), consider a non-separable model of the form $y = h(T^*,z,\varepsilon)$.
+Let $T^*(z)$ denote an individual's potential treatment and $Y(t^*,z)$ denote her potential outcome, where $t^*,z\in \left\{ 0,1 \right\}$.
+Using this notation we can write $Y(t^*,z) = h(t^*,z,\varepsilon)$.
+Let $J \in \left\{ a, c, d, n \right\}$ index the four LATE principal strata: $a = $ always-taker, $c = $ complier, $d = $ defier, and $n =$ never-taker.
+If $J=a$, then $T^*(z) = 1$; if $J=c$, then $T^*(z) = z$; if $J=d$, then $T^*(z) = 1 - z$; and if $J=n$, then $T^*(z)=0$.
+In a LATE model, Assumption \ref{assump:model} (iii) is replaced by the standard LATE assumptions:
+\begin{assump}[Unconfounded Type]
+    $\mathbb{P}(J=j|z=1) = \mathbb{P}(J=j|z=0)$ 
+  for all  $j\in \left\{ a, c, d, n \right\}$.
+\end{assump}
+\begin{assump}[Mean Exclusion Restriction]
+    For all $t^* \in \left\{ 0,1 \right\}$ and $j\in \left\{ a, c, d, n \right\}$,
+    \[\mathbb{E}\left[Y(t^*,0)|T^*=t^*,z=1\right]=\mathbb{E}\left[Y(t^*,1)|T^*=t^*,z=1\right] = \mathbb{E}[Y(t^*)|J=j].\]
+\end{assump}
+\begin{assump}[Monotonicity]
+    $\mathbb{P}\big(T^*(1) \geq T^*(0)\big) = 1$ 
+\end{assump}
 
+As is well known, Assumption \ref{assump:model} (iii) combined with the preceding three conditions implies that the (unobserved) instrumental variables estimand based on $T^*$ identifies the average treatment effect among compliers:
+\[
+  \frac{\mathbb{E}[y|z=1] - \mathbb{E}[y|z=0]}{p^*_1 - p^*_0} = \mathbb{E}[Y(1) - Y(0)|J=c].
+\]
+The numerator of the preceding expression is observed, but under mis-classification the denominator is not.
+Notice, however, that Assumptions \ref{assump:misclassification} (i)--(ii) only concern the joint distribution of $T$ given $(T^*,z)$.
+As such, they have the same meaning in a LATE model as in an additively separable model.
+Imposing these conditions, Lemma \ref{lem:p_pstar} continues to hold in a LATE model.
+It follows that $p_1 - p_0 = (1 - \alpha_0 - \alpha_1) (p_1^* - p_0^*)$ so that
+\[
+  \frac{\mathbb{E}[y|z=1] - \mathbb{E}[y|z=0]}{p_1 - p_0} = \frac{\mathbb{E}[Y(1) - Y(0)|J=c]}{1 - \alpha_0 - \alpha_1}.
+\]
+Moreover, $\alpha_0 \leq p_k \leq 1 - \alpha_1$ for all $k$.
+Thus, the bound from Corollary \ref{cor:sharpBeta1} remains valid in a LATE model: $\mathbb{E}[Y(1) - Y(0)|J=c]$ must lie between the IV and reduced form estimands.
+Unlike Assumptions \ref{assump:misclassification} (i)--(ii), Assumption \ref{assump:misclassification} (iii), non-differential measurement error, is explicitly stated in terms of the unobservable error term in an additively separable model.
+To use this assumption in a LATE context, we must modify it appropriately.
 
 
 \todo[inline]{Although our results allow arbitrary observed heterogeneity, additive separability places restrictions on unobserved heterogeneity.
