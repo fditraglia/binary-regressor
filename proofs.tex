@@ -168,32 +168,55 @@ The result follows by substituting the largest and smallest possible values for 
 
 \begin{proof}[Proof of Theorem \ref{thm:sharpII}]
 The only difference between the conditions of Theorem \ref{thm:sharpI} and those of \ref{thm:sharpII} is that the latter imposes Assumption \ref{assump:misclassification} (iii) while the former does not.
-Accordingly, the present argument builds on the proof of Theorem \ref{thm:sharpI} given above.
-Under Assumption \ref{assump:model} (i), Assumption \ref{assump:misclassification} (iii) is equivalent to $\mathbb{E}[y|z,T,T^*] = \mathbb{E}[y|z,T^*]$.
+Accordingly, the present argument builds on the proof of Theorem \ref{thm:sharpI} and relies on the notation defined within it.
+Under Assumption \ref{assump:model} (i), Assumption \ref{assump:misclassification} (iii) is equivalent to $\mathbb{E}[y|T,T^*,z] = \mathbb{E}[y|T^*,z]$.
 Hence, non-differential measurement error constrains only the conditional distribution of $y$ given $(T,T^*,z)$.
 For this reason, we need only revisit the second step of the proof of Theorem \ref{thm:sharpI}.
-
-\todo[inline]{Update from here down!}
-Under Assumption \ref{assump:model} (i) and Assumption \ref{assump:misclassification} (iii), we obtain $\mathbb{E}(y|T^*,T,z) = \mathbb{E}(y|T^*,z)$.
-Hence, by iterated expectations
-  \begin{align*}
-    \mathbb{E}(y|T=0,z=k) &= (1 - r_{0k}) \mathbb{E}(y|T^*=0,z=k) + r_{0k}\mathbb{E}(y|T^*=1,z=k)\\
-    \mathbb{E}(y|T=1,z=k) &= (1 - r_{1k}) \mathbb{E}(y|T^*=0,z=k) + r_{1k}\mathbb{E}(y|T^*=1,z=k)
-  \end{align*}
-where $r_{tk}$ is defined as in the proof of Theorem \ref{thm:sharpI}.
-This is system of two linear equations in two unknowns: $\mathbb{E}(y|T^*=0,z=k)$ and $\mathbb{E}(y|T^*=1,z=k)$.
+Consider a point $(c, \beta, \alpha_0, \alpha_1)$ that satisfies Equation \ref{eq:identsetI} and $\alpha_0 \leq p_k \leq 1 - \alpha_1$ for all $k$.
+Since this point lies in the identified set from Theorem \ref{thm:sharpI}, it suffices to determine whether there exist valid conditional CDFs $F_{tk}^{0}, F_{tk}^{1}$ such that $F_{tk} = (1 - r_{tk}) F_{tk}^1 + r_{tk} F_{tk}^1$ for all $t,k$ and $\mathbb{E}[y|T,T^*,z] = \mathbb{E}[y|T^*,z]$.
+Define the shorthand $\mu_{tk}^{t^*} = \mathbb{E}[y|T=t,z=k,T^*=t^*]$, $\mu_{tk} = \mathbb{E}[y|T=t,z=k]$, and $\mu_{k}^{t^*} = \mathbb{E}[y|z=k,T^*=t^*]$.
+By Assumption \ref{assump:misclassification} (iii) $\mu_{tk}^{t*} = \mu_{k}^{t^*}$ for all $t = 0,1$.
+Hence, by iterated expectations,
+\begin{align*}
+  \mu_{0k} &= (1 - r_{0k}) \mu_{k}^0 + r_{0k} \mu_{k}^1\\ 
+  \mu_{1k} &= (1 - r_{1k}) \mu_{k}^0 + r_{1k} \mu_{k}^1.
+\end{align*}
+Now, $(\mu_{0k},\mu_{1k})$ are observed while $r_{0k}$ and $r_{1k}$ depend only on $p_k$, $\alpha_0$, and $\alpha_1$. Thus, at a given point $(c, \beta, \alpha_0, \alpha_1)$ in the identified set from Theorem \ref{thm:sharpI} the preceding equations form a linear system in two unknowns: $\mu_{k}^0$ and $\mu_{k}^1$.
 After some algebra, we find that the determinant is
 \[
-  r_{1k} - r_{0k} = \left[ \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right]\left[ \frac{1 - p_k - \alpha_1}{p_k(1 - p_k)} \right] 
+  r_{1k} - r_{0k} = \left[ \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right]\left[ \frac{1 - p_k - \alpha_1}{p_k(1 - p_k)} \right]
 \]
-and thus a unique solution exists provided that $\alpha_0 \neq p_k$ and $\alpha_1 \neq 1 - p_k$.
-By our assumption that $\mathbb{E}[y|T=0,z=k] \neq \mathbb{E}[y|T=1,z=k]$, the system has no solution when the determinant condition fails.
-Thus, Assumption \ref{assump:misclassification} (iii) rules out $\alpha_0 = p_k$ and $\alpha_1 = 1-p_k$.
-Solving,
+so that a unique solution exists if and only if $\alpha_0 \neq p_k$ \emph{and} $\alpha_1 \neq 1 - p_k$, in particular:
 \begin{align*}
-  \mu^0_{k} \equiv \mathbb{E}(y|T^*=0,z=k) &= \left(\frac{1}{1 - p_k - \alpha_1}\right)\left[ (1 - p_k)\mathbb{E}(y|T=0,z=k) - \alpha_1 \mathbb{E}(y|z=k) \right]\\
-  \mu^1_{k} \equiv \mathbb{E}(y|T^*=1,z=k) &= \left(\frac{1}{p_k - \alpha_0}\right)\left[ p_k\mathbb{E}(y|T=1,z=k) - \alpha_0 \mathbb{E}(y|z=k) \right]
+  \mu_k^0 &= \frac{r_{1k}\mu_{0k} - r_{0k}\mu_{1k}}{r_{1k} - r_{0k}} = \frac{(1 - p_k) \mathbb{E}(y|T=0,z=k) - \alpha_1 \mathbb{E}(y|z=k)}{1 - p_k - \alpha_1} \\ 
+  \mu_k^1 &= \frac{(\mu_{1k} - \mu_{0k}) + (r_{1k}\mu_{0k} - r_{0k}\mu_{1k})}{r_{1k} - r_{0k}} = \frac{p_k \mathbb{E}(y|T=1,z=k) - \alpha_0 \mathbb{E}(y|z=k)}{p_k - \alpha_0}.
 \end{align*}
+Note that $\mu_{0k} = \mu_{1k}$ implies $\mu_{k}^0 = \mu_k^1$.
+
+\todo[inline]{Remember to emphasize that $\mu_{k}^0,\mu_{k}^1$ are equal to $\mu_{tk}^0,\mu_{tk}^1$!}
+
+\todo[inline]{Need to Add: (1) Explanation for why we know that only $\alpha_0, \alpha_1$ are constrained by non-diff, (2) Exactly how we build on step 2 of the earlier proof, (3) Deal with the ``non-generic'' cases, (4) make sure we're covering all the four cases from the earlier theorem. I think that (3) and (4) are related. In particular, I think any of the ``edge'' cases from the earlier proof are situations in which the non-diff assumption doesn't give you anything.}
+
+%Under Assumption \ref{assump:model} (i) and Assumption \ref{assump:misclassification} (iii), we obtain $\mathbb{E}(y|T^*,T,z) = \mathbb{E}(y|T^*,z)$.
+%Hence, by iterated expectations
+%  \begin{align*}
+%    \mathbb{E}(y|T=0,z=k) &= (1 - r_{0k}) \mathbb{E}(y|T^*=0,z=k) + r_{0k}\mathbb{E}(y|T^*=1,z=k)\\
+%    \mathbb{E}(y|T=1,z=k) &= (1 - r_{1k}) \mathbb{E}(y|T^*=0,z=k) + r_{1k}\mathbb{E}(y|T^*=1,z=k)
+%  \end{align*}
+%where $r_{tk}$ is defined as in the proof of Theorem \ref{thm:sharpI}.
+%This is system of two linear equations in two unknowns: $\mathbb{E}(y|T^*=0,z=k)$ and $\mathbb{E}(y|T^*=1,z=k)$.
+%After some algebra, we find that the determinant is
+%\[
+%  r_{1k} - r_{0k} = \left[ \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right]\left[ \frac{1 - p_k - \alpha_1}{p_k(1 - p_k)} \right] 
+%\]
+%and thus a unique solution exists provided that $\alpha_0 \neq p_k$ and $\alpha_1 \neq 1 - p_k$.
+%By our assumption that $\mathbb{E}[y|T=0,z=k] \neq \mathbb{E}[y|T=1,z=k]$, the system has no solution when the determinant condition fails.
+%Thus, Assumption \ref{assump:misclassification} (iii) rules out $\alpha_0 = p_k$ and $\alpha_1 = 1-p_k$.
+%Solving,
+%\begin{align*}
+%  \mu^0_{k} \equiv \mathbb{E}(y|T^*=0,z=k) &= \left(\frac{1}{1 - p_k - \alpha_1}\right)\left[ (1 - p_k)\mathbb{E}(y|T=0,z=k) - \alpha_1 \mathbb{E}(y|z=k) \right]\\
+%  \mu^1_{k} \equiv \mathbb{E}(y|T^*=1,z=k) &= \left(\frac{1}{p_k - \alpha_0}\right)\left[ p_k\mathbb{E}(y|T=1,z=k) - \alpha_0 \mathbb{E}(y|z=k) \right]
+%\end{align*}
 Given $(\alpha_0, \alpha_1)$, we see that $r_{tk}, \mu^0_k$, and $\mu^1_{k}$ are fixed.
 The question is whether, for a given pair $(\alpha_0, \alpha_1)$ and observed CDFs $F_{tk}$, we can construct valid CDFs $F_{tk}^0, F_{tk}^1$ such that 
 \[
