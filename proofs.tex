@@ -226,7 +226,7 @@ Define the function $\mu_{tk}(\xi) = \mathbb{E}[y|y\in I_{tk}(\xi), T=t, z=k]$ a
 The function $\mu_{tk}$ is decreasing in $\xi$,  attaining its maximum $\overline{\mu}_{tk}$ at $\xi = 0$ and its minimum $\underline{\mu}_{tk}$ at $\xi = 1 - r_{tk}$.
 
 Suppose first that $\mu^1_{k}$ does \emph{not} lie in the interval $[\underline{\mu}_{tk}, \overline{\mu}_{tk}]$.
-We show that it is impossible to construct valid CDFs $F^0_{tk}$ and $F^{1}_{tk}$ that satisfy $F_{tk}(\tau) = r_{tk} F^1_{tk}(\tau) + (1 - r_{tk}) F^0_{tk}(\tau)$ where $F_{tk}$ and $F^{t^*}_{tk}$ are as defined in the proof of Theorem \ref{thm:sharpII}.
+We show that it is impossible to construct valid CDFs $F^0_{tk}$ and $F^{1}_{tk}$ that satisfy $F_{tk}(\tau) = r_{tk} F^1_{tk}(\tau) + (1 - r_{tk}) F^0_{tk}(\tau)$.
 Since $r_{tk} \neq 1$, we can solve the expression for $F_{tk}$ to yield 
   $F^{0}_{tk}(\tau) = \left[ F_{tk}(\tau) - r_{tk} F^1_{tk}(\tau)\right] / (1 - r_{tk})$.
   Hence, since $r_{tk} \neq 0$, the requirement that $0 \leq F_{tk}^0(\tau) \leq 1$ implies
@@ -275,7 +275,6 @@ Finally,
 \[
   \int_{\mathbb{R}} \tau f_{tk}^1(\tau) \; d\tau = \frac{1}{r_{tk}} \int_{I_{tk}(\xi^*)} \tau f_{tk}(\tau)\; d\tau = \mu_{tk}(\xi^*) = \mu^1_{k}.
 \]
-The result now follows by appealing to the proof of Theorem \ref{thm:sharpI}.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
