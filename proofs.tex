@@ -173,25 +173,38 @@ Under Assumption \ref{assump:model} (i), Assumption \ref{assump:misclassificatio
 Hence, non-differential measurement error constrains only the conditional distribution of $y$ given $(T,T^*,z)$.
 For this reason, we need only revisit the second step of the proof of Theorem \ref{thm:sharpI}.
 Consider a point $(c, \beta, \alpha_0, \alpha_1)$ that satisfies Equation \ref{eq:identsetI} and $\alpha_0 \leq p_k \leq 1 - \alpha_1$ for all $k$.
-Since this point lies in the identified set from Theorem \ref{thm:sharpI}, it suffices to determine whether there exist valid conditional CDFs $F_{tk}^{0}, F_{tk}^{1}$ such that $F_{tk} = (1 - r_{tk}) F_{tk}^1 + r_{tk} F_{tk}^1$ for all $t,k$ and $\mathbb{E}[y|T,T^*,z] = \mathbb{E}[y|T^*,z]$.
-Define the shorthand $\mu_{tk}^{t^*} = \mathbb{E}[y|T=t,z=k,T^*=t^*]$, $\mu_{tk} = \mathbb{E}[y|T=t,z=k]$, and $\mu_{k}^{t^*} = \mathbb{E}[y|z=k,T^*=t^*]$.
-By Assumption \ref{assump:misclassification} (iii) $\mu_{tk}^{t*} = \mu_{k}^{t^*}$ for all $t = 0,1$.
+Since this point lies in the identified set from Theorem \ref{thm:sharpI}, it suffices to determine whether there exist valid conditional CDFs $F_{tk}^{0}, F_{tk}^{1}$ such that $F_{tk} = (1 - r_{tk}) F_{tk}^0 + r_{tk} F_{tk}^1$ for all $t,k$ and $\mathbb{E}[y|T,T^*,z] = \mathbb{E}[y|T^*,z]$.
+
+Let $\mu_{tk}^{t^*} \equiv \mathbb{E}[y|T=t,z=k,T^*=t^*]$, $\mu_{tk} \equiv \mathbb{E}[y|T=t,z=k]$, and $\mu_{k}^{t^*} \equiv \mathbb{E}[y|z=k,T^*=t^*]$.
+By Assumption \ref{assump:misclassification} (iii) $\mu_{tk}^{t*} = \mu_{k}^{t^*}$ for $t^* =0,1$.
 Hence, by iterated expectations,
 \begin{align*}
   \mu_{0k} &= (1 - r_{0k}) \mu_{k}^0 + r_{0k} \mu_{k}^1\\ 
   \mu_{1k} &= (1 - r_{1k}) \mu_{k}^0 + r_{1k} \mu_{k}^1.
 \end{align*}
-Now, $(\mu_{0k},\mu_{1k})$ are observed while $r_{0k}$ and $r_{1k}$ depend only on $p_k$, $\alpha_0$, and $\alpha_1$. Thus, at a given point $(c, \beta, \alpha_0, \alpha_1)$ in the identified set from Theorem \ref{thm:sharpI} the preceding equations form a linear system in two unknowns: $\mu_{k}^0$ and $\mu_{k}^1$.
+Now, $(\mu_{0k},\mu_{1k})$ are observed while $r_{0k}$ and $r_{1k}$ depend only on the observed first-stage probability $p_k$ and the mis-classification probabilities $(\alpha_0,\alpha_1)$. Thus, at a given point $(c, \beta, \alpha_0, \alpha_1)$ in the identified set from Theorem \ref{thm:sharpI} the preceding equations form a linear system in $\mu_{k}^0$ and $\mu_{k}^1$.
 After some algebra, we find that the determinant is
 \[
-  r_{1k} - r_{0k} = \left[ \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right]\left[ \frac{1 - p_k - \alpha_1}{p_k(1 - p_k)} \right]
+  r_{1k} - r_{0k} = \left[ \frac{p_k - \alpha_0}{1 - \alpha_0 - \alpha_1} \right]\left[ \frac{1 - p_k - \alpha_1}{p_k(1 - p_k)} \right].
 \]
-so that a unique solution exists if and only if $\alpha_0 \neq p_k$ \emph{and} $\alpha_1 \neq 1 - p_k$, in particular:
+
+Suppose first that $r_{0k} = r_{1k} = r$ so the determinant condition fails.
+This occurs if and only if $\alpha_0 = p_k$ or $\alpha_1 = 1 - p_k$.
+If $\mu_{0k} \neq \mu_{1k}$, the system is inconsistent: no solution for $(\mu_k^0, \mu_k^1)$ exists.
+Hence $\alpha_0 = p_k$ and $\alpha_1 = 1 - p_k$ are excluded from the identified set under non-differential measurement error so long as $\mu_{0k} \neq \mu_{1k}$.
+If instead $\mu_{0k} = \mu_{1k} = \mu$, the system is consistent but rank deficient: any pair $(\mu_k^0, \mu_k^1)$ such that $\mu = (1 - r) \mu_{k}^0 + r \mu_{k}^1$ is a solution and hence satisfies the assumption of non-differential measurement error.
+One such solution is $\mu_{k}^1 = \mu_{k}^0 = \mu$ so we are free to set $F_{0k}^0 = F_{0k}^1 = F_{0k}$ and $F_{1k}^0 = F_{1k}^{1} = F_{1k}$.
+Hence, if $\mu_{0k} = \mu_{1k}$ then $\alpha_0 = p_k$ lies within the sharp identified set if $p_k < p_\ell$ and $\alpha_1 = 1 - p_k$ lies in the sharp identified set if $p_\ell < p_k$.
+
+Now suppose that $r_{0k} \neq r_{1k}$, which occurs if and only if $\alpha_0 \neq p_k$ and $\alpha_1 \neq 1 - p_k$.
+In this case the system has a unique solution, namely
 \begin{align*}
   \mu_k^0 &= \frac{r_{1k}\mu_{0k} - r_{0k}\mu_{1k}}{r_{1k} - r_{0k}} = \frac{(1 - p_k) \mathbb{E}(y|T=0,z=k) - \alpha_1 \mathbb{E}(y|z=k)}{1 - p_k - \alpha_1} \\ 
   \mu_k^1 &= \frac{(\mu_{1k} - \mu_{0k}) + (r_{1k}\mu_{0k} - r_{0k}\mu_{1k})}{r_{1k} - r_{0k}} = \frac{p_k \mathbb{E}(y|T=1,z=k) - \alpha_0 \mathbb{E}(y|z=k)}{p_k - \alpha_0}.
 \end{align*}
-Note that $\mu_{0k} = \mu_{1k}$ implies $\mu_{k}^0 = \mu_k^1$.
+Since $\mu_{k}^0 = \mu_{0k}^0 = \mu_{1k}^0$ and $\mu_{k}^1 = \mu_{0k}^1 = \mu_{1k}^1$ under non-differential measurement error, the mis-classification probabilities $(\alpha_0, \alpha_1)$ combined with the observable moments completely determine the means of $F_{tk}^0$ and $F_{tk}^1$ whenever the determinant condition holds.
+
+Notice that $\mu_{k}^0 = \mu_k^1$ if $\mu_{0k} = \mu_{1k}$.
 
 \todo[inline]{Remember to emphasize that $\mu_{k}^0,\mu_{k}^1$ are equal to $\mu_{tk}^0,\mu_{tk}^1$!}
 
