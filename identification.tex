@@ -17,18 +17,23 @@ We assume that the model and instrument satisfy the following conditions:
   \end{enumerate}
 \end{assump}
 
-Assumptions \ref{assump:model}(ii) and (iii) are the standard instrument relevance and validity assumptions. 
-Note that Assumption \ref{assump:model} (ii) states that $z$ is relevant for the unobserved regressor $T^*$.\footnote{Under Assumption \ref{assump:misclassification}, Assumption \ref{assump:model} (ii) is testable: see the discussion following Lemma \ref{lem:p_pstar}.}
-If $T^*$ were observed, Assumption \ref{assump:model} would suffice to identify  $\beta(\mathbf{x})$.  
-Unfortunately we observe not $T^*$ but a mis-classified binary surrogate $T$.  
-Define the following mis-classification probabilities:
+Assumption \ref{assump:model}(i) is a restatement of the additively separable model from Equation \ref{eq:model}, which includes as a special case the linear model $y = c + \beta T^* + \mathbf{x}'\boldsymbol{\gamma} + \varepsilon$ that is pervasive in empirical economics. 
+Assumptions \ref{assump:model}(ii) and (iii) are the textbook instrumental variable relevance and validity conditions, respectively.
+Under Assumption \ref{assump:model}, the Wald estimator 
+\[
+  \left[\mathbb{E}\left(y|z=1,\mathbf{x}\right)-\mathbb{E}\left(y|z=0,\mathbf{x}\right)\right] / \left[ \mathbb{E}\left(T^*|z=1,\mathbf{x}\right) - \mathbb{E}\left( T^*|z=0,\mathbf{x} \right) \right]
+\] 
+identifies $\beta(\mathbf{x})$.
+Unfortunately this estimator is infeasible, as we observe not $T^*$ but a mis-classified binary surrogate $T$.\footnote{Although it involves $T^*$, Assumption \ref{assump:model}(ii) is testable: see the discussion following Lemma \ref{lem:p_pstar}.}
+To make further progress, we must impose conditions on the process that generates $T$. 
+Accordingly, define the following mis-classification probabilities:
 \begin{align*}
   \alpha_0(\mathbf{x},z) &= \mathbb{P}\left(T=1|T^*=0,\mathbf{x},z  \right) &
   \alpha_0(\mathbf{x}) &= \mathbb{P}\left(T=1|T^*=0,\mathbf{x}  \right)\\ 
   \alpha_1(\mathbf{x},z) &= \mathbb{P}\left(T=0|T^*=1,\mathbf{x},z  \right) &
   \alpha_1(\mathbf{x}) &= \mathbb{P}\left(T=0|T^*=1,\mathbf{x}  \right).
 \end{align*}
-We impose the following conditions on the mis-classification process.
+%We impose the following conditions on the mis-classification process.
 
 \begin{assump} \mbox{}
   \label{assump:misclassification}
@@ -45,10 +50,10 @@ Assumption \ref{assump:misclassification} (i) states that the mis-classification
 Assumption \ref{assump:misclassification} (ii) restricts the extent of mis-classification and is equivalent to requiring that $T$ and $T^*$ be positively correlated.
 Assumption \ref{assump:misclassification} (iii) is often referred to as ``non-differential measurement error.''
 Intuitively, it maintains that $T$ provides no additional information about $\varepsilon$, and hence $y$, given knowledge of $(T^*,z,\mathbf{x})$.
-While part (ii) is quite mild, parts (i) and (iii) of Assumption \ref{assump:misclassification} are fairly restrictive, as noted by \cite{Bound2001}.
+While Assumption \ref{assump:misclassification}(ii) is quite mild, Assumptions \ref{assump:misclassification} (i) and (iii) are fairly restrictive, as discussed by \cite{Bound2001}.
 Note, however, that our assumptions on the mis-classification process are \emph{conditional} on $\mathbf{x}$: we place no restrictions on the relationship between observed covariates and the mis-classification errors. 
 In contrast, \cite{Bound2001} considers \emph{unconditional} versions of our Assumption \ref{assump:misclassification}.
-Just as the instrument validity assumption, Assumption \ref{assump:model} (iii), is more plausible after controlling for a rich set of exogenous controls, so too are assumptions on the mis-classification process.
+Just as the instrument validity condition, Assumption \ref{assump:model} (iii), is more plausible after conditioning on a rich set of exogenous controls, so too are assumptions regarding mis-classification. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -206,7 +211,7 @@ The sharp identified set for $c(\mathbf{x})$, $\beta(\mathbf{x})$, $\alpha_0(\ma
 Imposing Assumption \ref{assump:misclassification} (iii) strictly improves upon the identified set from Theorem \ref{thm:sharpI} unless $\mathbb{E}[y|\mathbf{x},T=0,z=k]=\mathbb{E}[y|\mathbf{x},T=1,z=k]$ for all $k$. 
 Even if $\beta(\mathbf{x}) = 0$, the difference of these observable means is generically nonzero.\footnote{Suppress dependence on $\mathbf{x}$ for simplicity.
 There are only two settings in which $\mathbb{E}[y|T=0,z=k] = \mathbb{E}[y|T=1,z=k]$.
-The first is if the true value of either $\alpha_0$ or $\alpha_1$ or $\alpha_1$ lies at the upper boundary of the identified set from Theorem \ref{thm:sharpI}.
+The first is if the true value of either $\alpha_0$ or $\alpha_1$ lies at the upper boundary of the identified set from Theorem \ref{thm:sharpI}.
 The second is if $\beta = \mathbb{E}[\varepsilon|T^*=0,z=k] - \mathbb{E}[\varepsilon|T^*=0,z=k]$.}
 The intuition for Theorem \ref{thm:sharpII} is as follows.
 For simplicity, suppress dependence on $\mathbf{x}$.

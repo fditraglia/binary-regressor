@@ -11,7 +11,7 @@ In this paper, we study an additively separable model of the form
   \label{eq:model}
 \end{equation}
 where $\varepsilon$ is a mean-zero error term, $T^*$ is a binary, potentially endogenous regressor of interest, and $\mathbf{x}$ is a vector of exogenous controls.\footnote{Because $T^*$ is binary, there is no loss of generality from writing the model in this form rather than the more familiar $y = h(T^*,\mathbf{x})+\varepsilon$. Simply define $\beta(\mathbf{x}) = h(1,\mathbf{x}) - h(0,\mathbf{x})$ and $c(\mathbf{x}) = h(0,\mathbf{x})$.}
-We ask whether, and if so under what conditions, a discrete instrumental variable $z$ suffices to non-parametrically identify the causal effect $\beta(\mathbf{x})$ of $T^*$, when we observe not $T^*$ but a mis-classified binary surrogate $T$. 
+We ask whether, and if so under what conditions, a discrete instrumental variable $z$ suffices to non-parametrically identify the causal effect $\beta(\mathbf{x})$ of $T^*$, when we observe not $T^*$ but a mis-classified binary surrogate $T$.
 
 We proceed under the assumption of non-differential measurement error.
 This condition has been widely used in the existing literature and imposes  that $T$ provides no additional information beyond that contained in $(T^*,\mathbf{x})$.
@@ -22,6 +22,7 @@ This motivates us to consider alternative, and slightly stronger assumptions.
 We show that, given a binary instrument, the addition of a second moment independence assumption suffices to identify a model with one-sided mis-classification.
 Adding a second moment restriction on the measurement error along with a third moment independence assumption for the instrument suffices to identify the model in general.
 This result likewise requires only a binary $z$.
+%While these additional conditions are technically stronger than those used in the existing literature, we argue that this distinction is largely cosmetic.
 
 %Our work relates to a large literature studying departures from the textbook linear, classical measurement error setting.
 %One strand of this literature considers relaxing the assumption of linearity while maintaining that of classical measurement error.
