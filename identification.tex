@@ -18,7 +18,7 @@ We assume that the model and instrument satisfy the following conditions:
 \end{assump}
 
 Assumptions \ref{assump:model}(ii) and (iii) are the standard instrument relevance and validity assumptions. 
-Note that Assumption \ref{assump:model} (ii) states that $z$ is relevant for the unobserved regressor $T^*$.\footnote{Under Assumption \ref{assump:misclassification}, Assumption \ref{assump:model} (ii) is testable. See the discussion immediately following Lemma \ref{lem:p_pstar}.}
+Note that Assumption \ref{assump:model} (ii) states that $z$ is relevant for the unobserved regressor $T^*$.\footnote{Under Assumption \ref{assump:misclassification}, Assumption \ref{assump:model} (ii) is testable: see the discussion following Lemma \ref{lem:p_pstar}.}
 If $T^*$ were observed, Assumption \ref{assump:model} would suffice to identify  $\beta(\mathbf{x})$.  
 Unfortunately we observe not $T^*$ but a mis-classified binary surrogate $T$.  
 Define the following mis-classification probabilities:
@@ -28,7 +28,7 @@ Define the following mis-classification probabilities:
   \alpha_1(\mathbf{x},z) &= \mathbb{P}\left(T=0|T^*=1,\mathbf{x},z  \right) &
   \alpha_1(\mathbf{x}) &= \mathbb{P}\left(T=0|T^*=1,\mathbf{x}  \right).
 \end{align*}
-Following the existing literature for the case of an exogenous regressor \citep{Mahajan,BBS,FL,KRS,Lewbel}, we impose the following conditions on the mis-classification process.
+We impose the following conditions on the mis-classification process.
 
 \begin{assump} \mbox{}
   \label{assump:misclassification}
@@ -39,11 +39,17 @@ Following the existing literature for the case of an exogenous regressor \citep{
   \end{enumerate}
 \end{assump}
 
+Assumption \ref{assump:misclassification}, or a variant thereof, is standard in the theoretical literature on mis-classification \citep{Mahajan,BBS,FL,Lewbel,hu2008} and in empirical studies that allow for measurement error in a binary or discrete variable \citep{KRS,hu2013,Batt}.
 Assumption \ref{assump:misclassification} (i) states that the mis-classification probabilities do not depend on $z$.
-As we maintain this assumption throughout, we drop the dependence of $\alpha_0$ and $\alpha_1$ on $z$ and write $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
+%As we maintain this assumption throughout, we drop the dependence of $\alpha_0$ and $\alpha_1$ on $z$ and write $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$.
 Assumption \ref{assump:misclassification} (ii) restricts the extent of mis-classification and is equivalent to requiring that $T$ and $T^*$ be positively correlated.
 Assumption \ref{assump:misclassification} (iii) is often referred to as ``non-differential measurement error.''
 Intuitively, it maintains that $T$ provides no additional information about $\varepsilon$, and hence $y$, given knowledge of $(T^*,z,\mathbf{x})$.
+While part (ii) is quite mild, parts (i) and (iii) of Assumption \ref{assump:misclassification} are fairly restrictive, as noted by \cite{Bound2001}.
+Note, however, that our assumptions on the mis-classification process are \emph{conditional} on $\mathbf{x}$: we place no restrictions on the relationship between observed covariates and the mis-classification errors. 
+In contrast, \cite{Bound2001} considers \emph{unconditional} versions of our Assumption \ref{assump:misclassification}.
+Just as the instrument validity assumption, Assumption \ref{assump:model} (iii), is more plausible after controlling for a rich set of exogenous controls, so too are assumptions on the mis-classification process.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Point Identification Results from the Literature}
@@ -298,10 +304,11 @@ Assumption \ref{assump:3rdMoment} (ii) is a third moment version of Assumption \
 It requires that the conditional third moment of the error term given $\mathbf{x}$ does not depend on $z$.
 This condition neither requires nor excludes skewness in the error term conditional on covariates: it merely states that the skewness is unaffected by the instrument.
 
-While Assumptions \ref{assump:2ndMoment} and \ref{assump:3rdMoment} may appear unfamiliar, we consider them to be fairly natural in the context of an additively separable model in which one has already assumed that $\mathbb{E}[\varepsilon|\mathbf{x},z]=0$ and $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z,T^*]$ -- Assumptions \ref{assump:model} (iii) and \ref{assump:misclassification} (iii) from above.\footnote{If one wishes to weaken our Assumption \ref{assump:model} (i) to allow for some form of unobserved heterogeneity, our higher moment assumptions may impose additional restrictions.}
+While Assumptions \ref{assump:2ndMoment} and \ref{assump:3rdMoment} may appear unfamiliar, we consider them to be natural in the context of an additively separable model in which one has already assumed that $\mathbb{E}[\varepsilon|\mathbf{x},z]=0$ and $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z,T^*]$ -- Assumptions \ref{assump:model} (iii) and \ref{assump:misclassification} (iii) from above.
+%\footnote{If one wishes to weaken our Assumption \ref{assump:model} (i) to allow for some form of unobserved heterogeneity, our higher moment assumptions may impose additional restrictions.}
 For example, if an applied researcher reports results both for an outcome in logs and levels, she has implicitly assumed \emph{independence} rather than first moment exclusion. 
 Assumptions \ref{assump:model} (iii), \ref{assump:2ndMoment} and \ref{assump:3rdMoment} (ii) are of course implied by $\varepsilon \perp z |\mathbf{x}$ while Assumptions \ref{assump:misclassification} (iii) and \ref{assump:3rdMoment} (i) are implied by $\varepsilon\perp T | (\mathbf{x}, T^*, z)$.
-Achieving identification via Assumptions \ref{assump:2ndMoment}--\ref{assump:3rdMoment} involves using information beyond first moments and as such does places higher demands on the data.
+%Achieving identification via Assumptions \ref{assump:2ndMoment}--\ref{assump:3rdMoment} involves using information beyond first moments and as such does places higher demands on the data.
 Assumption \ref{assump:3rdMoment} allows us to derive the following Lemma which, combined with Lemma \ref{lem:eta2}, leads to point identification: 
 
 \begin{lem}
