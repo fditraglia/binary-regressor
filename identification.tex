@@ -50,10 +50,10 @@ Assumption \ref{assump:misclassification} (i) states that the mis-classification
 Assumption \ref{assump:misclassification} (ii) restricts the extent of mis-classification and is equivalent to requiring that $T$ and $T^*$ be positively correlated.
 Assumption \ref{assump:misclassification} (iii) is often referred to as ``non-differential measurement error.''
 Intuitively, it maintains that $T$ provides no additional information about $\varepsilon$, and hence $y$, given knowledge of $(T^*,z,\mathbf{x})$.
-While Assumption \ref{assump:misclassification}(ii) is quite mild, Assumptions \ref{assump:misclassification} (i) and (iii) are fairly restrictive, as discussed by \cite{Bound2001}.
+While Assumption \ref{assump:misclassification}(ii) is quite mild, Assumptions \ref{assump:misclassification} (i) and (iii) are more restrictive, as discussed by \cite{Bound2001}.
 Note, however, that our assumptions on the mis-classification process are \emph{conditional} on $\mathbf{x}$: we place no restrictions on the relationship between observed covariates and the mis-classification errors. 
 In contrast, \cite{Bound2001} considers \emph{unconditional} versions of our Assumption \ref{assump:misclassification}.
-Just as the instrument validity condition, Assumption \ref{assump:model} (iii), is more plausible after conditioning on a rich set of exogenous controls, so too are assumptions regarding mis-classification. 
+Instrument validity -- Assumption \ref{assump:model} (iii) -- is more plausible after conditioning on a rich set of exogenous controls, and the same is true of our mis-classification assumptions.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -308,12 +308,18 @@ Note that Assumption \ref{assump:3rdMoment} (i) does not require homoskedasticit
 Assumption \ref{assump:3rdMoment} (ii) is a third moment version of Assumption \ref{assump:2ndMoment}.
 It requires that the conditional third moment of the error term given $\mathbf{x}$ does not depend on $z$.
 This condition neither requires nor excludes skewness in the error term conditional on covariates: it merely states that the skewness is unaffected by the instrument.
-
-While Assumptions \ref{assump:2ndMoment} and \ref{assump:3rdMoment} may appear unfamiliar, we consider them to be natural in the context of an additively separable model in which one has already assumed that $\mathbb{E}[\varepsilon|\mathbf{x},z]=0$ and $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z,T^*]$ -- Assumptions \ref{assump:model} (iii) and \ref{assump:misclassification} (iii) from above.
+While Assumptions \ref{assump:2ndMoment} and \ref{assump:3rdMoment} may appear somewhat unusual, they are implied by the more intuitive independence conditions
+$\varepsilon \indep z |\mathbf{x}$ and $\varepsilon \indep T | (\mathbf{x}, T^*, z)$.
+Although $\mathbb{E}[\varepsilon|\mathbf{x},z]=0$ and $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z,T^*]$ are technically weaker than assuming full independence, we would be somewhat dubious of any supposed ``natural experiment'' that purportedly satisfied mean exclusion but not independence.
+Indeed, as discussed by \cite{ImbensRubin1997}, an instrument satisfying mean exclusion but not independence could become invalid if the outcome variable were transformed, for example by taking logs.
+As it is not uncommon for applied papers to report results in both logs and levels \citep[e.g.][]{angrist1990}, our view is that researchers \emph{implicitly} assume more than mean exclusion in typical applications of instrumental variables. 
+Analogous reasoning applies to the non-differential measurement error assumption.
+%we consider them to be natural in the context of an additively separable model in which one has already assumed that $\mathbb{E}[\varepsilon|\mathbf{x},z]=0$ and $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z,T^*]$ -- Assumptions \ref{assump:model} (iii) and \ref{assump:misclassification} (iii) from above.
 %\footnote{If one wishes to weaken our Assumption \ref{assump:model} (i) to allow for some form of unobserved heterogeneity, our higher moment assumptions may impose additional restrictions.}
-For example, if an applied researcher reports results both for an outcome in logs and levels, she has implicitly assumed \emph{independence} rather than first moment exclusion. 
-Assumptions \ref{assump:model} (iii), \ref{assump:2ndMoment} and \ref{assump:3rdMoment} (ii) are of course implied by $\varepsilon \perp z |\mathbf{x}$ while Assumptions \ref{assump:misclassification} (iii) and \ref{assump:3rdMoment} (i) are implied by $\varepsilon\perp T | (\mathbf{x}, T^*, z)$.
+%For example, if an applied researcher reports results both for an outcome in logs and levels, she has implicitly assumed \emph{independence} rather than first moment exclusion. 
+%Assumptions \ref{assump:model} (iii), \ref{assump:2ndMoment} and \ref{assump:3rdMoment} (ii) are of course implied by $\varepsilon \perp z |\mathbf{x}$ while Assumptions \ref{assump:misclassification} (iii) and \ref{assump:3rdMoment} (i) are implied by $\varepsilon\perp T | (\mathbf{x}, T^*, z)$.
 %Achieving identification via Assumptions \ref{assump:2ndMoment}--\ref{assump:3rdMoment} involves using information beyond first moments and as such does places higher demands on the data.
+
 Assumption \ref{assump:3rdMoment} allows us to derive the following Lemma which, combined with Lemma \ref{lem:eta2}, leads to point identification: 
 
 \begin{lem}
