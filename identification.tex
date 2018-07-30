@@ -1,5 +1,5 @@
 %!TEX root = ./main.tex
-\section{Identification Results}
+\section{Identification}
 \label{sec:identification}
 
 \subsection{Baseline Assumptions}
@@ -51,9 +51,13 @@ Assumption \ref{assump:misclassification} (ii) restricts the extent of mis-class
 Assumption \ref{assump:misclassification} (iii) is often referred to as ``non-differential measurement error.''
 Intuitively, it maintains that $T$ provides no additional information about $\varepsilon$, and hence $y$, given knowledge of $(T^*,z,\mathbf{x})$.
 While Assumption \ref{assump:misclassification}(ii) is quite mild, Assumptions \ref{assump:misclassification} (i) and (iii) are more restrictive, as discussed by \cite{Bound2001}.
+To take a specific example, suppose that $y$ is log wage and $T^*$ is an indicator for college completion.
+If $T$ is a potentially erroneous measure of college completion taken from a university's administrative records, then the assumption of non-differential measurement error is quite plausible.
+If, on the other hand, $T$ is a self-report of college completion and there are ``returns to lying'' about college completion, i.e.\ employers only imperfectly observe worker ability, this assumption is less plausible.\footnote{See \cite{huLewbel} for a proposal to estimate the ``returns to lying'' in this context.}
 Note, however, that our assumptions on the mis-classification process are \emph{conditional} on $\mathbf{x}$: we place no restrictions on the relationship between observed covariates and the mis-classification errors. 
 In contrast, \cite{Bound2001} considers \emph{unconditional} versions of our Assumption \ref{assump:misclassification}.
 Instrument validity -- Assumption \ref{assump:model} (iii) -- is more plausible after conditioning on a rich set of exogenous controls, and the same is true of our mis-classification assumptions.
+For more discussion of settings in which the assumption of non-differential measurement error is warranted, see \cite{carroll2006}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
