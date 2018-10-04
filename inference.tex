@@ -55,11 +55,11 @@ From the definitions of $\boldsymbol{\kappa}$ above and $\boldsymbol{\theta}$  i
 By continuity, they are \emph{nearly} uninformative about the mis-classification probabilities if $\beta$ is small.
 But unless $\beta = 0$, knowledge of $(\alpha_0, \alpha_1)$ is necessary to recover $\beta$, via Lemma \ref{lem:wald}. 
 Thus, we face a weak identification problem.\footnote{This is essentially equivalent to the problem of estimating mixture probabilities when the means of the component distributions are very similar to each other.}
-Indeed, the GMM estimator of $\widehat{\beta}$ based on Equation \ref{eq:MCs_endog} may even fail to exist.
-Using arguments from the proof of Theorem \ref{thm:main_ident}, this estimator is given by 
+Indeed, the GMM estimator 
 \[
   \widehat{\beta} = \mbox{sign}\big(\widehat{\theta}_1\big) \sqrt{3\left( \widehat{\theta}_2/\widehat{\theta}_1 \right)^2 - 2 \left(\widehat{\theta}_3/\widehat{\theta}_1 \right)}
 \]
+corresponding to Equation \ref{eq:beta_solution} may even fail to exist.
 Under our assumptions, $3(\theta_2/\theta_1)^2 > 2 (\theta_3/\theta_1)$ provided that $\beta \neq 0$, but this may not be true of the sample analogue.
 Indeed, because $\widehat{\theta}_1$ appears in the denominator, the terms within the square root will be highly variable if $\beta$ is small.
 Even if the GMM estimator exists, it may violate the partial identification bounds for $(\alpha_0, \alpha_1)$ from Theorem \ref{thm:sharpII}, or imply that $(\alpha_0,\alpha_1)$ are not valid probabilities. 

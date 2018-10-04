@@ -5,4 +5,9 @@
 This paper has studied identification and inference for a mis-classified, binary, endogenous regressor in an additively separable model using a discrete instrumental variable.
 We have shown that the only existing identification result for this model is incorrect, and gone on to derive the sharp identified set under standard first-moment assumptions from the literature.
 Strengthening these assumptions to hold for second and third moments, we have established point identification for the effect of interest.
-An interesting extension of the results presented above would be to consider the case of discrete regressors that take on more than two values.
+Inference in models with mis-classification error is complicated by problems of weak identification and parameters on the boundary. 
+To address these challenges, we have proposed a Bonferroni-based procedure for identification robust inference, using both the moment equalities from our identification results and moment inequalities from our partial identification results.
+This procedure is computationally attractive and performs well in simulations.
+An interesting extension of the results presented here would be to explore the more general case of a discrete endogenous regressor subject to mis-classification error, possibly by combining our approach with the matrix factorization techniques from \cite{hu2008}.
+Another interesting extension, inspired by our hybrid confidence interval heuristic from Section \ref{sec:simulation}, would be to study the transition between robust and standard inference in moment condition models.
+It may be possible, for example, to adapt the techniques of \cite{andrews2016valid} in this direction to provide similar theoretical guarantees.
