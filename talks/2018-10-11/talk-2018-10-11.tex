@@ -53,8 +53,8 @@
     %\item $\varepsilon$ -- Mean-zero error term
   \end{itemize}
 
-  \vspace{2em}
-  \alert{(Additively Separable $\varepsilon$ and binary $T^*$ $\Rightarrow$ linear model \alert{given $\mathbf{x}$})}
+  %\vspace{2em}
+  %\alert{(Additively Separable $\varepsilon$ and binary $T^*$ $\Rightarrow$ linear model \alert{given $\mathbf{x}$})}
 
   \note{%
     \footnotesize
@@ -187,7 +187,7 @@
 %\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{``Baseline'' Assumptions I -- Model \& Instrument}
+  \frametitle{Baseline Assumptions I -- Model \& Instrument}
 
   \begin{block}{Additively Separable Model}
     $y = c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon, \quad \mathbb{E}[ \varepsilon] = 0$ 
@@ -201,20 +201,17 @@
     \end{itemize}
   \end{block}
 
-  \begin{alertblock}{If $T^*$ were observed, these conditions would identify $\beta$.}
-  \end{alertblock}
+  %\begin{alertblock}{If $T^*$ were observed, these conditions would identify $\beta$.} \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{``Baseline'' Assumptions II -- Measurement Error}
+  \frametitle{Baseline Assumptions II -- Measurement Error}
 
 
-  \begin{alertblock}{Notation: Mis-classification Rates}
+  \begin{alertblock}{Notation}
     \begin{itemize}
-      \item[``$\boldsymbol{\uparrow}$''] 
-    $\alpha_0(\mathbf{x},z) \equiv \mathbb{P}\left(T=1|T^*=0,\mathbf{x},z  \right)$
-  \item[``$\boldsymbol{\downarrow}$''] 
-  $\alpha_1(\mathbf{x},z) \equiv \mathbb{P}\left(T=0|T^*=1,\mathbf{x},z  \right)$
+      \item $\alpha_0(\mathbf{x},z) \equiv \mathbb{P}\left(T=1|T^*=0,\mathbf{x},z  \right)$
+  \item $\alpha_1(\mathbf{x},z) \equiv \mathbb{P}\left(T=0|T^*=1,\mathbf{x},z  \right)$
     \end{itemize}
   \end{alertblock}
 
@@ -441,7 +438,7 @@
 
   \begin{block}{Notation}
     \begin{itemize}
-      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$, function of $(\alpha_0, \alpha_1)$ and observables only 
+      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$
       \item $z_k$ is shorthand for $z =k$\\
     \end{itemize}
   \end{block}
@@ -464,7 +461,7 @@
 
   \begin{block}{Notation}
     \begin{itemize}
-      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$, function of $(\alpha_0, \alpha_1)$ and observables only 
+      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$
       \item $z_k$ is shorthand for $z =k$\\
     \end{itemize}
   \end{block}
@@ -477,7 +474,7 @@
   \end{align*}
 
   \vspace{1em}
-  \fbox{2 equations in 2 unknowns $\Rightarrow$ solve for $\mathbb{E}(y|T^*=t^*,z=k)$ given $(\alpha_0, \alpha_1)$.}
+  \fbox{2 equations in 2 unknowns $\Rightarrow$ solve for $\mathbb{E}(y|T^*=t^*,z=k)$ given $(r_{0k}, r_{1k})$.}
 
   \end{block}
 
@@ -775,46 +772,13 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Just-Identified System of Moment Equalities}
-  \framesubtitle{Suppress dependence on $\mathbf{x}$\dots} 
-
-  \small
-\[
-\mathbb{E}\left[
-  \left\{\boldsymbol{\Psi}(\boldsymbol{\theta})\mathbf{w}_i - \boldsymbol{\kappa}\right\} \otimes 
-\left(
-\begin{array}{c}
-  1 \\ z
-\end{array}\right)
-\right] = \mathbf{0}
-\]
-
-  \footnotesize
-  \begin{align*}
-  \boldsymbol{\Psi}(\boldsymbol{\theta}) \equiv&
- \left[
-  \begin{array}{rrrrrr}
-    -\theta_1 & 1 & 0 & 0 & 0 & 0\\
-    \theta_2 & 0 & -2\theta_1 & 1 & 0 & 0\\ 
-    -\theta_3 & 0 & 3\theta_2 & 0 & -3\theta_1 & 1
-\end{array}\right]\\ \\
-  \theta_1 &= \beta/(1 - \alpha_0 - \alpha_1) \\
-  \theta_2 &= \theta_1^2 (1 + \alpha_0 - \alpha_1)\\
-  \theta_3 &= \theta_1^3\left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0(1 - \alpha_1) \right] \\
-\mathbf{w}_i &= (T_i, y_i, y_iT_i, y_i^2, y_i^2 T_i, y_i^3)'\\
-\boldsymbol{\kappa} &= (\kappa_1, \kappa_2, \kappa_3)' \equiv \mbox{ Intercepts}
-\end{align*}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[label=INEQ_BODY]
   \frametitle{Inference for a Mis-classified Regressor}
   \small
 
   \begin{block}{The Problem}
 \begin{itemize}
-  \item $\beta$ small $\Rightarrow$ moment equalities uninformative about $(\alpha_0, \alpha_1)$ 
+  \item $\beta$ small $\Rightarrow$ moment equalities uninformative about $(\alpha_0, \alpha_1)$ \hyperlink{MEQS_APPEND}{\beamergotobutton{more}}
   \item $(\alpha_0, \alpha_1)$ could be on the boundary of the parameter space
   \item Also true of existing estimators that assume $T^*$ exogenous
 \end{itemize}
@@ -869,14 +833,14 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Inference with Moment Equalities and Inequalities}
+  \frametitle{Generalized Moment Selection}
 
   \small
 
-  \begin{block}{Generalized Moment Selection -- Andrews \& Soares (2010)}
+  \begin{block}{Andrews \& Soares (2010)}
     \begin{itemize}
       \item Inequalities that don't bind reduce power of test, so eliminate those that are ``far from binding'' before calculating critical value.
-      \item Drop inequality $j$ if  $\alert{\displaystyle\frac{\sqrt{n}\,\bar{m}_{n,j}(\vartheta_0)}{\widehat{\sigma}_{n,j}(\vartheta_0)} > \sqrt{\log n}}$
+      %\item Drop inequality $j$ if  $\alert{\displaystyle\frac{\sqrt{n}\,\bar{m}_{n,j}(\vartheta_0)}{\widehat{\sigma}_{n,j}(\vartheta_0)} > \sqrt{\log n}}$
       \item Uniformly valid test of $H_0\colon \vartheta = \vartheta_0$ even if $\vartheta_0$ is not point identified. 
       \item Not asymptotically conservative.
     \end{itemize}
@@ -894,21 +858,21 @@
   \frametitle{Our Solution: Bonferroni-Based Inference}
   
 
-  \begin{block}{Leverage Special Structure of Model}
+  \begin{block}{Special Structure}
     \begin{itemize}
       \item $\beta$ only enters MCs through $\theta_1 = \beta/ (1 - \alpha_0 - \alpha_1)$
-      \item If $z$ is a strong instrument, inference for $\theta_1$ is standard.
-      \item $(\boldsymbol{\kappa}, \mathbf{q})$ strongly identified under null for $(\alpha_0, \alpha_1)$
+      \item Strong instrument $\implies$ inference for $\theta_1$ is standard.
+      \item Nuisance pars $\boldsymbol{\gamma}$ strongly identified under null for $(\alpha_0, \alpha_1)$
     \end{itemize}
     \pause
 
     \begin{block}{Procedure}
       \begin{enumerate}
-        \item Concentrate out $(\theta_1, \boldsymbol{\kappa}, \boldsymbol{q}) \Rightarrow$ joint GMS test for $(\alpha_0, \alpha_1)$ \pause 
+        \item Concentrate out $(\theta_1, \boldsymbol{\gamma}) \Rightarrow$ joint GMS test for $(\alpha_0, \alpha_1)$ \pause 
         \item Invert test $\Rightarrow (1 - \delta_1)\times 100\%$ confidence set for $(\alpha_0, \alpha_1)$ \pause
         \item Project $\Rightarrow$ CI for $(1 - \alpha_0 - \alpha_1)$ \pause
         \item Construct standard $(1 - \delta_2)\times 100\%$ IV CI for $\theta_1$ \pause
-        \item Bonferroni $\Rightarrow (1 - \delta - \delta_2)\times 100\%$ CI for $\beta$
+        \item Bonferroni $\Rightarrow (1 - \delta_1 - \delta_2)\times 100\%$ CI for $\beta$
       \end{enumerate}
     \end{block}
     
@@ -997,6 +961,40 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[label=MEQS_APPEND]
+  \frametitle{Just-Identified System of Moment Equalities}
+  \framesubtitle{Suppress dependence on $\mathbf{x}$\dots} 
+
+  \small
+\[
+\mathbb{E}\left[
+  \left\{\boldsymbol{\Psi}(\boldsymbol{\theta})\mathbf{w}_i - \boldsymbol{\kappa}\right\} \otimes 
+\left(
+\begin{array}{c}
+  1 \\ z
+\end{array}\right)
+\right] = \mathbf{0}
+\]
+
+  \footnotesize
+  \begin{align*}
+  \boldsymbol{\Psi}(\boldsymbol{\theta}) \equiv&
+ \left[
+  \begin{array}{rrrrrr}
+    -\theta_1 & 1 & 0 & 0 & 0 & 0\\
+    \theta_2 & 0 & -2\theta_1 & 1 & 0 & 0\\ 
+    -\theta_3 & 0 & 3\theta_2 & 0 & -3\theta_1 & 1
+\end{array}\right]\\ \\
+  \theta_1 &= \beta/(1 - \alpha_0 - \alpha_1) \\
+  \theta_2 &= \theta_1^2 (1 + \alpha_0 - \alpha_1)\\
+  \theta_3 &= \theta_1^3\left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0(1 - \alpha_1) \right] \\
+\mathbf{w}_i &= (T_i, y_i, y_iT_i, y_i^2, y_i^2 T_i, y_i^3)'\\
+\boldsymbol{\kappa} &= (\kappa_1, \kappa_2, \kappa_3)' \equiv \mbox{ Intercepts}
+\end{align*}
+
+    \hyperlink{INEQ_BODY}{\beamergotobutton{back}}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[label=INEQ_APPEND]
   \frametitle{Moment Inequalities I -- First-stage Probabilities}
