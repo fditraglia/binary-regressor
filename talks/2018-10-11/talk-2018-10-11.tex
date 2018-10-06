@@ -3,8 +3,8 @@
 \usepackage{framed}
 \usepackage{cancel}
 \usepackage{appendixnumberbeamer}
-\setbeameroption{show notes}
-%\setbeameroption{hide notes}
+%\setbeameroption{show notes}
+\setbeameroption{hide notes}
 \defbeamertemplate{description item}{align left}{\insertdescriptionitem\hfill}
 
 %%%%%%%%%%%%%%%%%%%% Not needed at home!
@@ -80,9 +80,9 @@
 \begin{alertblock}{Constributions of This Paper}
   \begin{enumerate}
     \item Show that only existing point identification result for mis-classified, endogenous $T^*$ is incorrect.
-    \item Derive sharp identified set for $\beta(\mathbf{x})$ under standard assumptions.
-    \item Prove point identification of $\beta(\mathbf{x})$ under slightly stronger assumptions.
-    \item Point out problem of weak identification in mis-classification models, develop identification-robust inference for $\beta(\mathbf{x})$. 
+    \item Sharp identified set for $\beta$ under standard assumptions.
+    \item Point identification of $\beta$ under slightly stronger assumptions.
+    \item Point out problem of weak identification in mis-classification models, develop identification-robust inference for $\beta$. 
   \end{enumerate}
 \end{alertblock}
 
@@ -239,20 +239,20 @@
 
   \begin{block}{Correct Result -- Exogenous $T^*$}
     \begin{itemize}
-      \item Mahajan (2006) Theorem 1, Frazis \& Loewenstein (2003), \ldots
+      \item Mahajan (2006) Theorem 1, Frazis \& Loewenstein (2003),\ldots
       \item $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*] = 0$ + ``Baseline'' $\Rightarrow \beta(\mathbf{x})$ identified.
    \end{itemize}
   \end{block}
   
   \begin{alertblock}{Incorrect Result -- Endogenous $T^*$}
     \begin{itemize}
-    \item Mahajan (2006; Ecta) A.2
+    \item Mahajan (2006) A.2
     \item $\mathbb{E}[\varepsilon|\mathbf{x}, z, T^*, T] = \mathbb{E}[\varepsilon|\mathbf{x},T^*]$ + ``Baseline'' $\Rightarrow \beta(\mathbf{x})$ identified. 
   \end{itemize}
   \end{alertblock}
 
   \begin{framed}
-    We show that Mahajan's assumptions imply that the instrument is uncorrelated with $T^*$ unless $T^*$ is \emph{exogenous}.
+    We show: Mahajan's assumptions imply that the instrument $z$ is uncorrelated with $T^*$ unless $T^*$ is in fact \emph{exogenous}.
   \end{framed}
 
 
@@ -412,7 +412,7 @@
 \begin{frame}
   \frametitle{Partial Identification Bounds for $\beta(\mathbf{x})$}
 
-  \begin{block}{Known Result}
+  \begin{block}{``Weak Bounds''}
     \begin{itemize}
       \item $\beta(\mathbf{x})$ is between Wald and Reduced form; same sign as Wald.
       \item Doesn't rely on non-differential assumption or additive sep.\
@@ -518,6 +518,7 @@
 
 
 \end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Restrictions from Non-differential Mis-classification?}
@@ -527,60 +528,20 @@
     Given a specified CDF $F$, for what values of $p$ and $\mu$ do there exist valid CDFs $(G,H)$ with $F = (1 - p) G + p H$ and $\mu = \mbox{mean}(H)$? 
 \end{block}
 
-%  \begin{block}{Equivalent Problem}
-%    Given a specified CDF $\textcolor{red}{F}$, probability $\textcolor{red}{p}$ and mean $\textcolor{red}{\mu}$, do there exist valid CDFs $\textcolor{red}{(G,H)}$ with $\textcolor{red}{F = (1 - p) G + p H}$ and $\textcolor{red}{\mu = \mbox{mean}(H)}$? 
-%  \end{block}
-
-%\begin{block}{Solve to Eliminate $G$}
-%  \small
-%  $G = (F - p H) / (1 - p)$
-%\end{block}
-
-\begin{block}{Valid CDFS}
-  \vspace{-1em}
-  \scriptsize
-  \begin{align*}
-    0 \leq H \leq 1 & \\
-    0 \leq G \leq 1 & \quad \iff \quad [F - (1 - p)]/p \leq H \leq F/p
-  \end{align*}
-
-  \normalsize
-  \[
-    \alert{\boxed{\max\left\{ 0, \, \frac{F(x)}{p} - \frac{1-p}{p} \right\}\leq H(x) \leq \min\left\{ 1, \frac{F(x)}{p} \right\}}}
-  \]
-\end{block}
-
-\note{Explain how we solve to eliminate $G$ and get conditions on $H$ only!}
-
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Restrictions from Non-differential Mis-classification?}
-  \begin{block}{Notation}
-    \footnotesize
+  \begin{alertblock}{Necessary and Sufficient Condition if $F$ is Continuous}
     \vspace{-1em}
-    \[
-      \overline{H} \equiv \max\left\{ 0, \, \frac{F(x)}{p} - \frac{1-p}{p} \right\}, \quad
-      \underline{H} \equiv \min\left\{ 1, \frac{F(x)}{p} \right\}
-    \]
-  \end{block}
-  
-  \begin{alertblock}{1\textsuperscript{st} Order Stochastic Dominance}
-    \vspace{-1em}
-      \[
-        \overline{H}(x) \leq H(x) \leq \underline{H}(x) \quad \mbox{for all } x
-      \]
-
-      \vspace{-1em}
-      \[
-        \alert{\implies \underbrace{\int_{\mathbb{R}} x\, \underline{H}(dx)}_{\underline{\mu}(p,F)} \leq \underbrace{\int_{\mathbb{R}} x\, H(dx)}_{\mu} \leq \underbrace{\int_{\mathbb{R}} x\, \overline{H}(dx)}_{\overline{\mu}(p,F)}}
-      \]
+   \[
+     \underline{\mu}(F,p) \leq \;  \mu \; \leq \overline{\mu}(F,p)
+   \]
+    \scriptsize
+    \begin{align*}
+     \underline{\mu}(F,p) &\equiv \int_{-\infty}^{F^{-1}(p)} \frac{x}{p}\; f(x) \; dx\\
+     \overline{\mu}(F,p) &\equiv \int_{F^{-1}(1-p)}^{+\infty} \frac{x}{p} \; f(x)\; dx
+   \end{align*}
   \end{alertblock}
 
-  \note{Explain the somewhat odd-looking convention for $\underline{H}$ and $\overline{H}$. Constraint from preceding slide is a stochastic dominance relationship. It implies an inequality for means.}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 
 \begin{figure}[h]
@@ -695,22 +656,8 @@
 \note{As $p$ approaches 1, the mean of $H$ is more tightly constrained: must be close to the mean of the observed distribution $F$, namely $-0.8$. As $p$ approaches zero, it is less and less constrained: since it contributes very little to the overall mixture, it can take on nearly any mean.}
 
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Restrictions from Non-differential Mis-classification}
-
-  %\begin{block}{Equivalent Problem}
-  %  \small
-  %  Given a specified CDF $F$, for what values of $p$ and $\mu$ do there exist valid CDFs $(G,H)$ with $F = (1 - p) G + p H$ and $\mu = \mbox{mean}(H)$? 
-%\end{block}
-
-  \begin{alertblock}{Necessary and Sufficient Condition if $F$ is Continuous}
-    \small
-   \[
-     \int_{-\infty}^{F^{-1}(p)} \frac{x}{p}\; f(x) \; dx \leq \;  \mu \; \leq \int_{F^{-1}(1-p)}^{+\infty} \frac{x}{p} \; f(x)\; dx
-   \]
-  \end{alertblock}
-
   \begin{block}{Back to Our Original Problem}
     \small
     \vspace{-1em}
@@ -722,14 +669,8 @@
       \item Implies joint restrictions on $(\alpha_0,\alpha_1)$, hence $\beta$.
     \end{itemize}
   \end{block}
-
-
-  \note{I just showed you necessary conditions, but it turns out that they're also sufficient if $F$ is continuous, so we've solved the problem of when a valid mixture decomposition exists. How does this relate to the original question: does non-differential measurement error further restrict $\alpha_0,\alpha_1$?}
-
-
-
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Sharp Identified Set under Baseline Assumptions}
 
@@ -822,16 +763,6 @@
     If $\beta(\mathbf{x}) \neq 0$, then $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ are likewise point identified.
   \end{alertblock}
 
- % \begin{block}{Proof Sketch}
- %   \vspace{-0.5em}
- %   \begin{enumerate}
- %     \item $\beta(\mathbf{x})=0 \iff \theta_1(\mathbf{x}) =0$ so suppose this is not the case.  
- %     \item Lemmas: full-rank linear system in $\theta_1(\mathbf{x}), \theta_2(\mathbf{x}), \theta_3(\mathbf{x})$ \& observables.
- %     \item Non-linear eqs.\ relating $\theta_1(\mathbf{x}),\theta_2(\mathbf{x}), \theta_3(\mathbf{x})$ to  $\beta(\mathbf{x})$ and $\alpha_0(\mathbf{x}), \alpha_1(\mathbf{x})$. 
- %       Show that solution exists and is unique.
- %   \end{enumerate}
- % \end{block}
-
 \vspace{1em}
 
   \begin{block}{Sufficient Conditions for (II) and (III)}
@@ -846,84 +777,44 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Just-Identified System of Moment Equalities}
-  \framesubtitle{Suppress dependence on $\mathbf{x}$ to simplify the notation from here on\dots}
+  \framesubtitle{Suppress dependence on $\mathbf{x}$\dots} 
 
-  \begin{block}{Collect Lemmas from Above:}
-\small
-\vspace{-2em}
-\begin{align*}
-  \mbox{Cov}(y,z) - \mbox{Cov}(T,z) \theta_1 &= 0\\
-  \mbox{Cov}(y^2,z) - 2\mbox{Cov}(yT,z) \theta_1 + \mbox{Cov}(T,z)\theta_2 &= 0\\
-  \mbox{Cov}(y^3,z) - 3 \mbox{Cov}(y^2T,z) \theta_1 + 3\mbox{Cov}(yT,z) \theta_2 - \mbox{Cov}(T,z) \theta_3 &= 0
-\end{align*}
-\end{block}
-
-\begin{block}{Notation: Observed Data Vector}
-  \vspace{-1.5em}
-  \[
-\mathbf{w}_i' = (T_i, y_i, y_iT_i, y_i^2, y_i^2 T_i, y_i^3)
-\]
-\end{block}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[label=WEAK_BODY]
-  \frametitle{Just-Identified System of Moment Equalities}
-
+  \small
 \[
-\boxed{\mathbb{E}\left[
-  \big(\boldsymbol{\Psi}'(\boldsymbol{\theta})\mathbf{w}_i - \boldsymbol{\kappa}\big) \otimes 
+\mathbb{E}\left[
+  \left\{\boldsymbol{\Psi}(\boldsymbol{\theta})\mathbf{w}_i - \boldsymbol{\kappa}\right\} \otimes 
 \left(
 \begin{array}{c}
-  1 \\ z_i
+  1 \\ z
 \end{array}\right)
-\right] = \mathbf{0}}
+\right] = \mathbf{0}
 \]
 
-\footnotesize
-\begin{align*}
-\boldsymbol{\Psi} &= \left[
-  \begin{array}{ccc}
-    \boldsymbol{\psi}_1 & \boldsymbol{\psi_2} & \boldsymbol{\psi_3}
-\end{array}\right]
-& \boldsymbol{\kappa} &= (\kappa_1, \kappa_2, \kappa_3)' \equiv \mbox{ ``Intercepts''}\\
-  \boldsymbol{\psi}_1' &= \left[
-  \begin{array}{cccccc}
--\theta_1 & 1 & 0 & 0 & 0 & 0
-  \end{array}
-\right] & \theta_1 &= \beta / (1 - \alpha_0 - \alpha_1)\\
-  \boldsymbol{\psi}_2' &= \left[
-  \begin{array}{cccccc}
-\theta_2& 0& -2\theta_1& 1& 0& 0
-  \end{array}
-\right] & \theta_2 &= \theta_1^2 \left[ 1 + \alpha_0 - \alpha_1 \right]\\
-  \boldsymbol{\psi}_3' &= \left[
-  \begin{array}{cccccc}
--\theta_3& 0& 3\theta_2& 0& -3\theta_1& 1
-  \end{array}
-\right] & \theta_3 &= \theta_1^3 \left[ \left( 1 - \alpha_0 - \alpha_1 \right)^2 + 6\alpha_0 (1 - \alpha_1) \right] 
+  \footnotesize
+  \begin{align*}
+  \boldsymbol{\Psi}(\boldsymbol{\theta}) \equiv&
+ \left[
+  \begin{array}{rrrrrr}
+    -\theta_1 & 1 & 0 & 0 & 0 & 0\\
+    \theta_2 & 0 & -2\theta_1 & 1 & 0 & 0\\ 
+    -\theta_3 & 0 & 3\theta_2 & 0 & -3\theta_1 & 1
+\end{array}\right]\\ \\
+  \theta_1 &= \beta/(1 - \alpha_0 - \alpha_1) \\
+  \theta_2 &= \theta_1^2 (1 + \alpha_0 - \alpha_1)\\
+  \theta_3 &= \theta_1^3\left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0(1 - \alpha_1) \right] \\
+\mathbf{w}_i &= (T_i, y_i, y_iT_i, y_i^2, y_i^2 T_i, y_i^3)'\\
+\boldsymbol{\kappa} &= (\kappa_1, \kappa_2, \kappa_3)' \equiv \mbox{ Intercepts}
 \end{align*}
 
-\begin{alertblock}{Weak Identification Problem}
-  Moment are conditions uninformative about $(\alpha_0,\alpha_1)$ when $\beta$ is small: GMM performs very badly.
-  \hyperlink{SIM_APPEND}{\beamergotobutton{sims}}
-\end{alertblock}
-
-%\begin{align*}
-%\kappa_1 &= c - \alpha_0 \theta_1\\
-%  \kappa_2 &= c^2 + \sigma_{\varepsilon\varepsilon} + \alpha_0 (\theta_2 - 2c \theta_1)\\
-%  \kappa_3 &= c^3 + 3\left( c - \theta_1 \alpha_0 \right) \sigma_{\varepsilon\varepsilon} + \mathbb{E}[\varepsilon^3] - \alpha_0 \theta_3 - 3 c \alpha_0 \left[ \theta_1 \left( c + \beta \right) - 2\theta_1^2 (1 - \alpha_1) \right]
-%\end{align*}
-
-
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[label=WEAK_BODY2]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[label=INEQ_BODY]
   \frametitle{Inference for a Mis-classified Regressor}
   \small
 
   \begin{block}{The Problem}
 \begin{itemize}
-  \item $\beta$ small $\Rightarrow$ moment equalities uninformative about $(\alpha_0, \alpha_1)$ \hyperlink{INDEP_APPEND}{\beamergotobutton{more}}
+  \item $\beta$ small $\Rightarrow$ moment equalities uninformative about $(\alpha_0, \alpha_1)$ 
   \item $(\alpha_0, \alpha_1)$ could be on the boundary of the parameter space
   \item Also true of existing estimators that assume $T^*$ exogenous
 \end{itemize}
@@ -932,9 +823,8 @@
 \begin{alertblock}{Our Solution}
 
   \begin{itemize}
-    \item Sharp identified set result from above remains informative even if $\beta$ is small or zero.
-    \item Implies a number of \emph{inequality} moment conditions
-    \item Identification-robust inference combining equality and inequality moment conditions based on generalized moment selection (GMS)
+    \item Sharp identified set result implies a number of \emph{inequality} moment restrictions that remain informative even if $\beta$ is small or zero. \hyperlink{INEQ_APPEND}{\beamergotobutton{more}}
+    \item Identification-robust inference combining equality and inequality moment conditions based on generalized moment selection (GMS).
   \end{itemize}
 \end{alertblock}
 
@@ -943,55 +833,6 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Moment Inequalities I -- First-stage Probabilities}
-
-  $\alpha_0 \leq p_k \leq 1 - \alpha_1$ becomes $\alert{\mathbb{E}\left[ m(\mathbf{w}_i,\boldsymbol{\vartheta} ) \right] \geq \mathbf{0}}$ for all $k$ where
-\[
-  m(\mathbf{w}_i, \boldsymbol{\vartheta}) \equiv \left[
-  \begin{array}{l}
-    \mathbf{1}(z_i=k)(T - \alpha_0) \\
-    \mathbf{1}(z_i = k) (1 - T_i - \alpha_1) 
-  \end{array}
-\right]
-\]
-  
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Moment Inequalities II -- Non-differential Assumption}
-
-  \scriptsize
-
-  For all $k$, we have $\alert{\mathbb{E}[m\big(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q}_k)]\geq 0}$ where
-\[
-  m\big(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q}_k) \equiv \left[
-  \begin{array}{r}
-    y_i \mathbf{1}\left( z_i=k \right)\left\{(T_i - \alpha_0) - \mathbf{1}(y_i \leq \underline{q}_{0k})  (1 - T_i)\left( \frac{1 - \alpha_0 - \alpha_1}{\alpha_1} \right)\right\} \\
-    - y_i \mathbf{1}(z_i=k) \left\{ (T_i - \alpha_0) -  \mathbf{1}(y_i > \overline{q}_{0k}) (1 - T_i) \left( \frac{1 - \alpha_0 - \alpha_1}{\alpha_1} \right) \right\} \\
-    y_i \mathbf{1}\left( z_i=k \right)\left\{(T_i - \alpha_0) - \mathbf{1}(y_i \leq \underline{q}_{1k})  T_i\left( \frac{1 - \alpha_0 - \alpha_1}{1 - \alpha_1} \right)\right\} \\
-    - y_i \mathbf{1}(z_i=k) \left\{ (T_i - \alpha_0) -  \mathbf{1}(y_i > \overline{q}_{1k}) T_i \left( \frac{1 - \alpha_0 - \alpha_1}{1 - \alpha_1} \right) \right\} 
-\end{array}
-\right] 
-\]
-and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \underline{q}_{1k}, \,\overline{q}_{1k})'}$ defined by $\alert{\mathbb{E}[h(\mathbf{w}_i,\boldsymbol{\vartheta},\mathbf{q}_k)]=0}$ with
-\[
-  h(\mathbf{w}_i,\boldsymbol{\vartheta},\mathbf{q}_k) = \left[
-  \begin{array}{l}
-    \mathbf{1}(y_i \leq \underline{q}_{0k}) \mathbf{1}(z_i=k)(1 - T_i) 
-    - \left( \frac{\alpha_1}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(T_i-\alpha_0)\\ 
-    \mathbf{1}(y_i \leq \overline{q}_{0k}) \mathbf{1}(z_i=k)(1 - T_i)
-    - \left( \frac{1 - \alpha_0}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(1 - T_i-\alpha_1)\\
-    \mathbf{1}(y_i \leq \underline{q}_{1k}) \mathbf{1}(z_i=k)T_i
-    - \left( \frac{1 - \alpha_1}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(T_i-\alpha_0)\\ 
-    \mathbf{1}(y_i \leq \overline{q}_{1k}) \mathbf{1}(z_i=k)T_i 
-    - \left( \frac{\alpha_0}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(1 - T_i-\alpha_1)
-  \end{array}
-\right]
-\]
-
-\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
@@ -1049,38 +890,6 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%  \frametitle{Moment Equalities}
-%Let $\boldsymbol{\vartheta} = (\alpha_0, \alpha_1)$ and $\boldsymbol{\gamma} = (\boldsymbol{\kappa}, \theta_1)$ 
-%
-%\begin{equation}
-%  \mathbb{E}[m^I(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \mathbf{q}_0)] \geq \mathbf{0}, \quad 
-%  \mathbb{E}[m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)] = \mathbf{0}
-%  \label{eq:MCs_ineq_eq}
-%\end{equation}
-%where $m^I = (m_1^{I'}, m_2^{I'})'$ and 
-%\begin{equation}
-%  m^E(\mathbf{w}_i, \boldsymbol{\vartheta}_0, \boldsymbol{\gamma}_0)= \left[
-%  \begin{array}{c}
-% \left\{ \boldsymbol{\psi}_2'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_2 \right\}z_i \\
-% \left\{ \boldsymbol{\psi}_3'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \kappa_3 \right\}z_i 
-%  \end{array}
-%\right].
-%\label{eq:mE}
-%\end{equation}
-%
-%\begin{equation}
-%  h^E(\mathbf{w}_i, \boldsymbol{\vartheta}, \boldsymbol{\gamma})  =  \left[
-% \begin{array}{l}
-%   \boldsymbol{\Psi}'(\theta_1, \alpha_0, \alpha_1) \mathbf{w}_i - \boldsymbol{\kappa}\\
-%   \left\{\boldsymbol{\psi}_1'(\theta_1)\mathbf{w}_i - \kappa_1\right\}z_i
-% \end{array}
-% \right].
-% \label{eq:hE}
-%\end{equation}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Our Solution: Bonferroni-Based Inference}
   
@@ -1178,263 +987,66 @@ and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \un
 
   \begin{itemize}
     \item Identification and inference for effect of binary, mis-classified, endogenous regressor.
-    \item Show that only existing point identification result is incorrect. 
-    \item Derive sharp identified set for $\beta(\mathbf{x})$ under standard assumptions.
-    \item Prove point identification of $\beta(\mathbf{x})$ under slightly stronger assumptions.
-    \item Point out problem of weak identification in mis-classification models, develop identification-robust inference for $\beta(\mathbf{x})$. 
+    \item Only existing point identification result is incorrect. 
+    \item Sharp identified set for $\beta(\mathbf{x})$ under standard assumptions.
+    \item Point identification of $\beta(\mathbf{x})$ under slightly stronger assumptions.
+    \item Point out weak identification problem in mis-classification models, develop identification-robust inference for $\beta(\mathbf{x})$. 
   \end{itemize}
 
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}[noframenumbering,plain]
-%  \frametitle{Related Past and Current Research on Measurement Error}
-%  \small
-%  \begin{block}{DiTraglia \& Garcia--Jimeno (2017b)} 
-%    What if $z$ is invalid?
-%    Bayesian sensitivity analysis using joint restrictions on measurement error, regressor endogeneity, and instrument invalidity.
-%  \end{block}
-%
-%  \begin{block}{DiTraglia \& Lewbel (in progress)}
-%    What if the surrogate $T$ can directly effect $y$? E.g.\ higher wage by \emph{claiming} to have college degree. 
-%   Estimate the ``returns to lying.''
-%  \end{block}
-%
-%  \begin{block}{DiTraglia \& Garcia-Jimeno (in progress)}
-%    Structual model of forced migration and de facto land reform during the Columbian civil conflict (1990s--2000s). 
-%    How to exploit multiple biased measures of migration?
-%  \end{block}
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%\appendix
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}[label=INDEP_APPEND]
-%  \frametitle{Full Independence $\implies$ Continuum of Moment Equalities}
-%  \begin{block}{Suppose that}
-%    \begin{enumerate}[(i)]
-%      \item $T$ is conditionally independent of $(\varepsilon,z)$ given $(T^*,\mathbf{x})$
-%      \item $z$ is conditionally independent of $\varepsilon$ given $\mathbf{x}$
-%    \end{enumerate}
-%  \end{block}
-%
-%  \begin{block}{Then for all $\tau$ we have}
-%    \vspace{-1em}
-%\[
-%    \widetilde{\Delta}_1(\tau+\beta) - \widetilde{\Delta}_1(\tau) = \alpha_0 \Delta(\tau + \beta) - (1 - \alpha_1) \Delta(\tau)
-%\]
-%\begin{align*}
-%  \Delta(\tau) &= F_k(\tau) - F_\ell(\tau)\\
-%  \widetilde{\Delta}_1(\tau) &= p_k F_{1k}(\tau) - p_\ell F_{1\ell}(\tau)
-%\end{align*}
-%\end{block}
-%
-%\begin{alertblock}{But if $\beta = 0$ this reduces to $F_k(\tau) - F_\ell(\tau) = 0$}
-%\end{alertblock}
-%\vspace{-1em}
-%  \hyperlink{WEAK_BODY2}{\beamergotobutton{back}}
-%
-%
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}[label=SIM_APPEND]
-%  \frametitle{Simulation DGP: $y = \beta T^* + \varepsilon$}
-%  \framesubtitle{Sample Size = 1000;  Simulation Replications = 2000} 
-%  \begin{block}{Errors}
-%      $(\varepsilon, \eta) \sim $ jointly normal, mean 0, variance 1, correlation 0.5.
-%  \end{block}
-%  \begin{block}{First-Stage}
-%      \begin{itemize}
-%        \item Half of observations have $z=1$, the rest have $z=0$.
-%        \item $T^* = \mathbf{1}\left\{ \gamma_0 + \gamma_1 z + \eta > 0 \right\}$
-%        \item $\mathbb{P}(T^* = 0|z =1) = \mathbb{P}(T^*=1|z=0) = 0.15$
-%      \end{itemize}
-%  \end{block}
-%  \vspace{-1em}
-%
-%
-%  \begin{block}{Mis-classification}
-%      \begin{itemize}
-%        \item $T|T^*=0 \sim \mbox{Bernoulli}(\alpha_0)$
-%        \item $T|T^*=1 \sim \mbox{Bernoulli}(1-\alpha_1)$
-%      \end{itemize}
-%  \end{block}
-%  
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\begin{table}[htbp]
-%  \scriptsize
-%  \centering
-%  \input{../../tab/GMM_CIs_na_1000.tex}
-%  \caption{Percentage of simulation replications for which the standard GMM CI fails to exist.}
-%  %\caption{Percentage of replications for which the standard GMM confidence interval based on Equation \ref{eq:MCs_endog} fails to exist, either because the point estimate is NaN or the asymptotic covariance matrix is numerically singular. Calculations are based on  2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
-%\end{table}
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\begin{table}[htbp]
-%  \scriptsize
-%  \centering
-%  \input{../../tab/GMM_CIs_cover_1000.tex}
-%  \caption{Coverge of nominal 95\% GMM CI, conditional on existence.}
-%  %\caption{Coverage (\%) of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. (See Table \ref{tab:GMM_na_1000}.) Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
-%\end{table}
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%
-%\begin{table}[htbp]
-%  \scriptsize
-%  \centering
-%  \input{../../tab/GMM_CIs_width_1000.tex}
-%  \caption{Median width of nominal 95\% GMM CI, conditional on existence.
-%  \hyperlink{WEAK_BODY}{\beamergotobutton{back}}}
-%  %\caption{Median width of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
-%\end{table}
-%
-%\end{frame}
-%\begin{frame}
-%\begin{table}
-%  \scriptsize
-%  \centering
-%  \input{../../tab/alphas_cover_97point5_1000.tex}
-%  \caption{Coverage (1 - size) of nominal 97.5\% GMS joint test for $(\alpha_0, \alpha_1)$.}
-%  %\caption{Coverage probability (1 - size) in percentage points of a 97.5\% GMS joint test for $\alpha_0$ and $\alpha_1$ using Algorithm \ref{alg:GMS} with $n = 1000$. Calculations are based on 10,000 replications of the DGP from Section \ref{sec:DGP}.}
-%\end{table}
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\begin{table}[htbp]
-%  \centering
-%  \scriptsize
-%  \input{../../tab/bonf_CIs_cover_1000.tex}
-%  \caption{Coverage of nominal $>95\%$ Bonferroni CI for $\beta$}
-%  %\caption{Coverage probability in percentage points of a nominal $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
-%\end{table}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\begin{table}
-%  \scriptsize
-%  \centering
-%  \input{../../tab/bonf_CIs_width_1000.tex}
-%  \caption{Median width of nominal $>95\%$ Bonferroni CI for $\beta$.}
-%  %\caption{Median width of a nominal $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
-%  %\label{tab:bonf_width_1000}
-%\end{table}
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.75\textwidth}{!}{%
-%  \input{../../fig/bonf_point5_1000.tex}
-%}
-%\caption{Coverage of nominal $>95\%$ Bonferroni CI for $\beta$: with and without non-differential assumption, $\beta = 0.5$} 
-%  
-%  %\caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 0.5$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
-%\end{figure}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.75\textwidth}{!}{%
-%  \input{../../fig/bonf_1_1000.tex}
-%}
-%\caption{Coverage of nominal $>95\%$ Bonferroni CI for $\beta$: with and without non-differential assumption, $\beta = 1$} 
-%  
-%  %\caption{Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 1$, from a nominal $>95\%$ Bonferroni confidence interval using Algorithm \ref{alg:Bonferroni}, with $n = 1000$ and $R = 5000$. The solid curve uses all moment inequalities from Section \ref{sec:inequalities} in the GMS step, while the dashed curve excludes $m_{2}^I$, those implied by non-differential measurement error. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
-%\end{figure}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\begin{table}
-%  \scriptsize
-%  \centering
-%  \input{../../tab/bonf_CIs_width_1000.tex}
-%  \caption{Median width of nominal $>95\%$ Bonferroni CI for $\beta$.}
-%  %\caption{Median width of a nominal $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
-%  %\label{tab:bonf_width_1000}
-%\end{table}
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%
-%\begin{table}[htbp]
-%  \scriptsize
-%  \centering
-%  \input{../../tab/GMM_CIs_width_1000.tex}
-%  \caption{Median width of nominal 95\% GMM CI, conditional on existence.}
-%  %\caption{Median width of the standard nominal 95\% GMM confidence interval for $\beta$ based on Equation \ref{eq:MCs_endog}. Coverage is calculated only for those simulation draws for which the interval exists. Calculations are based on 2000 replications of the DGP from \ref{sec:DGP} with $n = 1000$.} 
-%\end{table}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%
-%\begin{table}
-%  \scriptsize
-%  \centering
-%  \input{../../tab/twostep_CIs_cover_1000.tex}
-%  \caption{Coverage of hybrid CI constructed from nominal 95\% GMM and $>95\%$ Bonferroni intervals.}
-%  %\caption{Coverage probabilities (\%) of a hybrid confidence interval constructed from the nominal $95\%$ standard GMM interval and the $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. The hybrid interval reports Bonferroni unless the GMM interval exists and is contained within the Bonferroni interval. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
-%\end{table}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\begin{table}
-%  \scriptsize
-%  \centering
-%  \input{../../tab/twostep_CIs_width_1000.tex}
-%  \caption{Median width of hybrid CI constructed from nominal 95\% GMM and $>95\%$ Bonferroni intervals.}
-%  %\caption{Median width of a hybrid confidence interval constructed from the nominal $95\%$ standard GMM interval and the $>95\%$ Bonferroni confidence interval for $\beta$ using Algorithm \ref{alg:Bonferroni} with $n = 1000, R = 5000$ and $\delta_1 = \delta_2 = 0.025$. The hybrid interval reports Bonferroni unless the GMM interval exists and is contained within the Bonferroni interval. Calculations are based on 2000 replications of the DGP from Section \ref{sec:DGP}.}
-%\end{table}
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.75\textwidth}{!}{%
-%  \input{../../fig/bonf_vs_twostep_1_1000.tex}
-%}
-%  
-%  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 1$}
-%  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 1$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
-%\end{figure}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.75\textwidth}{!}{%
-%  \input{../../fig/bonf_vs_twostep_2_1000.tex}
-%}
-%  
-%  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 2$}
-%  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 2$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
-%\end{figure}
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\begin{figure}[h]
-%  \centering
-%\resizebox{0.75\textwidth}{!}{%
-%  \input{../../fig/bonf_vs_twostep_3_1000.tex}
-%}
-%  \caption{Coverage of hybrid vs.\ $>95\%$ Bonferroni CIs: $\beta = 3$}
-%  %\caption{Comparison of Coverage curves (1 - power) for $\beta$ when the truth is $\beta = 3$: the solid curve corresponds the Bonferroni nominal $>95\%$ interval from Algorithm \ref{alg:Bonferroni} and the dashed curve to the hybrid interval from Tables \ref{tab:twostep_cover_1000}--\ref{tab:twostep_width_1000}. The dashed horizontal line gives the nominal coverage (95\%), while dashed vertical lines are the reduced form estimand (left) and the IV estimand (right). Results are based on 2000 simulation replications from the DGP in Section \ref{sec:DGP} with $n = 1000$.}
-%  
-%\end{figure}
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[label=INEQ_APPEND]
+  \frametitle{Moment Inequalities I -- First-stage Probabilities}
+
+  $\alpha_0 \leq p_k \leq 1 - \alpha_1$ becomes $\alert{\mathbb{E}\left[ m(\mathbf{w}_i,\boldsymbol{\vartheta} ) \right] \geq \mathbf{0}}$ for all $k$ where
+\[
+  m(\mathbf{w}_i, \boldsymbol{\vartheta}) \equiv \left[
+  \begin{array}{l}
+    \mathbf{1}(z_i=k)(T - \alpha_0) \\
+    \mathbf{1}(z_i = k) (1 - T_i - \alpha_1) 
+  \end{array}
+\right]
+\]
+  
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Moment Inequalities II -- Non-differential Assumption}
+
+  \scriptsize
+
+  For all $k$, we have $\alert{\mathbb{E}[m\big(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q}_k)]\geq 0}$ where
+\[
+  m\big(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q}_k) \equiv \left[
+  \begin{array}{r}
+    y_i \mathbf{1}\left( z_i=k \right)\left\{(T_i - \alpha_0) - \mathbf{1}(y_i \leq \underline{q}_{0k})  (1 - T_i)\left( \frac{1 - \alpha_0 - \alpha_1}{\alpha_1} \right)\right\} \\
+    - y_i \mathbf{1}(z_i=k) \left\{ (T_i - \alpha_0) -  \mathbf{1}(y_i > \overline{q}_{0k}) (1 - T_i) \left( \frac{1 - \alpha_0 - \alpha_1}{\alpha_1} \right) \right\} \\
+    y_i \mathbf{1}\left( z_i=k \right)\left\{(T_i - \alpha_0) - \mathbf{1}(y_i \leq \underline{q}_{1k})  T_i\left( \frac{1 - \alpha_0 - \alpha_1}{1 - \alpha_1} \right)\right\} \\
+    - y_i \mathbf{1}(z_i=k) \left\{ (T_i - \alpha_0) -  \mathbf{1}(y_i > \overline{q}_{1k}) T_i \left( \frac{1 - \alpha_0 - \alpha_1}{1 - \alpha_1} \right) \right\} 
+\end{array}
+\right] 
+\]
+and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \underline{q}_{1k}, \,\overline{q}_{1k})'}$ defined by $\alert{\mathbb{E}[h(\mathbf{w}_i,\boldsymbol{\vartheta},\mathbf{q}_k)]=0}$ with
+\[
+  h(\mathbf{w}_i,\boldsymbol{\vartheta},\mathbf{q}_k) = \left[
+  \begin{array}{l}
+    \mathbf{1}(y_i \leq \underline{q}_{0k}) \mathbf{1}(z_i=k)(1 - T_i) 
+    - \left( \frac{\alpha_1}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(T_i-\alpha_0)\\ 
+    \mathbf{1}(y_i \leq \overline{q}_{0k}) \mathbf{1}(z_i=k)(1 - T_i)
+    - \left( \frac{1 - \alpha_0}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(1 - T_i-\alpha_1)\\
+    \mathbf{1}(y_i \leq \underline{q}_{1k}) \mathbf{1}(z_i=k)T_i
+    - \left( \frac{1 - \alpha_1}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(T_i-\alpha_0)\\ 
+    \mathbf{1}(y_i \leq \overline{q}_{1k}) \mathbf{1}(z_i=k)T_i 
+    - \left( \frac{\alpha_0}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(1 - T_i-\alpha_1)
+  \end{array}
+\right]
+\]
+
+    \hyperlink{INEQ_BODY}{\beamergotobutton{back}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
