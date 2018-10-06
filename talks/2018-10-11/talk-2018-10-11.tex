@@ -395,30 +395,30 @@
 \begin{frame}
   \frametitle{Restrictions from Non-differential Mis-classification?}
 
-  \begin{block}{Law of Total Probability}
+  \begin{block}{Mixture Representation}
     \vspace{-1.5em}
   \[
-    \boxed{\textcolor{blue}{F_{tk}} = (1 - r_{tk}) \alert{F^{0}_{tk}} + r_{tk}\alert{F^{1}_{tk}}}
+    \textcolor{blue}{F_{tk}} = (1 - r_{tk}) \alert{F^{0}_{tk}} + r_{tk}\alert{F^{1}_{tk}}
   \]
   \scriptsize
 
   \vspace{-1em}
     \begin{align*}
-    \textcolor{blue}{F_{tk}} &\equiv \mbox{\textcolor{blue}{Observed} CDF: } y|(T=t,z=k) \\
-    \alert{F^{t^*}_{tk}} &\equiv \mbox{\alert{Unobserved} CDF: } y|(T^*=t^*,T=t,z=k)
+    \textcolor{blue}{F_{tk}} &\equiv  y|(T=t,z=k) \\
+    \alert{F^{t^*}_{tk}} &\equiv  y|(T^*=t^*,T=t,z=k)
     \end{align*}
   \end{block}
 
-  \begin{block}{Previous Slide}
+  \begin{block}{Restrictions}
     \begin{itemize} 
     \small
-      \item $r_{tk}$ observable given $(\alpha_0, \alpha_1)$
       \item $\mathbb{E}(y|T^*,T,z) = \mathbb{E}(y|T^*,z)$ observable given $(\alpha_0, \alpha_1)$
+      \item $r_{tk}$ observable given $(\alpha_0, \alpha_1)$
     \end{itemize}
     
   \end{block}
 
-  \begin{alertblock}{Key Question}
+  \begin{alertblock}{Question}
     \small
   Given $(\alpha_0, \alpha_1)$ can we always find $(F_{tk}^0, F_{tk}^1)$ to satisfy the mixture model? 
   \end{alertblock}
@@ -568,32 +568,23 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \begin{block}{Back to Our Original Problem}
-    \small
-    \vspace{-1em}
-    \begin{itemize}
-      \item Observe $F_{tk}$ for all $(t,k)$ 
-      \item $r_{tk}$ pinned down by $(\alpha_0, \alpha_1)$
-      \item Can we find $F_{tk}^{t^*}$ so that $F_{tk} = (1 - r_{tk})F_{tk}^0 + r_{tk} F_{tk}^1$?
-      \item Non-diff.\ assumption $\Rightarrow$ mean of $F_{tk}^1$ pinned down by $(\alpha_0, \alpha_1)$.
-      \item Implies joint restrictions on $(\alpha_0,\alpha_1)$, hence $\beta$.
-    \end{itemize}
-  \end{block}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
   \frametitle{Sharp Identified Set under Baseline Assumptions}
 
+
   \begin{alertblock}{Theorem}
-    Under baseline assumptions, sharp identified set for $\beta(\mathbf{x})$ is never a singleton, regardless of how many (discrete) values $z$ takes on.
+    \begin{enumerate}[(i)]
+      \item As long as $\mathbb{E}[y|\mathbf{x},T=0,z=k] \neq \mathbb{E}[y|\mathbf{x},T=1,z=k]$ for some $k$, non-differential measurement error strictly improves the weak bounds for $\alpha_0, \alpha_1$, and $\beta$.
+      \item Under the baseline assumptions, $\beta$ is not point identified, regardless of how many (discrete) values $z$ takes on.
+    \end{enumerate}
   \end{alertblock}
 
-  \begin{block}{Intuition}
-    No mis-classification $\Rightarrow r_{tk} = 0 \mbox{ or } 1$ and we can always form a valid mixture in this case. Show that Wald estimand always lies within the sharp identified set for $\beta$. 
+
+  \begin{block}{Corollary}
+    Our bounds for $\alpha_0, \alpha_1$, and $\beta$ remain valid in a LATE model, although they may not be sharp, since they do not incorporate the testable implications of the LATE assumptions.
   \end{block}
 
 
-  \note{Second contribution. Simple bounds I showed you earlier are not sharp: in other words, they're not the best bounds you can get under our assumptions. Even when we get the best bounds (the ``sharp'' bounds) they're not enough to point identify $\beta$. Also want to point out that the restrictions from non-differential measurement error can be very informative in practice! Now transition to point identification argument. Can we obtain point identification under stronger but credible assumptions?}
+  \note{Second contribution. Simple bounds I showed you earlier are not sharp: in other words, they're not the best bounds you can get under our assumptions. Even when we get the best bounds (the ``sharp'' bounds) they're not enough to point identify $\beta$. Describe the intuition for why not: no mis-classiciation means $r_{tk}$ is either zero or 1 so it is trivial to form the required mixture in this case. Also point out that the restrictions from non-differential measurement error can be very informative in practice! Now transition to point identification argument. Can we obtain point identification under stronger but credible assumptions?}%
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -676,9 +667,19 @@
 
 \vspace{1em}
 
-  \begin{block}{Sufficient Conditions for (II) and (III)}
+  \begin{block}{Explicit Solution}
+\vspace{-1em}
+    \[
+      \beta(\mathbf{x}) = \mbox{sign}\left[ \theta_1(\mathbf{x}) \right] \sqrt{3\left[ \theta_2(\mathbf{x})/\theta_1(\mathbf{x}) \right]^2 - 2\left[ \theta_3(\mathbf{x})/\theta_1(\mathbf{x}) \right]} 
+    \]
+
+  \end{block}
+
+\vspace{1em}
+
+  \begin{block}{Sufficient for (II) and (III)}
     \vspace{-0.5em}
-    \begin{enumerate}[(i)]
+    \begin{enumerate}[(a)]
       \item $T$ is conditionally independent of $(\varepsilon,z)$ given $(T^*,\mathbf{x})$
       \item $z$ is conditionally independent of $\varepsilon$ given $\mathbf{x}$
     \end{enumerate}
