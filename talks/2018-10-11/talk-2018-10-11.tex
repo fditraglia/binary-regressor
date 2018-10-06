@@ -502,7 +502,9 @@
   \note{\singlespacing\scriptsize
     \begin{itemize}
       \item This picture has three panels. The middle panel shows the observed distribution $f$. I have chosen a simple mixture of normals with variance equal to one: 70\% of the weight is assigned to the one with a mean of $-2$ and 30\% to the one with a mean of $+2$.
-      \item The top panel depicts the ``lower bound'' density $\underline{h}$. This density takes its shape from the \emph{lower tail} of $f$
+      \item The top panel depicts the ``lower bound'' density $\underline{h}$. This density takes its shape from the \emph{lower tail} of $f$. In is simply $f$ \emph{truncated} to take on values below its $p$th quantile.
+      \item The bottom panel depicts the ``upper bound'' density $\overline{h}$. This density takes its shape from the \emph{upper tail} of $f$. It is simply $f$ \emph{trucated} to take on values above its $(1-p)$th quantile.
+      \item For this particular choice of observed distribution $f$, the figure shows how a particular postulated value of $p$, in this instance $0.1$, constrains $\mu$: it is bounded below by $\underline{\mu} = -3.58$ and bounded above by $\overline{\mu}=3.09$. This means that if $p=0.1$, then $\mu$ must lie between $-3.58$ and $3.09$ for it to be possible to construct a valid mixture that ``integrates'' to $f$. As we increase $p$, these bounds tighten, so we have less freedom in our choice of $\mu$. 
     \end{itemize}
   }%
 
@@ -605,7 +607,16 @@
 }
 \end{figure}
 
-\note{As $p$ approaches 1, the mean of $H$ is more tightly constrained: must be close to the mean of the observed distribution $F$, namely $-0.8$. As $p$ approaches zero, it is less and less constrained: since it contributes very little to the overall mixture, it can take on nearly any mean.}
+
+  \note{\singlespacing\scriptsize
+    \begin{itemize}
+      \item For this particular choice of $f$, a mixture of normals, the blue shaded region shows all pairs $(p, \mu)$ that are compatible with the mixture.
+      \item If $p=0$, $\mu$ is unconstrained. This makes sense: in this case $H$ can have any mean because it contributes nothing to the mixture that generates $F$.
+      \item In contrast, if $p=1$ then $\mu$ must \emph{equal} the mean of the observed distribution $F$, in this case $-0.8$, since this corresponds to a degenerate mixture in which $F=H$.
+      \item So how does this relate to our original problem? Remember that we observe the distribution of $y|T,z$ which is related to the unobserved distribution of $y|T,T^*,z$ via a mixture model. The mixing probability depends only on observables and $(\alpha_0, \alpha_1)$ as do the means of the mixture components. Hence, some values of $(\alpha_0, \alpha_1)$ are incompatible with the mixture model.
+        This in turn restricts $\beta$ through its relationship to the IV estimand. In fact we have \emph{joint} restrictions for all $(t,k)$ so the book-keeping is complicated, but the basic intuition is exactly as I've shown you in this simple mixture of normals example.
+    \end{itemize}
+  }%
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -625,8 +636,16 @@
     Our bounds for $\alpha_0, \alpha_1$, and $\beta$ remain valid in a LATE model, although they may not be sharp, since they do not incorporate the testable implications of the LATE assumptions.
   \end{block}
 
+  \note{\singlespacing\scriptsize
+    \begin{itemize}
+      \item This brings us to our second main contribution: the sharp identified set for $(\alpha_0, \alpha_1, \beta)$ under the baseline assumptions. The description of the set is fairly complicated, so I'm not going to show it on the slide. But the form that this set takes leads to two important results. First, the non-differential measurement error assumption \emph{generically} improves upon the weak bounds. Second, under the baseline assumptions $\beta$ is \emph{never} point identified, regardless of how many different (discrete) values the instrument takes on.
+      \item Some intuition: the true $\beta$ always lies within the identified set by definition. It turns out that $\alpha_0 = \alpha_1 = 0$ implies that the mixing probabilities $r_{tk}$ are all either zero or one. But in this case the mixtures are trivial, so we can simplly set $F = H$. Hence, the IV estimand $\beta / (1 - \alpha_0 - \alpha_1)$ always lies in the sharp identified set.
+      \item Corollary: everything I've said so far concerns an additively separable model. But in fact, bounds we derive under the baseline assumptions remain valid if we re-state our assumptions so that they involve a LATE model. The bounds we describe in our paper may not be sharp in a LATE model, however, because the LATE assumptions themselves have testable implications that we do not impose as we are primarily interested in the additively separable case.
+      \item So now what? The sharp bounds can actually be quite informative in practice and they are simple to compute.
+        But we know that they do not point identify $\beta$. So if the baseline assumptions aren't enough, are there slightly stronger but still plausible assumptions that allow us to point identify $\beta$? The answer turns out to be yes.
+    \end{itemize}
+  }%
 
-  \note{Second contribution. Simple bounds I showed you earlier are not sharp: in other words, they're not the best bounds you can get under our assumptions. Even when we get the best bounds (the ``sharp'' bounds) they're not enough to point identify $\beta$. Describe the intuition for why not: no mis-classiciation means $r_{tk}$ is either zero or 1 so it is trivial to form the required mixture in this case. Also point out that the restrictions from non-differential measurement error can be very informative in practice! Now transition to point identification argument. Can we obtain point identification under stronger but credible assumptions?}%
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
