@@ -79,7 +79,7 @@
   y = c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon
 \]
 
-\begin{alertblock}{Constributions of This Paper}
+\begin{alertblock}{Contributions of This Paper}
   \begin{enumerate}
     \item Show that only existing point identification result for mis-classified, endogenous $T^*$ is incorrect.
     \item Sharp identified set for $\beta$ under standard assumptions.
@@ -306,10 +306,10 @@
     node[above] {$\alpha_1$} -- (0,0) 
     node [below left] {$(0,0)$} -- (1.1,0) 
     node [right] {$\alpha_0$};
-    \draw [thick] (0.25,0.02) -- (0.25,-0.02) node [below] {$p_\ell$}; 
-    \draw [thick] (0.02,0.75) -- (-0.02,0.75) node [left] {$1 - p_\ell$}; 
-    \draw [thick] (0.66,0.02) -- (0.66,-0.02) node [below] {$p_k$}; 
-    \draw [thick] (0.02,0.34) -- (-0.02,0.34) node [left] {$1 - p_k$}; 
+    \draw [thick] (0.25,0.02) -- (0.25,-0.02) node [below] {$p_0$}; 
+    \draw [thick] (0.02,0.75) -- (-0.02,0.75) node [left] {$1 - p_0$}; 
+    \draw [thick] (0.66,0.02) -- (0.66,-0.02) node [below] {$p_1$}; 
+    \draw [thick] (0.02,0.34) -- (-0.02,0.34) node [left] {$1 - p_1$}; 
     \draw [thick, red] (0,1) to (1,0); 
     \node [right, red] at (0.06,0.95) {$\alpha_0 + \alpha_1 = 1$};
     \draw [thick] (0,1) -- (1,1) -- (1,0);
@@ -592,7 +592,6 @@
   \frametitle{Point Identification: 1st Ingredient}
 
 
-  \vspace{-1em}
 
   \begin{block}{Reparameterization}
     \vspace{-1em}
@@ -601,15 +600,14 @@
   \theta_2(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^2 \left[ 1 + \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})\right] \\
   \theta_3(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^3\left[ \left\{ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right\}^2 + 6\alpha_0(\mathbf{x})\left\{ 1 - \alpha_1(\mathbf{x}) \right\} \right]
 \end{align*}
-
-\[\boxed{\beta(\mathbf{x}) = 0 \iff \theta_1(\mathbf{x}) = \theta_2(\mathbf{x}) = \theta_3(\mathbf{x}) = 0}\]
   \end{block}
 
-  \vspace{-1.5em}
 
   \begin{block}{Lemma}
     Baseline Assumptions $\implies \alert{\mbox{Cov}(y,z|\mathbf{x}) = \theta_1(\mathbf{x}) \mbox{Cov}(z,T|\mathbf{x})}$.
   \end{block}
+
+  \note{Note that $\beta = 0$ iff $\theta_1 = \theta_2 = \theta_3 = 0$.}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -620,6 +618,8 @@
     $\mathbb{E}[\varepsilon^2|\mathbf{x},z] = \mathbb{E}[\varepsilon^2|\mathbf{x}]$
   \end{block}
 
+  \vspace{0.5em}
+
   \begin{block}{Lemma}
     (Baseline) + (II) $\implies$ 
     \[
@@ -627,11 +627,15 @@
     \]
   \end{block}
 
+  \vspace{0.5em}
+
   \begin{block}{Corollary}
     (Baseline) + (II) + $[\beta(\mathbf{x})\neq 0] \implies \left[ \alpha_1(\mathbf{x}) - \alpha_0(\mathbf{x}) \right]$ is identified. 
     %Hence, $\beta(\mathbf{x})$ is identified if mis-classification is one-sided.
   \end{block}
     
+
+  \note{Notice that the corollary implies that $\beta$ is point identified if mis-classification is one-sided, as it might well be in the smoking example.}
 
   
 \end{frame}
@@ -685,6 +689,8 @@
     \end{enumerate}
   \end{block}
 \end{frame}
+
+\note{Comment on the sufficient conditions: say that we really think these are what people have in mind in a natural experiment setting. Explain about reporting results in both logs and levels.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[label=INEQ_BODY]
@@ -755,8 +761,8 @@
 
   \begin{block}{Andrews \& Soares (2010)}
     \begin{itemize}
-      \item Inequalities that don't bind reduce power of test, so eliminate those that are ``far from binding'' before calculating critical value.
-      %\item Drop inequality $j$ if  $\alert{\displaystyle\frac{\sqrt{n}\,\bar{m}_{n,j}(\vartheta_0)}{\widehat{\sigma}_{n,j}(\vartheta_0)} > \sqrt{\log n}}$
+      \item Inequalities that don't bind reduce power of test, so eliminate those that are ``far from binding'' before calculating critical value:
+        \[\boxed{\mbox{Drop inequality } j \mbox{ if }  \alert{\displaystyle\frac{\sqrt{n}\,\bar{m}_{n,j}(\vartheta_0)}{\widehat{\sigma}_{n,j}(\vartheta_0)} > \sqrt{\log n}}}\]
       \item Uniformly valid test of $H_0\colon \vartheta = \vartheta_0$ even if $\vartheta_0$ is not point identified. 
       \item Not asymptotically conservative.
     \end{itemize}
@@ -767,6 +773,8 @@
    \emph{Joint test} for the whole parameter vector but we're only interested in $\beta$.
    Projection is conservative and computationally intensive.
   \end{block}
+
+  \note{Explain what not asymptotically conservative means. Explain what projection is and why it's conservative and computationally intensive.}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -865,13 +873,21 @@
 \begin{frame}
   \frametitle{Conclusion}
 
+  \small
+
+  \begin{block}{This Paper}
+    \begin{itemize}
+      \item Partial and point identification results for effect of binary, endogenous regressor using a valid instrument.
+      \item Identification-robust inference in models with mis-classification
+    \end{itemize}
+\end{block}
+
+\begin{block}{Related Work}
   \begin{itemize}
-    \item Identification and inference for effect of binary, mis-classified, endogenous regressor.
-    \item Only existing point identification result is incorrect. 
-    \item Sharp identified set for $\beta(\mathbf{x})$ under standard assumptions.
-    \item Point identification of $\beta(\mathbf{x})$ under slightly stronger assumptions.
-    \item Point out weak identification problem in mis-classification models, develop identification-robust inference for $\beta(\mathbf{x})$. 
+  \item Relaxing Instrument Validity: ``A Framework for Eliticing, Incorporating, and Disciplining Identification Beliefs in Linear Models'' (with Camilo Garcia-Jimeno) 
+    \item Relaxing Non-differential Measurement Error: ``Estimating the Returns to Lying'' (with Arthur Lewbel)
   \end{itemize}
+\end{block}
 
 
 \end{frame}
