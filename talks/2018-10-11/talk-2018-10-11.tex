@@ -236,14 +236,14 @@
 \begin{frame}
   \frametitle{Existing Results} 
 
-  \begin{block}{Correct Result -- Exogenous $T^*$}
+  \begin{block}{Correct: Exogenous $T^*$}
     \begin{itemize}
-      \item Mahajan (2006) Theorem 1, Frazis \& Loewenstein (2003),\ldots
+      \item Mahajan (2006), Frazis \& Loewenstein (2003)
       \item $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*] = 0$ + ``Baseline'' $\Rightarrow \beta(\mathbf{x})$ identified.
    \end{itemize}
   \end{block}
   
-  \begin{alertblock}{Incorrect Result -- Endogenous $T^*$}
+  \begin{alertblock}{Incorrect: Endogenous $T^*$}
     \begin{itemize}
     \item Mahajan (2006) A.2
     \item $\mathbb{E}[\varepsilon|\mathbf{x}, z, T^*, T] = \mathbb{E}[\varepsilon|\mathbf{x},T^*]$ + ``Baseline'' $\Rightarrow \beta(\mathbf{x})$ identified. 
@@ -269,45 +269,37 @@
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Simple Bounds for Mis-classification from First-stage} 
+\begin{frame}[label=BOUNDS_BODY]
+  \frametitle{``Weak'' Bounds}
 
-  \begin{table}[h]
-    \centering
-  \begin{tabular}[h]{|c|c|}
-    \hline
-   Unobserved & Observed \\
-    $p^*_k(\mathbf{x}) \equiv \mathbb{P}(T^*=1|\mathbf{x}, z=k)$ & 
-    $p_k(\mathbf{x}) \equiv \mathbb{P}(T=1|\mathbf{x}, z=k)$\\
-    \hline
-  \end{tabular}
-\end{table}
-
-
-  \begin{block}{Relationship}
-    \vspace{-1em}
-   \[
-     p_k^*(\mathbf{x}) = \frac{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}, \quad k = 0,1
-   \]
-   \hfill\alert{\footnotesize $z$ does not affect $(\alpha_0, \alpha_1)$; denominator $\neq 0$}
+  \begin{block}{First-Stage}
+    \vspace{-2em}
+    \[p_k(\mathbf{x}) \equiv  \mathbb{P}(T=1|\mathbf{x},z=k)\]
   \end{block}
 
-  \normalsize
-  \begin{block}{Bounds for Mis-classification}
-    \vspace{-1em}
-    \[
-      \alpha_0(\mathbf{x}) \leq p_k(\mathbf{x}) \leq 1 - \alpha_1(\mathbf{x}), \quad k = 0,1
-    \]
-   \hfill \alert{\footnotesize$\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) <1$}
+  \begin{block}{IV Estimand}
+    \vspace{-0.5em}
+    \[\displaystyle\frac{\mathbb{E}[y|\mathbf{x},z=1] - \mathbb{E}[y|\mathbf{x},z=0]}{p_1(\mathbf{x}) - p_0(\mathbf{x})} = \frac{\beta(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}\]
   \end{block}
+
+  \begin{block}{Bounds for $(\alpha_0, \alpha_1)$}
+    $\alpha_0(\mathbf{x}) \leq \min_k \left\{ p_k(\mathbf{x}) \right\}, \quad \alpha_1(\mathbf{x}) \leq \min_k\left\{ 1 - p_k(\mathbf{x}) \right\}$ \hyperlink{BOUNDS_APPEND}{\beamergotobutton{more}}
+  \end{block}
+
+
+  \begin{alertblock}{Bounds for $\beta$}
+    $\beta(\mathbf{x})$ is between IV and Reduced form; same sign as IV. \hyperlink{IV_APPEND}{\beamergotobutton{more}}
+  \end{alertblock}
+
+  \note{ This doesn't rely on non-diff assumption or additive separability. Mention F\&L (2003) and Ura (2016). But the point identification results from the literature rely on non-diff, and these bounds do not in fact impose that. Do these contain any additional information about $\beta$? Perhaps they even point identify it!}
 
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[plain, c]
-  \frametitle{$\alpha_0 \leq \min_k \left\{p_k\right\}, \; \; \alpha_1 \leq \min_k \left\{1 - p_k\right\}$}
+  %\frametitle{$\alpha_0 \leq \min_k \left\{p_k\right\}, \; \; \alpha_1 \leq \min_k \left\{1 - p_k\right\}$}
 \begin{figure}[h]
   \centering
-  \begin{tikzpicture}[scale=5]
+  \begin{tikzpicture}[scale=6]
     \draw [fill = lightgray] (0.66,0.75) rectangle (1,1);
     \draw [fill = cyan] (0,0) rectangle (0.25, 0.34);
     \draw [thick, <->] (0,1.1)
@@ -326,112 +318,30 @@
 \end{figure}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{What does IV estimate under mis-classification?}
-  \begin{block}{Unobserved}
-  \[
-    \beta(\mathbf{x}) = \frac{\mathbb{E}[y|\mathbf{x},z=1] - \mathbb{E}[y|\mathbf{x},z=0]}{p^*_1(\mathbf{x}) - p^*_0(\mathbf{x})} 
-  \]
-  \end{block}
-
-  \begin{block}{Wald (Observed)}
-    \vspace{-1em}
-    \small
-    \[
-      \frac{\mathbb{E}[y|\mathbf{x},z=1] - \mathbb{E}[y|\mathbf{x},z=0]}{p_1(\mathbf{x}) - p_0(\mathbf{x})} = \beta(\mathbf{x})\left[ \frac{p_1^*(\mathbf{x}) - p_0^*(\mathbf{x})}{p_1(\mathbf{x}) - p_0(\mathbf{x})} \right] = \alert{\frac{\beta(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})} }
-    \]
-   
-    \vspace{2em}
-    \scriptsize
-    \[
-      \boxed{p_1^*(\mathbf{x}) - p_0^*(\mathbf{x}) = \frac{p_1(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0 - \alpha_1(\mathbf{x})} -   \frac{p_0(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0 - \alpha_1(\mathbf{x})} = \frac{p_1(\mathbf{x}) - p_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}}
-    \]
-  \end{block}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}
 %  \frametitle{Partial Identification Bounds for $\beta(\mathbf{x})$}
 %
-%    \footnotesize
-%    \[
-%      \boxed{ \beta(\mathbf{x}) = \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right] 
-%     \left[\frac{\mathbb{E}\left[y|\mathbf{x},z=1\right] - \mathbb{E}\left[y|\mathbf{x},z=0\right]}{p_1(\mathbf{x}) - p_0(\mathbf{x})}\right] }
-%    \]
-%
-%    \footnotesize
-%    \[
-%      \boxed{ 0 \leq \alpha_0 \leq \min_k \{p_k(\mathbf{x})\}, \quad 0 \leq \alpha_1 \leq \min_k \{1 - p_k(\mathbf{x})\}}
-%    \]
-%
-%    \normalsize
-%    \begin{block}{No Mis-classification}
-%      $\alpha_0(\mathbf{x}) =  \alpha_1(\mathbf{x}) = 0 \implies \alert{\beta(\mathbf{x}) = }$ \alert{Wald}
+%  \begin{block}{``Weak Bounds''}
+%    \begin{itemize}
+%      \item $\beta(\mathbf{x})$ is between Wald and Reduced form; same sign as Wald.
+%      \item Doesn't rely on non-differential assumption or additive sep.\
+%      \item Frazis \& Loewenstein (2003), Ura (2016), \ldots
+%    \end{itemize}
 %    \end{block}
 %
-%    \begin{block}{Maximum Mis-classification}
-%      $\alpha_0(\mathbf{x}) = p_{\min}(\mathbf{x}), \, \alpha_1(\mathbf{x}) = 1 - p_{\max}(\mathbf{x})$
-%
-%      \vspace{-0.5em}
-%      \begin{align*}
-%        \implies 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) = p_{\max}(\mathbf{x}) - p_{\min}(\mathbf{x})
-%      = |p_1(\mathbf{x}) - p_0(\mathbf{x})|\\
-%      \implies \alert{\beta(\mathbf{x}) =\mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\}\times (\mbox{Reduced Form})}
-%    \end{align*}
-%      
-%    \end{block}
-%  
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%  \frametitle{Partial Identification Bounds for $\beta(\mathbf{x})$}
-%
-%    \begin{block}{No Mis-classification}
-%      $\beta(\mathbf{x}) = $ Wald 
-%    \end{block}
-%
-%    \begin{block}{Maximum Mis-classification}
-%      \vspace{-1.5em}
-%      \begin{align*}
-%        \beta(\mathbf{x}) &=\mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\}\times (\mbox{Reduced Form})\\
-%        &=\mbox{sign}\left\{ \mbox{Wald} \right\} \times |\mbox{Reduced Form}|
-%      \end{align*}
-%      
-%      \vspace{1em}
-%    \footnotesize Wald $> 0\iff \mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\} = \mbox{sign}\left\{ \mbox{Reduced Form} \right\}$ \\
-%    \footnotesize Wald $< 0\iff \mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\} \neq \mbox{sign}\left\{ \mbox{Reduced Form} \right\}$ 
-%    \end{block}
-%
-%    \vspace{1em}
-%    \begin{alertblock}{
-%        $\beta(\mathbf{x})$ has the same sign as the Wald and its magnitude is between that of Wald and Reduced Form.}
+%    \begin{alertblock}{Non-differential Assumption}
+%      \begin{itemize}
+%        \item $\mathbb{E}[\varepsilon|\mathbf{x},T^*,T,z] = \mathbb{E}[\varepsilon|\mathbf{x},T^*,z]$
+%        \item Used in literature to identify $\beta(\mathbf{x})$ when $T^*$ is exogenous. 
+%        \item Does it restrict the identified set when $T^*$ is \alert{endogenous}? 
+%        %\item Is $\beta(\mathbf{x})$ identified under the baseline assumptions?
+%      \end{itemize}
 %    \end{alertblock}
 %
+%    \note{Answer turns out to be yes. Now talk about our 2nd contribution: deriving the so-called ``sharp'' identified set }
+%
 %\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Partial Identification Bounds for $\beta(\mathbf{x})$}
-
-  \begin{block}{``Weak Bounds''}
-    \begin{itemize}
-      \item $\beta(\mathbf{x})$ is between Wald and Reduced form; same sign as Wald.
-      \item Doesn't rely on non-differential assumption or additive sep.\
-      \item Frazis \& Loewenstein (2003), Ura (2016), \ldots
-    \end{itemize}
-    \end{block}
-
-    \begin{alertblock}{Non-differential Assumption}
-      \begin{itemize}
-        \item $\mathbb{E}[\varepsilon|\mathbf{x},T^*,T,z] = \mathbb{E}[\varepsilon|\mathbf{x},T^*,z]$
-        \item Used in literature to identify $\beta(\mathbf{x})$ when $T^*$ is exogenous. 
-        \item Does it restrict the identified set when $T^*$ is \alert{endogenous}? 
-        %\item Is $\beta(\mathbf{x})$ identified under the baseline assumptions?
-      \end{itemize}
-    \end{alertblock}
-
-    \note{Answer turns out to be yes. Now talk about our 2nd contribution: deriving the so-called ``sharp'' identified set }
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[t]
   \frametitle{Restrictions from Non-differential Mis-classification?}
   \framesubtitle{(Suppress $\mathbf{x}$ for simplicity)}
@@ -533,12 +443,11 @@
      \underline{\mu}(F,p) \leq \;  \mu \; \leq \overline{\mu}(F,p)
    \]
 
-   \vspace{1em}
     \scriptsize
-    \[
-     \underline{\mu}(F,p) \equiv \int_{-\infty}^{F^{-1}(p)} \frac{x}{p}\; f(x) \; dx, \quad \quad
-     \overline{\mu}(F,p) \equiv \int_{F^{-1}(1-p)}^{+\infty} \frac{x}{p} \; f(x)\; dx
-   \]
+    \begin{align*}
+      \underline{\mu}(F,p) &\equiv \int_{-\infty}^{\infty}x \left[p^{-1}f(x)\mathbf{1}\{ x < F^{-1}(p)\} \right] dx  = \int_{-\infty}^{\infty} x\underline{h}(x)\; dx\\
+      \overline{\mu}(F,p) &\equiv \int_{-\infty}^{\infty} x \left[p^{-1}f(x) \mathbf{1}\{x > F^{-1}(1 - p)\}\right] dx = \int_{-\infty}^{\infty}x \bar{h}(x)\; dx
+   \end{align*}
   \end{alertblock}
 
 \end{frame}
@@ -967,7 +876,99 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[label=BOUNDS_APPEND]
+  \frametitle{Simple Bounds for Mis-classification from First-stage} 
+
+  \begin{table}[h]
+    \centering
+  \begin{tabular}[h]{|c|c|}
+    \hline
+   Unobserved & Observed \\
+    $p^*_k(\mathbf{x}) \equiv \mathbb{P}(T^*=1|\mathbf{x}, z=k)$ & 
+    $p_k(\mathbf{x}) \equiv \mathbb{P}(T=1|\mathbf{x}, z=k)$\\
+    \hline
+  \end{tabular}
+\end{table}
+
+
+  \begin{block}{Relationship}
+    \vspace{-1em}
+   \[
+     p_k^*(\mathbf{x}) = \frac{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}, \quad k = 0,1
+   \]
+   \hfill\alert{\footnotesize $z$ does not affect $(\alpha_0, \alpha_1)$; denominator $\neq 0$}
+  \end{block}
+
+  \normalsize
+  \begin{block}{Bounds for Mis-classification}
+    \vspace{-1em}
+    \[
+      \alpha_0(\mathbf{x}) \leq p_k(\mathbf{x}) \leq 1 - \alpha_1(\mathbf{x}), \quad k = 0,1
+    \]
+   \hfill \alert{\footnotesize$\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) <1$}
+  \end{block}
+    \hyperlink{BOUNDS_BODY}{\beamergotobutton{back}}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[label=IV_APPEND]
+  \frametitle{What does IV estimate under mis-classification?}
+  \begin{block}{Unobserved}
+  \[
+    \beta(\mathbf{x}) = \frac{\mathbb{E}[y|\mathbf{x},z=1] - \mathbb{E}[y|\mathbf{x},z=0]}{p^*_1(\mathbf{x}) - p^*_0(\mathbf{x})} 
+  \]
+  \end{block}
+
+  \begin{block}{Wald (Observed)}
+    \vspace{-1em}
+    \small
+    \[
+      \frac{\mathbb{E}[y|\mathbf{x},z=1] - \mathbb{E}[y|\mathbf{x},z=0]}{p_1(\mathbf{x}) - p_0(\mathbf{x})} = \beta(\mathbf{x})\left[ \frac{p_1^*(\mathbf{x}) - p_0^*(\mathbf{x})}{p_1(\mathbf{x}) - p_0(\mathbf{x})} \right] = \alert{\frac{\beta(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})} }
+    \]
+   
+    \vspace{2em}
+    \scriptsize
+    \[
+      \boxed{p_1^*(\mathbf{x}) - p_0^*(\mathbf{x}) = \frac{p_1(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0 - \alpha_1(\mathbf{x})} -   \frac{p_0(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0 - \alpha_1(\mathbf{x})} = \frac{p_1(\mathbf{x}) - p_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}}
+    \]
+  \end{block}
+    \hyperlink{BOUNDS_BODY}{\beamergotobutton{back}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Partial Identification Bounds for $\beta(\mathbf{x})$}
+
+    \footnotesize
+    \[
+      \boxed{ \beta(\mathbf{x}) = \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right] 
+     \left[\frac{\mathbb{E}\left[y|\mathbf{x},z=1\right] - \mathbb{E}\left[y|\mathbf{x},z=0\right]}{p_1(\mathbf{x}) - p_0(\mathbf{x})}\right] }
+    \]
+
+    \footnotesize
+    \[
+      \boxed{ 0 \leq \alpha_0 \leq \min_k \{p_k(\mathbf{x})\}, \quad 0 \leq \alpha_1 \leq \min_k \{1 - p_k(\mathbf{x})\}}
+    \]
+
+    \normalsize
+    \begin{block}{No Mis-classification}
+      $\alpha_0(\mathbf{x}) =  \alpha_1(\mathbf{x}) = 0 \implies \alert{\beta(\mathbf{x}) = }$ \alert{Wald}
+    \end{block}
+
+    \begin{block}{Maximum Mis-classification}
+      $\alpha_0(\mathbf{x}) = p_{\min}(\mathbf{x}), \, \alpha_1(\mathbf{x}) = 1 - p_{\max}(\mathbf{x})$
+
+      \vspace{-0.5em}
+      \begin{align*}
+        \implies 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) = p_{\max}(\mathbf{x}) - p_{\min}(\mathbf{x})
+      = |p_1(\mathbf{x}) - p_0(\mathbf{x})|\\
+      \implies \alert{\beta(\mathbf{x}) =\mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\}\times (\mbox{Reduced Form})}
+    \end{align*}
+      
+    \end{block}
+  
+    \hyperlink{BOUNDS_BODY}{\beamergotobutton{back}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[label=MEQS_APPEND]
   \frametitle{Just-Identified System of Moment Equalities}
   \framesubtitle{Suppress dependence on $\mathbf{x}$\dots} 
