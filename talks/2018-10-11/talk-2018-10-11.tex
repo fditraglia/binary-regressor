@@ -84,7 +84,7 @@
     \item Show that only existing point identification result for mis-classified, endogenous $T^*$ is incorrect.
     \item Sharp identified set for $\beta$ under standard assumptions.
     \item Point identification of $\beta$ under slightly stronger assumptions.
-    \item Point out problem of weak identification in mis-classification models, develop identification-robust inference for $\beta$. 
+    \item Describe problem of weak identification in mis-classification models, develop identification-robust inference for $\beta$. 
   \end{enumerate}
 \end{alertblock}
 
@@ -255,17 +255,21 @@
   \end{framed}
 
 
-  \note{\singlespacing \footnotesize
+  \note{\singlespacing \scriptsize
     \begin{itemize}
-      \item Point out that the FL estimator is a nonlinear GMM rather than IV and note that they require\emph{joint} exogeneity of $T^*$ and $z$.
-      \item 1st contribution: show that only existing point identification result for mis-measured, binary, endog.\ regressor is false
-      \item As mentioned a few minutes ago, main result from Mahajan (2006; Ecta) is for $T^*$, but paper also contains a result for the endogenous case [READ THE RESULT]
-      \item Exotic--looking assumption is needed to leverage Mahajan's result for the exogenous case. Unfortunately we show that it leads to a contradiction. [READ THE RESULT]
-      \item Identification in this model is an open question: though Mahajan's proof fails, this does not establish that $\beta$ is unidentified under the baseline assumptions.
-      \item Next step show you two known results: simple bounds for $\alpha_0, \alpha_1$, and relationship between IV estimator and $\alpha_0,\alpha_1$, yielding bounds for $\beta$
-      \item Then our 2nd contribution: sharp identified set for $\beta$ under baseline assumptions. Improve upon simple bounds.
+        \vspace{-2em}
+      \item Two results from the existing literature closely related to our own: one for \emph{exogenous} $T^*$, and one for \emph{endogenous} $T^*$. Exogenous case: various papers have looked at this, but most general and closest to how I've set things up above is a result in Mahajan (2006). Similar although less general result in Frazis \& Loewenstein (2003). Baseline assumptions plus a \emph{joint exogeneity condition} for $T^*$ and $z$ point identify $\beta$. 
+        Notice that if you're interested in a conditional mean function rather than a causal effect, additive separability and exogeneity of $T^*$ come for free.
+        Estimator is \emph{not} IV, but non-linear GMM estimator.
+      \item The only existing result for the \emph{endogenous} $T^*$ case also appears in Mahajan. To be fair, this is \emph{not} the main point of his paper, which primarily concerns the exogenous case.
+        Mahajan argues that the baseline conditions plus a somewhat exotic-looking condition here implies that $\beta$ is point identified.
+        The purpose of this additional condition is to create a link with his earlier result for the exogenous case.
+        Idea is as follows: $\alpha_0$ and $\alpha_1$ have the same meaning regardless of whether you are estimating a conditional mean model or a causal model. Try to recover $(\alpha_0, \alpha_1)$ using the exogenous $T^*$ result, and then ``plug them in'' in a second step.
+        This strategy relies on the additional assump.
+      \item First contribution: we show that Mahajan's assumptions imply that $z$ is \emph{irrelevant}, uncorrelated with $T^*$, \emph{unless} $T^*$ is \emph{exogenous}.
+        Mahajan's argument for the endogenous $T^*$ fails; identification is an open question.
     \end{itemize}
-  Next: show you two known results that will play a role in what comes later: (1) simple bounds for mis-classification using only assumption that $z$ doesn't change $\alpha_0, \alpha_1$; (2) effect of mis-classification on IV estimator.}
+}%
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
