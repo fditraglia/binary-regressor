@@ -626,23 +626,24 @@
 
   \begin{alertblock}{Theorem}
     \begin{enumerate}[(i)]
-      \item As long as $\mathbb{E}[y|\mathbf{x},T=0,z=k] \neq \mathbb{E}[y|\mathbf{x},T=1,z=k]$ for some $k$, non-differential measurement error strictly improves the weak bounds for $\alpha_0, \alpha_1$, and $\beta$.
+      \item If $\mathbb{E}[y|\mathbf{x},T=0,z=k] \neq \mathbb{E}[y|\mathbf{x},T=1,z=k]$ for some $k$, non-differential assump.\ strictly improves upon weak bounds.
       \item Under the baseline assumptions, $\beta$ is not point identified, regardless of how many (discrete) values $z$ takes on.
     \end{enumerate}
   \end{alertblock}
 
 
   \begin{block}{Corollary}
-    Our bounds for $\alpha_0, \alpha_1$, and $\beta$ remain valid in a LATE model, although they may not be sharp, since they do not incorporate the testable implications of the LATE assumptions.
+    Bounds for $\alpha_0, \alpha_1$, and $\beta$ remain valid in a LATE model. They may not be sharp, however, sharp, since they do not incorporate the testable implications of the LATE assumptions.
   \end{block}
 
   \note{\singlespacing\scriptsize
+    \vspace{-2em}
     \begin{itemize}
-      \item This brings us to our second main contribution: the sharp identified set for $(\alpha_0, \alpha_1, \beta)$ under the baseline assumptions. The description of the set is fairly complicated, so I'm not going to show it on the slide. But the form that this set takes leads to two important results. First, the non-differential measurement error assumption \emph{generically} improves upon the weak bounds. Second, under the baseline assumptions $\beta$ is \emph{never} point identified, regardless of how many different (discrete) values the instrument takes on.
-      \item Some intuition: the true $\beta$ always lies within the identified set by definition. It turns out that $\alpha_0 = \alpha_1 = 0$ implies that the mixing probabilities $r_{tk}$ are all either zero or one. But in this case the mixtures are trivial, so we can simplly set $F = H$. Hence, the IV estimand $\beta / (1 - \alpha_0 - \alpha_1)$ always lies in the sharp identified set.
-      \item Corollary: everything I've said so far concerns an additively separable model. But in fact, bounds we derive under the baseline assumptions remain valid if we re-state our assumptions so that they involve a LATE model. The bounds we describe in our paper may not be sharp in a LATE model, however, because the LATE assumptions themselves have testable implications that we do not impose as we are primarily interested in the additively separable case.
-      \item So now what? The sharp bounds can actually be quite informative in practice and they are simple to compute.
-        But we know that they do not point identify $\beta$. So if the baseline assumptions aren't enough, are there slightly stronger but still plausible assumptions that allow us to point identify $\beta$? The answer turns out to be yes.
+      \item Second main contribution: sharp identified set for $(\alpha_0, \alpha_1, \beta)$ under the baseline assumptions. The description of the set is fairly complicated, so I'm not going to show it on the slide. But the form that this set takes leads to two important results. First, the non-differential measurement error assumption \emph{generically} improves upon the weak bounds. Second, under the baseline assumptions $\beta$ is \emph{never} point identified, regardless of how many different (discrete) values $z$ takes.
+      \item Some intuition: the true $\beta$ always lies within the identified set by definition. It turns out that $\alpha_0 = \alpha_1 = 0$ implies that the mixing probabilities $r_{tk}$ are all either zero or one. But in this case the mixtures are trivial, so we can simply set $F = H$. Hence, the IV estimand always lies in the sharp identified set.
+      \item Corollary: everything I've said so far concerns an additively separable model. But in fact, bounds we derive under the baseline assumptions remain valid if we re-state our assumptions so that they involve a LATE model. These bounds may not be sharp in a LATE model, however, because the LATE assumptions themselves have testable implications. We don't impose these since we're mainly interested in the additively separable case.
+      \item What now? Sharp bounds quite informative in practice, but they do not point identify $\beta$.
+        Baseline assumptions aren't enough. Are there slightly stronger but still plausible assumptions that allow us to point identify $\beta$? Yes! 
     \end{itemize}
   }%
 
