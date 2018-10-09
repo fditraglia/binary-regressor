@@ -136,8 +136,6 @@
   \item $z$ -- Indicator of nicotine patch
 \end{itemize}
 
-\note{\singlespacing\scriptsize}
-
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}
@@ -209,7 +207,7 @@
 \note{\singlespacing\scriptsize
   \begin{itemize}
     \item This is an econometrics talk so there will unavoidably be some lists of assumptions! But I want to make sure it's clear what each group of assumptions is actually doing.
-    \item This slide and the thext one detail what I will call the ``baseline'' assumptions, which I will maintain through the talk.
+    \item This slide and the next one detail what I will call the ``baseline'' assumptions, which I will maintain through the talk.
     \item The first part of the baseline assumptions concern the model and instrument: all that this slide says is that if $T^*$ were observed, then the model would be identified.
     \item In particular, these conditions are simply the usual instrument relevance and validity conditions in the model with the true, unobserved regressor $T^*$.
   \end{itemize}
@@ -271,7 +269,7 @@
 
   \begin{block}{Correct: Exogenous $T^*$}
     \begin{itemize}
-      \item Mahajan (2006), Frazis \& Loewenstein (2003)
+      \item Mahajan (2006), Frazis \& Loewenstein (2003)\ldots
       \item $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*] = 0$ + ``Baseline'' $\Rightarrow \beta(\mathbf{x})$ identified.
    \end{itemize}
   \end{block}
@@ -328,7 +326,16 @@
     $\beta(\mathbf{x})$ is between IV and Reduced form; same sign as IV. \hyperlink{IV_APPEND}{\beamergotobutton{more}}
   \end{alertblock}
 
-  \note{Add some notes here\dots}
+  \note{\singlespacing\scriptsize
+    \begin{itemize}
+      \item First constructive result: simple bounds for $\alpha_0, \alpha_1$ and $\beta$. Call these ``weak'' bounds since they don't fully exploit info.\ in the data \& baseline assumptions. 
+      \item Before doing this, define some notation: first-stage probabilities $p_k$. Subscript indicates the value that $z$ takes on: binary $z$ gives $p_0,p_1$. 
+      \item Using this notation, what does IV estimate under baseline assumptions? Wald estimand \emph{conditional} on $\mathbf{x}$. Measurement error \emph{only} affects the denominator: instead of the first-stage probs.\ for \emph{true} regressor $T^*$ we have them for $T$. Simple algebra using law of total prob.\ and assumption that $z$ doesn't affect mis-classification error rates shows that the constant of proportionality relating the unobserved \emph{true} first-stage to the observed first stage is $1 - \alpha_0 - \alpha_1$. If $Cor(T^*,T)\neq 0$, denominator is non-zero. If $Cor(T^*,T)>0$, IV has same sign as $\beta$ but is \emph{inflated}. 
+        Measurement error does \emph{not} cause attenuation here.
+        IV estimator corrects for endogeneity of $T^*$ but not measurement error.
+      \item Continuing to assume $Cor(T^*,T)>0$, observed 1st-stage probs.\ bound $\alpha_0$ and $\alpha_1$, and we can combine these with the expression for the IV estimand see that $\beta$ lies between IV and Reduced form with same sign as IV.
+    \end{itemize}
+  }
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -355,13 +362,17 @@
 \end{figure}
 
 \note{\singlespacing \scriptsize
+  \vspace{-2.3em}
   \begin{itemize}
-    \item Describe the picture. Explain how the upper-right corner of the blue rectangle corresponds to the reduced form estimator and the lower-left to the IV estimator. Explain $\alpha_0 + \alpha_1 < 1$ in relation to the gray rectangle and red line.
+    \item More about assumption $\alpha_0 + \alpha_1 < 1$.
+      Suppress $\mathbf{x}$. Fig.\ shows possible values of $(\alpha_0, \alpha_1)$. Red line: $\alpha_0 + \alpha_1 = 0$ so $Cor(T,T^*)=0$. Have to rule this out. Below red line $\alpha_0 + \alpha_1 <1$ so $Cor(T,T^*)>0$; above $Cor(T,T^*)<0$. Bounds on prev.\ slide assume below the red line. If we relax this, still get bounds for $\alpha_0, \alpha_1$: shaded rectangles. Blue = bounds from prev slide: $\alpha_0 \leq \min\{p_0, p_1\}$ and $\alpha_1 \leq \{1-p_0,1-p_1\}$. (In fig.\ $p_0 < p_1$). Gray means error so severe that $1-T$ is a better predictor of $T^*$ than $T$.
+      So $\alpha_0 + \alpha_1 <1$ just means rule out extreme error.
+      Equiv.\ to assume IV and $\beta$ have same sign.
     \item Weak bounds for $(\alpha_0, \alpha_1, \beta)$ simple and informative. Others have used related idea: Frazis \& Loewenstein (2003) and Ura (forthcoming). But weak bounds don't use non-diff assump.
       Know that non-diff is powerful: point identifies effect of an exog $T^*$.
       Can we improve upon weak bounds for endog.\ $T^*$?
     \item To answer this, derive sharp identified set under baseline assumptions: new to the literature.
-      Important even if our main concern is point identification: while we showed a flaw in Mahajan's proof, we did \emph{not} demonstrate
+      Important even if our main concern is point identification: while we showed a flaw in Mahajan's proof, we did \emph{not} show $\beta$ not point identified.
     \item How to derive sharp set? Question: for what values of unknown params can we construct valid joint dist.\ for $(y,T,T^*,z)$ compatible with observed joint for $(y,T,z)$ under our assumptions? Factorize: joint for $(T,T^*,z)$ \& conditional for $y|T,T^*,z$. Turns out that weak bounds for $(\alpha_0, \alpha_1)$ ensure valid joint for $(T,T^*,z)$ so suffices to look at conditional: $y|T,T^*,z$.
   \end{itemize}
 }%
@@ -412,7 +423,6 @@
     \mathbb{E}(y|T=1,z_k) &= (1 - r_{1k}) \mathbb{E}(y|T^*=0,T=1,z_k) + r_{1k}\mathbb{E}(y|T^*=1,T=1,z_k)
   \end{align*}
   \end{block}
-
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -706,7 +716,16 @@
     Baseline Assumptions $\implies \alert{\mbox{Cov}(y,z|\mathbf{x}) = \theta_1(\mathbf{x}) \mbox{Cov}(z,T|\mathbf{x})}$.
   \end{block}
 
-  \note{Note that $\beta = 0$ iff $\theta_1 = \theta_2 = \theta_3 = 0$.}
+  \note{\singlespacing\footnotesize
+    \begin{itemize}
+      \item Re-parameterize: ``reduced form'' parameters $(\theta_1, \theta_2, \theta_3)$ are functions of ``structural parameters'' $(\alpha_0, \alpha_1, \beta)$.
+        $\theta_1$ is the IV estimand; $(\theta_2,\theta_3)$ less intuitive: ``correct'' parameterization \emph{after} finishing proof, then re-write! 
+      \item Notice that $\beta = 0$ iff $\theta_1 = \theta_2 = \theta_3 = 0$. Important later for inference. 
+      \item Identification argument: three lemmas to obtain equations that point identify reduced form parameters $(\theta_1, \theta_2, \theta_3)$.
+        Then show that we can invert the mapping from structural to reduced form.
+      \item First lemma identifies $\theta_1$. Already showed this: tells us what IV identifies.
+    \end{itemize}
+}%
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -734,7 +753,12 @@
   \end{block}
     
 
-  \note{Notice that the corollary implies that $\beta$ is point identified if mis-classification is one-sided, as it might well be in the smoking example.}
+  \note{\singlespacing \footnotesize
+    \begin{itemize}
+      \item
+      \item Notice that the corollary implies that $\beta$ is point identified if mis-classification is one-sided, as it might well be in the smoking example.
+    \end{itemize}
+}%
 
   
 \end{frame}
