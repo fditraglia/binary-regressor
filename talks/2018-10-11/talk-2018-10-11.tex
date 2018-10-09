@@ -135,6 +135,9 @@
   \item $\mathbf{x}$ -- Mother characteristics
   \item $z$ -- Indicator of nicotine patch
 \end{itemize}
+
+\note{\singlespacing\scriptsize}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}
@@ -203,7 +206,15 @@
     \end{itemize}
   \end{block}
 
-  %\begin{alertblock}{If $T^*$ were observed, these conditions would identify $\beta$.} \end{alertblock}
+\note{\singlespacing\scriptsize
+  \begin{itemize}
+    \item This is an econometrics talk so there will unavoidably be some lists of assumptions! But I want to make sure it's clear what each group of assumptions is actually doing.
+    \item This slide and the thext one detail what I will call the ``baseline'' assumptions, which I will maintain through the talk.
+    \item The first part of the baseline assumptions concern the model and instrument: all that this slide says is that if $T^*$ were observed, then the model would be identified.
+    \item In particular, these conditions are simply the usual instrument relevance and validity conditions in the model with the true, unobserved regressor $T^*$.
+  \end{itemize}
+}%
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -230,6 +241,26 @@
   \end{block}
 
 
+  \note{\singlespacing\scriptsize
+    \begin{itemize}
+      \item 2nd part of the baseline assumptions concerns measurement error process. 
+        First need some notation: mis-classification probs.\ $\alpha_0$ and $\alpha_1$. 
+        Two possible errors.
+        \emph{Upwards} mis-classification: observe $T=1$ when truth is $T^*1$.
+        This occurs with prob.\ $\alpha_0$.
+        \emph{Downwards} mis-classification: observe $T=0$ when truth is $T^*=1$.
+        This occurs with prob.\ $\alpha_1$.
+        Convention uses subscripts to indicate the value of \emph{truth}: $\alpha_0$ is mis-classification prob.\ when $T^*=0$ ($\uparrow$) and $\alpha_1$ when $T^*=1$ ($\downarrow$).  
+      \item So far just notation.
+        Now impose some restrictions.
+        First: conditional on x, the mis-classification rates do not depend on z. This is not an innocuous assumption. Give an example when it holds and when it doesn't. Nearly impossible to make any progress without this assumption. How reasonable it is depends on the choice of conditioning variables x.
+- Second measurement error assumption is much less controversial and also much less consequential: assume that T is positively correlated with T*. This turns out to be equivalent to requiring that the sum of the mis-classification probabilities is less than one. Note that since these are *conditional* probabilities that condition on different events, they *could* sume to more than one. 
+- I'll talk about what happens if we relax the second assumption in a few slides. The bare minimum that we need is that T is correlated with T*. This is pretty reasonable: if T contains no information about T* then there's clearly no way we can proceed!
+- Third measurement error assumption is the *non-differential assumption*. This version of the assumption concerns first moments. Stated in terms of epsilon, but intuitively what this really says is that the conditional mean of Y does not depend on T after controlling for x, z, and T*. Like the first of the measurement error assumptions, the plausibility of this assumption depends on the situation and also the controls included in x.
+- An example of what non-differential measurement error rules out is "returns to lying." For example, suppose Y is log wage, T* is the true indicator for whether you graduated from college, and z is an instrument for college attendance. If T is an individual's *self-report* 
+- whether you had a college degree,  which is incidentally the topic of a paper I'm currently writing with Arthur Lewbel.
+    \end{itemize}
+  }%
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
