@@ -58,15 +58,13 @@
   %\vspace{2em}
   %\alert{(Additively Separable $\varepsilon$ and binary $T^*$ $\Rightarrow$ linear model \alert{given $\mathbf{x}$})}
 
-  \note{%
-    \footnotesize
-    \singlespacing
+  \note{\singlespacing
 \begin{itemize}
-  \item Here is the specific model I will focus on today. Additively separable model, want to learn the causal effect of binary regressor $T^*$ on $y$. 
-    Unfortunately $T^*$ is unobserved. Observe only mis-measured binary surrogate $T$. To make matters worse, $T^*$ is endogenous, but we have a discrete instrument $z$.
-  \item Additive separability is an assumption. Allow very general forms of observed heterogeneity through $\mathbf{x}$ but restricts unobserved heterogeneity.
-  \item Conditionally linear model. This is without loss of generality since the model is additively separable and $T^*$ is binary.
-  \item Mainly focus on additively separable case today, but will also discuss implications of our results for a LATE model.
+  \item Additively separable model, want to learn the causal effect of binary regressor $T^*$ on $y$. 
+    Unfortunately $T^*$ unobserved. Observe only mis-measured binary surrogate $T$. Moreover, $T^*$ is endogenous, but we have a discrete IV $z$.
+  \item Additive separability is a restriction: allows very general observed heterogeneity through $\mathbf{x}$, but restricts unobserved. 
+  \item Conditionally linear: WLOG since model add.\ sep.\ \& and $T^*$ binary.
+  \item Focus on add.\ sep.\ but also mention implications for LATE model. 
 \end{itemize}
 }%
 
@@ -92,7 +90,7 @@
       \footnotesize
       \singlespacing
 \begin{itemize}
-  \item Here are the main contributions of paper that I will discuss today.
+  \item Outline main contributions.
   \item Many papers consider using IV to identify effect of exog.\ mis-measured binary regressor, but little work on endog.\ case.
     First: show only point identification result for this case incorrect: ident.\ is an open question.
   \item Next: use standard assumptions to derive the ``sharp identified set'' for $\beta$. 
@@ -204,12 +202,11 @@
     \end{itemize}
   \end{block}
 
-\note{\singlespacing\scriptsize
+\note{\singlespacing
   \begin{itemize}
-    \item This is an econometrics talk so there will unavoidably be some lists of assumptions! But I want to make sure it's clear what each group of assumptions is actually doing.
-    \item This slide and the next one detail what I will call the ``baseline'' assumptions, which I will maintain through the talk.
-    \item The first part of the baseline assumptions concern the model and instrument: all that this slide says is that if $T^*$ were observed, then the model would be identified.
-    \item In particular, these conditions are simply the usual instrument relevance and validity conditions in the model with the true, unobserved regressor $T^*$.
+    %\item This is an econometrics talk so there will unavoidably be some lists of assumptions! But I want to make sure it's clear what each group of assumptions is actually doing.
+    \item This slide and the next detail what I will call the ``baseline'' assumptions, which I will maintain through the talk.
+    \item The first part of the baseline assumptions concern the model and instrument: all that this slide says is that if $T^*$ were observed, then the model would be identified: usual IV relevance and validity conditions for model with $T^*$.
   \end{itemize}
 }%
 
@@ -239,71 +236,91 @@
   \end{block}
 
 
-  \note{\singlespacing\tiny
-    \vspace{-2.5em}
+  \note{\singlespacing\scriptsize
+    \vspace{-1em}
     \begin{itemize}
-      \item 2nd part of the baseline assumptions concerns measurement error process. 
-        First need some notation: mis-classification probs.\ $\alpha_0$ and $\alpha_1$. 
-        Two possible errors.
-        \emph{Upwards} mis-classification: observe $T=1$ when truth is $T^*1$.
-        This occurs with prob.\ $\alpha_0$.
-        \emph{Downwards} mis-classification: observe $T=0$ when truth is $T^*=1$.
-        This occurs with prob.\ $\alpha_1$.
-        Convention uses subscripts to indicate the value of \emph{truth}: $\alpha_0$ is mis-classification prob.\ when $T^*=0$ ($\uparrow$) and $\alpha_1$ when $T^*=1$ ($\downarrow$).  
-        So far notation: now restrictions
-      \item First: given $x$ the mis-class.\ rates don't depend on z. Restrictive, but hard to make progress without it.
-        How reasonable depends on $\mathbf{x}$ and specific setting.
-        Plausible: smoking mothers didn't know if they had the real or placebo patch.
-        Implausible:  Levitt coin-toss experiment.
-        Does making a big life change (e.g.\ quit job) make you happier?
-        People considering big change flip a coin: heads = Levitt tells you to change, tails = he doesn't. Here $T^*=$ did you really change and $T=$ self-report. People who were told to change to but didn't ($z=1,T^*=0$) more likely have $T=0$ than people who weren't told to change and didn't ($z=0, T^*=0$)
-      \item Second: $Cor(T,T^*)>0 \iff \alpha_0 + \alpha_1 < 1$. Mild assumption. I'll say more in a few slides.
-      \item Third: \emph{non-diff} assumption. Stated in terms of epsilon, but what this really requires is conditional mean of Y doesn't depend on $T$ given $(\mathbf{x},z,T^*)$. Plausibility depends on the situation and the controls in $\mathbf{x}$. Example of what this rules out: ``returns to lying.'' E.g.\ $Y=\log(\mbox{wage})$, $T^*=$ true college dummy, and $T=$self-report of college. If employers can't perfectly observe credentials, there could be a \emph{direct} effect of $T$ on $y$ even after controlling for $T^*$. Working on a paper based on this example with Arthur Lewbel.
+      \item Second part of the baseline assumps: meas.\ error. . 
+        First notation: mis-class.\ probs.\ $\alpha_0$ and $\alpha_1$. 
+        Two errors. \emph{Upwards}: observe $T=1$ when truth is $T^*=1$; occurs with prob.\ $\alpha_0$. \emph{Downwards}: observe $T=0$ when truth is $T^*=1$; occurs with prob.\ $\alpha_1$. Convention uses subscripts to indicate the value of \emph{truth}: $\alpha_0$ is mis-classification prob.\ when $T^*=0$ ($\uparrow$) and $\alpha_1$ when $T^*=1$ ($\downarrow$). So far notation: now restrictions.
+      \item 1st: given $x$ the mis-class.\ rates don't depend on z. Restrictive, but hard to do without. 
+        How reasonable? Depends on $\mathbf{x}$ and specific setting.
+        Plausible: smoking mothers didn't know if they had the real patch.
+        %Implausible:  Levitt coin-toss experiment.
+        %Does making a big life change (e.g.\ quit job) make you happier?
+        %People considering big change flip a coin: heads = Levitt tells you to change, tails = he doesn't. Here $T^*=$ did you really change and $T=$ self-report. People who were told to change to but didn't ($z=1,T^*=0$) more likely have $T=0$ than people who weren't told to change and didn't ($z=0, T^*=0$)
+      \item 2nd: $Cor(T,T^*)>0 \iff \alpha_0 + \alpha_1 < 1$. Mild. Say more in a few slides.
+      \item 3rd: \emph{non-diff} assumption. Stated in terms of epsilon, but what this really requires is conditional mean of Y doesn't depend on $T$ given $(\mathbf{x},z,T^*)$. Plausibility depends on the situation and the controls in $\mathbf{x}$. Example of what this rules out: ``returns to lying.'' E.g.\ $Y=\log(\mbox{wage})$, $T^*=$ true college dummy, and $T=$self-report of college. If employers can't perfectly observe credentials, there could be a \emph{direct} effect of $T$ on $y$ even after controlling for $T^*$. Working on a paper based on this example with Arthur Lewbel.
     \end{itemize}
   }%
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Existing Results} 
+  \frametitle{Only Existing Result for Endogenous $T^*$ is Incorrect}
 
-  \begin{block}{Correct: Exogenous $T^*$}
-    \begin{itemize}
-      \item Mahajan (2006), Frazis \& Loewenstein (2003)\ldots
-      \item $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*] = 0$ + ``Baseline'' $\Rightarrow \beta(\mathbf{x})$ identified.
-   \end{itemize}
-  \end{block}
-  
-  \begin{alertblock}{Incorrect: Endogenous $T^*$}
-    \begin{itemize}
-    \item Mahajan (2006) A.2
-    \item $\mathbb{E}[\varepsilon|\mathbf{x}, z, T^*, T] = \mathbb{E}[\varepsilon|\mathbf{x},T^*]$ + ``Baseline'' $\Rightarrow \beta(\mathbf{x})$ identified. 
-  \end{itemize}
+  \begin{alertblock}{Mahajan (2006; Ecta) A2}
+      $\mathbb{E}[\varepsilon|\mathbf{x}, z, T^*, T] = \mathbb{E}[\varepsilon|\mathbf{x},T^*]$ + ``Baseline'' $\Rightarrow \beta(\mathbf{x})$ identified. 
   \end{alertblock}
 
-  \begin{framed}
-    We show: Mahajan's assumptions imply that the instrument $z$ is uncorrelated with $T^*$ unless $T^*$ is in fact \emph{exogenous}.
-  \end{framed}
+  \vspace{1em}
+  
+  \begin{block}{We Show:}
+   Mahajan's assumptions imply that the instrument $z$ is uncorrelated with $T^*$ unless $T^*$ is in fact \emph{exogenous}.
+  \end{block}
 
 
-  \note{\singlespacing \scriptsize
+  \note{\singlespacing 
     \begin{itemize}
-        \vspace{-2em}
-      \item Two results from the existing literature closely related to our own: one for \emph{exogenous} $T^*$, and one for \emph{endogenous} $T^*$. Exogenous case: various papers have looked at this, but most general and closest to how I've set things up above is a result in Mahajan (2006). Similar although less general result in Frazis \& Loewenstein (2003). Baseline assumptions plus a \emph{joint exogeneity condition} for $T^*$ and $z$ point identify $\beta$. 
-        Notice that if you're interested in a conditional mean function rather than a causal effect, additive separability and exogeneity of $T^*$ come for free.
-        Estimator is \emph{not} IV, but non-linear GMM estimator.
-      \item The only existing result for the \emph{endogenous} $T^*$ case also appears in Mahajan. To be fair, this is \emph{not} the main point of his paper, which primarily concerns the exogenous case.
+      \item The only existing result for the \emph{endogenous} $T^*$ appears in a paper by Mahajan. To be fair, this is \emph{not} the main point of his paper, which primarily concerns the exogenous case.
         Mahajan argues that the baseline conditions plus a somewhat exotic-looking condition here implies that $\beta$ is point identified.
-        The purpose of this additional condition is to create a link with his earlier result for the exogenous case.
-        Idea is as follows: $\alpha_0$ and $\alpha_1$ have the same meaning regardless of whether you are estimating a conditional mean model or a causal model. Try to recover $(\alpha_0, \alpha_1)$ using the exogenous $T^*$ result, and then ``plug them in'' in a second step.
-        This strategy relies on the additional assump.
+        The purpose of this additional condition is to create a link with his earlier result for the exog.\ case.
       \item First contribution: we show that Mahajan's assumptions imply that $z$ is \emph{irrelevant}, uncorrelated with $T^*$, \emph{unless} $T^*$ is \emph{exogenous}.
-        Mahajan's argument for the endogenous $T^*$ fails; identification is an open question.
+      \item Since Mahajan's argument for the endogenous $T^*$ fails, identification is an open question.
     \end{itemize}
 }%
 
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Existing Results} 
+%
+%  \begin{block}{Correct: Exogenous $T^*$}
+%    \begin{itemize}
+%      \item Mahajan (2006), Frazis \& Loewenstein (2003)\ldots
+%      \item $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*] = 0$ + ``Baseline'' $\Rightarrow \beta(\mathbf{x})$ identified.
+%   \end{itemize}
+%  \end{block}
+%  
+%  \begin{alertblock}{Incorrect: Endogenous $T^*$}
+%    \begin{itemize}
+%    \item Mahajan (2006) A.2
+%    \item $\mathbb{E}[\varepsilon|\mathbf{x}, z, T^*, T] = \mathbb{E}[\varepsilon|\mathbf{x},T^*]$ + ``Baseline'' $\Rightarrow \beta(\mathbf{x})$ identified. 
+%  \end{itemize}
+%  \end{alertblock}
+%
+%  \begin{framed}
+%    We show: Mahajan's assumptions imply that the instrument $z$ is uncorrelated with $T^*$ unless $T^*$ is in fact \emph{exogenous}.
+%  \end{framed}
+%
+%
+%  \note{\singlespacing \scriptsize
+%    \begin{itemize}
+%        \vspace{-2em}
+%      \item Two results from the existing literature closely related to our own: one for \emph{exogenous} $T^*$, and one for \emph{endogenous} $T^*$. Exogenous case: various papers have looked at this, but most general and closest to how I've set things up above is a result in Mahajan (2006). Similar although less general result in Frazis \& Loewenstein (2003). Baseline assumptions plus a \emph{joint exogeneity condition} for $T^*$ and $z$ point identify $\beta$. 
+%        Notice that if you're interested in a conditional mean function rather than a causal effect, additive separability and exogeneity of $T^*$ come for free.
+%        Estimator is \emph{not} IV, but non-linear GMM estimator.
+%      \item The only existing result for the \emph{endogenous} $T^*$ case also appears in Mahajan. To be fair, this is \emph{not} the main point of his paper, which primarily concerns the exogenous case.
+%        Mahajan argues that the baseline conditions plus a somewhat exotic-looking condition here implies that $\beta$ is point identified.
+%        The purpose of this additional condition is to create a link with his earlier result for the exogenous case.
+%        Idea is as follows: $\alpha_0$ and $\alpha_1$ have the same meaning regardless of whether you are estimating a conditional mean model or a causal model. Try to recover $(\alpha_0, \alpha_1)$ using the exogenous $T^*$ result, and then ``plug them in'' in a second step.
+%        This strategy relies on the additional assump.
+%      \item First contribution: we show that Mahajan's assumptions imply that $z$ is \emph{irrelevant}, uncorrelated with $T^*$, \emph{unless} $T^*$ is \emph{exogenous}.
+%        Mahajan's argument for the endogenous $T^*$ fails; identification is an open question.
+%    \end{itemize}
+%}%
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[label=BOUNDS_BODY]
   \frametitle{``Weak'' Bounds}
 
@@ -450,9 +467,9 @@
   \fbox{2 equations in 2 unknowns $\Rightarrow$ solve for $\mathbb{E}(y|T^*=t^*,z=k)$ given $(r_{0k}, r_{1k})$.}
   \end{block}
 
-  \note{\singlespacing\scriptsize
+  \note{\singlespacing\footnotesize
     \begin{itemize}
-      \item Suppress dependence on $\mathbf{x}$. Study conditional dist of $y|T,T^*,z$. Unobserved but related to dist of $y|T,z$ via a mixture model. Mixing probs are $r_{tk}$. These turn out to be a function of $(\alpha_0, \alpha_1)$ and observables only. Shorthand: $z_k$ denotes $z=k$.
+      \item Suppress $\mathbf{x}$. Study conditional dist of $y|T,T^*,z$. Unobserved but related to dist of $y|T,z$ via a mixture model. Mixing probs are $r_{tk}$. These depend on $(\alpha_0, \alpha_1)$ and observables only. Shorthand: $z_k$ denotes $z=k$.
       \item First look at means. For each value $k$ that the IV takes on, there are two observed means $\mathbb{E}[y|T=(0,1),z_k]$ and four unobserved means $\mathbb{E}[y|T=(0,1),T^*=(0,1),z_k]$. But the non-diff assumption restricts the four unobserved means: we can \emph{drop} $T$ from the conditioning set after conditioning on $T^*,z$. Hence, only two unknown means: color-coded to show common unknowns across equations.
       \item Remember: $r_{tk}$ is known given $(\alpha_0, \alpha_1)$, so we see that the non-diff.\ assumption lets us solve for the two unknown means at any specified pair $(\alpha_0, \alpha_1)$: we simply have two linear equations in two unknowns.
     \end{itemize}
@@ -492,7 +509,7 @@
   \end{alertblock}
     
 
-  \note{\singlespacing\scriptsize
+  \note{\singlespacing
     \begin{itemize}
       \item Looked at means, now look at distributions. Observe $F_{tk}$ the distribution of $y|T,z$. This is a mixture of two unobserved distributions: $F_{tk}^0$ and $F_{tk}^1$.
       \item Although $(F_{tk}^0, F_{tk}^1)$ are unobserved, they're constrained. First, they need to ``integrate'' to $F_{tk}$ which is observed. Second, the mixing probability $r_{tk}$ is a \emph{known} function of $(\alpha_0, \alpha_1)$ given observables. Third, as we saw on the preceding slide, non-differential measurement error implies that the means of $F_{tk}^0$ and $F_{tk}^1$ are \emph{known} functions of $(\alpha_0, \alpha_1)$.
@@ -655,13 +672,13 @@
 \end{figure}
 
 
-  \note{\singlespacing\scriptsize
+  \note{\singlespacing\footnotesize
     \begin{itemize}
       \item For this particular choice of $f$, a mixture of normals, the blue shaded region shows all pairs $(p, \mu)$ that are compatible with the mixture.
       \item If $p=0$, $\mu$ is unconstrained. This makes sense: in this case $H$ can have any mean because it contributes nothing to the mixture that generates $F$.
-      \item In contrast, if $p=1$ then $\mu$ must \emph{equal} the mean of the observed distribution $F$, in this case $-0.8$, since this corresponds to a degenerate mixture in which $F=H$.
-      \item So how does this relate to our original problem? Remember that we observe the distribution of $y|T,z$ which is related to the unobserved distribution of $y|T,T^*,z$ via a mixture model. The mixing probability depends only on observables and $(\alpha_0, \alpha_1)$ as do the means of the mixture components. Hence, some values of $(\alpha_0, \alpha_1)$ are incompatible with the mixture model.
-        This in turn restricts $\beta$ through its relationship to the IV estimand. In fact we have \emph{joint} restrictions for all $(t,k)$ so the book-keeping is complicated, but the basic intuition is exactly as I've shown you in this simple mixture of normals example.
+      \item If $p=1$ then $\mu$ must \emph{equal} the mean of the observed distribution $F$, here $-0.8$, since this is a degenerate mixture where $F=H$.
+      \item Relation to original problem? We observe dist of $y|T,z$ which is related to the unobserved dist of $y|T,T^*,z$ via a mixture model. Mixing prob.\  depends only on observables and $(\alpha_0, \alpha_1)$; same for means of mixture components. Hence, some values of $(\alpha_0, \alpha_1)$ are incompatible with the mixture model.
+        This in restricts $\beta$ since IV is $\beta/(1 - \alpha_0 - \alpha_1)$. Joint restrictions for all $(t,k)$ so the book-keeping is complicated, but intuition is same as in simple mixture of normals example.
     \end{itemize}
   }%
 
