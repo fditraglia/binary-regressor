@@ -259,9 +259,8 @@
         Implausible:  Levitt coin-toss experiment.
         Does making a big life change (e.g.\ quit job) make you happier?
         People considering big change flip a coin: heads = Levitt tells you to change, tails = he doesn't. Here $T^*=$ did you really change and $T=$ self-report. People who were told to change to but didn't ($z=1,T^*=0$) more likely have $T=0$ than people who weren't told to change and didn't ($z=0, T^*=0$)
-      \item Second: $Cor(T,T^*)>0 \equiv \alpha_0 + \alpha_1 < 1$. Mild assumption. I'll say more in a few slides.
-      \item Third: \emph{non-diff} assumption. Stated in terms of epsilon, but intuitively what this really says is that the conditional mean of Y does not depend on T after controlling for x, z, and T*. Like the first of the measurement error assumptions, the plausibility of this assumption depends on the situation and also the controls included in x.
-\item An example of what non-differential measurement error rules out is "returns to lying." For example, suppose Y is log wage, T* is the true indicator for whether you graduated from college, and z is an instrument for college attendance. If T is an individual's *self-report*. hether you had a college degree,  which is incidentally the topic of a paper I'm currently writing with Arthur Lewbel.
+      \item Second: $Cor(T,T^*)>0 \iff \alpha_0 + \alpha_1 < 1$. Mild assumption. I'll say more in a few slides.
+      \item Third: \emph{non-diff} assumption. Stated in terms of epsilon, but what this really requires is conditional mean of Y doesn't depend on $T$ given $(\mathbf{x},z,T^*)$. Plausibility depends on the situation and the controls in $\mathbf{x}$. Example of what this rules out: ``returns to lying.'' E.g.\ $Y=\log(\mbox{wage})$, $T^*=$ true college dummy, and $T=$self-report of college. If employers can't perfectly observe credentials, there could be a \emph{direct} effect of $T$ on $y$ even after controlling for $T^*$. Working on a paper based on this example with Arthur Lewbel.
     \end{itemize}
   }%
 
