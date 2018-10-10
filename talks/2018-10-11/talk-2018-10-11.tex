@@ -3,8 +3,9 @@
 \usepackage{framed}
 \usepackage{cancel}
 \usepackage{appendixnumberbeamer}
-\setbeameroption{show notes}
-%\setbeameroption{hide notes}
+%\setbeameroption{show notes}
+%\setbeameroption{show only notes}
+\setbeameroption{hide notes}
 \defbeamertemplate{description item}{align left}{\insertdescriptionitem\hfill}
 
 %%%%%%%%%%%%%%%%%%%% Not needed at home!
@@ -771,7 +772,6 @@
 
   \note{\singlespacing \footnotesize
     \begin{itemize}
-      \item
       \item Notice that the corollary implies that $\beta$ is point identified if mis-classification is one-sided, as it might well be in the smoking example.
     \end{itemize}
 }%
@@ -796,6 +796,9 @@
   \alert{\mbox{Cov}(y^3,z|\mathbf{x}) = 3 \mbox{Cov}(y^2T,z|\mathbf{x}) \theta_1(\mathbf{x}) -3\mbox{Cov}(yT,z|\mathbf{x}) \theta_2(\mathbf{x}) + \mbox{Cov}(T,z|\mathbf{x}) \theta_3(\mathbf{x})}
 \]
 \end{block}
+
+\note{Add notes}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -810,15 +813,15 @@
 
 \vspace{1em}
 
-  \begin{block}{Explicit Solution}
-\vspace{-1em}
-    \[
-      \beta(\mathbf{x}) = \mbox{sign}\left[ \theta_1(\mathbf{x}) \right] \sqrt{3\left[ \theta_2(\mathbf{x})/\theta_1(\mathbf{x}) \right]^2 - 2\left[ \theta_3(\mathbf{x})/\theta_1(\mathbf{x}) \right]} 
-    \]
-
-  \end{block}
-
-\vspace{1em}
+%  \begin{block}{Explicit Solution}
+%\vspace{-1em}
+%    \[
+%      \beta(\mathbf{x}) = \mbox{sign}\left[ \theta_1(\mathbf{x}) \right] \sqrt{3\left[ \theta_2(\mathbf{x})/\theta_1(\mathbf{x}) \right]^2 - 2\left[ \theta_3(\mathbf{x})/\theta_1(\mathbf{x}) \right]} 
+%    \]
+%
+%  \end{block}
+%
+%\vspace{1em}
 
   \begin{block}{Sufficient for (II) and (III)}
     \vspace{-0.5em}
@@ -836,9 +839,9 @@
   \frametitle{Inference for a Mis-classified Regressor}
   \small
 
-  \begin{block}{Weak Identification}
+  \begin{block}{Challenges}
 \begin{itemize}
-  \item $\beta$ small $\Rightarrow$ moment equalities uninformative about $(\alpha_0, \alpha_1)$ \hyperlink{MEQS_APPEND}{\beamergotobutton{more}}
+  \item Weak Identification: $\beta$ small $\Rightarrow$ moment equalities uninformative about $(\alpha_0, \alpha_1)$ \hyperlink{MEQS_APPEND}{\beamergotobutton{more}}
   \item $(\alpha_0, \alpha_1)$ could be on the boundary of the parameter space
   \item Also true of existing estimators that assume $T^*$ exogenous
 \end{itemize}
@@ -854,10 +857,20 @@
 \end{alertblock}
 
 
+\note{\singlespacing \footnotesize
+  \vspace{-2em}
+  \begin{itemize}
+    \item Identification argument gives just-identified GMM: \emph{linear} in reduced form parameters $\theta$; nonlinear mapping to structural params.
+    \item Recall $\theta_1 = \theta_2 = \theta_3 = 0$ iff $\beta = 0$. Easy to tell if $\beta$ is small. But if $\beta$ is small, MCs contain little information about $\alpha_0, \alpha_1$. Problem since we need mis-class probs.\ to recover $\beta$! Compare to a mixture model where the means of the components are similar: hard to recover the mixing probs. 
+    \item Weak identification problem but \emph{not} weak instrument problem. Could have weak instrument as well, but that's not what we're interested in. 
+    \item Another problem: usual large sample inference relies on parameters being within interior of parameter space. But $\alpha_0, \alpha_1$ could be on the boundary. This is not pathological: $\alpha_0 = \alpha_1 = 0$ means no mis-class.
+    \item Not unique to our model: they also occur in mis-classification models from the literature, but we haven't seen any serious attempt to address. 
+    \item Our approach: moment \emph{inequalities} remain informative when $\beta \approx 0$. AR-type inference combining equality and inequality MCs.
+  \end{itemize}
+}
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
@@ -889,7 +902,17 @@
     \end{itemize}
   \end{block}
   
-  \note{Explain about the meaning of the m-var, the sigma-hat and the ``minus'' subscript}
+  \note{\singlespacing
+    \vspace{-2em}
+    \begin{itemize}
+      \item Two groups of population MCs. First $J$ are \emph{inequalities}: convention is that these are all $\geq 0$. At true param.\ value, expectation of these functions are positive. 
+        Next $K$ are equalities. At true param.\ value, expectation of these functions are zero.
+      \item Notation: $\bar{m}_{n,j} = $ sample avg.\ of $m_j$, i.e.\ the \emph{sample analogue} of the $j$th population MC; $\widehat{\sigma}_{n,j}$ is the estimated std.\ dev of the $j$th MC.
+      \item MMM test statistic: measures extent to which MCs are \emph{violated} at parameter value $\vartheta$. Sum of terms, each of which corresponds to sample analogue of one of the MCs.
+        Square the standardized sample analogue with one difference: the ``minus'' for the first $J$ terms means inequalities only contribute to the sum \emph{when violated}.
+      \item Under very weak conditions, properly scaled sample average is asymptotically normal. So if we work on the asymptotic variance, easy to tabulate critical values by simulating MV normal draws.
+    \end{itemize}
+}%
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -913,7 +936,16 @@
    Projection is conservative and computationally intensive.
   \end{block}
 
-  \note{Explain what not asymptotically conservative means. Explain what projection is and why it's conservative and computationally intensive.}
+  \note{\singlespacing\footnotesize
+    \vspace{-2em}
+    \begin{itemize}
+      \item Problem: lots of inequalities and most of them will turn out to be redundant. E.g.\ weak bounds $\alpha_0 \leq \min p_k$ so at least one is always redundant but we don't know which before looking at the data!
+      \item Non-binding ineqs.\ \emph{still affect test}: increase critical value. GMS procedure of Andrews \& Soares: procedure for dropping irrelevant inequalities in the ``right way'' so that our test is still valid.
+        Ineq.\ satisfied if $\geq 0$, so if t-stat is ``really large'' drop inequality. Sample-size dependent rule: BIC. 
+      \item Uniformly valid test for $\vartheta$ even if not point identified. Moreover, not conservative: 5\% level means 5\% not $\leq 5\%$. Problem: \emph{joint test} for whole param.\ vector when we're only interested in $\beta$ and possibly $(\alpha_0, \alpha_1)$. Eleven ``nuisance'' parameters $\gamma$: intercepts for equality MCs and quantile-like objects for the non-diff inequalities.
+      \item Projection: to test $\beta = \beta_0$ test \emph{all possible} $H_0$ for $\vartheta$ under which $\beta = \beta_0$. Computationally intensive: 14 dimensional space! Conservative: nominal 5\% test has much lower than 5\% significance level
+    \end{itemize}
+}%
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -941,7 +973,15 @@
     
   \end{block}
 
-  \note{Explain that the procedure works well in simulations etc. Possibly add link to simulation here.}
+  \note{\singlespacing\footnotesize 
+    \begin{itemize}
+      \item Exploit special structure of our model [READ SLIDE]
+      \item Concentrate out. Fix a null for $\alpha_0, \alpha_1$. \emph{Under this null} estimate $\theta_1$ and $\gamma$ and plug them in. In the paper we derive the appropriate adjustment to the testing procedure to account for the fact that we substitute ``preliminary estimates.'' Calculate p-value by simulating from limit distribution of sample MCs.
+      \item Invert test $\Rightarrow$ joint GMS confidence set: test all possible $(\alpha_0, \alpha_1)$. Any points that we do not reject are in the confidence set. Easy since $\alpha_0$ and $\alpha_1$ are bounded and the problem is two-dimensional. Grid search.
+      \item Projection: calculate the max and min of $(1 - \alpha_0 - \alpha_1)$ over the confidence set for $(\alpha_0, \alpha_1)$. Combine with standard IV CI for $\theta_1$ using Bonferroni adjustment.
+      \item Illustrate with simulation example. Detailed simulations appear in the paper: procedure performs well in practice. 
+    \end{itemize}
+}%
   
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -978,7 +1018,7 @@
 
 \begin{columns}
   \column{0.6\textwidth}
-  \vspace{-2em}
+  \vspace{-3em}
 \begin{figure}[h]
   \centering
 \resizebox{\textwidth}{!}{%
@@ -987,26 +1027,40 @@
 \end{figure}
   \column{0.6\textwidth}
   \scriptsize
-  \pause
-  \begin{alertblock}{\small Bonferroni Interval}
+
+  \begin{alertblock}{\small Our Procedure} 
   \begin{enumerate}
-    \item $97.5\% \mbox{ CI for } (1 - \alpha_0 - \alpha_1) = (0.64, 0.82)$
+    \item $97.5\%$ GMS CI for $(\alpha_0, \alpha_1)$ at left
+      \pause
+    \item $\geq 97.5\%$ Projection CI for $(1 - \alpha_0 - \alpha_1)$ \\ $(1 - 0.36, 1 - 0.18) = (0.64, 0.82)$ 
       \pause
     \item $97.5\% \mbox{ CI for } \theta_1 = (1.20, 1.47)$ 
       \pause
-    \item $> 95\%$ CI for $\beta$: \\
+    \item $\geq 95\%$ CI for $\beta$: \\
       $(0.64 \times 1.20, 0.82 \times 1.47) = \alert{(0.77,1.21)} $
   \end{enumerate}
     \end{alertblock}
 \pause
   \begin{block}{\small Comparisons}
     \begin{itemize}
-      \item (0.88, 1.04) for IV if $T^*$ were observed
-      \item (1.22,1.45) for naive IV interval using $T$
+      \item (0.88, 1.04) $95\%$ CI for IV using $T^*$ 
+      \item (1.22,1.45) $95\%$ CI for IV using $T$
     \end{itemize}
 \end{block}
 
 \end{columns}
+
+\note{\singlespacing\footnotesize
+  \begin{itemize}
+    \item Simulation example: no covariates; true $\beta = \mbox{Var}(\varepsilon) = 1$; sample size of $5000$ which would correspond to a large experiment like the JTPA. Moderate amount of mis-classification $\alpha_0 = 0.1, \alpha_1 = 0.2$.
+    \item At left: 97.5\% GMS \emph{joint} confidence set for $\alpha_0, \alpha_1$. 
+      Using this, find largest and smallest values of the sum $\alpha_0 + \alpha_1$ to get a projection CI for $(1 - \alpha_0 - \alpha_1)$. Largest value of the sum is 0.36 and smallest is 0.18, so subtracting each of these from 1 gives $(0.64,0.82)$.
+    \item Now construct second CI: standard IV CI for $\theta_1 = \beta / (1 - \alpha_0 - \alpha_1)$. This gives $(1.20,1.47)$. \emph{Inflated} relative to $\beta$ because of mis-classification.
+    \item Combine these: ``deflate'' the CI for $\theta_1$ by multiplying by the endpoints of the CI for $(1 - \alpha_0 - \alpha_1)$. We obtain $0.64 \times 1.2) = 0.77$ for the LCL and $(0.82 \times 1.47) = 1.21$ for the UCL.
+    \item Bonferroni Adjustment: to ensure final CI has coverage prob.\ $\geq 95\%$, the intervals it combines need significance levels that sum to $5\%$. 
+  \end{itemize}
+}%
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
