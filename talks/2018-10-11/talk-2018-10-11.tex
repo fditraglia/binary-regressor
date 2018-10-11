@@ -1,4 +1,4 @@
-\documentclass[handout]{beamer}  
+\documentclass{beamer}  
 \usepackage{../slides}
 \usepackage{framed}
 \usepackage{cancel}
@@ -354,46 +354,6 @@
       \item Continuing to assume $Cor(T^*,T)>0$, observed 1st-stage probs.\ bound $\alpha_0$ and $\alpha_1$, and we can combine these with the expression for the IV estimand see that $\beta$ lies between IV and Reduced form with same sign as IV.
     \end{itemize}
   }
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[plain, c]
-  %\frametitle{$\alpha_0 \leq \min_k \left\{p_k\right\}, \; \; \alpha_1 \leq \min_k \left\{1 - p_k\right\}$}
-\begin{figure}[h]
-  \centering
-  \begin{tikzpicture}[scale=6]
-    \draw [fill = lightgray] (0.66,0.75) rectangle (1,1);
-    \draw [fill = cyan] (0,0) rectangle (0.25, 0.34);
-    \draw [thick, <->] (0,1.1)
-    node[above] {$\alpha_1$} -- (0,0) 
-    node [below left] {$(0,0)$} -- (1.1,0) 
-    node [right] {$\alpha_0$};
-    \draw [thick] (0.25,0.02) -- (0.25,-0.02) node [below] {$p_0$}; 
-    \draw [thick] (0.02,0.75) -- (-0.02,0.75) node [left] {$1 - p_0$}; 
-    \draw [thick] (0.66,0.02) -- (0.66,-0.02) node [below] {$p_1$}; 
-    \draw [thick] (0.02,0.34) -- (-0.02,0.34) node [left] {$1 - p_1$}; 
-    \draw [thick, red] (0,1) to (1,0); 
-    \node [right, red] at (0.06,0.95) {$\alpha_0 + \alpha_1 = 1$};
-    \draw [thick] (0,1) -- (1,1) -- (1,0);
-    \node [above right] at (1,1) {$(1,1)$};
-    \end{tikzpicture}
-\end{figure}
-
-\note{\singlespacing \scriptsize
-  \vspace{-2.3em}
-  \begin{itemize}
-    \item More about assumption $\alpha_0 + \alpha_1 < 1$.
-      Suppress $\mathbf{x}$. Fig.\ shows possible values of $(\alpha_0, \alpha_1)$. Red line: $\alpha_0 + \alpha_1 = 0$ so $Cor(T,T^*)=0$. Have to rule this out. Below red line $\alpha_0 + \alpha_1 <1$ so $Cor(T,T^*)>0$; above $Cor(T,T^*)<0$. Bounds on prev.\ slide assume below the red line. If we relax this, still get bounds for $\alpha_0, \alpha_1$: shaded rectangles. Blue = bounds from prev slide: $\alpha_0 \leq \min\{p_0, p_1\}$ and $\alpha_1 \leq \{1-p_0,1-p_1\}$. (In fig.\ $p_0 < p_1$). Gray means error so severe that $1-T$ is a better predictor of $T^*$ than $T$.
-      So $\alpha_0 + \alpha_1 <1$ just means rule out extreme error.
-      Equiv.\ to assume IV and $\beta$ have same sign.
-    \item Weak bounds for $(\alpha_0, \alpha_1, \beta)$ simple and informative. Others have used related idea: Frazis \& Loewenstein (2003) and Ura (forthcoming). But weak bounds don't use non-diff assump.
-      Know that non-diff is powerful: point identifies effect of an exog $T^*$.
-      Can we improve upon weak bounds for endog.\ $T^*$?
-    \item To answer this, derive sharp identified set under baseline assumptions: new to the literature.
-      Important even if our main concern is point identification: while we showed a flaw in Mahajan's proof, we did \emph{not} show $\beta$ not point identified.
-    \item How to derive sharp set? Question: for what values of unknown params can we construct valid joint dist.\ for $(y,T,T^*,z)$ compatible with observed joint for $(y,T,z)$ under our assumptions? Factorize: joint for $(T,T^*,z)$ \& conditional for $y|T,T^*,z$. Turns out that weak bounds for $(\alpha_0, \alpha_1)$ ensure valid joint for $(T,T^*,z)$ so suffices to look at conditional: $y|T,T^*,z$.
-  \end{itemize}
-}%
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -963,10 +923,10 @@
 
     \begin{block}{Procedure}
       \begin{enumerate}
-        \item Concentrate out $(\theta_1, \boldsymbol{\gamma}) \Rightarrow$ joint GMS test for $(\alpha_0, \alpha_1)$ \pause 
-        \item Invert test $\Rightarrow (1 - \delta_1)\times 100\%$ confidence set for $(\alpha_0, \alpha_1)$ \pause
-        \item Project $\Rightarrow$ CI for $(1 - \alpha_0 - \alpha_1)$ \pause
-        \item Construct standard $(1 - \delta_2)\times 100\%$ IV CI for $\theta_1$ \pause
+        \item Concentrate out $(\theta_1, \boldsymbol{\gamma}) \Rightarrow$ joint GMS test for $(\alpha_0, \alpha_1)$ 
+        \item Invert test $\Rightarrow (1 - \delta_1)\times 100\%$ confidence set for $(\alpha_0, \alpha_1)$ 
+        \item Project $\Rightarrow$ CI for $(1 - \alpha_0 - \alpha_1)$ 
+        \item Construct standard $(1 - \delta_2)\times 100\%$ IV CI for $\theta_1$ 
         \item Bonferroni $\Rightarrow (1 - \delta_1 - \delta_2)\times 100\%$ CI for $\beta$
       \end{enumerate}
     \end{block}
@@ -1121,6 +1081,47 @@
     \hyperlink{BOUNDS_BODY}{\beamergotobutton{back}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[plain, c]
+  %\frametitle{$\alpha_0 \leq \min_k \left\{p_k\right\}, \; \; \alpha_1 \leq \min_k \left\{1 - p_k\right\}$}
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[scale=6]
+    \draw [fill = lightgray] (0.66,0.75) rectangle (1,1);
+    \draw [fill = cyan] (0,0) rectangle (0.25, 0.34);
+    \draw [thick, <->] (0,1.1)
+    node[above] {$\alpha_1$} -- (0,0) 
+    node [below left] {$(0,0)$} -- (1.1,0) 
+    node [right] {$\alpha_0$};
+    \draw [thick] (0.25,0.02) -- (0.25,-0.02) node [below] {$p_0$}; 
+    \draw [thick] (0.02,0.75) -- (-0.02,0.75) node [left] {$1 - p_0$}; 
+    \draw [thick] (0.66,0.02) -- (0.66,-0.02) node [below] {$p_1$}; 
+    \draw [thick] (0.02,0.34) -- (-0.02,0.34) node [left] {$1 - p_1$}; 
+    \draw [thick, red] (0,1) to (1,0); 
+    \node [right, red] at (0.06,0.95) {$\alpha_0 + \alpha_1 = 1$};
+    \draw [thick] (0,1) -- (1,1) -- (1,0);
+    \node [above right] at (1,1) {$(1,1)$};
+    \end{tikzpicture}
+\end{figure}
+
+\note{\singlespacing \scriptsize
+  \vspace{-2.3em}
+  \begin{itemize}
+    \item More about assumption $\alpha_0 + \alpha_1 < 1$.
+      Suppress $\mathbf{x}$. Fig.\ shows possible values of $(\alpha_0, \alpha_1)$. Red line: $\alpha_0 + \alpha_1 = 0$ so $Cor(T,T^*)=0$. Have to rule this out. Below red line $\alpha_0 + \alpha_1 <1$ so $Cor(T,T^*)>0$; above $Cor(T,T^*)<0$. Bounds on prev.\ slide assume below the red line. If we relax this, still get bounds for $\alpha_0, \alpha_1$: shaded rectangles. Blue = bounds from prev slide: $\alpha_0 \leq \min\{p_0, p_1\}$ and $\alpha_1 \leq \{1-p_0,1-p_1\}$. (In fig.\ $p_0 < p_1$). Gray means error so severe that $1-T$ is a better predictor of $T^*$ than $T$.
+      So $\alpha_0 + \alpha_1 <1$ just means rule out extreme error.
+      Equiv.\ to assume IV and $\beta$ have same sign.
+    \item Weak bounds for $(\alpha_0, \alpha_1, \beta)$ simple and informative. Others have used related idea: Frazis \& Loewenstein (2003) and Ura (forthcoming). But weak bounds don't use non-diff assump.
+      Know that non-diff is powerful: point identifies effect of an exog $T^*$.
+      Can we improve upon weak bounds for endog.\ $T^*$?
+    \item To answer this, derive sharp identified set under baseline assumptions: new to the literature.
+      Important even if our main concern is point identification: while we showed a flaw in Mahajan's proof, we did \emph{not} show $\beta$ not point identified.
+    \item How to derive sharp set? Question: for what values of unknown params can we construct valid joint dist.\ for $(y,T,T^*,z)$ compatible with observed joint for $(y,T,z)$ under our assumptions? Factorize: joint for $(T,T^*,z)$ \& conditional for $y|T,T^*,z$. Turns out that weak bounds for $(\alpha_0, \alpha_1)$ ensure valid joint for $(T,T^*,z)$ so suffices to look at conditional: $y|T,T^*,z$.
+  \end{itemize}
+}%
+    \hyperlink{BOUNDS_BODY}{\beamergotobutton{back}}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[label=IV_APPEND]
   \frametitle{What does IV estimate under mis-classification?}
   \begin{block}{Unobserved}
