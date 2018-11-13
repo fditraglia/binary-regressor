@@ -1103,21 +1103,21 @@
     \end{tikzpicture}
 \end{figure}
 
-\note{\singlespacing \scriptsize
-  \vspace{-2.3em}
-  \begin{itemize}
-    \item More about assumption $\alpha_0 + \alpha_1 < 1$.
-      Suppress $\mathbf{x}$. Fig.\ shows possible values of $(\alpha_0, \alpha_1)$. Red line: $\alpha_0 + \alpha_1 = 0$ so $Cor(T,T^*)=0$. Have to rule this out. Below red line $\alpha_0 + \alpha_1 <1$ so $Cor(T,T^*)>0$; above $Cor(T,T^*)<0$. Bounds on prev.\ slide assume below the red line. If we relax this, still get bounds for $\alpha_0, \alpha_1$: shaded rectangles. Blue = bounds from prev slide: $\alpha_0 \leq \min\{p_0, p_1\}$ and $\alpha_1 \leq \{1-p_0,1-p_1\}$. (In fig.\ $p_0 < p_1$). Gray means error so severe that $1-T$ is a better predictor of $T^*$ than $T$.
-      So $\alpha_0 + \alpha_1 <1$ just means rule out extreme error.
-      Equiv.\ to assume IV and $\beta$ have same sign.
-    \item Weak bounds for $(\alpha_0, \alpha_1, \beta)$ simple and informative. Others have used related idea: Frazis \& Loewenstein (2003) and Ura (forthcoming). But weak bounds don't use non-diff assump.
-      Know that non-diff is powerful: point identifies effect of an exog $T^*$.
-      Can we improve upon weak bounds for endog.\ $T^*$?
-    \item To answer this, derive sharp identified set under baseline assumptions: new to the literature.
-      Important even if our main concern is point identification: while we showed a flaw in Mahajan's proof, we did \emph{not} show $\beta$ not point identified.
-    \item How to derive sharp set? Question: for what values of unknown params can we construct valid joint dist.\ for $(y,T,T^*,z)$ compatible with observed joint for $(y,T,z)$ under our assumptions? Factorize: joint for $(T,T^*,z)$ \& conditional for $y|T,T^*,z$. Turns out that weak bounds for $(\alpha_0, \alpha_1)$ ensure valid joint for $(T,T^*,z)$ so suffices to look at conditional: $y|T,T^*,z$.
-  \end{itemize}
-}%
+%\note{\singlespacing \scriptsize
+%  \vspace{-2.3em}
+%  \begin{itemize}
+%    \item More about assumption $\alpha_0 + \alpha_1 < 1$.
+%      Suppress $\mathbf{x}$. Fig.\ shows possible values of $(\alpha_0, \alpha_1)$. Red line: $\alpha_0 + \alpha_1 = 0$ so $Cor(T,T^*)=0$. Have to rule this out. Below red line $\alpha_0 + \alpha_1 <1$ so $Cor(T,T^*)>0$; above $Cor(T,T^*)<0$. Bounds on prev.\ slide assume below the red line. If we relax this, still get bounds for $\alpha_0, \alpha_1$: shaded rectangles. Blue = bounds from prev slide: $\alpha_0 \leq \min\{p_0, p_1\}$ and $\alpha_1 \leq \{1-p_0,1-p_1\}$. (In fig.\ $p_0 < p_1$). Gray means error so severe that $1-T$ is a better predictor of $T^*$ than $T$.
+%      So $\alpha_0 + \alpha_1 <1$ just means rule out extreme error.
+%      Equiv.\ to assume IV and $\beta$ have same sign.
+%    \item Weak bounds for $(\alpha_0, \alpha_1, \beta)$ simple and informative. Others have used related idea: Frazis \& Loewenstein (2003) and Ura (forthcoming). But weak bounds don't use non-diff assump.
+%      Know that non-diff is powerful: point identifies effect of an exog $T^*$.
+%      Can we improve upon weak bounds for endog.\ $T^*$?
+%    \item To answer this, derive sharp identified set under baseline assumptions: new to the literature.
+%      Important even if our main concern is point identification: while we showed a flaw in Mahajan's proof, we did \emph{not} show $\beta$ not point identified.
+%    \item How to derive sharp set? Question: for what values of unknown params can we construct valid joint dist.\ for $(y,T,T^*,z)$ compatible with observed joint for $(y,T,z)$ under our assumptions? Factorize: joint for $(T,T^*,z)$ \& conditional for $y|T,T^*,z$. Turns out that weak bounds for $(\alpha_0, \alpha_1)$ ensure valid joint for $(T,T^*,z)$ so suffices to look at conditional: $y|T,T^*,z$.
+%  \end{itemize}
+%}%
     \hyperlink{BOUNDS_BODY}{\beamergotobutton{back}}
 
 \end{frame}
