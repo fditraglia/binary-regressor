@@ -1,0 +1,1176 @@
+\documentclass[handout]{beamer}  
+\usepackage{../slides}
+\usepackage{framed}
+\usepackage{cancel}
+\usepackage{appendixnumberbeamer}
+\setbeameroption{show notes}
+%\setbeameroption{hide notes}
+\defbeamertemplate{description item}{align left}{\insertdescriptionitem\hfill}
+
+%%%%%%%%%%%%%%%%%%%% Not needed at home!
+\usepackage[compatibility=false]{caption}
+\usepackage{subcaption}
+%%%%%%%%%%%%%%%%%%%% Not needed at home!
+
+\title[Binary Regressors]{Mis-Classified, Binary, Endogenous Regressors: Identification and Inference}
+\author[DiTraglia et al]{Francis J.\ DiTraglia\inst{1}  \and Camilo Garc\'{i}a-Jimeno\inst{2,3}}
+\institute[Penn]{\inst{1} University of Pennsylvania \and 
+\inst{2} Emory University \and \inst{3} NBER} 
+
+\date{November 14th, 2018}
+
+\begin{document} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+	\titlepage 
+  \note{%
+\footnotesize
+\singlespacing
+\begin{itemize}
+  \item Thank you for inviting me. Joint work with Camilo Garcia-Jimeno.
+  \item Intro.\ 'metrics students learn that a valid IV serves double duty: correct for endogeneity and classical measurement error
+  \item Classical measurement error is a special case: requires true value of regressor indep.\ of or at least uncorrelated with measurement error
+  \item Applied work often involves endogenous binary regressor: smoker/non-smoker or union/non-union.
+    Binary $\implies$ non-classical error. True 0 $\implies$ can only mis-measure \emph{upwards} as 1; true 1 $\implies$ can only mis-measure \emph{downwards} as 0. Error \emph{negatively correlated} with truth.
+  \item To accommodate this, consider \emph{non-diff} error. Say more later, but roughly non-diff means \emph{conditionally classical}: condition on truth and controls, remaining component of error unrelated to everything else.
+  \item Today pose simple question: binary, endog.\ regressor subject to non-diff.\ error. Can valid IV correct for \emph{both} measurement error and endog?
+\end{itemize}
+  
+  }%
+\end{frame} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{What is the effect of $T^*$?}
+\[
+  y = c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon
+\]
+\vspace{-1em}
+    \begin{itemize}    
+    \item $y$ -- Outcome of interest
+    \item $T^*$ -- Unobserved, endogenous binary regressor
+    \item $T$ -- Observed, mis-measured binary surrogate for $T^*$
+    \item $\mathbf{x}$ -- Exogenous covariates
+    \item $z$ -- Discrete (typically binary) instrumental variable
+    %\item $\varepsilon$ -- Mean-zero error term
+  \end{itemize}
+
+  %\vspace{2em}
+  %\alert{(Additively Separable $\varepsilon$ and binary $T^*$ $\Rightarrow$ linear model \alert{given $\mathbf{x}$})}
+
+  \note{%
+    \footnotesize
+    \singlespacing
+\begin{itemize}
+  \item Here is the specific model I will focus on today. Additively separable model, want to learn the causal effect of binary regressor $T^*$ on $y$. 
+    Unfortunately $T^*$ is unobserved. Observe only mis-measured binary surrogate $T$. To make matters worse, $T^*$ is endogenous, but we have a discrete instrument $z$.
+  \item Additive separability is an assumption. Allow very general forms of observed heterogeneity through $\mathbf{x}$ but restricts unobserved heterogeneity.
+  \item Conditionally linear model. This is without loss of generality since the model is additively separable and $T^*$ is binary.
+  \item Mainly focus on additively separable case today, but will also discuss implications of our results for a LATE model.
+\end{itemize}
+}%
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Using a discrete IV to learn about $\beta(\mathbf{x})$}
+ 
+\[
+  y = c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon
+\]
+
+\begin{alertblock}{Contributions of This Paper}
+  \begin{enumerate}
+    \item Show that only existing point identification result for mis-classified, endogenous $T^*$ is incorrect.
+    \item Sharp identified set for $\beta$ under standard assumptions.
+    \item Point identification of $\beta$ under slightly stronger assumptions.
+    \item Describe problem of weak identification in mis-classification models, develop identification-robust inference for $\beta$. 
+  \end{enumerate}
+\end{alertblock}
+
+    \note{%
+      \footnotesize
+      \singlespacing
+\begin{itemize}
+  \item Here are the main contributions of paper that I will discuss today.
+  \item Many papers consider using IV to identify effect of exog.\ mis-measured binary regressor, but little work on endog.\ case.
+    First: show only point identification result for this case incorrect: ident.\ is an open question.
+  \item Next: use standard assumptions to derive the ``sharp identified set'' for $\beta$. 
+    This means \emph{fully} exploit all information in the data and our assumptions to derive tightest possible bounds for $\beta$. If bounds contain a single point, $\beta$ is point identified. Otherwise partially identified.
+  \item Novel and informative bounds for $\beta$, but not point identified. 
+    Then consider slightly stronger assumptions that allow us to exploit additional features of the data and show that these suffice to point identify $\beta$.
+  \item Next consider inference. 
+    Show that mis-classification models, suffer from potential weak identification.  Propose procedure for robust inference.
+  \item Now a motivating example\ldots
+\end{itemize}
+    
+}%
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Example: Job Training Partnership Act (JTPA)}
+%\framesubtitle{Heckman et al.\ (2000, QJE)}
+%Randomized offer of job training, but about $30\%$ of those \emph{not} offered also obtain training and about $40\%$ of those offered training don't attend. Estimate causal effect of \emph{training} rather than \emph{offer} of training.
+%
+%\begin{itemize}
+%  \item $y$ -- Log wage 
+%  \item $T^*$ -- True training attendence
+%  \item $T$ -- Self-reported training attendance
+%  \item $\mathbf{x}$ -- Individual characteristics
+%  \item $z$ -- Offer of job training
+%\end{itemize}
+%   
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Example: Smoking and Birthweight (SNAP Trial)}
+\framesubtitle{Coleman et al.\ (N Engl J Med, 2012)}
+  RCT with pregnant smokers in England: half given nicotine patches, the rest given placebo patches.
+  Some given nicotine fail to quit; some given placebo quit.
+\begin{itemize}
+  \item $y$ -- Birthweight 
+  \item $T^*$ -- True smoking behavior 
+  \item $T$ -- Self-reported smoking behavior
+  \item $\mathbf{x}$ -- Mother characteristics
+  \item $z$ -- Indicator of nicotine patch
+\end{itemize}
+
+\note{\singlespacing\scriptsize}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Example: Schooling and Test Scores}
+%\framesubtitle{Burde \& Linden (2013, AEJ Applied)}
+%  RCT in Afghanistan: schools built in randomly selected villages.
+%  In treatment villages only some girls attend school; in control villages some girls attend school elsewhere.
+%  %32 villages divided into 11 clusters. Randomly choose 6 and set up school in each village of these clusters.
+%
+%\begin{itemize}
+%  \item $y$ -- Girl's score on math and language test 
+%  \item $T^*$ -- Girl's true school attendance
+%  \item $T$ -- Parent's report of child's school attendance
+%  \item $\mathbf{x}$ -- Child and household characteristics
+%  \item $z$ -- School built in village
+%\end{itemize}
+%
+%\note{%
+%  PUT SOME NOTES HERE!
+%}%
+%
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Related Literature}
+% 
+%  \begin{block}{Continuous Regressor}
+%    \small
+%  Lewbel (1997, 2012), Schennach (2004, 2007), Chen et al. (2005), Hu \& Schennach (2008), Song (2015), Hu et al.\ (2015)\ldots 
+%  \end{block}
+%
+%  \begin{block}{Binary/Discrete, ``Exogenous''} 
+%    \small
+%   Aigner (1973), Bollinger (1996), Kane et al. (1999), Black et al. (2000), Frazis \& Loewenstein (2003), Mahajan (2006), Lewbel (2007), Hu (2008), Molinari (2008)
+%  \end{block}
+%
+%  \begin{block}{Binary, Endogenous Regressor}
+%    \alert{Mahajan (2006)},\\ \small Shiu (2015), Denteh et al.\ (2016), Ura (2016), Calvi et al.\ (2017)
+%  \end{block}
+%
+%  \note{\small \singlespacing Large literature on measurement error. Can't summarize everything here. Draw out a few themes:
+%    \begin{itemize}
+%      \item Continuous vs.\ discrete
+%      \item Classical vs.\ non-classical
+%      \item Exogenous vs.\ endogenous
+%      \item Point out that identification has been established when $T^*$ is exogenous.
+%      \item Distinguish between the two results in Mahajan.
+%      \item Say very little on the other papers: just that there was almost no work on the endogenous case until very recently. A number of more recent papers that complement but don't overlap with ours. I'll say a bit more about the most closely related one later.
+%    \end{itemize}}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Baseline Assumptions I -- Model \& Instrument}
+
+  \begin{block}{Additively Separable Model}
+    $y = c(\mathbf{x}) + \beta(\mathbf{x}) T^* + \varepsilon, \quad \mathbb{E}[ \varepsilon] = 0$ 
+  \end{block}
+
+  \begin{block}{Valid \& Relevant Instrument: $z \in \left\{ 0,1 \right\}$}
+    \begin{itemize}
+      \item $\mathbb{P}(T^*=1|\mathbf{x},z=1) \neq \mathbb{P}(T^*=1|\mathbf{x},z=0)$
+      \item $\mathbb{E}[\varepsilon|\mathbf{x},z] = 0$
+      \item $0 < \mathbb{P}(z=1|\mathbf{x}) < 1$
+    \end{itemize}
+  \end{block}
+
+\note{\singlespacing\scriptsize
+  \begin{itemize}
+    \item This is an econometrics talk so there will unavoidably be some lists of assumptions! But I want to make sure it's clear what each group of assumptions is actually doing.
+    \item This slide and the thext one detail what I will call the ``baseline'' assumptions, which I will maintain through the talk.
+    \item The first part of the baseline assumptions concern the model and instrument: all that this slide says is that if $T^*$ were observed, then the model would be identified.
+    \item In particular, these conditions are simply the usual instrument relevance and validity conditions in the model with the true, unobserved regressor $T^*$.
+  \end{itemize}
+}%
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Baseline Assumptions II -- Measurement Error}
+
+
+  \begin{alertblock}{Notation}
+    \begin{itemize}
+      \item $\alpha_0(\mathbf{x},z) \equiv \mathbb{P}\left(T=1|T^*=0,\mathbf{x},z  \right)$
+  \item $\alpha_1(\mathbf{x},z) \equiv \mathbb{P}\left(T=0|T^*=1,\mathbf{x},z  \right)$
+    \end{itemize}
+  \end{alertblock}
+
+  \begin{block}{Mis-classification unaffected by $z$}
+    $\alpha_0(\mathbf{x},z) = \alpha_0(\mathbf{x}), \quad   \alpha_1(\mathbf{x},z) = \alpha_1(\mathbf{x})$
+  \end{block}
+
+  \begin{block}{Extent of Mis-classification}
+      $\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) < 1 \quad$ ($T$ is positively correlated with $T^*$)
+  \end{block}
+
+  \begin{block}{Non-differential Mis-classification}
+     $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon|\mathbf{x},z, T^*]$
+  \end{block}
+
+
+  \note{\singlespacing\tiny
+    \vspace{-2.5em}
+    \begin{itemize}
+      \item 2nd part of the baseline assumptions concerns measurement error process. 
+        First need some notation: mis-classification probs.\ $\alpha_0$ and $\alpha_1$. 
+        Two possible errors.
+        \emph{Upwards} mis-classification: observe $T=1$ when truth is $T^*1$.
+        This occurs with prob.\ $\alpha_0$.
+        \emph{Downwards} mis-classification: observe $T=0$ when truth is $T^*=1$.
+        This occurs with prob.\ $\alpha_1$.
+        Convention uses subscripts to indicate the value of \emph{truth}: $\alpha_0$ is mis-classification prob.\ when $T^*=0$ ($\uparrow$) and $\alpha_1$ when $T^*=1$ ($\downarrow$).  
+        So far notation: now restrictions
+      \item First: given $x$ the mis-class.\ rates don't depend on z. Restrictive, but hard to make progress without it.
+        How reasonable depends on $\mathbf{x}$ and specific setting.
+        Plausible: smoking mothers didn't know if they had the real or placebo patch.
+        Implausible:  Levitt coin-toss experiment.
+        Does making a big life change (e.g.\ quit job) make you happier?
+        People considering big change flip a coin: heads = Levitt tells you to change, tails = he doesn't. Here $T^*=$ did you really change and $T=$ self-report. People who were told to change to but didn't ($z=1,T^*=0$) more likely have $T=0$ than people who weren't told to change and didn't ($z=0, T^*=0$)
+      \item Second: $Cor(T,T^*)>0 \iff \alpha_0 + \alpha_1 < 1$. Mild assumption. I'll say more in a few slides.
+      \item Third: \emph{non-diff} assumption. Stated in terms of epsilon, but what this really requires is conditional mean of Y doesn't depend on $T$ given $(\mathbf{x},z,T^*)$. Plausibility depends on the situation and the controls in $\mathbf{x}$. Example of what this rules out: ``returns to lying.'' E.g.\ $Y=\log(\mbox{wage})$, $T^*=$ true college dummy, and $T=$self-report of college. If employers can't perfectly observe credentials, there could be a \emph{direct} effect of $T$ on $y$ even after controlling for $T^*$. Working on a paper based on this example with Arthur Lewbel.
+    \end{itemize}
+  }%
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Existing Results} 
+
+  \begin{block}{Correct: Exogenous $T^*$}
+    \begin{itemize}
+      \item Mahajan (2006), Frazis \& Loewenstein (2003)
+      \item $\mathbb{E}[\varepsilon|\mathbf{x},z,T^*] = 0$ + ``Baseline'' $\Rightarrow \beta(\mathbf{x})$ identified.
+   \end{itemize}
+  \end{block}
+  
+  \begin{alertblock}{Incorrect: Endogenous $T^*$}
+    \begin{itemize}
+    \item Mahajan (2006) A.2
+    \item $\mathbb{E}[\varepsilon|\mathbf{x}, z, T^*, T] = \mathbb{E}[\varepsilon|\mathbf{x},T^*]$ + ``Baseline'' $\Rightarrow \beta(\mathbf{x})$ identified. 
+  \end{itemize}
+  \end{alertblock}
+
+  \begin{framed}
+    We show: Mahajan's assumptions imply that the instrument $z$ is uncorrelated with $T^*$ unless $T^*$ is in fact \emph{exogenous}.
+  \end{framed}
+
+
+  \note{\singlespacing \scriptsize
+    \begin{itemize}
+        \vspace{-2em}
+      \item Two results from the existing literature closely related to our own: one for \emph{exogenous} $T^*$, and one for \emph{endogenous} $T^*$. Exogenous case: various papers have looked at this, but most general and closest to how I've set things up above is a result in Mahajan (2006). Similar although less general result in Frazis \& Loewenstein (2003). Baseline assumptions plus a \emph{joint exogeneity condition} for $T^*$ and $z$ point identify $\beta$. 
+        Notice that if you're interested in a conditional mean function rather than a causal effect, additive separability and exogeneity of $T^*$ come for free.
+        Estimator is \emph{not} IV, but non-linear GMM estimator.
+      \item The only existing result for the \emph{endogenous} $T^*$ case also appears in Mahajan. To be fair, this is \emph{not} the main point of his paper, which primarily concerns the exogenous case.
+        Mahajan argues that the baseline conditions plus a somewhat exotic-looking condition here implies that $\beta$ is point identified.
+        The purpose of this additional condition is to create a link with his earlier result for the exogenous case.
+        Idea is as follows: $\alpha_0$ and $\alpha_1$ have the same meaning regardless of whether you are estimating a conditional mean model or a causal model. Try to recover $(\alpha_0, \alpha_1)$ using the exogenous $T^*$ result, and then ``plug them in'' in a second step.
+        This strategy relies on the additional assump.
+      \item First contribution: we show that Mahajan's assumptions imply that $z$ is \emph{irrelevant}, uncorrelated with $T^*$, \emph{unless} $T^*$ is \emph{exogenous}.
+        Mahajan's argument for the endogenous $T^*$ fails; identification is an open question.
+    \end{itemize}
+}%
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[label=BOUNDS_BODY]
+  \frametitle{``Weak'' Bounds}
+
+  \begin{block}{First-Stage}
+    \vspace{-2em}
+    \[p_k(\mathbf{x}) \equiv  \mathbb{P}(T=1|\mathbf{x},z=k)\]
+  \end{block}
+
+  \begin{block}{IV Estimand}
+    \vspace{-0.5em}
+    \[\displaystyle\frac{\mathbb{E}[y|\mathbf{x},z=1] - \mathbb{E}[y|\mathbf{x},z=0]}{p_1(\mathbf{x}) - p_0(\mathbf{x})} = \frac{\beta(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}\]
+  \end{block}
+
+  \begin{block}{Bounds for $(\alpha_0, \alpha_1)$}
+    $\alpha_0(\mathbf{x}) \leq \min_k \left\{ p_k(\mathbf{x}) \right\}, \quad \alpha_1(\mathbf{x}) \leq \min_k\left\{ 1 - p_k(\mathbf{x}) \right\}$ \hyperlink{BOUNDS_APPEND}{\beamergotobutton{more}}
+  \end{block}
+
+
+  \begin{alertblock}{Bounds for $\beta$}
+    $\beta(\mathbf{x})$ is between IV and Reduced form; same sign as IV. \hyperlink{IV_APPEND}{\beamergotobutton{more}}
+  \end{alertblock}
+
+  \note{Add some notes here\dots}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[plain, c]
+  %\frametitle{$\alpha_0 \leq \min_k \left\{p_k\right\}, \; \; \alpha_1 \leq \min_k \left\{1 - p_k\right\}$}
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[scale=6]
+    \draw [fill = lightgray] (0.66,0.75) rectangle (1,1);
+    \draw [fill = cyan] (0,0) rectangle (0.25, 0.34);
+    \draw [thick, <->] (0,1.1)
+    node[above] {$\alpha_1$} -- (0,0) 
+    node [below left] {$(0,0)$} -- (1.1,0) 
+    node [right] {$\alpha_0$};
+    \draw [thick] (0.25,0.02) -- (0.25,-0.02) node [below] {$p_0$}; 
+    \draw [thick] (0.02,0.75) -- (-0.02,0.75) node [left] {$1 - p_0$}; 
+    \draw [thick] (0.66,0.02) -- (0.66,-0.02) node [below] {$p_1$}; 
+    \draw [thick] (0.02,0.34) -- (-0.02,0.34) node [left] {$1 - p_1$}; 
+    \draw [thick, red] (0,1) to (1,0); 
+    \node [right, red] at (0.06,0.95) {$\alpha_0 + \alpha_1 = 1$};
+    \draw [thick] (0,1) -- (1,1) -- (1,0);
+    \node [above right] at (1,1) {$(1,1)$};
+    \end{tikzpicture}
+\end{figure}
+
+\note{\singlespacing \scriptsize
+  \begin{itemize}
+    \item Describe the picture. Explain how the upper-right corner of the blue rectangle corresponds to the reduced form estimator and the lower-left to the IV estimator. Explain $\alpha_0 + \alpha_1 < 1$ in relation to the gray rectangle and red line.
+    \item Weak bounds for $(\alpha_0, \alpha_1, \beta)$ simple and informative. Others have used related idea: Frazis \& Loewenstein (2003) and Ura (forthcoming). But weak bounds don't use non-diff assump.
+      Know that non-diff is powerful: point identifies effect of an exog $T^*$.
+      Can we improve upon weak bounds for endog.\ $T^*$?
+    \item To answer this, derive sharp identified set under baseline assumptions: new to the literature.
+      Important even if our main concern is point identification: while we showed a flaw in Mahajan's proof, we did \emph{not} demonstrate
+    \item How to derive sharp set? Question: for what values of unknown params can we construct valid joint dist.\ for $(y,T,T^*,z)$ compatible with observed joint for $(y,T,z)$ under our assumptions? Factorize: joint for $(T,T^*,z)$ \& conditional for $y|T,T^*,z$. Turns out that weak bounds for $(\alpha_0, \alpha_1)$ ensure valid joint for $(T,T^*,z)$ so suffices to look at conditional: $y|T,T^*,z$.
+  \end{itemize}
+}%
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Partial Identification Bounds for $\beta(\mathbf{x})$}
+%
+%  \begin{block}{``Weak Bounds''}
+%    \begin{itemize}
+%      \item $\beta(\mathbf{x})$ is between Wald and Reduced form; same sign as Wald.
+%      \item Doesn't rely on non-differential assumption or additive sep.\
+%      \item Frazis \& Loewenstein (2003), Ura (2016), \ldots
+%    \end{itemize}
+%    \end{block}
+%
+%    \begin{alertblock}{Non-differential Assumption}
+%      \begin{itemize}
+%        \item $\mathbb{E}[\varepsilon|\mathbf{x},T^*,T,z] = \mathbb{E}[\varepsilon|\mathbf{x},T^*,z]$
+%        \item Used in literature to identify $\beta(\mathbf{x})$ when $T^*$ is exogenous. 
+%        \item Does it restrict the identified set when $T^*$ is \alert{endogenous}? 
+%        %\item Is $\beta(\mathbf{x})$ identified under the baseline assumptions?
+%      \end{itemize}
+%    \end{alertblock}
+%
+%    \note{Answer turns out to be yes. Now talk about our 2nd contribution: deriving the so-called ``sharp'' identified set }
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t]
+  \frametitle{Restrictions from Non-differential Mis-classification?}
+  \framesubtitle{(Suppress $\mathbf{x}$ for simplicity)}
+
+  \footnotesize
+
+  \begin{block}{Notation}
+    \begin{itemize}
+      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$
+      \item $z_k$ is shorthand for $z =k$\\
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Iterated Expectations over $T^*$}
+    \vspace{-1em}
+  \begin{align*}
+    \mathbb{E}(y|T=0,z_k) &= (1 - r_{0k})\mathbb{E}(y|T^*=0,T=0,z_k) + r_{0k}\mathbb{E}(y|T^*=1,T=0,z_k)\\
+    \mathbb{E}(y|T=1,z_k) &= (1 - r_{1k}) \mathbb{E}(y|T^*=0,T=1,z_k) + r_{1k}\mathbb{E}(y|T^*=1,T=1,z_k)
+  \end{align*}
+  \end{block}
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t,noframenumbering]
+  \frametitle{Restrictions from Non-differential Mis-classification?}
+  \framesubtitle{(Suppress $\mathbf{x}$ for simplicity)}
+
+  \footnotesize
+
+  \begin{block}{Notation}
+    \begin{itemize}
+      \item $r_{tk} \equiv \mathbb{P}(T^*=1|T=t,z=k)$
+      \item $z_k$ is shorthand for $z =k$\\
+    \end{itemize}
+  \end{block}
+  
+  \begin{block}{Adding Non-differential Assumption}
+    \vspace{-1em}
+  \begin{align*}
+    \mathbb{E}(y|T=0,z_k) &= (1 - r_{0k})\textcolor{blue}{\mathbb{E}(y|T^*=0,z_k)}\phantom{,T=0} + r_{0k}\textcolor{red}{\mathbb{E}(y|T^*=1,z_k)}\phantom{,T=0}\\
+    \mathbb{E}(y|T=1,z_k) &= (1 - r_{1k}) \textcolor{blue}{\mathbb{E}(y|T^*=0,z_k)}\phantom{,T=1} + r_{1k}\textcolor{red}{\mathbb{E}(y|T^*=1,z_k)}\phantom{,T=1}
+  \end{align*}
+
+  \vspace{1em}
+  \fbox{2 equations in 2 unknowns $\Rightarrow$ solve for $\mathbb{E}(y|T^*=t^*,z=k)$ given $(r_{0k}, r_{1k})$.}
+  \end{block}
+
+  \note{\singlespacing\scriptsize
+    \begin{itemize}
+      \item Suppress dependence on $\mathbf{x}$. Study conditional dist of $y|T,T^*,z$. Unobserved but related to dist of $y|T,z$ via a mixture model. Mixing probs are $r_{tk}$. These turn out to be a function of $(\alpha_0, \alpha_1)$ and observables only. Shorthand: $z_k$ denotes $z=k$.
+      \item First look at means. For each value $k$ that the IV takes on, there are two observed means $\mathbb{E}[y|T=(0,1),z_k]$ and four unobserved means $\mathbb{E}[y|T=(0,1),T^*=(0,1),z_k]$. But the non-diff assumption restricts the four unobserved means: we can \emph{drop} $T$ from the conditioning set after conditioning on $T^*,z$. Hence, only two unknown means: color-coded to show common unknowns across equations.
+      \item Remember: $r_{tk}$ is known given $(\alpha_0, \alpha_1)$, so we see that the non-diff.\ assumption lets us solve for the two unknown means at any specified pair $(\alpha_0, \alpha_1)$: we simply have two linear equations in two unknowns.
+    \end{itemize}
+  }%
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Restrictions from Non-differential Mis-classification?}
+
+  \begin{block}{Mixture Representation}
+    \vspace{-1.5em}
+  \[
+    \textcolor{blue}{F_{tk}} = (1 - r_{tk}) \alert{F^{0}_{tk}} + r_{tk}\alert{F^{1}_{tk}}
+  \]
+  \scriptsize
+
+  \vspace{-1em}
+    \begin{align*}
+    \textcolor{blue}{F_{tk}} &\equiv  y|(T=t,z=k) \\
+    \alert{F^{t^*}_{tk}} &\equiv  y|(T^*=t^*,T=t,z=k)
+    \end{align*}
+  \end{block}
+
+  \begin{block}{Restrictions}
+    \begin{itemize} 
+    \small
+      \item $\mathbb{E}(y|T^*,T,z) = \mathbb{E}(y|T^*,z)$ observable given $(\alpha_0, \alpha_1)$
+      \item $r_{tk}$ observable given $(\alpha_0, \alpha_1)$
+    \end{itemize}
+    
+  \end{block}
+
+  \begin{alertblock}{Question}
+    \small
+  Given $(\alpha_0, \alpha_1)$ can we always find $(F_{tk}^0, F_{tk}^1)$ to satisfy the mixture model? 
+  \end{alertblock}
+    
+
+  \note{\singlespacing\scriptsize
+    \begin{itemize}
+      \item Looked at means, now look at distributions. Observe $F_{tk}$ the distribution of $y|T,z$. This is a mixture of two unobserved distributions: $F_{tk}^0$ and $F_{tk}^1$.
+      \item Although $(F_{tk}^0, F_{tk}^1)$ are unobserved, they're constrained. First, they need to ``integrate'' to $F_{tk}$ which is observed. Second, the mixing probability $r_{tk}$ is a \emph{known} function of $(\alpha_0, \alpha_1)$ given observables. Third, as we saw on the preceding slide, non-differential measurement error implies that the means of $F_{tk}^0$ and $F_{tk}^1$ are \emph{known} functions of $(\alpha_0, \alpha_1)$.
+      \item Given these constraints, can we find valid distributions $(F_{tk}^0, F_{tk}^1)$ to satisfy the mixture representation for \emph{any pair} $(\alpha_0, \alpha_1)$? Or are there some values for the mis-classification probabilities that are incompatible with the mixture model?
+    \end{itemize}
+  }%
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Restrictions from Non-differential Mis-classification?}
+
+  \begin{block}{Equivalent Problem}
+    \small
+    Given a specified CDF $F$, for what values of $p$ and $\mu$ do there exist valid CDFs $(G,H)$ with $F = (1 - p) G + p H$ and $\mu = \mbox{mean}(H)$? 
+\end{block}
+
+  \begin{alertblock}{Necessary and Sufficient Condition if $F$ is Continuous}
+    \vspace{-1em}
+   \[
+     \underline{\mu}(F,p) \leq \;  \mu \; \leq \overline{\mu}(F,p)
+   \]
+
+    \scriptsize
+    \begin{align*}
+      \underline{\mu}(F,p) &\equiv \int_{-\infty}^{\infty}x \left[p^{-1}f(x)\mathbf{1}\{ x < F^{-1}(p)\} \right] dx  = \int_{-\infty}^{\infty} x\underline{h}(x)\; dx\\
+      \overline{\mu}(F,p) &\equiv \int_{-\infty}^{\infty} x \left[p^{-1}f(x) \mathbf{1}\{x > F^{-1}(1 - p)\}\right] dx = \int_{-\infty}^{\infty}x \bar{h}(x)\; dx
+   \end{align*}
+  \end{alertblock}
+
+  \note{\singlespacing\scriptsize
+    \begin{itemize}
+      \item To answer this question, we need to answer a more abstract question about mixture distributions. In particular, suppose that we observe a distribution $F$. Can we construct valid distributions $(G,H)$ such that $F$ ia s mixture of $G$ and $H$ in which $H$ has mixing weight $p$ and mean $\mu$?
+      \item To be clear: in this exercise $F$ is fixed. The question is: if I postulate a mixing probability $p$ and a mean $\mu$ for one of the mixture components, can this ever lead to a contradiction? Are we free to pick any pair $(p,\mu)$ or does the observed distribution $F$ tie our hands?
+      \item It turns out that if $y$ is continuously distributed, one can derive relatively simple necessary and sufficient conditions using a first-order stochastic dominance argument.
+      \item In particular: for any fixed $(F,p)$ there is a lower bound $\underline{\mu}$ and an upper bound $\overline{\mu}$ within which the postulated mean $\mu$ \emph{must} lie, for it to be possible to construct a valid mixture. These lower and upper bounds are in fact expectations taken with respect to densities constructed by \emph{truncating} $F$. 
+      \item Rather than staring at these integrals, let's look at a simple example.
+    \end{itemize}
+  }%
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point1.tex}
+}
+\end{figure}
+
+  \note{\singlespacing\scriptsize
+    \begin{itemize}
+      \item This picture has three panels. The middle panel shows the observed distribution $f$. I have chosen a simple mixture of normals with variance equal to one: 70\% of the weight is assigned to the one with a mean of $-2$ and 30\% to the one with a mean of $+2$.
+      \item The top panel depicts the ``lower bound'' density $\underline{h}$. This density takes its shape from the \emph{lower tail} of $f$. In is simply $f$ \emph{truncated} to take on values below its $p$th quantile.
+      \item The bottom panel depicts the ``upper bound'' density $\overline{h}$. This density takes its shape from the \emph{upper tail} of $f$. It is simply $f$ \emph{trucated} to take on values above its $(1-p)$th quantile.
+      \item For this particular choice of observed distribution $f$, the figure shows how a particular postulated value of $p$, in this instance $0.1$, constrains $\mu$: it is bounded below by $\underline{\mu} = -3.58$ and bounded above by $\overline{\mu}=3.09$. This means that if $p=0.1$, then $\mu$ must lie between $-3.58$ and $3.09$ for it to be possible to construct a valid mixture that ``integrates'' to $f$. As we increase $p$, these bounds tighten, so we have less freedom in our choice of $\mu$. 
+    \end{itemize}
+  }%
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point2.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point3.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point4.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point5.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point6.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point7.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point8.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.85\textwidth}{!}{%
+  \input{./densities_point9.tex}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\begin{figure}[h]
+  \centering
+\resizebox{0.87\textwidth}{!}{%
+  \input{./identified_set.tex}
+}
+\end{figure}
+
+
+  \note{\singlespacing\scriptsize
+    \begin{itemize}
+      \item For this particular choice of $f$, a mixture of normals, the blue shaded region shows all pairs $(p, \mu)$ that are compatible with the mixture.
+      \item If $p=0$, $\mu$ is unconstrained. This makes sense: in this case $H$ can have any mean because it contributes nothing to the mixture that generates $F$.
+      \item In contrast, if $p=1$ then $\mu$ must \emph{equal} the mean of the observed distribution $F$, in this case $-0.8$, since this corresponds to a degenerate mixture in which $F=H$.
+      \item So how does this relate to our original problem? Remember that we observe the distribution of $y|T,z$ which is related to the unobserved distribution of $y|T,T^*,z$ via a mixture model. The mixing probability depends only on observables and $(\alpha_0, \alpha_1)$ as do the means of the mixture components. Hence, some values of $(\alpha_0, \alpha_1)$ are incompatible with the mixture model.
+        This in turn restricts $\beta$ through its relationship to the IV estimand. In fact we have \emph{joint} restrictions for all $(t,k)$ so the book-keeping is complicated, but the basic intuition is exactly as I've shown you in this simple mixture of normals example.
+    \end{itemize}
+  }%
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Sharp Identified Set under Baseline Assumptions}
+
+
+  \begin{alertblock}{Theorem}
+    \begin{enumerate}[(i)]
+      \item If $\mathbb{E}[y|\mathbf{x},T=0,z=k] \neq \mathbb{E}[y|\mathbf{x},T=1,z=k]$ for some $k$, non-differential assump.\ strictly improves upon weak bounds.
+      \item Under the baseline assumptions, $\beta$ is not point identified, regardless of how many (discrete) values $z$ takes on.
+    \end{enumerate}
+  \end{alertblock}
+
+
+  \begin{block}{Corollary}
+    Bounds for $\alpha_0, \alpha_1$, and $\beta$ remain valid in a LATE model. They may not be sharp, however, sharp, since they do not incorporate the testable implications of the LATE assumptions.
+  \end{block}
+
+  \note{\singlespacing\scriptsize
+    \vspace{-2em}
+    \begin{itemize}
+      \item Second main contribution: sharp identified set for $(\alpha_0, \alpha_1, \beta)$ under the baseline assumptions. The description of the set is fairly complicated, so I'm not going to show it on the slide. But the form that this set takes leads to two important results. First, the non-differential measurement error assumption \emph{generically} improves upon the weak bounds. Second, under the baseline assumptions $\beta$ is \emph{never} point identified, regardless of how many different (discrete) values $z$ takes.
+      \item Some intuition: the true $\beta$ always lies within the identified set by definition. It turns out that $\alpha_0 = \alpha_1 = 0$ implies that the mixing probabilities $r_{tk}$ are all either zero or one. But in this case the mixtures are trivial, so we can simply set $F = H$. Hence, the IV estimand always lies in the sharp identified set.
+      \item Corollary: everything I've said so far concerns an additively separable model. But in fact, bounds we derive under the baseline assumptions remain valid if we re-state our assumptions so that they involve a LATE model. These bounds may not be sharp in a LATE model, however, because the LATE assumptions themselves have testable implications. We don't impose these since we're mainly interested in the additively separable case.
+      \item What now? Sharp bounds quite informative in practice, but they do not point identify $\beta$.
+        Baseline assumptions aren't enough. Are there slightly stronger but still plausible assumptions that allow us to point identify $\beta$? Yes! 
+    \end{itemize}
+  }%
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Point Identification: 1st Ingredient}
+
+
+
+  \begin{block}{Reparameterization}
+    \vspace{-1em}
+\begin{align*}
+  \theta_1(\mathbf{x}) &= \beta(\mathbf{x})/\left[ 1 - \alpha_0(\mathbf{x}) - \mathbf{\alpha}_1(\mathbf{x})  \right]\\
+  \theta_2(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^2 \left[ 1 + \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})\right] \\
+  \theta_3(\mathbf{x}) &= \left[\theta_1(\mathbf{x})\right]^3\left[ \left\{ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right\}^2 + 6\alpha_0(\mathbf{x})\left\{ 1 - \alpha_1(\mathbf{x}) \right\} \right]
+\end{align*}
+  \end{block}
+
+
+  \begin{block}{Lemma}
+    Baseline Assumptions $\implies \alert{\mbox{Cov}(y,z|\mathbf{x}) = \theta_1(\mathbf{x}) \mbox{Cov}(z,T|\mathbf{x})}$.
+  \end{block}
+
+  \note{Note that $\beta = 0$ iff $\theta_1 = \theta_2 = \theta_3 = 0$.}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Point Identification: 2nd Ingredient}
+
+  \begin{block}{Assumption (II)}
+    $\mathbb{E}[\varepsilon^2|\mathbf{x},z] = \mathbb{E}[\varepsilon^2|\mathbf{x}]$
+  \end{block}
+
+  \vspace{0.5em}
+
+  \begin{block}{Lemma}
+    (Baseline) + (II) $\implies$ 
+    \[
+      \alert{\mbox{Cov}(y^2,z|\mathbf{x}) = 2\mbox{Cov}(yT,z|\mathbf{x}) \theta_1(\mathbf{x}) -\mbox{Cov}(T,z|\mathbf{x})\theta_2(\mathbf{x})}
+    \]
+  \end{block}
+
+  \vspace{0.5em}
+
+  \begin{block}{Corollary}
+    (Baseline) + (II) + $[\beta(\mathbf{x})\neq 0] \implies \left[ \alpha_1(\mathbf{x}) - \alpha_0(\mathbf{x}) \right]$ is identified. 
+    %Hence, $\beta(\mathbf{x})$ is identified if mis-classification is one-sided.
+  \end{block}
+    
+
+  \note{Notice that the corollary implies that $\beta$ is point identified if mis-classification is one-sided, as it might well be in the smoking example.}
+
+  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Point Identification: 3rd Ingredient}
+
+  \begin{block}{Assumption (III)}
+    \begin{enumerate}[(i)]
+    \item $\mathbb{E}[\varepsilon^2|\mathbf{x},z,T^*,T] = \mathbb{E}[\varepsilon^2|\mathbf{x},z, T^*]$
+    \item $\mathbb{E}[\varepsilon^3|\mathbf{x},z] = \mathbb{E}[\varepsilon^3|\mathbf{x}]$
+  \end{enumerate}
+  \end{block}
+ 
+  \begin{block}{Lemma}
+    (Baseline) + (II) + (III) $\implies$ 
+  \small
+\[
+  \alert{\mbox{Cov}(y^3,z|\mathbf{x}) = 3 \mbox{Cov}(y^2T,z|\mathbf{x}) \theta_1(\mathbf{x}) -3\mbox{Cov}(yT,z|\mathbf{x}) \theta_2(\mathbf{x}) + \mbox{Cov}(T,z|\mathbf{x}) \theta_3(\mathbf{x})}
+\]
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Point Identification Result}
+
+  \small 
+
+  \begin{alertblock}{Theorem}
+    (Baseline) + (II) + (III) $\implies \beta(\mathbf{x})$ is point identified.
+    If $\beta(\mathbf{x}) \neq 0$, then $\alpha_0(\mathbf{x})$ and $\alpha_1(\mathbf{x})$ are likewise point identified.
+  \end{alertblock}
+
+\vspace{1em}
+
+  \begin{block}{Explicit Solution}
+\vspace{-1em}
+    \[
+      \beta(\mathbf{x}) = \mbox{sign}\left[ \theta_1(\mathbf{x}) \right] \sqrt{3\left[ \theta_2(\mathbf{x})/\theta_1(\mathbf{x}) \right]^2 - 2\left[ \theta_3(\mathbf{x})/\theta_1(\mathbf{x}) \right]} 
+    \]
+
+  \end{block}
+
+\vspace{1em}
+
+  \begin{block}{Sufficient for (II) and (III)}
+    \vspace{-0.5em}
+    \begin{enumerate}[(a)]
+      \item $T$ is conditionally independent of $(\varepsilon,z)$ given $(T^*,\mathbf{x})$
+      \item $z$ is conditionally independent of $\varepsilon$ given $\mathbf{x}$
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+\note{Comment on the sufficient conditions: say that we really think these are what people have in mind in a natural experiment setting. Explain about reporting results in both logs and levels.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[label=INEQ_BODY]
+  \frametitle{Inference for a Mis-classified Regressor}
+  \small
+
+  \begin{block}{Weak Identification}
+\begin{itemize}
+  \item $\beta$ small $\Rightarrow$ moment equalities uninformative about $(\alpha_0, \alpha_1)$ \hyperlink{MEQS_APPEND}{\beamergotobutton{more}}
+  \item $(\alpha_0, \alpha_1)$ could be on the boundary of the parameter space
+  \item Also true of existing estimators that assume $T^*$ exogenous
+\end{itemize}
+\end{block}
+
+\begin{alertblock}{Our Approach}
+
+  \begin{itemize}
+    \item Sharp identified set yields \emph{inequality} moment restrictions that remain informative even if $\beta \approx 0$.
+      \hyperlink{INEQ_APPEND}{\beamergotobutton{more}}
+    \item Identification-robust inference with equality and inequality MCs.
+  \end{itemize}
+\end{alertblock}
+
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Inference with Moment Equalities and Inequalities}
+  \small
+
+\begin{block}{Moment Conditions}
+  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\vartheta_0) \right] \geq 0, \quad j = 1, \cdots, J$\\
+  $\mathbb{E} \left[ m_j(\mathbf{w}_i,\vartheta_0) \right]  = 0, \quad j = J+1, \cdots, J + K$
+\end{block}
+
+
+\begin{block}{Test Statistic}
+  \vspace{-1em}
+\[
+  T_n(\vartheta) = \sum_{j=1}^J \left[\frac{\sqrt{n}\; \bar{m}_{n,j}(\vartheta)}{\widehat{\sigma}_{n,j}(\vartheta)}\right]^2_- + \sum_{j=J+1}^{J+K} \left[\frac{\sqrt{n}\; \bar{m}_{n,j}(\vartheta)}{\widehat{\sigma}_{n,j}(\vartheta)}\right]^2
+\]
+\scriptsize
+%\[
+%[x]_- = \min\left\{ x, 0 \right\}, \quad
+%\bar{m}_{n,j}(\vartheta) = n^{-1} \sum_{i=1}^{n} m_j(\mathbf{w}_i, \vartheta), \quad \widehat{\sigma}^2_{n,j}(\vartheta) \rightarrow^p \mbox{AVAR}\left[  \sqrt{n}\; \bar{m}_{n,j}(\vartheta)\right]
+%\]
+\end{block}
+
+  \begin{block}{Critical Value} 
+    \begin{itemize}
+      \item $\sqrt{n}\, \bar{m}_n(\vartheta_0) \rightarrow_d$ normal limit with covariance matrix $\Sigma(\vartheta_0)$
+    \item Use this to bootstrap the limit dist.\ of  $T_n(\vartheta)$ under $H_0\colon \vartheta = \vartheta_0$
+    \end{itemize}
+  \end{block}
+  
+  \note{Explain about the meaning of the m-var, the sigma-hat and the ``minus'' subscript}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Generalized Moment Selection}
+
+  \small
+
+  \begin{block}{Andrews \& Soares (2010)}
+    \begin{itemize}
+      \item Inequalities that don't bind reduce power of test, so eliminate those that are ``far from binding'' before calculating critical value:
+        \[\boxed{\mbox{Drop inequality } j \mbox{ if }  \alert{\displaystyle\frac{\sqrt{n}\,\bar{m}_{n,j}(\vartheta_0)}{\widehat{\sigma}_{n,j}(\vartheta_0)} > \sqrt{\log n}}}\]
+      \item Uniformly valid test of $H_0\colon \vartheta = \vartheta_0$ even if $\vartheta_0$ is not point identified. 
+      \item Not asymptotically conservative.
+    \end{itemize}
+  \end{block}
+
+
+  \begin{block}{Problem}
+   \emph{Joint test} for the whole parameter vector but we're only interested in $\beta$.
+   Projection is conservative and computationally intensive.
+  \end{block}
+
+  \note{Explain what not asymptotically conservative means. Explain what projection is and why it's conservative and computationally intensive.}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Our Solution: Bonferroni-Based Inference}
+  
+
+  \begin{block}{Special Structure}
+    \begin{itemize}
+      \item $\beta$ only enters MCs through $\theta_1 = \beta/ (1 - \alpha_0 - \alpha_1)$
+      \item Strong instrument $\Rightarrow$ inference for $\theta_1$ is standard.
+      \item Nuisance pars $\boldsymbol{\gamma}$ strongly identified under null for $(\alpha_0, \alpha_1)$
+    \end{itemize}
+    \pause
+
+    \begin{block}{Procedure}
+      \begin{enumerate}
+        \item Concentrate out $(\theta_1, \boldsymbol{\gamma}) \Rightarrow$ joint GMS test for $(\alpha_0, \alpha_1)$ \pause 
+        \item Invert test $\Rightarrow (1 - \delta_1)\times 100\%$ confidence set for $(\alpha_0, \alpha_1)$ \pause
+        \item Project $\Rightarrow$ CI for $(1 - \alpha_0 - \alpha_1)$ \pause
+        \item Construct standard $(1 - \delta_2)\times 100\%$ IV CI for $\theta_1$ \pause
+        \item Bonferroni $\Rightarrow (1 - \delta_1 - \delta_2)\times 100\%$ CI for $\beta$
+      \end{enumerate}
+    \end{block}
+    
+  \end{block}
+
+  \note{Explain that the procedure works well in simulations etc. Possibly add link to simulation here.}
+  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Example \hfill \small{(sim data: $\beta = 1, \alpha_0 = 0.1, \alpha_1 = 0.2, n = 5000$)}}
+%
+%\begin{block}{Results if $T^*$ were observed}
+%\begin{figure}[h]
+%  \centering
+%\resizebox{0.5\textwidth}{!}{%
+%  \input{./histograms_Tstar.tex}
+%}
+%\end{figure}
+%\[\widehat{\beta}_{IV} = 0.96, \quad \mbox{95\% CI } = (0.88, 1.04)\]
+%\end{block}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[noframenumbering]
+%  \frametitle{Example \hfill \small{(sim data: $\beta = 1, \alpha_0 = 0.1, \alpha_1 = 0.2, n = 5000$)}}
+%
+%  \begin{alertblock}{Results using $T$ instead of $T^*$}
+%\begin{figure}[h]
+%  \centering
+%\resizebox{0.5\textwidth}{!}{%
+%  \input{./histograms_Tobs.tex}
+%}
+%\end{figure}
+%\[\alert{\widehat{\beta}_{IV} = 1.34, \quad \mbox{95\% CI } = (1.22, 1.45)}\]
+%\end{alertblock}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Example \hfill \small{(sim data: $\beta = 1, \alpha_0 = 0.1, \alpha_1 = 0.2, n = 5000$)}}
+
+\begin{columns}
+  \column{0.6\textwidth}
+  \vspace{-2em}
+\begin{figure}[h]
+  \centering
+\resizebox{\textwidth}{!}{%
+  \input{./GMS_CI.tex}
+}
+\end{figure}
+  \column{0.6\textwidth}
+  \scriptsize
+  \pause
+  \begin{alertblock}{\small Bonferroni Interval}
+  \begin{enumerate}
+    \item $97.5\% \mbox{ CI for } (1 - \alpha_0 - \alpha_1) = (0.64, 0.82)$
+      \pause
+    \item $97.5\% \mbox{ CI for } \theta_1 = (1.20, 1.47)$ 
+      \pause
+    \item $> 95\%$ CI for $\beta$: \\
+      $(0.64 \times 1.20, 0.82 \times 1.47) = \alert{(0.77,1.21)} $
+  \end{enumerate}
+    \end{alertblock}
+\pause
+  \begin{block}{\small Comparisons}
+    \begin{itemize}
+      \item (0.88, 1.04) for IV if $T^*$ were observed
+      \item (1.22,1.45) for naive IV interval using $T$
+    \end{itemize}
+\end{block}
+
+\end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Conclusion}
+
+  \small
+
+  \begin{block}{This Paper}
+    \begin{itemize}
+      \item Partial and point identification results for effect of binary, endogenous regressor using a valid instrument.
+      \item Identification-robust inference in models with mis-classification
+    \end{itemize}
+\end{block}
+
+\begin{block}{Related Work}
+  \begin{itemize}
+  \item Relaxing Instrument Validity: ``A Framework for Eliticing, Incorporating, and Disciplining Identification Beliefs in Linear Models'' (with Camilo Garcia-Jimeno) 
+    \item Relaxing Non-differential Measurement Error: ``Estimating the Returns to Lying'' (with Arthur Lewbel)
+  \end{itemize}
+\end{block}
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[label=BOUNDS_APPEND]
+  \frametitle{Simple Bounds for Mis-classification from First-stage} 
+
+  \begin{table}[h]
+    \centering
+  \begin{tabular}[h]{|c|c|}
+    \hline
+   Unobserved & Observed \\
+    $p^*_k(\mathbf{x}) \equiv \mathbb{P}(T^*=1|\mathbf{x}, z=k)$ & 
+    $p_k(\mathbf{x}) \equiv \mathbb{P}(T=1|\mathbf{x}, z=k)$\\
+    \hline
+  \end{tabular}
+\end{table}
+
+
+  \begin{block}{Relationship}
+    \vspace{-1em}
+   \[
+     p_k^*(\mathbf{x}) = \frac{p_k(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}, \quad k = 0,1
+   \]
+   \hfill\alert{\footnotesize $z$ does not affect $(\alpha_0, \alpha_1)$; denominator $\neq 0$}
+  \end{block}
+
+  \normalsize
+  \begin{block}{Bounds for Mis-classification}
+    \vspace{-1em}
+    \[
+      \alpha_0(\mathbf{x}) \leq p_k(\mathbf{x}) \leq 1 - \alpha_1(\mathbf{x}), \quad k = 0,1
+    \]
+   \hfill \alert{\footnotesize$\alpha_0(\mathbf{x}) + \alpha_1(\mathbf{x}) <1$}
+  \end{block}
+    \hyperlink{BOUNDS_BODY}{\beamergotobutton{back}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[label=IV_APPEND]
+  \frametitle{What does IV estimate under mis-classification?}
+  \begin{block}{Unobserved}
+  \[
+    \beta(\mathbf{x}) = \frac{\mathbb{E}[y|\mathbf{x},z=1] - \mathbb{E}[y|\mathbf{x},z=0]}{p^*_1(\mathbf{x}) - p^*_0(\mathbf{x})} 
+  \]
+  \end{block}
+
+  \begin{block}{Wald (Observed)}
+    \vspace{-1em}
+    \small
+    \[
+      \frac{\mathbb{E}[y|\mathbf{x},z=1] - \mathbb{E}[y|\mathbf{x},z=0]}{p_1(\mathbf{x}) - p_0(\mathbf{x})} = \beta(\mathbf{x})\left[ \frac{p_1^*(\mathbf{x}) - p_0^*(\mathbf{x})}{p_1(\mathbf{x}) - p_0(\mathbf{x})} \right] = \alert{\frac{\beta(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})} }
+    \]
+   
+    \vspace{2em}
+    \scriptsize
+    \[
+      \boxed{p_1^*(\mathbf{x}) - p_0^*(\mathbf{x}) = \frac{p_1(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0 - \alpha_1(\mathbf{x})} -   \frac{p_0(\mathbf{x}) - \alpha_0(\mathbf{x})}{1 - \alpha_0 - \alpha_1(\mathbf{x})} = \frac{p_1(\mathbf{x}) - p_0(\mathbf{x})}{1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x})}}
+    \]
+  \end{block}
+    \hyperlink{BOUNDS_BODY}{\beamergotobutton{back}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Partial Identification Bounds for $\beta(\mathbf{x})$}
+
+    \footnotesize
+    \[
+      \boxed{ \beta(\mathbf{x}) = \left[ 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) \right] 
+     \left[\frac{\mathbb{E}\left[y|\mathbf{x},z=1\right] - \mathbb{E}\left[y|\mathbf{x},z=0\right]}{p_1(\mathbf{x}) - p_0(\mathbf{x})}\right] }
+    \]
+
+    \footnotesize
+    \[
+      \boxed{ 0 \leq \alpha_0 \leq \min_k \{p_k(\mathbf{x})\}, \quad 0 \leq \alpha_1 \leq \min_k \{1 - p_k(\mathbf{x})\}}
+    \]
+
+    \normalsize
+    \begin{block}{No Mis-classification}
+      $\alpha_0(\mathbf{x}) =  \alpha_1(\mathbf{x}) = 0 \implies \alert{\beta(\mathbf{x}) = }$ \alert{Wald}
+    \end{block}
+
+    \begin{block}{Maximum Mis-classification}
+      $\alpha_0(\mathbf{x}) = p_{\min}(\mathbf{x}), \, \alpha_1(\mathbf{x}) = 1 - p_{\max}(\mathbf{x})$
+
+      \vspace{-0.5em}
+      \begin{align*}
+        \implies 1 - \alpha_0(\mathbf{x}) - \alpha_1(\mathbf{x}) = p_{\max}(\mathbf{x}) - p_{\min}(\mathbf{x})
+      = |p_1(\mathbf{x}) - p_0(\mathbf{x})|\\
+      \implies \alert{\beta(\mathbf{x}) =\mbox{sign}\left\{ p_1(\mathbf{x}) - p_0(\mathbf{x}) \right\}\times (\mbox{Reduced Form})}
+    \end{align*}
+      
+    \end{block}
+  
+    \hyperlink{BOUNDS_BODY}{\beamergotobutton{back}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[label=MEQS_APPEND]
+  \frametitle{Just-Identified System of Moment Equalities}
+  \framesubtitle{Suppress dependence on $\mathbf{x}$\dots} 
+
+  \small
+\[
+\mathbb{E}\left[
+  \left\{\boldsymbol{\Psi}(\boldsymbol{\theta})\mathbf{w}_i - \boldsymbol{\kappa}\right\} \otimes 
+\left(
+\begin{array}{c}
+  1 \\ z
+\end{array}\right)
+\right] = \mathbf{0}
+\]
+
+  \footnotesize
+\[
+  \boldsymbol{\Psi}(\boldsymbol{\theta}) \equiv
+ \left[
+  \begin{array}{rrrrrr}
+    -\theta_1 & 1 & 0 & 0 & 0 & 0\\
+    \theta_2 & 0 & -2\theta_1 & 1 & 0 & 0\\ 
+    -\theta_3 & 0 & 3\theta_2 & 0 & -3\theta_1 & 1
+\end{array}\right]
+\]
+
+  \begin{align*}
+\mathbf{w}_i &= (T_i, y_i, y_iT_i, y_i^2, y_i^2 T_i, y_i^3)' &
+  \theta_1 &= \beta/(1 - \alpha_0 - \alpha_1) \\
+\boldsymbol{\kappa} &= (\kappa_1, \kappa_2, \kappa_3)'  &
+  \theta_2 &= \theta_1^2 (1 + \alpha_0 - \alpha_1)\\
+  & & \theta_3 &= \theta_1^3\left[ (1 - \alpha_0 - \alpha_1)^2 + 6\alpha_0(1 - \alpha_1) \right] 
+\end{align*}
+
+    \hyperlink{INEQ_BODY}{\beamergotobutton{back}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[label=INEQ_APPEND]
+  \frametitle{Moment Inequalities I -- First-stage Probabilities}
+
+  $\alpha_0 \leq p_k \leq 1 - \alpha_1$ becomes $\alert{\mathbb{E}\left[ m(\mathbf{w}_i,\boldsymbol{\vartheta} ) \right] \geq \mathbf{0}}$ for all $k$ where
+\[
+  m(\mathbf{w}_i, \boldsymbol{\vartheta}) \equiv \left[
+  \begin{array}{l}
+    \mathbf{1}(z_i=k)(T - \alpha_0) \\
+    \mathbf{1}(z_i = k) (1 - T_i - \alpha_1) 
+  \end{array}
+\right]
+\]
+  
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Moment Inequalities II -- Non-differential Assumption}
+
+  \scriptsize
+
+  For all $k$, we have $\alert{\mathbb{E}[m\big(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q}_k)]\geq 0}$ where
+\[
+  m\big(\mathbf{w}_i, \boldsymbol{\vartheta}, \mathbf{q}_k) \equiv \left[
+  \begin{array}{r}
+    y_i \mathbf{1}\left( z_i=k \right)\left\{(T_i - \alpha_0) - \mathbf{1}(y_i \leq \underline{q}_{0k})  (1 - T_i)\left( \frac{1 - \alpha_0 - \alpha_1}{\alpha_1} \right)\right\} \\
+    - y_i \mathbf{1}(z_i=k) \left\{ (T_i - \alpha_0) -  \mathbf{1}(y_i > \overline{q}_{0k}) (1 - T_i) \left( \frac{1 - \alpha_0 - \alpha_1}{\alpha_1} \right) \right\} \\
+    y_i \mathbf{1}\left( z_i=k \right)\left\{(T_i - \alpha_0) - \mathbf{1}(y_i \leq \underline{q}_{1k})  T_i\left( \frac{1 - \alpha_0 - \alpha_1}{1 - \alpha_1} \right)\right\} \\
+    - y_i \mathbf{1}(z_i=k) \left\{ (T_i - \alpha_0) -  \mathbf{1}(y_i > \overline{q}_{1k}) T_i \left( \frac{1 - \alpha_0 - \alpha_1}{1 - \alpha_1} \right) \right\} 
+\end{array}
+\right] 
+\]
+and $\alert{\mathbf{q}_k \equiv ( \underline{q}_{0k},\, \overline{q}_{0k},\, \underline{q}_{1k}, \,\overline{q}_{1k})'}$ defined by $\alert{\mathbb{E}[h(\mathbf{w}_i,\boldsymbol{\vartheta},\mathbf{q}_k)]=0}$ with
+\[
+  h(\mathbf{w}_i,\boldsymbol{\vartheta},\mathbf{q}_k) = \left[
+  \begin{array}{l}
+    \mathbf{1}(y_i \leq \underline{q}_{0k}) \mathbf{1}(z_i=k)(1 - T_i) 
+    - \left( \frac{\alpha_1}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(T_i-\alpha_0)\\ 
+    \mathbf{1}(y_i \leq \overline{q}_{0k}) \mathbf{1}(z_i=k)(1 - T_i)
+    - \left( \frac{1 - \alpha_0}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(1 - T_i-\alpha_1)\\
+    \mathbf{1}(y_i \leq \underline{q}_{1k}) \mathbf{1}(z_i=k)T_i
+    - \left( \frac{1 - \alpha_1}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(T_i-\alpha_0)\\ 
+    \mathbf{1}(y_i \leq \overline{q}_{1k}) \mathbf{1}(z_i=k)T_i 
+    - \left( \frac{\alpha_0}{1 - \alpha_0 - \alpha_1} \right) \mathbf{1}(z_i=k)(1 - T_i-\alpha_1)
+  \end{array}
+\right]
+\]
+
+    \hyperlink{INEQ_BODY}{\beamergotobutton{back}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
