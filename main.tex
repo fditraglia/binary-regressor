@@ -1,15 +1,53 @@
 \documentclass[12pt]{article}
-\usepackage{frankstyle}
+\usepackage[margin=1in]{geometry}
+\usepackage{amssymb, amsmath, amsthm} 
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{authblk}
 
-\title{Identifying the Effect of a Mis-classified, Binary, Endogenous Regressor\footnote{We thank Daron Acemoglu, Manuel Arellano, Kristy Buzard, Xu Cheng, Bernardo da Silveira, Bo Honor\'{e}, Arthur Lewbel, Chuck Manski, Sophocles Mavroeidis, Francesca Molinari, Yuya Takahashi, the associate editor, two anonymous referees, and seminar participants at Cambridge, CEMFI, Chicago Booth, Manchester, Northwestern, Oxford, Penn State, Princeton, UCL, the 2016 Greater New York Area Econometrics Colloquium, Camp Econometrics IX, and the 2017 North American Summer Meeting of the Econometric Society for valuable comments and suggestions. This document supersedes an earlier version entitled ``On Mis-measured Binary Regressors: New Results and Some Comments on the Literature.''}}
+\usepackage{setspace}
+\onehalfspacing
 
-\author[1]{Francis J.\ DiTraglia}
-\author[2,3]{Camilo Garc\'{i}a-Jimeno}
+% Independence symbol
+\newcommand{\indep}{\rotatebox[origin=c]{90}{$\models$}}
+
+\RequirePackage{natbib}
+\RequirePackage[colorlinks]{hyperref}
+\RequirePackage{hypernat}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{ex}{Example}[section]
+\theoremstyle{definition}
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}[section]
+
+\theoremstyle{plain}
+\newtheorem{assump}{Assumption}[section]
+\newtheorem{pro}{Proposition}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}{Corollary}[section]
+\newtheorem{ineq}{Inequality}[section]
+\newtheorem{alg}{Algorithm}[section]
+
+%Bold proof titles
+\makeatletter \renewenvironment{proof}[1][\proofname] {\par\pushQED{\qed}\normalfont\topsep6\p@\@plus6\p@\relax\trivlist\item[\hskip\labelsep\bfseries#1\@addpunct{.}]\ignorespaces}{\popQED\endtrivlist\@endpefalse} \makeatother
+
+\title{Identifying the Effect of a Mis-classified, Binary, Endogenous Regressor\thanks{We thank Daron Acemoglu, Manuel Arellano, Kristy Buzard, Xu Cheng, Bernardo da Silveira, Bo Honor\'{e}, Arthur Lewbel, Chuck Manski, Sophocles Mavroeidis, Francesca Molinari, Yuya Takahashi, the associate editor, two anonymous referees, and seminar participants at Cambridge, CEMFI, Chicago Booth, Manchester, Northwestern, Oxford, Penn State, Princeton, UCL, the 2016 Greater New York Area Econometrics Colloquium, Camp Econometrics IX, and the 2017 North American Summer Meeting of the Econometric Society for valuable comments and suggestions. This document supersedes an earlier version entitled ``On Mis-measured Binary Regressors: New Results and Some Comments on the Literature.''}}
+
+\author[1]{Francis J.\ DiTraglia \thanks{Corresponding Author: \href{mailto:fditra@upenn.edu}{fditra@upenn.edu}, 133 South 36th Street, Philadelphia PA 19104}}
+\author[2,3]{Camilo Garc\'{i}a-Jimeno \thanks{\href{mailto:camilo.garcia-jimeno@emory.edu}{camilo.garcia-jimeno@emory.edu}, 1555 Dickey Dr.
+Emory University
+Atlanta, GA 30322}}
 \affil[1]{\normalsize Department of Economics, University of Pennsylvania}
 \affil[2]{\normalsize Institute for Quantitative Theory and Methods, Emory University}
 \affil[3]{\normalsize NBER}
 
-\date{\small This Version: \today, First Version: October 31, 2015}
+
+\date{\small Final Version: January 23, 2019} 
+%First Version: October 31, 2015
 \begin{document}
 
 % Create un-numbered title page
